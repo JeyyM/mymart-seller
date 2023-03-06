@@ -1,1 +1,8 @@
 export {default as Category} from "./category.svg"
+export {default as Home} from "./home.svg"
+export {default as Insights} from "./insights.svg"
+export {default as Brush} from "./brush.svg"
+export {default as Ongoing} from "./ongoing.svg"
+export {default as Power} from "./power.svg"
+export {default as Receipt} from "./receipt.svg"
+export {default as Manage} from "./manage.svg"

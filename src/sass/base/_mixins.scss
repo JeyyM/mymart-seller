@@ -1,3 +1,4 @@
+//////////////////////        BASE           ///////////////////////////////////
 @mixin border {
   border: 5px solid;
   border-image: linear-gradient(
@@ -17,3 +18,27 @@
   background-origin: border-box;
   background-clip: content-box, border-box;
 }
+
+//////////////////////        NAVBAR          ///////////////////////////////////
+
+@mixin navlogo-gradient($type){
+mask-image: url("../../components/svgs/" + $type + ".svg");
+mask-size: 4.5rem;
+mask-position: bottom;
+mask-image: url("../../components/svgs/" + $type + ".svg");
+mask-repeat: no-repeat;
+background-repeat: no-repeat;
+background-image: linear-gradient(to right, $color-primary-dark, $color-primary-light);
+transform: translateY(0.3rem);
+}
+
+@mixin navlogo-gradient__adjust($type){
+  mask-image: url("../../components/svgs/" + $type + ".svg");
+  mask-size: 4.5rem;
+  mask-position: bottom;
+  mask-image: url("../../components/svgs/" + $type + ".svg");
+  mask-repeat: no-repeat;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, $color-primary-dark, $color-primary-light);
+  transform: translateY(-0.1rem);
+  }

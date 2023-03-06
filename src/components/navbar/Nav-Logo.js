@@ -1,6 +1,9 @@
+import Image from "next/image"
+import mainlogo from "../../assets/mainlogo.png"
+
 function NavLogo(props){
     return <a href="#">
-        <img src="https://helios-i.mashable.com/imagery/articles/00apgKgIAO4EnFfjOgCApRe/hero-image.fill.size_1248x702.v1619086604.jpg" alt="company logo" className="company-logo-med"></img>
+        <Image src={mainlogo} alt="company logo" className="company-logo-med"></Image>
     </a>
     }
     
