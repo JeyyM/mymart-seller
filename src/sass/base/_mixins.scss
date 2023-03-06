@@ -23,7 +23,7 @@
 
 @mixin navlogo-gradient($type){
 mask-image: url("../../components/svgs/" + $type + ".svg");
-mask-size: 4.5rem;
+mask-size: 4.2rem;
 mask-position: bottom;
 mask-image: url("../../components/svgs/" + $type + ".svg");
 mask-repeat: no-repeat;
