@@ -1,0 +1,19 @@
+@mixin border {
+  border: 5px solid;
+  border-image: linear-gradient(
+      45deg,
+      $color-primary-dark,
+      $color-primary-light
+    )
+    1;
+    box-shadow: 0 0.5rem 1rem rgba(black, 0.15);
+}
+
+@mixin border-round {
+  border: solid 5px transparent;
+  border-radius: 15px;
+  background-image: linear-gradient($theme-bg, $theme-bg),
+    linear-gradient(45deg, $color-primary-dark, $color-primary-light);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}

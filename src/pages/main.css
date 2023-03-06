@@ -1,0 +1,116 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  box-sizing: border-box;
+  background-color: yellowgreen;
+}
+
+.navbar {
+  background-color: white;
+  height: 8rem;
+  border: 5px solid;
+  -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
+     border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  z-index: -10;
+  overflow: hidden;
+  width: 100%;
+}
+
+.navbutton {
+  width: 6.5rem;
+  height: 6.5rem;
+  border: solid 5px transparent;
+  border-radius: 15px;
+  background-image: linear-gradient(white, white), linear-gradient(45deg, #0057FF, #7FC9FF);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  background-image: linear-gradient(white, white), linear-gradient(to right, #0057FF, #7FC9FF);
+  margin-left: 1rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbutton__hr {
+  position: relative;
+  border-radius: 2px;
+}
+.navbutton__hr, .navbutton__hr::before, .navbutton__hr::after {
+  width: 75%;
+  height: 5px;
+  background-color: #0057FF;
+  display: inline-block;
+  border: solid 5px transparent;
+  border-radius: 15px;
+  background-image: linear-gradient(white, white), linear-gradient(45deg, #0057FF, #7FC9FF);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  border-radius: 2px;
+  border-bottom: none;
+  border-right: none;
+  border-left: none;
+}
+.navbutton__hr::before, .navbutton__hr::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  transition: all 0.2s;
+}
+.navbutton__hr::before {
+  bottom: -1.2rem;
+}
+.navbutton__hr::after {
+  bottom: 1.2rem;
+}
+
+.navbutton:hover .navbutton__hr::after {
+  bottom: 1.5rem;
+}
+
+.navbutton:hover .navbutton__hr::before {
+  bottom: -1.5rem;
+}
+
+.company-logo-med {
+  margin-left: 3rem;
+  display: block;
+  align-items: center;
+  justify-self: center;
+  width: 20rem;
+  border: 5px solid;
+  -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
+     border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.navcontainer {
+  margin-left: auto;
+  display: flex;
+}
+
+.navitem {
+  border: 5px solid;
+  -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
+     border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  align-self: stretch;
+  display: block;
+  width: 15rem;
+  height: 7.1rem;
+}/*# sourceMappingURL=main.css.map */
