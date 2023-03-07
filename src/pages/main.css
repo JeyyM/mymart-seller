@@ -346,6 +346,26 @@ body {
   background-image: linear-gradient(to right, #0057FF, #7FC9FF);
   position: absolute;
 }
+.home-category__logo-2 {
+  -webkit-mask-size: 14rem;
+          mask-size: 14rem;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-image: url("../../components/svgs/category.svg");
+          mask-image: url("../../components/svgs/category.svg");
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  transform: translateY(0.3rem);
+  height: 14rem;
+  fill: transparent;
+  width: 110%;
+  z-index: 14;
+  background-image: linear-gradient(to right, white, white);
+  position: absolute;
+  transform: translateY(-1rem);
+}
 .home-category::after {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
@@ -424,15 +444,4 @@ body {
 .home-power {
   grid-column: 7/9;
   height: 1fr;
-}
-
-.outline {
-  z-index: 99;
-  width: 10rem;
-  height: 10rem;
-  background-color: transparent;
-  filter: drop-shadow(-4px -5px white);
-  fill: white;
-  -webkit-background-clip: text;
-          background-clip: text;
 }/*# sourceMappingURL=main.css.map */
