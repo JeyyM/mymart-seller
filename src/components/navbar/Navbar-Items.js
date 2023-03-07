@@ -17,13 +17,13 @@ return <div className="navbar">
     <NavButton></NavButton>
     <NavLogo></NavLogo>
     <div className="navcontainer">
-    <NavItem svg={<Category  className="navicon category"></Category>} link="#" label="Categories & Products"></NavItem>
-    <NavItem svg={<Insights  className="navicon insights"></Insights>} link="#" label="My Analytics"></NavItem>
-    <NavItem svg={<Ongoing  className="navicon__big ongoing"></Ongoing>} link="#" label="Ongoing Sales"></NavItem>
-    <NavItem svg={<Brush  className="navicon__big brush"></Brush>} link="#" label="Mart Design"></NavItem>
-    <NavItem svg={<Manage  className="navicon__big manage"></Manage>} link="#" label="My Mart"></NavItem>
-    <NavItem svg={<Receipt  className="navicon__big receipt"></Receipt>} link="#" label="Customer Records"></NavItem>
-    <NavItem svg={<Power  className="navicon__big power"></Power>} link="#" label="Close or Open Mart"></NavItem>
+    <NavItem svg={<Category  className="nav-category"></Category>} link="#" label="Categories & Products"></NavItem>
+    <NavItem svg={<Insights  className="nav-insights"></Insights>} link="#" label="My Analytics"></NavItem>
+    <NavItem svg={<Ongoing  className="nav-ongoing"></Ongoing>} link="#" label="Ongoing Sales"></NavItem>
+    <NavItem svg={<Brush  className="nav-brush"></Brush>} link="#" label="Mart Design"></NavItem>
+    <NavItem svg={<Manage  className="nav-manage"></Manage>} link="#" label="My Mart"></NavItem>
+    <NavItem svg={<Receipt  className="nav-receipt"></Receipt>} link="#" label="Customer Records"></NavItem>
+    <NavItem svg={<Power  className="nav-power"></Power>} link="#" label="Close or Open Mart"></NavItem>
     </div>
 </div>
 }

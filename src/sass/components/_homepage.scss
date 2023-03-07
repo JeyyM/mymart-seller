@@ -1,0 +1,70 @@
+.maincontainer {
+  height: calc(100vh - $navbar-height - 4rem);
+  display: grid;
+  grid-template-columns:
+    [center-start] repeat(8, [col-start] minmax(min-content, 1fr) [col-end])
+    [center-end];
+  grid-template-rows: repeat(8, min-content, 1fr);
+  padding: 2rem;
+  gap: 2rem;
+  background-color: aqua;
+  grid-auto-rows: auto;
+  grid-auto-flow: dense;
+}
+
+.homepage-button {
+  @include border-round;
+  height: 1fr;
+}
+
+// .home-category {
+//   @include home-button-column(1/8);
+//   background-image: url(../../assets/mainlogo.png),
+//     linear-gradient(45deg, $color-primary-dark, $color-primary-light);
+// }
+
+.home-category {
+  @include border-round;
+  background-image: url(../../assets/mainlogo.png),
+    linear-gradient(45deg, $color-primary-dark, $color-primary-light);
+  grid-column: 1/5;
+  height: 1fr;
+  overflow:hidden;
+}
+
+.home-ongoing {
+  grid-column: 5/7;
+  height: 1fr;
+}
+.home-manage {
+  grid-column: 7/9;
+  height: 1fr;
+}
+.home-insights {
+  grid-column: 1/5;
+  height: 1fr;
+}
+.home-receipt {
+  grid-column: 5/7;
+  height: 1fr;
+}
+.home-brush {
+  grid-column: 7/9;
+  height: 1fr;
+}
+.item7 {
+  grid-column: 1/3;
+  height: 1fr;
+}
+.item8 {
+  grid-column: 3/5;
+  height: 1fr;
+}
+.item9 {
+  grid-column: 5/7;
+  height: 1fr;
+}
+.home-power {
+  grid-column: 7/9;
+  height: 1fr;
+}

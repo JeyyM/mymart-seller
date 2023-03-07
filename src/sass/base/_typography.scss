@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+.heading-primary {
+  color: $text-primary;
+  font-size: 3rem;
+  font-family: 'Roboto';
+  font-weight: 900;
+  margin-left: 2rem;
+}
+
+.heading-tertiary {
+  color: $text-tertiary;
+  line-height: 1;
+  transform: translateY(-0.2rem);
+  margin-top: 0px;
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 500;
+}

@@ -105,27 +105,10 @@
   filter: brightness(110%);
 }
 
-.navicon {
-  height: 4rem;
-  fill:transparent;
-  margin-bottom: -0.50rem;
-  &__big {
-    height: 4rem;
-    transform: translateY(-0.25rem);
-    fill:transparent;
-  }
-}
-.navtext {
-  margin-top: 0px;
-  line-height: 1;
-  transform: translateY(-0.2rem);
-  font-size: 20px;
-}
-
-.category {@include navlogo-gradient(category)}
-.insights {@include navlogo-gradient(insights)}
-.ongoing {@include navlogo-gradient(ongoing)}
-.brush {@include navlogo-gradient(brush)}
-.power {@include navlogo-gradient(power)}
-.receipt {@include navlogo-gradient(receipt);}
-.manage {@include navlogo-gradient(manage)}
+.nav-category {@include navlogo-gradient(category, 4.2rem, 4.2rem)}
+.nav-insights {@include navlogo-gradient(insights, 4.2rem, 4.2rem)}
+.nav-ongoing {@include navlogo-gradient(ongoing, 4.2rem, 4.2rem)}
+.nav-brush {@include navlogo-gradient(brush, 4.2rem, 4.2rem)}
+.nav-power {@include navlogo-gradient(power, 4.2rem, 4.2rem)}
+.nav-receipt {@include navlogo-gradient(receipt, 4.2rem, 4.2rem);}
+.nav-manage {@include navlogo-gradient(manage, 4.2rem, 4.2rem)}

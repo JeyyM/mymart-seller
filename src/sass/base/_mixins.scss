@@ -21,24 +21,20 @@
 
 //////////////////////        NAVBAR          ///////////////////////////////////
 
-@mixin navlogo-gradient($type){
+@mixin navlogo-gradient($type, $top, $size){
 mask-image: url("../../components/svgs/" + $type + ".svg");
-mask-size: 4.2rem;
+mask-size: $size;
 mask-position: bottom;
 mask-image: url("../../components/svgs/" + $type + ".svg");
 mask-repeat: no-repeat;
 background-repeat: no-repeat;
 background-image: linear-gradient(to right, $color-primary-dark, $color-primary-light);
 transform: translateY(0.3rem);
+height: $top;
+fill:transparent;
 }
 
-@mixin navlogo-gradient__adjust($type){
-  mask-image: url("../../components/svgs/" + $type + ".svg");
-  mask-size: 4.5rem;
-  mask-position: bottom;
-  mask-image: url("../../components/svgs/" + $type + ".svg");
-  mask-repeat: no-repeat;
-  background-repeat: no-repeat;
-  background-image: linear-gradient(to right, $color-primary-dark, $color-primary-light);
-  transform: translateY(-0.1rem);
-  }
+//////////////////////        HOMEPAGE         ///////////////////////////////////
+@mixin home-button-column($grid-column){
+  grid-column: $grid-column;
+}

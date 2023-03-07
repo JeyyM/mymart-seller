@@ -1,3 +1,5 @@
+@import "./variables";
+
 *,
 *::after,
 *::before {
@@ -12,5 +14,5 @@ html {
 
 body {
     box-sizing: border-box;
-    background-color: yellowgreen;
+    background-color: lighten($color-primary-light, 20%);
 }
