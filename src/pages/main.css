@@ -298,27 +298,12 @@ body {
   align-items: center;
 }
 
-.outline {
-  z-index: 99;
-  width: 10rem;
-  height: 10rem;
-  background-color: red;
-  -webkit-background-clip: text;
-          background-clip: text;
-  position: absolute;
-}
-
 .home-category {
-  border: solid 5px transparent;
-  border-radius: 15px;
-  background-image: linear-gradient(white, white), linear-gradient(45deg, #0057FF, #7FC9FF);
-  background-origin: border-box;
-  background-clip: content-box, border-box;
   grid-column: 1/5;
+  background-image: url("../../assets/category.jpg"), linear-gradient(45deg, #0057FF, #7FC9FF);
   height: 1fr;
   overflow: hidden;
   position: relative;
-  background-image: url(../../assets/category.jpg), linear-gradient(45deg, #0057FF, #7FC9FF);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -328,8 +313,8 @@ body {
   align-items: center;
 }
 .home-category__logo {
-  -webkit-mask-size: 10rem;
-          mask-size: 10rem;
+  -webkit-mask-size: 10.5rem;
+          mask-size: 10.5rem;
   -webkit-mask-position: center;
           mask-position: center;
   -webkit-mask-image: url("../../components/svgs/category.svg");
@@ -339,32 +324,32 @@ body {
   background-repeat: no-repeat;
   background-image: linear-gradient(to right, #0057FF, #7FC9FF);
   transform: translateY(0.3rem);
-  height: 10rem;
+  height: 10.5rem;
   fill: transparent;
   width: 110%;
   z-index: 15;
   background-image: linear-gradient(to right, #0057FF, #7FC9FF);
   position: absolute;
 }
-.home-category__logo-2 {
-  -webkit-mask-size: 14rem;
-          mask-size: 14rem;
+.home-category__logo-outline {
+  -webkit-mask-size: 10.5rem;
+          mask-size: 10.5rem;
   -webkit-mask-position: center;
           mask-position: center;
-  -webkit-mask-image: url("../../components/svgs/category.svg");
-          mask-image: url("../../components/svgs/category.svg");
+  -webkit-mask-image: url("../../components/svgs/category-fill.svg");
+          mask-image: url("../../components/svgs/category-fill.svg");
   -webkit-mask-repeat: no-repeat;
           mask-repeat: no-repeat;
   background-repeat: no-repeat;
   background-image: linear-gradient(to right, #0057FF, #7FC9FF);
   transform: translateY(0.3rem);
-  height: 14rem;
+  height: 10.5rem;
   fill: transparent;
   width: 110%;
   z-index: 14;
   background-image: linear-gradient(to right, white, white);
   position: absolute;
-  transform: translateY(-1rem);
+  transform: translateY(0.25rem);
 }
 .home-category::after {
   border: 5px solid;
@@ -401,9 +386,62 @@ body {
   float: top;
 }
 
+.home-label {
+  color: yellowgreen;
+}
+
 .home-ongoing {
   grid-column: 5/7;
+  background-image: url("../../assets/mainlogo.png"), linear-gradient(45deg, #0057FF, #7FC9FF);
   height: 1fr;
+  overflow: hidden;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+.home-ongoing__logo {
+  -webkit-mask-size: 10.5rem;
+          mask-size: 10.5rem;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-image: url("../../components/svgs/ongoing.svg");
+          mask-image: url("../../components/svgs/ongoing.svg");
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  transform: translateY(0.3rem);
+  height: 10.5rem;
+  fill: transparent;
+  width: 110%;
+  z-index: 15;
+  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  position: absolute;
+}
+.home-ongoing__logo-outline {
+  -webkit-mask-size: 10.5rem;
+          mask-size: 10.5rem;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-image: url("../../components/svgs/category-fill.svg");
+          mask-image: url("../../components/svgs/category-fill.svg");
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  transform: translateY(0.3rem);
+  height: 10.5rem;
+  fill: transparent;
+  width: 110%;
+  z-index: 14;
+  background-image: linear-gradient(to right, white, white);
+  position: absolute;
+  transform: translateY(0.25rem);
 }
 
 .home-manage {

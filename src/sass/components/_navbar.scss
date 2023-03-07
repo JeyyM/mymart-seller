@@ -105,7 +105,7 @@
   filter: brightness(110%);
 }
 
-.nav-category {@include navlogo-gradient(category, 4.2rem, 4.2rem)}
+.nav-category {@include navlogo-gradient(category, 4.2rem, 4.2rem);}
 .nav-insights {@include navlogo-gradient(insights, 4.2rem, 4.2rem)}
 .nav-ongoing {@include navlogo-gradient(ongoing, 4.2rem, 4.2rem)}
 .nav-brush {@include navlogo-gradient(brush, 4.2rem, 4.2rem)}

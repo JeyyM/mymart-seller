@@ -27,94 +27,53 @@
 //     linear-gradient(45deg, $color-primary-dark, $color-primary-light);
 // }
 
-.outline {
-  z-index: 99;
-  width: 10rem;
-  height: 10rem;
-  background-color: red;
-  background-clip: text;
-  // filter: drop-shadow(10px 10px black);
+// .outline {
+//   z-index: 99;
+//   width: 10rem;
+//   height: 10rem;
+//   background-color: red;
+//   background-clip: text;
+//   // filter: drop-shadow(10px 10px black);
 
-  position: absolute;
-}
+//   position: absolute;
+// }
 
 .home-category {
-  @include border-round;
   grid-column: 1/5;
-  height: 1fr;
-  overflow: hidden;
-  position: relative;
-  background-image: url(../../assets/category.jpg),
-    linear-gradient(45deg, $color-primary-dark, $color-primary-light);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-  align-items: center;
+  @include home-setup("category.jpg");
+
 
   &__logo {
-    @include navlogo-gradient(category, 10rem, 10rem);
-    z-index: 15;
-    background-image: linear-gradient(
-      to right,
-      $color-primary-dark,
-      $color-primary-light
-    );
-    position: absolute;
+    @include home-setup-logo(category);
 
-    &-2 {
-      @include navlogo-gradient(category, 14rem, 14rem);
-    z-index: 14;
-    background-image: linear-gradient(
-      to right,
-      white,
-      white
-    );
-    position: absolute;
-    transform: translateY(-1rem);
-    
+    &-outline {
+      @include home-setup-logo-outline(category, 0.25rem)
     }
   }
 
   &::after {
-    @include border;
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-image: linear-gradient($theme-bg, $theme-bg),
-      linear-gradient(45deg, $color-primary-dark, $color-primary-light);
-    height: calc(100% + 1rem);
-    width: 105%;
-    content: "|\00a0\00a0";
-    z-index: 10;
-    clip-path: polygon(0 50%, 100% 0, 100% 100%, 0% 100%);
-    float: top;
+    @include home-stack;
   }
 
   &::before {
-    @include border;
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-image: linear-gradient(
-      45deg,
-      $color-primary-dark,
-      $color-primary-light
-    );
-    height: calc(105% + 0.5rem);
-    width: 105%;
-    content: "|\00a0\00a0";
-    z-index: 9;
-    clip-path: polygon(0 46%, 100% -3%, 100% 100%, 0% 100%);
-    float: top;
+    @include home-stack-border
   }
 }
 
+.home-label{color: yellowgreen}
+
 .home-ongoing {
   grid-column: 5/7;
-  height: 1fr;
+  @include home-setup("mainlogo.png");
+
+
+  &__logo {
+    @include home-setup-logo(ongoing);
+
+    &-outline {
+      @include home-setup-logo-outline(category, 0.25rem)
+    }
+  }
 }
 .home-manage {
   grid-column: 7/9;

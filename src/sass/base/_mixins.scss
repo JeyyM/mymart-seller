@@ -21,10 +21,10 @@
 
 //////////////////////        GRADIENT SVGS          ///////////////////////////////////
 
-@mixin navlogo-gradient($type, $top, $size){
+@mixin navlogo-gradient($svg, $top, $size){
 mask-size: $size;
 mask-position: center;
-mask-image: url("../../components/svgs/" + $type + ".svg");
+mask-image: url("../../components/svgs/" + $svg + ".svg");
 mask-repeat: no-repeat;
 background-repeat: no-repeat;
 background-image: linear-gradient(to right, $color-primary-dark, $color-primary-light);
@@ -35,6 +35,77 @@ width:110%;
 }
 
 //////////////////////        HOMEPAGE         ///////////////////////////////////
-@mixin home-button-column($grid-column){
-  grid-column: $grid-column;
+// @mixin home-button-column($grid-column){
+//   grid-column: $grid-column;
+// }
+
+@mixin home-setup($imagename){
+  background-image: url("../../assets/" + $imagename),
+    linear-gradient(45deg, $color-primary-dark, $color-primary-light);
+    height: 1fr;
+    overflow: hidden;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+@mixin home-setup-logo($svg){
+  @include navlogo-gradient($svg, $home-logo-size, $home-logo-size);
+  z-index: 15;
+    background-image: linear-gradient(
+      to right,
+      $color-primary-dark,
+      $color-primary-light
+    );
+    position: absolute;
+}
+
+@mixin home-setup-logo-outline($svg, $adjustmentY){
+  @include navlogo-gradient($svg + "-fill", $home-logo-size, $home-logo-size);
+  z-index: 14;
+    background-image: linear-gradient(
+      to right,
+      $theme-bg,
+      $theme-bg
+    );
+    position: absolute;
+    transform: translateY($adjustmentY);
+}
+
+@mixin home-stack(){
+  @include border;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-image: linear-gradient($theme-bg, $theme-bg),
+      linear-gradient(45deg, $color-primary-dark, $color-primary-light);
+    height: calc(100% + 1rem);
+    width: 105%;
+    content: "|\00a0\00a0";
+    z-index: 10;
+    clip-path: polygon(0 50%, 100% 0, 100% 100%, 0% 100%);
+    float: top;
+}
+
+@mixin home-stack-border(){
+  @include border;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-image: linear-gradient(
+    45deg,
+    $color-primary-dark,
+    $color-primary-light
+  );
+  height: calc(105% + 0.5rem);
+  width: 105%;
+  content: "|\00a0\00a0";
+  z-index: 9;
+  clip-path: polygon(0 46%, 100% -3%, 100% 100%, 0% 100%);
+  float: top;
 }
