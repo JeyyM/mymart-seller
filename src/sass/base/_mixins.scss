@@ -19,12 +19,11 @@
   background-clip: content-box, border-box;
 }
 
-//////////////////////        NAVBAR          ///////////////////////////////////
+//////////////////////        GRADIENT SVGS          ///////////////////////////////////
 
 @mixin navlogo-gradient($type, $top, $size){
-mask-image: url("../../components/svgs/" + $type + ".svg");
 mask-size: $size;
-mask-position: bottom;
+mask-position: center;
 mask-image: url("../../components/svgs/" + $type + ".svg");
 mask-repeat: no-repeat;
 background-repeat: no-repeat;
@@ -32,6 +31,7 @@ background-image: linear-gradient(to right, $color-primary-dark, $color-primary-
 transform: translateY(0.3rem);
 height: $top;
 fill:transparent;
+width:110%;
 }
 
 //////////////////////        HOMEPAGE         ///////////////////////////////////
