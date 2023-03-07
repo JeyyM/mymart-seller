@@ -424,4 +424,15 @@ body {
 .home-power {
   grid-column: 7/9;
   height: 1fr;
+}
+
+.outline {
+  z-index: 99;
+  width: 10rem;
+  height: 10rem;
+  background-color: transparent;
+  filter: drop-shadow(-4px -5px white);
+  fill: white;
+  -webkit-background-clip: text;
+          background-clip: text;
 }/*# sourceMappingURL=main.css.map */

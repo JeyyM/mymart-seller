@@ -29,13 +29,13 @@
 
 .outline {
   z-index: 99;
-  width:10rem;
-  height: 10rem ;
+  width: 10rem;
+  height: 10rem;
   background-color: red;
   background-clip: text;
   // filter: drop-shadow(10px 10px black);
-  
-  position: absolute
+
+  position: absolute;
 }
 
 .home-category {
@@ -53,7 +53,6 @@
   flex-direction: column;
   justify-items: center;
   align-items: center;
-  
 
   &__logo {
     @include navlogo-gradient(category, 10rem, 10rem);
@@ -137,13 +136,12 @@
   height: 1fr;
 }
 
-
-
-// .outline {
-//   z-index: 99;
-//   width:10rem;
-//   height: 10rem;
-//   background-color: transparent;
-//   // filter: drop-shadow(10px 10px black);
-//   background-clip: text;
-// }
+.outline {
+  z-index: 99;
+  width:10rem;
+  height: 10rem;
+  background-color: transparent;
+  filter: drop-shadow(-4px -5px white);
+  fill: white;
+  background-clip: text;
+}
