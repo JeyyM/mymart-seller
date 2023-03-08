@@ -5,9 +5,9 @@ const Backdrop = ({ children, onClick }) => {
     <motion.div
       className="backdrop"
       onClick={onClick}
-      initial={{ opacity: 0 }}
+      initial={{ opacity: 1 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      exit={{ opacity: 1 }}
     >
       {children}
     </motion.div>

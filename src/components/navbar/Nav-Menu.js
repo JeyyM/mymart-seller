@@ -5,32 +5,35 @@ import { motion, AnimatePresence } from "framer-motion"
 import Backdrop from "../Modal/Backdrop"
 
 function NavMenu(props){
-    const dropIn = {
+    const menuAnimation = {
         hidden: {
           x: "-100vw",
-          opacity: 0,
+          opacity: 1,
         },
         visible: {
           x: "0",
           opacity: 1,
           transition: {
             duration: 0.1,
-            type: "spring",
+            // type: "spring",
             damping: 25,
             stiffness: 500,
           },
         },
         exit: {
           x: "-100vw",
-          opacity: 0,
+          opacity: 1,
         },
       };
 
     function Menu(){
 
         return <Fragment>
+        <Backdrop onClick={props.onClick}>
+    <motion.div onClick={(e) => e.stopPropagation()} variants={menuAnimation} initial="hidden" animate="visible" exit="exit">
         <div className="navmenu">
             <div className="menu-decoy"></div>
+            <NavMenuItem logo={"home"} label={"Home" }></NavMenuItem>
             <NavMenuItem logo={"category"} label={"Categories & Products" }></NavMenuItem>
             <NavMenuItem logo={"insights"} label={"My Analytics"}></NavMenuItem>
             <NavMenuItem logo={"ongoing"} label={"Ongoing Sales"}></NavMenuItem>
@@ -43,17 +46,15 @@ function NavMenu(props){
             <NavMenuItem logo={"power"} label={"Close or Open Mart"}></NavMenuItem>
             <NavMenuItem logo={"settings"} label={"Close or Open Mart"}></NavMenuItem>
         </div>
+        </motion.div>
+    </Backdrop>
         </Fragment>
     }
 
     return <Fragment>
     <AnimatePresence initial={false} mode={"wait"} onExitComplete={() => null}>
-    {props.menuStatus && <Backdrop onClick={props.onClick}>
-    <motion.div onClick={(e) => e.stopPropagation()} variants={dropIn} initial="hidden" animate="visible" exit="exit">
-    <Menu>
-    </Menu>
-    </motion.div>
-    </Backdrop>}
+    {props.menuStatus && <Menu>
+    </Menu>}
     </AnimatePresence>
     </Fragment>
 }
