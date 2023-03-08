@@ -1,11 +1,33 @@
 import { Fragment } from "react"
 import { createPortal } from "react-dom"
 import NavMenuItem from "./Nav-Menu-Item"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
+import Backdrop from "../Modal/Backdrop"
 
 function NavMenu(props){
+    const dropIn = {
+        hidden: {
+          x: "-100vw",
+          opacity: 0,
+        },
+        visible: {
+          x: "0",
+          opacity: 1,
+          transition: {
+            duration: 0.1,
+            type: "spring",
+            damping: 25,
+            stiffness: 500,
+          },
+        },
+        exit: {
+          x: "-100vw",
+          opacity: 0,
+        },
+      };
 
     function Menu(){
+
         return <Fragment>
         <div className="navmenu">
             <div className="menu-decoy"></div>
@@ -25,9 +47,14 @@ function NavMenu(props){
     }
 
     return <Fragment>
-    <div className="backdrop" onClick={props.onClick} ></div>
+    <AnimatePresence initial={false} mode={"wait"} onExitComplete={() => null}>
+    {props.menuStatus && <Backdrop onClick={props.onClick}>
+    <motion.div onClick={(e) => e.stopPropagation()} variants={dropIn} initial="hidden" animate="visible" exit="exit">
     <Menu>
     </Menu>
+    </motion.div>
+    </Backdrop>}
+    </AnimatePresence>
     </Fragment>
 }
 
