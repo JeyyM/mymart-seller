@@ -5,16 +5,16 @@ function HomePage(){
     return <Fragment>
         <h1 className="heading-primary">Dashboard</h1>
         <main className="maincontainer">
-            <HomepageButton item="home-category" label="Category"></HomepageButton>
-            <HomepageButton item="home-ongoing" label="Ongoing"></HomepageButton>
-            <HomepageButton item="home-manage" label="manage"></HomepageButton>
-            <HomepageButton item="home-insights" label="insight"></HomepageButton>
-            <HomepageButton item="home-receipt" label="receipt"></HomepageButton>
-            <HomepageButton item="home-brush" label="brush"></HomepageButton>
-            <HomepageButton item="item7" label="faq"></HomepageButton>
-            <HomepageButton item="item8" label="terms"></HomepageButton>
-            <HomepageButton item="item9" label="customer service"></HomepageButton>
-            <HomepageButton item="home-power" label="power"></HomepageButton>
+            <HomepageButton item="home-category" label="Categories & Products"></HomepageButton>
+            <HomepageButton item="home-ongoing" label="Ongoing Sales"></HomepageButton>
+            <HomepageButton item="home-manage" label="My Mart"></HomepageButton>
+            <HomepageButton item="home-insights" label="Mart Analytics"></HomepageButton>
+            <HomepageButton item="home-receipt" label="Customer Records"></HomepageButton>
+            <HomepageButton item="home-brush" label="Mart Design"></HomepageButton>
+            <HomepageButton item="home-quiz" label="Frequently Asked Questions"></HomepageButton>
+            <HomepageButton item="home-policy" label="Terms & Policies"></HomepageButton>
+            <HomepageButton item="home-support" label="Customer Service"></HomepageButton>
+            <HomepageButton item="home-power" label="Close or Open Mart"></HomepageButton>
         </main>
     </Fragment>
 }

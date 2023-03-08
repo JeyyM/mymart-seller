@@ -54,6 +54,21 @@ width:110%;
     align-items: center;
 }
 
+@mixin home-setup-imageless(){
+  background-image: $theme-bg,
+    linear-gradient(45deg, $color-primary-dark, $color-primary-light);
+    height: 1fr;
+    overflow: hidden;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
 @mixin home-setup-logo($svg){
   @include navlogo-gradient($svg, $home-logo-size, $home-logo-size);
   z-index: 15;
@@ -65,8 +80,8 @@ width:110%;
     position: absolute;
 }
 
-@mixin home-setup-logo-outline($svg, $adjustmentY){
-  @include navlogo-gradient($svg + "-fill", $home-logo-size, $home-logo-size);
+@mixin home-setup-logo-outline($svg, $adjustmentX, $adjustmentY, $adjustmentSize){
+  @include navlogo-gradient($svg + "-fill", $adjustmentSize, $adjustmentSize);
   z-index: 14;
     background-image: linear-gradient(
       to right,
@@ -74,7 +89,7 @@ width:110%;
       $theme-bg
     );
     position: absolute;
-    transform: translateY($adjustmentY);
+    transform: translateY($adjustmentY) translateX($adjustmentX);
 }
 
 @mixin home-stack(){

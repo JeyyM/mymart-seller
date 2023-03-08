@@ -7,9 +7,9 @@
   grid-template-rows: repeat(8, min-content, 1fr);
   padding: 2rem;
   gap: 2rem;
-  background-color: green;
   grid-auto-rows: auto;
   grid-auto-flow: dense;
+  filter: drop-shadow(-4px 4px 0px $color-primary-dark);
 }
 
 .homepage-button {
@@ -19,6 +19,16 @@
   display: flex;
   justify-items: center;
   align-items: center;
+  transition: all 0.2s;
+
+  &:hover {
+    transform: translateY(-0.6rem) translateX(1rem);
+    filter: drop-shadow(-6px 6px 0px $color-primary-dark);
+  }
+  &:active {
+    transform: translateY(0rem) translateX(0rem);
+    filter: drop-shadow(-1px 1px 0px $color-primary-dark);
+  }
 }
 
 // .home-category {
@@ -38,74 +48,172 @@
 //   position: absolute;
 // }
 
+.home-label {
+  position: absolute;
+  z-index: 16;
+  top: 60%;
+  font-size: 3rem;
+}
+
 .home-category {
   grid-column: 1/5;
   @include home-setup("category.jpg");
-
-
   &__logo {
     @include home-setup-logo(category);
 
     &-outline {
-      @include home-setup-logo-outline(category, 0.25rem)
+      @include home-setup-logo-outline(category, 0, 0rem, 12rem);
     }
   }
-
   &::after {
     @include home-stack;
   }
-
   &::before {
-    @include home-stack-border
+    @include home-stack-border;
   }
 }
 
-.home-label{color: yellowgreen}
-
 .home-ongoing {
   grid-column: 5/7;
-  @include home-setup("mainlogo.png");
-
-
+  @include home-setup("ongoing.jpg");
   &__logo {
     @include home-setup-logo(ongoing);
 
     &-outline {
-      @include home-setup-logo-outline(category, 0.25rem)
+      @include home-setup-logo-outline(ongoing, 0, 0.19rem, $home-logo-size);
+    }
+  }
+  &::after {
+    @include home-stack;
+  }
+  &::before {
+    @include home-stack-border;
+  }
+}
+
+.home-manage {
+  grid-column: 7/9;
+  @include home-setup("mart.jpeg");
+  &__logo {
+    @include home-setup-logo(manage);
+
+    &-outline {
+      @include home-setup-logo-outline(
+        manage,
+        -0.2rem,
+        0.2rem,
+        $home-logo-size
+      );
+    }
+  }
+  &::after {
+    @include home-stack;
+  }
+  &::before {
+    @include home-stack-border;
+  }
+}
+
+.home-insights {
+  grid-column: 1/5;
+  @include home-setup("analytics.jpg");
+  &__logo {
+    @include home-setup-logo(insights);
+
+    &-outline {
+      @include home-setup-logo-outline(insights, 0, 0.25rem, 10.5rem);
+    }
+  }
+  &::after {
+    @include home-stack;
+  }
+  &::before {
+    @include home-stack-border;
+  }
+}
+
+.home-receipt {
+  grid-column: 5/7;
+  @include home-setup("records.jpg");
+  &__logo {
+    @include home-setup-logo(receipt);
+
+    &-outline {
+      @include home-setup-logo-outline(receipt, -0.3rem, -0.5rem, 12rem);
+    }
+  }
+  &::after {
+    @include home-stack;
+  }
+  &::before {
+    @include home-stack-border;
+  }
+}
+
+.home-brush {
+  grid-column: 7/9;
+  @include home-setup("design.jpg");
+  &__logo {
+    @include home-setup-logo(brush);
+
+    &-outline {
+      @include home-setup-logo-outline(brush, 0, -0.5rem, 12rem);
+    }
+  }
+  &::after {
+    @include home-stack;
+  }
+  &::before {
+    @include home-stack-border;
+  }
+}
+
+.home-quiz {
+  grid-column: 1/3;
+  @include home-setup-imageless();
+  &__logo {
+    @include home-setup-logo(quiz);
+
+    &-outline {
+      @include home-setup-logo-outline(quiz, 0, -0.5rem, 12rem);
     }
   }
 }
-.home-manage {
-  grid-column: 7/9;
-  height: 1fr;
-}
-.home-insights {
-  grid-column: 1/5;
-  height: 1fr;
-}
-.home-receipt {
-  grid-column: 5/7;
-  height: 1fr;
-}
-.home-brush {
-  grid-column: 7/9;
-  height: 1fr;
-}
-.item7 {
-  grid-column: 1/3;
-  height: 1fr;
-}
-.item8 {
+
+.home-policy {
   grid-column: 3/5;
-  height: 1fr;
+  @include home-setup-imageless();
+  &__logo {
+    @include home-setup-logo(policy);
+
+    &-outline {
+      @include home-setup-logo-outline(policy, 0, -0.5rem, 12rem);
+    }
+  }
 }
-.item9 {
+
+.home-support {
   grid-column: 5/7;
-  height: 1fr;
+  @include home-setup-imageless();
+  &__logo {
+    @include home-setup-logo(support);
+
+    &-outline {
+      @include home-setup-logo-outline(support, 0, -0.5rem, 12rem);
+    }
+  }
 }
+
 .home-power {
   grid-column: 7/9;
-  height: 1fr;
+  @include home-setup-imageless();
+  &__logo {
+    @include home-setup-logo(power);
+
+    &-outline {
+      @include home-setup-logo-outline(power, 0, -0.5rem, 12rem);
+    }
+  }
 }
 
 // .outline {
