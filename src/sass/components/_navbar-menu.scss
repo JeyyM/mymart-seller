@@ -2,11 +2,12 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 200%;
   height: 100vh;
   z-index: 20;
   background-color: $color-primary-dark;
   opacity: 0.2;
+  // display: none;
 }
 
 .navmenu {
@@ -19,6 +20,7 @@
   background-color: lighten(white, 20%);
   @include border;
   transition: all 1s;
+  // display: none;
 }
 
 .navmenu-item {
@@ -36,6 +38,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  cursor:pointer;
 
   &:hover {background-color: lighten($color-primary-light, 20%);}
 }
@@ -82,3 +85,4 @@
   @include menu-logo(settings, 4rem, 4rem)
 }
 
+.menu-animation{position: relative; z-index: 25;}
