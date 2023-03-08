@@ -14,5 +14,5 @@ html {
 
 body {
     box-sizing: border-box;
-    background-color: lighten($color-primary-light, 20%);
+    background-color: $background-color;
 }
