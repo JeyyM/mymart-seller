@@ -1,28 +1,15 @@
 import { Fragment } from "react"
 import { createPortal } from "react-dom"
 import NavMenuItem from "./Nav-Menu-Item"
-import { useTransition, animated } from "@react-spring/web"
+import { motion } from "framer-motion"
 
 function NavMenu(props){
-    // const transition = useTransition(props.menuHandler)
-
-    function Backdrop (){
-        return <div className="backdrop" onClick={props.onClick}></div>
-    }
-
-    const transition = useTransition(props.menuStatus, {
-        from:{x:-1000, opacity:0},
-        enter:{x: 0, y:0, opacity: 1},
-        leave:{x:-1000, opacity:0}
-    })
-
-    // {transition((style, item) => item ? <NavMenu menuHandler={showMenuToggler}></NavMenu> : "")}
 
     function Menu(){
         return <Fragment>
         <div className="navmenu">
             <div className="menu-decoy"></div>
-            <NavMenuItem logo={"category"} label={"Categories & Products"} first={"menu-first"}></NavMenuItem>
+            <NavMenuItem logo={"category"} label={"Categories & Products" }></NavMenuItem>
             <NavMenuItem logo={"insights"} label={"My Analytics"}></NavMenuItem>
             <NavMenuItem logo={"ongoing"} label={"Ongoing Sales"}></NavMenuItem>
             <NavMenuItem logo={"manage"} label={"My Mart"}></NavMenuItem>
@@ -38,13 +25,9 @@ function NavMenu(props){
     }
 
     return <Fragment>
-    {transition((style, item) => item ? 
-        <animated.div style={style} className="menu-animation">
-    <Backdrop onClose={props.onClick}></Backdrop>
+    <div className="backdrop" onClick={props.onClick} ></div>
     <Menu>
     </Menu>
-    </animated.div> : ""
-    )}
     </Fragment>
 }
 

@@ -12,7 +12,7 @@ import { Receipt } from "../svgs"
 import { Power } from "../svgs"
 import { useState } from "react"
 import NavMenu from "./Nav-Menu"
-import { useTransition, animated } from "@react-spring/web"
+import { motion } from "framer-motion"
 
 function NavbarItems(){
 const [menuIsOn, setMenuIsOn] = useState(false)
@@ -21,12 +21,7 @@ const showMenuToggler = () => {
     setMenuIsOn(!menuIsOn)
 }
 
-const transition = useTransition(menuIsOn, {})
-
 return <Fragment>
-
-{/* {menuIsOn ? <NavMenu menuHandler={showMenuToggler}></NavMenu> : ""} */}
-{/* {transition((style, item) => item ? <NavMenu menuHandler={showMenuToggler}></NavMenu> : "")} */}
 <NavMenu menuStatus={menuIsOn} onClick={showMenuToggler}></NavMenu>
 
 <div className="navbar">

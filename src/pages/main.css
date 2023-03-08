@@ -362,6 +362,11 @@ body {
   width: 110%;
 }
 
+.framer-test {
+  width: 5rem;
+  height: 5rem;
+}
+
 .backdrop {
   position: fixed;
   top: 0;
