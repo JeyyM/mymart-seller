@@ -10,11 +10,20 @@ import { Brush } from "../svgs"
 import { Manage } from "../svgs"
 import { Receipt } from "../svgs"
 import { Power } from "../svgs"
-
+import { useState } from "react"
+import NavMenu from "./Nav-Menu"
 
 function NavbarItems(){
-return <div className="navbar">
-    <NavButton></NavButton>
+const [menuIsOn, setMenuIsOn] = useState(false)
+
+const showMenuToggler = () => {
+    setMenuIsOn(!menuIsOn)
+}
+
+return <Fragment>
+{menuIsOn && <NavMenu menuHandler={showMenuToggler}></NavMenu>}
+<div className="navbar">
+    <NavButton menuHandler={showMenuToggler} status={menuIsOn}></NavButton>
     <NavLogo></NavLogo>
     <div className="navcontainer">
     <NavItem svg={<Category  className="nav-category"></Category>} link="#" label="Categories & Products"></NavItem>
@@ -26,6 +35,7 @@ return <div className="navbar">
     <NavItem svg={<Power  className="nav-power"></Power>} link="#" label="Close or Open Mart"></NavItem>
     </div>
 </div>
+</Fragment>
 }
 
 export default NavbarItems

@@ -34,6 +34,15 @@ fill:transparent;
 width:110%;
 }
 
+//////////////////////        NAVMENU         ///////////////////////////////////
+@mixin menu-logo($icon, $size1, $size2){
+  @include navlogo-gradient($icon, $size1, $size2);
+  height:$size1;
+  width:$size2;
+  background-color: red;
+  transform: translateY(0rem);
+}
+
 //////////////////////        HOMEPAGE         ///////////////////////////////////
 // @mixin home-button-column($grid-column){
 //   grid-column: $grid-column;

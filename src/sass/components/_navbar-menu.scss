@@ -1,0 +1,84 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 20;
+  background-color: $color-primary-dark;
+  opacity: 0.2;
+}
+
+.navmenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: $menu-width;
+  height: 100vh;
+  z-index: 20;
+  background-color: lighten(white, 20%);
+  @include border;
+  transition: all 1s;
+}
+
+.navmenu-item {
+    z-index: 20;
+  width: 100%;
+  height: 6rem;
+  @include border;
+  border-top: none;
+  border-left:none;
+  border-right:none;
+  padding-left: 3rem;
+  background-color: $theme-bg;
+  text-align: left;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  &:hover {background-color: lighten($color-primary-light, 20%);}
+}
+
+.menu-decoy {
+  height: $navbar-height;
+  @include border;
+  border-left:none;
+  border-top:none;
+  border-right:none;
+}
+
+.menu-category {
+  @include menu-logo(category, 4rem, 4rem)
+}
+.menu-insights {
+  @include menu-logo(insights, 4rem, 4rem)
+}
+.menu-brush {
+  @include menu-logo(brush, 4rem, 4rem)
+}
+.menu-manage {
+  @include menu-logo(manage, 4rem, 4rem)
+}
+.menu-ongoing {
+  @include menu-logo(ongoing, 4rem, 4rem)
+}
+.menu-policy {
+  @include menu-logo(policy, 4rem, 4rem)
+}
+.menu-power {
+  @include menu-logo(power, 4rem, 4rem)
+}
+.menu-quiz {
+  @include menu-logo(quiz, 4rem, 4rem)
+}
+.menu-support {
+  @include menu-logo(support, 4rem, 4rem)
+}
+.menu-receipt {
+  @include menu-logo(receipt, 4rem, 4rem)
+}
+.menu-settings {
+  @include menu-logo(settings, 4rem, 4rem)
+}
+
