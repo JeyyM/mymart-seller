@@ -34,6 +34,7 @@ mymart-shops:{
             shopCategories{
                 categoryId:{
                     id:{},
+                    categoryImage:{},
                     categoryName:{},
                     categoryDescription:{}
                     categoryProducts:{
