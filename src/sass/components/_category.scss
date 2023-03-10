@@ -15,15 +15,16 @@
   .category {
     @include button-style;
     position: relative;
+    display: block;
+    overflow: hidden;
+    height: 30rem;
   }
 
   .category-img{
     width:100%;
     height: 40%;
     background-size: cover;
-  }
-
-  .heading-icon-category{
-    @include navlogo-gradient(category, 20rem, 20rem);
-    
+    @include border;
+    border-style: none none solid none;
+    object-fit: cover;   
   }

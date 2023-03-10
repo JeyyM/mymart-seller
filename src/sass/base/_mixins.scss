@@ -7,12 +7,12 @@
       $color-primary-light
     )
     1;
-    box-shadow: 0 0.5rem 1rem rgba(black, 0.15);
+    // box-shadow: 0 0.5rem 1rem rgba(black, 0.15);
 }
 
 @mixin border-round {
   border: solid 5px transparent;
-  border-radius: 15px;
+  border-radius: $border-radius;
   background-image: linear-gradient($theme-bg, $theme-bg),
     linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   background-origin: border-box;
@@ -157,7 +157,7 @@ width:110%;
     }
 }
 
-@mixin menu-logo($icon, $size1, $size2){
+@mixin heading-logo($icon, $size1, $size2){
   @include navlogo-gradient($icon, $size1, $size2);
   height:$size1;
   width:$size2;
