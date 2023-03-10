@@ -1,9 +1,18 @@
 $color-primary-dark: #0057FF;
 $color-primary-light: #7FC9FF;
 
+// $color-primary-dark: blue;
+// $color-primary-light: red;
+
 $text-primary-color: #0A2647;
 $text-secondary-color: #0A2647;
 $text-tertiary-color: #0A2647;
+
+// $text-primary-color: white;
+// $text-secondary-color: white;
+// $text-tertiary-color: white;
+
+$background-color: lighten($color-primary-light, 20%);
 
 
 $theme-bg: white;

@@ -1,10 +1,11 @@
 import Image from "next/image"
 import mainlogo from "../../assets/mainlogo.png"
+import Link from "next/link"
 
 function NavLogo(props){
-    return <a href="#">
+    return <Link href="/id">
         <Image src={mainlogo} alt="company logo" className="company-logo-med"></Image>
-    </a>
+    </Link>
     }
     
     export default NavLogo

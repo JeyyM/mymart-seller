@@ -4,26 +4,27 @@ import NavMenuItem from "./Nav-Menu-Item";
 import { motion, AnimatePresence } from "framer-motion";
 import Backdrop from "../Modal/Backdrop";
 
-const dropIn = {
-    hidden: {
-      y: "-100vh",
-      opacity: 0,
-    },
-    visible: {
-      y: "0",
-      opacity: 1,
-      transition: {
-        duration: 0.1,
-        type: "spring",
-        damping: 25,
-        stiffness: 500,
-      },
-    },
-    exit: {
-      y: "100vh",
-      opacity: 0,
-    },
-  };
+function NavMenu(props){
+    const dropIn = {
+        hidden: {
+          x: "-100vw",
+          opacity: 1,
+        },
+        visible: {
+          x: "0",
+          opacity: 1,
+          transition: {
+            duration: 0.1,
+          },
+        },
+        exit: {
+          x: "-100vw",
+          opacity: 1,
+          transition: {
+            duration: 0.1,
+          },
+        },
+      };
 
 function NavMenu(props) {
 

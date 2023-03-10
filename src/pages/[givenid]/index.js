@@ -1,11 +1,12 @@
 import { Fragment } from "react"
-import HomepageButton from "../components/homepage/Homepage-Button"
+import HomepageButton from "../../components/homepage/Homepage-Button"
+import Link from "next/link"
 
 function HomePage(){
     return <Fragment>
-        <h1 className="heading-primary">Default Page</h1>
+        <h1 className="heading-primary">Dashboard</h1>
         <main className="maincontainer">
-            {/* <HomepageButton item="home-category" label="Categories & Products"></HomepageButton>
+            <HomepageButton item="home-category" label="Categories & Products"></HomepageButton>
             <HomepageButton item="home-ongoing" label="Ongoing Sales"></HomepageButton>
             <HomepageButton item="home-manage" label="My Mart"></HomepageButton>
             <HomepageButton item="home-insights" label="Mart Analytics"></HomepageButton>
@@ -14,7 +15,7 @@ function HomePage(){
             <HomepageButton item="home-quiz" label="Frequently Asked Questions"></HomepageButton>
             <HomepageButton item="home-policy" label="Terms & Policies"></HomepageButton>
             <HomepageButton item="home-support" label="Customer Service"></HomepageButton>
-            <HomepageButton item="home-power" label="Close or Open Mart"></HomepageButton> */}
+            <HomepageButton item="home-power" label="Close or Open Mart"></HomepageButton>
         </main>
     </Fragment>
 }
