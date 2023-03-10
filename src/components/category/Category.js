@@ -6,16 +6,13 @@ function Category(props){
     const router = useRouter()
     const shopId = router.query.givenid
 
-    return <Link className="category" href="#">
+    return <Link className="category" href={{pathname: "/[givenid]/categories/[categoryname]", query: { givenid: 'id', categoryname: categoryName },}}>
     
         <img src={categoryImage} className="category-img"></img>
-        <h2 className="heading-secondary">{categoryName}</h2>
-        <h1>{categoryDescription}</h1>
-        <h1>{categoryDescription}</h1>
-        <h1>{categoryDescription}</h1>
-        <h1>{categoryDescription}</h1>
-        <h1>{categoryDescription}</h1>
-        <h1>{categoryDescription}</h1>
+        <div className="category-content">
+        <h2 className="heading-secondary category-name">{categoryName}</h2>
+        <h3 className="heading-tertiary"> {categoryDescription}</h3>
+        </div>
     </Link>
 }
 

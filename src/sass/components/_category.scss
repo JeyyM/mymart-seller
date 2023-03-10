@@ -15,9 +15,10 @@
   .category {
     @include button-style;
     position: relative;
-    display: block;
+    display: inline-block;
     overflow: hidden;
     height: 30rem;
+    text-decoration: none;
   }
 
   .category-img{
@@ -28,3 +29,11 @@
     border-style: none none solid none;
     object-fit: cover;   
   }
+
+  .category-content{
+    padding: 0.5rem 1rem 1rem 1rem
+  }
+
+  .category-name {margin-bottom: 0.5rem;}
+
+  
