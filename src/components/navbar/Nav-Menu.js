@@ -110,5 +110,5 @@ const ModalContainer = ({ children }) => (
 
     </AnimatePresence>
   );
-
+}
 export default NavMenu;
