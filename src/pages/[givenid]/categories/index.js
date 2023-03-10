@@ -120,7 +120,7 @@ function CategoryPage() {
         <button>Add Category</button>
       </span>
 
-      <categories className="category-container">
+      <section className="category-container">
         {dummycategs.map((categ) => {
           return (
             <Category
@@ -129,7 +129,7 @@ function CategoryPage() {
             ></Category>
           );
         })}
-      </categories>
+      </section>
     </Fragment>
   );
 }
