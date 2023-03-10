@@ -2,7 +2,7 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 
 function Category(props){
-    const {categoryName, categoryImage, categoryDescription} = props.items
+    const {categoryName, categoryImage, categoryDescription, categoryProducts} = props.items
     const router = useRouter()
     const shopId = router.query.givenid
 
