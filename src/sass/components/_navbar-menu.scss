@@ -54,7 +54,7 @@
 }
 
 .menu-category {
-  @include menu-logo(category, 4rem, 4rem)
+  @include menu-logo(category, 4rem, 4rem);
 }
 .menu-insights {
   @include menu-logo(insights, 4rem, 4rem)

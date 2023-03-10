@@ -28,13 +28,13 @@ return <Fragment>
     <NavButton menuHandler={showMenuToggler} status={menuIsOn}></NavButton>
     <NavLogo></NavLogo>
     <div className="navcontainer">
-    <NavItem svg={<Category  className="nav-category"></Category>} link="#" label="Categories & Products"></NavItem>
-    <NavItem svg={<Insights  className="nav-insights"></Insights>} link="#" label="My Analytics"></NavItem>
-    <NavItem svg={<Ongoing  className="nav-ongoing"></Ongoing>} link="#" label="Ongoing Sales"></NavItem>
-    <NavItem svg={<Brush  className="nav-brush"></Brush>} link="#" label="Mart Design"></NavItem>
-    <NavItem svg={<Manage  className="nav-manage"></Manage>} link="#" label="My Mart"></NavItem>
-    <NavItem svg={<Receipt  className="nav-receipt"></Receipt>} link="#" label="Customer Records"></NavItem>
-    <NavItem svg={<Power  className="nav-power"></Power>} link="#" label="Close or Open Mart"></NavItem>
+    <NavItem svg={<Category  className="menu-category"></Category>} link="#" label="Categories & Products"></NavItem>
+    <NavItem svg={<Insights  className="menu-insights"></Insights>} link="#" label="My Analytics"></NavItem>
+    <NavItem svg={<Ongoing  className="menu-ongoing"></Ongoing>} link="#" label="Ongoing Sales"></NavItem>
+    <NavItem svg={<Brush  className="menu-brush"></Brush>} link="#" label="Mart Design"></NavItem>
+    <NavItem svg={<Manage  className="menu-manage"></Manage>} link="#" label="My Mart"></NavItem>
+    <NavItem svg={<Receipt  className="menu-receipt"></Receipt>} link="#" label="Customer Records"></NavItem>
+    <NavItem svg={<Power  className="menu-power"></Power>} link="#" label="Close or Open Mart"></NavItem>
     </div>
 </div>
 </Fragment>

@@ -4,6 +4,7 @@ function Category(props){
     const {categoryName, categoryImage, categoryDescription} = props.items
 
     return <Link className="category" href="#">
+        <img src={categoryImage} className="category-img"></img>
         <h1>{categoryDescription}</h1>
     </Link>
 }

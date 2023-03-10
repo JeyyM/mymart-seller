@@ -39,7 +39,7 @@ width:110%;
   @include navlogo-gradient($icon, $size1, $size2);
   height:$size1;
   width:$size2;
-  background-color: red;
+  // background-color: red;
   transform: translateY(0rem);
 }
 
@@ -133,3 +133,35 @@ width:110%;
   clip-path: polygon(0 46%, 100% -3%, 100% 100%, 0% 100%);
   float: top;
 }
+
+//////////////////////        TEMPLATES         ///////////////////////////////////
+
+@mixin button-style(){
+  @include border-round;
+    height: 22rem;
+    position: relative;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    transition: all 0.2s;
+    background-image: $theme-bg,
+      linear-gradient(45deg, $color-primary-dark, $color-primary-light);
+  
+    &:hover {
+      transform: translateY(-0.6rem) translateX(1rem);
+      filter: drop-shadow(-6px 6px 0px $color-primary-dark);
+    }
+    &:active {
+      transform: translateY(0rem) translateX(0rem);
+      filter: drop-shadow(-1px 1px 0px $color-primary-dark);
+    }
+}
+
+@mixin menu-logo($icon, $size1, $size2){
+  @include navlogo-gradient($icon, $size1, $size2);
+  height:$size1;
+  width:$size2;
+  // background-color: red;
+  transform: translateY(0rem);
+}
+
