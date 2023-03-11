@@ -121,11 +121,11 @@ function CategoryPage() {
       </span>
 
       <section className="category-container">
-        {dummycategs.map((categ) => {
+        {dummycategs.map((categ, index) => {
           return (
             <Category
               items={categ.category}
-              key={categ.category.categoryId}
+              key={index}
             ></Category>
           );
         })}
