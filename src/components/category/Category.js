@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
-import Router from "next/router"
+import Image from "next/image"
 
 function Category(props){
 
@@ -11,20 +11,20 @@ function Category(props){
     const value = JSON.stringify(categoryProducts)
     // console.log(value)
 
-    function sendData(){
-        Router.push({
-            pathname: "/[givenid]/categories/[categoryname]", query: { givenid: 'id', categoryname: categoryName, givenProducts: value}
-        })
-    }
+    // function sendData(){
+    //     Router.push({
+    //         pathname: "/[givenid]/categories/[categoryname]", query: { givenid: 'id', categoryname: categoryName, givenProducts: value}
+    //     })
+    // }
 
-    return <div className="category" onClick={sendData}>
+    return <Link className="category" href={{pathname: `/${shopId}/${props.direction}/${categoryName}`, query: { shopid: shopId },}}>
     
         <img src={categoryImage} className="category-img"></img>
         <div className="category-content">
         <h2 className="heading-secondary category-name">{categoryName}</h2>
         <h3 className="heading-tertiary"> {categoryDescription}</h3>
         </div>
-    </div>
+    </Link>
 }
 
 export default Category
