@@ -110,6 +110,9 @@ import Category from "@/components/category/Category";
 import { Fragment } from "react";
 
 function CategoryPage() {
+
+  // console.log(props.shops)
+
   return (
     <Fragment>
       <span className="page-heading">
@@ -135,3 +138,26 @@ function CategoryPage() {
 }
 
 export default CategoryPage;
+
+// export async function getStaticProps(){
+//   // "mongodb+srv://USERNAME:PASSWORD@cluster0.cln6x4h.mongodb.net/COLLECTIONNAME?retryWrites=true&w=majority"
+//   const client = await MongoClient.connect(process.env.MONGODB_URI)
+//   const db = client.db()
+//   const shopsCollection = db.collection("shops")
+
+//   const shops = await shopsCollection.find().toArray()
+
+//   client.close()
+
+//   return {
+//       props: {
+//           shops: shops.map(shop => ({
+//               name: shop.name,
+//               data: shop.shopData,
+//               id: shop._id.toString()
+//           }))
+//       },
+//       revalidate: 1
+//   }
+// }
+
