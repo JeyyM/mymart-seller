@@ -2,11 +2,13 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import Image from "next/image"
 
+
+
 function Category(props){
 
     const {categoryName, categoryImage, categoryDescription, categoryProducts} = props.items
     const router = useRouter()
-    const shopId = router.query.givenid
+    const shopId = router.query.shopid
 
     const value = JSON.stringify(categoryProducts)
     // console.log(value)
@@ -17,7 +19,7 @@ function Category(props){
     //     })
     // }
 
-    return <Link className="category" href={{pathname: `/${shopId}/${props.direction}/${categoryName}`, query: { shopid: shopId },}}>
+    return <Link className="category" href={{pathname: `/${shopId}/${categoryName}`, query: { shopid: shopId },}}>
     
         <img src={categoryImage} className="category-img"></img>
         <div className="category-content">
