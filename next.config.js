@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  
 }
 
 module.exports = nextConfig
@@ -14,11 +15,5 @@ module.exports = {
     })
 
     return config
-  },
-}
-
-module.exports = {
-  images: {
-    domains: ["i.imgur.com"],
   },
 }

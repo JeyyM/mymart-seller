@@ -17,6 +17,10 @@ body {
   background-color: #e5f4ff;
 }
 
+.page-heading {
+  display: flex;
+}
+
 .heading-primary {
   color: #0A2647;
   font-size: 3.5rem;
@@ -50,7 +54,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   z-index: -10;
@@ -207,7 +210,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
 .company-logo-med:hover {
@@ -223,7 +225,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   align-self: stretch;
   display: flex;
   flex-direction: column;
@@ -392,7 +393,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   transition: all 1s;
 }
 
@@ -403,7 +403,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   border-top: none;
   border-left: none;
   border-right: none;
@@ -425,7 +424,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   border-left: none;
   border-top: none;
   border-right: none;
@@ -448,7 +446,6 @@ body {
   width: 110%;
   height: 4rem;
   width: 4rem;
-  background-color: red;
   transform: translateY(0rem);
 }
 
@@ -469,7 +466,6 @@ body {
   width: 110%;
   height: 4rem;
   width: 4rem;
-  background-color: red;
   transform: translateY(0rem);
 }
 
@@ -490,7 +486,6 @@ body {
   width: 110%;
   height: 4rem;
   width: 4rem;
-  background-color: red;
   transform: translateY(0rem);
 }
 
@@ -511,7 +506,6 @@ body {
   width: 110%;
   height: 4rem;
   width: 4rem;
-  background-color: red;
   transform: translateY(0rem);
 }
 
@@ -532,7 +526,6 @@ body {
   width: 110%;
   height: 4rem;
   width: 4rem;
-  background-color: red;
   transform: translateY(0rem);
 }
 
@@ -553,7 +546,6 @@ body {
   width: 110%;
   height: 4rem;
   width: 4rem;
-  background-color: red;
   transform: translateY(0rem);
 }
 
@@ -574,7 +566,6 @@ body {
   width: 110%;
   height: 4rem;
   width: 4rem;
-  background-color: red;
   transform: translateY(0rem);
 }
 
@@ -595,7 +586,6 @@ body {
   width: 110%;
   height: 4rem;
   width: 4rem;
-  background-color: red;
   transform: translateY(0rem);
 }
 
@@ -616,7 +606,6 @@ body {
   width: 110%;
   height: 4rem;
   width: 4rem;
-  background-color: red;
   transform: translateY(0rem);
 }
 
@@ -637,7 +626,6 @@ body {
   width: 110%;
   height: 4rem;
   width: 4rem;
-  background-color: red;
   transform: translateY(0rem);
 }
 
@@ -658,7 +646,6 @@ body {
   width: 110%;
   height: 4rem;
   width: 4rem;
-  background-color: red;
   transform: translateY(0rem);
 }
 
@@ -679,7 +666,6 @@ body {
   width: 110%;
   height: 4rem;
   width: 4rem;
-  background-color: red;
   transform: translateY(0rem);
 }
 
@@ -787,7 +773,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   position: absolute;
   top: 0;
   right: 0;
@@ -804,7 +789,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   position: absolute;
   top: 0;
   right: 0;
@@ -875,7 +859,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   position: absolute;
   top: 0;
   right: 0;
@@ -892,7 +875,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   position: absolute;
   top: 0;
   right: 0;
@@ -963,7 +945,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   position: absolute;
   top: 0;
   right: 0;
@@ -980,7 +961,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   position: absolute;
   top: 0;
   right: 0;
@@ -1051,7 +1031,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   position: absolute;
   top: 0;
   right: 0;
@@ -1068,7 +1047,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   position: absolute;
   top: 0;
   right: 0;
@@ -1139,7 +1117,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   position: absolute;
   top: 0;
   right: 0;
@@ -1156,7 +1133,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   position: absolute;
   top: 0;
   right: 0;
@@ -1227,7 +1203,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   position: absolute;
   top: 0;
   right: 0;
@@ -1244,7 +1219,6 @@ body {
   border: 5px solid;
   -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
      border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   position: absolute;
   top: 0;
   right: 0;
@@ -1472,4 +1446,91 @@ body {
   background-image: linear-gradient(to right, white, white);
   position: absolute;
   transform: translateY(-0.5rem) translateX(0);
+}
+
+.category-container {
+  height: -moz-min-content;
+  height: min-content;
+  display: grid;
+  grid-template-columns: [center-start] repeat(4, [col-start] minmax(min-content, 1fr) [col-end]) [center-end];
+  padding: 2rem;
+  gap: 2rem;
+  grid-auto-rows: auto;
+  grid-auto-flow: dense;
+  filter: drop-shadow(-4px 4px 0px #0057FF);
+}
+
+.category {
+  border: solid 5px transparent;
+  border-radius: 15px;
+  background-image: linear-gradient(white, white), linear-gradient(45deg, #0057FF, #7FC9FF);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  height: 22rem;
+  position: relative;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  transition: all 0.2s;
+  background-image: white, linear-gradient(45deg, #0057FF, #7FC9FF);
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  height: 30rem;
+  text-decoration: none;
+}
+.category:hover {
+  transform: translateY(-0.6rem) translateX(1rem);
+  filter: drop-shadow(-6px 6px 0px #0057FF);
+}
+.category:active {
+  transform: translateY(0rem) translateX(0rem);
+  filter: drop-shadow(-1px 1px 0px #0057FF);
+}
+
+.category-img {
+  width: 100%;
+  height: 40%;
+  background-size: cover;
+  border: 5px solid;
+  -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
+     border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
+  border-style: none none solid none;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.category-content {
+  padding: 0.5rem 1rem 1rem 1rem;
+}
+
+.category-name {
+  margin-bottom: 0.5rem;
+}
+
+.heading-icon-dropshadow {
+  -webkit-background-clip: text;
+          background-clip: text;
+  filter: drop-shadow(-2px 2px 0px #0A2647);
+}
+
+.heading-icon-category {
+  -webkit-mask-size: 4rem;
+          mask-size: 4rem;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-image: url("../../components/svgs/category.svg");
+          mask-image: url("../../components/svgs/category.svg");
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  transform: translateY(0.3rem);
+  height: 4rem;
+  fill: transparent;
+  width: 110%;
+  height: 4rem;
+  width: 4rem;
+  transform: translateY(0rem);
+  margin-left: 1rem;
 }/*# sourceMappingURL=main.css.map */

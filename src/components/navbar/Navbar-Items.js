@@ -14,7 +14,7 @@ import { useState } from "react"
 import NavMenu from "./Nav-Menu"
 import { motion } from "framer-motion"
 
-function NavbarItems(){
+function NavbarItems(props){
 const [menuIsOn, setMenuIsOn] = useState(false)
 
 const showMenuToggler = () => {
@@ -28,8 +28,8 @@ return <Fragment>
     <NavButton menuHandler={showMenuToggler} status={menuIsOn}></NavButton>
     <NavLogo></NavLogo>
     <div className="navcontainer">
-    <NavItem svg={<Category  className="menu-category"></Category>} link="#" label="Categories & Products"></NavItem>
-    <NavItem svg={<Insights  className="menu-insights"></Insights>} link="#" label="My Analytics"></NavItem>
+    <NavItem svg={<Category  className="menu-category"></Category>} link={"categories"} label="Categories & Products"></NavItem>
+    <NavItem svg={<Insights  className="menu-insights"></Insights>} link={"analytics"} label="My Analytics"></NavItem>
     <NavItem svg={<Ongoing  className="menu-ongoing"></Ongoing>} link="#" label="Ongoing Sales"></NavItem>
     <NavItem svg={<Brush  className="menu-brush"></Brush>} link="#" label="Mart Design"></NavItem>
     <NavItem svg={<Manage  className="menu-manage"></Manage>} link="#" label="My Mart"></NavItem>

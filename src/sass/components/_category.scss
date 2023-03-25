@@ -31,9 +31,26 @@
   }
 
   .category-content{
-    padding: 0.5rem 1rem 1rem 1rem
+    padding: 0.5rem 1rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    height:60%;
   }
 
   .category-name {margin-bottom: 0.5rem;}
 
+  .product-number-container {
+    display: flex;
+    justify-content: space-between;
+  }
   
+  .product-numbers{
+    color: $text-secondary-color;
+    line-height: 1;
+    margin-top: 0px;
+    font-size: 2.5rem;
+    font-family: "Roboto";
+    font-weight: 700;
+  }

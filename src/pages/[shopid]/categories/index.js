@@ -1,4 +1,4 @@
-import Category from "@/components/category/Category";
+import Category from "../../../components/category/Category";
 import { Fragment } from "react";
 import { useRouter } from "next/router";
 import { MongoClient, ObjectId } from "mongodb";
@@ -16,7 +16,7 @@ function CategoryPage({shopID}) {
     };
   });  
 
-  console.log(result)
+  // console.log(result)
 
 
   return (
@@ -34,6 +34,7 @@ function CategoryPage({shopID}) {
           return (
             <Category
               items={categ.value}
+              id={router.query.shopid}
               key={index}
             ></Category>
           );

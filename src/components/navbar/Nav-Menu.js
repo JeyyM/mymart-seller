@@ -31,7 +31,7 @@ function NavMenu(props){
         return <Fragment>
         <div className="navmenu">
             <div className="menu-decoy"></div>
-            <NavMenuItem logo={"category"} label={"Categories & Products" }></NavMenuItem>
+            <NavMenuItem logo={"category"} label={"Categories & Products" } link={"categories"}></NavMenuItem>
             <NavMenuItem logo={"insights"} label={"My Analytics"}></NavMenuItem>
             <NavMenuItem logo={"ongoing"} label={"Ongoing Sales"}></NavMenuItem>
             <NavMenuItem logo={"manage"} label={"My Mart"}></NavMenuItem>
