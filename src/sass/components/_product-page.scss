@@ -1,0 +1,157 @@
+.product-image {
+  @include border-round;
+  border: solid 9px transparent;
+  height: minmax(30rem, 50vh);
+  position: relative;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  transition: all 0.2s;
+  width: 100%;
+  filter: drop-shadow(0px 0px 0px $color-primary-dark);
+}
+
+.main-img-container{
+    grid-column: 2/4;
+}
+
+.product-container {
+  height: calc(100vh - $navbar-height - 4rem);
+  display: grid;
+  grid-template-columns:
+  minmax(0, 1fr) [center-start] repeat(6, [col-start] minmax(min-content, 17rem) [col-end])
+    [center-end] minmax(0, 1fr);
+  // grid-template-rows: repeat(8, min-content, 1fr);
+  padding: 2rem;
+  gap: 2rem;
+  grid-auto-rows: auto;
+  grid-auto-flow: dense;
+}
+
+.details-section {
+  grid-column: 4/8;
+}
+
+.text-input {
+  width: 100%;
+  height: 7rem;
+  @include border-round;
+  margin-top: 3rem;
+}
+
+input[type="text"].text-input{
+    color: $text-primary-color;
+  font-size: 2.5rem;
+  font-family: 'Roboto';
+  font-weight: 900;
+  padding: 1rem;
+  box-shadow: inset 0 0 0 1rem $theme-bg;
+  }
+
+.price-pair {display: flex;
+    margin-top: 3rem;
+    align-items: center;
+}
+
+.price-pair-2 {display: flex;
+    margin-top: 3rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.product-currency {padding: 0 1rem}
+
+.text-input-sm {
+    width: 30%;
+    height: 5rem;
+    @include border-round;
+  }
+  
+  input[type="text"].text-input-sm{
+    color: $text-secondary-color;
+    line-height: 1;
+    margin-top: 0px;
+    font-size: 2rem;
+    font-family: "Roboto";
+    font-weight: 700;
+    padding: 1rem;
+  box-shadow: inset 0 0 0 1rem $theme-bg;
+    }
+
+.desc-text-area {
+    resize: none;
+    margin-top: 2rem;
+    box-sizing: border-box;
+    @include border-round;
+    width: 100%;
+    margin-top: 3rem;
+    color: $text-tertiary-color;
+  line-height: 1;
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 500;
+  padding: 1rem;
+
+  box-shadow: inset 0 0 0 1rem $theme-bg;
+}
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+    }
+
+
+    input[type="number"] {
+        -moz-appearance: textfield!important;
+        appearance: textfield !important;
+    }
+
+    input[type="number"].input-number{
+        color: $text-secondary-color;
+        line-height: 1;
+        margin-top: 0px;
+        font-size: 2rem;
+        font-family: "Roboto";
+        font-weight: 700;
+        padding: 1rem;
+      box-shadow: inset 0 0 0 1rem $theme-bg;
+      margin-right: 2rem;
+        }
+
+.varContainer{
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 5rem;
+    grid-gap: 2rem;
+    grid-auto-rows: auto;
+    grid-auto-flow: dense;
+    justify-items: center;
+    align-items: center ;
+    margin-bottom: 5rem;
+}
+
+.varItem{
+    @include border-round;
+    object-fit: cover;
+    height: 15rem;
+    width: 20rem;
+}
+
+.side-img{
+    margin-top: 3rem;
+    height: 12rem;
+    width: 17rem;
+    object-fit: cover;
+    @include border-round
+}
+
+.side-img-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: auto;
+    grid-auto-flow: dense;
+    justify-items: center;
+    align-items: center;
+}

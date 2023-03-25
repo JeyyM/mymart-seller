@@ -48,63 +48,61 @@ function ProductPage({shopID}){
     const varRange = (ArrRange(0, varArray.length - 1))
 
     function varStateHandler(ind){
+        console.log(ind)
         setVarState(ind)
     }
 
-    return <Fragment>
-          <span className="page-heading">
-        <h1 className="heading-primary">{varArray[varState][`var${varNum}`].productName}</h1>
-      </span>
-    <h2>{varArray[varState][`var${varNum}`].productDescription}</h2>
-    <img src={varArray[varState][`var${varNum}`].productImages[0]} width={500} height={500} alt={varArray[varState][`var${varNum}`].productName}></img>
-    <h3>{varArray[varState][`var${varNum}`].productPrice}</h3>
-    <h3>{varArray[varState][`var${varNum}`].productStock.stockAmount} {varArray[varState][`var${varNum}`].productStock.stockUnit}</h3>
-    {varArray[varState][`var${varNum}`].productImages.map((v, index)=> (
-        <img src={varArray[varState][`var${varNum}`].productImages[index]} width={100} height={100} alt={index} key={index}></img>
-    ))}
-    {varRange.map((v, index)=> (
-        <button key={index} onClick={() => varStateHandler(index)}>{index}</button>
-    ))}
+    function imageGetter(n) {
+        return varArray[n][`var${n + 1}`].productImages[0];
+      }
 
-    {/* <form onSubmit={prodSubmitHandler}>
-        <h2>Add New Variation</h2>
-        <div>
-          <label htmlFor='name'>Product Name</label>
-          <input type='text' required id='name' ref={nameInputRef} />
-        </div>
-        <div>
-          <label htmlFor='description'>Product Description</label>
-          <textarea
+    return <Fragment>
+      <div className="product-container">
+      <div className="main-img-container">
+    <img src={varArray[varState][`var${varNum}`].productImages[0]} alt={varArray[varState][`var${varNum}`].productName} className="product-image"></img>
+    <div className="side-img-container">
+    {varArray[varState][`var${varNum}`].productImages.map((v, index)=> (
+        <img src={varArray[varState][`var${varNum}`].productImages[index]} alt={index} key={index} className="side-img"></img>
+    ))}
+    </div>
+    </div>
+
+    <div className="details-section">
+    <form>
+    <input type="text" defaultValue={varArray[varState][`var${varNum}`].productName} className="text-input" placeholder="Product Name" required id='name'></input>
+
+    <div className="price-pair">
+    <label className="heading-secondary product-currency">$</label>
+    <input type="number" defaultValue={varArray[varState][`var${varNum}`].productPrice } className="text-input-sm input-number" placeholder="Price" required id='price'></input>
+    </div>
+
+    <textarea
             id='description'
             required
             rows='5'
-            ref={descriptionInputRef}
+            defaultValue={varArray[varState][`var${varNum}`].productDescription}
+            className="desc-text-area"
+            placeholder="Description"
           ></textarea>
-        </div>
-        <div>
-          <label htmlFor='image1'>Product Images - Imgur Links Only</label>
-          <input type='url' required id='image1' ref={imagesInputRef1} />
-          <input type='url' id='image2' ref={imagesInputRef2} />
-          <input type='url' id='image3' ref={imagesInputRef3} />
-          <input type='url' id='image4' ref={imagesInputRef4} />
-        </div>
-        <div>
-          <label htmlFor='price'>Product Price</label>
-          <input type='number' required id='price' ref={priceInputRef} />
-        </div>
-        <div>
-          <label htmlFor='amount'>Stock Amount</label>
-          <input type='number' required id='amount' ref={stockAmountInputRef} />
-        </div>
-        <div>
-          <label htmlFor='unit'>Stock Unit</label>
-          <input type='text' required id='unit' ref={stockUnitInputRef} />
-        </div>
-        <div>
-          <button>Add Product</button>
-        </div>
-      </form> */}
-    
+
+<div className="price-pair-2">
+    <label className="heading-secondary product-currency">Stock</label>
+    <input type="number" defaultValue={varArray[varState][`var${varNum}`].productStock.stockAmount } className="text-input-sm input-number" placeholder="Amount" required id='amount'></input>
+    <input type="text" defaultValue={varArray[varState][`var${varNum}`].productStock.stockUnit } className="text-input-sm" placeholder="Unit" required id='unit'></input>
+    </div>
+
+    </form>
+
+    <label className="heading-secondary product-currency">Variations</label>
+    <div className="varContainer">
+    {varRange.map((v, index)=> (
+        <img key={index} onClick={() => varStateHandler(index)} className="varItem" src={imageGetter(index)}></img>
+    ))}
+    </div>
+    </div>
+
+    </div>
+
     </Fragment>
 }
 
