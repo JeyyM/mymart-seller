@@ -30,18 +30,6 @@ function ProductPage({ shopID }) {
 
   const resultingProduct = Object.keys(resulting)[0];
 
-
-  const imageVariants = {
-    visible: { opacity: 1 },
-    hidden: { opacity: 0 }
-  };
-
-
-
-
-
-  // console.log(resultingProduct)
-
   const varArray = Object.entries(categoryContents3[resultingProduct]).map(([key, value]) => ({
     [key]: value
   }));
@@ -75,10 +63,9 @@ function ProductPage({ shopID }) {
   return <Fragment>
     <div className="product-container">
       <div className="main-img-container">
-      <AnimatePresence>
-        <motion.img src={varArray[varState][`var${varNum}`].productImages[imgState]} alt={varArray[varState][`var${varNum}`].productName} className="product-image" initial="hidden" animate="visible"
-            exit="hidden" variants={imageVariants} transition={{ duration: 0.2 }} key={varState}></motion.img>
-      </AnimatePresence>
+
+        <img src={varArray[varState][`var${varNum}`].productImages[imgState]} alt={varArray[varState][`var${varNum}`].productName} className="product-image"></img>
+ 
 
         <motion.div className="side-img-container" initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -139,7 +126,7 @@ function ProductPage({ shopID }) {
         </motion.div>
 
         <div className="product-action-buttons">
-          <button className="product-action-1 heading-secondary">Delete Product</button>
+          <button className="product-action-1 heading-secondary">Delete Variation</button>
           <button className="product-action-2 heading-secondary">Edit Search Tags</button>
           <button className="product-action-2 heading-secondary">Submit Changes</button>
         </div>
