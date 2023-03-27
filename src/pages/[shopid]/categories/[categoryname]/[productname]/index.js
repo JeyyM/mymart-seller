@@ -30,6 +30,16 @@ function ProductPage({ shopID }) {
 
   const resultingProduct = Object.keys(resulting)[0];
 
+
+  const imageVariants = {
+    visible: { opacity: 1 },
+    hidden: { opacity: 0 }
+  };
+
+
+
+
+
   // console.log(resultingProduct)
 
   const varArray = Object.entries(categoryContents3[resultingProduct]).map(([key, value]) => ({
@@ -54,7 +64,7 @@ function ProductPage({ shopID }) {
     setImgState(0)
   }
 
-  function imgStateHandler(ind){
+  function imgStateHandler(ind) {
     setImgState(ind)
   }
 
@@ -65,25 +75,29 @@ function ProductPage({ shopID }) {
   return <Fragment>
     <div className="product-container">
       <div className="main-img-container">
-        <img src={varArray[varState][`var${varNum}`].productImages[imgState]} alt={varArray[varState][`var${varNum}`].productName} className="product-image"></img>
-        <motion.div className="side-img-container" initial={{ opacity: 0 }} 
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.2 }}
-    key={varState}
-    >
-      {varArray[varState][`var${varNum}`].productImages.map((v, index) => (
-        <motion.img 
-          key={index} 
-          src={varArray[varState][`var${varNum}`].productImages[index]} 
-          alt={index} 
-          className="side-img" 
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 * index, duration: 0.2 }}
-          onClick={() => imgStateHandler(index)}
-        />
-      ))}
-</motion.div>
+      <AnimatePresence>
+        <motion.img src={varArray[varState][`var${varNum}`].productImages[imgState]} alt={varArray[varState][`var${varNum}`].productName} className="product-image" initial="hidden" animate="visible"
+            exit="hidden" variants={imageVariants} transition={{ duration: 0.2 }} key={varState}></motion.img>
+      </AnimatePresence>
+
+        <motion.div className="side-img-container" initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.2 }}
+          key={varState}
+        >
+          {varArray[varState][`var${varNum}`].productImages.map((v, index) => (
+            <motion.img
+              key={index}
+              src={varArray[varState][`var${varNum}`].productImages[index]}
+              alt={index}
+              className="side-img"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 * index, duration: 0.2 }}
+              onClick={() => imgStateHandler(index)}
+            />
+          ))}
+        </motion.div>
 
       </div>
 
@@ -114,17 +128,21 @@ function ProductPage({ shopID }) {
         </form>
 
         <label className="heading-secondary product-currency">Variations</label>
-        <div className="varContainer">
+        <motion.div className="varContainer" initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.2 }}>
           {varRange.map((v, index) => (
-            <img key={index} onClick={() => varStateHandler(index)} className={`varItem ${index === varState ? "active-var" : ""}`} src={imageGetter(index)}></img>
+            <motion.img key={index} onClick={() => varStateHandler(index)} className={`varItem ${index === varState ? "active-var" : ""}`} src={imageGetter(index)} alt={index} initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 * index, duration: 0.2 }}></motion.img>
           ))}
-        </div>
+        </motion.div>
 
         <div className="product-action-buttons">
-      <button className="product-action-1 heading-secondary">Delete Product</button>
-      <button className="product-action-2 heading-secondary">Edit Search Tags</button>
-      <button className="product-action-2 heading-secondary">Submit Changes</button>
-    </div>
+          <button className="product-action-1 heading-secondary">Delete Product</button>
+          <button className="product-action-2 heading-secondary">Edit Search Tags</button>
+          <button className="product-action-2 heading-secondary">Submit Changes</button>
+        </div>
       </div>
     </div>
 
