@@ -33,7 +33,7 @@ function ProductsPage({ shopID }) {
     <section className="category-container">
       {products.map((prod, index) => (
         <Fragment key={index}>
-          <CategoryProducts items={prod.value.var1} categName={queryCategoryName} id={router.query.shopid}></CategoryProducts>
+          <CategoryProducts items={prod.value.var1} categName={queryCategoryName} id={router.query.shopid} index={index}></CategoryProducts>
         </Fragment>
       ))}
     </section>

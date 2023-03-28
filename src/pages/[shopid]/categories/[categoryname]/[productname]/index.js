@@ -2,7 +2,7 @@ import { MongoClient, ObjectId } from "mongodb";
 import { useRouter } from "next/router";
 import { Fragment, useState, useRef } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
+import { motion } from "framer-motion";
 
 function ProductPage({ shopID }) {
   const router = useRouter()
