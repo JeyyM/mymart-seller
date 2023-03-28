@@ -1,7 +1,8 @@
 import Category from "../../../components/category/Category";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useRouter } from "next/router";
 import { MongoClient, ObjectId } from "mongodb";
+import AddCategory from "@/components/Modal/Add-Category";
 
 function CategoryPage({shopID}) {
   const router = useRouter();
@@ -18,15 +19,22 @@ function CategoryPage({shopID}) {
 
   // console.log(result)
 
+  const [addCateg, setAddCateg] = useState(false)
+
+  function addCategHandler(){
+    setAddCateg(!addCateg)
+  }
+
 
   return (
     <Fragment>
+    <AddCategory modalStatus={addCateg} disable={addCategHandler}></AddCategory>
       <span className="page-heading">
         <h1 className="heading-primary">Categories</h1>
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-category">&nbsp;</div>
         </div>
-        <button>Add Category</button>
+        <button onClick={addCategHandler}>Add Category</button>
       </span>
 
       <section className="category-container">

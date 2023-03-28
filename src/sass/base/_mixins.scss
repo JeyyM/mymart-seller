@@ -212,3 +212,116 @@
   // background-color: red;
   transform: translateY(0rem);
 }
+
+//////////////////////        INPUTS         ///////////////////////////////////
+
+@mixin text-input(){
+  width: 100%;
+  height: 7rem;
+  @include border-round;
+  margin-top: 3rem;
+}
+
+@mixin text-input-style(){
+  color: $text-primary-color;
+  font-size: 2.5rem;
+  font-family: 'Roboto';
+  font-weight: 900;
+  padding: 1rem;
+  box-shadow: inset 0 0 0 1rem $theme-bg;
+  transition: all 0.2s;
+}
+
+@mixin text-input-focus(){
+  filter: brightness(120%);
+  outline-color: $color-primary-dark;
+}
+
+@mixin text-input-small(){
+  width: 30%;
+    height: 5rem;
+    @include border-round;
+}
+
+@mixin text-input-small-style(){
+  color: $text-secondary-color;
+    line-height: 1;
+    margin-top: 0px;
+    font-size: 2rem;
+    font-family: "Roboto";
+    font-weight: 700;
+    padding: 1rem;
+  box-shadow: inset 0 0 0 1rem $theme-bg;
+  transition: all 0.2s;
+}
+
+@mixin text-input-small-focus(){
+  filter: brightness(120%);
+  outline-color: $color-primary-dark;
+}
+
+@mixin box-input(){
+  resize: none;
+  margin-top: 2rem;
+  box-sizing: border-box;
+  @include border-round;
+  width: 100%;
+  margin-top: 3rem;
+  color: $text-tertiary-color;
+line-height: 1;
+font-size: 2rem;
+font-family: "Roboto";
+font-weight: 500;
+padding: 1rem;
+
+box-shadow: inset 0 0 0 1rem $theme-bg;
+transition: all 0.2s;
+}
+
+@mixin box-input-focus(){
+  filter: brightness(120%);
+  outline-color: $color-primary-dark;
+}
+
+@mixin number-arrow-disable(){
+  -webkit-appearance: none !important;
+    margin: 0 !important;
+}
+
+@mixin number-input(){
+  -moz-appearance: textfield!important;
+        appearance: textfield !important;
+}
+
+@mixin number-input-style(){
+  color: $text-secondary-color;
+        line-height: 1;
+        margin-top: 0px;
+        font-size: 2rem;
+        font-family: "Roboto";
+        font-weight: 700;
+        padding: 1rem;
+      box-shadow: inset 0 0 0 1rem $theme-bg;
+      margin-right: 2rem;
+      transition: all 0.2s;
+}
+
+@mixin number-input-focus(){
+  filter: brightness(120%);
+      outline-color: $color-primary-dark;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

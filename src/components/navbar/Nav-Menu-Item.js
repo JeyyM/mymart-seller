@@ -6,8 +6,8 @@ function NavMenuItem(props) {
   const router = useRouter()
 
   return (
-    <Link href={{pathname: `/${router.query.shopid}/${props.link}`, query: { shopid: router.query.shopid },}} style={{ textDecoration: 'none' }}>
-      <button className="navmenu-item">
+    <Link href={`/${router.query.shopid}/${props.link}`} style={{ textDecoration: 'none' }}>
+      <button className="navmenu-item" onClick={props.function}>
         <div className={`menu-${props.logo}`}>&nbsp;</div>
         <h2 className="heading-secondary">{props.label}</h2>
       </button>

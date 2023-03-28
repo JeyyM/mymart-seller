@@ -22,13 +22,13 @@ const showMenuToggler = () => {
 }
 
 return <Fragment>
-<NavMenu menuStatus={menuIsOn} onClick={showMenuToggler}></NavMenu>
+<NavMenu menuStatus={menuIsOn} onClick={showMenuToggler} function={showMenuToggler}></NavMenu>
 
 <div className="navbar">
     <NavButton menuHandler={showMenuToggler} status={menuIsOn}></NavButton>
     <NavLogo></NavLogo>
     <div className="navcontainer">
-    <NavItem svg={<Category  className="menu-category"></Category>} link={"categories"} label="Categories & Products"></NavItem>
+    <NavItem svg={<Category  className="menu-category"></Category>} link={"categories"} label="Categories & Products" ></NavItem>
     <NavItem svg={<Insights  className="menu-insights"></Insights>} link={"analytics"} label="My Analytics"></NavItem>
     <NavItem svg={<Ongoing  className="menu-ongoing"></Ongoing>} link="#" label="Ongoing Sales"></NavItem>
     <NavItem svg={<Brush  className="menu-brush"></Brush>} link="#" label="Mart Design"></NavItem>

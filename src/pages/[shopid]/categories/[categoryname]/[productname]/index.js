@@ -77,7 +77,7 @@ function ProductPage({ shopID }) {
               key={index}
               src={varArray[varState][`var${varNum}`].productImages[index]}
               alt={index}
-              className="side-img"
+              className={`side-img ${index === imgState ? "active-var" : ""}`}
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 * index, duration: 0.2 }}
@@ -85,16 +85,15 @@ function ProductPage({ shopID }) {
             />
           ))}
         </motion.div>
-
       </div>
 
       <div className="details-section">
         <form>
-          <input type="text" defaultValue={varArray[varState][`var${varNum}`].productName} className="text-input" placeholder="Product Name" required id='name'></input>
+          <input type="text" defaultValue={varArray[varState][`var${varNum}`].productName} className="text-full" placeholder="Product Name" required id='name'></input>
 
           <div className="price-pair">
             <label className="heading-secondary product-currency">$</label>
-            <input type="number" defaultValue={varArray[varState][`var${varNum}`].productPrice} className="text-input-sm input-number" placeholder="Price" required id='price'></input>
+            <input type="number" defaultValue={varArray[varState][`var${varNum}`].productPrice} className="text-small input-number" placeholder="Price" required id='price'></input>
           </div>
 
           <textarea
@@ -108,8 +107,8 @@ function ProductPage({ shopID }) {
 
           <div className="price-pair-2">
             <label className="heading-secondary product-currency">Stock</label>
-            <input type="number" defaultValue={varArray[varState][`var${varNum}`].productStock.stockAmount} className="text-input-sm input-number" placeholder="Amount" required id='amount'></input>
-            <input type="text" defaultValue={varArray[varState][`var${varNum}`].productStock.stockUnit} className="text-input-sm" placeholder="Unit" required id='unit'></input>
+            <input type="number" defaultValue={varArray[varState][`var${varNum}`].productStock.stockAmount} className="text-small input-number" placeholder="Amount" required id='amount'></input>
+            <input type="text" defaultValue={varArray[varState][`var${varNum}`].productStock.stockUnit} className="text-small" placeholder="Unit" required id='unit'></input>
           </div>
 
         </form>
