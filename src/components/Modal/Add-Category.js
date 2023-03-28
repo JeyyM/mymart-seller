@@ -26,10 +26,10 @@ function AddCategory(props){
 
     return <Fragment>
     <AnimatePresence initial={false} mode={"wait"} onExitComplete={() => null}>
-    {props.modalStatus && <Backdrop onClick={props.disable} className="modals">
+    {props.modalStatus && <Backdrop onClick={props.disable} className="categ-modals">
     <motion.div
           onClick={(e) => e.stopPropagation()}   
-          className="modal  orange-gradient"
+          className="categ-modal"
           variants={appear}
           initial="hidden"
           animate="visible"

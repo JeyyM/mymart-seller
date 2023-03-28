@@ -11,7 +11,8 @@ function NavMenu(props){
           opacity: 1,
         },
         visible: {
-          x: "0",
+          x:"0px",
+          y: "0px",
           opacity: 1,
           transition: {
             duration: 0.1,
