@@ -11,15 +11,18 @@
   filter: drop-shadow(0px 0px 0px $color-primary-dark);
 }
 
-.main-img-container{
-    grid-column: 2/4;
+.main-img-container {
+  grid-column: 2/4;
 }
 
 .product-container {
   height: calc(100vh - $navbar-height - 4rem);
   display: grid;
   grid-template-columns:
-  minmax(0, 1fr) [center-start] repeat(6, [col-start] minmax(min-content, 17rem) [col-end])
+    minmax(0, 1fr) [center-start] repeat(
+      6,
+      [col-start] minmax(min-content, 17rem) [col-end]
+    )
     [center-end] minmax(0, 1fr);
   // grid-template-rows: repeat(8, min-content, 1fr);
   padding: 2rem;
@@ -33,126 +36,178 @@
 }
 
 .text-full {
-  @include text-input
+  @include text-input;
 }
 
-input[type="text"].text-full{
-  @include text-input-style
-  }
-
-  input[type="text"].text-full:focus{
-  @include text-input-focus
-  }  
-
-.price-pair {display: flex;
-    margin-top: 3rem;
-    align-items: center;
+input[type="text"].text-full {
+  @include text-input-style;
 }
 
-.price-pair-2 {display: flex;
-    margin-top: 3rem;
-    align-items: center;
-    margin-bottom: 1rem;
+input[type="text"].text-full:focus {
+  @include text-input-focus;
 }
 
-.product-currency {padding: 0 1rem}
+.invalid-form {
+  width: 100%;
+  height: 7rem;
+  margin-top: 0.8rem;
+  border: solid 5px transparent;
+  border-radius: $border-radius;
+  background-image: linear-gradient($theme-bg, $theme-bg),
+    linear-gradient(45deg, red, purple);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+input[type="text"].invalid-form {
+  @include text-input-style;
+}
+
+input[type="text"].invalid-form:focus {
+  filter: brightness(120%);
+  outline-color: red;
+}
+
+.price-pair {
+  display: flex;
+  margin-top: 3rem;
+  align-items: center;
+}
+
+.price-pair-2 {
+  display: flex;
+  margin-top: 3rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.product-currency {
+  padding: 0 1rem;
+}
 
 .text-small {
-    @include text-input-small
-  }
-  
-  input[type="text"].text-small{
-    @include text-input-small-style
-    }
+  @include text-input-small;
+}
 
-  input[type="text"].text-small:focus{
-      @include text-input-small-focus
-      }  
+input[type="text"].text-small {
+  @include text-input-small-style;
+}
+
+input[type="text"].text-small:focus {
+  @include text-input-small-focus;
+}
 
 .desc-text-area {
-  @include box-input
+  @include box-input;
 }
 
-.desc-text-area:focus{
-  @include box-input-focus
-  }  
-
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {
-    @include number-arrow-disable
-    }
-
-
-    input[type="number"] {
-        -moz-appearance: textfield!important;
-        appearance: textfield !important;
-    }
-
-    input[type="number"].input-number{
-        @include number-input-style
-        }
-
-    input[type="number"].input-number:focus{
-      @include number-input-focus
-      }  
-
-.varContainer{
-    margin-top: 1rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 5rem;
-    grid-gap: 2rem;
-    grid-auto-rows: auto;
-    grid-auto-flow: dense;
-    justify-items: center;
-    align-items: center ;
-    margin-bottom: 5rem;
+.desc-text-area:focus {
+  @include box-input-focus;
 }
 
-.varItem{
-    @include border-round;
-    object-fit: cover;
-    height: 15rem;
-    width: 20rem;
-    transition: all 0.2s;
+.invalid-form-box {
+  resize: none;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 1rem;
+  color: $text-tertiary-color;
+line-height: 1;
+font-size: 2rem;
+font-family: "Roboto";
+font-weight: 500;
+padding: 1rem;
+
+box-shadow: inset 0 0 0 1rem $theme-bg;
+transition: all 0.2s;
+
+border: solid 5px transparent;
+  border-radius: $border-radius;
+  background-image: linear-gradient($theme-bg, $theme-bg),
+    linear-gradient(45deg, red, purple);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
 }
 
-.varItem.active-var{
+.invalid-form-box:focus {
+  filter: brightness(120%);
+  outline-color: red;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  @include number-arrow-disable;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield !important;
+  appearance: textfield !important;
+}
+
+input[type="number"].input-number {
+  @include number-input-style;
+}
+
+input[type="number"].input-number:focus {
+  @include number-input-focus;
+}
+
+.varContainer {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 5rem;
+  grid-gap: 2rem;
+  grid-auto-rows: auto;
+  grid-auto-flow: dense;
+  justify-items: center;
+  align-items: center;
+  margin-bottom: 5rem;
+}
+
+.varItem {
+  @include border-round;
+  object-fit: cover;
+  height: 15rem;
+  width: 20rem;
+  transition: all 0.2s;
+}
+
+.varItem.active-var {
   filter: brightness(120%);
   box-shadow: 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
 }
 
-.side-img{
-    margin-top: 3rem;
-    height: 12rem;
-    width: 17rem;
-    object-fit: cover;
-    @include border-round;    
-    transition: all 0.2s;
+.side-img {
+  margin-top: 3rem;
+  height: 12rem;
+  width: 17rem;
+  object-fit: cover;
+  @include border-round;
+  transition: all 0.2s;
 }
 
-.side-img.active-var{
+.side-img.active-var {
   filter: brightness(120%);
   box-shadow: 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
 }
 
-.side-img-container{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: auto;
-    grid-auto-flow: dense;
-    justify-items: center;
-    align-items: center;
+.side-img-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: auto;
+  grid-auto-flow: dense;
+  justify-items: center;
+  align-items: center;
 }
 
-.product-action-buttons{
+.product-action-buttons {
   display: flex;
   align-items: center;
   justify-content: space-around;
   width: 100%;
 }
 
-.product-action-1{
+.product-action-1 {
   width: 1fr;
   height: 7rem;
   @include border-round;
@@ -164,14 +219,12 @@ input[type="text"].text-full{
   transition: all 0.2s;
 }
 
-.product-action-1:active{
+.product-action-1:active {
   filter: brightness(120%);
-  box-shadow: 
-  inset 0 0 0 10px $theme-bg, 
-  0 0 0 2px $color-primary-dark,
-  0 0 0 4px white;
+  box-shadow: inset 0 0 0 10px $theme-bg, 0 0 0 2px $color-primary-dark,
+    0 0 0 4px white;
 }
 
-.product-action-2{
-  @include button-dark
+.product-action-2 {
+  @include button-dark;
 }

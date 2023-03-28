@@ -30,10 +30,10 @@ function CategoryPage({shopID}) {
     <Fragment>
     <AddCategory modalStatus={addCateg} disable={addCategHandler}></AddCategory>
       <span className="page-heading">
-        <h1 className="heading-primary">Categories</h1>
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-category">&nbsp;</div>
         </div>
+        <h1 className="heading-primary no-margin">Categories</h1>
         <button onClick={addCategHandler}>Add Category</button>
       </span>
 

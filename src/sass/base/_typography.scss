@@ -26,3 +26,31 @@
   font-family: "Roboto";
   font-weight: 500;
 }
+
+.no-margin{
+  margin: 0;
+}
+
+.form-label{
+  color: $text-tertiary-color;
+  line-height: 1;
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 500;
+  margin: 0rem 4rem;
+  display:block;
+  transform: translateY(0.3rem);
+  transition: all 0.4s;
+}
+
+.text-full:placeholder-shown + .form-label {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-5rem);
+}
+
+.desc-text-area:placeholder-shown + .form-label {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-5rem);
+}

@@ -1,16 +1,3 @@
-// .categ-modal{
-//     background-color: red;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     flex-direction: column; /* add this line */
-//   }
-  
-//   .categ-test{
-//     height:50vh;
-//     width: 50vh;
-//   }
-  
 .categ-modals{
     display: flex;
     align-content: center;
@@ -19,24 +6,42 @@
 }
 
 .categ-modal {
-    // position: fixed;
-    // top: 50%;
-    // left: 50%;
     width: clamp(50%, 700px, 90%);
-    height: 90%;
+    height: auto;
+    min-height: 50%;
+    max-height: 80%;
     margin: auto;
     padding: 2rem;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
-    // align-items: center;
-    // transform: translate(-100%, -100%);
     @include border-round;
     box-shadow: inset 0 0 0 2rem $theme-bg,
     0 0 0 2px $color-primary-dark, 0 0 0 4px white;
     transition: all 0.2s;
+    overflow-y: scroll;
   }
 
-// .modal-item{
-    
-// }
+.add-categ-img{
+  @include border-round;
+  display: block;
+  margin: 1rem auto 0rem;
+  max-width: 40%;
+  max-height: 40%;
+}
+
+.add-categ-buttons{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  gap:3rem;
+  margin-top: 1rem;
+}
+
+.categ-button-1{
+  width: 20rem
+}
+
+.categ-button-2{
+  width: 20rem
+}

@@ -219,7 +219,7 @@
   width: 100%;
   height: 7rem;
   @include border-round;
-  margin-top: 3rem;
+  margin-top: 0.8rem;
 }
 
 @mixin text-input-style(){
@@ -262,11 +262,10 @@
 
 @mixin box-input(){
   resize: none;
-  margin-top: 2rem;
   box-sizing: border-box;
   @include border-round;
   width: 100%;
-  margin-top: 3rem;
+  // margin-top: 3rem;
   color: $text-tertiary-color;
 line-height: 1;
 font-size: 2rem;
