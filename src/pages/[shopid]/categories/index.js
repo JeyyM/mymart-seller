@@ -44,6 +44,8 @@ function CategoryPage({shopID}) {
               items={categ.value}
               id={router.query.shopid}
               key={index}
+              state={addCateg}
+              length={result.length}
             ></Category>
           );
         })}

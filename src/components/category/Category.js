@@ -1,21 +1,25 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
-// import Image from "next/image"
+import { motion } from "framer-motion";
 
-function Category(props){
+function Category(props) {
+    const MotionLink = motion(Link);
+    const { categoryName, categoryImage, categoryDescription, categoryProducts } = props.items
+    console.log(props.length)
 
-    const {categoryName, categoryImage, categoryDescription, categoryProducts} = props.items
+    return <MotionLink className="category" href={{ pathname: `/${props.id}/categories/${categoryName}`, query: { shopid: props.id }, }}
+        initial={!props.state ? { opacity: 0, x: -100 } : false}   
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.2 * props.index, duration: 0.2 }}>
 
-    return <Link className="category" href={{pathname: `/${props.id}/categories/${categoryName}`, query: { shopid: props.id },}}>
-    
         <img src={categoryImage} className="category-img"></img>
         <div className="category-content">
-        <div>
-        <h2 className="heading-secondary category-name">{categoryName}</h2>
-        <h3 className="heading-tertiary"> {categoryDescription}</h3>
+            <div>
+                <h2 className="heading-secondary category-name">{categoryName}</h2>
+                <h3 className="heading-tertiary"> {categoryDescription}</h3>
+            </div>
         </div>
-        </div>
-    </Link>
+    </MotionLink>
 }
 
 export default Category
