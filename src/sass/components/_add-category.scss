@@ -45,3 +45,26 @@
 .categ-button-2{
   width: 20rem
 }
+
+.add-categ-init{
+  @include border-round;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  width: 19rem;
+  height: 4rem;
+  margin-top: 0.4rem;
+  margin-left: 0.5rem;
+  transition: all 0.2s;
+}
+
+.add-categ-init:hover{
+  filter: brightness(120%);
+}
+
+.add-categ-init:focus{
+  box-shadow: inset 0 0 0 10px $theme-bg, 0 0 0 2px $color-primary-dark,
+    0 0 0 4px white;
+  transform: scale(0.9);
+}

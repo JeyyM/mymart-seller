@@ -54,3 +54,24 @@
     font-family: "Roboto";
     font-weight: 700;
   }
+
+.category-description{
+  margin-left: 2rem;
+  margin-top: 1rem;
+}
+
+.categ-edit-button{
+  position: absolute;
+  top: 0;
+  right:0;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  height:5.5rem;
+  width: 5.5rem;
+  @include border-round;
+  border-radius: 50%;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+  cursor: cell;
+}

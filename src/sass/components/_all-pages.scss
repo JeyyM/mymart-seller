@@ -8,6 +8,16 @@
     margin-left: 1rem;
   }
 
+  .heading-icon-plus{
+    @include heading-logo(plus, 3rem, 3rem);
+    margin-left: 1rem;
+  }
+
+  .heading-icon-edit{
+    @include heading-logo(edit, 4rem, 4rem);
+    margin-left: 1rem;
+  }
+
   .backdrop {
     position: fixed;
     display: flex;

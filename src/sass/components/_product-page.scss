@@ -54,7 +54,7 @@ input[type="text"].text-full:focus {
   border: solid 5px transparent;
   border-radius: $border-radius;
   background-image: linear-gradient($theme-bg, $theme-bg),
-    linear-gradient(45deg, red, purple);
+    linear-gradient(45deg, red, darkred);
   background-origin: border-box;
   background-clip: content-box, border-box;
 }
@@ -124,7 +124,7 @@ transition: all 0.2s;
 border: solid 5px transparent;
   border-radius: $border-radius;
   background-image: linear-gradient($theme-bg, $theme-bg),
-    linear-gradient(45deg, red, purple);
+    linear-gradient(45deg, red, darkred);
   background-origin: border-box;
   background-clip: content-box, border-box;
 }

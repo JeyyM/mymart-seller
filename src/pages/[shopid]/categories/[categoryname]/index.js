@@ -29,6 +29,9 @@ function ProductsPage({ shopID }) {
     <span className="page-heading">
       <h1 className="heading-primary">{router.query.categoryname}</h1>
     </span>
+    <h2 className="category-description heading-tertiary">{chosenCategory.categoryDescription}</h2>
+
+    {/* <h2>{contents.chosenCategory.categoryName}</h2> */}
 
     <section className="category-container">
       {products.map((prod, index) => (
