@@ -229,3 +229,7 @@ input[type="number"].input-number:focus {
 .product-action-2 {
   @include button-dark;
 }
+
+.product-action-3 {
+  @include button-dark-red;
+}

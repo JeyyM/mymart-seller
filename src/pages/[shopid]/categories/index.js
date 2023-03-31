@@ -80,8 +80,9 @@ function CategoryPage({ shopID }) {
     setIndexData(i)
     // return (i)
   }
-
+  if (categoryAmount > 0) {
   return (
+
     <Fragment>
       <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents}></AddCategory>
       <span className="page-heading">
@@ -112,6 +113,23 @@ function CategoryPage({ shopID }) {
       </section>
     </Fragment>
   );
+      } else {
+        return <Fragment>
+          <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents}></AddCategory>
+      <span className="page-heading">
+        <div className="heading-icon-dropshadow">
+          <div className="heading-icon-category">&nbsp;</div>
+        </div>
+        <h1 className="heading-primary no-margin">Categories</h1>
+        <button onClick={addCategHandler} className="heading-tertiary add-categ-init">
+          <div className="heading-icon-plus">&nbsp;</div>Add Category</button>
+      </span>
+        <div className="empty-contents">
+        <div className="empty-logo">&nbsp;</div>
+        <h2 className="empty-text">There seems to be no categories yet</h2>
+        </div>
+        </Fragment>
+      }
 }
 
 export default CategoryPage;
@@ -133,205 +151,3 @@ export async function getServerSideProps({ params }) {
     props: { shopID },
   };
 }
-
-// I tried to do what you gave
-
-// props.categIndexes is :
-// {
-//     "category1": {
-//         "categoryDescription": "Description of Category1 Description of Category1 Description of Category1",
-//         "categoryId": "id0",
-//         "categoryImage": "https://i.imgur.com/kFAFOKF.jpeg",
-//         "categoryName": "Category 1",
-//         "categoryProducts": {
-//             "Product1": {
-//                 "var1": {
-//                     "productName": "clownfish",
-//                     "productDescription": "funny fish",
-//                     "productPrice": "1",
-//                     "productStock": {
-//                         "stockAmount": "5",
-//                         "stockUnit": "funnies"
-//                     },
-//                     "productImages": [
-//                         "https://i.imgur.com/kFAFOKF.jpeg",
-//                         "https://i.imgur.com/BNQzfT1.jpeg",
-//                         "https://i.imgur.com/BNQzfT1.jpeg",
-//                         "https://i.imgur.com/t3aI5Fm.jpeg"
-//                     ]
-//                 },
-//                 "var2": {
-//                     "productName": "shark",
-//                     "productDescription": "bitey fish",
-//                     "productPrice": "2",
-//                     "productStock": {
-//                         "stockAmount": "10",
-//                         "stockUnit": "Teeth"
-//                     },
-//                     "productImages": [
-//                         "https://i.imgur.com/qlmYdJO.jpeg",
-//                         "https://i.imgur.com/m7RWh74.jpeg",
-//                         "https://i.imgur.com/Au9MIWw.jpeg"
-//                     ]
-//                 },
-//                 "var3": {
-//                     "productName": "big fish",
-//                     "productDescription": "new var fish",
-//                     "productPrice": "321",
-//                     "productStock": {
-//                         "stockAmount": "213",
-//                         "stockUnit": "balls"
-//                     },
-//                     "productImages": [
-//                         "https://i.imgur.com/HHtLcqI.jpeg",
-//                         "https://i.imgur.com/HHtLcqI.jpeg"
-//                     ]
-//                 },
-//                 "var4": {
-//                     "productName": "Blocks",
-//                     "productDescription": "blocks desc",
-//                     "productPrice": "890",
-//                     "productStock": {
-//                         "stockAmount": "890",
-//                         "stockUnit": "balls"
-//                     },
-//                     "productImages": [
-//                         "https://i.imgur.com/kFAFOKF.jpeg"
-//                     ]
-//                 }
-//             },
-//             "Product2": {
-//                 "var1": {
-//                     "productName": "Trees",
-//                     "productDescription": "trees are pog",
-//                     "productPrice": "3",
-//                     "productStock": {
-//                         "stockAmount": "15",
-//                         "stockUnit": "logs"
-//                     },
-//                     "productImages": [
-//                         "https://i.imgur.com/E0Y307M.jpeg",
-//                         "https://i.imgur.com/iGRPdHz.jpeg",
-//                         "https://i.imgur.com/XPTlTmW.jpeg"
-//                     ]
-//                 }
-//             }
-//         }
-//     },
-//     "category2": {
-//         "categoryDescription": "Description2",
-//         "categoryId": "id1",
-//         "categoryImage": "https://i.imgur.com/H2yPygc.jpeg",
-//         "categoryName": "Category 2",
-//         "categoryProducts": {
-//             "Product1": {
-//                 "var1": {
-//                     "productName": "Bush",
-//                     "productDescription": "fun plant",
-//                     "productPrice": "4",
-//                     "productStock": {
-//                         "stockAmount": "20",
-//                         "stockUnit": "berries"
-//                     },
-//                     "productImages": [
-//                         "https://i.imgur.com/H2yPygc.jpeg",
-//                         "https://i.imgur.com/u0R6uS7.jpeg"
-//                     ]
-//                 }
-//             }
-//         }
-//     },
-//     "category3": {
-//         "categoryName": "category 3",
-//         "categoryImage": "https://i.imgur.com/vKb4qnU.jpeg",
-//         "categoryDescription": "frog category",
-//         "categoryId": "id3",
-//         "categoryProducts": {
-//             "Product1": {
-//                 "var1": {
-//                     "productName": "Bruh pls",
-//                     "productDescription": "dawghfgjhfeg",
-//                     "productPrice": "123",
-//                     "productStock": {
-//                         "stockAmount": "456",
-//                         "stockUnit": "balls"
-//                     },
-//                     "productImages": [
-//                         "https://i.imgur.com/kFAFOKF.jpeg",
-//                         "https://i.imgur.com/kFAFOKF.jpeg"
-//                     ]
-//                 }
-//             },
-//             "Product2": {
-//                 "var1": {
-//                     "productName": "big ounce",
-//                     "productDescription": "praireier",
-//                     "productPrice": "123",
-//                     "productStock": {
-//                         "stockAmount": "321",
-//                         "stockUnit": "balls"
-//                     },
-//                     "productImages": [
-//                         "https://i.imgur.com/HHtLcqI.jpeg"
-//                     ]
-//                 }
-//             }
-//         }
-//     },
-//     "category4": {
-//         "categoryName": "Category 4",
-//         "categoryImage": "https://i.imgur.com/vKb4qnU.jpeg",
-//         "categoryDescription": "Ctage 4 descr",
-//         "categoryId": "id4",
-//         "categoryProducts": {
-//             "Product1": {
-//                 "var1": {
-//                     "productName": "New productz",
-//                     "productDescription": "descriptionz",
-//                     "productPrice": "123",
-//                     "productStock": {
-//                         "stockAmount": "321",
-//                         "stockUnit": "balls"
-//                     },
-//                     "productImages": [
-//                         "https://i.imgur.com/HHtLcqI.jpeg",
-//                         "https://i.imgur.com/kFAFOKF.jpeg"
-//                     ]
-//                 },
-//                 "var2": {
-//                     "productName": "Variation 2",
-//                     "productDescription": "var 2",
-//                     "productPrice": "678",
-//                     "productStock": {
-//                         "stockAmount": "78",
-//                         "stockUnit": "Bundles"
-//                     },
-//                     "productImages": [
-//                         "https://i.imgur.com/HHtLcqI.jpeg",
-//                         "https://i.imgur.com/kFAFOKF.jpeg"
-//                     ]
-//                 }
-//             }
-//         }
-//     },
-//     "category5": {
-//         "categoryName": "Newest",
-//         "categoryImage": "https://i.imgur.com/qlmYdJO.jpeg",
-//         "categoryDescription": "fuckucj",
-//         "categoryId": "id5",
-//         "categoryProducts": {}
-//     },
-//     "category6": {
-//         "categoryName": "Categoru",
-//         "categoryImage": "https://i.imgur.com/qlmYdJO.jpeg",
-//         "categoryDescription": "pls still work",
-//         "categoryId": "id6",
-//         "categoryProducts": {}
-//     }
-// }
-
-//         const categoryContents = Object.entries(props.categIndexes)
-
-//         const chosenKey = categoryContents.find(([key, value]) => {value.categoryName === incomingData.categoryName})?.map(([key, value]) => key).toString()
-
-// Yet I get undefined and not "category1" for example.

@@ -1,33 +1,62 @@
-.heading-icon-dropshadow{
-    background-clip: text;
-    filter: drop-shadow(-2px 2px 0px $text-primary-color);
+@use "../base/variables";
+
+.heading-icon-dropshadow {
+  background-clip: text;
+  filter: drop-shadow(-2px 2px 0px $text-primary-color);
 }
 
-.heading-icon-category{
-    @include heading-logo(category, 4rem, 4rem);
-    margin-left: 1rem;
-  }
+.heading-icon-category {
+  @include heading-logo(category, 4rem, 4rem);
+  margin-left: 1rem;
+}
 
-  .heading-icon-plus{
-    @include heading-logo(plus, 3rem, 3rem);
-    margin-left: 1rem;
-  }
+.heading-icon-plus {
+  @include heading-logo(plus, 3rem, 3rem);
+  margin-left: 1rem;
+}
 
-  .heading-icon-edit{
-    @include heading-logo(edit, 4rem, 4rem);
-    margin-left: 1rem;
-  }
+.heading-icon-edit {
+  @include heading-logo(edit, 4rem, 4rem);
+  margin-left: 1rem;
+}
 
-  .backdrop {
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: 20;
-    background-color: rgba($color-primary-dark, 0.7);
-    // display: none;
-  }
+.empty-logo{
+  @include empty-logo(empty, 8rem, 8rem);
+    transform: translateY(-10rem);
+}
+
+.backdrop {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 20;
+  background-color: rgba($color-primary-dark, 0.7);
+  // display: none;
+}
+
+.empty-contents {
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+
+  height: calc(100vh - $navbar-height - 5rem);
+  justify-content: center;
+  align-items: center;
+
+  color: $text-primary-color;
+  line-height: 1;
+  margin-top: 0px;
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 700;
+  // transform: translateY(-10rem);
+}
+
+.empty-text{
+    transform: translateY(-10rem);
+}

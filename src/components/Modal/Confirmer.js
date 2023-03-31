@@ -4,7 +4,7 @@ import { Fragment } from "react";
 import { useState, useEffect, useContext } from "react";
 // import DefaultValueContext from "../store/default-value-context";
 
-function AddCategory(props) {
+function Confirmer(props) {
   // const defaultIndex = useContext(DefaultValueContext)
   // console.log(defaultIndex, "within Add Categ")
 
@@ -176,27 +176,6 @@ function AddCategory(props) {
   }, props.defs)
 
 
-
-  // const [defaultName, setDefaultName] = useState(nameValue)
-
-  // console.log(defaultName, "DEFAULT name check")
-
-
-//   // console.log(props.modalStatus)
-//   useEffect(() => {
-//     console.log(props.modalStatus)
-
-//       console.log("within2", defaultName)
-//       setDefaultName(nameValue)
-//       console.log("After", defaultName)
-
-
-// }, [props.modalStatus])
-
-
-  // const [currentName, setCurrentName] = useState(nameValue)
-  // console.log(currentName, "ON STARTUP")
-
   return (
     <Fragment>
       <AnimatePresence
@@ -279,4 +258,4 @@ function AddCategory(props) {
   );
 }
 
-export default AddCategory;
+export default Confirmer;

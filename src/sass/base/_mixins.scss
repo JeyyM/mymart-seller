@@ -44,6 +44,31 @@
   }
 }
 
+@mixin button-dark-red {
+  width: 1fr;
+  height: 7rem;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  color: $theme-bg;
+
+  border: solid 0px transparent;
+  padding: 1rem;
+
+  border-radius: $border-radius;
+  background-image: linear-gradient(
+    90deg,
+    red,
+    darkred
+  );
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:active {
+    filter: brightness(120%);
+    box-shadow: 0 0 0 2px white, 0 0 0 4px red;
+  }
+}
+
 @mixin button-light {
   width: 1fr;
   height: 7rem;
@@ -74,6 +99,23 @@
     to right,
     $color-primary-dark,
     $color-primary-light
+  );
+  transform: translateY(0.3rem);
+  height: $top;
+  fill: transparent;
+  width: 110%;
+}
+
+@mixin navlogo-solid($svg, $top, $size) {
+  mask-size: $size;
+  mask-position: center;
+  mask-image: url("../../components/svgs/" + $svg + ".svg");
+  mask-repeat: no-repeat;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(
+    to right,
+    $text-primary-color,
+    $text-primary-color
   );
   transform: translateY(0.3rem);
   height: $top;
@@ -212,6 +254,16 @@
   // background-color: red;
   transform: translateY(0rem);
 }
+
+@mixin empty-logo($icon, $size1, $size2) {
+  @include navlogo-solid($icon, $size1, $size2);
+  height: $size1;
+  width: $size2;
+  // background-color: red;
+  transform: translateY(0rem);
+}
+
+
 
 //////////////////////        INPUTS         ///////////////////////////////////
 
