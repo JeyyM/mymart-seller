@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { MongoClient, ObjectId } from "mongodb";
 import AddCategory from "@/components/Modal/Add-Category";
 
+
 function CategoryPage({ shopID }) {
   const router = useRouter();
 
@@ -17,7 +18,7 @@ function CategoryPage({ shopID }) {
     };
   });
 
-  console.log(contents, "mofjdfjnfgjk")
+  // console.log(contents, "mofjdfjnfgjk")
   const categoryAmount = Object.keys(shopID.shopData.shopCategories).length
 
   const [addCateg, setAddCateg] = useState(false)
@@ -28,7 +29,6 @@ function CategoryPage({ shopID }) {
     event.preventDefault()
     event.stopPropagation()
     setAddCateg(!addCateg)
-    console.log(1)
   }
 
   function editCategHandler(data) {
@@ -63,7 +63,7 @@ function CategoryPage({ shopID }) {
     const test = "category4"
 
     const response = await fetch(
-      `../../api/new-category?martid=${router.query.shopid}&categoryname=${test}`,
+      `../../api/new-category?martid=${router.query.shopid}&categoryname=${key}`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -73,6 +73,13 @@ function CategoryPage({ shopID }) {
     const data = await response.json();
   }
 
+  const [indexData, setIndexData] = useState(0)
+
+  function passDef(i){
+    console.log(i)
+    setIndexData(i)
+    // return (i)
+  }
 
   return (
     <Fragment>
@@ -90,6 +97,7 @@ function CategoryPage({ shopID }) {
         {result.map((categ, index) => {
           return (
             <Category
+              setDef={passDef}
               items={categ.value}
               id={router.query.shopid}
               key={index}
@@ -97,6 +105,7 @@ function CategoryPage({ shopID }) {
               length={result.length}
               edit={addCategHandler}
               edit2={editCategHandler}
+              categIndex = {index}
             ></Category>
           );
         })}

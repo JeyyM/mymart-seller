@@ -1,9 +1,18 @@
 import Backdrop from "./Backdrop";
 import { motion, AnimatePresence, color } from "framer-motion";
 import { Fragment } from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+// import DefaultValueContext from "../store/default-value-context";
 
 function AddCategory(props) {
+  // const defaultIndex = useContext(DefaultValueContext)
+  // console.log(defaultIndex, "within Add Categ")
+
+  // console.log(props.defs, "these are the defs")
+
+  const setDefaultName = props.defs[0]
+  console.log(setDefaultName, "This is at the start")
+
   const appear = {
     hidden: {
       transform: "scale(0)",
@@ -87,15 +96,15 @@ function AddCategory(props) {
       if (setting === "Edit Category") {
         emptyContents()
 
-        console.log("within validation - ", defaultName )
+        // console.log("within validation - ", defaultName )
 
-        console.log("within setting ===", defaultName)
+        // console.log("within setting ===", defaultName)
         
         const categoryContents = Object.entries(props.categIndexes)
 
         const chosenKeyFind = categoryContents.find(([key, value]) => {
           console.log(value.categoryName, "within chosenkeyfind")
-          return value.categoryName === defaultName
+          return value.categoryName === setDefaultName
         })
 
         console.log(incomingData.categoryName)
@@ -106,7 +115,7 @@ function AddCategory(props) {
         const chosenKey = chosenKeyFind[0]
         
         console.log("KEY HAS BEEN CHOSEN", chosenKey)
-        console.log("default is", defaultName)
+        console.log("default is", setDefaultName)
 
         props.edit(incomingData, chosenKey)
         // props.edit(incomingData)
@@ -169,40 +178,21 @@ function AddCategory(props) {
 
   const [count, setCount] = useState(0)
 
-  const [defaultName, setDefaultName] = useState(nameValue)
-  // console.log(defaultName, "initial fire")
+  // const [defaultName, setDefaultName] = useState(nameValue)
 
-  // console.log(nameValue, "First time name check")
-  console.log(defaultName, "DEFAULT name check")
-
-function newTest(c){
-  console.log("newtest", c)
-  setDefaultName(nameValue)
-  console.log("pls work", nameValue)
-  setCount(count + 1)
-  console.log(count)
-  console.log(defaultName)
-}
-
-  // console.log(props.modalStatus)
-  useEffect(() => {
-    console.log(props.modalStatus)
-
-    // if (props.modalStatus){
-      // console.log("within", nameValue)
-      console.log("within2", defaultName)
-      setDefaultName(nameValue)
-      console.log("After", defaultName)
-      newTest(defaultName)
+  // console.log(defaultName, "DEFAULT name check")
 
 
-    // }
+//   // console.log(props.modalStatus)
+//   useEffect(() => {
+//     console.log(props.modalStatus)
 
-    // setDefaultName(nameValue)
-    // setDefaultName(nameValue)
-    console.log(defaultName, "checking in DEF")
+//       console.log("within2", defaultName)
+//       setDefaultName(nameValue)
+//       console.log("After", defaultName)
 
-}, [props.modalStatus, defaultName])
+
+// }, [props.modalStatus])
 
 
   // const [currentName, setCurrentName] = useState(nameValue)
