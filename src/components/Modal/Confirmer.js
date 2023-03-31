@@ -1,14 +1,9 @@
 import Backdrop from "./Backdrop";
-import { motion, AnimatePresence, color } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Fragment } from "react";
-import { useState, useEffect, useContext } from "react";
-// import DefaultValueContext from "../store/default-value-context";
+import { useState, useEffect } from "react";
 
 function Confirmer(props) {
-  // const defaultIndex = useContext(DefaultValueContext)
-  // console.log(defaultIndex, "within Add Categ")
-
-  // console.log(props.defs, "these are the defs")
 
   const setDefaultName = props.defs[0]
   console.log(setDefaultName, "This is at the start")

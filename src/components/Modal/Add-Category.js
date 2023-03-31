@@ -176,6 +176,7 @@ function AddCategory(props) {
   }, props.defs)
 
 
+  const [count, setCount] = useState(0)
 
   // const [defaultName, setDefaultName] = useState(nameValue)
 
