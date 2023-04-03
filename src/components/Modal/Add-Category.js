@@ -1,5 +1,5 @@
 import Backdrop from "./Backdrop";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence} from "framer-motion";
 import { Fragment } from "react";
 import { useState, useEffect, useContext } from "react";
 // import DefaultValueContext from "../store/default-value-context";
@@ -90,7 +90,7 @@ function AddCategory2(props) {
 
       if (setting === "Edit Category") {
         emptyContents()
-
+        
         const categoryContents = Object.entries(props.categIndexes)
 
         const chosenKeyFind = categoryContents.find(([key, value]) => {
@@ -166,7 +166,7 @@ function AddCategory2(props) {
       >
         {props.modalStatus && (
           <Backdrop onClick={emptyContents} className="categ-modals">
-            {delCateg && (<Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} delete={delCategHandler} chosenItem={props.defs[0]}></Confirmer>)}
+          {delCateg && <Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} delete={delCategHandler} chosenItem={props.defs[0]}></Confirmer>}
             <motion.div
               onClick={(e) => e.stopPropagation()}
               className="categ-modal"

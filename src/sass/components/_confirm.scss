@@ -42,3 +42,22 @@
     //   transform: translateY(-10rem);
   }
   
+  
+.element-exit {
+  transform: scale(1);
+  opacity: 1;
+  animation-name: exit;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes exit {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}

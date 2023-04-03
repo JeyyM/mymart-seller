@@ -25,6 +25,7 @@ function Confirmer(props) {
       },
     },
   };
+  
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -59,15 +60,18 @@ function Confirmer(props) {
   return (
     <Fragment>
       <AnimatePresence
-        initial={false}
+        initial={true}
         mode={"wait"}
         onExitComplete={() => null}
+        key={props.chosenItem}
       >
         {props.modalStatus && (
           <Backdrop onClick={props.disable} className="categ-modals">
             <motion.div
+            key={props.chosenItem}
               onClick={(e) => e.stopPropagation()}
-              className="confirm-modal"
+              className={`confirm-modal ${!props.modalStatus && "element-exit" }`}
+              // className={`confirm-modal element-exit`}
               variants={appear}
               initial="hidden"
               animate="visible"
