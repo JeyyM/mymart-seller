@@ -26,6 +26,7 @@ function CategoryPage({ shopID }) {
   console.log("defaults", defaultValues)
 
   function addCategHandler(event) {
+    console.log("add categ handler", event)
     event.preventDefault()
     event.stopPropagation()
     setAddCateg(!addCateg)

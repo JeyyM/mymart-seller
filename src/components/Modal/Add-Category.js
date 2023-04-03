@@ -61,6 +61,7 @@ function AddCategory2(props) {
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = (event) => {
+    console.log("handle submit event", event)
     event.preventDefault();
 
     const nameValid = nameValue !== ""
@@ -122,6 +123,7 @@ function AddCategory2(props) {
     }`;
 
   function emptyContents() {
+    console.log("empy contents event", event)
     props.disable(event)
     setNameValue("")
     setImgValue("")
