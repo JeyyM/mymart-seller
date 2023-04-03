@@ -70,35 +70,35 @@ function CategoryPage({ shopID }) {
     const data = await response.json();
   }
 
-  const [delCateg, setDelCateg] = useState(false)
+  // const [delCateg, setDelCateg] = useState(false)
 
-  function delCategHandler(event) {
-    event.preventDefault()
-    event.stopPropagation()
-    setDelCateg(!delCateg)
+  // function delCategHandler(event) {
+  //   event.preventDefault()
+  //   event.stopPropagation()
+  //   setDelCateg(!delCateg)
 
-    // async function deleteForm(formdata, key) {
+  //   // async function deleteForm(formdata, key) {
 
-    //   const chosenCateg = formdata.categoryName
+  //   //   const chosenCateg = formdata.categoryName
   
-    //   const response = await fetch(
-    //     `../../api/new-category?martid=${router.query.shopid}&categoryname=${key}`,
-    //     {
-    //       method: "DELETE",
-    //       headers: { "Content-Type": "application/json" },
-    //       body: JSON.stringify(formdata)
-    //     }
-    //   );
-    //   const data = await response.json();
-    // }
-  }
+  //   //   const response = await fetch(
+  //   //     `../../api/new-category?martid=${router.query.shopid}&categoryname=${key}`,
+  //   //     {
+  //   //       method: "DELETE",
+  //   //       headers: { "Content-Type": "application/json" },
+  //   //       body: JSON.stringify(formdata)
+  //   //     }
+  //   //   );
+  //   //   const data = await response.json();
+  //   // }
+  // }
 
   if (categoryAmount > 0) {
   return (
 
     <Fragment>
-      <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} delete={delCategHandler}></AddCategory>
-      <Confirmer modalStatus={delCateg} disable={delCategHandler} close={addCategHandler} finish={completeForm} edit={editForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} delete={delCategHandler}></Confirmer>
+      <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents}></AddCategory>
+      {/* <Confirmer modalStatus={delCateg} disable={delCategHandler} close={addCategHandler} finish={completeForm} edit={editForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} delete={delCategHandler}></Confirmer> */}
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-category">&nbsp;</div>
@@ -129,7 +129,6 @@ function CategoryPage({ shopID }) {
   );
       } else {
         return <Fragment>
-        <Confirmer modalStatus={delCateg} disable={delCategHandler} close={addCategHandler} finish={completeForm} edit={editForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} delete={delCategHandler}></Confirmer>
           <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents}></AddCategory>
       <span className="page-heading">
         <div className="heading-icon-dropshadow">

@@ -1,8 +1,9 @@
 import Backdrop from "./Backdrop";
-import { motion, AnimatePresence} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Fragment } from "react";
 import { useState, useEffect, useContext } from "react";
 // import DefaultValueContext from "../store/default-value-context";
+import Confirmer from "./Confirmer";
 
 function AddCategory2(props) {
   const setDefaultName = props.defs[0]
@@ -89,7 +90,7 @@ function AddCategory2(props) {
 
       if (setting === "Edit Category") {
         emptyContents()
-        
+
         const categoryContents = Object.entries(props.categIndexes)
 
         const chosenKeyFind = categoryContents.find(([key, value]) => {
@@ -148,7 +149,13 @@ function AddCategory2(props) {
   }, props.defs)
 
 
-  const [count, setCount] = useState(0)
+  const [delCateg, setDelCateg] = useState(false)
+
+  function delCategHandler(event) {
+    event.preventDefault()
+    event.stopPropagation()
+    setDelCateg(!delCateg)
+  }
 
   return (
     <Fragment>
@@ -159,6 +166,7 @@ function AddCategory2(props) {
       >
         {props.modalStatus && (
           <Backdrop onClick={emptyContents} className="categ-modals">
+            {delCateg && (<Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} delete={delCategHandler} chosenItem={props.defs[0]}></Confirmer>)}
             <motion.div
               onClick={(e) => e.stopPropagation()}
               className="categ-modal"
@@ -219,7 +227,7 @@ function AddCategory2(props) {
                   {formInputValidity.desc ? <label className="form-label">Description</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid description</label>}
                 </div>
                 <div className="add-categ-buttons">
-                  {setting === "Edit Category" && <button className="product-action-3 heading-secondary categ-button-2" type="button" onClick={props.delete}>Delete</button>}
+                  {setting === "Edit Category" && <button className="product-action-3 heading-secondary categ-button-2" type="button" onClick={delCategHandler}>Delete</button>}
                   <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={emptyContents}>Cancel</button>
                   <button className="product-action-2 heading-secondary categ-button-2" type="submit">Submit</button>
                 </div>
