@@ -63,7 +63,6 @@ function Confirmer(props) {
         initial={true}
         mode={"wait"}
         onExitComplete={() => null}
-        key={props.chosenItem}
       >
         {props.modalStatus && (
           <Backdrop onClick={props.disable} className="categ-modals">
@@ -85,7 +84,7 @@ function Confirmer(props) {
               </div>
               <div className="add-categ-buttons">
                 <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={props.disable}>Cancel</button>
-                <button className="product-action-3 heading-secondary categ-button-2" type="button" onClick={(event) => { props.disable(event); props.disable(event); handleSubmit }}>Confirm</button>
+                <button className="product-action-3 heading-secondary categ-button-2" type="button" onClick={(event) => { props.disable(event); handleSubmit }}>Confirm</button>
               </div>
             </motion.div>
           </Backdrop>

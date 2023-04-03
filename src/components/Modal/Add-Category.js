@@ -58,6 +58,8 @@ function AddCategory2(props) {
     return word.slice(0, 20) === "https://i.imgur.com/";
   }
 
+  const [loading, setLoading] = useState(false)
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -82,10 +84,13 @@ function AddCategory2(props) {
     }
 
     if (submissionValid) {
+      setLoading(true)
 
       if (setting === "Add Category") {
         emptyContents()
         props.finish(incomingData)
+
+        setLoading(false)
       }
 
       if (setting === "Edit Category") {
@@ -100,7 +105,8 @@ function AddCategory2(props) {
         const chosenKey = chosenKeyFind[0]
 
         props.edit(incomingData, chosenKey)
-        // props.edit(incomingData)
+
+        setLoading(false)
       }
     }
 
@@ -229,7 +235,7 @@ function AddCategory2(props) {
                 <div className="add-categ-buttons">
                   {setting === "Edit Category" && <button className="product-action-3 heading-secondary categ-button-2" type="button" onClick={delCategHandler}>Delete</button>}
                   <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={emptyContents}>Cancel</button>
-                  <button className="product-action-2 heading-secondary categ-button-2" type="submit">Submit</button>
+                  <button className="product-action-2 heading-secondary categ-button-2" type="submit"> {loading ? "Loading" : "not loading"}</button>
                 </div>
               </form>
             </motion.div>
