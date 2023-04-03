@@ -20,6 +20,7 @@
     0 0 0 2px $color-primary-dark, 0 0 0 4px white;
     transition: all 0.2s;
     overflow-y: scroll;
+    z-index: -1;
   }
 
 .add-categ-img{

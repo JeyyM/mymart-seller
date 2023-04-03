@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { MongoClient, ObjectId } from "mongodb";
 import AddCategory from "@/components/Modal/Add-Category";
 
+import Confirmer from "@/components/Modal/Confirmer";
 
 function CategoryPage({ shopID }) {
   const router = useRouter();
@@ -18,7 +19,6 @@ function CategoryPage({ shopID }) {
     };
   });
 
-  // console.log(contents, "mofjdfjnfgjk")
   const categoryAmount = Object.keys(shopID.shopData.shopCategories).length
 
   const [addCateg, setAddCateg] = useState(false)
@@ -56,9 +56,6 @@ function CategoryPage({ shopID }) {
   async function editForm(formdata, key) {
 
     const chosenCateg = formdata.categoryName
-    // console.log(key)
-    // console.log(typeof(key))
-    // console.log("BAZINGA")
 
     const test = "category4"
 
@@ -73,18 +70,35 @@ function CategoryPage({ shopID }) {
     const data = await response.json();
   }
 
-  const [indexData, setIndexData] = useState(0)
+  const [delCateg, setDelCateg] = useState(false)
 
-  function passDef(i){
-    console.log(i)
-    setIndexData(i)
-    // return (i)
+  function delCategHandler(event) {
+    event.preventDefault()
+    event.stopPropagation()
+    setDelCateg(!delCateg)
+
+    // async function deleteForm(formdata, key) {
+
+    //   const chosenCateg = formdata.categoryName
+  
+    //   const response = await fetch(
+    //     `../../api/new-category?martid=${router.query.shopid}&categoryname=${key}`,
+    //     {
+    //       method: "DELETE",
+    //       headers: { "Content-Type": "application/json" },
+    //       body: JSON.stringify(formdata)
+    //     }
+    //   );
+    //   const data = await response.json();
+    // }
   }
+
   if (categoryAmount > 0) {
   return (
 
     <Fragment>
-      <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents}></AddCategory>
+      <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} delete={delCategHandler}></AddCategory>
+      <Confirmer modalStatus={delCateg} disable={delCategHandler} close={addCategHandler} finish={completeForm} edit={editForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} delete={delCategHandler}></Confirmer>
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-category">&nbsp;</div>
@@ -98,7 +112,7 @@ function CategoryPage({ shopID }) {
         {result.map((categ, index) => {
           return (
             <Category
-              setDef={passDef}
+
               items={categ.value}
               id={router.query.shopid}
               key={index}
@@ -115,6 +129,7 @@ function CategoryPage({ shopID }) {
   );
       } else {
         return <Fragment>
+        <Confirmer modalStatus={delCateg} disable={delCategHandler} close={addCategHandler} finish={completeForm} edit={editForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} delete={delCategHandler}></Confirmer>
           <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents}></AddCategory>
       <span className="page-heading">
         <div className="heading-icon-dropshadow">

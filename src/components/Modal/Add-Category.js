@@ -1,17 +1,11 @@
 import Backdrop from "./Backdrop";
-import { motion, AnimatePresence, color } from "framer-motion";
+import { motion, AnimatePresence} from "framer-motion";
 import { Fragment } from "react";
 import { useState, useEffect, useContext } from "react";
 // import DefaultValueContext from "../store/default-value-context";
 
-function AddCategory(props) {
-  // const defaultIndex = useContext(DefaultValueContext)
-  // console.log(defaultIndex, "within Add Categ")
-
-  // console.log(props.defs, "these are the defs")
-
+function AddCategory2(props) {
   const setDefaultName = props.defs[0]
-  console.log(setDefaultName, "This is at the start")
 
   const appear = {
     hidden: {
@@ -95,40 +89,18 @@ function AddCategory(props) {
 
       if (setting === "Edit Category") {
         emptyContents()
-
-        // console.log("within validation - ", defaultName )
-
-        // console.log("within setting ===", defaultName)
         
         const categoryContents = Object.entries(props.categIndexes)
 
         const chosenKeyFind = categoryContents.find(([key, value]) => {
-          console.log(value.categoryName, "within chosenkeyfind")
           return value.categoryName === setDefaultName
         })
 
-        console.log(incomingData.categoryName)
-        console.log("INCOMING")
-
-        console.log(chosenKeyFind, "Alpha")
-
         const chosenKey = chosenKeyFind[0]
-        
-        console.log("KEY HAS BEEN CHOSEN", chosenKey)
-        console.log("default is", setDefaultName)
 
         props.edit(incomingData, chosenKey)
         // props.edit(incomingData)
       }
-
-      // if (setting === "Edit Category") {
-      //   emptyContents()
-      //   const resultingCategory = Object.entries(props.categIndexes).find(([key, value]) => {
-      //     return value.categoryName === incomingData.categoryName
-      //   })
-      //   console.log(resultingCategory, "Iam here")
-      //   props.edit(incomingData)
-      // }
     }
 
   };
@@ -177,26 +149,6 @@ function AddCategory(props) {
 
 
   const [count, setCount] = useState(0)
-
-  // const [defaultName, setDefaultName] = useState(nameValue)
-
-  // console.log(defaultName, "DEFAULT name check")
-
-
-//   // console.log(props.modalStatus)
-//   useEffect(() => {
-//     console.log(props.modalStatus)
-
-//       console.log("within2", defaultName)
-//       setDefaultName(nameValue)
-//       console.log("After", defaultName)
-
-
-// }, [props.modalStatus])
-
-
-  // const [currentName, setCurrentName] = useState(nameValue)
-  // console.log(currentName, "ON STARTUP")
 
   return (
     <Fragment>
@@ -267,7 +219,7 @@ function AddCategory(props) {
                   {formInputValidity.desc ? <label className="form-label">Description</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid description</label>}
                 </div>
                 <div className="add-categ-buttons">
-                  <button className="product-action-3 heading-secondary categ-button-2" type="button" onClick={emptyContents}>Delete</button>
+                  {setting === "Edit Category" && <button className="product-action-3 heading-secondary categ-button-2" type="button" onClick={props.delete}>Delete</button>}
                   <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={emptyContents}>Cancel</button>
                   <button className="product-action-2 heading-secondary categ-button-2" type="submit">Submit</button>
                 </div>
@@ -280,4 +232,4 @@ function AddCategory(props) {
   );
 }
 
-export default AddCategory;
+export default AddCategory2;

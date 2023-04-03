@@ -46,20 +46,6 @@ const result = await db.collection("shops").updateOne(
 if (req.method === "PATCH"){
     const data = req.body;
     const categoryName = req.query.categoryname;
-
-    console.log(categoryName)
-    console.log(typeof(categoryName))
-
-    console.log("LOOK HERE")
-
-    console.log(data)
-    console.log("-----")
-    console.log(categoryName)
-    console.log("-----")
-    console.log(req.query.martid)
-    console.log("-----")
-    console.log(req.query)
-    console.log("-----")
     
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
@@ -80,9 +66,37 @@ if (req.method === "PATCH"){
         }
       }
     );
+    
+    client.close();
+    
+    res.status(200).json({ message: "Category updated" });
+  }
 
-    console.log(result)
-    console.log("-----")
+  if (req.method === "DELETE"){
+
+    console.log("in delete")
+    // const data = req.body;
+    // const categoryName = req.query.categoryname;
+    
+    // const client = await MongoClient.connect(process.env.MONGODB_URI, {
+    //   useNewUrlParser: true,
+    //   useUnifiedTopology: true,
+    // });
+    // const db = client.db();
+    // const martId = new ObjectId(req.query.martid);
+
+    // console.log(martId)
+    // console.log("-----")
+    
+    // const result = await db.collection("shops").updateOne(
+    //   { _id: martId },
+    //   { $set: {
+    //       [`shopData.shopCategories.${categoryName}.categoryDescription`]: data.categoryDescription,
+    //       [`shopData.shopCategories.${categoryName}.categoryImage`]: data.categoryImage,
+    //       [`shopData.shopCategories.${categoryName}.categoryName`]: data.categoryName
+    //     }
+    //   }
+    // );
     
     client.close();
     
