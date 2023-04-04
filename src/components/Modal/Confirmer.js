@@ -26,36 +26,37 @@ function Confirmer(props) {
     },
   };
   
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("oh fuck")
-
-    // if (setting === "Edit Category") {
-    //   emptyContents()
-
-    //   const categoryContents = Object.entries(props.categIndexes)
-
-    //   const chosenKeyFind = categoryContents.find(([key, value]) => {
-    //     console.log(value.categoryName, "within chosenkeyfind")
-    //     return value.categoryName === setDefaultName
-    //   })
-
-    //   console.log(incomingData.categoryName)
-    //   console.log("INCOMING")
-
-    //   console.log(chosenKeyFind, "Alpha")
-
-    //   const chosenKey = chosenKeyFind[0]
-
-    //   console.log("KEY HAS BEEN CHOSEN", chosenKey)
-    //   console.log("default is", setDefaultName)
-
-    //   props.edit(incomingData, chosenKey)
-    // }
+  const checkmark = (
+    <svg viewBox="0 0 100 100" width="7rem" height="7rem">
+  <path id="checkmark" d="M25,50 L40,65 L75,30" stroke="#FFFFFF" strokeWidth="8" fill="none"
+        strokeDasharray="200" strokeDashoffset="200">
+    <animate attributeName="stroke-dashoffset" from="200" to="0" dur="0.5s" begin="indefinite"/>
+  </path>
+</svg>
+  )
+  
+  function waitSeconds() {
+    return new Promise(resolve => setTimeout(resolve, 2500));
   }
 
-  console.log(props.chosenItem)
+  const handleClick = async (event) => {
+    await handleSubmit(event);
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setLoading(true)
+
+    props.finish(props.default)
+
+    await waitSeconds();
+
+    setLoading(false)
+    setCompletion(true)
+  }
+
+  const [loading, setLoading] = useState(false)
+  const [completion, setCompletion] = useState(false)
 
   return (
     <Fragment>
@@ -84,7 +85,7 @@ function Confirmer(props) {
               </div>
               <div className="add-categ-buttons">
                 <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={props.disable}>Cancel</button>
-                <button className="product-action-3 heading-secondary categ-button-2" type="button" onClick={(event) => { props.disable(event); handleSubmit }}>Confirm</button>
+                <button className="product-action-3 heading-secondary categ-button-2" type="button" onClick={handleClick}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Confirm")}</button>
               </div>
             </motion.div>
           </Backdrop>

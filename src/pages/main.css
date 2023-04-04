@@ -1703,6 +1703,40 @@ body {
   transform: translateY(-10rem);
 }
 
+.spinner {
+  margin: auto auto;
+  width: 4rem;
+  height: 4rem;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border-top: 6px solid white;
+  border-bottom: 6px solid rgba(255, 255, 255, 0.4);
+  border-left: 6px solid rgba(255, 255, 255, 0.8);
+  border-right: 6px solid transparent;
+  animation: 1s infinite linear rotation;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+#checkmark {
+  animation: draw-checkmark 0.5s ease-in-out forwards;
+  transform: translateY(-1.5rem);
+}
+
+@keyframes draw-checkmark {
+  from {
+    stroke-dashoffset: 200;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
 .product-image {
   border: solid 5px transparent;
   border-radius: 15px;
@@ -2174,4 +2208,23 @@ input[type=number].input-number:focus {
   height: 10rem;
   width: 10rem;
   margin: 2rem;
+}
+
+.element-exit {
+  transform: scale(1);
+  opacity: 1;
+  animation-name: exit;
+  animation-duration: 0.2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes exit {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
 }/*# sourceMappingURL=main.css.map */

@@ -23,10 +23,10 @@ function CategoryPage({ shopID }) {
 
   const [addCateg, setAddCateg] = useState(false)
   const [defaultValues, setDefaultValues] = useState(["", "", ""])
-  console.log("defaults", defaultValues)
+  // console.log("defaults", defaultValues)
 
   function addCategHandler(event) {
-    console.log("add categ handler", event)
+    // console.log("add categ handler", event)
     event.preventDefault()
     event.stopPropagation()
     setAddCateg(!addCateg)
@@ -34,7 +34,7 @@ function CategoryPage({ shopID }) {
 
   function editCategHandler(data) {
     setDefaultValues([data[0], data[1], data[2]])
-    console.log(defaultValues)
+    // console.log(defaultValues)
   }
 
   function defClearer(){
@@ -71,6 +71,22 @@ function CategoryPage({ shopID }) {
     const data = await response.json();
   }
 
+  async function deleteForm(key) {
+
+    console.log("in delete form", key)
+    console.log("just making sure")
+
+    const response = await fetch(
+      `../../api/new-category?martid=${router.query.shopid}&categoryname=${key}`,
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        // body: JSON.stringify(formdata)
+      }
+    );
+    const data = await response.json();
+  }
+
   // const [delCateg, setDelCateg] = useState(false)
 
   // function delCategHandler(event) {
@@ -98,8 +114,7 @@ function CategoryPage({ shopID }) {
   return (
 
     <Fragment>
-      <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents}></AddCategory>
-      {/* <Confirmer modalStatus={delCateg} disable={delCategHandler} close={addCategHandler} finish={completeForm} edit={editForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} delete={delCategHandler}></Confirmer> */}
+      <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents}></AddCategory>
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-category">&nbsp;</div>
@@ -126,11 +141,12 @@ function CategoryPage({ shopID }) {
           );
         })}
       </section>
+
     </Fragment>
   );
       } else {
         return <Fragment>
-          <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents}></AddCategory>
+          <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents}></AddCategory>
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-category">&nbsp;</div>
