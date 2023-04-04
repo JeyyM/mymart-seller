@@ -84,36 +84,35 @@ if (req.method === "PATCH"){
       { $unset: { [`shopData.shopCategories.${categoryName}`]: "" } }
     );
   
-    const shops = await db.collection("shops").find().toArray();
+    // Get updated document after deletion
+    const updatedShop = await db.collection("shops").findOne({ _id: martId });
   
-    for (let shop of shops) {
-      const categories = shop.shopData.shopCategories;
-      const categoryKeys = Object.keys(categories);
+    // Renumber categories
+    const categories = updatedShop.shopData.shopCategories;
+    const categoryKeys = Object.keys(categories);
+    const sortedCategoryKeys = categoryKeys.sort((a, b) => {
+      const aIndex = parseInt(a.replace("category", ""));
+      const bIndex = parseInt(b.replace("category", ""));
+      return aIndex - bIndex;
+    });
   
-      const sortedCategoryKeys = categoryKeys.sort((a, b) => {
-        const aIndex = parseInt(a.replace("category", ""));
-        const bIndex = parseInt(b.replace("category", ""));
-        return aIndex - bIndex;
-      });
-  
-      for (let [index, key] of sortedCategoryKeys.entries()) {
-        if (key !== `category${index + 1}`) {
-          const newKey = `category${index + 1}`;
-          const update = { $rename: { [`shopData.shopCategories.${key}`]: [`shopData.shopCategories.${newKey}`] } };
-          await db.collection("shops").updateOne({ _id: shop._id }, update);
-        }
-      }
+    const newCategories = {};
+    for (let i = 0; i < sortedCategoryKeys.length; i++) {
+      const key = sortedCategoryKeys[i];
+      const index = i;
+      const newKey = `category${index}`;
+      newCategories[newKey] = categories[key];
     }
   
-    client.close();
+    const updateResult = await db.collection("shops").updateOne(
+      { _id: martId },
+      { $set: { "shopData.shopCategories": newCategories } }
+    );
   
-    res.status(200).json({ message: "Category deleted" });
+    client.close();
   }
   
-      
-  client.close();
-    
-  res.status(200).json({ message: "Category deleted" });
+  
 }
 
 export default handler
