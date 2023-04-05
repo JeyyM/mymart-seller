@@ -19,6 +19,9 @@ function CategoryPage({ shopID }) {
     };
   });
 
+  const categNamesList = Object.keys(contents).map(key => (contents[key].categoryName))
+  console.log("categNamesList" , categNamesList)
+
   const categoryAmount = Object.keys(shopID.shopData.shopCategories).length
 
   const [addCateg, setAddCateg] = useState(false)
@@ -26,7 +29,6 @@ function CategoryPage({ shopID }) {
   // console.log("defaults", defaultValues)
 
   function addCategHandler(event) {
-    // console.log("add categ handler", event)
     event.preventDefault()
     event.stopPropagation()
     setAddCateg(!addCateg)
@@ -34,7 +36,6 @@ function CategoryPage({ shopID }) {
 
   function editCategHandler(data) {
     setDefaultValues([data[0], data[1], data[2]])
-    // console.log(defaultValues)
   }
 
   function defClearer(){
@@ -87,34 +88,11 @@ function CategoryPage({ shopID }) {
     const data = await response.json();
   }
 
-  // const [delCateg, setDelCateg] = useState(false)
-
-  // function delCategHandler(event) {
-  //   event.preventDefault()
-  //   event.stopPropagation()
-  //   setDelCateg(!delCateg)
-
-  //   // async function deleteForm(formdata, key) {
-
-  //   //   const chosenCateg = formdata.categoryName
-  
-  //   //   const response = await fetch(
-  //   //     `../../api/new-category?martid=${router.query.shopid}&categoryname=${key}`,
-  //   //     {
-  //   //       method: "DELETE",
-  //   //       headers: { "Content-Type": "application/json" },
-  //   //       body: JSON.stringify(formdata)
-  //   //     }
-  //   //   );
-  //   //   const data = await response.json();
-  //   // }
-  // }
-
   if (categoryAmount > 0) {
   return (
 
     <Fragment>
-      <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents}></AddCategory>
+      <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={categNamesList}></AddCategory>
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-category">&nbsp;</div>
@@ -146,7 +124,7 @@ function CategoryPage({ shopID }) {
   );
       } else {
         return <Fragment>
-          <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents}></AddCategory>
+          <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={categNamesList}></AddCategory>
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-category">&nbsp;</div>

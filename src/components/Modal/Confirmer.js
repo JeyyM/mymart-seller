@@ -2,8 +2,10 @@ import Backdrop from "./Backdrop";
 import { motion, AnimatePresence, } from "framer-motion";
 import { Fragment } from "react";
 import { useState, useEffect, useContext } from "react";
+import { useRouter } from "next/router";
 
 function Confirmer(props) {
+  const router = useRouter()
 
   const appear = {
     hidden: {
@@ -40,6 +42,7 @@ function Confirmer(props) {
   }
 
   const handleClick = async (event) => {
+    props.load()
     await handleSubmit(event);
   }
 
@@ -53,6 +56,8 @@ function Confirmer(props) {
 
     setLoading(false)
     setCompletion(true)
+
+    router.reload()
   }
 
   const [loading, setLoading] = useState(false)
@@ -66,7 +71,7 @@ function Confirmer(props) {
         onExitComplete={() => null}
       >
         {props.modalStatus && (
-          <Backdrop onClick={props.disable} className="categ-modals">
+          <Backdrop onClick={loading ? null : props.disable} className="categ-modals">
             <motion.div
             key={props.chosenItem}
               onClick={(e) => e.stopPropagation()}
@@ -80,12 +85,12 @@ function Confirmer(props) {
               <h2 className="heading-primary no-margin">Delete Category?</h2>
               <div className="confirm-contents">
                 <div className="warning-logo">&nbsp;</div>
-                <h2 className="confirm-text heading-tertiary">Are you sure you want to delete the category? This cannot be undone. However, the data from this category's statistics will remain.</h2>
-                <h2 style={{ margin: "1rem" }}>Will you delete {props.chosenItem}</h2>
+                <h2 className="confirm-text heading-tertiary">{props.msg}</h2>
+                <h2 style={{ margin: "1rem" }}>{props.label}</h2>
               </div>
               <div className="add-categ-buttons">
-                <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={props.disable}>Cancel</button>
-                <button className="product-action-3 heading-secondary categ-button-2" type="button" onClick={handleClick}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Confirm")}</button>
+                <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={props.disable} disabled={loading}>Cancel</button>
+                <button className="product-action-3 heading-secondary categ-button-2" type="button" onClick={handleClick} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Confirm")}</button>
               </div>
             </motion.div>
           </Backdrop>

@@ -6,7 +6,7 @@ import { useState, useEffect, useContext } from "react";
 import Confirmer from "./Confirmer";
 import { useRouter } from "next/router";
 
-function AddCategory2(props) {
+function AddCategory(props) {
   const setDefaultName = props.defs[0]
   const router = useRouter()
 
@@ -50,6 +50,7 @@ function AddCategory2(props) {
     name: true,
     img: true,
     desc: true,
+    exist: false,
   });
 
   function isEmpty(word) {
@@ -74,7 +75,8 @@ function AddCategory2(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const nameValid = nameValue !== ""
+    const nameValid = nameValue !== "" && !props.list.includes(nameValue)
+    const nameExist = props.list.includes(nameValue)
     const imgValid = startsImgur(imgValue) && !isEmpty(imgValue)
     const descValid = descValue !== ""
 
@@ -82,6 +84,7 @@ function AddCategory2(props) {
       name: nameValid,
       img: imgValid,
       desc: descValid,
+      exist: nameExist
     });
 
     const submissionValid = nameValid && imgValid && descValid
@@ -135,7 +138,6 @@ function AddCategory2(props) {
   };
 
   const handleDelete= async (title) => {
-    console.log("in handle deletion")
 
     const categoryContents = Object.entries(props.categIndexes)
 
@@ -147,17 +149,10 @@ function AddCategory2(props) {
 
     props.deletion(chosenKey)
 
-    // await waitSeconds();
-
     console.log("finish deletion")
     console.log(chosenKey)
 
-    // emptyContents(event)
-
-    // setLoading(false)
-    // setCompletion(true)
-
-    router.reload()
+    // router.reload()
   }
 
   const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"
@@ -233,7 +228,7 @@ function AddCategory2(props) {
       >
         {props.modalStatus && (
           <Backdrop onClick={loading ? null : emptyContents} className="categ-modals">
-            {delCateg && <Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} delete={delCategHandler} default={setDefaultName} finish={handleDelete} chosenItem={props.defs[0]}></Confirmer>}
+            {delCateg && <Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} delete={delCategHandler} default={setDefaultName} finish={handleDelete} chosenItem={props.defs[0]} msg="Are you sure you want to delete the category? This cannot be undone. However, the data from this category's statistics will remain." label={`Will you delete ${setDefaultName}?`} load={() => {setLoading(true)}}></Confirmer>}
             <motion.div
               onClick={(e) => e.stopPropagation()}
               className="categ-modal"
@@ -262,7 +257,7 @@ function AddCategory2(props) {
                     id="name"
                     autoComplete="off"
                   ></input>
-                  {formInputValidity.name ? <label className="form-label">Category Name</label> : <label className="form-label" style={{ color: "red" }}>Input a valid category name</label>}
+                  {formInputValidity.name && !formInputValidity.exist ? <label className="form-label">Category Name</label> : !formInputValidity.exist ? <label className="form-label" style={{ color: "red" }}>Input a valid category name</label> : <label className="form-label" style={{ color: "red" }}>Category name already exists</label>}
                 </div>
 
                 <div className="form-group">
@@ -307,4 +302,4 @@ function AddCategory2(props) {
   );
 }
 
-export default AddCategory2;
+export default AddCategory;

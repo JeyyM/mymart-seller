@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import { MongoClient, ObjectId } from "mongodb";
 import CategoryProducts from "@/components/category-products/CategoryProducts";
 import Link from "next/link";
+import { useState } from "react";
+import AddProduct from "@/components/Modal/Add-Product";
 
 function ProductsPage({ shopID }) {
   const router = useRouter()
@@ -21,26 +23,36 @@ function ProductsPage({ shopID }) {
     };
   });
 
+  const [addProduct, setAddProduct] = useState(false)
+  const [defaultValues, setDefaultValues] = useState(["", "", ""])
 
-  // console.log(products)
-  // console.log(products[0].value.var1)
+  function addProdHandler(event) {
+    event.preventDefault()
+    event.stopPropagation()
+    setAddProduct(!addProduct)
+  }
 
+if (products.length > 0){
   return <Fragment>
-    <span className="page-heading">
-      <h1 className="heading-primary">{router.query.categoryname}</h1>
-    </span>
-    <h2 className="category-description heading-tertiary">{chosenCategory.categoryDescription}</h2>
+  <AddProduct modalStatus={addProduct} disable={addProdHandler}></AddProduct>
+  <span className="page-heading">
+    <h1 className="heading-primary">{router.query.categoryname}</h1>
+    <button onClick={addProdHandler} className="add-prod-init heading-tertiary">
+          <div className="heading-icon-plus">&nbsp;</div>Add Product</button>
+  </span>
+  <h2 className="category-description heading-tertiary">{chosenCategory.categoryDescription}</h2>
 
-    {/* <h2>{contents.chosenCategory.categoryName}</h2> */}
-
-    <section className="category-container">
-      {products.map((prod, index) => (
-        <Fragment key={index}>
-          <CategoryProducts items={prod.value.var1} categName={queryCategoryName} id={router.query.shopid} index={index}></CategoryProducts>
-        </Fragment>
-      ))}
-    </section>
-  </Fragment>
+  <section className="category-container">
+    {products.map((prod, index) => (
+      <Fragment key={index}>
+        <CategoryProducts items={prod.value.var1} categName={queryCategoryName} id={router.query.shopid} index={index}></CategoryProducts>
+      </Fragment>
+    ))}
+  </section>
+</Fragment>
+} else {
+  return <h1>Nothing here</h1>
+}
 }
 
 export default ProductsPage
@@ -62,5 +74,5 @@ export async function getServerSideProps({ params }) {
 
   return {
     props: { shopID },
-  };
+  };  
 }

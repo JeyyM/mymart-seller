@@ -74,4 +74,8 @@
   // justify-content: center;
   align-items: center;
   cursor: cell;
+  transition: all 0.2s;
+}
+.categ-edit-button:hover{
+  filter: brightness(120%);
 }
