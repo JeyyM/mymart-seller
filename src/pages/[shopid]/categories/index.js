@@ -59,8 +59,6 @@ function CategoryPage({ shopID }) {
 
     const chosenCateg = formdata.categoryName
 
-    const test = "category4"
-
     const response = await fetch(
       `../../api/new-category?martid=${router.query.shopid}&categoryname=${key}`,
       {
@@ -106,7 +104,6 @@ function CategoryPage({ shopID }) {
         {result.map((categ, index) => {
           return (
             <Category
-
               items={categ.value}
               id={router.query.shopid}
               key={index}

@@ -257,7 +257,7 @@ function AddCategory(props) {
                     id="name"
                     autoComplete="off"
                   ></input>
-                  {formInputValidity.name && !formInputValidity.exist ? <label className="form-label">Category Name</label> : !formInputValidity.exist ? <label className="form-label" style={{ color: "red" }}>Input a valid category name</label> : <label className="form-label" style={{ color: "red" }}>Category name already exists</label>}
+                  {formInputValidity.name && !formInputValidity.exist ? <label className="form-label">Category Name</label> : !formInputValidity.exist ? <label className="form-label" style={{ color: "red" }}>Enter a valid category name</label> : <label className="form-label" style={{ color: "red" }}>Category name already exists</label>}
                 </div>
 
                 <div className="form-group">

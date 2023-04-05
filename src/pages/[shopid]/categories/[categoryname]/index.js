@@ -10,11 +10,22 @@ function ProductsPage({ shopID }) {
   const router = useRouter()
   const queryCategoryName = router.query.categoryname
 
+  console.log(router.query.shopid)
+
   const { shopData } = shopID;
   const contents = shopData.shopCategories;
 
   const chosenCategory = Object.values(contents).find(
     (c) => c.categoryName === queryCategoryName)
+
+
+  const keyContents = Object.entries(contents)
+
+    const chosenKeyFind = keyContents.find(([key, value]) => {
+      return value.categoryName === chosenCategory.categoryName
+    })
+
+    const chosenKey = chosenKeyFind[0]
 
   const products = Object.entries(chosenCategory.categoryProducts).map(([key, value]) => {
     return {
@@ -32,9 +43,26 @@ function ProductsPage({ shopID }) {
     setAddProduct(!addProduct)
   }
 
+  async function completeForm(formdata){
+    console.log("main", formdata)
+    console.log("in compeltion")
+    // console.log("im the key", key)
+
+    const response = await fetch(
+      `../../../api/new-product?martid=${router.query.shopid}&categorykey=${router.query.shopid}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formdata)
+      }
+    );
+    const data = await response.json();
+
+  }
+
 if (products.length > 0){
   return <Fragment>
-  <AddProduct modalStatus={addProduct} disable={addProdHandler}></AddProduct>
+  <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} key={chosenKey}></AddProduct>
   <span className="page-heading">
     <h1 className="heading-primary">{router.query.categoryname}</h1>
     <button onClick={addProdHandler} className="add-prod-init heading-tertiary">
@@ -45,7 +73,7 @@ if (products.length > 0){
   <section className="category-container">
     {products.map((prod, index) => (
       <Fragment key={index}>
-        <CategoryProducts items={prod.value.var1} categName={queryCategoryName} id={router.query.shopid} index={index}></CategoryProducts>
+        <CategoryProducts items={prod.value.var1} categName={queryCategoryName} id={router.query.shopid} index={index} state={addProduct}></CategoryProducts>
       </Fragment>
     ))}
   </section>
