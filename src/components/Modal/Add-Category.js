@@ -64,7 +64,7 @@ function AddCategory(props) {
   const [loading, setLoading] = useState(false)
 
   function waitSeconds() {
-    console.log("wait 2.5 sec")
+    // console.log("wait 2.5 sec")
     return new Promise(resolve => setTimeout(resolve, 2500));
   }
 
@@ -149,8 +149,8 @@ function AddCategory(props) {
 
     props.deletion(chosenKey)
 
-    console.log("finish deletion")
-    console.log(chosenKey)
+    // console.log("finish deletion")
+    // console.log(chosenKey)
 
     // router.reload()
   }

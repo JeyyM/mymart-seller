@@ -10,7 +10,7 @@ function ProductsPage({ shopID }) {
   const router = useRouter()
   const queryCategoryName = router.query.categoryname
 
-  console.log(router.query.shopid)
+  // console.log(router.query.shopid)
 
   const { shopData } = shopID;
   const contents = shopData.shopCategories;
@@ -26,6 +26,7 @@ function ProductsPage({ shopID }) {
     })
 
     const chosenKey = chosenKeyFind[0]
+    // console.log("chosen key here", chosenKey)
 
   const products = Object.entries(chosenCategory.categoryProducts).map(([key, value]) => {
     return {
@@ -43,13 +44,13 @@ function ProductsPage({ shopID }) {
     setAddProduct(!addProduct)
   }
 
-  async function completeForm(formdata){
-    console.log("main", formdata)
-    console.log("in compeltion")
-    // console.log("im the key", key)
+  async function completeForm(formdata, key, length){
+
+    const nextProd = "Product" + (length + 1)
+    console.log (nextProd)
 
     const response = await fetch(
-      `../../../api/new-product?martid=${router.query.shopid}&categorykey=${router.query.shopid}`,
+      `../../../api/new-product?martid=${router.query.shopid}&categorykey=${key}&prodlength=${nextProd}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -62,7 +63,7 @@ function ProductsPage({ shopID }) {
 
 if (products.length > 0){
   return <Fragment>
-  <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} key={chosenKey}></AddProduct>
+  <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} categKey={chosenKey} length={products.length}></AddProduct>
   <span className="page-heading">
     <h1 className="heading-primary">{router.query.categoryname}</h1>
     <button onClick={addProdHandler} className="add-prod-init heading-tertiary">
@@ -79,7 +80,15 @@ if (products.length > 0){
   </section>
 </Fragment>
 } else {
-  return <h1>Nothing here</h1>
+  return <Fragment>
+   <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} categKey={chosenKey} length={products.length}></AddProduct>
+  <span className="page-heading">
+    <h1 className="heading-primary">{router.query.categoryname}</h1>
+    <button onClick={addProdHandler} className="add-prod-init heading-tertiary">
+          <div className="heading-icon-plus">&nbsp;</div>Add Product</button>
+  </span>
+  <h2 className="category-description heading-tertiary">{chosenCategory.categoryDescription}</h2>
+  </Fragment>
 }
 }
 

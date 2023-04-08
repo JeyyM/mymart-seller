@@ -8,8 +8,6 @@ import { useRouter } from "next/router";
 function AddProduct(props) {
   const router = useRouter()
 
-  console.log(props.key)
-
   const appear = {
     hidden: {
       transform: "scale(0)",
@@ -123,7 +121,7 @@ function AddProduct(props) {
     const img3Valid = startsImgur(imgValue3) && !isEmpty(imgValue3)
     const img4Valid = startsImgur(imgValue4) && !isEmpty(imgValue4)
 
-    console.log(img1Valid, img2Valid, img3Valid, img4Valid)
+    // console.log(img1Valid, img2Valid, img3Valid, img4Valid)
 
     const givenImages = [
       img1Valid && { image: imgValue1 },
@@ -132,7 +130,7 @@ function AddProduct(props) {
       img4Valid && { image: imgValue4 },
     ].filter(Boolean)
 
-    console.log(givenImages)
+    // console.log(givenImages)
 
     const nameValid = nameValue !== ""
     const descValid = descValue !== ""
@@ -164,9 +162,9 @@ function AddProduct(props) {
     if (submissionValid) {
       setLoading(true)
 
-      console.log( "toob worm")
+      console.log(incomingData)
 
-      props.finish(incomingData)
+      props.finish(incomingData, props.categKey, props.length)
 
       await waitSeconds();
       console.log("valid")
@@ -176,23 +174,6 @@ function AddProduct(props) {
       router.reload()
 
     }
-
-    // if (submissionValid) {
-    //   setLoading(true)
-
-    //   if (setting === "Add Category") {
-    //     props.finish(incomingData)
-
-    //     await waitSeconds();
-
-    //     emptyContents(event)
-
-    //     setLoading(false)
-    //     setCompletion(true)
-
-    //     router.reload()
-    //   }
-
   };
 
   const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"
