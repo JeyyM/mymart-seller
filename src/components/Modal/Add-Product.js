@@ -185,7 +185,7 @@ function AddProduct(props) {
   const descClasses = `${formInputValidity.desc ? "desc-text-area" : "invalid-form-box"
     }`;
 
-  const priceClasses = `${formInputValidity.price ? "text-full" : "invalid-form"
+  const priceClasses = `${formInputValidity.price ? "text-small input-number" : "invalid-form"
     }`;
 
   const amountClasses = `${formInputValidity.amount ? "text-full" : "invalid-form"
@@ -336,7 +336,7 @@ function AddProduct(props) {
                 </div>
                 {imgValue4 && <img src={imgValue4} className="add-categ-img" alt="Link is Invalid"></img>}
 
-                <div className="form-group">
+                {/* <div className="form-group">
                   <input
                     type="text"
                     className={priceClasses}
@@ -347,10 +347,14 @@ function AddProduct(props) {
                     // required
                     id="price"
                     autoComplete="off"
-                  ></input>
-                {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid price</label>}
-                  {/* {formInputValidity.name ? <label className="form-label">Category Name</label> : <label className="form-label" style={{ color: "red" }}>Input a valid category name</label>} */}
-                </div>
+                  ></input> */}
+                  
+
+                  <div className="price-pair">
+            <label className="heading-secondary product-currency">$</label>
+            <input type="number" className="text-small input-number" placeholder="Price" autoComplete="off" id='price' value={priceValue} onChange={handlePriceChange}></input>
+          </div>
+                  {/* </div> */}
 
                 <div className="form-group">
                   <input
