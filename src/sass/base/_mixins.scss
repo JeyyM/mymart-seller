@@ -378,6 +378,7 @@ transition: all 0.2s;
       box-shadow: inset 0 0 0 1rem $theme-bg;
       margin-right: 2rem;
       transition: all 0.2s;
+      width: 95%;
 }
 
 @mixin number-input-focus(){

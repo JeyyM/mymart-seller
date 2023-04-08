@@ -17,10 +17,6 @@ body {
   background-color: #e5f4ff;
 }
 
-.page-heading {
-  display: flex;
-}
-
 .heading-primary {
   color: #0A2647;
   font-size: 3.5rem;
@@ -58,7 +54,7 @@ body {
   font-size: 2rem;
   font-family: "Roboto";
   font-weight: 500;
-  margin: 0rem 4rem;
+  margin: 0rem 1rem;
   display: block;
   transform: translateY(0.3rem);
   transition: all 0.4s;
@@ -71,6 +67,18 @@ body {
 }
 
 .text-full:placeholder-shown + .form-label {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-5rem);
+}
+
+.text-small:-moz-placeholder-shown + .form-label {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-5rem);
+}
+
+.text-small:placeholder-shown + .form-label {
   opacity: 0;
   visibility: hidden;
   transform: translateY(-5rem);
@@ -1586,6 +1594,11 @@ body {
   filter: brightness(120%);
 }
 
+.categ-edit-button:active {
+  filter: brightness(120%);
+  box-shadow: inset 0 0 0 10px white, 0 0 0 2px #0057FF, 0 0 0 4px white;
+}
+
 .heading-icon-dropshadow {
   -webkit-background-clip: text;
           background-clip: text;
@@ -1632,6 +1645,26 @@ body {
   width: 3rem;
   transform: translateY(0rem);
   margin-left: 1rem;
+}
+
+.heading-icon-plus-marginless {
+  -webkit-mask-size: 3rem;
+          mask-size: 3rem;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-image: url("../../components/svgs/plus.svg");
+          mask-image: url("../../components/svgs/plus.svg");
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  transform: translateY(0.3rem);
+  height: 3rem;
+  fill: transparent;
+  width: 110%;
+  height: 3rem;
+  width: 3rem;
+  transform: translateY(0rem);
 }
 
 .heading-icon-edit {
@@ -1829,9 +1862,50 @@ input[type=text].invalid-form:focus {
   outline-color: red;
 }
 
+.invalid-form-2 {
+  width: 95%;
+  height: 5rem;
+  margin-top: 0.8rem;
+  border: solid 5px transparent;
+  border-radius: 15px;
+  background-image: linear-gradient(white, white), linear-gradient(45deg, red, darkred);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+input[type=number].invalid-form-2 {
+  color: #0A2647;
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 700;
+  padding: 1rem;
+  box-shadow: inset 0 0 0 1rem white;
+  transition: all 0.2s;
+}
+
+input[type=number].invalid-form-2:focus {
+  filter: brightness(120%);
+  outline-color: red;
+}
+
+input[type=text].invalid-form-2 {
+  color: #0A2647;
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 700;
+  padding: 1rem;
+  box-shadow: inset 0 0 0 1rem white;
+  transition: all 0.2s;
+}
+
+input[type=text].invalid-form-2:focus {
+  filter: brightness(120%);
+  outline-color: red;
+}
+
 .price-pair {
   display: flex;
-  margin-top: 3rem;
+  margin-top: 0.5rem;
   align-items: center;
 }
 
@@ -1844,6 +1918,7 @@ input[type=text].invalid-form:focus {
 
 .product-currency {
   padding: 0 1rem;
+  transform: translateY(-1rem);
 }
 
 .text-small {
@@ -1946,9 +2021,29 @@ input[type=number].input-number {
   box-shadow: inset 0 0 0 1rem white;
   margin-right: 2rem;
   transition: all 0.2s;
+  width: 95%;
 }
 
 input[type=number].input-number:focus {
+  filter: brightness(120%);
+  outline-color: #0057FF;
+}
+
+input[type=text].input-number {
+  color: #0A2647;
+  line-height: 1;
+  margin-top: 0px;
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 700;
+  padding: 1rem;
+  box-shadow: inset 0 0 0 1rem white;
+  margin-right: 2rem;
+  transition: all 0.2s;
+  width: 95%;
+}
+
+input[type=text].input-number:focus {
   filter: brightness(120%);
   outline-color: #0057FF;
 }
@@ -2077,6 +2172,39 @@ input[type=number].input-number:focus {
   box-shadow: 0 0 0 2px white, 0 0 0 4px red;
 }
 
+.sample {
+  position: relative;
+}
+
+.product-edit-button {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  height: 6rem;
+  width: 6rem;
+  border: solid 5px transparent;
+  border-radius: 15px;
+  background-image: linear-gradient(white, white), linear-gradient(45deg, #0057FF, #7FC9FF);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  cursor: cell;
+  transition: all 0.2s;
+}
+
+.product-edit-button:hover {
+  filter: brightness(120%);
+}
+
+.product-edit-button:active {
+  filter: brightness(120%);
+  box-shadow: inset 0 0 0 10px white, 0 0 0 2px #0057FF, 0 0 0 4px white;
+}
+
 .categ-modals {
   display: flex;
   align-content: center;
@@ -2156,6 +2284,15 @@ input[type=number].input-number:focus {
 .add-categ-init:focus {
   box-shadow: inset 0 0 0 10px white, 0 0 0 2px #0057FF, 0 0 0 4px white;
   transform: scale(0.9);
+}
+
+.page-heading {
+  display: flex;
+}
+
+.page-heading-secondary {
+  display: flex;
+  gap: 1rem;
 }
 
 .confirm-modal {
@@ -2256,4 +2393,47 @@ input[type=number].input-number:focus {
 .add-prod-init:focus {
   box-shadow: inset 0 0 0 10px white, 0 0 0 2px #0057FF, 0 0 0 4px white;
   transform: scale(0.9);
+}
+
+.heading-icon-cube {
+  -webkit-mask-size: 4rem;
+          mask-size: 4rem;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-image: url("../../components/svgs/cube.svg");
+          mask-image: url("../../components/svgs/cube.svg");
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  transform: translateY(0.3rem);
+  height: 4rem;
+  fill: transparent;
+  width: 110%;
+  height: 4rem;
+  width: 4rem;
+  transform: translateY(0rem);
+  margin-left: 1rem;
+}
+
+.add-img {
+  border: solid 5px transparent;
+  border-radius: 15px;
+  background-image: linear-gradient(white, white), linear-gradient(45deg, #0057FF, #7FC9FF);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  transition: all 0.2s;
+  outline: #0057FF;
+}
+
+.add-img:hover {
+  filter: brightness(120%);
+}
+
+.add-img:active {
+  filter: brightness(120%);
+  box-shadow: inset 0 0 0 10px white, 0 0 0 2px #0057FF, 0 0 0 4px white;
 }/*# sourceMappingURL=main.css.map */

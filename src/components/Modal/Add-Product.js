@@ -29,6 +29,29 @@ function AddProduct(props) {
     },
   };
 
+  const slide = {
+    hidden: {
+      x: "-100vw",
+      opacity: 1,
+    },
+    visible: {
+      x: "0px",
+      opacity: 1,
+      transition: {
+        type: "spring",
+        duration: 0.3,
+        bounce: 0.2,
+      },
+    },
+    exit: {
+      x: "-100vw",
+      opacity: 1,
+      transition: {
+        duration: 0.2,
+      },
+    },
+  };
+
   const [nameValue, setNameValue] = useState("");
   const handleNameChange = (event) => {
     setNameValue(event.target.value);
@@ -174,6 +197,23 @@ function AddProduct(props) {
       router.reload()
 
     }
+
+    // if (submissionValid) {
+    //   setLoading(true)
+
+    //   if (setting === "Add Category") {
+    //     props.finish(incomingData)
+
+    //     await waitSeconds();
+
+    //     emptyContents(event)
+
+    //     setLoading(false)
+    //     setCompletion(true)
+
+    //     router.reload()
+    //   }
+
   };
 
   const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"
@@ -185,14 +225,17 @@ function AddProduct(props) {
   const descClasses = `${formInputValidity.desc ? "desc-text-area" : "invalid-form-box"
     }`;
 
-  const priceClasses = `${formInputValidity.price ? "text-small input-number" : "invalid-form"
+  const priceClasses = `${formInputValidity.price ? "text-small input-number" : "invalid-form-2"
     }`;
 
-  const amountClasses = `${formInputValidity.amount ? "text-full" : "invalid-form"
+  const amountClasses = `${formInputValidity.amount ? "text-small input-number" : "invalid-form-2"
     }`;
 
-  const unitClasses = `${formInputValidity.unit ? "text-full" : "invalid-form"
+  const unitClasses = `${formInputValidity.unit ? "text-small input-number" : "invalid-form-2"
     }`;
+
+  // const unitClasses = `${formInputValidity.unit ? "text-small" : "invalid-form"
+  //   }`;
 
 
   // useEffect(() => {
@@ -235,8 +278,20 @@ function AddProduct(props) {
       setPriceValue("")
       setStockAmount("")
       setStockUnit("")
+      addImgNumber(0)
     } else { return }
   }
+
+  const [imgNumber, addImgNumber] = useState(0)
+
+  const handleAddImgNumber = () => {
+    if (imgNumber <= 2) {
+      addImgNumber(imgNumber + 1)
+    }
+    else {return}
+  }
+
+  console.log(imgNumber)
 
   return (
     <Fragment>
@@ -260,7 +315,7 @@ function AddProduct(props) {
                 <span className="page-heading">
                   <h2 className="heading-primary no-margin">Add Product</h2>
                   <div className="heading-icon-dropshadow">
-                    <div className="heading-icon-category">&nbsp;</div>
+                    <div className="heading-icon-cube">&nbsp;</div>
                   </div>
                 </span>
 
@@ -278,7 +333,11 @@ function AddProduct(props) {
                   {formInputValidity.name ? <label className="form-label">Product Name</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid product name</label>}
                 </div>
 
-                <div className="form-group">
+                <div className="page-heading-secondary">
+                <h1 className="heading-secondary" style={{marginTop: "0.3rem"}}>Product Images</h1> <button className="add-img" type="button" onClick={handleAddImgNumber}><div className="heading-icon-plus-marginless">&nbsp;</div></button>
+                </div>
+
+                {imgNumber >= 0 && <div className="form-group">
                   <input
                     type="text"
                     className={imgClasses}
@@ -289,11 +348,13 @@ function AddProduct(props) {
                     id="image1"
                     autoComplete="off"
                   ></input>
-                  {formInputValidity.img ? <label className="form-label">Product Image 1 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
-                </div>
-                {imgValue1 && <img src={imgValue1} className="add-categ-img" alt="Link is Invalid"></img>}
 
-                <div className="form-group">
+                  {formInputValidity.img ? <label className="form-label">Product Image 1 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
+                </div>}
+
+                {imgValue1 && <img src={imgValue1} className="add-categ-img" alt="Link is Invalid"></img>}
+                
+                {imgNumber >= 1 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
                   <input
                     type="text"
                     className={imgClasses}
@@ -305,10 +366,11 @@ function AddProduct(props) {
                     autoComplete="off"
                   ></input>
                   {formInputValidity.img ? <label className="form-label">Product Image 2 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
-                </div>
+                </motion.div> }
+
                 {imgValue2 && <img src={imgValue2} className="add-categ-img" alt="Link is Invalid"></img>}
 
-                <div className="form-group">
+                {imgNumber >= 2 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
                   <input
                     type="text"
                     className={imgClasses}
@@ -319,10 +381,10 @@ function AddProduct(props) {
                     autoComplete="off"
                   ></input>
                   {formInputValidity.img ? <label className="form-label">Product Image 3 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
-                </div>
+                </motion.div> }
                 {imgValue3 && <img src={imgValue3} className="add-categ-img" alt="Link is Invalid"></img>}
 
-                <div className="form-group">
+                {imgNumber >= 3 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
                   <input
                     type="text"
                     className={imgClasses}
@@ -333,55 +395,26 @@ function AddProduct(props) {
                     autoComplete="off"
                   ></input>
                   {formInputValidity.img ? <label className="form-label">Product Image 4 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
-                </div>
+                </motion.div> }
                 {imgValue4 && <img src={imgValue4} className="add-categ-img" alt="Link is Invalid"></img>}
 
-                {/* <div className="form-group">
-                  <input
-                    type="text"
-                    className={priceClasses}
-                    placeholder="Price"
-                    value={priceValue}
-                    // defaultValue={props.defs[0]}
-                    onChange={handlePriceChange}
-                    // required
-                    id="price"
-                    autoComplete="off"
-                  ></input> */}
-                  
 
-                  <div className="price-pair">
+
+                <div className="price-pair">
             <label className="heading-secondary product-currency">$</label>
-            <input type="number" className="text-small input-number" placeholder="Price" autoComplete="off" id='price' value={priceValue} onChange={handlePriceChange}></input>
+            <div>
+            <input type="number" className={priceClasses} placeholder="Price" autoComplete="off" id='price' value={priceValue} onChange={handlePriceChange}></input>
+            {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid price</label>}
+            </div>
+            <div>
+            <input type="number" className={amountClasses} placeholder="Stock Amount" autoComplete="off" id='amount' value={stockAmount} onChange={handleStockAmount}></input>
+            {formInputValidity.amount ? <label className="form-label">Stock Amount</label> : <label className="form-label" style={{ color: "red" }}>Invalid stock amount</label>}
+            </div>
+            <div>
+            <input type="text" className={unitClasses} placeholder="Stock Unit" autoComplete="off" id='unit' value={stockUnit} onChange={handleStockUnit}></input>
+            {formInputValidity.unit ? <label className="form-label">Stock Unit</label> : <label className="form-label" style={{ color: "red" }}>Invalid stock unit</label>}
+            </div>
           </div>
-                  {/* </div> */}
-
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className={amountClasses}
-                    placeholder="Stock Amount"
-                    value={stockAmount}
-                    // defaultValue={props.defs[0]}
-                    onChange={handleStockAmount}
-                    // required
-                    id="amount"
-                    autoComplete="off"
-                  ></input>
-                {formInputValidity.amount ? <label className="form-label">Stock Amount</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid stock amount</label>}
-                </div>
-
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className={unitClasses}
-                    placeholder="Stock Unit"
-                    value={stockUnit}
-                    onChange={handleStockUnit}
-                    id="unit"
-                    autoComplete="off"
-                  ></input>
-                {formInputValidity.unit ? <label className="form-label">Stock Unit</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid stock unit</label>}                </div>
 
                 <div className="form-group">
                   <textarea

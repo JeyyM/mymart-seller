@@ -60,11 +60,63 @@ function ProductPage({ shopID }) {
     return varArray[n][`var${n + 1}`].productImages[0];
   }
 
+  
+  const [nameValue, setNameValue] = useState(varArray[varState][`var${varNum}`].productName);
+  const handleNameChange = (event) => {
+    setNameValue(event.target.value);
+  };
+
+  const [descValue, setDescValue] = useState("");
+  const handleDescChange = (event) => {
+    setDescValue(event.target.value);
+  };
+
+  const [imgValue1, setImgValue1] = useState("");
+  const handleImgChange1 = (event) => {
+    setImgValue1(event.target.value);
+  };
+
+  const [imgValue2, setImgValue2] = useState("");
+  const handleImgChange2 = (event) => {
+    setImgValue2(event.target.value);
+  };
+
+  const [imgValue3, setImgValue3] = useState("");
+  const handleImgChange3 = (event) => {
+    setImgValue3(event.target.value);
+  };
+
+  const [imgValue4, setImgValue4] = useState("");
+  const handleImgChange4 = (event) => {
+    setImgValue4(event.target.value);
+  };
+
+  const [priceValue, setPriceValue] = useState("");
+  const handlePriceChange = (event) => {
+    setPriceValue(event.target.value);
+  };
+
+  const [stockAmount, setStockAmount] = useState("");
+  const handleStockAmount = (event) => {
+    setStockAmount(event.target.value);
+  };
+
+  const [stockUnit, setStockUnit] = useState("");
+  const handleStockUnit = (event) => {
+    setStockUnit(event.target.value);
+  };
+
+  console.log(nameValue, "|", descValue, "|", imgValue1, "|", imgValue2, "|", imgValue3, "|", imgValue4, "|", priceValue, "|", stockAmount, "|", stockUnit)
+
   return <Fragment>
     <div className="product-container">
       <div className="main-img-container">
 
-        <img src={varArray[varState][`var${varNum}`].productImages[imgState]} alt={varArray[varState][`var${varNum}`].productName} className="product-image"></img>
+      <div className="sample">
+      <button className="product-edit-button" style={{zIndex: 10}}><div className="heading-icon-edit">&nbsp;</div></button>
+        <img src={varArray[varState][`var${varNum}`].productImages[imgState]} alt={varArray[varState][`var${varNum}`].productName} className="product-image">
+        </img>
+      </div>
  
 
         <motion.div className="side-img-container" initial={{ opacity: 0 }}
@@ -89,7 +141,9 @@ function ProductPage({ shopID }) {
 
       <div className="details-section">
         <form>
+        <div>
           <input type="text" defaultValue={varArray[varState][`var${varNum}`].productName} className="text-full" placeholder="Product Name" required id='name'></input>
+        </div>
 
           <div className="price-pair">
             <label className="heading-secondary product-currency">$</label>
@@ -125,8 +179,8 @@ function ProductPage({ shopID }) {
         </motion.div>
 
         <div className="product-action-buttons">
-          <button className="product-action-1 heading-secondary">Delete Variation</button>
-          <button className="product-action-2 heading-secondary">Edit Search Tags</button>
+          <button className="product-action-3 heading-secondary">Delete Variation</button>
+          <button className="product-action-1 heading-secondary">Edit Search Tags</button>
           <button className="product-action-2 heading-secondary">Submit Changes</button>
         </div>
       </div>

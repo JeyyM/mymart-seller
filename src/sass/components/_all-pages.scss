@@ -15,6 +15,10 @@
   margin-left: 1rem;
 }
 
+.heading-icon-plus-marginless {
+  @include heading-logo(plus, 3rem, 3rem);
+}
+
 .heading-icon-edit {
   @include heading-logo(edit, 4rem, 4rem);
   margin-left: 1rem;

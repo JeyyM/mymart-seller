@@ -88,6 +88,10 @@ if (products.length > 0){
           <div className="heading-icon-plus">&nbsp;</div>Add Product</button>
   </span>
   <h2 className="category-description heading-tertiary">{chosenCategory.categoryDescription}</h2>
+  <div className="empty-contents">
+        <div className="empty-logo">&nbsp;</div>
+        <h2 className="empty-text">There seems to be no products yet</h2>
+        </div>
   </Fragment>
 }
 }
