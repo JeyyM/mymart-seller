@@ -304,6 +304,7 @@ input[type="text"].input-number:focus {
   align-items: center;
   cursor: cell;
   transition: all 0.2s;
+  z-index: 10;
 }
 .product-edit-button:hover{
   filter: brightness(120%);
@@ -312,4 +313,9 @@ input[type="text"].input-number:focus {
 .product-edit-button:active{
   filter: brightness(120%);
   box-shadow: inset 0 0 0 10px white, 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+}
+
+.heading-icon-add-img {
+  @include heading-logo(add-img, 4rem, 4rem);
+  margin-left: 1rem;
 }
