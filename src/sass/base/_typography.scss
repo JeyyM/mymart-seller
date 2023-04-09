@@ -6,6 +6,9 @@
   font-family: 'Roboto';
   font-weight: 900;
   margin-left: 2rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 85vw;
 }
 
 .heading-secondary {
@@ -25,6 +28,7 @@
   font-size: 2rem;
   font-family: "Roboto";
   font-weight: 500;
+  word-wrap: break-word;
 }
 
 .no-margin{
@@ -43,19 +47,19 @@
   transition: all 0.4s;
 }
 
-.text-full:placeholder-shown + .form-label {
+.text-full:placeholder-shown ~ .form-label {
   opacity: 0;
   visibility: hidden;
   transform: translateY(-5rem);
 }
 
-.text-small:placeholder-shown + .form-label {
+.text-small:placeholder-shown ~ .form-label {
   opacity: 0;
   visibility: hidden;
   transform: translateY(-5rem);
 }
 
-.desc-text-area:placeholder-shown + .form-label {
+.desc-text-area:placeholder-shown ~ .form-label {
   opacity: 0;
   visibility: hidden;
   transform: translateY(-5rem);

@@ -19,7 +19,7 @@
     overflow: hidden;
     height: 30rem;
     text-decoration: none;
-    max-width: calc(100vw / 4);
+    width: calc(100vw / 4 - 3rem);
     word-wrap: break-word;
   }
 

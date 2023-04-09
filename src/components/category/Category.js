@@ -17,8 +17,8 @@ function Category(props) {
         <img src={categoryImage} className="category-img"></img>
         <div className="category-content">
             <div>
-                <h2 className="heading-secondary category-name">{categoryName}</h2>
-                <h3 className="heading-tertiary"> {categoryDescription}</h3>
+                <h2 className="heading-secondary category-name">{categoryName.length > 40 ? categoryName.substring(0, 37) + "..." : categoryName}</h2>
+                <h3 className="heading-tertiary">{categoryDescription.length > 150 ? categoryDescription.substring(0, 147) + "..." : categoryDescription}</h3>
             </div>
         </div>
     </MotionLink>

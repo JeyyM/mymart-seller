@@ -8,6 +8,13 @@ import { useRouter } from "next/router";
 
 function AddCategory(props) {
   const setDefaultName = props.defs[0]
+  const defaultNameLength = setDefaultName.length
+  // console.log(defaultNameLength)
+
+  const setDefaultDesc = props.defs[2]
+  const defaultDescLength = setDefaultDesc.length
+  // console.log(defaultDescLength)
+
   const router = useRouter()
 
   const appear = {
@@ -34,10 +41,22 @@ function AddCategory(props) {
   const [nameLength, setNameLength] = useState(0)
   const handleNameLength = (event) => {
     setNameLength(event.length)
-    console.log(nameLength)
+    // console.log(nameLength)
   }
 
-  const nameLengthClasses = `${nameLength > 45 ? "overlength" : ""}`;
+  useEffect(() => {
+    console.log( "cmon work", nameLength);
+  }, [nameLength]);
+  
+
+  const [descLength, setDescLength] = useState(0)
+  const handleDescLength = (event) => {
+    setDescLength(event.length)
+    // console.log(descLength)
+  }
+
+  const nameLengthClasses = `${nameLength > 40 ? "overlength" : ""}`;
+  const descLengthClasses = `${descLength > 150 ? "overlength" : ""}`;
 
   const [nameValue, setNameValue] = useState("");
   const handleNameChange = (event) => {
@@ -53,6 +72,7 @@ function AddCategory(props) {
   const [descValue, setDescValue] = useState("");
   const handleDescChange = (event) => {
     setDescValue(event.target.value);
+    handleDescLength(event.target.value)
   };
 
   const [formInputValidity, setFormInputValidity] = useState({
@@ -181,6 +201,7 @@ function AddCategory(props) {
       setDescValue("")
       props.clear()
       setNameLength(0)
+      setDescLength(0)
     } else { return }
   }
 
@@ -206,6 +227,8 @@ function AddCategory(props) {
   useEffect(() => {
     if (props.defs[0] !== "") {
       setSetting("Edit Category")
+      setNameLength(defaultNameLength)
+      setDescLength(defaultDescLength)
     } else { setSetting("Add Category") }
   }, props.defs)
 
@@ -256,10 +279,10 @@ function AddCategory(props) {
                 </span>
 
                 <div className="form-group">
-                <div className="price-pair">
+            
                   <input
                     type="text"
-                    className={`${nameClasses} text-limited`}
+                    className={`${nameClasses}`}
                     placeholder="Category Name"
                     value={nameValue}
                     // defaultValue={props.defs[0]}
@@ -268,9 +291,7 @@ function AddCategory(props) {
                     id="name"
                     autoComplete="off"
                   ></input>
-                  <h2 className="limit-numbers" title="Upon reaching 45 digits in length, an ellipsis (...) will be added."><span className={nameLengthClasses}>{nameLength}</span>/45</h2>
-                  </div>
-                  {formInputValidity.name && !formInputValidity.exist ? <label className="form-label">Category Name</label> : !formInputValidity.exist ? <label className="form-label" style={{ color: "red" }}>Enter a valid category name</label> : <label className="form-label" style={{ color: "red" }}>Category name already exists</label>}
+                  {formInputValidity.name && !formInputValidity.exist ? <label title="Upon reaching 40 digits in length, an ellipsis (...) will be added." className="form-label">Category Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span> </label> : !formInputValidity.exist ? <label className="form-label" style={{ color: "red" }}>Enter a valid category name</label> : <label className="form-label" style={{ color: "red" }}>Category name already exists</label>}
                 </div>
 
                 <div className="form-group">
@@ -299,7 +320,7 @@ function AddCategory(props) {
                     value={descValue}
                     autoComplete="off"
                   ></textarea>
-                  {formInputValidity.desc ? <label className="form-label">Description</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid description</label>}
+                  {formInputValidity.desc ? <label title="Upon reaching 150 digits in length, an ellipsis (...) will be added." className="form-label">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid description</label>}
                 </div>
                 <div className="add-categ-buttons">
                   {setting === "Edit Category" && <button className="product-action-3 heading-secondary categ-button-2" type="button" onClick={delCategHandler} disabled={loading}>Delete</button>}

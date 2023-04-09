@@ -52,14 +52,29 @@ function AddProduct(props) {
     },
   };
 
+  const [nameLength, setNameLength] = useState(0)
+  const handleNameLength = (event) => {
+    setNameLength(event.length)
+  }
+
+  const [descLength, setDescLength] = useState(0)
+  const handleDescLength = (event) => {
+    setDescLength(event.length)
+  }
+
+  const nameLengthClasses = `${nameLength > 40 ? "overlength" : ""}`;
+  const descLengthClasses = `${descLength > 150 ? "overlength" : ""}`;
+
   const [nameValue, setNameValue] = useState("");
   const handleNameChange = (event) => {
     setNameValue(event.target.value);
+    handleNameLength(event);
   };
 
   const [descValue, setDescValue] = useState("");
   const handleDescChange = (event) => {
     setDescValue(event.target.value);
+    handleDescLength(event)
   };
 
   const [imgValue1, setImgValue1] = useState("");
@@ -279,6 +294,8 @@ function AddProduct(props) {
       setStockAmount("")
       setStockUnit("")
       addImgNumber(0)
+      setNameLength(0)
+      setDescLength(0)
     } else { return }
   }
 
@@ -330,7 +347,7 @@ function AddProduct(props) {
                     autoComplete="off"
                   ></input>
                   {/* <label className="form-label">Product Name</label>  */}
-                  {formInputValidity.name ? <label className="form-label">Product Name</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid product name</label>}
+                  {formInputValidity.name ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid product name</label>}
                 </div>
 
                 <div className="page-heading-secondary">
