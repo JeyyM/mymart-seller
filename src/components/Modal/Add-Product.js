@@ -52,29 +52,38 @@ function AddProduct(props) {
     },
   };
 
+  const [truers, setTruers] = useState(false)
+
+  console.log("working", truers)
+
   const [nameLength, setNameLength] = useState(0)
   const handleNameLength = (event) => {
     setNameLength(event.length)
   }
 
+  console.log("over here", nameLength)
+
+
   const [descLength, setDescLength] = useState(0)
   const handleDescLength = (event) => {
     setDescLength(event.length)
+    // console.log(descLength)
   }
+
+  console.log("again", descLength)
+  const [nameValue, setNameValue] = useState("");
+  const handleNameChange = (event) => {
+    setNameValue(event.target.value);
+    handleNameLength(event.target.value)
+  };
 
   const nameLengthClasses = `${nameLength > 40 ? "overlength" : ""}`;
   const descLengthClasses = `${descLength > 150 ? "overlength" : ""}`;
 
-  const [nameValue, setNameValue] = useState("");
-  const handleNameChange = (event) => {
-    setNameValue(event.target.value);
-    handleNameLength(event);
-  };
-
   const [descValue, setDescValue] = useState("");
   const handleDescChange = (event) => {
     setDescValue(event.target.value);
-    handleDescLength(event)
+    handleDescLength(event.target.value)
   };
 
   const [imgValue1, setImgValue1] = useState("");
@@ -99,12 +108,14 @@ function AddProduct(props) {
 
   const [priceValue, setPriceValue] = useState("");
   const handlePriceChange = (event) => {
-    setPriceValue(event.target.value);
+    if (event.target.value.length < 9){
+    setPriceValue(event.target.value);}
   };
 
   const [stockAmount, setStockAmount] = useState("");
   const handleStockAmount = (event) => {
-    setStockAmount(event.target.value);
+    if (event.target.value.length < 9){
+    setStockAmount(event.target.value);}
   };
 
   const [stockUnit, setStockUnit] = useState("");
@@ -420,7 +431,7 @@ function AddProduct(props) {
                 <div className="price-pair">
             <label className="heading-secondary product-currency">$</label>
             <div>
-            <input type="number" className={priceClasses} placeholder="Price" autoComplete="off" id='price' value={priceValue} onChange={handlePriceChange}></input>
+            <input type="number" className={priceClasses} placeholder="Price" maxLength="8" autoComplete="off" id='price' value={priceValue} onChange={handlePriceChange}></input>
             {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid price</label>}
             </div>
             <div>
@@ -443,7 +454,7 @@ function AddProduct(props) {
                     value={descValue}
                     autoComplete="off"
                   ></textarea>
-                  {formInputValidity.desc ? <label className="form-label">Description</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid description</label>}
+                  {formInputValidity.desc ? <label className="form-label" title="Upon reaching 150 digits in length, an ellipsis (...) will be added.">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid description</label>}
                 </div>
                 <div className="add-categ-buttons">
                   <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={emptyContents} disabled={loading}>Cancel</button>
