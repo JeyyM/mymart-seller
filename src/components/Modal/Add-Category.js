@@ -31,9 +31,18 @@ function AddCategory(props) {
     },
   };
 
+  const [nameLength, setNameLength] = useState(0)
+  const handleNameLength = (event) => {
+    setNameLength(event.length)
+    console.log(nameLength)
+  }
+
+  const nameLengthClasses = `${nameLength > 45 ? "overlength" : ""}`;
+
   const [nameValue, setNameValue] = useState("");
   const handleNameChange = (event) => {
     setNameValue(event.target.value);
+    handleNameLength(event.target.value)
   };
 
   const [imgValue, setImgValue] = useState("");
@@ -171,6 +180,7 @@ function AddCategory(props) {
       setImgValue("")
       setDescValue("")
       props.clear()
+      setNameLength(0)
     } else { return }
   }
 
@@ -246,9 +256,10 @@ function AddCategory(props) {
                 </span>
 
                 <div className="form-group">
+                <div className="price-pair">
                   <input
                     type="text"
-                    className={nameClasses}
+                    className={`${nameClasses} text-limited`}
                     placeholder="Category Name"
                     value={nameValue}
                     // defaultValue={props.defs[0]}
@@ -257,6 +268,8 @@ function AddCategory(props) {
                     id="name"
                     autoComplete="off"
                   ></input>
+                  <h2 className="limit-numbers" title="Upon reaching 45 digits in length, an ellipsis (...) will be added."><span className={nameLengthClasses}>{nameLength}</span>/45</h2>
+                  </div>
                   {formInputValidity.name && !formInputValidity.exist ? <label className="form-label">Category Name</label> : !formInputValidity.exist ? <label className="form-label" style={{ color: "red" }}>Enter a valid category name</label> : <label className="form-label" style={{ color: "red" }}>Category name already exists</label>}
                 </div>
 

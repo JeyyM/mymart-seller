@@ -19,6 +19,8 @@
     overflow: hidden;
     height: 30rem;
     text-decoration: none;
+    max-width: calc(100vw / 4);
+    word-wrap: break-word;
   }
 
   .category-img{

@@ -74,3 +74,31 @@
 
 .page-heading-secondary {display: flex;
 gap: 1rem;}
+
+.text-limited{
+  box-shadow: inset 0 0 0 1rem $theme-bg, inset -7.5rem 0 0rem 1rem rgb(255, 255, 255) !important;
+}
+
+input[type="text"].text-limited {
+  padding-right: 8.5rem;
+}
+
+input[type="text"].text-limited:focus {
+  padding-right: 8.5rem;
+}
+
+.limit-numbers{
+  margin-left: -8rem;
+  z-index: 1;
+  color: black;
+  line-height: 1;
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 500;
+  transform: translateY(0.5rem);
+}
+
+.overlength {
+  color:red;
+  transition: all 0.2s;
+}
