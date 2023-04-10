@@ -202,6 +202,13 @@ function AddCategory(props) {
       props.clear()
       setNameLength(0)
       setDescLength(0)
+
+      setFormInputValidity({
+        name: true,
+        img: true,
+        desc: true,
+        exist: true
+      })
     } else { return }
   }
 
@@ -291,7 +298,7 @@ function AddCategory(props) {
                     id="name"
                     autoComplete="off"
                   ></input>
-                  {formInputValidity.name && !formInputValidity.exist ? <label title="Upon reaching 40 digits in length, an ellipsis (...) will be added." className="form-label">Category Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span> </label> : !formInputValidity.exist ? <label className="form-label" style={{ color: "red" }}>Enter a valid category name</label> : <label className="form-label" style={{ color: "red" }}>Category name already exists</label>}
+                  {formInputValidity.name && !formInputValidity.exist ? <label title="Upon reaching 40 digits in length, an ellipsis (...) will be added." className="form-label">Category Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span> </label> : !formInputValidity.exist ? <label className="form-label" style={{ color: "red" }}>Enter a valid category name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Category name already exists</label>}
                 </div>
 
                 <div className="form-group">
@@ -320,7 +327,7 @@ function AddCategory(props) {
                     value={descValue}
                     autoComplete="off"
                   ></textarea>
-                  {formInputValidity.desc ? <label title="Upon reaching 150 digits in length, an ellipsis (...) will be added." className="form-label">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid description</label>}
+                  {formInputValidity.desc ? <label title="Upon reaching 150 digits in length, an ellipsis (...) will be added." className="form-label">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label>}
                 </div>
                 <div className="add-categ-buttons">
                   {setting === "Edit Category" && <button className="product-action-3 heading-secondary categ-button-2" type="button" onClick={delCategHandler} disabled={loading}>Delete</button>}

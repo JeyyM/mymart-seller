@@ -279,6 +279,7 @@ input[type="text"].input-number:focus {
 
 .product-action-2 {
   @include button-dark;
+  width: 22rem;
 }
 
 .product-action-3 {

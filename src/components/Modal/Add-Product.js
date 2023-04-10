@@ -52,10 +52,6 @@ function AddProduct(props) {
     },
   };
 
-  const [truers, setTruers] = useState(false)
-
-  console.log("working", truers)
-
   const [nameLength, setNameLength] = useState(0)
   const handleNameLength = (event) => {
     setNameLength(event.length)
@@ -224,22 +220,6 @@ function AddProduct(props) {
 
     }
 
-    // if (submissionValid) {
-    //   setLoading(true)
-
-    //   if (setting === "Add Category") {
-    //     props.finish(incomingData)
-
-    //     await waitSeconds();
-
-    //     emptyContents(event)
-
-    //     setLoading(false)
-    //     setCompletion(true)
-
-    //     router.reload()
-    //   }
-
   };
 
   const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"
@@ -259,26 +239,6 @@ function AddProduct(props) {
 
   const unitClasses = `${formInputValidity.unit ? "text-small input-number" : "invalid-form-2"
     }`;
-
-  // const unitClasses = `${formInputValidity.unit ? "text-small" : "invalid-form"
-  //   }`;
-
-
-  // useEffect(() => {
-  //   if (props.defs[0] !== "") {
-  //     setNameValue(props.defs[0])
-  //   }
-  // }, props.defs)
-  // useEffect(() => {
-  //   if (props.defs[1] !== "") {
-  //     setImgValue(props.defs[1])
-  //   }
-  // }, props.defs)
-  // useEffect(() => {
-  //   if (props.defs[2] !== "") {
-  //     setDescValue(props.defs[2])
-  //   }
-  // }, props.defs)
 
   const [completion, setCompletion] = useState(false)
 
@@ -307,6 +267,16 @@ function AddProduct(props) {
       addImgNumber(0)
       setNameLength(0)
       setDescLength(0)
+
+      setFormInputValidity({
+        name: true,
+        img: true,
+        desc: true,
+        price: true,
+        amount: true,
+        unit: true,
+        images: true,
+      });
     } else { return }
   }
 
@@ -358,7 +328,7 @@ function AddProduct(props) {
                     autoComplete="off"
                   ></input>
                   {/* <label className="form-label">Product Name</label>  */}
-                  {formInputValidity.name ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid product name</label>}
+                  {formInputValidity.name ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid product name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label>}
                 </div>
 
                 <div className="page-heading-secondary">
@@ -454,7 +424,7 @@ function AddProduct(props) {
                     value={descValue}
                     autoComplete="off"
                   ></textarea>
-                  {formInputValidity.desc ? <label className="form-label" title="Upon reaching 150 digits in length, an ellipsis (...) will be added.">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid description</label>}
+                  {formInputValidity.desc ? <label className="form-label" title="Upon reaching 150 digits in length, an ellipsis (...) will be added.">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label>}
                 </div>
                 <div className="add-categ-buttons">
                   <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={emptyContents} disabled={loading}>Cancel</button>

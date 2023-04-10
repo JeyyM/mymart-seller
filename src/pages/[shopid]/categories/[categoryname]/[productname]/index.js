@@ -61,15 +61,17 @@ function ProductPage({ shopID }) {
     return varArray[n][`var${n + 1}`].productImages[0];
   }
 
-  
+
   const [nameValue, setNameValue] = useState(varArray[varState][`var${varNum}`].productName);
   const handleNameChange = (event) => {
     setNameValue(event.target.value);
+    handleNameLength(event.target.value)
   };
 
   const [descValue, setDescValue] = useState(varArray[varState][`var${varNum}`].productDescription);
   const handleDescChange = (event) => {
     setDescValue(event.target.value);
+    handleDescLength(event.target.value)
   };
 
   const [imgValue1, setImgValue1] = useState(varArray[varState][`var${varNum}`].productImages[0]);
@@ -109,12 +111,62 @@ function ProductPage({ shopID }) {
 
   console.log(nameValue, "|", descValue, "|", imgValue1, "|", imgValue2, "|", imgValue3, "|", imgValue4, "|", priceValue, "|", stockAmount, "|", stockUnit)
 
-  function sendData () {
-    console.log(nameValue, "|", descValue, "|", imgValue1, "|", imgValue2, "|", imgValue3, "|", imgValue4, "|", priceValue, "|", stockAmount, "|", stockUnit)
-    console.log("over here", varState)
+  const [nameLength, setNameLength] = useState(varArray[varState][`var${varNum}`].productName.length)
+  const handleNameLength = (event) => {
+    setNameLength(event.length)
   }
 
-  function setAll(index){
+  // console.log("over here", nameLength)
+
+
+  const [descLength, setDescLength] = useState(varArray[varState][`var${varNum}`].productDescription.length)
+  const handleDescLength = (event) => {
+    setDescLength(event.length)
+    // console.log(descLength)
+  }
+
+  // console.log(" ayp nbrjn", descLength)
+
+  const nameLengthClasses = `${nameLength > 40 ? "overlength" : ""}`;
+  const descLengthClasses = `${descLength > 150 ? "overlength" : ""}`;
+
+  function isEmpty(word) {
+    word.trim() === ""
+  }
+
+  function startsImgur(word) {
+    if (word)
+    {return word.slice(0, 20) === "https://i.imgur.com/";}
+  }
+
+  const [loading, setLoading] = useState(false)
+  const [completion, setCompletion] = useState(false)
+
+  const checkmark = (
+    <svg viewBox="0 0 100 100" width="7rem" height="7rem">
+      <path id="checkmark" d="M25,50 L40,65 L75,30" stroke="#FFFFFF" strokeWidth="8" fill="none"
+        strokeDasharray="200" strokeDashoffset="200">
+        <animate attributeName="stroke-dashoffset" from="200" to="0" dur="0.5s" begin="indefinite" />
+      </path>
+    </svg>
+  )
+
+  function waitSeconds() {
+    // console.log("wait 2.5 sec")
+    return new Promise(resolve => setTimeout(resolve, 2500));
+  }
+
+  const [formInputValidity, setFormInputValidity] = useState({
+    name: true,
+    img: true,
+    desc: true,
+    price: true,
+    amount: true,
+    unit: true,
+    images: true,
+  });
+
+  function setAll(index) {
     setNameValue(varArray[index][`var${index + 1}`].productName)
     setDescValue(varArray[index][`var${index + 1}`].productDescription)
     setImgValue1(varArray[index][`var${index + 1}`].productImages[0])
@@ -124,19 +176,121 @@ function ProductPage({ shopID }) {
     setPriceValue(varArray[index][`var${index + 1}`].productPrice)
     setStockAmount(varArray[index][`var${index + 1}`].productStock.stockAmount)
     setStockUnit(varArray[index][`var${index + 1}`].productStock.stockUnit)
+
+    setNameLength(varArray[index][`var${index + 1}`].productName.length)
+    setDescLength(varArray[index][`var${index + 1}`].productDescription.length)
+
+    setFormInputValidity({
+      name: true,
+      img: true,
+      desc: true,
+      price: true,
+      amount: true,
+      unit: true,
+      images: true,
+    });
   }
 
   const [showImg, setShowImg] = useState(false)
 
-  function handleShowImg(){
+  function handleShowImg() {
     setShowImg(!showImg)
-    console.log(showImg)
+    // console.log(showImg)
   }
 
   const imgSet = [imgValue1, imgValue2, imgValue3, imgValue4]
   const imgHandlers = [setImgValue1, setImgValue2, setImgValue3, setImgValue4]
 
-  console.log(varArray[varState][`var${varState + 1}`].productImages.length)
+  // console.log(varArray[varState][`var${varState + 1}`].productImages.length)
+
+  const handleClick = async (event) => {
+    await handleSubmit(event);
+  }
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    console.log("submitting")
+
+    const img1Valid = startsImgur(imgValue1) && !isEmpty(imgValue1)
+    const img2Valid = startsImgur(imgValue2) && !isEmpty(imgValue2)
+    const img3Valid = startsImgur(imgValue3) && !isEmpty(imgValue3)
+    const img4Valid = startsImgur(imgValue4) && !isEmpty(imgValue4)
+
+    const givenImages = [
+      img1Valid && { image: imgValue1 },
+      img2Valid && { image: imgValue2 },
+      img3Valid && { image: imgValue3 },
+      img4Valid && { image: imgValue4 },
+    ].filter(Boolean)
+
+    const nameValid = nameValue !== ""
+    const descValid = descValue !== ""
+    const priceValid = priceValue !== ""
+    const amountValid = stockAmount !== ""
+    const unitValid = stockUnit !== ""
+    const imgValid = givenImages.length > 0
+
+    const submissionValid = nameValid && imgValid && descValid && priceValid && unitValid && amountValid && imgValid
+
+    setFormInputValidity({
+      name: nameValid,
+      img: imgValid,
+      desc: descValid,
+      price: priceValid,
+      amount: amountValid,
+      unit: unitValid,
+      images: imgValid,
+    });
+
+    const incomingData = {
+      productName: nameValue,
+      productDescription: descValue,
+      productPrice: priceValue,
+      productStock: { stockAmount: stockAmount, stockUnit: stockUnit },
+      productImages: givenImages.map((imageObject) => imageObject.image)
+    }
+
+    if (submissionValid) {
+      setLoading(true)
+
+      console.log(incomingData)
+
+      // props.finish(incomingData, props.categKey, props.length)
+
+      await waitSeconds();
+      console.log("valid")
+      // emptyContents(event)
+
+      console.log(nameValue, "|", descValue, "|", givenImages, "|", priceValue, "|", stockAmount, "|", stockUnit)
+      console.log("over here", varState)
+
+      setLoading(false)
+      setCompletion(true)
+      
+      router.reload()
+
+    }
+  }
+
+  const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"
+    }`;
+
+  const imgClasses = `${formInputValidity.images ? "text-full" : "invalid-form"
+    }`;
+
+  const descClasses = `${formInputValidity.desc ? "desc-text-area" : "invalid-form-box"
+    }`;
+
+  const priceClasses = `${formInputValidity.price ? "text-small input-number" : "invalid-form-2"
+    }`;
+
+  const amountClasses = `${formInputValidity.amount ? "text-small input-number" : "invalid-form-2"
+    }`;
+
+  const unitClasses = `${formInputValidity.unit ? "text-small input-number" : "invalid-form-2"
+    }`;
 
   return <Fragment>
     {showImg && <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={imgSet.length} imgs={imgSet} handlers={imgHandlers}></ProdImg>}
@@ -144,11 +298,11 @@ function ProductPage({ shopID }) {
     <div className="product-container">
       <div className="main-img-container">
 
-      <div className="sample">
-      <button className="product-edit-button" onClick={handleShowImg} type="button"><div className="heading-icon-edit">&nbsp;</div></button>
-        <img src={varArray[varState][`var${varNum}`].productImages[imgState]} alt={varArray[varState][`var${varNum}`].productName} className="product-image">
-        </img>
-      </div>
+        <div className="sample">
+          <button className="product-edit-button" onClick={handleShowImg} type="button"><div className="heading-icon-edit">&nbsp;</div></button>
+          <img src={varArray[varState][`var${varNum}`].productImages[imgState]} alt={varArray[varState][`var${varNum}`].productName} className="product-image">
+          </img>
+        </div>
 
         <motion.div className="side-img-container" initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -172,29 +326,47 @@ function ProductPage({ shopID }) {
 
       <div className="details-section">
         <form>
-        <div>
-          <input type="text" value={nameValue} className="text-full" placeholder="Product Name" required id='name' onChange={handleNameChange}></input>
-        </div>
+          <div>
+            <input type="text" value={nameValue} className={nameClasses} placeholder="Product Name" required id='name' autoComplete="off" onChange={handleNameChange}></input>
+            {formInputValidity.name ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid product name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label>}
+
+          </div>
 
           <div className="price-pair">
             <label className="heading-secondary product-currency">$</label>
-            <input type="number" value={priceValue} className="text-small input-number" placeholder="Price" required id='price' onChange={handlePriceChange}></input>
+            <div className="flex-col">
+            <input type="number" value={priceValue} className={priceClasses} placeholder="Price" required id='price' onChange={handlePriceChange}></input>
+            {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid price</label>}
+            </div>
+
           </div>
 
+          
           <textarea
             id='description'
             required
             rows='5'
             value={descValue}
-            className="desc-text-area"
+            className={descClasses}
             placeholder="Description"
             onChange={handleDescChange}
           ></textarea>
+          {formInputValidity.desc ? <label className="form-label" title="Upon reaching 150 digits in length, an ellipsis (...) will be added.">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label>}
 
-          <div className="price-pair-2">
+
+          <div className="price-pair">
+
             <label className="heading-secondary product-currency">Stock</label>
-            <input type="number" value={stockAmount} className="text-small input-number" placeholder="Amount" required id='amount' onChange={handleStockAmount}></input>
-            <input type="text" value={stockUnit} className="text-small" placeholder="Unit" required id='unit' onChange={handleStockUnit}></input>
+            <div className="flex-col">
+            <input type="number" value={stockAmount} className={amountClasses} placeholder="Amount" required id='amount' onChange={handleStockAmount}></input>
+            {formInputValidity.amount ? <label className="form-label">Stock Amount</label> : <label className="form-label" style={{ color: "red" }}>Invalid stock amount</label>}
+            </div>
+
+          <div className="flex-col">
+            <input type="text" value={stockUnit} className={unitClasses} placeholder="Unit" required id='unit' onChange={handleStockUnit}></input>
+            {formInputValidity.unit ? <label className="form-label">Stock Unit</label> : <label className="form-label" style={{ color: "red" }}>Invalid stock unit</label>}
+            </div>
+
           </div>
 
         </form>
@@ -204,16 +376,16 @@ function ProductPage({ shopID }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2 }}>
           {varRange.map((v, index) => (
-            <motion.img key={index} onClick={() => {varStateHandler(index); setAll(index);}} className={`varItem ${index === varState ? "active-var" : ""}`} src={imageGetter(index)} alt={index} initial={{ opacity: 0, x: 50 }}
+            <motion.img key={index} onClick={() => { varStateHandler(index); setAll(index); }} className={`varItem ${index === varState ? "active-var" : ""}`} src={imageGetter(index)} alt={index} initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 * index, duration: 0.2 }}></motion.img>
           ))}
         </motion.div>
 
         <div className="product-action-buttons">
-          <button className="product-action-3 heading-secondary">Delete Variation</button>
-          <button className="product-action-1 heading-secondary">Edit Search Tags</button>
-          <button className="product-action-2 heading-secondary" onClick={sendData}>Submit Changes</button>
+          <button className="product-action-3 heading-secondary" disabled={loading}>Delete Variation</button>
+          <button className="product-action-1 heading-secondary" disabled={loading}>Edit Search Tags</button>
+          <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
         </div>
       </div>
     </div>
