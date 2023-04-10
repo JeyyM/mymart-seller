@@ -27,26 +27,26 @@ function ProdImg(props) {
 
     const slide = {
         hidden: {
-            x: "-100vw",
-            opacity: 1,
+          x: "-100vw",
+          opacity: 1,
         },
         visible: {
-            x: "0px",
-            opacity: 1,
-            transition: {
-                type: "spring",
-                duration: 0.3,
-                bounce: 0.2,
-            },
+          x: "0px",
+          opacity: 1,
+          transition: {
+            type: "spring",
+            duration: 0.3,
+            bounce: 0.2,
+          },
         },
         exit: {
-            x: "-100vw",
-            opacity: 1,
-            transition: {
-                duration: 0.2,
-            },
+          x: "-100vw",
+          opacity: 1,
+          transition: {
+            duration: 0.2,
+          },
         },
-    };
+      };
 
     const handleClick = async (event) => {
         await handleSubmit(event);
@@ -56,13 +56,6 @@ function ProdImg(props) {
         event.preventDefault();
 
     }
-
-    const [formInputValidity, setFormInputValidity] = useState({
-        name: true,
-        img: true,
-        desc: true,
-        exist: false,
-    });
 
     const [imgNumber, addImgNumber] = useState(0)
 
@@ -76,21 +69,21 @@ function ProdImg(props) {
     return (
         <Fragment>
             <AnimatePresence
-                initial={false}
+                initial={true}
                 mode={"wait"}
                 onExitComplete={() => null}
             >
                 {props.modalStatus && (
                     <Backdrop onClick={props.disable} className="categ-modals">
                         <motion.div
+                            // key={props.chosenItem}
                             onClick={(e) => e.stopPropagation()}
-                            className="categ-modal"
+                            className={`categ-modal`}
                             variants={appear}
                             initial="hidden"
                             animate="visible"
                             exit="exit"
                         >
-
                             <span className="page-heading">
                                 <h2 className="heading-primary no-margin">Product Images</h2>
                                 <div className="heading-icon-dropshadow">
@@ -168,14 +161,12 @@ function ProdImg(props) {
                                 <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={props.disable}>Cancel</button>
                                 <button className="product-action-2 heading-secondary categ-button-2" type="button" onClick={handleClick}>Confirm</button>
                             </div>
-
                         </motion.div>
                     </Backdrop>
                 )}
             </AnimatePresence>
         </Fragment>
     );
-
-};
+}
 
 export default ProdImg;
