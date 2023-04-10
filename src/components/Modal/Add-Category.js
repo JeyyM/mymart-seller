@@ -268,7 +268,7 @@ function AddCategory(props) {
       >
         {props.modalStatus && (
           <Backdrop onClick={loading ? null : emptyContents} className="categ-modals">
-            {delCateg && <Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} delete={delCategHandler} default={setDefaultName} finish={handleDelete} chosenItem={props.defs[0]} msg="Are you sure you want to delete the category? This cannot be undone. However, the data from this category's statistics will remain." label={`Will you delete ${setDefaultName}?`} load={() => {setLoading(true)}}></Confirmer>}
+            <Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} delete={delCategHandler} default={setDefaultName} finish={handleDelete} chosenItem={props.defs[0]} msg="Are you sure you want to delete the category? This cannot be undone. However, the data from this category's statistics will remain." label={`Will you delete ${setDefaultName}?`} load={() => {setLoading(true)}}></Confirmer>
             <motion.div
               onClick={(e) => e.stopPropagation()}
               className="categ-modal"

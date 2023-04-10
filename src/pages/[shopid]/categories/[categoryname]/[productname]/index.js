@@ -1,6 +1,6 @@
 import { MongoClient, ObjectId } from "mongodb";
 import { useRouter } from "next/router";
-import { Fragment, useState, useRef } from "react";
+import { Fragment, useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import ProdImg from "@/components/Modal/Prod-Img";
@@ -130,6 +130,14 @@ function ProductPage({ shopID }) {
   const nameLengthClasses = `${nameLength > 40 ? "overlength" : ""}`;
   const descLengthClasses = `${descLength > 150 ? "overlength" : ""}`;
 
+  const [imgSet, setImgSet] = useState([imgValue1, imgValue2, imgValue3, imgValue4])
+
+  useEffect(() => {
+    setImgSet([imgValue1, imgValue2, imgValue3, imgValue4]);
+  }, [imgValue1, imgValue2, imgValue3, imgValue4]);
+
+  console.log("imsetherer", imgSet)
+
   function isEmpty(word) {
     word.trim() === ""
   }
@@ -180,6 +188,9 @@ function ProductPage({ shopID }) {
     setNameLength(varArray[index][`var${index + 1}`].productName.length)
     setDescLength(varArray[index][`var${index + 1}`].productDescription.length)
 
+    setImgSet([imgValue1, imgValue2, imgValue3, imgValue4])
+    console.log("set all imgset", imgSet)
+
     setFormInputValidity({
       name: true,
       img: true,
@@ -197,9 +208,6 @@ function ProductPage({ shopID }) {
     setShowImg(!showImg)
     // console.log(showImg)
   }
-
-  const imgSet = [imgValue1, imgValue2, imgValue3, imgValue4]
-  const imgHandlers = [setImgValue1, setImgValue2, setImgValue3, setImgValue4]
 
   // console.log(varArray[varState][`var${varState + 1}`].productImages.length)
 
@@ -293,13 +301,13 @@ function ProductPage({ shopID }) {
     }`;
 
   return <Fragment>
-    {showImg && <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={imgSet.length} imgs={imgSet} handlers={imgHandlers}></ProdImg>}
+    <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={imgSet.length} imgs={imgSet}></ProdImg>
 
     <div className="product-container">
       <div className="main-img-container">
 
         <div className="sample">
-          <button className="product-edit-button" onClick={handleShowImg} type="button"><div className="heading-icon-edit">&nbsp;</div></button>
+          <button className="product-edit-button" onClick={() => {handleShowImg()}} type="button"><div className="heading-icon-edit">&nbsp;</div></button>
           <img src={varArray[varState][`var${varNum}`].productImages[imgState]} alt={varArray[varState][`var${varNum}`].productName} className="product-image">
           </img>
         </div>
