@@ -130,27 +130,9 @@
     const nameLengthClasses = `${nameLength > 40 ? "overlength" : ""}`;
     const descLengthClasses = `${descLength > 150 ? "overlength" : ""}`;
 
-    const [imgSet, setImgSet] = useState([])
+    const [imgSet, setImgSet] = useState([imgValue1, imgValue2, imgValue3, imgValue4])
 
-    useEffect(() => {
-      const img1Valid = startsImgur(imgValue1) && !isEmpty(imgValue1)
-      const img2Valid = startsImgur(imgValue2) && !isEmpty(imgValue2)
-      const img3Valid = startsImgur(imgValue3) && !isEmpty(imgValue3)
-      const img4Valid = startsImgur(imgValue4) && !isEmpty(imgValue4)
-
-      const validImgSet = [
-        img1Valid && { image: imgValue1 },
-        img2Valid && { image: imgValue2 },
-        img3Valid && { image: imgValue3 },
-        img4Valid && { image: imgValue4 },
-      ].filter(Boolean)
-
-      console.log("valid img set", validImgSet)
-
-      setImgSet(validImgSet)
-    }, [imgValue1, imgValue2, imgValue3, imgValue4])
-
-    console.log("after validationt", imgSet)
+    console.log("imsetherer", imgSet)
 
     function isEmpty(word) {
       word.trim() === ""
@@ -216,21 +198,9 @@
       });
     }
 
-    // useEffect(() => {
-    //   const img1Valid = startsImgur(imgValue1) && !isEmpty(imgValue1)
-    //   const img2Valid = startsImgur(imgValue2) && !isEmpty(imgValue2)
-    //   const img3Valid = startsImgur(imgValue3) && !isEmpty(imgValue3)
-    //   const img4Valid = startsImgur(imgValue4) && !isEmpty(imgValue4)
-
-    //   const validImgSet = [
-    //     img1Valid && { image: imgValue1 },
-    //     img2Valid && { image: imgValue2 },
-    //     img3Valid && { image: imgValue3 },
-    //     img4Valid && { image: imgValue4 },
-    //   ].filter(Boolean)
-
-    //   setImgSet([validImgSet[0], validImgSet[1], validImgSet[2], validImgSet[3]])
-    // }, [imgValue1, imgValue2, imgValue3, imgValue4])
+    useEffect(() => {
+      setImgSet([imgValue1, imgValue2, imgValue3, imgValue4])
+    }, [imgValue1, imgValue2, imgValue3, imgValue4])
     
 
     const [showImg, setShowImg] = useState(false)

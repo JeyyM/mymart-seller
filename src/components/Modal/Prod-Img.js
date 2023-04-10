@@ -66,19 +66,7 @@ function ProdImg(props) {
         else { return }
     }
 
-    console.log("props.imgs", props.imgs, props.imgs.length > 0 ? props.imgs[0].image : null);
-
-    const [validImgs, setValidImgs] = useState([])
-
-    useEffect(() => {
-        if (props.imgs.length > 0) {
-          setValidImgs([props.imgs[0], props.imgs[1], props.imgs[2], props.imgs[3]]);
-        }
-      }, [props.imgs]);
-
-    console.log("valid imgs check", validImgs)
-
-    const [imgValue1, setImgValue1] = useState(validImgs[0]);
+    const [imgValue1, setImgValue1] = useState(props.imgs[0]);
     const handleImgChange1 = (event) => {
       setImgValue1(event.target.value);
     };
@@ -113,7 +101,7 @@ function ProdImg(props) {
         setImgValue3(props.imgs[2]);
         setImgValue4(props.imgs[3]);
 
-        // console.log("bazinga", props.imgs[0], props.imgs[1], props.imgs[2], props.imgs[3])
+        console.log("bazinga", props.imgs[0], props.imgs[1], props.imgs[2], props.imgs[3])
       }, [props.imgs]);
 
     return (
@@ -160,7 +148,7 @@ function ProdImg(props) {
 
                                 {imgValue1 && <img src={imgValue1} className="add-categ-img" alt="Link is Invalid"></img>}
 
-                                {props.imgnumber >= 1 && imgValue2 !== undefined && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
+                                {props.imgnumber >= 1 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
                                     <input
                                         type="text"
                                         // className={imgClasses}
@@ -177,7 +165,7 @@ function ProdImg(props) {
 
                                 {imgValue2 && <img src={imgValue2} className="add-categ-img" alt="Link is Invalid"></img>}
 
-                                {props.imgnumber >= 2 && imgValue3 !== undefined && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
+                                {props.imgnumber >= 2 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
                                     <input
                                         type="text"
                                         className="text-full"
@@ -191,7 +179,7 @@ function ProdImg(props) {
                                 </motion.div>}
                                 {imgValue3 && <img src={imgValue3} className="add-categ-img" alt="Link is Invalid"></img>}
 
-                                {props.imgnumber >= 3 && imgValue4 !== undefined && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
+                                {props.imgnumber >= 3 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
                                     <input
                                         type="text"
                                         className="text-full"
