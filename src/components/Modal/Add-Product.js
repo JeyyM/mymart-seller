@@ -251,7 +251,6 @@ function AddProduct(props) {
     </svg>
   )
 
-
   function emptyContents() {
     if (event) {
       props.disable(event)
