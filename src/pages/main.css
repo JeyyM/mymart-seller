@@ -1522,6 +1522,7 @@ body {
   text-decoration: none;
   width: calc(25vw - 3rem);
   word-wrap: break-word;
+  z-index: -6;
 }
 .category:hover {
   transform: translateY(-0.6rem) translateX(1rem) !important;
@@ -1533,6 +1534,9 @@ body {
 }
 
 .category-img {
+  position: absolute;
+  transform: translateY(-60%);
+  left: 0;
   width: 100%;
   height: 40%;
   background-size: cover;
@@ -1542,6 +1546,7 @@ body {
   border-style: none none solid none;
   -o-object-fit: cover;
      object-fit: cover;
+  z-index: -5;
 }
 
 .category-content {
@@ -1551,6 +1556,11 @@ body {
   align-items: stretch;
   justify-content: space-between;
   height: 60%;
+  z-index: 5;
+  background-color: white;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
 }
 
 .category-name {
