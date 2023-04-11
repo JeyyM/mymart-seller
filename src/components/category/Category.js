@@ -14,8 +14,9 @@ function Category(props) {
         transition={{ delay: 0.2 * props.index, duration: 0.2 }}>
 
         <button className="categ-edit-button" onClick={(event) => {props.edit2([categoryName, categoryImage, categoryDescription]); props.edit(event);}}><div className="heading-icon-edit">&nbsp;</div></button>
-
-        <Image src={categoryImage} className="category-img" layout="fill"></Image>
+        <div className="image-container">
+        <Image src={categoryImage} className="category-img" layout="fill" unoptimized={false} alt={categoryName} priority={true} sizes="100%"></Image>
+        </div>
         <div className="category-content">
             <div>
                 <h2 className="heading-secondary category-name">{categoryName.length > 40 ? categoryName.substring(0, 37) + "..." : categoryName}</h2>

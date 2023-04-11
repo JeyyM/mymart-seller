@@ -45,7 +45,7 @@ function AddCategory(props) {
   }
 
   useEffect(() => {
-    console.log( "cmon work", nameLength);
+    // console.log( "cmon work", nameLength);
   }, [nameLength]);
   
 
@@ -119,7 +119,7 @@ function AddCategory(props) {
 
     const submissionValid = nameValid && imgValid && descValid && !nameExist
 
-    console.log(formInputValidity.name)
+    // console.log(formInputValidity.name)
 
     const incomingData = {
       categoryName: nameValue,

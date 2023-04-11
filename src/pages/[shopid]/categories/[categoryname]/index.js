@@ -55,7 +55,7 @@ function ProductsPage({ shopID }) {
   async function completeForm(formdata, key, length){
 
     const nextProd = "Product" + (length + 1)
-    console.log (nextProd)
+    // console.log (nextProd)
 
     const response = await fetch(
       `../../../api/new-product?martid=${router.query.shopid}&categorykey=${key}&prodlength=${nextProd}`,

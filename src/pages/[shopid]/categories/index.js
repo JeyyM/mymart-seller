@@ -20,7 +20,7 @@ function CategoryPage({ shopID }) {
   });
 
   const categNamesList = Object.keys(contents).map(key => (contents[key].categoryName))
-  console.log("categNamesList" , categNamesList)
+  // console.log("categNamesList" , categNamesList)
 
   const categoryAmount = Object.keys(shopID.shopData.shopCategories).length
 
@@ -72,8 +72,8 @@ function CategoryPage({ shopID }) {
 
   async function deleteForm(key) {
 
-    console.log("in delete form", key)
-    console.log("just making sure")
+    // console.log("in delete form", key)
+    // console.log("just making sure")
 
     const response = await fetch(
       `../../api/new-category?martid=${router.query.shopid}&categoryname=${key}`,
