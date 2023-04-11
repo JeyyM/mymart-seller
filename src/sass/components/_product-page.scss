@@ -320,3 +320,9 @@ input[type="text"].input-number:focus {
   @include heading-logo(add-img, 4rem, 4rem);
   margin-left: 1rem;
 }
+
+.variations-label{
+  display: inline-block;
+  padding: 1rem;
+  transform: translateY(1rem);
+}

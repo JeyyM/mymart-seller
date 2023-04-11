@@ -35,6 +35,7 @@ function ProductsPage({ shopID }) {
     };
   });
 
+
   const productNames = products.map((product) => {
     const vars = Object.values(product.value);
     const names = vars.map((varObj) => varObj.productName);

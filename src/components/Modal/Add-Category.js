@@ -104,8 +104,9 @@ function AddCategory(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const nameValid = nameValue !== "" && !props.list.includes(nameValue)
-    const nameExist = props.list.includes(nameValue)
+    let nameValid = nameValue !== "" && !props.list.includes(nameValue)
+    let nameExist = props.list.includes(nameValue)
+    if (nameValue === setDefaultName) {nameExist = false; nameValid = true}
     const imgValid = startsImgur(imgValue) && !isEmpty(imgValue)
     const descValid = descValue !== ""
 
@@ -116,7 +117,9 @@ function AddCategory(props) {
       exist: nameExist
     });
 
-    const submissionValid = nameValid && imgValid && descValid
+    const submissionValid = nameValid && imgValid && descValid && !nameExist
+
+    console.log(formInputValidity.name)
 
     const incomingData = {
       categoryName: nameValue,
@@ -207,7 +210,7 @@ function AddCategory(props) {
         name: true,
         img: true,
         desc: true,
-        exist: true
+        exist: false
       })
     } else { return }
   }

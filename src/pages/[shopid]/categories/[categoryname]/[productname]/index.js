@@ -4,6 +4,7 @@ import { Fragment, useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import ProdImg from "@/components/Modal/Prod-Img";
+import AddVariation from "@/components/Modal/Add-Variation"
 
 function ProductPage({ shopID }) {
   const router = useRouter()
@@ -17,6 +18,16 @@ function ProductPage({ shopID }) {
   })
 
   const categoryContents3 = categoryContents2[1].categoryProducts
+
+  console.log("checking for the list", categoryContents3)
+
+  const productNames = Object.values(categoryContents3).map((product) => {
+    const vars = Object.values(product);
+    const names = vars.map((varObj) => varObj.productName);
+    return names;
+  }).flat();
+
+  console.log(productNames)
 
   const resulting = Object.keys(categoryContents3).reduce((acc, curr) => {
     const foundProduct = Object.keys(categoryContents3[curr].var1).find(
@@ -185,6 +196,7 @@ function ProductPage({ shopID }) {
     amount: true,
     unit: true,
     images: true,
+    exist: false,
   });
 
   function setAll(index) {
@@ -251,14 +263,16 @@ function ProductPage({ shopID }) {
       img4Valid && { image: imgValue4 },
     ].filter(Boolean)
 
-    const nameValid = nameValue !== ""
+    let nameValid = nameValue !== "" && !productNames.includes(nameValue)
+    let nameExist = productNames.includes(nameValue)
+    if (nameValue === varArray[varState][`var${varNum}`].productName) {nameExist = false; nameValid = true}
     const descValid = descValue !== ""
     const priceValid = priceValue !== ""
     const amountValid = stockAmount !== ""
     const unitValid = stockUnit !== ""
     const imgValid = givenImages.length > 0
 
-    const submissionValid = nameValid && imgValid && descValid && priceValid && unitValid && amountValid && imgValid
+    const submissionValid = nameValid && imgValid && descValid && priceValid && unitValid && amountValid && imgValid && !nameExist
 
     setFormInputValidity({
       name: nameValid,
@@ -268,6 +282,7 @@ function ProductPage({ shopID }) {
       amount: amountValid,
       unit: unitValid,
       images: imgValid,
+      exist: nameExist,
     });
 
     const incomingData = {
@@ -278,7 +293,7 @@ function ProductPage({ shopID }) {
       productImages: givenImages.map((imageObject) => imageObject.image)
     }
 
-    if (submissionValid) {
+    if (submissionValid){
       setLoading(true)
       console.log("valid")
 
@@ -312,6 +327,18 @@ function ProductPage({ shopID }) {
     }
   }
 
+  const addVariation = async (payload) => {
+    console.log(payload)
+    const response = await fetch(
+      `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varNum + 1}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }
+    );
+  }
+
   const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"
     }`;
 
@@ -342,10 +369,20 @@ function ProductPage({ shopID }) {
       if (payload[3]) {setImgValue4(payload[3].image)} else {setImgValue4(undefined)}
     }
   
+
+    const [addVar, setAddVar] = useState()
+    function handleAddVar(){
+      setAddVar(!addVar)
+      console.log(addVar)
+    }
     // console.log("current image values here", imgValue1, imgValue2, imgValue3, imgValue4)
     // console.log("this is the imgset rn", imgSet)
   return <Fragment>
     <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
+    <AddVariation modalStatus={addVar} disable={handleAddVar} names={productNames} finish={addVariation}></AddVariation>
+    
+    {/* <AddVariation modalStatus={addVar} disable={handleAddVar} finish={completeForm} categKey={chosenKey} length={products.length}></AddVariation> */}
+
 
     <div className="product-container">
       <div className="main-img-container">
@@ -381,7 +418,8 @@ function ProductPage({ shopID }) {
         <form>
           <div>
             <input type="text" value={nameValue} className={nameClasses} placeholder="Product Name" required id='name' autoComplete="off" onChange={handleNameChange}></input>
-            {formInputValidity.name ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid product name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label>}
+            {/* {formInputValidity.name ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid product name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label>} */}
+            {formInputValidity.name && !formInputValidity.exist ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : !formInputValidity.exist ? <label className="form-label" style={{ color: "red" }}>Enter a valid product name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Product name already exists in category <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label>}
 
           </div>
 
@@ -424,8 +462,9 @@ function ProductPage({ shopID }) {
 
         </form>
 
-        <label className="heading-secondary product-currency">Variations</label>
-        <motion.div className="varContainer" initial={{ opacity: 0 }}
+        <label className="heading-secondary variations-label">Variations</label> <button className="add-img" type="button" onClick={handleAddVar} ><div className="heading-icon-plus-marginless">&nbsp;</div></button>
+        
+       <motion.div className="varContainer" initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2 }}>
           {varRange.map((v, index) => (

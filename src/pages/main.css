@@ -2250,6 +2250,12 @@ input[type=text].input-number:focus {
   margin-left: 1rem;
 }
 
+.variations-label {
+  display: inline-block;
+  padding: 1rem;
+  transform: translateY(1rem);
+}
+
 .categ-modals {
   display: flex;
   align-content: center;

@@ -215,14 +215,14 @@ function AddProduct(props) {
 
       console.log(incomingData)
 
-      props.finish(incomingData, props.categKey, props.length)
+      props.finish(incomingData)
 
       await waitSeconds();
       console.log("valid")
       emptyContents(event)
       setLoading(false)
       setCompletion(true)
-      router.reload()
+    //   router.reload()
 
     }
 
@@ -317,7 +317,7 @@ function AddProduct(props) {
             >
               <form onSubmit={handleClick}>
                 <span className="page-heading">
-                  <h2 className="heading-primary no-margin">Add Product</h2>
+                  <h2 className="heading-primary no-margin">Add Variation</h2>
                   <div className="heading-icon-dropshadow">
                     <div className="heading-icon-cube">&nbsp;</div>
                   </div>
