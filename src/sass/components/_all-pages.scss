@@ -101,6 +101,7 @@
 .flex-col{
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
 
 .flex-row{
@@ -108,3 +109,7 @@
   flex-direction: row;
   gap: 1rem;
 }
+
+// .size-100{
+//   width: 10rem;
+// }

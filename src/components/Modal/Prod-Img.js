@@ -27,26 +27,36 @@ function ProdImg(props) {
 
     const slide = {
         hidden: {
-          x: "-100vw",
-          opacity: 1,
+            x: "-100vw",
+            opacity: 1,
         },
         visible: {
-          x: "0px",
-          opacity: 1,
-          transition: {
-            type: "spring",
-            duration: 0.3,
-            bounce: 0.2,
-          },
+            x: "0px",
+            opacity: 1,
+            transition: {
+                type: "spring",
+                duration: 0.3,
+                bounce: 0.2,
+            },
         },
         exit: {
-          x: "-100vw",
-          opacity: 1,
-          transition: {
-            duration: 0.2,
-          },
+            x: "-100vw",
+            opacity: 1,
+            transition: {
+                duration: 0.2,
+            },
         },
-      };
+    };
+
+    function isEmpty(word) {
+        word.trim() === ""
+    }
+
+    function startsImgur(word) {
+        if (word) {
+            return word.slice(0, 20) === "https://i.imgur.com/";
+        }
+    }
 
     const handleClick = async (event) => {
         await handleSubmit(event);
@@ -55,35 +65,49 @@ function ProdImg(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-    }
+        console.log("submitting")
 
-    const [imgNumber, addImgNumber] = useState(0)
+        const img1Valid = startsImgur(imgValue1) && !isEmpty(imgValue1)
+        const img2Valid = startsImgur(imgValue2) && !isEmpty(imgValue2)
+        const img3Valid = startsImgur(imgValue3) && !isEmpty(imgValue3)
+        const img4Valid = startsImgur(imgValue4) && !isEmpty(imgValue4)
 
-    const handleAddImgNumber = () => {
-        if (imgNumber <= 2) {
-            addImgNumber(imgNumber + 1)
+        const givenImages = [
+            img1Valid && { image: imgValue1 },
+            img2Valid && { image: imgValue2 },
+            img3Valid && { image: imgValue3 },
+            img4Valid && { image: imgValue4 },
+        ].filter(Boolean)
+
+        console.log(givenImages)
+
+        if (givenImages.length > 0) {
+            console.log(givenImages)
+        } else {
+            setFormInputValidity({
+                img: false
+            })
         }
-        else { return }
     }
 
     const [imgValue1, setImgValue1] = useState(props.imgs[0]);
     const handleImgChange1 = (event) => {
-      setImgValue1(event.target.value);
+        setImgValue1(event.target.value);
     };
-  
+
     const [imgValue2, setImgValue2] = useState(props.imgs[1]);
     const handleImgChange2 = (event) => {
-      setImgValue2(event.target.value);
+        setImgValue2(event.target.value);
     };
-  
+
     const [imgValue3, setImgValue3] = useState(props.imgs[2]);
     const handleImgChange3 = (event) => {
-      setImgValue3(event.target.value);
+        setImgValue3(event.target.value);
     };
-  
+
     const [imgValue4, setImgValue4] = useState(props.imgs[3]);
     const handleImgChange4 = (event) => {
-      setImgValue4(event.target.value);
+        setImgValue4(event.target.value);
     };
 
     // useEffect(() => {
@@ -94,7 +118,7 @@ function ProdImg(props) {
     //   }, [props.imgs[0], props.imgs[1], props.imgs[2], props.imgs[3]]);
 
     //   console.log("bazinga", props.imgs[0], props.imgs[1], props.imgs[2], props.imgs[3])
-      
+
     useEffect(() => {
         setImgValue1(props.imgs[0]);
         setImgValue2(props.imgs[1]);
@@ -102,7 +126,50 @@ function ProdImg(props) {
         setImgValue4(props.imgs[3]);
 
         console.log("bazinga", props.imgs[0], props.imgs[1], props.imgs[2], props.imgs[3])
-      }, [props.imgs]);
+    }, [props.imgs]);
+
+    console.log("actual img number", props.imgnumber)
+
+    const [newLength, setNewLength] = useState(props.imgnumber)
+
+    useEffect(() => {
+        setNewLength(props.imgnumber);
+    }, [props.imgnumber]);
+
+    console.log("init length", newLength)
+
+    const handleAddImgNumber = () => {
+        if (newLength <= 3) {
+            setNewLength(newLength + 1)
+            console.log(newLength)
+        }
+        else { return }
+    }
+
+    const resetCommands = [() => setImgValue1(""),
+    () => setImgValue2(""),
+    () => setImgValue3(""),
+    () => setImgValue4(""),
+    ];
+
+    const resetLines = (length) => {
+        const resetLimits = resetCommands.slice(length);
+        resetLimits.forEach((command) => command());
+    }
+
+    const [formInputValidity, setFormInputValidity] = useState({
+        img: true,
+    });
+
+    const imgClasses = `${formInputValidity.img ? "text-full image-input" : "invalid-form image-input"
+        }`;
+
+    function massReset() {
+        props.disable(); 
+        setNewLength(props.imgnumber); 
+        resetLines(props.imgnumber)
+        setFormInputValidity({img: true})
+    }
 
     return (
         <Fragment>
@@ -112,7 +179,7 @@ function ProdImg(props) {
                 onExitComplete={() => null}
             >
                 {props.modalStatus && (
-                    <Backdrop onClick={props.disable} className="categ-modals">
+                    <Backdrop onClick={() => { massReset() }} className="categ-modals">
                         <motion.div
                             // key={props.chosenItem}
                             onClick={(e) => e.stopPropagation()}
@@ -123,18 +190,17 @@ function ProdImg(props) {
                             exit="exit"
                         >
                             <span className="page-heading">
-                                <h2 className="heading-primary no-margin">Product Images</h2>
+                                <h2 className="heading-primary no-margin">Product Images&nbsp;</h2> <button className="add-img" type="button" onClick={handleAddImgNumber}><div className="heading-icon-plus-marginless">&nbsp;</div></button>
                                 <div className="heading-icon-dropshadow">
                                     <div className="heading-icon-add-img">&nbsp;</div>
                                 </div>
                             </span>
-                            <div className="confirm-contents">
-
-                                {props.imgnumber >= 0 && <div className="form-group">
+                            <div className="image-modal">
+                            <div className="flex-col">
+                                {newLength >= 1 && <div className="form-group">
                                     <input
                                         type="text"
-                                        // className={imgClasses}
-                                        className={"text-full"}
+                                        className={imgClasses}
                                         placeholder="Category Image 1 (Imgur Links Only)"
                                         value={imgValue1}
                                         onChange={handleImgChange1}
@@ -143,16 +209,13 @@ function ProdImg(props) {
                                         autoComplete="off"
                                     ></input>
 
-                                    {/* {formInputValidity.img ? <label className="form-label">Product Image 1 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>} */}
+                                    {formInputValidity.img ? <label className="form-label">Product Image 1 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
                                 </div>}
 
-                                {imgValue1 && <img src={imgValue1} className="add-categ-img" alt="Link is Invalid"></img>}
-
-                                {props.imgnumber >= 1 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
+                                {newLength >= 2 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
                                     <input
                                         type="text"
-                                        // className={imgClasses}
-                                        className="text-full"
+                                        className={imgClasses}
                                         placeholder="Category Image 2 (Imgur Links Only)"
                                         value={imgValue2}
                                         onChange={handleImgChange2}
@@ -160,43 +223,45 @@ function ProdImg(props) {
                                         id="image2"
                                         autoComplete="off"
                                     ></input>
-                                    {/* {formInputValidity.img ? <label className="form-label">Product Image 2 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>} */}
+                                    {formInputValidity.img ? <label className="form-label">Product Image 2 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
                                 </motion.div>}
 
-                                {imgValue2 && <img src={imgValue2} className="add-categ-img" alt="Link is Invalid"></img>}
-
-                                {props.imgnumber >= 2 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
+                                {newLength >= 3 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
                                     <input
                                         type="text"
-                                        className="text-full"
+                                        className={imgClasses}
                                         placeholder="Category Image 3 (Imgur Links Only)"
                                         value={imgValue3}
                                         onChange={handleImgChange3}
                                         id="image3"
                                         autoComplete="off"
                                     ></input>
-                                    {/* {formInputValidity.img ? <label className="form-label">Product Image 3 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>} */}
+                                    {formInputValidity.img ? <label className="form-label">Product Image 3 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
                                 </motion.div>}
-                                {imgValue3 && <img src={imgValue3} className="add-categ-img" alt="Link is Invalid"></img>}
 
-                                {props.imgnumber >= 3 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
+                                {newLength >= 4 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
                                     <input
                                         type="text"
-                                        className="text-full"
+                                        className={imgClasses}
                                         placeholder="Category Image 4 (Imgur Links Only)"
                                         value={imgValue4}
                                         onChange={handleImgChange4}
                                         id="image4"
                                         autoComplete="off"
                                     ></input>
-                                    {/* {formInputValidity.img ? <label className="form-label">Product Image 4 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>} */}
+                                    {formInputValidity.img ? <label className="form-label">Product Image 4 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
                                 </motion.div>}
-                                {imgValue4 && <img src={imgValue4} className="add-categ-img" alt="Link is Invalid"></img>}
+                            </div>
 
-                                <h2 className="confirm-text heading-tertiary">{props.msg}</h2>
+                            <div className="image-collection">
+                                {imgValue1 && newLength >= 1 && <img src={imgValue1} className="add-prod-img" alt="Link is Invalid"></img>}
+                                {imgValue2 && newLength >= 2 && <img src={imgValue2} className="add-prod-img" alt="Link is Invalid"></img>}
+                                {imgValue3 && newLength >= 3 && <img src={imgValue3} className="add-prod-img" alt="Link is Invalid"></img>}
+                                {imgValue4 && newLength >= 4 && <img src={imgValue4} className="add-prod-img" alt="Link is Invalid"></img>}
+                            </div>
                             </div>
                             <div className="add-categ-buttons">
-                                <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={props.disable}>Cancel</button>
+                                <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={() => { massReset() }}>Cancel</button>
                                 <button className="product-action-2 heading-secondary categ-button-2" type="button" onClick={handleClick}>Confirm</button>
                             </div>
                         </motion.div>
