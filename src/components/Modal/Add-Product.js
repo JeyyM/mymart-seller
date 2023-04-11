@@ -142,6 +142,7 @@ function AddProduct(props) {
     amount: true,
     unit: true,
     images: true,
+    exist: false,
   });
 
   function isEmpty(word) {
@@ -153,6 +154,7 @@ function AddProduct(props) {
   }
 
   const handleClick = async (event) => {
+    console.log("bruh", formInputValidity.exist)
     await handleSubmit(event);
   }
 
@@ -177,14 +179,15 @@ function AddProduct(props) {
 
     // console.log(givenImages)
 
-    const nameValid = nameValue !== ""
+    const nameValid = nameValue !== "" && !nameClasses.includes(nameValue)
+    const nameExist = props.names.includes(nameValue)
     const descValid = descValue !== ""
     const priceValid = priceValue !== ""
     const amountValid = stockAmount !== ""
     const unitValid = stockUnit !== ""
     const imgValid = givenImages.length > 0
 
-    const submissionValid = nameValid && imgValid && descValid && priceValid && unitValid && amountValid && imgValid
+    const submissionValid = nameValid && imgValid && descValid && priceValid && unitValid && amountValid && imgValid && !nameExist
 
     setFormInputValidity({
       name: nameValid,
@@ -194,6 +197,7 @@ function AddProduct(props) {
       amount: amountValid,
       unit: unitValid,
       images: imgValid,
+      exist: nameExist,
     });
 
     const incomingData = {
@@ -275,6 +279,7 @@ function AddProduct(props) {
         amount: true,
         unit: true,
         images: true,
+        exist: false,
       });
     } else { return }
   }
@@ -326,6 +331,7 @@ function AddProduct(props) {
                     id="name"
                     autoComplete="off"
                   ></input>
+                  
                   {/* <label className="form-label">Product Name</label>  */}
                   {formInputValidity.name ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid product name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label>}
                 </div>
@@ -400,7 +406,7 @@ function AddProduct(props) {
                 <div className="price-pair">
             <label className="heading-secondary product-currency">$</label>
             <div>
-            <input type="number" className={priceClasses} placeholder="Price" maxLength="8" autoComplete="off" id='price' value={priceValue} onChange={handlePriceChange}></input>
+            <input type="number" className={priceClasses} placeholder="Price" autoComplete="off" id='price' value={priceValue} onChange={handlePriceChange}></input>
             {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid price</label>}
             </div>
             <div>

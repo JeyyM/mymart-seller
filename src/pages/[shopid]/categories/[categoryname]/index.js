@@ -35,12 +35,19 @@ function ProductsPage({ shopID }) {
     };
   });
 
+  const productNames = products.map((product) => {
+    const vars = Object.values(product.value);
+    const names = vars.map((varObj) => varObj.productName);
+    return names;
+  }).flat();
+
   const [addProduct, setAddProduct] = useState(false)
   const [defaultValues, setDefaultValues] = useState(["", "", ""])
 
   function addProdHandler(event) {
     event.preventDefault()
     event.stopPropagation()
+
     setAddProduct(!addProduct)
   }
 
@@ -63,7 +70,7 @@ function ProductsPage({ shopID }) {
 
 if (products.length > 0){
   return <Fragment>
-  <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} categKey={chosenKey} length={products.length}></AddProduct>
+  <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} categKey={chosenKey} length={products.length} names={productNames}></AddProduct>
   <span className="page-heading">
     <h1 className="heading-primary">{router.query.categoryname}</h1>
     <button onClick={addProdHandler} className="add-prod-init heading-tertiary">

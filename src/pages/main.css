@@ -1793,6 +1793,10 @@ body {
   gap: 1rem;
 }
 
+input[type=number].shortener-25 {
+  width: 25% !important;
+}
+
 .product-image {
   border: solid 5px transparent;
   border-radius: 15px;

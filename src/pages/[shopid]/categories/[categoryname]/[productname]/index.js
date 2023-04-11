@@ -96,12 +96,15 @@ function ProductPage({ shopID }) {
 
   const [priceValue, setPriceValue] = useState(varArray[varState][`var${varNum}`].productPrice);
   const handlePriceChange = (event) => {
-    setPriceValue(event.target.value);
+    if (event.target.value.length < 9){
+    setPriceValue(event.target.value);}
   };
+  
 
   const [stockAmount, setStockAmount] = useState(varArray[varState][`var${varNum}`].productStock.stockAmount);
   const handleStockAmount = (event) => {
-    setStockAmount(event.target.value);
+    if (event.target.value.length < 9){
+    setStockAmount(event.target.value);}
   };
 
   const [stockUnit, setStockUnit] = useState(varArray[varState][`var${varNum}`].productStock.stockUnit);
@@ -109,7 +112,7 @@ function ProductPage({ shopID }) {
     setStockUnit(event.target.value);
   };
 
-  console.log(nameValue, "|", descValue, "|", imgValue1, "|", imgValue2, "|", imgValue3, "|", imgValue4, "|", priceValue, "|", stockAmount, "|", stockUnit)
+  // console.log(nameValue, "|", descValue, "|", imgValue1, "|", imgValue2, "|", imgValue3, "|", imgValue4, "|", priceValue, "|", stockAmount, "|", stockUnit)
 
   const [nameLength, setNameLength] = useState(varArray[varState][`var${varNum}`].productName.length)
   const handleNameLength = (event) => {
@@ -136,7 +139,7 @@ function ProductPage({ shopID }) {
     const img3Valid = startsImgur(imgValue3) && !isEmpty(imgValue3)
     const img4Valid = startsImgur(imgValue4) && !isEmpty(imgValue4)
     const validImgSet = [img1Valid && { image: imgValue1 }, img2Valid && { image: imgValue2 }, img3Valid && { image: imgValue3 }, img4Valid && { image: imgValue4 },].filter(Boolean)
-    console.log("valid img set", validImgSet)
+    // console.log("valid img set", validImgSet)
     setValidImgSet(validImgSet)
   }, [imgValue1, imgValue2, imgValue3, imgValue4])
 
@@ -169,6 +172,11 @@ function ProductPage({ shopID }) {
     return new Promise(resolve => setTimeout(resolve, 2500));
   }
 
+  function waitSecondsShort() {
+    // console.log("wait 2.5 sec")
+    return new Promise(resolve => setTimeout(resolve, 1000));
+  }
+
   const [formInputValidity, setFormInputValidity] = useState({
     name: true,
     img: true,
@@ -194,7 +202,7 @@ function ProductPage({ shopID }) {
     setDescLength(varArray[index][`var${index + 1}`].productDescription.length)
 
     // setImgSet([imgValue1, imgValue2, imgValue3, imgValue4])
-    console.log("set all imgset", imgSet)
+    // console.log("set all imgset", imgSet)
 
     setFormInputValidity({
       name: true,
@@ -272,23 +280,35 @@ function ProductPage({ shopID }) {
 
     if (submissionValid) {
       setLoading(true)
+      console.log("valid")
 
-      console.log(incomingData)
+        // const nextVar = "var" + (varArray.length + 1)
+        // console.log("nextvar", nextVar)
 
-      // props.finish(incomingData, props.categKey, props.length)
+        console.log(varNum)
+    
+        const response = await fetch(
+          `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varNum}`,
+          {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(incomingData)
+          }
+        );
 
       await waitSeconds();
-      console.log("valid")
-      // emptyContents(event)
 
-      console.log(nameValue, "|", descValue, "|", givenImages, "|", priceValue, "|", stockAmount, "|", stockUnit)
-      console.log("over here", varState)
+      // console.log(nameValue, "|", descValue, "|", givenImages, "|", priceValue, "|", stockAmount, "|", stockUnit)
 
       setLoading(false)
       setCompletion(true)
 
-      router.reload()
-
+      if (varNum === 1){router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(nameValue)}`)
+      await waitSecondsShort()
+      setCompletion(false)
+    } else {router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(varArray[0][`var${1}`].productName)}`)
+    await waitSecondsShort()
+    setCompletion(false)}
     }
   }
 
@@ -301,7 +321,7 @@ function ProductPage({ shopID }) {
   const descClasses = `${formInputValidity.desc ? "desc-text-area" : "invalid-form-box"
     }`;
 
-  const priceClasses = `${formInputValidity.price ? "text-small input-number" : "invalid-form-2"
+  const priceClasses = `${formInputValidity.price ? "text-small input-number shortener-25" : "invalid-form-2 shortener-25"
     }`;
 
   const amountClasses = `${formInputValidity.amount ? "text-small input-number" : "invalid-form-2"
@@ -311,24 +331,19 @@ function ProductPage({ shopID }) {
     }`;
 
 
-    console.log("later valid check", validImgSet.length)
+    // console.log("later valid check", validImgSet.length)
 
 
     const imagePayload = (payload) => {
-      console.log("payload here", payload[0].image)
-      if (payload[0]) {setImgValue1(payload[0].image)}
-      if (payload[1]) {setImgValue2(payload[1].image)}
-      if (payload[2]) {setImgValue3(payload[2].image)}
-      if (payload[3]) {setImgValue4(payload[3].image)}
-      
-      // setImgValue1(payload[0].image)
-      // setImgValue2(payload[1].image)
-      // setImgValue3(payload[2].image)
-      // setImgValue4(payload[3].image)
+      // console.log("payload here", payload[0].image)
+      if (payload[0]) {setImgValue1(payload[0].image)} else {setImgValue1(undefined)}
+      if (payload[1]) {setImgValue2(payload[1].image)} else {setImgValue2(undefined)}
+      if (payload[2]) {setImgValue3(payload[2].image)} else {setImgValue3(undefined)}
+      if (payload[3]) {setImgValue4(payload[3].image)} else {setImgValue4(undefined)}
     }
   
-    console.log("current image values here", imgValue1, imgValue2, imgValue3, imgValue4)
-    console.log("this is the imgset rn", imgSet)
+    // console.log("current image values here", imgValue1, imgValue2, imgValue3, imgValue4)
+    // console.log("this is the imgset rn", imgSet)
   return <Fragment>
     <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
 
@@ -336,7 +351,7 @@ function ProductPage({ shopID }) {
       <div className="main-img-container">
 
         <div className="sample">
-          <button className="product-edit-button" onClick={() => { handleShowImg() }} type="button"><div className="heading-icon-edit">&nbsp;</div></button>
+          <button className="product-edit-button" onClick={() => { handleShowImg() }} type="button" disabled={loading}><div className="heading-icon-edit">&nbsp;</div></button>
           <img src={imgSet[imgState]} alt={varArray[varState][`var${varNum}`].productName} className="product-image">
           </img>
         </div>
@@ -346,7 +361,8 @@ function ProductPage({ shopID }) {
           transition={{ duration: 0.2 }}
           key={varState}
         >
-          {varArray[varState][`var${varNum}`].productImages.map((v, index) => (
+          {imgSet.map((i, index) => (
+            i !== undefined && (
             <motion.img
               key={index}
               src={imgSet[index]}
@@ -356,7 +372,7 @@ function ProductPage({ shopID }) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 * index, duration: 0.2 }}
               onClick={() => imgStateHandler(index)}
-            />
+            />)
           ))}
         </motion.div>
       </div>
