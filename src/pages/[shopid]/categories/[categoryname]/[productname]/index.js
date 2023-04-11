@@ -116,17 +116,6 @@ function ProductPage({ shopID }) {
     setNameLength(event.length)
   }
 
-  const imagePayload = (payload) => {
-    console.log("payload", payload)
-    setImgValue1(payload[0])
-    // setImgValue2(payload[1])
-    // setImgValue3(payload[2])
-    // setImgValue4(payload[3])
-  }
-
-  // console.log("over here", nameLength)
-
-
   const [descLength, setDescLength] = useState(varArray[varState][`var${varNum}`].productDescription.length)
   const handleDescLength = (event) => {
     setDescLength(event.length)
@@ -151,9 +140,9 @@ function ProductPage({ shopID }) {
     setValidImgSet(validImgSet)
   }, [imgValue1, imgValue2, imgValue3, imgValue4])
 
-  console.log("valid length here", validImgSet)
+  // console.log("valid length here", validImgSet)
 
-  console.log("imsetherer", imgSet)
+  // console.log("imsetherer", imgSet)
 
   function isEmpty(word) {
     word.trim() === ""
@@ -323,6 +312,23 @@ function ProductPage({ shopID }) {
 
 
     console.log("later valid check", validImgSet.length)
+
+
+    const imagePayload = (payload) => {
+      console.log("payload here", payload[0].image)
+      if (payload[0]) {setImgValue1(payload[0].image)}
+      if (payload[1]) {setImgValue2(payload[1].image)}
+      if (payload[2]) {setImgValue3(payload[2].image)}
+      if (payload[3]) {setImgValue4(payload[3].image)}
+      
+      // setImgValue1(payload[0].image)
+      // setImgValue2(payload[1].image)
+      // setImgValue3(payload[2].image)
+      // setImgValue4(payload[3].image)
+    }
+  
+    console.log("current image values here", imgValue1, imgValue2, imgValue3, imgValue4)
+    console.log("this is the imgset rn", imgSet)
   return <Fragment>
     <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
 
@@ -331,7 +337,7 @@ function ProductPage({ shopID }) {
 
         <div className="sample">
           <button className="product-edit-button" onClick={() => { handleShowImg() }} type="button"><div className="heading-icon-edit">&nbsp;</div></button>
-          <img src={varArray[varState][`var${varNum}`].productImages[imgState]} alt={varArray[varState][`var${varNum}`].productName} className="product-image">
+          <img src={imgSet[imgState]} alt={varArray[varState][`var${varNum}`].productName} className="product-image">
           </img>
         </div>
 
@@ -343,7 +349,7 @@ function ProductPage({ shopID }) {
           {varArray[varState][`var${varNum}`].productImages.map((v, index) => (
             <motion.img
               key={index}
-              src={varArray[varState][`var${varNum}`].productImages[index]}
+              src={imgSet[index]}
               alt={index}
               className={`side-img ${index === imgState ? "active-var" : ""}`}
               initial={{ opacity: 0, y: 50 }}
