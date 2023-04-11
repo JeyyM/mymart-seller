@@ -83,6 +83,8 @@ function ProdImg(props) {
 
         if (givenImages.length > 0) {
             console.log(givenImages)
+            props.setImg(givenImages)
+            props.disable()
         } else {
             setFormInputValidity({
                 img: false

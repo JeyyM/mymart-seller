@@ -116,6 +116,14 @@ function ProductPage({ shopID }) {
     setNameLength(event.length)
   }
 
+  const imagePayload = (payload) => {
+    console.log("payload", payload)
+    setImgValue1(payload[0])
+    // setImgValue2(payload[1])
+    // setImgValue3(payload[2])
+    // setImgValue4(payload[3])
+  }
+
   // console.log("over here", nameLength)
 
 
@@ -316,7 +324,7 @@ function ProductPage({ shopID }) {
 
     console.log("later valid check", validImgSet.length)
   return <Fragment>
-    <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet}></ProdImg>
+    <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
 
     <div className="product-container">
       <div className="main-img-container">
