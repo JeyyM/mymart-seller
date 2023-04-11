@@ -330,7 +330,7 @@ function ProductPage({ shopID }) {
   const addVariation = async (payload) => {
     console.log(payload)
     const response = await fetch(
-      `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varNum + 1}`,
+      `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varArray.length + 1}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

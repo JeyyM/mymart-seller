@@ -222,7 +222,7 @@ function AddProduct(props) {
       emptyContents(event)
       setLoading(false)
       setCompletion(true)
-    //   router.reload()
+      router.reload()
 
     }
 
