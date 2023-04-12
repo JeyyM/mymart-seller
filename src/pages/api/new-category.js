@@ -84,10 +84,8 @@ if (req.method === "PATCH"){
       { $unset: { [`shopData.shopCategories.${categoryName}`]: "" } }
     );
   
-    // Get updated document after deletion
     const updatedShop = await db.collection("shops").findOne({ _id: martId });
   
-    // Renumber categories
     const categories = updatedShop.shopData.shopCategories;
     const categoryKeys = Object.keys(categories);
     const sortedCategoryKeys = categoryKeys.sort((a, b) => {

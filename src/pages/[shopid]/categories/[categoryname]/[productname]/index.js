@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import ProdImg from "@/components/Modal/Prod-Img";
 import AddVariation from "@/components/Modal/Add-Variation"
+import Confirmer from "@/components/Modal/Confirmer";
 
 function ProductPage({ shopID }) {
   const router = useRouter()
@@ -343,6 +344,18 @@ function ProductPage({ shopID }) {
     );
   }
 
+  const delVariation = async (payload) => {
+    console.log(payload)
+    const response = await fetch(
+      `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varNum}`,
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }
+    );
+  }
+
   const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"
     }`;
 
@@ -381,9 +394,17 @@ function ProductPage({ shopID }) {
     }
     // console.log("current image values here", imgValue1, imgValue2, imgValue3, imgValue4)
     // console.log("this is the imgset rn", imgSet)
+
+    const [deletion, setDeletion] = useState(false)
+    function handleDelete(){
+      setDeletion(!deletion)
+    }
   return <Fragment>
     <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
     <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation}></AddVariation>
+    <Confirmer modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${varArray[varState][`var${varNum}`].productName}?`} load={() => { setLoading(true) }} default={varNum} finish={delVariation}></Confirmer>
+    {/* <Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} delete={delCategHandler} default={setDefaultName} finish={handleDelete} chosenItem={props.defs[0]} msg="Are you sure you want to delete the category? This cannot be undone. However, the data from this category's statistics will remain." label={`Will you delete ${setDefaultName}?`} load={() => { setLoading(true) }}></Confirmer> */}
+
     
     {/* <AddVariation modalStatus={addVar} disable={handleAddVar} finish={completeForm} categKey={chosenKey} length={products.length}></AddVariation> */}
 
@@ -478,7 +499,7 @@ function ProductPage({ shopID }) {
         </motion.div>
 
         <div className="product-action-buttons">
-          <button className="product-action-3 heading-secondary" disabled={loading}>Delete Variation</button>
+          <button className="product-action-3 heading-secondary" disabled={loading} onClick={handleDelete}>Delete Variation</button>
           <button className="product-action-1 heading-secondary" disabled={loading}>Edit Search Tags</button>
           <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
         </div>

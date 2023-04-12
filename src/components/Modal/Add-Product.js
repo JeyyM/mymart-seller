@@ -181,8 +181,17 @@ function AddProduct(props) {
 
     // console.log(givenImages)
 
-    let nameValid = nameValue !== "" && !props.names.includes(nameValue.toUpperCase())
-    let nameExist = props.names.includes(nameValue.toUpperCase())
+    let nameValid = true;
+    let nameExist = false;
+
+    if (!props.names){
+      nameValid = true;
+      nameExist = false;
+    } else{
+      nameValid = nameValue !== "" && !props.names.includes(nameValue.toUpperCase())
+      nameExist = props.names.includes(nameValue.toUpperCase())
+    }
+    
     // if (nameValue === setDefaultName) { nameExist = false; nameValid = true }
     const descValid = descValue !== ""
     const priceValid = priceValue !== ""
@@ -405,10 +414,7 @@ function AddProduct(props) {
                   </div>
 
                   <div className="image-collection">
-                    {imgValue1 && imgNumber >= 0 && <div className="add-categ-img-container-2">
-                      <Image src={imgValue1} className="add-categ-img" height={100} width={100} unoptimized={false} priority={true} alt="Link is Invalid"></Image>
-                    </div>}
-                    {/* {imgValue1 && imgNumber >= 0 && <Image src={imgValue1} className="add-prod-img" height={100} width={100} alt="Link is Invalid"></Image>} */}
+                    {imgValue1 && imgNumber >= 0 && <img src={imgValue1} className="add-prod-img" alt="Link is Invalid"></img>}
                     {imgValue2 && imgNumber >= 0 && <img src={imgValue2} className="add-prod-img" alt="Link is Invalid"></img>}
                     {imgValue3 && imgNumber >= 0 && <img src={imgValue3} className="add-prod-img" alt="Link is Invalid"></img>}
                     {imgValue4 && imgNumber >= 0 && <img src={imgValue4} className="add-prod-img" alt="Link is Invalid"></img>}

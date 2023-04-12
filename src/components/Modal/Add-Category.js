@@ -105,8 +105,19 @@ function AddCategory(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let nameValid = nameValue !== "" && !props.list.includes(nameValue.toUpperCase())
-    let nameExist = props.list.includes(nameValue.toUpperCase())
+    let nameValid = true
+    let nameExist = true
+
+    if (!props.list){
+      nameValid = true;
+      nameExist = false;
+    } else{
+      nameValid = nameValue !== "" && !props.list.includes(nameValue.toUpperCase())
+      nameExist = props.list.includes(nameValue.toUpperCase())
+    }
+
+    nameValid = nameValue !== "" && !props.list.includes(nameValue.toUpperCase())
+    nameExist = props.list.includes(nameValue.toUpperCase())
     if (nameValue.toUpperCase() === setDefaultName.toUpperCase()) { nameExist = false; nameValid = true }
     const imgValid = startsImgur(imgValue) && !isEmpty(imgValue)
     const descValid = descValue !== ""
@@ -278,7 +289,7 @@ function AddCategory(props) {
       >
         {props.modalStatus && (
           <Backdrop onClick={loading ? null : emptyContents} className="categ-modals">
-            <Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} delete={delCategHandler} default={setDefaultName} finish={handleDelete} chosenItem={props.defs[0]} msg="Are you sure you want to delete the category? This cannot be undone. However, the data from this category's statistics will remain." label={`Will you delete ${setDefaultName}?`} load={() => { setLoading(true) }}></Confirmer>
+            <Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} action="Delete Category?" delete={delCategHandler} default={setDefaultName} finish={handleDelete} chosenItem={props.defs[0]} msg="Are you sure you want to delete the category? This cannot be undone. However, the data from this category's statistics will remain." label={`Will you delete ${setDefaultName}?`} load={() => { setLoading(true) }}></Confirmer>
             <motion.div
               onClick={(e) => e.stopPropagation()}
               className="categ-modal"
@@ -324,19 +335,7 @@ function AddCategory(props) {
                   ></input>
                   {formInputValidity.img ? <label className="form-label">Category Image (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid Imgur link</label>}
                 </div>
-                {imgValue && isValidImgurLink(imgValue) && (
-                  <div className="add-categ-img-container">
-                    <Image src={imgValue} className="add-categ-img" height={50} width={50} unoptimized={false} priority={true} alt="Link is Invalid"></Image>
-                  </div>
-                )}
-                {imgValue && !isValidImgurLink(imgValue) && (
-                  <div className="add-categ-img-container">
-                    <img src="/broken-image-icon.png" className="add-categ-img" alt="Link is Invalid"></img>
-                  </div>
-                )}
-
-                {/* <Image src={categoryImage} className="category-img" layout="fill" unoptimized={false} alt={categoryName} priority={true} sizes="100%"></Image> */}
-
+                {imgValue && <img src={imgValue} className="add-categ-img" alt="Link is Invalid"></img>}
 
                 <div className="form-group">
                   <textarea
