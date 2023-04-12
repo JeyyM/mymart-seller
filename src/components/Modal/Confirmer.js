@@ -50,14 +50,18 @@ function Confirmer(props) {
     event.preventDefault();
     setLoading(true)
 
-    props.finish(props.default)
+    console.log("props.default here", props.default)
+
+    props.finish()
 
     await waitSeconds();
 
     setLoading(false)
     setCompletion(true)
 
-    router.reload()
+    if (props.default === 1){
+      router.push("/")
+    } else {router.reload()}
   }
 
   const [loading, setLoading] = useState(false)
