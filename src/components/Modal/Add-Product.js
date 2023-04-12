@@ -180,8 +180,8 @@ function AddProduct(props) {
 
     // console.log(givenImages)
 
-    let nameValid = nameValue !== "" && !props.names.includes(nameValue)
-    let nameExist = props.names.includes(nameValue)
+    let nameValid = nameValue !== "" && !props.names.includes(nameValue.toUpperCase())
+    let nameExist = props.names.includes(nameValue.toUpperCase())
     // if (nameValue === setDefaultName) { nameExist = false; nameValid = true }
     const descValid = descValue !== ""
     const priceValid = priceValue !== ""

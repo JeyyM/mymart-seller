@@ -27,7 +27,7 @@ function ProductPage({ shopID }) {
     return names;
   }).flat();
 
-  console.log(productNames)
+  const upperProductNames = productNames.map(name => name.toUpperCase());
 
   const resulting = Object.keys(categoryContents3).reduce((acc, curr) => {
     const foundProduct = Object.keys(categoryContents3[curr].var1).find(
@@ -263,14 +263,18 @@ function ProductPage({ shopID }) {
       img4Valid && { image: imgValue4 },
     ].filter(Boolean)
 
-    let nameValid = nameValue !== "" && !productNames.includes(nameValue)
-    let nameExist = productNames.includes(nameValue)
-    if (nameValue === varArray[varState][`var${varNum}`].productName) {nameExist = false; nameValid = true}
+    let nameValid = nameValue !== "" && !upperProductNames.includes(nameValue.toUpperCase())
+    let nameExist = upperProductNames.includes(nameValue.toUpperCase())
+    if (nameValue.toUpperCase() === varArray[varState][`var${varNum}`].productName.toUpperCase()) {nameExist = false; nameValid = true}
     const descValid = descValue !== ""
     const priceValid = priceValue !== ""
     const amountValid = stockAmount !== ""
     const unitValid = stockUnit !== ""
     const imgValid = givenImages.length > 0
+
+    console.log("status checks")
+    console.log(nameValid)
+    console.log(nameExist)
 
     const submissionValid = nameValid && imgValid && descValid && priceValid && unitValid && amountValid && imgValid && !nameExist
 
@@ -379,7 +383,7 @@ function ProductPage({ shopID }) {
     // console.log("this is the imgset rn", imgSet)
   return <Fragment>
     <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
-    <AddVariation modalStatus={addVar} disable={handleAddVar} names={productNames} finish={addVariation}></AddVariation>
+    <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation}></AddVariation>
     
     {/* <AddVariation modalStatus={addVar} disable={handleAddVar} finish={completeForm} categKey={chosenKey} length={products.length}></AddVariation> */}
 
@@ -418,7 +422,6 @@ function ProductPage({ shopID }) {
         <form>
           <div>
             <input type="text" value={nameValue} className={nameClasses} placeholder="Product Name" required id='name' autoComplete="off" onChange={handleNameChange}></input>
-            {/* {formInputValidity.name ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid product name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label>} */}
             {formInputValidity.name && !formInputValidity.exist ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : !formInputValidity.exist ? <label className="form-label" style={{ color: "red" }}>Enter a valid product name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Product name already exists in category <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label>}
 
           </div>

@@ -105,9 +105,9 @@ function AddCategory(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    let nameValid = nameValue !== "" && !props.list.includes(nameValue)
+    let nameValid = nameValue !== "" && !props.list.includes(nameValue.toUpperCase())
     let nameExist = props.list.includes(nameValue.toUpperCase())
-    if (nameValue.toUpperCase() === setDefaultName.toUpperCase) { nameExist = false; nameValid = true }
+    if (nameValue.toUpperCase() === setDefaultName.toUpperCase()) { nameExist = false; nameValid = true }
     const imgValid = startsImgur(imgValue) && !isEmpty(imgValue)
     const descValid = descValue !== ""
 
@@ -117,6 +117,8 @@ function AddCategory(props) {
       desc: descValid,
       exist: nameExist
     });
+
+    console.log("upper check", nameExist)
 
     const submissionValid = nameValid && imgValid && descValid && !nameExist
 

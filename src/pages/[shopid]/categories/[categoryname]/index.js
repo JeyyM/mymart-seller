@@ -42,6 +42,8 @@ function ProductsPage({ shopID }) {
     return names;
   }).flat();
 
+  const upperProductNames = productNames.map(name => name.toUpperCase());
+
   const [addProduct, setAddProduct] = useState(false)
   const [defaultValues, setDefaultValues] = useState(["", "", ""])
 
@@ -71,7 +73,7 @@ function ProductsPage({ shopID }) {
 
 if (products.length > 0){
   return <Fragment>
-  <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} categKey={chosenKey} length={products.length} names={productNames}></AddProduct>
+  <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} categKey={chosenKey} length={products.length} names={upperProductNames}></AddProduct>
   <span className="page-heading">
     <h1 className="heading-primary">{router.query.categoryname}</h1>
     <button onClick={addProdHandler} className="add-prod-init heading-tertiary">
