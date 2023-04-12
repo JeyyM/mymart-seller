@@ -21,13 +21,11 @@ function CategoryPage({ shopID }) {
 
   const categNamesList = Object.keys(contents).map(key => (contents[key].categoryName))
   const upperCategNames = categNamesList.map(name => name.toUpperCase());
-  // console.log(upperCategNames)
 
   const categoryAmount = Object.keys(shopID.shopData.shopCategories).length
 
   const [addCateg, setAddCateg] = useState(false)
   const [defaultValues, setDefaultValues] = useState(["", "", ""])
-  // console.log("defaults", defaultValues)
 
   function addCategHandler(event) {
     event.preventDefault()
@@ -72,9 +70,6 @@ function CategoryPage({ shopID }) {
   }
 
   async function deleteForm(key) {
-
-    // console.log("in delete form", key)
-    // console.log("just making sure")
 
     const response = await fetch(
       `../../api/new-category?martid=${router.query.shopid}&categoryname=${key}`,

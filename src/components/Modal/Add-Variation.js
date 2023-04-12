@@ -57,16 +57,11 @@ function AddProduct(props) {
     setNameLength(event.length)
   }
 
-  console.log("over here", nameLength)
-
-
   const [descLength, setDescLength] = useState(0)
   const handleDescLength = (event) => {
     setDescLength(event.length)
-    // console.log(descLength)
   }
 
-  console.log("again", descLength)
   const [nameValue, setNameValue] = useState("");
   const handleNameChange = (event) => {
     setNameValue(event.target.value);
@@ -132,7 +127,6 @@ function AddProduct(props) {
   const [loading, setLoading] = useState(false)
 
   function waitSeconds() {
-    console.log("wait 2.5 sec")
     return new Promise(resolve => setTimeout(resolve, 2500));
   }
 
@@ -162,14 +156,10 @@ function AddProduct(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("submitting")
-
     const img1Valid = startsImgur(imgValue1) && !isEmpty(imgValue1)
     const img2Valid = startsImgur(imgValue2) && !isEmpty(imgValue2)
     const img3Valid = startsImgur(imgValue3) && !isEmpty(imgValue3)
     const img4Valid = startsImgur(imgValue4) && !isEmpty(imgValue4)
-
-    // console.log(img1Valid, img2Valid, img3Valid, img4Valid)
 
     const givenImages = [
       img1Valid && { image: imgValue1 },
@@ -178,11 +168,8 @@ function AddProduct(props) {
       img4Valid && { image: imgValue4 },
     ].filter(Boolean)
 
-    // console.log(givenImages)
-
     let nameValid = nameValue !== "" && !props.names.includes(nameValue.toUpperCase())
     let nameExist = props.names.includes(nameValue.toUpperCase())
-    // if (nameValue === setDefaultName) { nameExist = false; nameValid = true }
     const descValid = descValue !== ""
     const priceValid = priceValue !== ""
     const amountValid = stockAmount !== ""
@@ -213,12 +200,9 @@ function AddProduct(props) {
     if (submissionValid) {
       setLoading(true)
 
-      console.log(incomingData)
-
       props.finish(incomingData)
 
       await waitSeconds();
-      console.log("valid")
       emptyContents(event)
       setLoading(false)
       setCompletion(true)
@@ -294,8 +278,6 @@ function AddProduct(props) {
     }
     else { return }
   }
-
-  console.log(imgNumber)
 
   return (
     <Fragment>

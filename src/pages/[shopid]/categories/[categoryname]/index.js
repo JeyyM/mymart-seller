@@ -51,8 +51,6 @@ function ProductsPage({ shopID }) {
     setAddProduct(!addProduct)
   }
 
-  console.log(products)
-
   async function completeForm(formdata, key, length){
 
     const nextProd = "Product" + (length + 1)
@@ -68,6 +66,8 @@ function ProductsPage({ shopID }) {
     const data = await response.json();
 
   }
+
+  console.log("chosen category here", chosenCategory)
 
 if (products.length > 0){
   return <Fragment>

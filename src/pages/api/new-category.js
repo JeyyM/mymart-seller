@@ -5,10 +5,6 @@ async function handler(req, res){
     if (req.method === "POST"){
         const data = req.body
 
-        // console.log("Within the api")
-        
-        // console.log(req.query.param1)
-
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -17,12 +13,10 @@ async function handler(req, res){
 
     const id = new ObjectId(req.query.martid);
   const item = await db.collection("shops").findOne({ _id: id });
-  // console.log(item.shopData.shopCategories)
 
   item._id = item._id.toString();
 
   const categoryAmount = Object.keys(item.shopData.shopCategories).length
-  // console.log(categoryAmount)
 
 const result = await db.collection("shops").updateOne(
     { _id: id },
@@ -40,7 +34,6 @@ const result = await db.collection("shops").updateOne(
   client.close();
 
     res.status(201).json({message: "Category Inserted"})
-    // console.log(result)
 }
 
 if (req.method === "PATCH"){

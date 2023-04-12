@@ -10,11 +10,9 @@ import Image from "next/image";
 function AddCategory(props) {
   const setDefaultName = props.defs[0]
   const defaultNameLength = setDefaultName.length
-  // console.log(defaultNameLength)
 
   const setDefaultDesc = props.defs[2]
   const defaultDescLength = setDefaultDesc.length
-  // console.log(defaultDescLength)
 
   const router = useRouter()
 
@@ -42,18 +40,15 @@ function AddCategory(props) {
   const [nameLength, setNameLength] = useState(0)
   const handleNameLength = (event) => {
     setNameLength(event.length)
-    // console.log(nameLength)
   }
 
   useEffect(() => {
-    // console.log( "cmon work", nameLength);
   }, [nameLength]);
 
 
   const [descLength, setDescLength] = useState(0)
   const handleDescLength = (event) => {
     setDescLength(event.length)
-    // console.log(descLength)
   }
 
   const nameLengthClasses = `${nameLength > 40 ? "overlength" : ""}`;
@@ -94,7 +89,6 @@ function AddCategory(props) {
   const [loading, setLoading] = useState(false)
 
   function waitSeconds() {
-    // console.log("wait 2.5 sec")
     return new Promise(resolve => setTimeout(resolve, 2500));
   }
 
@@ -129,11 +123,7 @@ function AddCategory(props) {
       exist: nameExist
     });
 
-    console.log("upper check", nameExist)
-
     const submissionValid = nameValid && imgValid && descValid && !nameExist
-
-    // console.log(formInputValidity.name)
 
     const incomingData = {
       categoryName: nameValue,
@@ -195,10 +185,6 @@ function AddCategory(props) {
 
     props.deletion(chosenKey)
 
-    // console.log("finish deletion")
-    // console.log(chosenKey)
-
-    // router.reload()
   }
 
   const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"

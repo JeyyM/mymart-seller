@@ -16,8 +16,3 @@ function HomepageButton(props) {
   );
 }
 export default HomepageButton;
-
-{/* <Link href={{
-        pathname: `/${router.query.shopid}/categories`,
-        query: { shopid: router.query.shopid },
-      }}>To categories</Link> */}
