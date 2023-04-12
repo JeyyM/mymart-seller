@@ -34,12 +34,22 @@ function ProductsPage({ shopID }) {
 
 
   const productNames = products.map((product) => {
-    const vars = Object.values(product.value);
-    const names = vars.map((varObj) => varObj.productName);
-    return names;
+    const vars = Object.entries(product.value);
+    const names = vars.map(([key, varObj]) => {
+      if (key !== "productTags") {
+        return varObj.productName;
+      } else {
+        return null;
+      }
+    });
+    return names.filter((name) => name !== null);
   }).flat();
-
-  const upperProductNames = productNames.map(name => name.toUpperCase());
+  
+  console.log(productNames);
+  
+  
+  const upperProductNames = productNames.map((name) => name.toUpperCase());
+  
 
   const [addProduct, setAddProduct] = useState(false)
   const [defaultValues, setDefaultValues] = useState(["", "", ""])
@@ -68,6 +78,7 @@ function ProductsPage({ shopID }) {
   }
 
   console.log("chosen category here", chosenCategory)
+  console.log("chosen categ here", contents)
 
 if (products.length > 0){
   return <Fragment>
