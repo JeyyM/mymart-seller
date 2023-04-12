@@ -10,6 +10,15 @@ import Confirmer2 from "@/components/Modal/Confirmer2";
 function ProductPage({ shopID }) {
   const router = useRouter()
 
+  
+  function waitSeconds() {
+    return new Promise(resolve => setTimeout(resolve, 2500));
+  }
+
+  function waitSecondsShort() {
+    return new Promise(resolve => setTimeout(resolve, 1000));
+  }
+
   const queryProduct = router.query.productname
   const queryCategory = router.query.categoryname
   const categoryContents1 = shopID.shopData.shopCategories
@@ -40,7 +49,41 @@ const placeHolder= () => {
   // console.log("oogabooga")
 }
 
-console.log("Var keys List", varKeysList)
+// console.log("Var keys List", categoryContents3)
+
+  useEffect(() => {
+    let filteredKeys = Object.entries(categoryContents3)
+  .filter(([key, value]) => Object.keys(value).length === 1)
+  .map(([key, value]) => key);
+
+  console.log("filtered keys before", filteredKeys)
+
+  if (filteredKeys.length > 0){
+    console.log("length check", filteredKeys)
+      const addVariation = async (payload) => {
+    const response = await fetch(
+      `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${filteredKeys[0]}`,
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }
+    );
+  }
+
+  addVariation()
+
+  filteredKeys = Object.entries(categoryContents3)
+  .filter(([key, value]) => Object.keys(value).length === 1)
+  .map(([key, value]) => key);
+  console.log("filtered keys after", filteredKeys)
+
+  waitSecondsShort()
+
+  router.push("/64364fff9d5fb94c50c18771/categories/Category%201")
+
+  }
+  }, [])
 
   const routerData = [shopID._id, queryCategory]
 
@@ -185,14 +228,6 @@ console.log("Var keys List", varKeysList)
       </path>
     </svg>
   )
-
-  function waitSeconds() {
-    return new Promise(resolve => setTimeout(resolve, 2500));
-  }
-
-  function waitSecondsShort() {
-    return new Promise(resolve => setTimeout(resolve, 1000));
-  }
 
   const [formInputValidity, setFormInputValidity] = useState({
     name: true,

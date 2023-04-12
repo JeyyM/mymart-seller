@@ -69,6 +69,38 @@ const result = await db.collection("shops").updateOne(
     res.status(201).json({message: "Product Added"})
     console.log(result)
 } 
+
+if (req.method === "DELETE"){
+const client = await MongoClient.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+const db = client.db()
+
+const id = new ObjectId(req.query.martid);
+const item = await db.collection("shops").findOne({ _id: id });
+
+item._id = item._id.toString();
+
+
+const result = await db.collection("shops").updateOne(
+{ _id: id },
+{ $unset: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`]: "" } },
+(err, result) => {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(`Updated document with _id: ${id}`);
+    }
+    client.close();
+}
+);
+
+client.close();
+
+res.status(201).json({message: "Product Added"})
+console.log(result)
+} 
 }
 
 export default handler
