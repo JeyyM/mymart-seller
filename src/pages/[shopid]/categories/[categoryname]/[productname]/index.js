@@ -65,9 +65,19 @@ console.log("final product names", productNames);
 
   const resultingProduct = Object.keys(resulting)[0];
 
-  const varArray = Object.entries(categoryContents3[resultingProduct]).map(([key, value]) => ({
+  // const varArray = Object.entries(categoryContents3[resultingProduct]).map(([key, value]) => ({
+  //   [key]: value
+  // }));
+
+  // console.log(varArray)
+
+  const varArray = Object.entries(categoryContents3[resultingProduct])
+  .filter(([key, value]) => !key.startsWith("productTags"))
+  .map(([key, value]) => ({
     [key]: value
   }));
+
+console.log(varArray);
 
   const [varState, setVarState] = useState(0)
   const [imgState, setImgState] = useState(0)
@@ -95,292 +105,294 @@ console.log("final product names", productNames);
     return varArray[n][`var${n + 1}`].productImages[0];
   }
 
-  // const [nameValue, setNameValue] = useState(varArray[varState][`var${varNum}`].productName);
-  // const handleNameChange = (event) => {
-  //   setNameValue(event.target.value);
-  //   handleNameLength(event.target.value)
-  // };
+  console.log("over here", varArray[varState][`var${varNum}`].productName)
+  console.log(varNum)
 
-  // const [descValue, setDescValue] = useState(varArray[varState][`var${varNum}`].productDescription);
-  // const handleDescChange = (event) => {
-  //   setDescValue(event.target.value);
-  //   handleDescLength(event.target.value)
-  // };
+  const [nameValue, setNameValue] = useState(varArray[varState][`var${varNum}`].productName);
+  const handleNameChange = (event) => {
+    setNameValue(event.target.value);
+    handleNameLength(event.target.value)
+  };
 
-  // const [imgValue1, setImgValue1] = useState(varArray[varState][`var${varNum}`].productImages[0]);
-  // const handleImgChange1 = (event) => {
-  //   setImgValue1(event.target.value);
-  // };
+  const [descValue, setDescValue] = useState(varArray[varState][`var${varNum}`].productDescription);
+  const handleDescChange = (event) => {
+    setDescValue(event.target.value);
+    handleDescLength(event.target.value)
+  };
 
-  // const [imgValue2, setImgValue2] = useState(varArray[varState][`var${varNum}`].productImages[1]);
-  // const handleImgChange2 = (event) => {
-  //   setImgValue2(event.target.value);
-  // };
+  const [imgValue1, setImgValue1] = useState(varArray[varState][`var${varNum}`].productImages[0]);
+  const handleImgChange1 = (event) => {
+    setImgValue1(event.target.value);
+  };
 
-  // const [imgValue3, setImgValue3] = useState(varArray[varState][`var${varNum}`].productImages[2]);
-  // const handleImgChange3 = (event) => {
-  //   setImgValue3(event.target.value);
-  // };
+  const [imgValue2, setImgValue2] = useState(varArray[varState][`var${varNum}`].productImages[1]);
+  const handleImgChange2 = (event) => {
+    setImgValue2(event.target.value);
+  };
 
-  // const [imgValue4, setImgValue4] = useState(varArray[varState][`var${varNum}`].productImages[3]);
-  // const handleImgChange4 = (event) => {
-  //   setImgValue4(event.target.value);
-  // };
+  const [imgValue3, setImgValue3] = useState(varArray[varState][`var${varNum}`].productImages[2]);
+  const handleImgChange3 = (event) => {
+    setImgValue3(event.target.value);
+  };
 
-  // const [priceValue, setPriceValue] = useState(varArray[varState][`var${varNum}`].productPrice);
-  // const handlePriceChange = (event) => {
-  //   if (event.target.value.length < 9){
-  //   setPriceValue(event.target.value);}
-  // };
+  const [imgValue4, setImgValue4] = useState(varArray[varState][`var${varNum}`].productImages[3]);
+  const handleImgChange4 = (event) => {
+    setImgValue4(event.target.value);
+  };
+
+  const [priceValue, setPriceValue] = useState(varArray[varState][`var${varNum}`].productPrice);
+  const handlePriceChange = (event) => {
+    if (event.target.value.length < 9){
+    setPriceValue(event.target.value);}
+  };
   
 
-  // const [stockAmount, setStockAmount] = useState(varArray[varState][`var${varNum}`].productStock.stockAmount);
-  // const handleStockAmount = (event) => {
-  //   if (event.target.value.length < 9){
-  //   setStockAmount(event.target.value);}
-  // };
+  const [stockAmount, setStockAmount] = useState(varArray[varState][`var${varNum}`].productStock.stockAmount);
+  const handleStockAmount = (event) => {
+    if (event.target.value.length < 9){
+    setStockAmount(event.target.value);}
+  };
 
-  // const [stockUnit, setStockUnit] = useState(varArray[varState][`var${varNum}`].productStock.stockUnit);
-  // const handleStockUnit = (event) => {
-  //   setStockUnit(event.target.value);
-  // };
+  const [stockUnit, setStockUnit] = useState(varArray[varState][`var${varNum}`].productStock.stockUnit);
+  const handleStockUnit = (event) => {
+    setStockUnit(event.target.value);
+  };
 
-  // const [nameLength, setNameLength] = useState(varArray[varState][`var${varNum}`].productName.length)
-  // const handleNameLength = (event) => {
-  //   setNameLength(event.length)
-  // }
+  const [nameLength, setNameLength] = useState(varArray[varState][`var${varNum}`].productName.length)
+  const handleNameLength = (event) => {
+    setNameLength(event.length)
+  }
 
-  // const [descLength, setDescLength] = useState(varArray[varState][`var${varNum}`].productDescription.length)
-  // const handleDescLength = (event) => {
-  //   setDescLength(event.length)
-  // }
+  const [descLength, setDescLength] = useState(varArray[varState][`var${varNum}`].productDescription.length)
+  const handleDescLength = (event) => {
+    setDescLength(event.length)
+  }
 
-  // const nameLengthClasses = `${nameLength > 40 ? "overlength" : ""}`;
-  // const descLengthClasses = `${descLength > 150 ? "overlength" : ""}`;
+  const nameLengthClasses = `${nameLength > 40 ? "overlength" : ""}`;
+  const descLengthClasses = `${descLength > 150 ? "overlength" : ""}`;
 
-  // const [imgSet, setImgSet] = useState([imgValue1, imgValue2, imgValue3, imgValue4])
-  // const [validImgSet, setValidImgSet] = useState([])
+  const [imgSet, setImgSet] = useState([imgValue1, imgValue2, imgValue3, imgValue4])
+  const [validImgSet, setValidImgSet] = useState([])
 
-  // useEffect(() => {
-  //   const img1Valid = startsImgur(imgValue1) && !isEmpty(imgValue1)
-  //   const img2Valid = startsImgur(imgValue2) && !isEmpty(imgValue2)
-  //   const img3Valid = startsImgur(imgValue3) && !isEmpty(imgValue3)
-  //   const img4Valid = startsImgur(imgValue4) && !isEmpty(imgValue4)
-  //   const validImgSet = [img1Valid && { image: imgValue1 }, img2Valid && { image: imgValue2 }, img3Valid && { image: imgValue3 }, img4Valid && { image: imgValue4 },].filter(Boolean)
-  //   setValidImgSet(validImgSet)
-  // }, [imgValue1, imgValue2, imgValue3, imgValue4])
+  useEffect(() => {
+    const img1Valid = startsImgur(imgValue1) && !isEmpty(imgValue1)
+    const img2Valid = startsImgur(imgValue2) && !isEmpty(imgValue2)
+    const img3Valid = startsImgur(imgValue3) && !isEmpty(imgValue3)
+    const img4Valid = startsImgur(imgValue4) && !isEmpty(imgValue4)
+    const validImgSet = [img1Valid && { image: imgValue1 }, img2Valid && { image: imgValue2 }, img3Valid && { image: imgValue3 }, img4Valid && { image: imgValue4 },].filter(Boolean)
+    setValidImgSet(validImgSet)
+  }, [imgValue1, imgValue2, imgValue3, imgValue4])
 
-  // function isEmpty(word) {
-  //   word.trim() === ""
-  // }
+  function isEmpty(word) {
+    word.trim() === ""
+  }
 
-  // function startsImgur(word) {
-  //   if (word) { return word.slice(0, 20) === "https://i.imgur.com/"; }
-  // }
+  function startsImgur(word) {
+    if (word) { return word.slice(0, 20) === "https://i.imgur.com/"; }
+  }
 
-  // const [loading, setLoading] = useState(false)
-  // const [completion, setCompletion] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [completion, setCompletion] = useState(false)
 
-  // const checkmark = (
-  //   <svg viewBox="0 0 100 100" width="7rem" height="7rem">
-  //     <path id="checkmark" d="M25,50 L40,65 L75,30" stroke="#FFFFFF" strokeWidth="8" fill="none"
-  //       strokeDasharray="200" strokeDashoffset="200">
-  //       <animate attributeName="stroke-dashoffset" from="200" to="0" dur="0.5s" begin="indefinite" />
-  //     </path>
-  //   </svg>
-  // )
+  const checkmark = (
+    <svg viewBox="0 0 100 100" width="7rem" height="7rem">
+      <path id="checkmark" d="M25,50 L40,65 L75,30" stroke="#FFFFFF" strokeWidth="8" fill="none"
+        strokeDasharray="200" strokeDashoffset="200">
+        <animate attributeName="stroke-dashoffset" from="200" to="0" dur="0.5s" begin="indefinite" />
+      </path>
+    </svg>
+  )
 
-  // function waitSeconds() {
-  //   return new Promise(resolve => setTimeout(resolve, 2500));
-  // }
+  function waitSeconds() {
+    return new Promise(resolve => setTimeout(resolve, 2500));
+  }
 
-  // function waitSecondsShort() {
-  //   return new Promise(resolve => setTimeout(resolve, 1000));
-  // }
+  function waitSecondsShort() {
+    return new Promise(resolve => setTimeout(resolve, 1000));
+  }
 
-  // const [formInputValidity, setFormInputValidity] = useState({
-  //   name: true,
-  //   img: true,
-  //   desc: true,
-  //   price: true,
-  //   amount: true,
-  //   unit: true,
-  //   images: true,
-  //   exist: false,
-  // });
+  const [formInputValidity, setFormInputValidity] = useState({
+    name: true,
+    img: true,
+    desc: true,
+    price: true,
+    amount: true,
+    unit: true,
+    images: true,
+    exist: false,
+  });
 
-  // function setAll(index) {
-  //   setNameValue(varArray[index][`var${index + 1}`].productName)
-  //   setDescValue(varArray[index][`var${index + 1}`].productDescription)
-  //   setImgValue1(varArray[index][`var${index + 1}`].productImages[0])
-  //   setImgValue2(varArray[index][`var${index + 1}`].productImages[1])
-  //   setImgValue3(varArray[index][`var${index + 1}`].productImages[2])
-  //   setImgValue4(varArray[index][`var${index + 1}`].productImages[3])
-  //   setPriceValue(varArray[index][`var${index + 1}`].productPrice)
-  //   setStockAmount(varArray[index][`var${index + 1}`].productStock.stockAmount)
-  //   setStockUnit(varArray[index][`var${index + 1}`].productStock.stockUnit)
+  function setAll(index) {
+    setNameValue(varArray[index][`var${index + 1}`].productName)
+    setDescValue(varArray[index][`var${index + 1}`].productDescription)
+    setImgValue1(varArray[index][`var${index + 1}`].productImages[0])
+    setImgValue2(varArray[index][`var${index + 1}`].productImages[1])
+    setImgValue3(varArray[index][`var${index + 1}`].productImages[2])
+    setImgValue4(varArray[index][`var${index + 1}`].productImages[3])
+    setPriceValue(varArray[index][`var${index + 1}`].productPrice)
+    setStockAmount(varArray[index][`var${index + 1}`].productStock.stockAmount)
+    setStockUnit(varArray[index][`var${index + 1}`].productStock.stockUnit)
 
-  //   setNameLength(varArray[index][`var${index + 1}`].productName.length)
-  //   setDescLength(varArray[index][`var${index + 1}`].productDescription.length)
+    setNameLength(varArray[index][`var${index + 1}`].productName.length)
+    setDescLength(varArray[index][`var${index + 1}`].productDescription.length)
 
-  //   setFormInputValidity({
-  //     name: true,
-  //     img: true,
-  //     desc: true,
-  //     price: true,
-  //     amount: true,
-  //     unit: true,
-  //     images: true,
-  //   });
-  // }
+    setFormInputValidity({
+      name: true,
+      img: true,
+      desc: true,
+      price: true,
+      amount: true,
+      unit: true,
+      images: true,
+    });
+  }
 
-  // useEffect(() => {
-  //   setImgSet([imgValue1, imgValue2, imgValue3, imgValue4])
-  // }, [imgValue1, imgValue2, imgValue3, imgValue4])
+  useEffect(() => {
+    setImgSet([imgValue1, imgValue2, imgValue3, imgValue4])
+  }, [imgValue1, imgValue2, imgValue3, imgValue4])
 
-  // const [showImg, setShowImg] = useState(false)
+  const [showImg, setShowImg] = useState(false)
 
-  // function handleShowImg() {
-  //   setShowImg(!showImg)
-  // }
+  function handleShowImg() {
+    setShowImg(!showImg)
+  }
 
-  // const handleClick = async (event) => {
-  //   await handleSubmit(event);
-  // }
+  const handleClick = async (event) => {
+    await handleSubmit(event);
+  }
 
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  //   const img1Valid = startsImgur(imgValue1) && !isEmpty(imgValue1)
-  //   const img2Valid = startsImgur(imgValue2) && !isEmpty(imgValue2)
-  //   const img3Valid = startsImgur(imgValue3) && !isEmpty(imgValue3)
-  //   const img4Valid = startsImgur(imgValue4) && !isEmpty(imgValue4)
+    const img1Valid = startsImgur(imgValue1) && !isEmpty(imgValue1)
+    const img2Valid = startsImgur(imgValue2) && !isEmpty(imgValue2)
+    const img3Valid = startsImgur(imgValue3) && !isEmpty(imgValue3)
+    const img4Valid = startsImgur(imgValue4) && !isEmpty(imgValue4)
 
-  //   const givenImages = [
-  //     img1Valid && { image: imgValue1 },
-  //     img2Valid && { image: imgValue2 },
-  //     img3Valid && { image: imgValue3 },
-  //     img4Valid && { image: imgValue4 },
-  //   ].filter(Boolean)
+    const givenImages = [
+      img1Valid && { image: imgValue1 },
+      img2Valid && { image: imgValue2 },
+      img3Valid && { image: imgValue3 },
+      img4Valid && { image: imgValue4 },
+    ].filter(Boolean)
 
-  //   let nameValid = nameValue !== "" && !upperProductNames.includes(nameValue.toUpperCase())
-  //   let nameExist = upperProductNames.includes(nameValue.toUpperCase())
-  //   if (nameValue.toUpperCase() === varArray[varState][`var${varNum}`].productName.toUpperCase()) {nameExist = false; nameValid = true}
-  //   const descValid = descValue !== ""
-  //   const priceValid = priceValue !== ""
-  //   const amountValid = stockAmount !== ""
-  //   const unitValid = stockUnit !== ""
-  //   const imgValid = givenImages.length > 0
+    let nameValid = nameValue !== "" && !upperProductNames.includes(nameValue.toUpperCase())
+    let nameExist = upperProductNames.includes(nameValue.toUpperCase())
+    if (nameValue.toUpperCase() === varArray[varState][`var${varNum}`].productName.toUpperCase()) {nameExist = false; nameValid = true}
+    const descValid = descValue !== ""
+    const priceValid = priceValue !== ""
+    const amountValid = stockAmount !== ""
+    const unitValid = stockUnit !== ""
+    const imgValid = givenImages.length > 0
 
-  //   const submissionValid = nameValid && imgValid && descValid && priceValid && unitValid && amountValid && imgValid && !nameExist
+    const submissionValid = nameValid && imgValid && descValid && priceValid && unitValid && amountValid && imgValid && !nameExist
 
-  //   setFormInputValidity({
-  //     name: nameValid,
-  //     img: imgValid,
-  //     desc: descValid,
-  //     price: priceValid,
-  //     amount: amountValid,
-  //     unit: unitValid,
-  //     images: imgValid,
-  //     exist: nameExist,
-  //   });
+    setFormInputValidity({
+      name: nameValid,
+      img: imgValid,
+      desc: descValid,
+      price: priceValid,
+      amount: amountValid,
+      unit: unitValid,
+      images: imgValid,
+      exist: nameExist,
+    });
 
-  //   const incomingData = {
-  //     productName: nameValue,
-  //     productDescription: descValue,
-  //     productPrice: priceValue,
-  //     productStock: { stockAmount: stockAmount, stockUnit: stockUnit },
-  //     productImages: givenImages.map((imageObject) => imageObject.image)
-  //   }
+    const incomingData = {
+      productName: nameValue,
+      productDescription: descValue,
+      productPrice: priceValue,
+      productStock: { stockAmount: stockAmount, stockUnit: stockUnit },
+      productImages: givenImages.map((imageObject) => imageObject.image)
+    }
 
-  //   if (submissionValid){
-  //     setLoading(true)
+    if (submissionValid){
+      setLoading(true)
     
-  //       const response = await fetch(
-  //         `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varNum}`,
-  //         {
-  //           method: "PATCH",
-  //           headers: { "Content-Type": "application/json" },
-  //           body: JSON.stringify(incomingData)
-  //         }
-  //       );
+        const response = await fetch(
+          `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varNum}`,
+          {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(incomingData)
+          }
+        );
 
-  //     await waitSeconds();
+      await waitSeconds();
 
-  //     setLoading(false)
-  //     setCompletion(true)
+      setLoading(false)
+      setCompletion(true)
 
-  //     if (varNum === 1){router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(nameValue)}`)
-  //     await waitSecondsShort()
-  //     setCompletion(false)
-  //   } else {router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(varArray[0][`var${1}`].productName)}`)
-  //   await waitSecondsShort()
-  //   setCompletion(false)}
-  //   }
-  // }
+      if (varNum === 1){router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(nameValue)}`)
+      await waitSecondsShort()
+      setCompletion(false)
+    } else {router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(varArray[0][`var${1}`].productName)}`)
+    await waitSecondsShort()
+    setCompletion(false)}
+    }
+  }
 
-  // const addVariation = async (payload) => {
-  //   const response = await fetch(
-  //     `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varArray.length + 1}`,
-  //     {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(payload)
-  //     }
-  //   );
-  // }
+  const addVariation = async (payload) => {
+    const response = await fetch(
+      `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varArray.length + 1}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }
+    );
+  }
 
-  // const delVariation = async (payload) => {
-  //   const response = await fetch(
-  //     `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varNum}`,
-  //     {
-  //       method: "DELETE",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(payload)
-  //     }
-  //   );
-  // }
+  const delVariation = async (payload) => {
+    const response = await fetch(
+      `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varNum}`,
+      {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }
+    );
+  }
 
-  // const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"
-  //   }`;
+  const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"
+    }`;
 
-  // const imgClasses = `${formInputValidity.images ? "text-full" : "invalid-form"
-  //   }`;
+  const imgClasses = `${formInputValidity.images ? "text-full" : "invalid-form"
+    }`;
 
-  // const descClasses = `${formInputValidity.desc ? "desc-text-area" : "invalid-form-box"
-  //   }`;
+  const descClasses = `${formInputValidity.desc ? "desc-text-area" : "invalid-form-box"
+    }`;
 
-  // const priceClasses = `${formInputValidity.price ? "text-small input-number shortener-25" : "invalid-form-2 shortener-25"
-  //   }`;
+  const priceClasses = `${formInputValidity.price ? "text-small input-number shortener-25" : "invalid-form-2 shortener-25"
+    }`;
 
-  // const amountClasses = `${formInputValidity.amount ? "text-small input-number" : "invalid-form-2"
-  //   }`;
+  const amountClasses = `${formInputValidity.amount ? "text-small input-number" : "invalid-form-2"
+    }`;
 
-  // const unitClasses = `${formInputValidity.unit ? "text-small input-number" : "invalid-form-2"
-  //   }`;
+  const unitClasses = `${formInputValidity.unit ? "text-small input-number" : "invalid-form-2"
+    }`;
 
-  //   const imagePayload = (payload) => {
-  //     if (payload[0]) {setImgValue1(payload[0].image)} else {setImgValue1(undefined)}
-  //     if (payload[1]) {setImgValue2(payload[1].image)} else {setImgValue2(undefined)}
-  //     if (payload[2]) {setImgValue3(payload[2].image)} else {setImgValue3(undefined)}
-  //     if (payload[3]) {setImgValue4(payload[3].image)} else {setImgValue4(undefined)}
-  //   }
+    const imagePayload = (payload) => {
+      if (payload[0]) {setImgValue1(payload[0].image)} else {setImgValue1(undefined)}
+      if (payload[1]) {setImgValue2(payload[1].image)} else {setImgValue2(undefined)}
+      if (payload[2]) {setImgValue3(payload[2].image)} else {setImgValue3(undefined)}
+      if (payload[3]) {setImgValue4(payload[3].image)} else {setImgValue4(undefined)}
+    }
   
 
-  //   const [addVar, setAddVar] = useState()
-  //   function handleAddVar(){
-  //     setAddVar(!addVar)
-  //   }
+    const [addVar, setAddVar] = useState()
+    function handleAddVar(){
+      setAddVar(!addVar)
+    }
 
 
-  //   const [deletion, setDeletion] = useState(false)
-  //   function handleDelete(){
-  //     setDeletion(!deletion)
-  //   }
+    const [deletion, setDeletion] = useState(false)
+    function handleDelete(){
+      setDeletion(!deletion)
+    }
 
-  //   let upcoming = null
-
+    let upcoming = null
 
   //   if (varArray.length > 1) {
   //     const next = varArray[1][`var2`].productName
