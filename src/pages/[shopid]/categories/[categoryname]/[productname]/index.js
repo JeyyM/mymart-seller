@@ -20,26 +20,36 @@ function ProductPage({ shopID }) {
 
   const categoryContents3 = categoryContents2[1].categoryProducts
 
-  const productKeys = Object.entries(categoryContents3).map(([key, value]) => {
-    return {
-      key: key,
-      value: value
-    }
+  // const productNames = Object.values(categoryContents3).map((product) => {
+  //   const vars = Object.values(product);
+  //   const names = vars.map((varObj) => varObj.productName);
+  //   return names;
+  // }).flat();
+
+  console.log("categoryContents 3", categoryContents3)
+
+
+  const varKeysList = Object.values(categoryContents3)
+  .map((product) => {
+    const varObjs = Object.values(product)
+      .filter((item) => typeof item === 'object');
+    return varObjs;
+  });
+
+console.log("var keys list", varKeysList);
+
+const productNames = Object.values(varKeysList)
+  .flatMap((product) => {
+    const name = Object.values(product)
+      .filter((prop) => prop.productName);
+    return name;
   })
+  .map((name) => name.productName);
 
-  const productNames = productKeys.map((product) => {
-    const vars = Object.entries(product.value);
-    const names = vars.map(([key, varObj]) => {
-      if (key !== "productTags") {
-        return varObj.productName;
-      } else {
-        return null;
-      }
-    });
-    return names.filter((name) => name !== null);
-  }).flat();
+console.log("final product names", productNames);
 
-  console.log(productNames)
+  // console.log(productNames)
+  
 
   // const routerData = [shopID._id, queryCategory]
 
