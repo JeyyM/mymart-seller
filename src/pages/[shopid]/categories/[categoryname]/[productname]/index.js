@@ -46,58 +46,54 @@ const productNames = Object.values(varKeysList)
   })
   .map((name) => name.productName);
 
-console.log("final product names", productNames);
+console.log("final product names", productNames);  
 
-  // console.log(productNames)
-  
+  const routerData = [shopID._id, queryCategory]
 
-  // const routerData = [shopID._id, queryCategory]
+  const upperProductNames = productNames.map(name => name.toUpperCase());
 
-  // const upperProductNames = productNames.map(name => name.toUpperCase());
+  const resulting = Object.keys(categoryContents3).reduce((acc, curr) => {
+    const foundProduct = Object.keys(categoryContents3[curr].var1).find(
+      (key) => categoryContents3[curr].var1.productName === queryProduct
+    );
 
-  // const resulting = Object.keys(categoryContents3).reduce((acc, curr) => {
-  //   const foundProduct = Object.keys(categoryContents3[curr].var1).find(
-  //     (key) => categoryContents3[curr].var1.productName === queryProduct
-  //   );
+    if (foundProduct) {
+      acc[curr] = categoryContents3[curr].var1[foundProduct];
+    }
+    return acc;
+  }, {});
 
-  //   if (foundProduct) {
-  //     acc[curr] = categoryContents3[curr].var1[foundProduct];
-  //   }
-  //   return acc;
-  // }, {});
+  const resultingProduct = Object.keys(resulting)[0];
 
-  // const resultingProduct = Object.keys(resulting)[0];
+  const varArray = Object.entries(categoryContents3[resultingProduct]).map(([key, value]) => ({
+    [key]: value
+  }));
 
-  // const varArray = Object.entries(categoryContents3[resultingProduct]).map(([key, value]) => ({
-  //   [key]: value
-  // }));
+  const [varState, setVarState] = useState(0)
+  const [imgState, setImgState] = useState(0)
+  const varNum = varState + 1
 
-  // const [varState, setVarState] = useState(0)
-  // const [imgState, setImgState] = useState(0)
-  // const varNum = varState + 1
+  function ArrRange(min, max) {
+    let arr = []
+    for (let i = min; i <= max; i++)
+      arr.push(i);
+    return arr
+  }
 
-  // function ArrRange(min, max) {
-  //   let arr = []
-  //   for (let i = min; i <= max; i++)
-  //     arr.push(i);
-  //   return arr
-  // }
+  const varRange = (ArrRange(0, varArray.length - 1))
 
-  // const varRange = (ArrRange(0, varArray.length - 1))
+  function varStateHandler(ind) {
+    setVarState(ind + 1)
+    setImgState(0)
+  }
 
-  // function varStateHandler(ind) {
-  //   setVarState(ind)
-  //   setImgState(0)
-  // }
+  function imgStateHandler(ind) {
+    setImgState(ind)
+  }
 
-  // function imgStateHandler(ind) {
-  //   setImgState(ind)
-  // }
-
-  // function imageGetter(n) {
-  //   return varArray[n][`var${n + 1}`].productImages[0];
-  // }
-
+  function imageGetter(n) {
+    return varArray[n][`var${n + 1}`].productImages[0];
+  }
 
   // const [nameValue, setNameValue] = useState(varArray[varState][`var${varNum}`].productName);
   // const handleNameChange = (event) => {
