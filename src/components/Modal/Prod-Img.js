@@ -79,10 +79,7 @@ function ProdImg(props) {
             img4Valid && { image: imgValue4 },
         ].filter(Boolean)
 
-        console.log(givenImages)
-
         if (givenImages.length > 0) {
-            console.log(givenImages)
             props.setImg(givenImages)
             props.disable()
         } else {
@@ -112,25 +109,13 @@ function ProdImg(props) {
         setImgValue4(event.target.value);
     };
 
-    // useEffect(() => {
-    //       setImgValue1(props.imgs[0]);
-    //       setImgValue2(props.imgs[1]);
-    //       setImgValue3(props.imgs[2]);
-    //       setImgValue4(props.imgs[3]);
-    //   }, [props.imgs[0], props.imgs[1], props.imgs[2], props.imgs[3]]);
-
-    //   console.log("bazinga", props.imgs[0], props.imgs[1], props.imgs[2], props.imgs[3])
-
     useEffect(() => {
         setImgValue1(props.imgs[0]);
         setImgValue2(props.imgs[1]);
         setImgValue3(props.imgs[2]);
         setImgValue4(props.imgs[3]);
 
-        console.log("bazinga", props.imgs[0], props.imgs[1], props.imgs[2], props.imgs[3])
     }, [props.imgs]);
-
-    console.log("actual img number", props.imgnumber)
 
     const [newLength, setNewLength] = useState(props.imgnumber)
 

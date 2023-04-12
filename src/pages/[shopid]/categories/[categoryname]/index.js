@@ -45,10 +45,6 @@ function ProductsPage({ shopID }) {
     return names.filter((name) => name !== null);
   }).flat();
   
-  console.log("productNames", productNames);
-  console.log(products)
-  
-  
   const upperProductNames = productNames.map((name) => name.toUpperCase());
   
 

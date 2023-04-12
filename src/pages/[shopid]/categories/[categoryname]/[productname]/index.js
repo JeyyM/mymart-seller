@@ -20,23 +20,12 @@ function ProductPage({ shopID }) {
 
   const categoryContents3 = categoryContents2[1].categoryProducts
 
-  // const productNames = Object.values(categoryContents3).map((product) => {
-  //   const vars = Object.values(product);
-  //   const names = vars.map((varObj) => varObj.productName);
-  //   return names;
-  // }).flat();
-
-  console.log("categoryContents 3", categoryContents3)
-
-
   const varKeysList = Object.values(categoryContents3)
   .map((product) => {
     const varObjs = Object.values(product)
       .filter((item) => typeof item === 'object');
     return varObjs;
   });
-
-console.log("var keys list", varKeysList);
 
 const productNames = Object.values(varKeysList)
   .flatMap((product) => {
@@ -46,7 +35,12 @@ const productNames = Object.values(varKeysList)
   })
   .map((name) => name.productName);
 
-console.log("final product names", productNames);  
+const placeHolder= () => {
+  return
+  // console.log("oogabooga")
+}
+
+console.log("Var keys List", varKeysList)
 
   const routerData = [shopID._id, queryCategory]
 
@@ -65,19 +59,11 @@ console.log("final product names", productNames);
 
   const resultingProduct = Object.keys(resulting)[0];
 
-  // const varArray = Object.entries(categoryContents3[resultingProduct]).map(([key, value]) => ({
-  //   [key]: value
-  // }));
-
-  // console.log(varArray)
-
   const varArray = Object.entries(categoryContents3[resultingProduct])
   .filter(([key, value]) => !key.startsWith("productTags"))
   .map(([key, value]) => ({
     [key]: value
   }));
-
-console.log(varArray);
 
   const [varState, setVarState] = useState(0)
   const [imgState, setImgState] = useState(0)
@@ -93,7 +79,7 @@ console.log(varArray);
   const varRange = (ArrRange(0, varArray.length - 1))
 
   function varStateHandler(ind) {
-    setVarState(ind + 1)
+    setVarState(ind)
     setImgState(0)
   }
 
@@ -104,9 +90,6 @@ console.log(varArray);
   function imageGetter(n) {
     return varArray[n][`var${n + 1}`].productImages[0];
   }
-
-  console.log("over here", varArray[varState][`var${varNum}`].productName)
-  console.log(varNum)
 
   const [nameValue, setNameValue] = useState(varArray[varState][`var${varNum}`].productName);
   const handleNameChange = (event) => {
@@ -394,117 +377,117 @@ console.log(varArray);
 
     let upcoming = null
 
-  //   if (varArray.length > 1) {
-  //     const next = varArray[1][`var2`].productName
+    if (varArray.length > 1) {
+      const next = varArray[1][`var2`].productName
 
-  //   if (next){
-  //     upcoming = next
-  //   }
-  //   }
+    if (next){
+      upcoming = next
+    }
+    }
 
-  // return <Fragment>
-  //   <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
-  //   <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation}></AddVariation>
-  //   <Confirmer2 modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${varArray[varState][`var${varNum}`].productName}?`} load={() => { setLoading(true) }} default={varNum} finish={delVariation} names={upcoming} routing={routerData} productFix={delVariation}></Confirmer2>
+  return <Fragment>
+    <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
+    <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation}></AddVariation>
+    <Confirmer2 modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${varArray[varState][`var${varNum}`].productName}?`} load={() => { setLoading(true) }} default={varNum} finish={delVariation} names={upcoming} routing={routerData} productFix={placeHolder}></Confirmer2>
 
-  //   <div className="product-container">
-  //     <div className="main-img-container">
+    <div className="product-container">
+      <div className="main-img-container">
 
-  //       <div className="sample">
-  //         <button className="product-edit-button" onClick={() => { handleShowImg() }} type="button" disabled={loading}><div className="heading-icon-edit">&nbsp;</div></button>
-  //         <img src={imgSet[imgState]} alt={varArray[varState][`var${varNum}`].productName} className="product-image">
-  //         </img>
-  //       </div>
+        <div className="sample">
+          <button className="product-edit-button" onClick={() => { handleShowImg() }} type="button" disabled={loading}><div className="heading-icon-edit">&nbsp;</div></button>
+          <img src={imgSet[imgState]} alt={varArray[varState][`var${varNum}`].productName} className="product-image">
+          </img>
+        </div>
 
-  //       <motion.div className="side-img-container" initial={{ opacity: 0 }}
-  //         animate={{ opacity: 1 }}
-  //         transition={{ duration: 0.2 }}
-  //         key={varState}
-  //       >
-  //         {imgSet.map((i, index) => (
-  //           i !== undefined && (
-  //           <motion.img
-  //             key={index}
-  //             src={imgSet[index]}
-  //             alt={index}
-  //             className={`side-img ${index === imgState ? "active-var" : ""}`}
-  //             initial={{ opacity: 0, y: 50 }}
-  //             animate={{ opacity: 1, y: 0 }}
-  //             transition={{ delay: 0.2 * index, duration: 0.2 }}
-  //             onClick={() => imgStateHandler(index)}
-  //           />)
-  //         ))}
-  //       </motion.div>
-  //     </div>
+        <motion.div className="side-img-container" initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.2 }}
+          key={varState}
+        >
+          {imgSet.map((i, index) => (
+            i !== undefined && (
+            <motion.img
+              key={index}
+              src={imgSet[index]}
+              alt={index}
+              className={`side-img ${index === imgState ? "active-var" : ""}`}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 * index, duration: 0.2 }}
+              onClick={() => imgStateHandler(index)}
+            />)
+          ))}
+        </motion.div>
+      </div>
 
-  //     <div className="details-section">
-  //       <form>
-  //         <div>
-  //           <input type="text" value={nameValue} className={nameClasses} placeholder="Product Name" required id='name' autoComplete="off" onChange={handleNameChange}></input>
-  //           {formInputValidity.name && !formInputValidity.exist ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : !formInputValidity.exist ? <label className="form-label" style={{ color: "red" }}>Enter a valid product name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Product name already exists in category <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label>}
+      <div className="details-section">
+        <form>
+          <div>
+            <input type="text" value={nameValue} className={nameClasses} placeholder="Product Name" required id='name' autoComplete="off" onChange={handleNameChange}></input>
+            {formInputValidity.name && !formInputValidity.exist ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : !formInputValidity.exist ? <label className="form-label" style={{ color: "red" }}>Enter a valid product name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Product name already exists in category <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label>}
 
-  //         </div>
+          </div>
 
-  //         <div className="price-pair">
-  //           <label className="heading-secondary product-currency">$</label>
-  //           <div className="flex-col">
-  //             <input type="number" value={priceValue} className={priceClasses} placeholder="Price" required id='price' onChange={handlePriceChange}></input>
-  //             {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid price</label>}
-  //           </div>
+          <div className="price-pair">
+            <label className="heading-secondary product-currency">$</label>
+            <div className="flex-col">
+              <input type="number" value={priceValue} className={priceClasses} placeholder="Price" required id='price' onChange={handlePriceChange}></input>
+              {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid price</label>}
+            </div>
 
-  //         </div>
-
-
-  //         <textarea
-  //           id='description'
-  //           required
-  //           rows='5'
-  //           value={descValue}
-  //           className={descClasses}
-  //           placeholder="Description"
-  //           onChange={handleDescChange}
-  //         ></textarea>
-  //         {formInputValidity.desc ? <label className="form-label" title="Upon reaching 150 digits in length, an ellipsis (...) will be added.">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label>}
+          </div>
 
 
-  //         <div className="price-pair">
+          <textarea
+            id='description'
+            required
+            rows='5'
+            value={descValue}
+            className={descClasses}
+            placeholder="Description"
+            onChange={handleDescChange}
+          ></textarea>
+          {formInputValidity.desc ? <label className="form-label" title="Upon reaching 150 digits in length, an ellipsis (...) will be added.">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label>}
 
-  //           <label className="heading-secondary product-currency">Stock</label>
-  //           <div className="flex-col">
-  //             <input type="number" value={stockAmount} className={amountClasses} placeholder="Amount" required id='amount' onChange={handleStockAmount}></input>
-  //             {formInputValidity.amount ? <label className="form-label">Stock Amount</label> : <label className="form-label" style={{ color: "red" }}>Invalid stock amount</label>}
-  //           </div>
 
-  //           <div className="flex-col">
-  //             <input type="text" value={stockUnit} className={unitClasses} placeholder="Unit" required id='unit' onChange={handleStockUnit} autoComplete="off"></input>
-  //             {formInputValidity.unit ? <label className="form-label">Stock Unit</label> : <label className="form-label" style={{ color: "red" }}>Invalid stock unit</label>}
-  //           </div>
+          <div className="price-pair">
 
-  //         </div>
+            <label className="heading-secondary product-currency">Stock</label>
+            <div className="flex-col">
+              <input type="number" value={stockAmount} className={amountClasses} placeholder="Amount" required id='amount' onChange={handleStockAmount}></input>
+              {formInputValidity.amount ? <label className="form-label">Stock Amount</label> : <label className="form-label" style={{ color: "red" }}>Invalid stock amount</label>}
+            </div>
 
-  //       </form>
+            <div className="flex-col">
+              <input type="text" value={stockUnit} className={unitClasses} placeholder="Unit" required id='unit' onChange={handleStockUnit} autoComplete="off"></input>
+              {formInputValidity.unit ? <label className="form-label">Stock Unit</label> : <label className="form-label" style={{ color: "red" }}>Invalid stock unit</label>}
+            </div>
 
-  //       <label className="heading-secondary variations-label">Variations</label> <button className="add-img" type="button" onClick={handleAddVar} ><div className="heading-icon-plus-marginless">&nbsp;</div></button>
+          </div>
+
+        </form>
+
+        <label className="heading-secondary variations-label">Variations</label> <button className="add-img" type="button" onClick={handleAddVar} ><div className="heading-icon-plus-marginless">&nbsp;</div></button>
         
-  //      <motion.div className="varContainer" initial={{ opacity: 0 }}
-  //         animate={{ opacity: 1 }}
-  //         transition={{ duration: 0.2 }}>
-  //         {varRange.map((v, index) => (
-  //           <motion.img key={index} onClick={() => { varStateHandler(index); setAll(index); }} className={`varItem ${index === varState ? "active-var" : ""}`} src={imageGetter(index)} alt={index} initial={{ opacity: 0, x: 50 }}
-  //             animate={{ opacity: 1, x: 0 }}
-  //             transition={{ delay: 0.2 * index, duration: 0.2 }}></motion.img>
-  //         ))}
-  //       </motion.div>
+       <motion.div className="varContainer" initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.2 }}>
+          {varRange.map((v, index) => (
+            <motion.img key={index} onClick={() => { varStateHandler(index); setAll(index); }} className={`varItem ${index === varState ? "active-var" : ""}`} src={imageGetter(index)} alt={index} initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 * index, duration: 0.2 }}></motion.img>
+          ))}
+        </motion.div>
 
-  //       <div className="product-action-buttons">
-  //         <button className="product-action-3 heading-secondary" disabled={loading} onClick={handleDelete}>Delete Variation</button>
-  //         <button className="product-action-1 heading-secondary" disabled={loading}>Edit Search Tags</button>
-  //         <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
-  //       </div>
-  //     </div>
-  //   </div>
+        <div className="product-action-buttons">
+          <button className="product-action-3 heading-secondary" disabled={loading} onClick={handleDelete}>Delete Variation</button>
+          <button className="product-action-1 heading-secondary" disabled={loading}>Edit Search Tags</button>
+          <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
+        </div>
+      </div>
+    </div>
 
-  // </Fragment>
+  </Fragment>
 }
 
 export default ProductPage

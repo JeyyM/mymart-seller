@@ -56,9 +56,9 @@ function Confirmer2(props) {
 
     props.finish()
 
-    if (props.names === null){
-        props.productFix()
-    }
+    // if (props.names === null){
+    //     props.productFix()
+    // }
 
     await waitSeconds();
 
@@ -70,7 +70,7 @@ function Confirmer2(props) {
     } else {
         if (props.default === 1){
             router.push(`/${props.routing[0]}/categories/${props.routing[1]}/${props.names}`).then(() => window.location.reload())
-          }
+          } else {router.reload()}
     }
   }
 
