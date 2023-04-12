@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import ProdImg from "@/components/Modal/Prod-Img";
 import AddVariation from "@/components/Modal/Add-Variation"
-import Confirmer from "@/components/Modal/Confirmer";
+import Confirmer2 from "@/components/Modal/Confirmer2";
 
 function ProductPage({ shopID }) {
   const router = useRouter()
@@ -20,13 +20,13 @@ function ProductPage({ shopID }) {
 
   const categoryContents3 = categoryContents2[1].categoryProducts
 
-  console.log("checking for the list", categoryContents3)
-
   const productNames = Object.values(categoryContents3).map((product) => {
     const vars = Object.values(product);
     const names = vars.map((varObj) => varObj.productName);
     return names;
   }).flat();
+
+  const routerData = [shopID._id, queryCategory]
 
   const upperProductNames = productNames.map(name => name.toUpperCase());
 
@@ -124,8 +124,6 @@ function ProductPage({ shopID }) {
     setStockUnit(event.target.value);
   };
 
-  // console.log(nameValue, "|", descValue, "|", imgValue1, "|", imgValue2, "|", imgValue3, "|", imgValue4, "|", priceValue, "|", stockAmount, "|", stockUnit)
-
   const [nameLength, setNameLength] = useState(varArray[varState][`var${varNum}`].productName.length)
   const handleNameLength = (event) => {
     setNameLength(event.length)
@@ -134,10 +132,7 @@ function ProductPage({ shopID }) {
   const [descLength, setDescLength] = useState(varArray[varState][`var${varNum}`].productDescription.length)
   const handleDescLength = (event) => {
     setDescLength(event.length)
-    // console.log(descLength)
   }
-
-  // console.log(" ayp nbrjn", descLength)
 
   const nameLengthClasses = `${nameLength > 40 ? "overlength" : ""}`;
   const descLengthClasses = `${descLength > 150 ? "overlength" : ""}`;
@@ -151,13 +146,8 @@ function ProductPage({ shopID }) {
     const img3Valid = startsImgur(imgValue3) && !isEmpty(imgValue3)
     const img4Valid = startsImgur(imgValue4) && !isEmpty(imgValue4)
     const validImgSet = [img1Valid && { image: imgValue1 }, img2Valid && { image: imgValue2 }, img3Valid && { image: imgValue3 }, img4Valid && { image: imgValue4 },].filter(Boolean)
-    // console.log("valid img set", validImgSet)
     setValidImgSet(validImgSet)
   }, [imgValue1, imgValue2, imgValue3, imgValue4])
-
-  // console.log("valid length here", validImgSet)
-
-  // console.log("imsetherer", imgSet)
 
   function isEmpty(word) {
     word.trim() === ""
@@ -180,12 +170,10 @@ function ProductPage({ shopID }) {
   )
 
   function waitSeconds() {
-    // console.log("wait 2.5 sec")
     return new Promise(resolve => setTimeout(resolve, 2500));
   }
 
   function waitSecondsShort() {
-    // console.log("wait 2.5 sec")
     return new Promise(resolve => setTimeout(resolve, 1000));
   }
 
@@ -214,9 +202,6 @@ function ProductPage({ shopID }) {
     setNameLength(varArray[index][`var${index + 1}`].productName.length)
     setDescLength(varArray[index][`var${index + 1}`].productDescription.length)
 
-    // setImgSet([imgValue1, imgValue2, imgValue3, imgValue4])
-    // console.log("set all imgset", imgSet)
-
     setFormInputValidity({
       name: true,
       img: true,
@@ -232,15 +217,11 @@ function ProductPage({ shopID }) {
     setImgSet([imgValue1, imgValue2, imgValue3, imgValue4])
   }, [imgValue1, imgValue2, imgValue3, imgValue4])
 
-
   const [showImg, setShowImg] = useState(false)
 
   function handleShowImg() {
     setShowImg(!showImg)
-    // console.log(showImg)
   }
-
-  // console.log(varArray[varState][`var${varState + 1}`].productImages.length)
 
   const handleClick = async (event) => {
     await handleSubmit(event);
@@ -249,8 +230,6 @@ function ProductPage({ shopID }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    console.log("submitting")
 
     const img1Valid = startsImgur(imgValue1) && !isEmpty(imgValue1)
     const img2Valid = startsImgur(imgValue2) && !isEmpty(imgValue2)
@@ -272,10 +251,6 @@ function ProductPage({ shopID }) {
     const amountValid = stockAmount !== ""
     const unitValid = stockUnit !== ""
     const imgValid = givenImages.length > 0
-
-    console.log("status checks")
-    console.log(nameValid)
-    console.log(nameExist)
 
     const submissionValid = nameValid && imgValid && descValid && priceValid && unitValid && amountValid && imgValid && !nameExist
 
@@ -300,12 +275,6 @@ function ProductPage({ shopID }) {
 
     if (submissionValid){
       setLoading(true)
-      console.log("valid")
-
-        // const nextVar = "var" + (varArray.length + 1)
-        // console.log("nextvar", nextVar)
-
-        console.log(varNum)
     
         const response = await fetch(
           `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varNum}`,
@@ -317,8 +286,6 @@ function ProductPage({ shopID }) {
         );
 
       await waitSeconds();
-
-      // console.log(nameValue, "|", descValue, "|", givenImages, "|", priceValue, "|", stockAmount, "|", stockUnit)
 
       setLoading(false)
       setCompletion(true)
@@ -333,7 +300,6 @@ function ProductPage({ shopID }) {
   }
 
   const addVariation = async (payload) => {
-    console.log(payload)
     const response = await fetch(
       `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varArray.length + 1}`,
       {
@@ -345,7 +311,6 @@ function ProductPage({ shopID }) {
   }
 
   const delVariation = async (payload) => {
-    console.log(payload)
     const response = await fetch(
       `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varNum}`,
       {
@@ -374,12 +339,7 @@ function ProductPage({ shopID }) {
   const unitClasses = `${formInputValidity.unit ? "text-small input-number" : "invalid-form-2"
     }`;
 
-
-    // console.log("later valid check", validImgSet.length)
-
-
     const imagePayload = (payload) => {
-      // console.log("payload here", payload[0].image)
       if (payload[0]) {setImgValue1(payload[0].image)} else {setImgValue1(undefined)}
       if (payload[1]) {setImgValue2(payload[1].image)} else {setImgValue2(undefined)}
       if (payload[2]) {setImgValue3(payload[2].image)} else {setImgValue3(undefined)}
@@ -390,24 +350,29 @@ function ProductPage({ shopID }) {
     const [addVar, setAddVar] = useState()
     function handleAddVar(){
       setAddVar(!addVar)
-      console.log(addVar)
     }
-    // console.log("current image values here", imgValue1, imgValue2, imgValue3, imgValue4)
-    // console.log("this is the imgset rn", imgSet)
+
 
     const [deletion, setDeletion] = useState(false)
     function handleDelete(){
       setDeletion(!deletion)
     }
+
+    let upcoming = null
+
+
+    if (varArray.length > 1) {
+      const next = varArray[1][`var2`].productName
+
+    if (next){
+      upcoming = next
+    }
+    }
+
   return <Fragment>
     <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
     <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation}></AddVariation>
-    <Confirmer modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${varArray[varState][`var${varNum}`].productName}?`} load={() => { setLoading(true) }} default={varNum} finish={delVariation} names={productNames}></Confirmer>
-    {/* <Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} delete={delCategHandler} default={setDefaultName} finish={handleDelete} chosenItem={props.defs[0]} msg="Are you sure you want to delete the category? This cannot be undone. However, the data from this category's statistics will remain." label={`Will you delete ${setDefaultName}?`} load={() => { setLoading(true) }}></Confirmer> */}
-
-    
-    {/* <AddVariation modalStatus={addVar} disable={handleAddVar} finish={completeForm} categKey={chosenKey} length={products.length}></AddVariation> */}
-
+    <Confirmer2 modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${varArray[varState][`var${varNum}`].productName}?`} load={() => { setLoading(true) }} default={varNum} finish={delVariation} names={upcoming} routing={routerData} productFix={delVariation}></Confirmer2>
 
     <div className="product-container">
       <div className="main-img-container">
@@ -512,8 +477,6 @@ function ProductPage({ shopID }) {
 export default ProductPage
 
 export async function getServerSideProps({ params }) {
-  // console.log(params)
-
   const client = await MongoClient.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,

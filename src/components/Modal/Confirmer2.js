@@ -41,6 +41,10 @@ function Confirmer2(props) {
     return new Promise(resolve => setTimeout(resolve, 2500));
   }
 
+  function waitSecondsShort() {
+    return new Promise(resolve => setTimeout(resolve, 500));
+  }
+
   const handleClick = async (event) => {
     props.load()
     await handleSubmit(event);
@@ -50,18 +54,24 @@ function Confirmer2(props) {
     event.preventDefault();
     setLoading(true)
 
-    console.log("props.default here", props.default)
-
     props.finish()
+
+    if (props.names === null){
+        props.productFix()
+    }
 
     await waitSeconds();
 
     setLoading(false)
     setCompletion(true)
 
-    if (props.default === 1){
-      router.push("/")
-    } else {router.reload()}
+    if (props.names === null){
+        router.push(`/${props.routing[0]}/categories`)
+    } else {
+        if (props.default === 1){
+            router.push(`/${props.routing[0]}/categories/${props.routing[1]}/${props.names}`).then(() => window.location.reload())
+          }
+    }
   }
 
   const [loading, setLoading] = useState(false)

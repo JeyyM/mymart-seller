@@ -10,8 +10,6 @@ function ProductsPage({ shopID }) {
   const router = useRouter()
   const queryCategoryName = router.query.categoryname
 
-  // console.log(router.query.shopid)
-
   const { shopData } = shopID;
   const contents = shopData.shopCategories;
 
@@ -26,7 +24,6 @@ function ProductsPage({ shopID }) {
     })
 
     const chosenKey = chosenKeyFind[0]
-    // console.log("chosen key here", chosenKey)
 
   const products = Object.entries(chosenCategory.categoryProducts).map(([key, value]) => {
     return {
@@ -54,10 +51,11 @@ function ProductsPage({ shopID }) {
     setAddProduct(!addProduct)
   }
 
+  console.log(products)
+
   async function completeForm(formdata, key, length){
 
     const nextProd = "Product" + (length + 1)
-    // console.log (nextProd)
 
     const response = await fetch(
       `../../../api/new-product?martid=${router.query.shopid}&categorykey=${key}&prodlength=${nextProd}`,
@@ -109,7 +107,6 @@ if (products.length > 0){
 export default ProductsPage
 
 export async function getServerSideProps({ params }) {
-  // console.log(params)
 
   const client = await MongoClient.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,

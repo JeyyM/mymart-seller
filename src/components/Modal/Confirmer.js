@@ -38,7 +38,7 @@ function Confirmer(props) {
   )
   
   function waitSeconds() {
-    return new Promise(resolve => setTimeout(resolve, 2500));
+    return new Promise(resolve => setTimeout(resolve, 3000));
   }
 
   const handleClick = async (event) => {
@@ -50,18 +50,14 @@ function Confirmer(props) {
     event.preventDefault();
     setLoading(true)
 
-    console.log("props.default here", props.default)
-
-    props.finish()
+    props.finish(props.default)
 
     await waitSeconds();
 
     setLoading(false)
     setCompletion(true)
 
-    if (props.default === 1){
-      router.push("/")
-    } else {router.reload()}
+    router.reload()
   }
 
   const [loading, setLoading] = useState(false)
@@ -86,7 +82,7 @@ function Confirmer(props) {
               animate="visible"
               exit="exit"
             >
-              <h2 className="heading-primary no-margin">{props.action}</h2>
+              <h2 className="heading-primary no-margin">Delete Category?</h2>
               <div className="confirm-contents">
                 <div className="warning-logo">&nbsp;</div>
                 <h2 className="confirm-text heading-tertiary">{props.msg}</h2>
