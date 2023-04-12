@@ -45,7 +45,8 @@ function ProductsPage({ shopID }) {
     return names.filter((name) => name !== null);
   }).flat();
   
-  console.log(productNames);
+  console.log("productNames", productNames);
+  console.log(products)
   
   
   const upperProductNames = productNames.map((name) => name.toUpperCase());
@@ -76,9 +77,6 @@ function ProductsPage({ shopID }) {
     const data = await response.json();
 
   }
-
-  console.log("chosen category here", chosenCategory)
-  console.log("chosen categ here", contents)
 
 if (products.length > 0){
   return <Fragment>
