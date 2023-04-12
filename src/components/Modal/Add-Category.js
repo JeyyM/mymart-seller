@@ -5,6 +5,7 @@ import { useState, useEffect, useContext } from "react";
 // import DefaultValueContext from "../store/default-value-context";
 import Confirmer from "./Confirmer";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 function AddCategory(props) {
   const setDefaultName = props.defs[0]
@@ -47,7 +48,7 @@ function AddCategory(props) {
   useEffect(() => {
     // console.log( "cmon work", nameLength);
   }, [nameLength]);
-  
+
 
   const [descLength, setDescLength] = useState(0)
   const handleDescLength = (event) => {
@@ -105,8 +106,8 @@ function AddCategory(props) {
     event.preventDefault();
 
     let nameValid = nameValue !== "" && !props.list.includes(nameValue)
-    let nameExist = props.list.includes(nameValue)
-    if (nameValue === setDefaultName) {nameExist = false; nameValid = true}
+    let nameExist = props.list.includes(nameValue.toUpperCase())
+    if (nameValue.toUpperCase() === setDefaultName.toUpperCase) { nameExist = false; nameValid = true }
     const imgValid = startsImgur(imgValue) && !isEmpty(imgValue)
     const descValid = descValue !== ""
 
@@ -169,7 +170,7 @@ function AddCategory(props) {
 
   };
 
-  const handleDelete= async (title) => {
+  const handleDelete = async (title) => {
 
     const categoryContents = Object.entries(props.categIndexes)
 
@@ -255,12 +256,16 @@ function AddCategory(props) {
 
   const checkmark = (
     <svg viewBox="0 0 100 100" width="7rem" height="7rem">
-  <path id="checkmark" d="M25,50 L40,65 L75,30" stroke="#FFFFFF" strokeWidth="8" fill="none"
+      <path id="checkmark" d="M25,50 L40,65 L75,30" stroke="#FFFFFF" strokeWidth="8" fill="none"
         strokeDasharray="200" strokeDashoffset="200">
-    <animate attributeName="stroke-dashoffset" from="200" to="0" dur="0.5s" begin="indefinite"/>
-  </path>
-</svg>
+        <animate attributeName="stroke-dashoffset" from="200" to="0" dur="0.5s" begin="indefinite" />
+      </path>
+    </svg>
   )
+
+  const isValidImgurLink = (url) => {
+    return url.match(/^https?:\/\/i\.imgur\.com\/.+?\.(jpg|jpeg|png|gif)$/);
+  };
 
   return (
     <Fragment>
@@ -271,7 +276,7 @@ function AddCategory(props) {
       >
         {props.modalStatus && (
           <Backdrop onClick={loading ? null : emptyContents} className="categ-modals">
-            <Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} delete={delCategHandler} default={setDefaultName} finish={handleDelete} chosenItem={props.defs[0]} msg="Are you sure you want to delete the category? This cannot be undone. However, the data from this category's statistics will remain." label={`Will you delete ${setDefaultName}?`} load={() => {setLoading(true)}}></Confirmer>
+            <Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} delete={delCategHandler} default={setDefaultName} finish={handleDelete} chosenItem={props.defs[0]} msg="Are you sure you want to delete the category? This cannot be undone. However, the data from this category's statistics will remain." label={`Will you delete ${setDefaultName}?`} load={() => { setLoading(true) }}></Confirmer>
             <motion.div
               onClick={(e) => e.stopPropagation()}
               className="categ-modal"
@@ -289,7 +294,7 @@ function AddCategory(props) {
                 </span>
 
                 <div className="form-group">
-            
+
                   <input
                     type="text"
                     className={`${nameClasses}`}
@@ -317,7 +322,19 @@ function AddCategory(props) {
                   ></input>
                   {formInputValidity.img ? <label className="form-label">Category Image (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid Imgur link</label>}
                 </div>
-                {imgValue && <img src={imgValue} className="add-categ-img" alt="Link is Invalid"></img>}
+                {imgValue && isValidImgurLink(imgValue) && (
+                  <div className="add-categ-img-container">
+                    <Image src={imgValue} className="add-categ-img" height={100} width={100} unoptimized={false} priority={true} alt="Link is Invalid"></Image>
+                  </div>
+                )}
+                {imgValue && !isValidImgurLink(imgValue) && (
+                  <div className="add-categ-img-container">
+                    <img src="/broken-image-icon.png" className="add-categ-img" alt="Link is Invalid"></img>
+                  </div>
+                )}
+
+                {/* <Image src={categoryImage} className="category-img" layout="fill" unoptimized={false} alt={categoryName} priority={true} sizes="100%"></Image> */}
+
 
                 <div className="form-group">
                   <textarea

@@ -15,7 +15,7 @@ function Category(props) {
 
         <button className="categ-edit-button" onClick={(event) => {props.edit2([categoryName, categoryImage, categoryDescription]); props.edit(event);}}><div className="heading-icon-edit">&nbsp;</div></button>
         <div className="image-container">
-        <Image src={categoryImage} className="category-img" layout="fill" unoptimized={false} alt={categoryName} priority={true} sizes="100%"></Image>
+        <Image src={categoryImage} className="category-img" layout="fill" unoptimized={false} alt={categoryName} priority={true}></Image>
         </div>
         <div className="category-content">
             <div>

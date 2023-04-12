@@ -20,7 +20,8 @@ function CategoryPage({ shopID }) {
   });
 
   const categNamesList = Object.keys(contents).map(key => (contents[key].categoryName))
-  // console.log("categNamesList" , categNamesList)
+  const upperCategNames = categNamesList.map(name => name.toUpperCase());
+  // console.log(upperCategNames)
 
   const categoryAmount = Object.keys(shopID.shopData.shopCategories).length
 
@@ -90,7 +91,7 @@ function CategoryPage({ shopID }) {
   return (
 
     <Fragment>
-      <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={categNamesList}></AddCategory>
+      <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={upperCategNames}></AddCategory>
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-category">&nbsp;</div>
@@ -121,7 +122,7 @@ function CategoryPage({ shopID }) {
   );
       } else {
         return <Fragment>
-          <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={categNamesList}></AddCategory>
+          <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={upperCategNames}></AddCategory>
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-category">&nbsp;</div>
