@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import { useState, useEffect } from "react";
 import Confirmer from "./Confirmer";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 function AddProduct(props) {
   const router = useRouter()
@@ -404,7 +405,10 @@ function AddProduct(props) {
                   </div>
 
                   <div className="image-collection">
-                    {imgValue1 && imgNumber >= 0 && <img src={imgValue1} className="add-prod-img" alt="Link is Invalid"></img>}
+                    {imgValue1 && imgNumber >= 0 && <div className="add-categ-img-container-2">
+                      <Image src={imgValue1} className="add-categ-img" height={100} width={100} unoptimized={false} priority={true} alt="Link is Invalid"></Image>
+                    </div>}
+                    {/* {imgValue1 && imgNumber >= 0 && <Image src={imgValue1} className="add-prod-img" height={100} width={100} alt="Link is Invalid"></Image>} */}
                     {imgValue2 && imgNumber >= 0 && <img src={imgValue2} className="add-prod-img" alt="Link is Invalid"></img>}
                     {imgValue3 && imgNumber >= 0 && <img src={imgValue3} className="add-prod-img" alt="Link is Invalid"></img>}
                     {imgValue4 && imgNumber >= 0 && <img src={imgValue4} className="add-prod-img" alt="Link is Invalid"></img>}

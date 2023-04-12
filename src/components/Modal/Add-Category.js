@@ -326,7 +326,7 @@ function AddCategory(props) {
                 </div>
                 {imgValue && isValidImgurLink(imgValue) && (
                   <div className="add-categ-img-container">
-                    <Image src={imgValue} className="add-categ-img" height={100} width={100} unoptimized={false} priority={true} alt="Link is Invalid"></Image>
+                    <Image src={imgValue} className="add-categ-img" height={50} width={50} unoptimized={false} priority={true} alt="Link is Invalid"></Image>
                   </div>
                 )}
                 {imgValue && !isValidImgurLink(imgValue) && (

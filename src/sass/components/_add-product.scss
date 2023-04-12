@@ -72,3 +72,12 @@
     max-width: 100%;
     max-height: 100%;
   }
+
+  .add-categ-img-container-2 {
+    position: relative;
+    max-width: 100%;
+    max-height: min-content;
+    display: flex;
+    margin: 1rem auto 1rem;
+    justify-content: center;
+  }
