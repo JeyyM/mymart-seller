@@ -106,31 +106,43 @@ if (req.method === "DELETE") {
       }
     );
 
-    
+      const categKey = req.query.categorykey
+      console.log(categKey)
 
-    const updatedShop = await db.collection("shops").findOne({ _id: id });
+      const updatedShop = await db.collection("shops").findOne({ _id: id });
   
-    const product = `updatedShop.shopData.shopCategories.${req.query.categorykey}`;
-    console.log("updated shop bit", product)
-    // const categoryKeys = Object.keys(categories);
-    // const sortedCategoryKeys = categoryKeys.sort((a, b) => {
-    //   const aIndex = parseInt(a.replace("category", ""));
-    //   const bIndex = parseInt(b.replace("category", ""));
-    //   return aIndex - bIndex;
-    // });
-  
-    // const newCategories = {};
-    // for (let i = 0; i < sortedCategoryKeys.length; i++) {
-    //   const key = sortedCategoryKeys[i];
-    //   const index = i;
-    //   const newKey = `category${index}`;
-    //   newCategories[newKey] = categories[key];
-    // }
-  
-    // const updateResult = await db.collection("shops").updateOne(
-    //   { _id: martId },
-    //   { $set: { "shopData.shopCategories": newCategories } }
-    // );
+      const product = updatedShop.shopData.shopCategories[req.query.categorykey].categoryProducts[req.query.productkey];
+      console.log("updated shop bit", product)
+      
+      const varKeys = Object.keys(product)
+      console.log("keys", varKeys)
+      
+      const sortedVarKeys = varKeys.sort((a, b) => {
+        const aIndex = parseInt(a.replace("var", ""));
+        const bIndex = parseInt(b.replace("var", ""));
+        return aIndex - bIndex;
+      });
+      
+      console.log(sortedVarKeys)
+      
+      const newVars = {};
+      for (let i = 0; i < sortedVarKeys.length; i++) {
+        const key = sortedVarKeys[i];
+        const index = i;
+        const newKey = `var${index + 1}`;
+        newVars[newKey] = product[key];
+      }
+      
+      console.log(newVars)
+      
+      const categoryProductKey = `shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`;
+      const updateResult = await db.collection("shops").updateOne(
+        { _id: id },
+        { $set: { [categoryProductKey]: newVars } }
+      );
+      
+      console.log("updated result", updateResult)
+      
 
     client.close();
 
