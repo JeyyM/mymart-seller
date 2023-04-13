@@ -43,38 +43,6 @@ const productNames = Object.values(varKeysList)
   })
   .map((name) => name.productName);
 
-const productFixer = () => {
-  console.log("in product fixer")
-  let filteredKeys = Object.entries(categoryContents3)
-  .filter(([key, value]) => Object.keys(value).length === 1)
-  .map(([key, value]) => key);
-
-  console.log("filtered keys before", filteredKeys)
-
-  if (filteredKeys.length > 0){
-    console.log("length check", filteredKeys)
-      const deleteProduct = async (payload) => {
-    const response = await fetch(
-      `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${filteredKeys[0]}`,
-      {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }
-    );
-  }
-
-  deleteProduct()
-
-  filteredKeys = Object.entries(categoryContents3)
-  .filter(([key, value]) => Object.keys(value).length === 1)
-  .map(([key, value]) => key);
-  console.log("filtered keys after", filteredKeys)
-
-  waitSecondsShort()
-  }
-}
-
   const routerData = [shopID._id, queryCategory]
 
   const upperProductNames = productNames.map(name => name.toUpperCase());
@@ -91,6 +59,23 @@ const productFixer = () => {
   }, {});
 
   const resultingProduct = Object.keys(resulting)[0];
+
+  const productFixer = (test) => {
+    console.log("in product fixer")
+    console.log(resultingProduct)
+  
+      const deleteProduct = async () => {
+      const response = await fetch(
+        `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+  
+    deleteProduct()
+  }
 
   const varArray = Object.entries(categoryContents3[resultingProduct])
   .filter(([key, value]) => !key.startsWith("productTags"))

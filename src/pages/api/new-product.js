@@ -71,9 +71,6 @@ const result = await db.collection("shops").updateOne(
 } 
 
 if (req.method === "DELETE") {
-    console.log("in new product delete")
-    console.log("pieces |", req.query.categorykey, "|", req.query.productkey)
-
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -85,15 +82,11 @@ if (req.method === "DELETE") {
   
     item._id = item._id.toString();
   
+
     const result = await db.collection("shops").updateOne(
-      { _id: id },
-      { 
-        $unset: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`]: "" },
-        $pull: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts`]: { 
-          "_id": new ObjectId(req.query.productkey) 
-        }}
-      }
-    );
+        { _id: id },
+        { $unset: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`]: "" } }
+      );
   
     client.close();
   
