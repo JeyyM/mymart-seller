@@ -89,6 +89,7 @@ const varKeys = Object.keys(filteredData)
     const setTags = product.productTags
 
     console.log("varKeys", varKeys)
+    
 
 
 
@@ -111,11 +112,15 @@ const varKeys = Object.keys(filteredData)
     const categoryProductKey = `shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`;
 
     /////////////////////////////////////// Warning
-    const updateResult = await db.collection("shops").updateOne(
-      { _id: id },
-      { $set: { [categoryProductKey]: newVars, [[categoryProductKey].productTags]: setTags } }
-    );      
+    // const updateResult = await db.collection("shops").updateOne(
+    //   { _id: id },
+    //   { $set: { [categoryProductKey]: newVars, [${categoryProductKey}.productTags]: setTags } }
+    // );      
     
+    // const updateResult = await db.collection("shops").updateOne(
+    //   { _id: id },
+    //   { $set: { [categoryProductKey]: newVars, [`${categoryProductKey}.productTags`]: setTags } }
+    // );      
 
 ///////////////////////////////////////////////
 
