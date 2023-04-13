@@ -1,7 +1,6 @@
 import { MongoClient, ObjectId } from "mongodb";
 import { useRouter } from "next/router";
 import { Fragment, useState, useRef, useEffect } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import ProdImg from "@/components/Modal/Prod-Img";
 import AddVariation from "@/components/Modal/Add-Variation"
@@ -44,15 +43,9 @@ const productNames = Object.values(varKeysList)
   })
   .map((name) => name.productName);
 
-const placeHolder= () => {
-  return
-  // console.log("oogabooga")
-}
-
-// console.log("Var keys List", categoryContents3)
-
-  useEffect(() => {
-    let filteredKeys = Object.entries(categoryContents3)
+const productFixer = () => {
+  console.log("in product fixer")
+  let filteredKeys = Object.entries(categoryContents3)
   .filter(([key, value]) => Object.keys(value).length === 1)
   .map(([key, value]) => key);
 
@@ -60,7 +53,7 @@ const placeHolder= () => {
 
   if (filteredKeys.length > 0){
     console.log("length check", filteredKeys)
-      const addVariation = async (payload) => {
+      const deleteProduct = async (payload) => {
     const response = await fetch(
       `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${filteredKeys[0]}`,
       {
@@ -71,7 +64,7 @@ const placeHolder= () => {
     );
   }
 
-  addVariation()
+  deleteProduct()
 
   filteredKeys = Object.entries(categoryContents3)
   .filter(([key, value]) => Object.keys(value).length === 1)
@@ -79,11 +72,8 @@ const placeHolder= () => {
   console.log("filtered keys after", filteredKeys)
 
   waitSecondsShort()
-
-  router.push("/64364fff9d5fb94c50c18771/categories/Category%201")
-
   }
-  }, [])
+}
 
   const routerData = [shopID._id, queryCategory]
 
@@ -423,7 +413,7 @@ const placeHolder= () => {
   return <Fragment>
     <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
     <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation}></AddVariation>
-    <Confirmer2 modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${varArray[varState][`var${varNum}`].productName}?`} load={() => { setLoading(true) }} default={varNum} finish={delVariation} names={upcoming} routing={routerData} productFix={placeHolder}></Confirmer2>
+    <Confirmer2 modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${varArray[varState][`var${varNum}`].productName}?`} load={() => { setLoading(true) }} default={varNum} finish={delVariation} names={upcoming} routing={routerData} productFix={productFixer}></Confirmer2>
 
     <div className="product-container">
       <div className="main-img-container">

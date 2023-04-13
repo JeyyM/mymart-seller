@@ -54,24 +54,48 @@ function Confirmer2(props) {
     event.preventDefault();
     setLoading(true)
 
+    console.log("default", props.default)
+    console.log("props.names", props.names)
+
     props.finish()
 
-    // if (props.names === null){
+    // if (props.names === null && props.default === 1){
     //     props.productFix()
     // }
 
-    await waitSeconds();
+    // await waitSeconds();
 
-    setLoading(false)
-    setCompletion(true)
+    // setLoading(false)
+    // setCompletion(true)
 
-    if (props.names === null){
-        router.push(`/${props.routing[0]}/categories`)
-    } else {
-        if (props.default === 1){
-            router.push(`/${props.routing[0]}/categories/${props.routing[1]}/${props.names}`).then(() => window.location.reload())
-          } else {router.reload()}
-    }
+    // if (props.names === null){
+    //     router.push(`/${props.routing[0]}/categories/${props.routing[1]}`)
+    // } else {
+    //     if (props.default === 1){
+    //         router.push(`/${props.routing[0]}/categories/${props.routing[1]}/${props.names}`).then(() => window.location.reload())
+    //       } else {router.reload()}
+    // }
+
+  //   if (props.default === 1 && props.names === null){
+  //     props.productFix()
+
+  //     await waitSeconds()
+  //     await waitSeconds()
+
+  //         setLoading(false)
+  //         setCompletion(true)
+
+  //     router.push(`/${props.routing[0]}/categories/${props.routing[1]}`)
+  // } else {
+  //     if (props.default === 1){
+  //       await waitSeconds()
+
+  //       setLoading(false)
+  //       setCompletion(true)
+
+  //         router.push(`/${props.routing[0]}/categories/${props.routing[1]}/${props.names}`).then(() => window.location.reload())
+  //       } else {router.reload()}
+  // }
   }
 
   const [loading, setLoading] = useState(false)

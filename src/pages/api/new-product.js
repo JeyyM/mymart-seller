@@ -85,7 +85,7 @@ item._id = item._id.toString();
 
 const result = await db.collection("shops").updateOne(
 { _id: id },
-{ $unset: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`]: "" } },
+{ $unset: `shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}` },
 (err, result) => {
     if (err) {
         console.log(err);
