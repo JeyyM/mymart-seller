@@ -127,7 +127,12 @@ if (req.method === "DELETE") {
   
     const result = await db.collection("shops").updateOne(
       { _id: id },
-      { $unset: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`]: "" } }
+      {
+        $unset: {
+          [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}.var1`]: "",
+          [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`]: ""
+        }
+      }
     );
   
     client.close();
