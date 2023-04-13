@@ -76,13 +76,14 @@ function Confirmer2(props) {
 
     if (props.names !== null && props.default === 1){
       await waitSeconds()
+      await waitSecondsShort
           setLoading(false)
           setCompletion(true)
         router.push(`/${props.routing[0]}/categories/${props.routing[1]}/${props.names}`).then(() => window.location.reload())
         return
     } else {
       await waitSeconds()
-      setLoading(false)
+      // setLoading(false)
       setCompletion(true)
       router.reload()
     }
