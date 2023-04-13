@@ -83,11 +83,15 @@ if (req.method === "DELETE") {
   
     item._id = item._id.toString();
   
+    ////////////////////////////////////////////REALL
 
     const result = await db.collection("shops").updateOne(
         { _id: id },
         { $unset: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`]: "" } }
       );
+
+
+      //////////////////////////////////////////
   
     client.close();
   

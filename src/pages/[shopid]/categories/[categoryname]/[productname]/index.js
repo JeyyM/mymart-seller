@@ -30,6 +30,18 @@ function ProductPage({ shopID }) {
 
   console.log("category contents 3", categoryContents3)
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // const noTags = Object.entries(categoryContents3).map(([key, value]) => {
+  //   const { productTags, ...rest } = value;
+  //   return { [key]: rest };
+  // });
+
+  // console.log("No tags ver", noTags[0])
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   const varKeysList = Object.values(categoryContents3)
   .map((product) => {
     const varObjs = Object.values(product)
@@ -47,6 +59,9 @@ const productNames = Object.values(varKeysList)
   })
   .map((name) => name.productName);
 
+
+  console.log("product names", productNames)
+
   const routerData = [shopID._id, queryCategory]
 
   const upperProductNames = productNames.map(name => name.toUpperCase());
@@ -62,7 +77,11 @@ const productNames = Object.values(varKeysList)
     return acc;
   }, {});
 
+  console.log("Resulting here", resulting)
+
   const resultingProduct = Object.keys(resulting)[0];
+
+  console.log("resulting product here", resultingProduct)
 
   const productFixer = (test) => {
     console.log("in product fixer")
