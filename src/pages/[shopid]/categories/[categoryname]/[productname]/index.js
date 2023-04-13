@@ -28,12 +28,16 @@ function ProductPage({ shopID }) {
 
   const categoryContents3 = categoryContents2[1].categoryProducts
 
+  console.log("category contents 3", categoryContents3)
+
   const varKeysList = Object.values(categoryContents3)
   .map((product) => {
     const varObjs = Object.values(product)
       .filter((item) => typeof item === 'object');
     return varObjs;
   });
+
+  console.log("var keys list", varKeysList)
 
 const productNames = Object.values(varKeysList)
   .flatMap((product) => {
