@@ -100,6 +100,12 @@ const productNames = Object.values(varKeysList)
     deleteProduct()
   }
 
+  // console.log("VAR ARRAY OBJ ENTRIES ERROR")
+  // console.log(categoryContents3)
+  // console.log(resultingProduct)
+  // console.log(resulting)
+  // console.log(queryProduct)
+
   const varArray = Object.entries(categoryContents3[resultingProduct])
   .filter(([key, value]) => !key.startsWith("productTags"))
   .map(([key, value]) => ({
