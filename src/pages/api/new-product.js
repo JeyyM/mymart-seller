@@ -85,10 +85,10 @@ if (req.method === "DELETE") {
   
     ////////////////////////////////////////////REALL
 
-    const result = await db.collection("shops").updateOne(
-        { _id: id },
-        { $unset: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`]: "" } }
-      );
+    // const result = await db.collection("shops").updateOne(
+    //     { _id: id },
+    //     { $unset: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`]: "" } }
+    //   );
 
 
       //////////////////////////////////////////

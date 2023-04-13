@@ -109,11 +109,15 @@ const varKeys = Object.keys(filteredData)
     console.log("newVars", newVars)
 
     const categoryProductKey = `shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`;
+
+    /////////////////////////////////////// Warning
     const updateResult = await db.collection("shops").updateOne(
       { _id: id },
       { $set: { [categoryProductKey]: newVars, [[categoryProductKey].productTags]: setTags } }
     );      
     
+
+///////////////////////////////////////////////
 
     console.log("Important", categoryProductKey.productTags)
 
