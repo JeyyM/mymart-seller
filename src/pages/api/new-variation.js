@@ -116,14 +116,18 @@ const varKeys = Object.keys(filteredData)
     //   { $set: { [categoryProductKey]: newVars, [${categoryProductKey}.productTags]: setTags } }
     // );      
     
-    const updateResult = await db.collection("shops").updateOne(
+    const updateResult1 = await db.collection("shops").updateOne(
       { _id: id },
-      { $set: { [categoryProductKey]: newVars, [`${categoryProductKey}.productTags`]: setTags } }
-    );      
-
+      { $set: { [categoryProductKey]: newVars } }
+    );
+    
+    const updateResult2 = await db.collection("shops").updateOne(
+      { _id: id },
+      { $set: { [`${categoryProductKey}.productTags`]: setTags } }
+    );
 ///////////////////////////////////////////////
 
-    console.log("Important", categoryProductKey.productTags)
+    console.log("Important", `${categoryProductKey}.productTags`)
 
 
   //   const result = await db.collection("shops").updateOne(
