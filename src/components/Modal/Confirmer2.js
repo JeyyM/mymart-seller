@@ -57,32 +57,35 @@ function Confirmer2(props) {
     console.log("default", props.default)
     console.log("props.names", props.names)
 
-    if (props.names === null && props.default === 1){
-      console.log("product fix on the way")
-      props.productFix()
-
-      console.log("after product fix")
-      await waitSeconds()
-      setLoading(false)
-      setCompletion(true)
-      router.push(`/${props.routing[0]}/categories/${props.routing[1]}`).then(() => window.location.reload())
-      return
-    }
-
+    ///////////////////////////////////// FINISH MOVED HERE TO DELETE FIRST
     props.finish()
 
-    if (props.names !== null && props.default === 1){
-      await waitSeconds()
-          setLoading(false)
-          setCompletion(true)
-        router.push(`/${props.routing[0]}/categories/${props.routing[1]}/${props.names}`).then(() => window.location.reload())
-        return
-    } else {
-      await waitSeconds()
-      setLoading(false)
-      setCompletion(true)
-      router.reload()
-    }
+    // if (props.names === null && props.default === 1){
+    //   console.log("product fix on the way")
+    //   props.productFix()
+
+    //   console.log("after product fix")
+    //   await waitSeconds()
+    //   setLoading(false)
+    //   setCompletion(true)
+    //   router.push(`/${props.routing[0]}/categories/${props.routing[1]}`).then(() => window.location.reload())
+    //   return
+    // }
+
+    // // props.finish()
+
+    // if (props.names !== null && props.default === 1){
+    //   await waitSeconds()
+    //       setLoading(false)
+    //       setCompletion(true)
+    //     router.push(`/${props.routing[0]}/categories/${props.routing[1]}/${props.names}`).then(() => window.location.reload())
+    //     return
+    // } else {
+    //   await waitSeconds()
+    //   setLoading(false)
+    //   setCompletion(true)
+    //   router.reload()
+    // }
   }
 
   const [loading, setLoading] = useState(false)

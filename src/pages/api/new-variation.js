@@ -48,21 +48,21 @@ async function handler(req, res) {
 
     ////////////////////////////////////////////////////////////REALLLLLLL
 
-    // const result = await db.collection("shops").updateOne(
-    //   { _id: id },
-    //   {
-    //     $unset: {
-    //       [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}.var${req.query.varnum}`]: "",
-    //     },
-    //   },
-    //   (err, result) => {
-    //     if (err) {
-    //       console.log(err);
-    //     } else {
-    //       console.log(`Updated document with _id: ${id}`);
-    //     }
-    //   }
-    // );
+    const result = await db.collection("shops").updateOne(
+      { _id: id },
+      {
+        $unset: {
+          [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}.var${req.query.varnum}`]: "",
+        },
+      },
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(`Updated document with _id: ${id}`);
+        }
+      }
+    );
 
       //////////////////////////////////////////////////////////////////////////
 
@@ -89,15 +89,14 @@ const varKeys = Object.keys(filteredData)
     const setTags = product.productTags
 
     console.log("varKeys", varKeys)
-    
-
-
 
     const sortedVarKeys = varKeys.sort((a, b) => {
       const aIndex = parseInt(a.replace("var", ""));
       const bIndex = parseInt(b.replace("var", ""));
       return aIndex - bIndex;
     });
+
+    console.log("SORTED VAR KEYS", sortedVarKeys)
 
     const newVars = {};
     for (let i = 0; i < sortedVarKeys.length; i++) {
@@ -107,7 +106,7 @@ const varKeys = Object.keys(filteredData)
       newVars[newKey] = product[key];
     }
 
-    console.log("newVars", newVars)
+    console.log("NEW VARS", newVars)
 
     const categoryProductKey = `shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`;
 
@@ -117,10 +116,10 @@ const varKeys = Object.keys(filteredData)
     //   { $set: { [categoryProductKey]: newVars, [${categoryProductKey}.productTags]: setTags } }
     // );      
     
-    // const updateResult = await db.collection("shops").updateOne(
-    //   { _id: id },
-    //   { $set: { [categoryProductKey]: newVars, [`${categoryProductKey}.productTags`]: setTags } }
-    // );      
+    const updateResult = await db.collection("shops").updateOne(
+      { _id: id },
+      { $set: { [categoryProductKey]: newVars, [`${categoryProductKey}.productTags`]: setTags } }
+    );      
 
 ///////////////////////////////////////////////
 
