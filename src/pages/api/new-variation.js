@@ -68,10 +68,6 @@ async function handler(req, res) {
 
     const product = updatedShop.shopData.shopCategories[req.query.categorykey].categoryProducts[req.query.productkey];
 
-    const varKeys = Object.keys(product)
-
-
-
     console.log("product", product)
 
 
@@ -84,10 +80,12 @@ async function handler(req, res) {
 
 console.log("filtered data", filteredData);
 
+const varKeys = Object.keys(filteredData)
 
     const setTags = product.productTags
 
     console.log("varKeys", varKeys)
+
 
 
     const sortedVarKeys = varKeys.sort((a, b) => {
@@ -107,11 +105,31 @@ console.log("filtered data", filteredData);
     console.log("newVars", newVars)
 
     const categoryProductKey = `shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`;
-    // const updateResult = await db.collection("shops").updateOne(
-    //   { _id: id },
-    //   { $set: { [categoryProductKey]: newVars } }
-    // );      
+    const updateResult = await db.collection("shops").updateOne(
+      { _id: id },
+      { $set: { [categoryProductKey]: newVars, [[categoryProductKey].productTags]: setTags } }
+    );      
+    
 
+    console.log("Important", categoryProductKey.productTags)
+
+
+  //   const result = await db.collection("shops").updateOne(
+  //     { _id: id },
+  //     { $set: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.var1`]: data,
+  //     [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.productTags`]: [] } },
+  //     (err, result) => {
+  //         if (err) {
+  //             console.log(err);
+  //         } else {
+  //             console.log(`Updated document with _id: ${id}`);
+  //         }
+  //         client.close();
+  //     }
+  // );
+
+
+    console.log("category product key", categoryProductKey)
 
     client.close();
 

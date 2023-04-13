@@ -20,7 +20,7 @@ const result = await db.collection("shops").updateOne(
     { _id: id },
     // { $set: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.var1`]: data } },
     { $set: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.var1`]: data,
-    [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.productTags`]: [] } },
+    [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.productTags`]: ["item"] } },
     (err, result) => {
         if (err) {
             console.log(err);
