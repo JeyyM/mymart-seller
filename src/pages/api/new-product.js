@@ -70,50 +70,10 @@ const result = await db.collection("shops").updateOne(
     console.log(result)
 } 
 
-// if (req.method === "DELETE"){
-// const client = await MongoClient.connect(process.env.MONGODB_URI, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   })
-// const db = client.db()
-
-// const id = new ObjectId(req.query.martid);
-// const item = await db.collection("shops").findOne({ _id: id });
-
-// item._id = item._id.toString();
-
-
-// // const result = await db.collection("shops").updateOne(
-// // { _id: id },
-// // { $unset: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`]: "" } },
-// // (err, result) => {
-// //     if (err) {
-// //         console.log(err);
-// //     } else {
-// //         console.log(`Updated document with _id: ${id}`);
-// //     }
-// //     client.close();
-// // }
-// // );
-
-// try {
-//     const result = await db.collection("shops").deleteOne(
-//       { _id: id },
-//       { $unset: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`]: "" } }
-//     );
-//     console.log(`Deleted ${result.deletedCount} document.`);
-//   } catch (error) {
-//     console.log(error);
-//   }
-  
-
-// client.close();
-
-// res.status(201).json({message: "Product Added"})
-// console.log(result)
-// } 
-
 if (req.method === "DELETE") {
+    console.log("in new product delete")
+    console.log("pieces |", req.query.categorykey, "|", req.query.productkey)
+
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -127,11 +87,11 @@ if (req.method === "DELETE") {
   
     const result = await db.collection("shops").updateOne(
       { _id: id },
-      {
-        $unset: {
-          [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}.var1`]: "",
-          [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`]: ""
-        }
+      { 
+        $unset: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`]: "" },
+        $pull: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts`]: { 
+          "_id": new ObjectId(req.query.productkey) 
+        }}
       }
     );
   
@@ -140,6 +100,8 @@ if (req.method === "DELETE") {
     res.status(201).json({ message: "Product Deleted" });
     console.log(result);
   }
+  
+  
   
 
 }
