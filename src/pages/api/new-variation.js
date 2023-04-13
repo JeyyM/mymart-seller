@@ -46,21 +46,21 @@ async function handler(req, res) {
     const item = await db.collection("shops").findOne({ _id: id });
     item._id = item._id.toString();
 
-    // const result = await db.collection("shops").updateOne(
-    //   { _id: id },
-    //   {
-    //     $unset: {
-    //       [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}.var${req.query.varnum}`]: "",
-    //     },
-    //   },
-    //   (err, result) => {
-    //     if (err) {
-    //       console.log(err);
-    //     } else {
-    //       console.log(`Updated document with _id: ${id}`);
-    //     }
-    //   }
-    // );
+    const result = await db.collection("shops").updateOne(
+      { _id: id },
+      {
+        $unset: {
+          [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}.var${req.query.varnum}`]: "",
+        },
+      },
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(`Updated document with _id: ${id}`);
+        }
+      }
+    );
 
     const categKey = req.query.categorykey
 
