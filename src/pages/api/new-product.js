@@ -82,6 +82,8 @@ if (req.method === "DELETE") {
     const item = await db.collection("shops").findOne({ _id: id });
   
     item._id = item._id.toString();
+
+    console.log("PRODUCTKEY HERE", req.query.productkey)
   
     ////////////////////////////////////////////REALL
 

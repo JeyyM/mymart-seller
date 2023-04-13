@@ -147,6 +147,8 @@ const varKeys = Object.keys(filteredData)
 
     console.log("category product key", categoryProductKey)
 
+    console.log("FILTERED DATA LAST", filteredData)
+
     client.close();
 
     res.status(201).json({ message: "Variation Deleted" });
