@@ -46,8 +46,6 @@ async function handler(req, res) {
     const item = await db.collection("shops").findOne({ _id: id });
     item._id = item._id.toString();
 
-    ////////////////////////////////////////////////////////////REALLLLLLL
-
     const result = await db.collection("shops").updateOne(
       { _id: id },
       {
@@ -64,16 +62,11 @@ async function handler(req, res) {
       }
     );
 
-      //////////////////////////////////////////////////////////////////////////
-
     const categKey = req.query.categorykey
 
     const updatedShop = await db.collection("shops").findOne({ _id: id });
 
     const product = updatedShop.shopData.shopCategories[req.query.categorykey].categoryProducts[req.query.productkey];
-
-    console.log("PRODUCT HERE", product)
-
 
     const filteredData = Object.keys(product)
   .filter(key => key !== 'productTags')
@@ -82,21 +75,15 @@ async function handler(req, res) {
     return obj;
   }, {});
 
-console.log("filtered data", filteredData);
-
 const varKeys = Object.keys(filteredData)
 
     const setTags = product.productTags
-
-    console.log("varKeys", varKeys)
 
     const sortedVarKeys = varKeys.sort((a, b) => {
       const aIndex = parseInt(a.replace("var", ""));
       const bIndex = parseInt(b.replace("var", ""));
       return aIndex - bIndex;
     });
-
-    console.log("SORTED VAR KEYS", sortedVarKeys)
 
     const newVars = {};
     for (let i = 0; i < sortedVarKeys.length; i++) {
@@ -106,15 +93,7 @@ const varKeys = Object.keys(filteredData)
       newVars[newKey] = product[key];
     }
 
-    console.log("NEW VARS", newVars)
-
     const categoryProductKey = `shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`;
-
-    /////////////////////////////////////// Warning
-    // const updateResult = await db.collection("shops").updateOne(
-    //   { _id: id },
-    //   { $set: { [categoryProductKey]: newVars, [${categoryProductKey}.productTags]: setTags } }
-    // );      
     
     const updateResult1 = await db.collection("shops").updateOne(
       { _id: id },
@@ -125,29 +104,6 @@ const varKeys = Object.keys(filteredData)
       { _id: id },
       { $set: { [`${categoryProductKey}.productTags`]: setTags } }
     );
-///////////////////////////////////////////////
-
-    console.log("Important", `${categoryProductKey}.productTags`)
-
-
-  //   const result = await db.collection("shops").updateOne(
-  //     { _id: id },
-  //     { $set: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.var1`]: data,
-  //     [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.productTags`]: [] } },
-  //     (err, result) => {
-  //         if (err) {
-  //             console.log(err);
-  //         } else {
-  //             console.log(`Updated document with _id: ${id}`);
-  //         }
-  //         client.close();
-  //     }
-  // );
-
-
-    console.log("category product key", categoryProductKey)
-
-    console.log("FILTERED DATA LAST", filteredData)
 
     client.close();
 

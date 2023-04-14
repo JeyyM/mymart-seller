@@ -18,9 +18,8 @@ async function handler(req, res){
 
 const result = await db.collection("shops").updateOne(
     { _id: id },
-    // { $set: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.var1`]: data } },
     { $set: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.var1`]: data,
-    [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.productTags`]: ["item"] } },
+    [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.productTags`]: [] } },
     (err, result) => {
         if (err) {
             console.log(err);
@@ -68,7 +67,6 @@ const result = await db.collection("shops").updateOne(
   client.close();
 
     res.status(201).json({message: "Product Added"})
-    console.log(result)
 } 
 
 if (req.method === "DELETE") {
@@ -83,27 +81,17 @@ if (req.method === "DELETE") {
   
     item._id = item._id.toString();
 
-    console.log("PRODUCTKEY HERE", req.query.productkey)
-  
-    ////////////////////////////////////////////REALL
-
     const result = await db.collection("shops").updateOne(
         { _id: id },
         { $unset: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`]: "" } }
       );
-
-
-      //////////////////////////////////////////
   
     client.close();
   
     res.status(201).json({ message: "Product Deleted" });
-    console.log(result);
-  }
-  
-  
-  
+    console.log(result)
 
+  }
 }
 
 export default handler

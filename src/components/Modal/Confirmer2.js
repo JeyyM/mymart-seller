@@ -54,17 +54,11 @@ function Confirmer2(props) {
     event.preventDefault();
     setLoading(true)
 
-    console.log("default", props.default)
-    console.log("props.names", props.names)
-
-    ///////////////////////////////////// FINISH MOVED HERE TO DELETE FIRST
     props.finish()
 
     if (props.names === null && props.default === 1){
-      console.log("product fix on the way")
       props.productFix()
 
-      console.log("after product fix")
       await waitSeconds()
       setLoading(false)
       setCompletion(true)
@@ -72,11 +66,10 @@ function Confirmer2(props) {
       return
     }
 
-    // props.finish()
 
     if (props.names !== null && props.default === 1){
       await waitSeconds()
-      await waitSecondsShort
+      await waitSecondsShort()
           setLoading(false)
           setCompletion(true)
         router.push(`/${props.routing[0]}/categories/${props.routing[1]}/${props.names}`).then(() => window.location.reload())
@@ -105,7 +98,6 @@ function Confirmer2(props) {
             key={props.chosenItem}
               onClick={(e) => e.stopPropagation()}
               className={`confirm-modal ${!props.modalStatus && "element-exit" }`}
-              // className={`confirm-modal element-exit`}
               variants={appear}
               initial="hidden"
               animate="visible"

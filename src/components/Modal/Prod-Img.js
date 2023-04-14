@@ -123,8 +123,6 @@ function ProdImg(props) {
         setNewLength(props.imgnumber);
     }, [props.imgnumber]);
 
-    console.log("init length", newLength)
-
     const handleAddImgNumber = () => {
         if (newLength <= 3) {
             setNewLength(newLength + 1)

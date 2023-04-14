@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import ProdImg from "@/components/Modal/Prod-Img";
 import AddVariation from "@/components/Modal/Add-Variation"
 import Confirmer2 from "@/components/Modal/Confirmer2";
+import AddTags from "@/components/Modal/Add-Tags";
 
 function ProductPage({ shopID }) {
   const router = useRouter()
@@ -28,19 +29,14 @@ function ProductPage({ shopID }) {
 
   const categoryContents3 = categoryContents2[1].categoryProducts
 
-  console.log("category contents 3", categoryContents3)
+  // console.log(categoryContents3)
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const productKey = Object.keys(categoryContents3).find(key => {
+    const varData = categoryContents3[key].var1;
+    return varData
+  });
 
-  // const noTags = Object.entries(categoryContents3).map(([key, value]) => {
-  //   const { productTags, ...rest } = value;
-  //   return { [key]: rest };
-  // });
-
-  // console.log("No tags ver", noTags[0])
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // console.log("PROD KEy", productKey)
 
   const varKeysList = Object.values(categoryContents3)
   .map((product) => {
@@ -49,8 +45,6 @@ function ProductPage({ shopID }) {
     return varObjs;
   });
 
-  console.log("var keys list", varKeysList)
-
 const productNames = Object.values(varKeysList)
   .flatMap((product) => {
     const name = Object.values(product)
@@ -58,9 +52,6 @@ const productNames = Object.values(varKeysList)
     return name;
   })
   .map((name) => name.productName);
-
-
-  console.log("product names", productNames)
 
   const routerData = [shopID._id, queryCategory]
 
@@ -77,15 +68,11 @@ const productNames = Object.values(varKeysList)
     return acc;
   }, {});
 
-  console.log("Resulting here", resulting)
-
   const resultingProduct = Object.keys(resulting)[0];
 
-  console.log("resulting product here", resultingProduct)
+  // console.log("RESULINT PRODUNFF", resultingProduct)
 
   const productFixer = (test) => {
-    console.log("in product fixer")
-    console.log(resultingProduct)
   
       const deleteProduct = async () => {
       const response = await fetch(
@@ -99,12 +86,6 @@ const productNames = Object.values(varKeysList)
   
     deleteProduct()
   }
-
-  // console.log("VAR ARRAY OBJ ENTRIES ERROR")
-  // console.log(categoryContents3)
-  // console.log(resultingProduct)
-  // console.log(resulting)
-  // console.log(queryProduct)
 
   const varArray = Object.entries(categoryContents3[resultingProduct])
   .filter(([key, value]) => !key.startsWith("productTags"))
@@ -377,6 +358,17 @@ const productNames = Object.values(varKeysList)
     );
   }
 
+  const changeTags = async (payload) => {
+    const response = await fetch(
+      `../../../../api/new-tag?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      }
+    );
+  }
+
   const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"
     }`;
 
@@ -424,10 +416,28 @@ const productNames = Object.values(varKeysList)
     }
     }
 
+    const tags = varKeysList[0][0][0]
+
+    const [tagsValue, setTagsValue] = useState(tags);
+    const handleTagsChange = (event) => {
+      setTagsValue(event)
+    };
+  
+    const [tagStatus, setTagStatus] = useState(false)
+    function handleTags(){
+      setTagStatus(!tagStatus)
+    }
+
+    function submitTags(data){
+      handleTagsChange(data)
+      changeTags(data)
+    }
+
   return <Fragment>
     <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
     <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation}></AddVariation>
     <Confirmer2 modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${varArray[varState][`var${varNum}`].productName}?`} load={() => { setLoading(true) }} default={varNum} finish={delVariation} names={upcoming} routing={routerData} productFix={productFixer}></Confirmer2>
+    <AddTags modalStatus={tagStatus} disable={handleTags} list={tagsValue} submit={submitTags}></AddTags>
 
     <div className="product-container">
       <div className="main-img-container">
@@ -520,7 +530,7 @@ const productNames = Object.values(varKeysList)
 
         <div className="product-action-buttons">
           <button className="product-action-3 heading-secondary" disabled={loading} onClick={handleDelete}>Delete Variation</button>
-          <button className="product-action-1 heading-secondary" disabled={loading}>Edit Search Tags</button>
+          <button className="product-action-1 heading-secondary" disabled={loading} onClick={handleTags}>Edit Search Tags</button>
           <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
         </div>
       </div>

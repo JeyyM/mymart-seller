@@ -107,29 +107,3 @@ if (req.method === "PATCH"){
 }
 
 export default handler
-
-
-// {
-// 	"_id": {
-// 		"$oid": "641a677600f16eb98cf58922"
-// 	},
-// 	"name": "Backup 2",
-// 	"shopData": {
-// 		"shopCategories": {
-// 			"category1": {
-// 				"categoryDescription": "Description of Category1 Description of Category1 Description of Category1",
-// 				"categoryId": "id0",
-// 				"categoryImage": "https://i.imgur.com/kFAFOKF.jpeg",
-// 				"categoryName": "Category 1",
-// 				"categoryProducts": {}
-// 			},
-// 			"category2": {
-// 				"categoryDescription": "Description2",
-// 				"categoryId": "id1",
-// 				"categoryImage": "https://i.imgur.com/H2yPygc.jpeg",
-// 				"categoryName": "Category 2",
-// 				"categoryProducts": {}
-// 			},
-// 		}
-// 	}
-// }

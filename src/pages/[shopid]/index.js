@@ -3,10 +3,12 @@ import HomepageButton from "../../components/homepage/Homepage-Button"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { MongoClient, ObjectId } from "mongodb"
+import Head from "next/head"
 
 function HomePage({ shopID }){
     const router = useRouter();
     const { shopid } = router.query;
+    console.log(shopid)
     
     return <Fragment>
         <h1 className="heading-primary">Dashboard</h1>
