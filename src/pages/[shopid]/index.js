@@ -11,6 +11,9 @@ function HomePage({ shopID }){
     console.log(shopid)
     
     return <Fragment>
+    <Head>
+      <title>Dashboard</title>
+    </Head>
         <h1 className="heading-primary">Dashboard</h1>
         <main className="maincontainer">
             <HomepageButton item="home-category" label="Categories & Products" direction="categories"></HomepageButton>
@@ -30,6 +33,7 @@ function HomePage({ shopID }){
 export default HomePage
 
 export async function getServerSideProps({ params }) {
+  try {
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -37,13 +41,19 @@ export async function getServerSideProps({ params }) {
     const db = client.db();
     const id = new ObjectId(params.shopid);
     const shopID = await db.collection("shops").findOne({ _id: id });
-  
+
     shopID._id = shopID._id.toString();
-  
+
     client.close();
-  
+
     return {
       props: { shopID },
     };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {},
+    };
   }
+}
 
