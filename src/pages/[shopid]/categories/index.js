@@ -5,6 +5,7 @@ import { MongoClient, ObjectId } from "mongodb";
 import AddCategory from "@/components/Modal/Add-Category";
 
 import Confirmer from "@/components/Modal/Confirmer";
+import Head from "next/head";
 
 function CategoryPage({ shopID }) {
   const router = useRouter();
@@ -86,6 +87,9 @@ function CategoryPage({ shopID }) {
   return (
 
     <Fragment>
+    <Head>
+      <title>Categories</title>
+    </Head>
       <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={upperCategNames}></AddCategory>
       <span className="page-heading">
         <div className="heading-icon-dropshadow">

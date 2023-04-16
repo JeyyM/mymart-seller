@@ -16,12 +16,12 @@ function HomePage({ shopID }){
     </Head>
         <h1 className="heading-primary">Dashboard</h1>
         <main className="maincontainer">
-            <HomepageButton item="home-category" label="Categories & Products" direction="categories"></HomepageButton>
-            <HomepageButton item="home-ongoing" label="Ongoing Sales"></HomepageButton>
-            <HomepageButton item="home-manage" label="My Mart"></HomepageButton>
-            <HomepageButton item="home-insights" label="Mart Analytics"></HomepageButton>
-            <HomepageButton item="home-receipt" label="Customer Records"></HomepageButton>
-            <HomepageButton item="home-brush" label="Mart Design"></HomepageButton>
+            <HomepageButton item="home-category" label="Categories & Products" direction="categories" priority="eager"></HomepageButton>
+            <HomepageButton item="home-ongoing" label="Ongoing Sales" priority="lazy"></HomepageButton>
+            <HomepageButton item="home-manage" label="My Mart" priority="lazy"></HomepageButton>
+            <HomepageButton item="home-insights" label="Mart Analytics" priority="eager"></HomepageButton>
+            <HomepageButton item="home-receipt" label="Customer Records" priority="lazy"></HomepageButton>
+            <HomepageButton item="home-brush" label="Mart Design" priority="lazy"></HomepageButton>
             <HomepageButton item="home-quiz" label="Frequently Asked Questions"></HomepageButton>
             <HomepageButton item="home-policy" label="Terms & Policies"></HomepageButton>
             <HomepageButton item="home-support" label="Customer Service"></HomepageButton>
