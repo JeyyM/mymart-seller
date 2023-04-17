@@ -5,11 +5,11 @@ import { useRouter } from "next/router"
 import Head from "next/head"
 import { getServerSideProps } from "@/utilities/serversideProps"
 
+
 function HomePage({ shopID }){
     const router = useRouter();
     const { shopid } = router.query;
-    console.log(shopid)
-    
+
     return <Fragment>
     <Head>
       <title>Dashboard</title>

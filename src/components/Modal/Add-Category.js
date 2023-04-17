@@ -42,8 +42,8 @@ function AddCategory(props) {
     setNameLength(event.length)
   }
 
-  useEffect(() => {
-  }, [nameLength]);
+  // useEffect(() => {
+  // }, [nameLength]);
 
 
   const [descLength, setDescLength] = useState(0)
