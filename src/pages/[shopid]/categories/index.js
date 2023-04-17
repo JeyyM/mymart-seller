@@ -1,11 +1,9 @@
 import Category from "../../../components/category/Category";
 import { Fragment, useState } from "react";
 import { useRouter } from "next/router";
-import { MongoClient, ObjectId } from "mongodb";
 import AddCategory from "@/components/Modal/Add-Category";
-
-import Confirmer from "@/components/Modal/Confirmer";
 import Head from "next/head";
+import { getServerSideProps } from "..";
 
 function CategoryPage({ shopID }) {
   const router = useRouter();
@@ -140,20 +138,4 @@ function CategoryPage({ shopID }) {
 
 export default CategoryPage;
 
-export async function getServerSideProps({ params }) {
-  const client = await MongoClient.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  const db = client.db();
-  const id = new ObjectId(params.shopid);
-  const shopID = await db.collection("shops").findOne({ _id: id });
-
-  shopID._id = shopID._id.toString();
-
-  client.close();
-
-  return {
-    props: { shopID },
-  };
-}
+export {getServerSideProps}

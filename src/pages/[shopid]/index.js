@@ -2,8 +2,8 @@ import { Fragment } from "react"
 import HomepageButton from "../../components/homepage/Homepage-Button"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { MongoClient, ObjectId } from "mongodb"
 import Head from "next/head"
+import { getServerSideProps } from "@/utilities/serversideProps"
 
 function HomePage({ shopID }){
     const router = useRouter();
@@ -32,28 +32,5 @@ function HomePage({ shopID }){
 
 export default HomePage
 
-export async function getServerSideProps({ params }) {
-  try {
-    const client = await MongoClient.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    const db = client.db();
-    const id = new ObjectId(params.shopid);
-    const shopID = await db.collection("shops").findOne({ _id: id });
-
-    shopID._id = shopID._id.toString();
-
-    client.close();
-
-    return {
-      props: { shopID },
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      props: {},
-    };
-  }
-}
+export {getServerSideProps}
 

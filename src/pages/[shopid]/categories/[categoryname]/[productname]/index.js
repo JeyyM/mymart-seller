@@ -1,4 +1,3 @@
-import { MongoClient, ObjectId } from "mongodb";
 import { useRouter } from "next/router";
 import { Fragment, useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
@@ -6,6 +5,7 @@ import ProdImg from "@/components/Modal/Prod-Img";
 import AddVariation from "@/components/Modal/Add-Variation"
 import Confirmer2 from "@/components/Modal/Confirmer2";
 import AddTags from "@/components/Modal/Add-Tags";
+import { getServerSideProps } from "..";
 
 function ProductPage({ shopID }) {
   const router = useRouter()
@@ -541,22 +541,4 @@ const productNames = Object.values(varKeysList)
 
 export default ProductPage
 
-export async function getServerSideProps({ params }) {
-  const client = await MongoClient.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  const db = client.db();
-  const id = new ObjectId(params.shopid);
-  const shopID = await db.collection("shops").findOne({ _id: id });
-
-  shopID._id = shopID._id.toString();
-
-  client.close();
-
-  return {
-    props: { shopID },
-  };
-}
-
-///
+export {getServerSideProps}

@@ -1,10 +1,9 @@
 import { Fragment } from "react";
 import { useRouter } from "next/router";
-import { MongoClient, ObjectId } from "mongodb";
 import CategoryProducts from "@/components/category-products/CategoryProducts";
-import Link from "next/link";
 import { useState } from "react";
 import AddProduct from "@/components/Modal/Add-Product";
+import { getServerSideProps } from "..";
 
 function ProductsPage({ shopID }) {
   const router = useRouter()
@@ -111,21 +110,4 @@ if (products.length > 0){
 
 export default ProductsPage
 
-export async function getServerSideProps({ params }) {
-
-  const client = await MongoClient.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-  const db = client.db();
-  const id = new ObjectId(params.shopid);
-  const shopID = await db.collection("shops").findOne({ _id: id });
-
-  shopID._id = shopID._id.toString();
-
-  client.close();
-
-  return {
-    props: { shopID },
-  };  
-}
+export {getServerSideProps}
