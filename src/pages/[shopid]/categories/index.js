@@ -91,7 +91,7 @@ function CategoryPage({ shopID }) {
       <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={upperCategNames}></AddCategory>
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
-          <div className="heading-icon-category">&nbsp;</div>
+          <div className="heading-icon-category svg-color">&nbsp;</div>
         </div>
         <h1 className="heading-primary no-margin">Categories</h1>
         <button onClick={addCategHandler} className="add-categ-init heading-tertiary">
@@ -122,7 +122,7 @@ function CategoryPage({ shopID }) {
           <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={upperCategNames}></AddCategory>
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
-          <div className="heading-icon-category">&nbsp;</div>
+          <div className="heading-icon-category svg-color">&nbsp;</div>
         </div>
         <h1 className="heading-primary no-margin">Categories</h1>
         <button onClick={addCategHandler} className="heading-tertiary add-categ-init">

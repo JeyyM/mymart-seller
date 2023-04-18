@@ -210,7 +210,7 @@
   @include navlogo-gradient($svg, $home-logo-size, $home-logo-size);
   z-index: 15;
   background-image: linear-gradient(
-    to right,
+    to bottom,
     $color-primary-dark,
     $color-primary-light
   );
@@ -231,7 +231,7 @@
 }
 
 @mixin home-stack() {
-  @include border;
+  // @include border;
   position: absolute;
   top: 0;
   right: 0;
@@ -246,7 +246,7 @@
 }
 
 @mixin home-stack-border() {
-  @include border;
+  // @include border;
   position: absolute;
   top: 0;
   right: 0;

@@ -2,6 +2,7 @@ import { Fragment } from "react"
 import NavButton from "./Nav-Button"
 import NavLogo from "./Nav-Logo"
 import NavItem from "./NavItem"
+import Head from "next/head"
 
 import { Category } from "../svgs"
 import { Insights } from "../svgs"
@@ -22,19 +23,21 @@ const showMenuToggler = () => {
 }
 
 return <Fragment>
+
+
 <NavMenu menuStatus={menuIsOn} onClick={showMenuToggler} function={showMenuToggler}></NavMenu>
 
 <div className="navbar">
     <NavButton menuHandler={showMenuToggler} status={menuIsOn}></NavButton>
     <NavLogo></NavLogo>
     <div className="navcontainer">
-    <NavItem svg={<Category  className="menu-category"></Category>} link={"categories"} label="Categories & Products" ></NavItem>
-    <NavItem svg={<Insights  className="menu-insights"></Insights>} link={"analytics"} label="My Analytics"></NavItem>
-    <NavItem svg={<Ongoing  className="menu-ongoing"></Ongoing>} link="#" label="Ongoing Sales"></NavItem>
-    <NavItem svg={<Brush  className="menu-brush"></Brush>} link="#" label="Mart Design"></NavItem>
-    <NavItem svg={<Manage  className="menu-manage"></Manage>} link="#" label="My Mart"></NavItem>
-    <NavItem svg={<Receipt  className="menu-receipt"></Receipt>} link="#" label="Customer Records"></NavItem>
-    <NavItem svg={<Power  className="menu-power"></Power>} link="#" label="Close or Open Mart"></NavItem>
+    <NavItem svg={<Category  className="menu-category svg-color"></Category>} link={"categories"} label="Categories & Products" ></NavItem>
+    <NavItem svg={<Insights  className="menu-insights svg-color"></Insights>} link={"analytics"} label="My Analytics"></NavItem>
+    <NavItem svg={<Ongoing  className="menu-ongoing svg-color"></Ongoing>} link="#" label="Ongoing Sales"></NavItem>
+    <NavItem svg={<Brush  className="menu-brush svg-color"></Brush>} link="#" label="Mart Design"></NavItem>
+    <NavItem svg={<Manage  className="menu-manage svg-color"></Manage>} link="#" label="My Mart"></NavItem>
+    <NavItem svg={<Receipt  className="menu-receipt svg-color"></Receipt>} link="#" label="Customer Records"></NavItem>
+    <NavItem svg={<Power  className="menu-power svg-color"></Power>} link="#" label="Close or Open Mart"></NavItem>
     </div>
 </div>
 </Fragment>

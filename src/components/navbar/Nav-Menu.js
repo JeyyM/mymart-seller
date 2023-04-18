@@ -3,6 +3,7 @@ import { createPortal } from "react-dom"
 import NavMenuItem from "./Nav-Menu-Item"
 import { motion, AnimatePresence } from "framer-motion"
 import Backdrop from "../Modal/Backdrop"
+import NavLogo from "./Nav-Logo"
 
 function NavMenu(props) {
   const dropIn = {

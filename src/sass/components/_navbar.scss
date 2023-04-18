@@ -51,6 +51,7 @@
     border-bottom: none;
     border-right: none;
     border-left: none;
+    
   }
 
   &::before,
@@ -192,7 +193,7 @@
   background-color: $theme-bg;
 }
 
-.navitem:hover{background-image: linear-gradient($theme-bg, $theme-bg);
+.navitem:hover{
   filter: brightness(120%);
 }
 

@@ -1,5 +1,6 @@
 import { Fragment, useState, useEffect } from "react"
 import HomepageButton from "../../components/homepage/Homepage-Button"
+import HomepageButtonBlank from "@/components/homepage/Homepage-Button-Blank"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import Head from "next/head"
@@ -26,27 +27,19 @@ function HomePage({ shopID }){
     return <Fragment>
 <Head>
   <title>Dashboard</title>
-  <style> 
-  { `h1 { color: ${shopData.shopDesigns.lightDesign["color-primary-light"]} !important; }
-  
-  .homepage-button {  background-image: white,
-    linear-gradient(45deg, red, green) !important ;}
-  
-  ` }
-  </style>
 </Head>
         <h1 className="heading-primary">Dashboard</h1>
         <main className="maincontainer">
-            <HomepageButton color={defaultColors} item="home-category" label="Categories & Products" direction="categories" priority="eager"></HomepageButton>
-            <HomepageButton color={defaultColors} item="home-ongoing" label="Ongoing Sales" priority="lazy"></HomepageButton>
-            <HomepageButton color={defaultColors} item="home-manage" label="My Mart" priority="lazy"></HomepageButton>
-            <HomepageButton color={defaultColors} item="home-insights" label="Mart Analytics" priority="eager"></HomepageButton>
-            <HomepageButton color={defaultColors} item="home-receipt" label="Customer Records" priority="lazy"></HomepageButton>
-            <HomepageButton color={defaultColors} item="home-brush" label="Mart Design" priority="lazy"></HomepageButton>
-            <HomepageButton color={defaultColors} item="home-policy" label="Terms & Policies"></HomepageButton>
-            <HomepageButton color={defaultColors} item="home-support" label="Customer Service"></HomepageButton>
-            <HomepageButton color={defaultColors} item="home-quiz" label="Frequently Asked Questions"></HomepageButton>
-            <HomepageButton color={defaultColors} item="home-power" label="Close or Open Mart"></HomepageButton>
+            <HomepageButton color={defaultColors} item="home-category" label="Categories & Products" direction="categories"></HomepageButton>
+            <HomepageButton color={defaultColors} item="home-ongoing" label="Ongoing Sales" direction="ongoing"></HomepageButton>
+            <HomepageButton color={defaultColors} item="home-manage" label="My Mart" direction="mart"></HomepageButton>
+            <HomepageButton color={defaultColors} item="home-insights" label="Mart Analytics" direction="analytics"></HomepageButton>
+            <HomepageButton color={defaultColors} item="home-receipt" label="Customer Records" direction="records"></HomepageButton>
+            <HomepageButton color={defaultColors} item="home-brush" label="Mart Design" direction="design"></HomepageButton>
+            <HomepageButtonBlank color={defaultColors} item="home-policy" label="Terms & Policies" direction="policies"></HomepageButtonBlank>
+            <HomepageButtonBlank color={defaultColors} item="home-support" label="Customer Service" direction="customer-service"></HomepageButtonBlank>
+            <HomepageButtonBlank color={defaultColors} item="home-quiz" label="Frequently Asked Questions" direction="faq"></HomepageButtonBlank>
+            <HomepageButtonBlank color={defaultColors} item="home-power" label="Close or Open Mart" direction="toggle"></HomepageButtonBlank>
         </main>
     </Fragment>
 }

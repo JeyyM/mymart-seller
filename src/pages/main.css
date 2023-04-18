@@ -292,7 +292,6 @@ body {
 }
 
 .navitem:hover {
-  background-image: linear-gradient(white, white);
   filter: brightness(120%);
 }
 
@@ -760,7 +759,7 @@ body {
 
 .home-category {
   grid-column: 1/5;
-  background-image: url("../../assets/category.jpg"), linear-gradient(45deg, #0057FF, #7FC9FF);
+  background-image: url("/category.jpg"), linear-gradient(45deg, #0057FF, #7FC9FF);
   height: 1fr;
   overflow: hidden;
   position: relative;
@@ -788,7 +787,7 @@ body {
   fill: transparent;
   width: 110%;
   z-index: 15;
-  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  background-image: linear-gradient(to bottom, #0057FF, #7FC9FF);
   position: absolute;
 }
 .home-category__logo-outline {
@@ -812,9 +811,6 @@ body {
   transform: translateY(0rem) translateX(0);
 }
 .home-category::after {
-  border: 5px solid;
-  -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-     border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
   position: absolute;
   top: 0;
   right: 0;
@@ -828,9 +824,6 @@ body {
   float: top;
 }
 .home-category::before {
-  border: 5px solid;
-  -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-     border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
   position: absolute;
   top: 0;
   right: 0;
@@ -846,7 +839,7 @@ body {
 
 .home-ongoing {
   grid-column: 5/7;
-  background-image: url("../../assets/ongoing.jpg"), linear-gradient(45deg, #0057FF, #7FC9FF);
+  background-image: url("/ongoing.jpg"), linear-gradient(45deg, #0057FF, #7FC9FF);
   height: 1fr;
   overflow: hidden;
   position: relative;
@@ -874,7 +867,7 @@ body {
   fill: transparent;
   width: 110%;
   z-index: 15;
-  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  background-image: linear-gradient(to bottom, #0057FF, #7FC9FF);
   position: absolute;
 }
 .home-ongoing__logo-outline {
@@ -898,9 +891,6 @@ body {
   transform: translateY(0.19rem) translateX(0);
 }
 .home-ongoing::after {
-  border: 5px solid;
-  -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-     border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
   position: absolute;
   top: 0;
   right: 0;
@@ -914,9 +904,6 @@ body {
   float: top;
 }
 .home-ongoing::before {
-  border: 5px solid;
-  -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-     border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
   position: absolute;
   top: 0;
   right: 0;
@@ -932,7 +919,7 @@ body {
 
 .home-manage {
   grid-column: 7/9;
-  background-image: url("../../assets/mart.jpeg"), linear-gradient(45deg, #0057FF, #7FC9FF);
+  background-image: url("/mart.jpeg"), linear-gradient(45deg, #0057FF, #7FC9FF);
   height: 1fr;
   overflow: hidden;
   position: relative;
@@ -960,7 +947,7 @@ body {
   fill: transparent;
   width: 110%;
   z-index: 15;
-  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  background-image: linear-gradient(to bottom, #0057FF, #7FC9FF);
   position: absolute;
 }
 .home-manage__logo-outline {
@@ -984,9 +971,6 @@ body {
   transform: translateY(0.2rem) translateX(-0.2rem);
 }
 .home-manage::after {
-  border: 5px solid;
-  -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-     border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
   position: absolute;
   top: 0;
   right: 0;
@@ -1000,9 +984,6 @@ body {
   float: top;
 }
 .home-manage::before {
-  border: 5px solid;
-  -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-     border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
   position: absolute;
   top: 0;
   right: 0;
@@ -1018,7 +999,7 @@ body {
 
 .home-insights {
   grid-column: 1/5;
-  background-image: url("../../assets/analytics.jpg"), linear-gradient(45deg, #0057FF, #7FC9FF);
+  background-image: url("/analytics.jpg"), linear-gradient(45deg, #0057FF, #7FC9FF);
   height: 1fr;
   overflow: hidden;
   position: relative;
@@ -1046,7 +1027,7 @@ body {
   fill: transparent;
   width: 110%;
   z-index: 15;
-  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  background-image: linear-gradient(to bottom, #0057FF, #7FC9FF);
   position: absolute;
 }
 .home-insights__logo-outline {
@@ -1070,9 +1051,6 @@ body {
   transform: translateY(0.25rem) translateX(0);
 }
 .home-insights::after {
-  border: 5px solid;
-  -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-     border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
   position: absolute;
   top: 0;
   right: 0;
@@ -1086,9 +1064,6 @@ body {
   float: top;
 }
 .home-insights::before {
-  border: 5px solid;
-  -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-     border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
   position: absolute;
   top: 0;
   right: 0;
@@ -1104,7 +1079,7 @@ body {
 
 .home-receipt {
   grid-column: 5/7;
-  background-image: url("../../assets/records.jpg"), linear-gradient(45deg, #0057FF, #7FC9FF);
+  background-image: url("/records.jpg"), linear-gradient(45deg, #0057FF, #7FC9FF);
   height: 1fr;
   overflow: hidden;
   position: relative;
@@ -1132,7 +1107,7 @@ body {
   fill: transparent;
   width: 110%;
   z-index: 15;
-  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  background-image: linear-gradient(to bottom, #0057FF, #7FC9FF);
   position: absolute;
 }
 .home-receipt__logo-outline {
@@ -1156,9 +1131,6 @@ body {
   transform: translateY(-0.5rem) translateX(-0.3rem);
 }
 .home-receipt::after {
-  border: 5px solid;
-  -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-     border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
   position: absolute;
   top: 0;
   right: 0;
@@ -1172,9 +1144,6 @@ body {
   float: top;
 }
 .home-receipt::before {
-  border: 5px solid;
-  -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-     border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
   position: absolute;
   top: 0;
   right: 0;
@@ -1190,7 +1159,7 @@ body {
 
 .home-brush {
   grid-column: 7/9;
-  background-image: url("../../assets/design.jpg"), linear-gradient(45deg, #0057FF, #7FC9FF);
+  background-image: url("/design.jpg"), linear-gradient(45deg, #0057FF, #7FC9FF);
   height: 1fr;
   overflow: hidden;
   position: relative;
@@ -1218,7 +1187,7 @@ body {
   fill: transparent;
   width: 110%;
   z-index: 15;
-  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  background-image: linear-gradient(to bottom, #0057FF, #7FC9FF);
   position: absolute;
 }
 .home-brush__logo-outline {
@@ -1242,9 +1211,6 @@ body {
   transform: translateY(-0.5rem) translateX(0);
 }
 .home-brush::after {
-  border: 5px solid;
-  -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-     border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
   position: absolute;
   top: 0;
   right: 0;
@@ -1258,9 +1224,6 @@ body {
   float: top;
 }
 .home-brush::before {
-  border: 5px solid;
-  -o-border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
-     border-image: linear-gradient(45deg, #0057FF, #7FC9FF) 1;
   position: absolute;
   top: 0;
   right: 0;
@@ -1304,7 +1267,7 @@ body {
   fill: transparent;
   width: 110%;
   z-index: 15;
-  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  background-image: linear-gradient(to bottom, #0057FF, #7FC9FF);
   position: absolute;
 }
 .home-quiz__logo-outline {
@@ -1358,7 +1321,7 @@ body {
   fill: transparent;
   width: 110%;
   z-index: 15;
-  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  background-image: linear-gradient(to bottom, #0057FF, #7FC9FF);
   position: absolute;
 }
 .home-policy__logo-outline {
@@ -1412,7 +1375,7 @@ body {
   fill: transparent;
   width: 110%;
   z-index: 15;
-  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  background-image: linear-gradient(to bottom, #0057FF, #7FC9FF);
   position: absolute;
 }
 .home-support__logo-outline {
@@ -1466,7 +1429,7 @@ body {
   fill: transparent;
   width: 110%;
   z-index: 15;
-  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  background-image: linear-gradient(to bottom, #0057FF, #7FC9FF);
   position: absolute;
 }
 .home-power__logo-outline {
@@ -1488,6 +1451,10 @@ body {
   background-image: linear-gradient(to right, white, white);
   position: absolute;
   transform: translateY(-0.5rem) translateX(0);
+}
+
+.bg-gradient {
+  background-image: linear-gradient(white, white), linear-gradient(45deg, #0057FF, #7FC9FF);
 }
 
 .category-container {
