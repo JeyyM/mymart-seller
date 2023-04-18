@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 
 function HomepageButton(props) {
   const router = useRouter();
@@ -9,6 +10,16 @@ function HomepageButton(props) {
 
   return (
     <Fragment>
+    <Head>
+    <style> 
+  { `
+  .home-category {  
+    background-image: url("/category.jpg"), 
+      linear-gradient(45deg, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
+  }
+  ` }
+</style>
+    </Head>
       <Link
         className={`homepage-button ${props.item}`}
         href={{

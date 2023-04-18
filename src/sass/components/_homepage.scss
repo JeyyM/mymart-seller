@@ -20,8 +20,8 @@
   justify-items: center;
   align-items: center;
   transition: all 0.2s;
-  background-image: $theme-bg,
-    linear-gradient(45deg, $color-primary-dark, $color-primary-light);
+  // background-image: $theme-bg,
+  //   linear-gradient(45deg, $color-primary-dark, $color-primary-light);
     
 
   &:hover {
@@ -61,9 +61,10 @@
 .home-category {
   grid-column: 1/5;
   @include home-setup("category.jpg");
+  // background-image: url("../../assets/category.jpg"),
+  //   linear-gradient(45deg, red, green) !important;
   &__logo {
     @include home-setup-logo(category);
-
     &-outline {
       @include home-setup-logo-outline(category, 0, 0rem, 12rem);
     }

@@ -177,7 +177,7 @@
 // }
 
 @mixin home-setup($imagename) {
-  background-image: url("../../assets/" + $imagename),
+  background-image: url("/" + $imagename),
     linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   height: 1fr;
   overflow: hidden;
