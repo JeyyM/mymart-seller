@@ -18,8 +18,6 @@ function NavbarLayout(props) {
 
     const primaryDarkHex = hexToRgb(`${props.color["color-primary-dark"]}`)
 
-    console.log(props.color)
-
     let placeholder = {}
 
     if (props.mode === false) {
@@ -32,13 +30,13 @@ opacity: 0.8;
 filter: brightness(-50%);}`
     }
 
-    console.log(placeholder)
-
     return (
         <Fragment>
             <Head>
                 <style>
-                    {`     
+                    {` 
+::selection{background-color: ${props.color["color-primary-dark"]}}                    
+
 body{background-color: ${props.color["bg-body"]} !important;}
 
 .maincontainer, .category-container {filter: drop-shadow(-4px 4px 0px ${props.color["color-primary-dark"]}) !important;}
@@ -68,9 +66,9 @@ border-image: linear-gradient(
 .homepage-button:hover.x, .category:hover {
     filter: drop-shadow(-6px 6px 0px ${props.color["color-primary-dark"]}) !important}
 
-.homepage-button:active.x {
-    transform: translateY(0rem) translateX(0rem);
-    filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]});}
+.homepage-button:active.x, .category:active{
+    transform: translateY(0rem) translateX(0rem) !important;
+    filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) !important;}
 
 .navitem, .image-container{border-image: linear-gradient(
       45deg,
@@ -203,7 +201,24 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     background-color:${props.color["bg-item"]} !important;
 }
 
+.white{color: white !important;}
 
+.home-label{text-align: center}
+
+::-webkit-scrollbar {
+  width: 1.2rem;
+}
+
+::-webkit-scrollbar-track {
+  background-color: ${props.color["bg-item" ]};
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: ${props.color["color-primary-dark"]};
+  border-radius: 10px;
+  border: 3px solid ${props.color["text-primary-color"]};
+  filter: brightness(120%) !important;
+}
 
     ` }
                 </style>

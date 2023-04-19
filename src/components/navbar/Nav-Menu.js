@@ -38,7 +38,7 @@ function NavMenu(props) {
         <NavMenuItem logo={"ongoing"} label={"Ongoing Sales"}></NavMenuItem>
         <NavMenuItem logo={"manage"} label={"My Mart"}></NavMenuItem>
         <NavMenuItem logo={"receipt"} label={"Customer Records"}></NavMenuItem>
-        <NavMenuItem logo={"brush"} label={"Mart Design"}></NavMenuItem>
+        <NavMenuItem logo={"brush"} label={"Mart Design"} link={"design"}></NavMenuItem>
         <NavMenuItem logo={"quiz"} label={"Frequently Asked Questions"}></NavMenuItem>
         <NavMenuItem logo={"policy"} label={"Terms & Policies"}></NavMenuItem>
         <NavMenuItem logo={"support"} label={"Customer Service"}></NavMenuItem>

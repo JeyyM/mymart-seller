@@ -533,7 +533,7 @@ const productNames = Object.values(varKeysList)
         </motion.div>
 
         <div className="product-action-buttons">
-          <button className="product-action-3 heading-secondary" disabled={loading} onClick={handleDelete}>Delete Variation</button>
+          <button className="product-action-3 heading-secondary white" disabled={loading} onClick={handleDelete}>Delete Variation</button>
           <button className="product-action-1 heading-secondary" disabled={loading} onClick={handleTags}>Edit Search Tags</button>
           <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
         </div>

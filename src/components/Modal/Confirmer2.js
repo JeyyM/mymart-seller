@@ -111,7 +111,7 @@ function Confirmer2(props) {
               </div>
               <div className="add-categ-buttons">
                 <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={props.disable} disabled={loading}>Cancel</button>
-                <button className="product-action-3 heading-secondary categ-button-2" type="button" onClick={handleClick} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Confirm")}</button>
+                <button className="product-action-3 heading-secondary categ-button-2 white" type="button" onClick={handleClick} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Confirm")}</button>
               </div>
             </motion.div>
           </Backdrop>

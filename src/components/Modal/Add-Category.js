@@ -334,7 +334,7 @@ function AddCategory(props) {
                   {formInputValidity.desc ? <label title="Upon reaching 150 digits in length, an ellipsis (...) will be added." className="form-label">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label inv">Enter a valid description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label>}
                 </div>
                 <div className="add-categ-buttons">
-                  {setting === "Edit Category" && <button className="product-action-3 heading-secondary categ-button-2" type="button" onClick={delCategHandler} disabled={loading}>Delete</button>}
+                  {setting === "Edit Category" && <button className="product-action-3 heading-secondary categ-button-2 white" type="button" onClick={delCategHandler} disabled={loading}>Delete</button>}
                   <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={emptyContents} disabled={loading}>Cancel</button>
                   <button className="product-action-2 heading-secondary categ-button-2" type="submit" disabled={loading}> {loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit")}</button>
                 </div>
