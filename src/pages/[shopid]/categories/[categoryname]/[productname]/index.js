@@ -443,7 +443,7 @@ const productNames = Object.values(varKeysList)
       <div className="main-img-container">
 
         <div className="sample">
-          <button className="product-edit-button" onClick={() => { handleShowImg() }} type="button" disabled={loading}><div className="heading-icon-edit">&nbsp;</div></button>
+          <button className="product-edit-button" onClick={() => { handleShowImg() }} type="button" disabled={loading}><div className="heading-icon-edit svg-color">&nbsp;</div></button>
           <img src={imgSet[imgState]} alt={varArray[varState][`var${varNum}`].productName} className="product-image">
           </img>
         </div>
@@ -516,7 +516,7 @@ const productNames = Object.values(varKeysList)
 
         </form>
 
-        <label className="heading-secondary variations-label">Variations</label> <button className="add-img" type="button" onClick={handleAddVar} ><div className="heading-icon-plus-marginless">&nbsp;</div></button>
+        <label className="heading-secondary variations-label">Variations</label> <button className="add-img" type="button" onClick={handleAddVar} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
         
        <motion.div className="varContainer" initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

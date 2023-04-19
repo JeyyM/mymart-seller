@@ -13,7 +13,7 @@ function Category(props) {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.2 * props.index, duration: 0.2 }}>
 
-        <button className="categ-edit-button" onClick={(event) => {props.edit2([categoryName, categoryImage, categoryDescription]); props.edit(event);}}><div className="heading-icon-edit">&nbsp;</div></button>
+        <button className="categ-edit-button" onClick={(event) => {props.edit2([categoryName, categoryImage, categoryDescription]); props.edit(event);}}><div className="heading-icon-edit svg-color">&nbsp;</div></button>
         <div className="image-container">
         <Image src={categoryImage} className="category-img" layout="fill" unoptimized={false} alt={categoryName} priority={true}></Image>
         </div>

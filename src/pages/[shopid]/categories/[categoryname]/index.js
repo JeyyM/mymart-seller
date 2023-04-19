@@ -79,7 +79,7 @@ if (products.length > 0){
   <span className="page-heading">
     <h1 className="heading-primary">{router.query.categoryname}</h1>
     <button onClick={addProdHandler} className="add-prod-init heading-tertiary">
-          <div className="heading-icon-plus">&nbsp;</div>Add Product</button>
+          <div className="heading-icon-plus svg-color">&nbsp;</div>Add Product</button>
   </span>
   <h2 className="category-description heading-tertiary">{chosenCategory.categoryDescription}</h2>
 
@@ -97,11 +97,11 @@ if (products.length > 0){
   <span className="page-heading">
     <h1 className="heading-primary">{router.query.categoryname}</h1>
     <button onClick={addProdHandler} className="add-prod-init heading-tertiary">
-          <div className="heading-icon-plus">&nbsp;</div>Add Product</button>
+          <div className="heading-icon-plus svg-color">&nbsp;</div>Add Product</button>
   </span>
   <h2 className="category-description heading-tertiary">{chosenCategory.categoryDescription}</h2>
   <div className="empty-contents">
-        <div className="empty-logo">&nbsp;</div>
+        <div className="empty-logo svg-color">&nbsp;</div>
         <h2 className="empty-text">There seems to be no products yet</h2>
         </div>
   </Fragment>

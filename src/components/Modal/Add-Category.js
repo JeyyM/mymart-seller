@@ -100,7 +100,7 @@ function AddCategory(props) {
     event.preventDefault();
 
     let nameValid = true
-    let nameExist = true
+    let nameExist = false
 
     if (!props.list){
       nameValid = true;
@@ -110,9 +110,10 @@ function AddCategory(props) {
       nameExist = props.list.includes(nameValue.toUpperCase())
     }
 
-    nameValid = nameValue !== "" && !props.list.includes(nameValue.toUpperCase())
-    nameExist = props.list.includes(nameValue.toUpperCase())
-    if (nameValue.toUpperCase() === setDefaultName.toUpperCase()) { nameExist = false; nameValid = true }
+    // nameValid = nameValue !== "" && !props.list.includes(nameValue.toUpperCase())
+
+    // nameExist = props.list.includes(nameValue.toUpperCase())
+    // if (nameValue.toUpperCase() === setDefaultName.toUpperCase()) { nameExist = false; nameValid = true }
     const imgValid = startsImgur(imgValue) && !isEmpty(imgValue)
     const descValid = descValue !== ""
 
@@ -262,10 +263,6 @@ function AddCategory(props) {
     </svg>
   )
 
-  const isValidImgurLink = (url) => {
-    return url.match(/^https?:\/\/i\.imgur\.com\/.+?\.(jpg|jpeg|png|gif)$/);
-  };
-
   return (
     <Fragment>
       <AnimatePresence
@@ -288,7 +285,7 @@ function AddCategory(props) {
                 <span className="page-heading">
                   <h2 className="heading-primary no-margin">{setting}</h2>
                   <div className="heading-icon-dropshadow">
-                    <div className="heading-icon-category">&nbsp;</div>
+                    <div className="heading-icon-category svg-color">&nbsp;</div>
                   </div>
                 </span>
 
@@ -305,7 +302,7 @@ function AddCategory(props) {
                     id="name"
                     autoComplete="off"
                   ></input>
-                  {formInputValidity.name && !formInputValidity.exist ? <label title="Upon reaching 40 digits in length, an ellipsis (...) will be added." className="form-label">Category Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span> </label> : !formInputValidity.exist ? <label className="form-label" style={{ color: "red" }}>Enter a valid category name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Category name already exists</label>}
+                  {formInputValidity.name && !formInputValidity.exist ? <label title="Upon reaching 40 digits in length, an ellipsis (...) will be added." className="form-label">Category Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span> </label> : !formInputValidity.exist ? <label className="form-label inv">Enter a valid category name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label inv">Category name already exists</label>}
                 </div>
 
                 <div className="form-group">
@@ -319,7 +316,7 @@ function AddCategory(props) {
                     id="image"
                     autoComplete="off"
                   ></input>
-                  {formInputValidity.img ? <label className="form-label">Category Image (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid Imgur link</label>}
+                  {formInputValidity.img ? <label className="form-label">Category Image (Imgur Links Only)</label> : <label className="form-label inv">Enter a valid Imgur link</label>}
                 </div>
                 {imgValue && <img src={imgValue} className="add-categ-img" alt="Link is Invalid"></img>}
 
@@ -334,7 +331,7 @@ function AddCategory(props) {
                     value={descValue}
                     autoComplete="off"
                   ></textarea>
-                  {formInputValidity.desc ? <label title="Upon reaching 150 digits in length, an ellipsis (...) will be added." className="form-label">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label>}
+                  {formInputValidity.desc ? <label title="Upon reaching 150 digits in length, an ellipsis (...) will be added." className="form-label">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label inv">Enter a valid description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label>}
                 </div>
                 <div className="add-categ-buttons">
                   {setting === "Edit Category" && <button className="product-action-3 heading-secondary categ-button-2" type="button" onClick={delCategHandler} disabled={loading}>Delete</button>}

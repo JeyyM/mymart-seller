@@ -173,7 +173,7 @@ function AddProduct(props) {
     let nameExist = false;
 
     if (!props.names){
-      nameValid = true;
+      nameValid = false;
       nameExist = false;
     } else{
       nameValid = nameValue !== "" && !props.names.includes(nameValue.toUpperCase())
@@ -181,6 +181,7 @@ function AddProduct(props) {
     }
     
     // if (nameValue === setDefaultName) { nameExist = false; nameValid = true }
+    nameValid = nameValue !== ""
     const descValid = descValue !== ""
     const priceValid = priceValue !== ""
     const amountValid = stockAmount !== ""
@@ -312,7 +313,7 @@ function AddProduct(props) {
                 <span className="page-heading">
                   <h2 className="heading-primary no-margin">Add Product</h2>
                   <div className="heading-icon-dropshadow">
-                    <div className="heading-icon-cube">&nbsp;</div>
+                    <div className="heading-icon-cube svg-color">&nbsp;</div>
                   </div>
                 </span>
 
@@ -334,7 +335,7 @@ function AddProduct(props) {
                 </div>
 
                 <div className="page-heading-secondary">
-                  <h1 className="heading-secondary" style={{ marginTop: "0.3rem" }}>Product Images</h1> <button className="add-img" type="button" onClick={handleAddImgNumber}><div className="heading-icon-plus-marginless">&nbsp;</div></button>
+                  <h1 className="heading-secondary" style={{ marginTop: "0.3rem" }}>Product Images</h1> <button className="add-img" type="button" onClick={handleAddImgNumber}><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
                 </div>
 
 

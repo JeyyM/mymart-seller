@@ -17,7 +17,6 @@ function NavbarLayout(props) {
       }
       
     const primaryDarkHex = hexToRgb(`${props.color["color-primary-dark"]}`)
-    console.log(primaryDarkHex.r)
 
     return (
         <Fragment>
@@ -26,16 +25,19 @@ function NavbarLayout(props) {
                     {`     
 body{background-color: ${props.color["bg-body"]} !important;}
 
-.maincontainer {filter: drop-shadow(-4px 4px 0px ${props.color["color-primary-dark"]}) !important;}
+.maincontainer, .category-container {filter: drop-shadow(-4px 4px 0px ${props.color["color-primary-dark"]}) !important;}
 
 .heading-primary {font-family: ${props.color["text-primary-font"]} !important;
     color: ${props.color["text-primary-color"]} !important;}
 
-.heading-secondary {font-family: ${props.color["text-secondary-font"]} !important;
-    color: ${props.color["text-secondary-color"]} !important;}
+.heading-secondary, input[type="text"].text-full, input[type="text"].invalid-form, input[type="number"].text-small, input[type="text"].text-small, input[type="number"].invalid-form-2, input[type="text"].invalid-form-2 {font-family: ${props.color["text-secondary-font"]} !important;
+    color: ${props.color["text-secondary-color"]} !important;
+    font-weight: 700 !important;}
 
-.heading-tertiary {font-family: ${props.color["text-tertiary-font"]} !important;
+.heading-tertiary, .desc-text-area, .invalid-form-box {font-family: ${props.color["text-tertiary-font"]} !important;
     color: ${props.color["text-tertiary-color"]} !important;}
+
+.empty-text {color: ${props.color["color-primary-dark"]} !important;}
 
 .navbar, .navmenu, .navmenu-item, .menu-decoy {background-color: ${props.color["bg-item"]} !important;
 border-image: linear-gradient(
@@ -45,14 +47,16 @@ border-image: linear-gradient(
     )
     1 !important;}
 
-.homepage-button:hover.x {
-    filter: drop-shadow(-6px 6px 0px ${props.color["color-primary-dark"]})}
+.homepage-button, .navbutton, .add-categ-init, .add-prod-init, .category{border-radius: ${props.color["border-tl"]} ${props.color["border-tr"]} ${props.color["border-br"]} ${props.color["border-bl"]} !important;}
+
+.homepage-button:hover.x, .category:hover {
+    filter: drop-shadow(-6px 6px 0px ${props.color["color-primary-dark"]}) !important}
 
 .homepage-button:active.x {
     transform: translateY(0rem) translateX(0rem);
     filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]});}
 
-.navitem{border-image: linear-gradient(
+.navitem, .image-container{border-image: linear-gradient(
       45deg,
       ${props.color["color-primary-dark"]},
       ${props.color["color-primary-light"]}
@@ -86,10 +90,15 @@ border-image: linear-gradient(
     transform: translateY(0rem) translateX(0rem);
     filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) !important}
 
-.navbutton__hr, .navbutton__hr::before, .navbutton__hr::after, .navbutton:hover .navbutton__hr-2, .navbutton:hover .navbutton__hr-2::after, .navbutton:hover .navbutton__hr-2::before {
+.navbutton__hr, .navbutton__hr::before, .navbutton__hr::after, .navbutton:hover .navbutton__hr-2, .navbutton:hover .navbutton__hr-2::after, .navbutton:hover .navbutton__hr-2::before, .add-categ-init, .add-prod-init {
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
 }
+
+.categ-modal, .category, .categ-edit-button, .product-edit-button, .add-img{
+    background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
+    linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;}
+
 
 .navbutton__hr-2, .navbutton__hr-2::before, .navbutton__hr-2::after {
     background-image: linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
@@ -106,6 +115,79 @@ border-image: linear-gradient(
 }
 
 .backdrop {background-color: rgba(${primaryDarkHex.r}, ${primaryDarkHex.g}, ${primaryDarkHex.b}, 0.7) !important;}
+
+.navmenu-item:hover {
+  filter: brightness(120%) !important;
+}
+
+.add-categ-init:focus, .add-prod-init:focus, .categ-modal, .text-full, input[type="text"].text-full:focus, .desc-text-area, input[type="text"].desc-text-area:focus, .text-small, .invalid-form, .invalid-form-2, .invalid-form-box{
+    box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]}, 0 0 0 2px ${props.color["color-primary-dark"]},
+    0 0 0 4px ${props.color["bg-item"]} !important;
+}
+
+.text-full, .desc-text-area, .add-categ-img, .text-small{
+    background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
+    linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
+    filter: brightness(120%) !important
+    }
+
+input[type="text"].text-full:focus, input[type="number"].text-small:focus, input[type="text"].text-small:focus, .desc-text-area:focus {
+    filter: brightness(150%) !important;
+  outline-color: ${props.color["color-primary-dark"]} !important;
+}
+
+::placeholder{color: ${props.color["bg-item"]};
+opacity: 0.8;
+filter: brightness(150%);}
+
+
+.form-label {font-family: ${props.color["text-tertiary-font"]} !important;
+    color: ${props.color["color-primary-light"]} !important;}
+
+.invalid-form, .invalid-form-box, .invalid-form-2{
+    background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
+    linear-gradient(to right, red, darkred ) !important;
+    filter: brightness(120%) !important
+    }
+
+.form-label.inv{
+    color: red !important;
+}
+
+.categ-edit-button:active, .product-edit-button:active, .add-img:active{
+    filter: brightness(120%) !important;
+  box-shadow: inset 0 0 0 10px ${props.color["bg-item"]}, 0 0 0 2px ${props.color["color-primary-dark"]},
+    0 0 0 4px ${props.color["bg-item"]} !important;
+}
+
+
+.product-action-1{
+    background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
+    linear-gradient(to right, ${props.color["button-outline-dark"]}, ${props.color["button-outline-light"]} ) !important;
+    box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;
+    color: ${props.color["button-outline-text"]} !important;
+}
+
+.product-action-1:active{
+    filter: brightness(120%) !important;
+  box-shadow: inset 0 0 0 10px ${props.color["bg-item"]}, 0 0 0 2px ${props.color["button-outline-dark"]},
+    0 0 0 4px ${props.color["bg-item"]} !important;
+}
+
+.product-action-2{
+    background-image: linear-gradient(${props.color["button-solid-light"]}, ${props.color["button-solid-dark"]}),
+    linear-gradient(to right, ${props.color["button-solid-dark"]}, ${props.color["button-solid-light"]} ) !important;
+    color: ${props.color["button-solid-text"]} !important;
+}
+
+.product-action-2:active{
+    filter: brightness(120%) !important;
+    box-shadow: 0 0 0 2px ${props.color["bg-item"]}, 0 0 0 4px ${props.color["button-solid-dark"]} !important;
+}
+
+.category-content{
+    background-color:${props.color["bg-item"]} !important;
+}
 
 
 

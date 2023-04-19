@@ -95,7 +95,7 @@ function CategoryPage({ shopID }) {
         </div>
         <h1 className="heading-primary no-margin">Categories</h1>
         <button onClick={addCategHandler} className="add-categ-init heading-tertiary">
-          <div className="heading-icon-plus">&nbsp;</div>Add Category</button>
+          <div className="heading-icon-plus svg-color">&nbsp;</div>Add Category</button>
       </span>
 
       <section className="category-container">
@@ -126,10 +126,10 @@ function CategoryPage({ shopID }) {
         </div>
         <h1 className="heading-primary no-margin">Categories</h1>
         <button onClick={addCategHandler} className="heading-tertiary add-categ-init">
-          <div className="heading-icon-plus">&nbsp;</div>Add Category</button>
+          <div className="heading-icon-plus svg-color">&nbsp;</div>Add Category</button>
       </span>
         <div className="empty-contents">
-        <div className="empty-logo">&nbsp;</div>
+        <div className="empty-logo svg-color">&nbsp;</div>
         <h2 className="empty-text">There seems to be no categories yet</h2>
         </div>
         </Fragment>

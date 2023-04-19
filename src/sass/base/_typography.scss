@@ -45,6 +45,7 @@
   display:block;
   transform: translateY(0.3rem);
   transition: all 0.4s;
+  margin: 0.5rem;
 }
 
 .text-full:placeholder-shown ~ .form-label {
