@@ -175,9 +175,9 @@ function ProdImg(props) {
                             exit="exit"
                         >
                             <span className="page-heading">
-                                <h2 className="heading-primary no-margin">Product Images&nbsp;</h2> <button className="add-img" type="button" onClick={handleAddImgNumber}><div className="heading-icon-plus-marginless">&nbsp;</div></button>
+                                <h2 className="heading-primary no-margin">Product Images&nbsp;</h2> <button className="add-img" type="button" onClick={handleAddImgNumber}><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
                                 <div className="heading-icon-dropshadow">
-                                    <div className="heading-icon-add-img">&nbsp;</div>
+                                    <div className="heading-icon-add-img svg-color">&nbsp;</div>
                                 </div>
                             </span>
                             <div className="image-modal">

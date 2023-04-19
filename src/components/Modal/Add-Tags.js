@@ -66,7 +66,7 @@ function AddTags(props) {
 
                         <span className="page-heading">
         <h2 className="heading-primary no-margin" title="Product tags affect how the item/s will be found in the search bar and for web search results">Edit Product Tags</h2> <div className="heading-icon-dropshadow">
-          <div className="heading-icon-tag">&nbsp;</div>
+          <div className="heading-icon-tag svg-color">&nbsp;</div>
         </div>
       </span>
                             <textarea

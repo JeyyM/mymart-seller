@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }) {
     data = database.lightDesign
   } else {data = database.darkDesign}
 
-  return <NavbarLayout color={data}><Component {...pageProps} /></NavbarLayout>;
+  return <NavbarLayout color={data} mode={database.defaultMode}><Component {...pageProps} /></NavbarLayout>;
 }
 
 export {getServerSideProps}

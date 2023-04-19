@@ -301,7 +301,7 @@ function AddProduct(props) {
                 <span className="page-heading">
                   <h2 className="heading-primary no-margin">Add Variation</h2>
                   <div className="heading-icon-dropshadow">
-                    <div className="heading-icon-cube">&nbsp;</div>
+                    <div className="heading-icon-cube svg-color">&nbsp;</div>
                   </div>
                 </span>
 
@@ -323,7 +323,7 @@ function AddProduct(props) {
                 </div>
 
                 <div className="page-heading-secondary">
-                  <h1 className="heading-secondary" style={{ marginTop: "0.3rem" }}>Product Images</h1> <button className="add-img" type="button" onClick={handleAddImgNumber}><div className="heading-icon-plus-marginless">&nbsp;</div></button>
+                  <h1 className="heading-secondary" style={{ marginTop: "0.3rem" }}>Product Images</h1> <button className="add-img" type="button" onClick={handleAddImgNumber}><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
                 </div>
 
 

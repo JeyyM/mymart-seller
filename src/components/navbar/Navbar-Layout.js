@@ -8,15 +8,31 @@ function NavbarLayout(props) {
 
     function hexToRgb(hex) {
         hex = hex.replace('#', '');
-        
+
         const r = parseInt(hex.substring(0, 2), 16);
         const g = parseInt(hex.substring(2, 4), 16);
         const b = parseInt(hex.substring(4, 6), 16);
-        
+
         return { r, g, b };
-      }
-      
+    }
+
     const primaryDarkHex = hexToRgb(`${props.color["color-primary-dark"]}`)
+
+    console.log(props.color)
+
+    let placeholder = {}
+
+    if (props.mode === false) {
+        placeholder = `{color: ${props.color["bg-item"]};
+opacity: 0.8;
+filter: brightness(150%);}`
+    } else {
+        placeholder = `{color: ${props.color["bg-item"]};
+opacity: 0.8;
+filter: brightness(-50%);}`
+    }
+
+    console.log(placeholder)
 
     return (
         <Fragment>
@@ -47,7 +63,7 @@ border-image: linear-gradient(
     )
     1 !important;}
 
-.homepage-button, .navbutton, .add-categ-init, .add-prod-init, .category{border-radius: ${props.color["border-tl"]} ${props.color["border-tr"]} ${props.color["border-br"]} ${props.color["border-bl"]} !important;}
+.homepage-button, .add-categ-init, .add-prod-init, .category, .product-image, .side-img, .varItem{border-radius: ${props.color["border-tl"]} ${props.color["border-tr"]} ${props.color["border-br"]} ${props.color["border-bl"]} !important;}
 
 .homepage-button:hover.x, .category:hover {
     filter: drop-shadow(-6px 6px 0px ${props.color["color-primary-dark"]}) !important}
@@ -95,7 +111,7 @@ border-image: linear-gradient(
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
 }
 
-.categ-modal, .category, .categ-edit-button, .product-edit-button, .add-img{
+.categ-modal, .confirm-modal, .category, .categ-edit-button, .product-edit-button, .add-img, .side-img, .add-prod-img, .product-image, .varItem{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;}
 
@@ -120,7 +136,7 @@ border-image: linear-gradient(
   filter: brightness(120%) !important;
 }
 
-.add-categ-init:focus, .add-prod-init:focus, .categ-modal, .text-full, input[type="text"].text-full:focus, .desc-text-area, input[type="text"].desc-text-area:focus, .text-small, .invalid-form, .invalid-form-2, .invalid-form-box{
+.add-categ-init:focus, .add-prod-init:focus, .categ-modal, .confirm-modal, .text-full, input[type="text"].text-full:focus, .desc-text-area, input[type="text"].desc-text-area:focus, .text-small, .invalid-form, .invalid-form-2, .invalid-form-box{
     box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]}, 0 0 0 2px ${props.color["color-primary-dark"]},
     0 0 0 4px ${props.color["bg-item"]} !important;
 }
@@ -136,9 +152,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
   outline-color: ${props.color["color-primary-dark"]} !important;
 }
 
-::placeholder{color: ${props.color["bg-item"]};
-opacity: 0.8;
-filter: brightness(150%);}
+::placeholder ${placeholder}
 
 
 .form-label {font-family: ${props.color["text-tertiary-font"]} !important;
@@ -154,7 +168,7 @@ filter: brightness(150%);}
     color: red !important;
 }
 
-.categ-edit-button:active, .product-edit-button:active, .add-img:active{
+.categ-edit-button:active, .product-edit-button:active, .add-img:active, .side-img.active-var, .varItem.active-var{
     filter: brightness(120%) !important;
   box-shadow: inset 0 0 0 10px ${props.color["bg-item"]}, 0 0 0 2px ${props.color["color-primary-dark"]},
     0 0 0 4px ${props.color["bg-item"]} !important;

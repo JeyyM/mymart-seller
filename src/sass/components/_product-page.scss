@@ -236,6 +236,7 @@ input[type="text"].input-number:focus {
   object-fit: cover;
   @include border-round;
   transition: all 0.2s;
+  overflow: hidden;
 }
 
 .side-img.active-var {

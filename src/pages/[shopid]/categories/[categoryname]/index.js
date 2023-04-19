@@ -4,6 +4,7 @@ import CategoryProducts from "@/components/category-products/CategoryProducts";
 import { useState } from "react";
 import AddProduct from "@/components/Modal/Add-Product";
 import { getServerSideProps } from "..";
+import Head from "next/head";
 
 function ProductsPage({ shopID }) {
   const router = useRouter()
@@ -74,7 +75,11 @@ function ProductsPage({ shopID }) {
   }
 
 if (products.length > 0){
+
   return <Fragment>
+    <Head>
+    <title>{queryCategoryName}</title>
+  </Head>
   <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} categKey={chosenKey} length={products.length} names={upperProductNames}></AddProduct>
   <span className="page-heading">
     <h1 className="heading-primary">{router.query.categoryname}</h1>
@@ -93,6 +98,9 @@ if (products.length > 0){
 </Fragment>
 } else {
   return <Fragment>
+      <Head>
+    <title>{queryCategoryName}</title>
+  </Head>
    <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} categKey={chosenKey} length={products.length}></AddProduct>
   <span className="page-heading">
     <h1 className="heading-primary">{router.query.categoryname}</h1>

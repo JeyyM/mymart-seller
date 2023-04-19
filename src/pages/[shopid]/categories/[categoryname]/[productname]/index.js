@@ -6,6 +6,7 @@ import AddVariation from "@/components/Modal/Add-Variation"
 import Confirmer2 from "@/components/Modal/Confirmer2";
 import AddTags from "@/components/Modal/Add-Tags";
 import { getServerSideProps } from "..";
+import Head from "next/head";
 
 function ProductPage({ shopID }) {
   const router = useRouter()
@@ -434,6 +435,9 @@ const productNames = Object.values(varKeysList)
     }
 
   return <Fragment>
+  <Head>
+    <title>{varArray[0][`var${1}`].productName}</title>
+  </Head>
     <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
     <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation}></AddVariation>
     <Confirmer2 modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${varArray[varState][`var${varNum}`].productName}?`} load={() => { setLoading(true) }} default={varNum} finish={delVariation} names={upcoming} routing={routerData} productFix={productFixer}></Confirmer2>

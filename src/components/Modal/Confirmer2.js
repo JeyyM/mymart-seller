@@ -107,7 +107,7 @@ function Confirmer2(props) {
               <div className="confirm-contents">
                 <div className="warning-logo">&nbsp;</div>
                 <h2 className="confirm-text heading-tertiary">{props.msg}</h2>
-                <h2 style={{ margin: "1rem" }}>{props.label}</h2>
+                <h2 className="heading-secondary" style={{ margin: "1rem" }}>{props.label}</h2>
               </div>
               <div className="add-categ-buttons">
                 <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={props.disable} disabled={loading}>Cancel</button>
