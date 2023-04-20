@@ -61,6 +61,7 @@ border-image: linear-gradient(
     )
     1 !important;}
 
+
 .homepage-button, .add-categ-init, .add-prod-init, .category, .category-sample, .product-image, .side-img, .varItem{border-radius: ${props.color["border-tl"]} ${props.color["border-tr"]} ${props.color["border-br"]} ${props.color["border-bl"]} !important;}
 
 .homepage-button:hover.x, .category:hover, .category-sample:hover {
@@ -242,6 +243,18 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     background-image: linear-gradient(${props.color["bg-body"]}, ${props.color["bg-body"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
     box-shadow: inset 0 0 0 2rem ${props.color["bg-body"]} !important;
+}
+
+.item-setup-2-b{
+    background-image: linear-gradient(${props.color["bg-body"]}, ${props.color["bg-body"]}),
+    linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
+    box-shadow: inset 0 0 0 2rem ${props.color["bg-body"]} !important;
+}
+
+.item-setup-2{
+    background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
+    linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
+    box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;
 }
 
     ` }

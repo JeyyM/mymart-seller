@@ -500,7 +500,7 @@ function ProductPage({ shopID }) {
         <form>
           <div>
             <input type="text" value={nameValue} className={nameClasses} placeholder="Product Name" required id='name' autoComplete="off" onChange={handleNameChange}></input>
-            {formInputValidity.name && !formInputValidity.exist ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : !formInputValidity.exist ? <label className="form-label" style={{ color: "red" }}>Enter a valid product name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Product name already exists in category <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label>}
+            {formInputValidity.name && !formInputValidity.exist ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : !formInputValidity.exist ? <label className="form-label inv" style={{ color: "red" }}>Enter a valid product name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label inv" style={{ color: "red" }}>Product name already exists in category <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label>}
 
           </div>
 
@@ -512,7 +512,7 @@ function ProductPage({ shopID }) {
                 <input type="number" value={priceValue} className={priceClasses} placeholder="Price" required id='price' onChange={handlePriceChange} style={{ borderRadius: "0", margin: "0" }}></input>
                 <button type="button" onClick={addPrice} className="add-button svg-color"><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
               </div>
-              {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid price</label>}
+              {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}
             </div>
           </div>
 
@@ -526,7 +526,7 @@ function ProductPage({ shopID }) {
             placeholder="Description"
             onChange={handleDescChange}
           ></textarea>
-          {formInputValidity.desc ? <label className="form-label" title="Upon reaching 150 digits in length, an ellipsis (...) will be added.">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label>}
+          {formInputValidity.desc ? <label className="form-label" title="Upon reaching 150 digits in length, an ellipsis (...) will be added.">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label>}
 
 
           <div className="price-pair">
@@ -539,11 +539,11 @@ function ProductPage({ shopID }) {
                 <input type="number" value={stockAmount} className={amountClasses} placeholder="Amount" required id='amount' onChange={handleStockAmount} style={{ borderRadius: "0", margin: "0" }}></input>
                 <button type="button" onClick={addStock} className="add-button svg-color" style={{ marginRight: "2rem" }}><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
               </div>
-              {formInputValidity.amount ? <label className="form-label">Stock Amount</label> : <label className="form-label" style={{ color: "red" }}>Invalid stock amount</label>}
+              {formInputValidity.amount ? <label className="form-label">Stock Amount</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid stock amount</label>}
             </div>
             <div className="flex-col">
               <input type="text" value={stockUnit} className={unitClasses} placeholder="Unit" required id='unit' onChange={handleStockUnit} autoComplete="off"></input>
-              {formInputValidity.unit ? <label className="form-label">Stock Unit</label> : <label className="form-label" style={{ color: "red" }}>Invalid stock unit</label>}
+              {formInputValidity.unit ? <label className="form-label">Stock Unit</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid stock unit</label>}
             </div>
           </div>
         </form>

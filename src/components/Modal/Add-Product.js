@@ -331,7 +331,7 @@ function AddProduct(props) {
                   {/* <label className="form-label">Product Name</label>  */}
                   {/* {formInputValidity.name && !formInputValidity.exist ? <label title="Upon reaching 40 digits in length, an ellipsis (...) will be added." className="form-label">Category Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span> </label> : !formInputValidity.exist ? <label className="form-label" style={{ color: "red" }}>Enter a valid category name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Category name already exists</label>} */}
 
-                  {formInputValidity.name && !formInputValidity.exist ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : !formInputValidity.exist ? <label className="form-label" style={{ color: "red" }}>Enter a valid product name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label" style={{ color: "red" }}>Product name already exists in category <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label>}
+                  {formInputValidity.name && !formInputValidity.exist ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : !formInputValidity.exist ? <label className="form-label inv" style={{ color: "red" }}>Enter a valid product name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label inv" style={{ color: "red" }}>Product name already exists in category <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label>}
                 </div>
 
                 <div className="page-heading-secondary">
@@ -353,7 +353,7 @@ function AddProduct(props) {
                         autoComplete="off"
                       ></input>
 
-                      {formInputValidity.img ? <label className="form-label">Product Image 1 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
+                      {formInputValidity.img ? <label className="form-label">Product Image 1 (Imgur Links Only)</label> : <label className="form-label inv" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
                     </div>}
 
                     {imgNumber >= 1 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
@@ -367,7 +367,7 @@ function AddProduct(props) {
                         id="image2"
                         autoComplete="off"
                       ></input>
-                      {formInputValidity.img ? <label className="form-label">Product Image 2 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
+                      {formInputValidity.img ? <label className="form-label">Product Image 2 (Imgur Links Only)</label> : <label className="form-label inv" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
                     </motion.div>}
 
                     {imgNumber >= 2 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
@@ -380,7 +380,7 @@ function AddProduct(props) {
                         id="image3"
                         autoComplete="off"
                       ></input>
-                      {formInputValidity.img ? <label className="form-label">Product Image 3 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
+                      {formInputValidity.img ? <label className="form-label">Product Image 3 (Imgur Links Only)</label> : <label className="form-label inv" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
                     </motion.div>}
 
                     {imgNumber >= 3 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
@@ -393,7 +393,7 @@ function AddProduct(props) {
                         id="image4"
                         autoComplete="off"
                       ></input>
-                      {formInputValidity.img ? <label className="form-label">Product Image 4 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
+                      {formInputValidity.img ? <label className="form-label">Product Image 4 (Imgur Links Only)</label> : <label className="form-label inv" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
                     </motion.div>}
                   </div>
 
@@ -411,15 +411,15 @@ function AddProduct(props) {
                   <label className="heading-secondary product-currency">$</label>
                   <div>
                     <input type="number" className={priceClasses} placeholder="Price" autoComplete="off" id='price' value={priceValue} onChange={handlePriceChange}></input>
-                    {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid price</label>}
+                    {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}
                   </div>
                   <div>
                     <input type="number" className={amountClasses} placeholder="Stock Amount" autoComplete="off" id='amount' value={stockAmount} onChange={handleStockAmount}></input>
-                    {formInputValidity.amount ? <label className="form-label">Stock Amount</label> : <label className="form-label" style={{ color: "red" }}>Invalid stock amount</label>}
+                    {formInputValidity.amount ? <label className="form-label">Stock Amount</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid stock amount</label>}
                   </div>
                   <div>
                     <input type="text" className={unitClasses} placeholder="Stock Unit" autoComplete="off" id='unit' value={stockUnit} onChange={handleStockUnit}></input>
-                    {formInputValidity.unit ? <label className="form-label">Stock Unit</label> : <label className="form-label" style={{ color: "red" }}>Invalid stock unit</label>}
+                    {formInputValidity.unit ? <label className="form-label">Stock Unit</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid stock unit</label>}
                   </div>
                 </div>
 
@@ -433,7 +433,7 @@ function AddProduct(props) {
                     value={descValue}
                     autoComplete="off"
                   ></textarea>
-                  {formInputValidity.desc ? <label className="form-label" title="Upon reaching 150 digits in length, an ellipsis (...) will be added.">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label" style={{ color: "red" }}>Enter a valid description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label>}
+                  {formInputValidity.desc ? <label className="form-label" title="Upon reaching 150 digits in length, an ellipsis (...) will be added.">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label>}
                 </div>
                 <div className="add-categ-buttons">
                   <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={emptyContents} disabled={loading}>Cancel</button>

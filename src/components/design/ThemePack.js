@@ -1,5 +1,5 @@
 export default function ThemePack(props){
-    console.log(props.themeSet)
+    // console.log(props.themeSet)
     return <button className="theme-pack item-setup">
     <h2 className="heading-secondary" style={{textAlign:"left"}}>{props.themeSet[12]}</h2>
     <div className="theme-pack-colors">

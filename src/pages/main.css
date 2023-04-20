@@ -2848,7 +2848,7 @@ input[type=text].text-limited:focus {
 .design-col-4 {
   width: 100%;
   height: 100%;
-  background-color: rgb(0, 166, 255);
+  background-color: transparent;
   grid-column: 11/15;
   display: flex;
   flex-direction: column;
@@ -2869,7 +2869,7 @@ input[type=text].text-limited:focus {
 .design-conf-buttons {
   width: 100%;
   height: 15rem;
-  background-color: aqua;
+  background-color: transparent;
 }
 
 .theme-pack {
@@ -2902,13 +2902,13 @@ input[type=text].text-limited:focus {
 .design-typography {
   height: 25rem;
   width: 100%;
-  background-color: chartreuse;
+  background-color: white;
 }
 
 .design-demo {
   height: 45rem;
   width: 100%;
-  background-color: chartreuse;
+  background-color: white;
   display: flex;
   flex-direction: column;
 }
@@ -2916,7 +2916,7 @@ input[type=text].text-limited:focus {
 .demo-typography {
   height: 26rem;
   width: 100%;
-  background-color: chartreuse;
+  background-color: white;
 }
 
 .item-setup {
@@ -2930,6 +2930,7 @@ input[type=text].text-limited:focus {
   transition: all 0.2s;
   padding: 1rem;
   box-shadow: inset 0 0 0 2rem white;
+  overflow: hidden;
 }
 
 .item-setup-dark {
@@ -2959,18 +2960,18 @@ input[type=text].text-limited:focus {
   background-image: linear-gradient(white, white), linear-gradient(to right, #0057FF, #7FC9FF);
   margin: 0.5rem auto;
   display: block;
-  filter: drop-shadow(-2px 2px 0px #0057FF);
+  filter: drop-shadow(-2px 2px 0px #0057ff);
   transition: all 0.2s;
 }
 
 .theme-button:hover {
   transform: translateY(-0.3rem) translateX(0.5rem);
-  filter: drop-shadow(-4px 4px 0px #0057FF) brightness(110%);
+  filter: drop-shadow(-4px 4px 0px #0057ff) brightness(110%);
 }
 
 .theme-button:active {
   transform: translateY(0rem) translateX(0rem);
-  filter: drop-shadow(-1px 1px 0px #89375F);
+  filter: drop-shadow(-1px 1px 0px #89375f);
 }
 
 .button-theme-sun {
@@ -3036,4 +3037,71 @@ input[type=text].text-limited:focus {
 
 .text-span {
   grid-column: 1/3;
+}
+
+.typo-prev-1 {
+  width: 100%;
+  height: 7rem;
+  background-color: white;
+}
+
+.typo-prev-2 {
+  width: 100%;
+  height: 6rem;
+  background-color: rgb(255, 0, 0);
+}
+
+.typo-prev-3 {
+  width: 100%;
+  height: 6rem;
+  background-color: rgb(0, 8, 255);
+}
+
+.item-setup-2 {
+  border: solid 5px transparent;
+  border-radius: 15px;
+  background-image: linear-gradient(white, white), linear-gradient(45deg, #0057FF, #7FC9FF);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  border: solid 0px transparent;
+  border-top: solid 6px transparent;
+  border-radius: 0rem;
+  position: relative;
+  transition: all 0.2s;
+  box-shadow: inset 0 0 0 2rem white;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+}
+
+.item-setup-2-b {
+  border: solid 5px transparent;
+  border-radius: 15px;
+  background-image: linear-gradient(white, white), linear-gradient(45deg, #0057FF, #7FC9FF);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  border: solid 0px transparent;
+  border-top: solid 6px transparent;
+  border-radius: 0rem;
+  position: relative;
+  transition: all 0.2s;
+  box-shadow: inset 0 0 0 2rem white;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.contrast-init {
+  background-color: #0057ff;
+  height: 4rem;
+  width: 7rem;
+  margin-left: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }/*# sourceMappingURL=main.css.map */

@@ -1,192 +1,252 @@
-.design-grid{
-    width: 100%;
-    height: calc(100vh - $navbar-height);
-    background-color: transparent;
-    display: grid;
-    grid-template-columns: repeat(14, 1fr);
+.design-grid {
+  width: 100%;
+  height: calc(100vh - $navbar-height);
+  background-color: transparent;
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
 }
 
-.design-col-1{
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    grid-column: 1/4;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    gap: 1rem;
+.design-col-1 {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  grid-column: 1/4;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
 }
 
-.design-col-2{
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    grid-column: 4/7;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    gap: 1rem;
+.design-col-2 {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  grid-column: 4/7;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
 }
 
-.design-col-3{
-    width: 100%;
-    height: 100%;
-    background-color: transparent;
-    grid-column: 7/11;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    gap: 1rem;
+.design-col-3 {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  grid-column: 7/11;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
 }
 
-.design-col-4{
-    width: 100%;
-    height: 100%;
-    background-color: rgb(0, 166, 255);
-    grid-column: 11/15;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    gap: 1rem;
+.design-col-4 {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  grid-column: 11/15;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
 }
 
-.color-picker{
-    width: 100% !important;
+.color-picker {
+  width: 100% !important;
 }
 
-.color-moder{
-    width: 100%;
-    height: 21rem;
-    background-color: white;
+.color-moder {
+  width: 100%;
+  height: 21rem;
+  background-color: white;
 }
 
-.design-conf-buttons{
-    width: 100%;
-    height: 15rem;
-    background-color: aqua;
+.design-conf-buttons {
+  width: 100%;
+  height: 15rem;
+  background-color: transparent;
 }
 
-.theme-pack{
-    height: auto;
-    width: 100%;
-    background-color: white;
-    padding: 1rem;
-    cursor: pointer;
-    transition: all 0.2s;
+.theme-pack {
+  height: auto;
+  width: 100%;
+  background-color: white;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.theme-pack:active{
-    background-color: white;
+.theme-pack:active {
+  background-color: white;
 }
 
 .theme-pack-colors {
-    padding-top: 1rem;
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    justify-content: space-around;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: space-around;
 }
 
-.design-primary{
-    height: 47rem;
-    width: 100%;
-    background-color: white;
+.design-primary {
+  height: 47rem;
+  width: 100%;
+  background-color: white;
 }
 
-.design-typography{
-    height: 25rem;
-    width: 100%;
-    background-color: chartreuse;
+.design-typography {
+  height: 25rem;
+  width: 100%;
+  background-color: white;
 }
 
-.design-demo{
-    height: 45rem;
-    width: 100%;
-    background-color: chartreuse;
-    display: flex;
-    flex-direction: column;
+.design-demo {
+  height: 45rem;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
 }
 
-.demo-typography{
-    height: 26rem;
-    width: 100%;
-    background-color: chartreuse;
+.demo-typography {
+  height: 26rem;
+  width: 100%;
+  background-color: white;
 }
 
 .item-setup {
-    @include border-round;
-    border: solid 5px transparent;
-    position: relative;
-    transition: all 0.2s;
-    padding: 1rem;
-    box-shadow: inset 0 0 0 2rem $theme-bg;
+  @include border-round;
+  border: solid 5px transparent;
+  position: relative;
+  transition: all 0.2s;
+  padding: 1rem;
+  box-shadow: inset 0 0 0 2rem $theme-bg;
+  overflow: hidden;
 }
 
 .item-setup-dark {
-    @include border-round;
-    border: solid 5px transparent;
-    position: relative;
-    transition: all 0.2s;
-    padding: 1rem;
-    box-shadow: inset 0 0 0 2rem $background-color;
+  @include border-round;
+  border: solid 5px transparent;
+  position: relative;
+  transition: all 0.2s;
+  padding: 1rem;
+  box-shadow: inset 0 0 0 2rem $background-color;
 }
 
-.theme-button{
-    height: 8rem;
-    width: 8rem;
-    background: red;
-    @include border-round;
-    border-radius: 50%;
-    cursor: pointer;
-    background-image: linear-gradient($theme-bg, $theme-bg),
-      linear-gradient(to right, $color-primary-dark, $color-primary-light);
-      margin: 0.5rem auto;
-    display: block;
-    filter: drop-shadow(-2px 2px 0px #0057FF);
-    transition: all 0.2s;
+.theme-button {
+  height: 8rem;
+  width: 8rem;
+  background: red;
+  @include border-round;
+  border-radius: 50%;
+  cursor: pointer;
+  background-image: linear-gradient($theme-bg, $theme-bg),
+    linear-gradient(to right, $color-primary-dark, $color-primary-light);
+  margin: 0.5rem auto;
+  display: block;
+  filter: drop-shadow(-2px 2px 0px #0057ff);
+  transition: all 0.2s;
 }
 
-.theme-button:hover{
-    transform: translateY(-0.3rem) translateX(0.5rem);
-    filter: drop-shadow(-4px 4px 0px #0057FF) brightness(110%);
+.theme-button:hover {
+  transform: translateY(-0.3rem) translateX(0.5rem);
+  filter: drop-shadow(-4px 4px 0px #0057ff) brightness(110%);
 }
 
-.theme-button:active{
-    transform: translateY(0rem) translateX(0rem);
-    filter: drop-shadow(-1px 1px 0px #89375F);
+.theme-button:active {
+  transform: translateY(0rem) translateX(0rem);
+  filter: drop-shadow(-1px 1px 0px #89375f);
 }
 
 .button-theme-sun {
-    @include heading-logo(sun, 6rem, 6rem);
-    margin: auto;
-  }
+  @include heading-logo(sun, 6rem, 6rem);
+  margin: auto;
+}
 
 .product-action-2-small {
-    @include button-dark;
-    width: 17rem;
-    height: 5rem;
-    display: block;
-    margin: 1rem auto ;
-  }
-
-.text-group{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+  @include button-dark;
+  width: 17rem;
+  height: 5rem;
+  display: block;
+  margin: 1rem auto;
 }
 
-.text-group-3{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2rem;
+.text-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
 }
 
-.text-group-4{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 2rem;
+.text-group-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
 }
 
-.text-span{
-    grid-column: 1/3;
+.text-group-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2rem;
+}
+
+.text-span {
+  grid-column: 1/3;
+}
+
+.typo-prev-1 {
+  width: 100%;
+  height: 7rem;
+  background-color: white;
+}
+
+.typo-prev-2 {
+  width: 100%;
+  height: 6rem;
+  background-color: rgb(255, 0, 0);
+}
+
+.typo-prev-3 {
+  width: 100%;
+  height: 6rem;
+  background-color: rgb(0, 8, 255);
+}
+
+.item-setup-2 {
+  @include border-round;
+  border: solid 0px transparent;
+  border-top: solid 6px transparent;
+  border-radius: 0rem;
+  position: relative;
+  transition: all 0.2s;
+  box-shadow: inset 0 0 0 2rem $theme-bg;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+}
+
+.item-setup-2-b {
+  @include border-round;
+  border: solid 0px transparent;
+  border-top: solid 6px transparent;
+  border-radius: 0rem;
+  position: relative;
+  transition: all 0.2s;
+  box-shadow: inset 0 0 0 2rem $theme-bg;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.contrast-init {
+  background-color: #0057ff;
+  height: 4rem;
+  width: 7rem;
+  margin-left: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }

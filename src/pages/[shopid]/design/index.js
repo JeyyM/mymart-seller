@@ -5,8 +5,6 @@ import Head from "next/head";
 import { useEffect } from "react";
 import CategoryProducts from "@/components/category-products/CategoryProducts";
 
-// import Tester from "../../../../public/categories.jpg"
-
 import { ChromePicker } from "react-color";
 
 import Image from "next/image";
@@ -44,7 +42,7 @@ function Designing({ shopID }) {
   function onSubmit(event) {
     event.preventDefault()
     const data = { "color-primary-dark": Light_DarkColor, "color-primary-light": Light_LightColor }
-    console.log(data)
+    // console.log(data)
     finishForm(data)
   }
 
@@ -80,7 +78,13 @@ function Designing({ shopID }) {
 
         <ChromePicker color={color} onChange={updatedColor => setColor(updatedColor)} className="color-picker" disableAlpha={true}></ChromePicker>
 
-        <div className="design-conf-buttons"></div>
+        <div className="design-conf-buttons">
+        <div className="text-group" style={{ marginBottom: "1rem" }}>
+            <button className="product-action-3 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }}>Hard Reset</button>
+            <button className="product-action-1 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }}>Reset</button>
+          </div>
+          <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }}>Submit</button>
+        </div>
       </div>
 
       <div className="design-col-2">
@@ -156,22 +160,22 @@ function Designing({ shopID }) {
 
         </div>
         <div className="design-typography item-setup">
-        <span className="page-heading flex-row-align">
+          <span className="page-heading flex-row-align">
             <div className="heading-icon-dropshadow">
               <div className="heading-icon-typography svg-color">&nbsp;</div>
             </div>
             <h1 className="heading-secondary no-margin">Typography</h1>
           </span>
 
-          <div className="text-group-3" style={{marginTop: "1rem"}}>
+          <div className="text-group-3" style={{ marginTop: "1rem" }}>
             <input type="text" placeholder="Font Family" className="text-small input-number text-span" autoComplete="off" style={{ width: "100%" }}></input>
             <input type="text" placeholder="Text Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
           </div>
-          <div className="text-group-3" style={{marginTop: "1rem"}}>
+          <div className="text-group-3" style={{ marginTop: "1rem" }}>
             <input type="text" placeholder="Font Family" className="text-small input-number text-span" autoComplete="off" style={{ width: "100%" }}></input>
             <input type="text" placeholder="Text Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
           </div>
-          <div className="text-group-3" style={{marginTop: "1rem"}}>
+          <div className="text-group-3" style={{ marginTop: "1rem" }}>
             <input type="text" placeholder="Font Family" className="text-small input-number text-span" autoComplete="off" style={{ width: "100%" }}></input>
             <input type="text" placeholder="Text Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
           </div>
@@ -180,7 +184,7 @@ function Designing({ shopID }) {
 
       <div className="design-col-4">
         <div className="design-demo item-setup-dark">
-        <span className="page-heading flex-row-align">
+          <span className="page-heading flex-row-align">
             <div className="heading-icon-dropshadow">
               <div className="heading-icon-preview svg-color">&nbsp;</div>
             </div>
@@ -188,24 +192,49 @@ function Designing({ shopID }) {
           </span>
 
           <div className="category-sample">
-        <div className="image-container">
-            <img src="/categories.jpg" className="category-img" alt="Sample Image"></img>
-        </div>
+            <div className="image-container">
+              <img src="/categories.jpg" className="category-img" alt="Sample Image"></img>
+            </div>
 
-        <div className="category-content">
-            <div>
+            <div className="category-content">
+              <div>
                 <h2 className="heading-secondary category-name">Heading Secondary</h2>
                 <h3 className="heading-tertiary">Sample Heading Tertiary Sample Heading Tertiary Sample Heading Tertiary</h3>
-            </div>
-            <div className="product-number-container">
+              </div>
+              <div className="product-number-container">
                 <h2 className="heading-secondary product-numbers product-price">$123</h2>
                 <h2 className="heading-secondary product-numbers">456 Units</h2>
+              </div>
             </div>
-        </div>
-      </div>
+          </div>
+
+
+          <div className="text-group" style={{ marginTop: "1rem" }}>
+            <button className="product-action-1 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }}>Outline</button>
+            <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }}>Solid</button>
+          </div>
 
         </div>
-        <div className="demo-typography"></div>
+        <div className="demo-typography item-setup" style={{ padding: "0rem" }}>
+          <span className="page-heading flex-row-align" style={{ padding: "1rem" }}>
+            <div className="heading-icon-dropshadow">
+              <div className="heading-icon-typography svg-color">&nbsp;</div>
+            </div>
+            <h1 className="heading-secondary no-margin">Typography Preview</h1>
+          </span>
+          <div className="typo-prev-1 item-setup-2-b">
+          <button className="contrast-init"><h2 className="heading-tertiary">O 5.5</h2></button><h1 className="heading-primary" style={{marginLeft:"1rem"}}>Lorem Ipsum Dolor</h1>
+          </div>
+          <div className="typo-prev-2 item-setup-2">
+          <button className="contrast-init"><h2 className="heading-tertiary">O 5.5</h2></button><h2 className="heading-secondary" style={{marginLeft:"1rem"}}>Lorem Ipsum Dolor</h2>
+          </div>
+          <div className="typo-prev-3 item-setup-2">
+          <button className="contrast-init"><h2 className="heading-tertiary">O 5.5</h2></button><h2 className="heading-tertiary" style={{marginLeft:"1rem"}}>Lorem Ipsum Dolor</h2>
+          </div>
+
+
+
+        </div>
       </div>
 
     </div>
