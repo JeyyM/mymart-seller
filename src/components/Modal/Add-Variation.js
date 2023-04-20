@@ -171,8 +171,8 @@ function AddProduct(props) {
     let nameValid = nameValue !== "" && !props.names.includes(nameValue.toUpperCase())
     let nameExist = props.names.includes(nameValue.toUpperCase())
     const descValid = descValue !== ""
-    const priceValid = priceValue !== ""
-    const amountValid = stockAmount !== ""
+    const priceValid = priceValue !== "" && priceValue >= 0
+    const amountValid = stockAmount !== "" && stockAmount >= 0
     const unitValid = stockUnit !== ""
     const imgValid = givenImages.length > 0
 

@@ -11,7 +11,7 @@ import Head from "next/head";
 function ProductPage({ shopID }) {
   const router = useRouter()
 
-  
+
   function waitSeconds() {
     return new Promise(resolve => setTimeout(resolve, 2500));
   }
@@ -40,19 +40,19 @@ function ProductPage({ shopID }) {
   // console.log("PROD KEy", productKey)
 
   const varKeysList = Object.values(categoryContents3)
-  .map((product) => {
-    const varObjs = Object.values(product)
-      .filter((item) => typeof item === 'object');
-    return varObjs;
-  });
+    .map((product) => {
+      const varObjs = Object.values(product)
+        .filter((item) => typeof item === 'object');
+      return varObjs;
+    });
 
-const productNames = Object.values(varKeysList)
-  .flatMap((product) => {
-    const name = Object.values(product)
-      .filter((prop) => prop.productName);
-    return name;
-  })
-  .map((name) => name.productName);
+  const productNames = Object.values(varKeysList)
+    .flatMap((product) => {
+      const name = Object.values(product)
+        .filter((prop) => prop.productName);
+      return name;
+    })
+    .map((name) => name.productName);
 
   const routerData = [shopID._id, queryCategory]
 
@@ -74,8 +74,8 @@ const productNames = Object.values(varKeysList)
   // console.log("RESULINT PRODUNFF", resultingProduct)
 
   const productFixer = (test) => {
-  
-      const deleteProduct = async () => {
+
+    const deleteProduct = async () => {
       const response = await fetch(
         `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}`,
         {
@@ -84,15 +84,15 @@ const productNames = Object.values(varKeysList)
         }
       );
     }
-  
+
     deleteProduct()
   }
 
   const varArray = Object.entries(categoryContents3[resultingProduct])
-  .filter(([key, value]) => !key.startsWith("productTags"))
-  .map(([key, value]) => ({
-    [key]: value
-  }));
+    .filter(([key, value]) => !key.startsWith("productTags"))
+    .map(([key, value]) => ({
+      [key]: value
+    }));
 
   const [varState, setVarState] = useState(0)
   const [imgState, setImgState] = useState(0)
@@ -154,15 +154,17 @@ const productNames = Object.values(varKeysList)
 
   const [priceValue, setPriceValue] = useState(varArray[varState][`var${varNum}`].productPrice);
   const handlePriceChange = (event) => {
-    if (event.target.value.length < 9){
-    setPriceValue(event.target.value);}
+    if (event.target.value.length < 9) {
+      setPriceValue(event.target.value);
+    }
   };
-  
+
 
   const [stockAmount, setStockAmount] = useState(varArray[varState][`var${varNum}`].productStock.stockAmount);
   const handleStockAmount = (event) => {
-    if (event.target.value.length < 9){
-    setStockAmount(event.target.value);}
+    if (event.target.value.length < 9) {
+      setStockAmount(event.target.value);
+    }
   };
 
   const [stockUnit, setStockUnit] = useState(varArray[varState][`var${varNum}`].productStock.stockUnit);
@@ -283,10 +285,10 @@ const productNames = Object.values(varKeysList)
 
     let nameValid = nameValue !== "" && !upperProductNames.includes(nameValue.toUpperCase())
     let nameExist = upperProductNames.includes(nameValue.toUpperCase())
-    if (nameValue.toUpperCase() === varArray[varState][`var${varNum}`].productName.toUpperCase()) {nameExist = false; nameValid = true}
+    if (nameValue.toUpperCase() === varArray[varState][`var${varNum}`].productName.toUpperCase()) { nameExist = false; nameValid = true }
     const descValid = descValue !== ""
-    const priceValid = priceValue !== ""
-    const amountValid = stockAmount !== ""
+    const priceValid = priceValue !== "" && priceValue >= 0
+    const amountValid = stockAmount !== "" && stockAmount >= 0
     const unitValid = stockUnit !== ""
     const imgValid = givenImages.length > 0
 
@@ -311,29 +313,32 @@ const productNames = Object.values(varKeysList)
       productImages: givenImages.map((imageObject) => imageObject.image)
     }
 
-    if (submissionValid){
+    if (submissionValid) {
       setLoading(true)
-    
-        const response = await fetch(
-          `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varNum}`,
-          {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(incomingData)
-          }
-        );
+
+      const response = await fetch(
+        `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varNum}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(incomingData)
+        }
+      );
 
       await waitSeconds();
 
       setLoading(false)
       setCompletion(true)
 
-      if (varNum === 1){router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(nameValue)}`)
-      await waitSecondsShort()
-      setCompletion(false)
-    } else {router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(varArray[0][`var${1}`].productName)}`)
-    await waitSecondsShort()
-    setCompletion(false)}
+      if (varNum === 1) {
+        router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(nameValue)}`)
+        await waitSecondsShort()
+        setCompletion(false)
+      } else {
+        router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(varArray[0][`var${1}`].productName)}`)
+        await waitSecondsShort()
+        setCompletion(false)
+      }
     }
   }
 
@@ -388,56 +393,74 @@ const productNames = Object.values(varKeysList)
   const unitClasses = `${formInputValidity.unit ? "text-small input-number" : "invalid-form-2"
     }`;
 
-    const imagePayload = (payload) => {
-      if (payload[0]) {setImgValue1(payload[0].image)} else {setImgValue1(undefined)}
-      if (payload[1]) {setImgValue2(payload[1].image)} else {setImgValue2(undefined)}
-      if (payload[2]) {setImgValue3(payload[2].image)} else {setImgValue3(undefined)}
-      if (payload[3]) {setImgValue4(payload[3].image)} else {setImgValue4(undefined)}
-    }
-  
-
-    const [addVar, setAddVar] = useState()
-    function handleAddVar(){
-      setAddVar(!addVar)
-    }
+  const imagePayload = (payload) => {
+    if (payload[0]) { setImgValue1(payload[0].image) } else { setImgValue1(undefined) }
+    if (payload[1]) { setImgValue2(payload[1].image) } else { setImgValue2(undefined) }
+    if (payload[2]) { setImgValue3(payload[2].image) } else { setImgValue3(undefined) }
+    if (payload[3]) { setImgValue4(payload[3].image) } else { setImgValue4(undefined) }
+  }
 
 
-    const [deletion, setDeletion] = useState(false)
-    function handleDelete(){
-      setDeletion(!deletion)
-    }
+  const [addVar, setAddVar] = useState()
+  function handleAddVar() {
+    setAddVar(!addVar)
+  }
 
-    let upcoming = null
 
-    if (varArray.length > 1) {
-      const next = varArray[1][`var2`].productName
+  const [deletion, setDeletion] = useState(false)
+  function handleDelete() {
+    setDeletion(!deletion)
+  }
 
-    if (next){
+  let upcoming = null
+
+  if (varArray.length > 1) {
+    const next = varArray[1][`var2`].productName
+
+    if (next) {
       upcoming = next
     }
-    }
+  }
 
-    const tags = varKeysList[0][0][0]
+  const tags = varKeysList[0][0][0]
 
-    const [tagsValue, setTagsValue] = useState(tags);
-    const handleTagsChange = (event) => {
-      setTagsValue(event)
-    };
-  
-    const [tagStatus, setTagStatus] = useState(false)
-    function handleTags(){
-      setTagStatus(!tagStatus)
-    }
+  const [tagsValue, setTagsValue] = useState(tags);
+  const handleTagsChange = (event) => {
+    setTagsValue(event)
+  };
 
-    function submitTags(data){
-      handleTagsChange(data)
-      changeTags(data)
-    }
+  const [tagStatus, setTagStatus] = useState(false)
+  function handleTags() {
+    setTagStatus(!tagStatus)
+  }
+
+  function submitTags(data) {
+    handleTagsChange(data)
+    changeTags(data)
+  }
+
+  function addPrice() {
+    setPriceValue(parseInt(priceValue) + 1)
+  }
+
+  function minusPrice() {
+    if (priceValue > 0){
+    setPriceValue(parseInt(priceValue) - 1)}
+  }
+
+  function addStock() {
+    setStockAmount(parseInt(stockAmount) + 1)
+  }
+
+  function minusStock() {
+    if (stockAmount > 0) {
+    setStockAmount(parseInt(stockAmount) - 1)}
+  }
 
   return <Fragment>
-  <Head>
-    <title>{varArray[0][`var${1}`].productName}</title>
-  </Head>
+    <Head>
+      <title>{varArray[0][`var${1}`].productName}</title>
+    </Head>
     <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
     <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation}></AddVariation>
     <Confirmer2 modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${varArray[varState][`var${varNum}`].productName}?`} load={() => { setLoading(true) }} default={varNum} finish={delVariation} names={upcoming} routing={routerData} productFix={productFixer}></Confirmer2>
@@ -459,16 +482,16 @@ const productNames = Object.values(varKeysList)
         >
           {imgSet.map((i, index) => (
             i !== undefined && (
-            <motion.img
-              key={index}
-              src={imgSet[index]}
-              alt={index}
-              className={`side-img ${index === imgState ? "active-var" : ""}`}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 * index, duration: 0.2 }}
-              onClick={() => imgStateHandler(index)}
-            />)
+              <motion.img
+                key={index}
+                src={imgSet[index]}
+                alt={index}
+                className={`side-img ${index === imgState ? "active-var" : ""}`}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 * index, duration: 0.2 }}
+                onClick={() => imgStateHandler(index)}
+              />)
           ))}
         </motion.div>
       </div>
@@ -484,10 +507,13 @@ const productNames = Object.values(varKeysList)
           <div className="price-pair">
             <label className="heading-secondary product-currency">$</label>
             <div className="flex-col">
-              <input type="number" value={priceValue} className={priceClasses} placeholder="Price" required id='price' onChange={handlePriceChange}></input>
+              <div className="add-buttons flex-row-spaceless">
+                <button type="button" className="minus-button" onClick={minusPrice}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
+                <input type="number" value={priceValue} className={priceClasses} placeholder="Price" required id='price' onChange={handlePriceChange} style={{ borderRadius: "0", margin: "0" }}></input>
+                <button type="button" onClick={addPrice} className="add-button svg-color"><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
+              </div>
               {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label" style={{ color: "red" }}>Enter a valid price</label>}
             </div>
-
           </div>
 
 
@@ -506,23 +532,25 @@ const productNames = Object.values(varKeysList)
           <div className="price-pair">
 
             <label className="heading-secondary product-currency">Stock</label>
+
             <div className="flex-col">
-              <input type="number" value={stockAmount} className={amountClasses} placeholder="Amount" required id='amount' onChange={handleStockAmount}></input>
+              <div className="add-buttons flex-row-spaceless">
+                <button type="button" className="minus-button" onClick={minusStock}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
+                <input type="number" value={stockAmount} className={amountClasses} placeholder="Amount" required id='amount' onChange={handleStockAmount} style={{ borderRadius: "0", margin: "0" }}></input>
+                <button type="button" onClick={addStock} className="add-button svg-color" style={{ marginRight: "2rem" }}><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
+              </div>
               {formInputValidity.amount ? <label className="form-label">Stock Amount</label> : <label className="form-label" style={{ color: "red" }}>Invalid stock amount</label>}
             </div>
-
             <div className="flex-col">
               <input type="text" value={stockUnit} className={unitClasses} placeholder="Unit" required id='unit' onChange={handleStockUnit} autoComplete="off"></input>
               {formInputValidity.unit ? <label className="form-label">Stock Unit</label> : <label className="form-label" style={{ color: "red" }}>Invalid stock unit</label>}
             </div>
-
           </div>
-
         </form>
 
         <label className="heading-secondary variations-label">Variations</label> <button className="add-img" type="button" onClick={handleAddVar} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
-        
-       <motion.div className="varContainer" initial={{ opacity: 0 }}
+
+        <motion.div className="varContainer" initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2 }}>
           {varRange.map((v, index) => (
@@ -545,4 +573,4 @@ const productNames = Object.values(varKeysList)
 
 export default ProductPage
 
-export {getServerSideProps}
+export { getServerSideProps }

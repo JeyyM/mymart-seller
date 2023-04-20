@@ -183,8 +183,8 @@ function AddProduct(props) {
     // if (nameValue === setDefaultName) { nameExist = false; nameValid = true }
     nameValid = nameValue !== ""
     const descValid = descValue !== ""
-    const priceValid = priceValue !== ""
-    const amountValid = stockAmount !== ""
+    const priceValid = priceValue !== "" && priceValue >= 0
+    const amountValid = stockAmount !== "" && stockAmount >= 0
     const unitValid = stockUnit !== ""
     const imgValid = givenImages.length > 0
 

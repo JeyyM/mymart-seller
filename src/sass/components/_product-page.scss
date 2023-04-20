@@ -130,6 +130,7 @@ input[type=text].invalid-form-2:focus {
 
 .text-small {
   @include text-input-small;
+  z-index: 5;
 }
 
 input[type="text"].text-small {
@@ -222,6 +223,7 @@ input[type="text"].input-number:focus {
   height: 15rem;
   width: 20rem;
   transition: all 0.2s;
+  cursor: pointer;
 }
 
 .varItem.active-var {
@@ -237,6 +239,7 @@ input[type="text"].input-number:focus {
   @include border-round;
   transition: all 0.2s;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .side-img.active-var {

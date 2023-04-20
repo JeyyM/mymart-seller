@@ -10,9 +10,26 @@
   margin-left: 1rem;
 }
 
+.heading-icon-brush {
+  @include heading-logo(brush, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
 .heading-icon-plus {
   @include heading-logo(plus, 3rem, 3rem);
   margin-left: 1rem;
+}
+
+.heading-icon-plus-act {
+  @include heading-logo(plus, 3rem, 3rem);
+  margin-left: 1rem;
+  transform: translateX(-0.5rem)
+}
+
+.heading-icon-minus-act {
+  @include heading-logo(minus, 3rem, 3rem);
+  margin-right: 1rem;
+  transform: translateX(0.5rem)
 }
 
 .heading-icon-plus-marginless {
@@ -21,6 +38,21 @@
 
 .heading-icon-edit {
   @include heading-logo(edit, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
+.heading-icon-sun {
+  @include heading-logo(sun, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
+.heading-icon-moon {
+  @include heading-logo(brush, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
+.heading-icon-dice {
+  @include heading-logo(dice, 4rem, 4rem);
   margin-left: 1rem;
 }
 
@@ -110,9 +142,37 @@
   gap: 1rem;
 }
 
+.flex-row-spaceless{
+  display: flex;
+  flex-direction: row;
+}
+
 // .size-100{
 //   width: 10rem;
 // }
 input[type=number].shortener-25{
   width: 25% !important;
+}
+
+.flex-row-align{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+}
+
+.minus-button{
+  background-color: white;
+  border-radius: 50% 0 0 50%;
+  border: none;
+  cursor: pointer;
+  height: 5rem;
+}
+
+.add-button{
+  background-color: white;
+  border-radius: 0 50% 50% 0;
+  border: none;
+  cursor: pointer;
+  height: 5rem;
 }

@@ -35,7 +35,7 @@ filter: brightness(-50%);}`
             <Head>
                 <style>
                     {` 
-::selection{background-color: ${props.color["color-primary-dark"]}}                    
+::selection{background-color: ${props.color["color-primary-dark"]};}                    
 
 body{background-color: ${props.color["bg-body"]} !important;}
 
@@ -66,9 +66,9 @@ border-image: linear-gradient(
 .homepage-button:hover.x, .category:hover {
     filter: drop-shadow(-6px 6px 0px ${props.color["color-primary-dark"]}) !important}
 
-.homepage-button:active.x, .category:active{
+.homepage-button:active.x, .category:active, .theme-pack:active{
     transform: translateY(0rem) translateX(0rem) !important;
-    filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) !important;}
+    filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["bg-item"]}) !important;}
 
 .navitem, .image-container{border-image: linear-gradient(
       45deg,
@@ -85,6 +85,13 @@ border-image: linear-gradient(
     ${props.color["color-primary-light"]}
   ) !important;}
 
+.svg-decolor{
+    background-image: linear-gradient(
+    to right,
+    ${props.color["bg-item"]},
+    ${props.color["bg-item"]}
+  ) !important;}
+
 .company-logo-med {
     border-image: linear-gradient(
       45deg,
@@ -93,15 +100,15 @@ border-image: linear-gradient(
     )
     1 !important;}
 
-.navbutton { background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
+.navbutton, .theme-button { background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
     filter: drop-shadow(-2px 2px 0px ${props.color["color-primary-dark"]}) !important;}
 
-.navbutton:hover.x {
+.navbutton:hover.x, .theme-button:hover {
     filter: drop-shadow(-6px 6px 0px ${props.color["color-primary-dark"]}) !important}
 
-.navbutton:active.x {
-    transform: translateY(0rem) translateX(0rem);
+.navbutton:active.x, .theme-button:active {
+    transform: translateY(0rem) translateX(0rem) !important;
     filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) !important}
 
 .navbutton__hr, .navbutton__hr::before, .navbutton__hr::after, .navbutton:hover .navbutton__hr-2, .navbutton:hover .navbutton__hr-2::after, .navbutton:hover .navbutton__hr-2::before, .add-categ-init, .add-prod-init {
@@ -139,13 +146,18 @@ border-image: linear-gradient(
     0 0 0 4px ${props.color["bg-item"]} !important;
 }
 
-.text-full, .desc-text-area, .add-categ-img, .text-small{
+.add-button, .minus-button{
+    box-shadow: 0 0 0 2px ${props.color["color-primary-dark"]},
+    0 0 0 4px ${props.color["bg-item"]} !important;
+}
+
+.text-full, .desc-text-area, .add-categ-img, .text-small, .minus-button{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
     filter: brightness(120%) !important
     }
 
-input[type="text"].text-full:focus, input[type="number"].text-small:focus, input[type="text"].text-small:focus, .desc-text-area:focus {
+input[type="text"].text-full:focus, input[type="number"].text-small:focus, input[type="text"].text-small:focus, .desc-text-area:focus, .add-button:active, .minus-button:active {
     filter: brightness(150%) !important;
   outline-color: ${props.color["color-primary-dark"]} !important;
 }
@@ -186,13 +198,13 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     0 0 0 4px ${props.color["bg-item"]} !important;
 }
 
-.product-action-2{
+.product-action-2, .product-action-2-small{
     background-image: linear-gradient(${props.color["button-solid-light"]}, ${props.color["button-solid-dark"]}),
     linear-gradient(to right, ${props.color["button-solid-dark"]}, ${props.color["button-solid-light"]} ) !important;
     color: ${props.color["button-solid-text"]} !important;
 }
 
-.product-action-2:active{
+.product-action-2:active, .product-action-2-small:active{
     filter: brightness(120%) !important;
     box-shadow: 0 0 0 2px ${props.color["bg-item"]}, 0 0 0 4px ${props.color["button-solid-dark"]} !important;
 }
@@ -218,6 +230,12 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
   border-radius: 10px;
   border: 3px solid ${props.color["text-primary-color"]};
   filter: brightness(120%) !important;
+}
+
+.item-setup{
+    background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
+    linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
+    box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;
 }
 
     ` }
