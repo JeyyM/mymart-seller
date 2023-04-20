@@ -31,7 +31,7 @@
 .design-col-3{
     width: 100%;
     height: 100%;
-    background-color: rgb(2, 116, 0);
+    background-color: transparent;
     grid-column: 7/11;
     display: flex;
     flex-direction: column;
@@ -88,19 +88,13 @@
 }
 
 .design-primary{
-    height: 31rem;
+    height: 47rem;
     width: 100%;
-    background-color: chartreuse;
+    background-color: white;
 }
 
 .design-typography{
-    height: 20rem;
-    width: 100%;
-    background-color: chartreuse;
-}
-
-.design-buttons{
-    height: 20rem;
+    height: 25rem;
     width: 100%;
     background-color: chartreuse;
 }
@@ -109,6 +103,8 @@
     height: 45rem;
     width: 100%;
     background-color: chartreuse;
+    display: flex;
+    flex-direction: column;
 }
 
 .demo-typography{
@@ -124,6 +120,15 @@
     transition: all 0.2s;
     padding: 1rem;
     box-shadow: inset 0 0 0 2rem $theme-bg;
+}
+
+.item-setup-dark {
+    @include border-round;
+    border: solid 5px transparent;
+    position: relative;
+    transition: all 0.2s;
+    padding: 1rem;
+    box-shadow: inset 0 0 0 2rem $background-color;
 }
 
 .theme-button{
@@ -170,8 +175,18 @@
     gap: 2rem;
 }
 
+.text-group-3{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem;
+}
+
 .text-group-4{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 2rem;
+}
+
+.text-span{
+    grid-column: 1/3;
 }

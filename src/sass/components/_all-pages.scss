@@ -56,10 +56,21 @@
   margin-left: 1rem;
 }
 
+.heading-icon-typography {
+  @include heading-logo(typography, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
+.heading-icon-preview {
+  @include heading-logo(preview, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
 .empty-logo{
   @include empty-logo(empty, 8rem, 8rem);
     transform: translateY(-10rem);
 }
+
 
 .backdrop {
   position: fixed;

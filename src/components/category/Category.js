@@ -8,7 +8,7 @@ function Category(props) {
     const { categoryName, categoryImage, categoryDescription, categoryProducts } = props.items
 
     return <>
-    <MotionLink className="category" href={{ pathname: `/${props.id}/categories/${categoryName}`, query: { shopid: props.id }, }}
+    <MotionLink className="category marginer" href={{ pathname: `/${props.id}/categories/${categoryName}`, query: { shopid: props.id }, }}
         initial={!props.state ? { opacity: 0, x: -100 } : false}   
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.2 * props.index, duration: 0.2 }}>
