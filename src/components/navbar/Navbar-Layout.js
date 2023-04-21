@@ -6,6 +6,8 @@ import Head from "next/head";
 function NavbarLayout(props) {
     const router = useRouter()
 
+    console.log("in navbar layout", props.color)
+
     function hexToRgb(hex) {
         hex = hex.replace('#', '');
 
