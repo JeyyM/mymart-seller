@@ -24,19 +24,6 @@
     z-index: -6;
   }
 
-  .category-sample {
-    @include button-style;
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    height: 30rem;
-    text-decoration: none;
-    width: calc(100vw / 4 - 3rem);
-    word-wrap: break-word;
-    z-index: 5;
-    align-self: center;
-  }
-
   .image-container {
     position: relative;
     width: 100%;

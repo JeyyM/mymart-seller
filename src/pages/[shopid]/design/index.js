@@ -88,22 +88,24 @@ function Designing({ shopID }) {
     setTextTertiaryFont(event.target.value);
   };
 
-  const [borderTL, setBorderTL] = useState(activeMode["border-tl"])
+  const [borderTL, setBorderTL] = useState(activeMode["border-tl"].slice(0,-2))
   const handleBorderTL = (event) => {
     setBorderTL(event.target.value);
   };
-  const [borderTR, setBorderTR] = useState(activeMode["border-tr"])
+  const [borderTR, setBorderTR] = useState(activeMode["border-tr"].slice(0,-2))
   const handleBorderTR = (event) => {
     setBorderTR(event.target.value);
   };
-  const [borderBL, setBorderBL] = useState(activeMode["border-bl"])
+  const [borderBL, setBorderBL] = useState(activeMode["border-bl"].slice(0,-2))
   const handleBorderBL = (event) => {
     setBorderBL(event.target.value);
   };
-  const [borderBR, setBorderBR] = useState(activeMode["border-br"])
+  const [borderBR, setBorderBR] = useState(activeMode["border-br"].slice(0,-2))
   const handleBorderBR = (event) => {
     setBorderBR(event.target.value);
   };
+
+  console.log(borderTL)
 
   const [outlineDark, setOutlineDark] = useState(activeMode["button-outline-dark"])
   const handleOutlineDark = (event) => {
@@ -133,18 +135,9 @@ function Designing({ shopID }) {
 
 
 
-
-
-
-
-
-
-/////////////PREVIEW CLASSES///////////////////////
-let itemSetupDark = `{
-  background-image: linear-gradient(${bgBody}, ${bgBody}}),
-  linear-gradient(to right, ${DarkColor}, ${DarkColor}) !important;
-  box-shadow: inset 0 0 0 2rem ${bgBody} !important;
-}`
+  useEffect(() => {
+    setLightColor(LightColor)
+  }, [LightColor, DarkColor])
 
 
 
@@ -154,9 +147,6 @@ let itemSetupDark = `{
 
 
 
-
-
-/////////////////////////////////
 
   function onSubmit(event) {
     event.preventDefault()
@@ -165,7 +155,7 @@ let itemSetupDark = `{
     finishForm(data)
   }
 
-  const [color, setColor] = useState("#ffffff")
+  const [color, setColor] = useState("#fff")
 
   const themeSet = ["#89375F", "#CE5959", "#BACDDB", "#F3E8FF", "#2A2F4F", "#4F4557", "#BA90C6", "#E8A0BF", 30, 30, 30, 30, "Coolors Random"]
 
@@ -260,10 +250,10 @@ let itemSetupDark = `{
 
           <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Border Radius (px)</h3>
           <div className="text-group-4">
-            <input type="text" placeholder="T L" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={borderTL} onChange={handleBorderTL}></input>
-            <input type="text" placeholder="T R" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={borderTR} onChange={handleBorderTR}></input>
-            <input type="text" placeholder="B L" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={borderBL} onChange={handleBorderBL}></input>
-            <input type="text" placeholder="B R" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={borderBR} onChange={handleBorderBR}></input>
+            <input type="number" placeholder="T L" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={borderTL} onChange={handleBorderTL}></input>
+            <input type="number" placeholder="T R" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={borderTR} onChange={handleBorderTR}></input>
+            <input type="number" placeholder="B L" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={borderBL} onChange={handleBorderBL}></input>
+            <input type="number" placeholder="B R" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={borderBR} onChange={handleBorderBR}></input>
           </div>
 
           <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Button Outline</h3>
@@ -290,51 +280,50 @@ let itemSetupDark = `{
           </span>
 
           <div className="text-group-3" style={{ marginTop: "1rem" }}>
-            <FontOptions defaultFont={textPrimaryFont} type={"heading-primary-select"}></FontOptions>
+            <FontOptions defaultFont={textPrimaryFont} type={"heading-primary-select"} effect={setTextPrimaryFont}></FontOptions>
             <input type="text" placeholder="Text Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={textPrimary} onChange={handleTextPrimary}></input>
           </div>
           <div className="text-group-3" style={{ marginTop: "1rem" }}>
-          <FontOptions defaultFont={textSecondaryFont} type={"heading-secondary-select"}></FontOptions>
+          <FontOptions defaultFont={textSecondaryFont} type={"heading-secondary-select"} effect={setTextSecondaryFont}></FontOptions>
             <input type="text" placeholder="Text Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={textSecondary} onChange={handleTextSecondary}></input>
           </div>
           <div className="text-group-3" style={{ marginTop: "1rem" }}>
-          <FontOptions defaultFont={textTertiaryFont} type={"heading-tertiary-select"}></FontOptions>
+          <FontOptions defaultFont={textTertiaryFont} type={"heading-tertiary-select"} effect={setTextTertiaryFont}></FontOptions>
             <input type="text" placeholder="Text Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={textTertiary} onChange={handleTextTertiary}></input>
           </div>
         </div>
       </div>
 
       <div className="design-col-4">
-      <div className="design-demo" style={{backgroundImage: `linear-gradient(${bgBody}, ${bgBody}), linear-gradient(to right, ${DarkColor}, ${DarkColor}) !important`, boxShadow: `inset 0 0 0 2rem ${bgBody} !important`}}>
-
+        <div className="design-demo item-setup-dark">
           <span className="page-heading flex-row-align">
             <div className="heading-icon-dropshadow">
-              <div className="heading-icon-preview">&nbsp;</div>
+              <div className="heading-icon-preview svg-color" style={{backgroundImage: `linear-gradient( to right, red, yellow ) !important`}}>&nbsp;</div>
             </div>
-            <h1 className="no-margin">Main Preview</h1>
+            <h1 className="heading-primary-demo" style={{ color: `${textPrimary}`, fontFamily: `${textPrimaryFont}`}}>Main Preview</h1>
           </span>
 
-          <div className="category-sample">
-            <div className="image-container">
+          <div className="category-sample" style={{borderRadius: `${borderTL}px ${borderTR}px ${borderBR}px ${borderBL}px`}}>
+                     <div className="image-container">
               <img src="/categories.jpg" className="category-img" alt="Sample Image"></img>
             </div>
 
             <div className="category-content">
               <div>
-                <h2 className="heading-secondary category-name">Heading Secondary</h2>
-                <h3 className="heading-tertiary">Sample Heading Tertiary Sample Heading Tertiary Sample Heading Tertiary</h3>
+                <h2 className="heading-secondary-demo category-name" style={{ color: `${textSecondary}`, fontFamily: `${textSecondaryFont}`, marginLeft:"1rem"}}>Heading Secondary</h2>
+                <h3 className="heading-tertiary-demo" style={{ color: `${textTertiary}`, fontFamily: `${textTertiaryFont}`, marginLeft:"1rem"}}>Sample Heading Tertiary Sample Heading Tertiary Sample Heading Tertiary</h3>
               </div>
               <div className="product-number-container">
-                <h2 className="heading-secondary product-numbers product-price">$123</h2>
-                <h2 className="heading-secondary product-numbers">456 Units</h2>
+                <h2 className="heading-secondary-demo product-numbers product-price" style={{ color: `${textSecondary}`, fontFamily: `${textSecondaryFont}` }}>$123</h2>
+                <h2 className="heading-secondary-demo product-numbers" style={{ color: `${textSecondary}`, fontFamily: `${textSecondaryFont}` }}>456 Units</h2>
               </div>
             </div>
           </div>
 
 
           <div className="text-group" style={{ marginTop: "1rem" }}>
-            <button className="product-action-1 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }}>Outline</button>
-            <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }}>Solid</button>
+            <button className="product-action-1-demo heading-secondary-demo" type="button" style={{ margin: "0rem", width: "100%", color: `${textSecondary}`, fontFamily: `${textSecondaryFont}` }}>Outline</button>
+            <button className="product-action-2-demo heading-secondary-demo" type="button" style={{ margin: "0rem", width: "100%", color: `${textSecondary}`, fontFamily: `${textSecondaryFont}` }}>Solid</button>
           </div>
 
         </div>
@@ -346,13 +335,13 @@ let itemSetupDark = `{
             <h1 className="heading-secondary no-margin">Typography Preview</h1>
           </span>
           <div className="typo-prev-1 item-setup-2-b">
-          <button className="contrast-init"><h2 className="heading-tertiary">O 5.5</h2></button><h1 className="heading-primary" style={{marginLeft:"1rem"}}>Lorem Ipsum Dolor</h1>
+          <button className="contrast-init"><h2 className="heading-tertiary">O 5.5</h2></button><h1 className="heading-primary-demo" style={{ color: `${textPrimary}`, fontFamily: `${textPrimaryFont}`, marginLeft:"1rem"}}>Lorem Ipsum</h1>
           </div>
           <div className="typo-prev-2 item-setup-2">
-          <button className="contrast-init"><h2 className="heading-tertiary">O 5.5</h2></button><h2 className="heading-secondary" style={{marginLeft:"1rem"}}>Lorem Ipsum Dolor</h2>
+          <button className="contrast-init"><h2 className="heading-tertiary">O 5.5</h2></button><h2 className="heading-secondary-demo" style={{ color: `${textSecondary}`, fontFamily: `${textSecondaryFont}`, marginLeft:"1rem"}}>Lorem Ipsum Dolor</h2>
           </div>
           <div className="typo-prev-3 item-setup-2">
-          <button className="contrast-init"><h2 className="heading-tertiary">O 5.5</h2></button><h2 className="heading-tertiary" style={{marginLeft:"1rem"}}>Lorem Ipsum Dolor</h2>
+          <button className="contrast-init"><h2 className="heading-tertiary">O 5.5</h2></button><h2 className="heading-tertiary-demo" style={{ color: `${textTertiary}`, fontFamily: `${textTertiaryFont}`, marginLeft:"1rem"}}>Lorem Ipsum Dolor</h2>
           </div>
 
 
@@ -367,82 +356,3 @@ let itemSetupDark = `{
 export default Designing
 
 export { getServerSideProps }
-
-// .svg-color -demo{
-//   background-image: linear-gradient(
-//   to right,
-//   ${props.color["color-primary-dark"]},
-//   ${props.color["color-primary-light"]}
-// ) !important;}
-
-// .heading-primary -demo {font-family: ${props.color["text-primary-font"]} !important;
-//     color: ${props.color["text-primary-color"]} !important;}
-
-// .category-sample{
-//   border-radius: ${props.color["border-tl"]} ${props.color["border-tr"]} ${props.color["border-br"]} ${props.color["border-bl"]} !important;}
-
-// .category-sample:hover {
-//   filter: drop-shadow(-6px 6px 0px ${props.color["color-primary-dark"]}) !important}
-
-// .category-sample:active{
-//   transform: translateY(0rem) translateX(0rem) !important;
-//   filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["bg-item"]}) !important;}
-
-
-// .image-container -demo{border-image: linear-gradient(
-//   45deg,
-//   ${props.color["color-primary-dark"]},
-//   ${props.color["color-primary-light"]}
-// )
-// 1 !important;
-// background-color:${props.color["bg-item"]} !important;}
-
-// .category-sample{
-//   background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
-//   linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;}
-
-// .category-content -demo{
-//   background-color:${props.color["bg-item"]} !important;
-// }
-
-// .product-action-1{
-//   background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
-//   linear-gradient(to right, ${props.color["button-outline-dark"]}, ${props.color["button-outline-light"]} ) !important;
-//   box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;
-//   color: ${props.color["button-outline-text"]} !important;
-// }
-
-// .product-action-1:active{
-//   filter: brightness(120%) !important;
-// box-shadow: inset 0 0 0 10px ${props.color["bg-item"]}, 0 0 0 2px ${props.color["button-outline-dark"]},
-//   0 0 0 4px ${props.color["bg-item"]} !important;
-// }
-
-// .product-action-2, .product-action-2-small{
-//   background-image: linear-gradient(${props.color["button-solid-light"]}, ${props.color["button-solid-dark"]}),
-//   linear-gradient(to right, ${props.color["button-solid-dark"]}, ${props.color["button-solid-light"]} ) !important;
-//   color: ${props.color["button-solid-text"]} !important;
-// }
-
-// .product-action-2:active, .product-action-2-small:active{
-//   filter: brightness(120%) !important;
-//   box-shadow: 0 0 0 2px ${props.color["bg-item"]}, 0 0 0 4px ${props.color["button-solid-dark"]} !important;
-// }
-
-// .item-setup{
-//   background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
-//   linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
-//   box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;
-// }
-
-// .item-setup-2-b{
-//   background-image: linear-gradient(${props.color["bg-body"]}, ${props.color["bg-body"]}),
-//   linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
-//   box-shadow: inset 0 0 0 2rem ${props.color["bg-body"]} !important;
-// }
-
-// .item-setup-2{
-//   background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
-//   linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
-//   box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;
-// }

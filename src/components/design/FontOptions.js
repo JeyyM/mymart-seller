@@ -64,16 +64,15 @@ function FontOptions(props) {
   const [selectFont, setSelectFont] = useState(props.defaultFont)
   const handleSelectFont = (event) => {
     setSelectFont(event.target.value);
+    props.effect(event.target.value);
   };
 
   const fontList = fonts.map(font => (font.family))
-
-  console.log("fonts", fontList)
   
 
   return (
     <Fragment>
-    <select className={`text-options text-span ${props.type}`} style={{width: "100%", fontFamily: `${selectFont}`}} onChange={(event) => handleSelectFont(event)}>
+    <select value={selectFont} className={`text-options text-span ${props.type}`} style={{width: "100%", fontFamily: `${selectFont}`}} onChange={(event) => handleSelectFont(event)}>
     {fonts.map(font => (font.family !== "Material Icons" &&
         <option key={font.family} value={font.family} style={{fontFamily: `${font.family}`}}>{font.family}</option>
       ))}

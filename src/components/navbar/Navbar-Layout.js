@@ -62,13 +62,12 @@ border-image: linear-gradient(
     1 !important;}
 
 
-.homepage-button, .add-categ-init, .add-prod-init, .category, .product-image, .side-img, .varItem{
-    border-radius: ${props.color["border-tl"]} ${props.color["border-tr"]} ${props.color["border-br"]} ${props.color["border-bl"]} !important;}
+.homepage-button, .add-categ-init, .add-prod-init, .category, .product-image, .side-img, .varItem{border-radius: ${props.color["border-tl"]} ${props.color["border-tr"]} ${props.color["border-br"]} ${props.color["border-bl"]} !important;}
 
-.homepage-button:hover.x, .category:hover{
+.homepage-button:hover.x, .category:hover, .category-sample:hover {
     filter: drop-shadow(-6px 6px 0px ${props.color["color-primary-dark"]}) !important}
 
-.homepage-button:active.x, .category:active, .theme-pack:active{
+.homepage-button:active.x, .category:active, .category-sample:active, .theme-pack:active{
     transform: translateY(0rem) translateX(0rem) !important;
     filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["bg-item"]}) !important;}
 
@@ -118,7 +117,7 @@ border-image: linear-gradient(
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
 }
 
-.categ-modal, .confirm-modal, .category, .categ-edit-button, .product-edit-button, .add-img, .side-img, .add-prod-img, .product-image, .varItem{
+.categ-modal, .confirm-modal, .category, .category-sample, .categ-edit-button, .product-edit-button, .add-img, .side-img, .add-prod-img, .product-image, .varItem{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;}
 
@@ -203,6 +202,10 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     color: ${props.color["button-outline-text"]} !important;
 }
 
+.product-action-1-demo{background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
+    linear-gradient(to right, ${props.color["button-outline-dark"]}, ${props.color["button-outline-light"]} ) !important;
+    box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;}
+
 .product-action-1:active{
     filter: brightness(120%) !important;
   box-shadow: inset 0 0 0 10px ${props.color["bg-item"]}, 0 0 0 2px ${props.color["button-outline-dark"]},
@@ -215,7 +218,10 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     color: ${props.color["button-solid-text"]} !important;
 }
 
-.product-action-2:active, .product-action-2-small:active{
+.product-action-2-demo{background-image: linear-gradient(${props.color["button-solid-light"]}, ${props.color["button-solid-dark"]}),
+    linear-gradient(to right, ${props.color["button-solid-dark"]}, ${props.color["button-solid-light"]} ) !important;}
+
+.product-action-2:active, .product-action-2-demo:active, .product-action-2-small:active{
     filter: brightness(120%) !important;
     box-shadow: 0 0 0 2px ${props.color["bg-item"]}, 0 0 0 4px ${props.color["button-solid-dark"]} !important;
 }
@@ -247,6 +253,12 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
     box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;
+}
+
+.item-setup-dark{
+    background-image: linear-gradient(${props.color["bg-body"]}, ${props.color["bg-body"]}),
+    linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
+    box-shadow: inset 0 0 0 2rem ${props.color["bg-body"]} !important;
 }
 
 .item-setup-2-b{
