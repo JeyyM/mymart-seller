@@ -105,7 +105,6 @@ function Designing({ shopID }) {
     setBorderBR(event.target.value);
   };
 
-  console.log(borderTL)
 
   const [outlineDark, setOutlineDark] = useState(activeMode["button-outline-dark"])
   const handleOutlineDark = (event) => {
@@ -133,21 +132,6 @@ function Designing({ shopID }) {
     setSolidText(event.target.value);
   };
 
-
-
-  useEffect(() => {
-    setLightColor(LightColor)
-  }, [LightColor, DarkColor])
-
-
-
-
-
-
-
-
-
-
   function onSubmit(event) {
     event.preventDefault()
     // const data = { "color-primary-dark": Light_DarkColor, "color-primary-light": Light_LightColor }
@@ -157,17 +141,76 @@ function Designing({ shopID }) {
 
   const [color, setColor] = useState("#fff")
 
+  ////////////     ColorDark - ColorLight - BgBody - BgItem - textprime - text seco/tert - button dark - button light
   const themeSet = ["#89375F", "#CE5959", "#BACDDB", "#F3E8FF", "#2A2F4F", "#4F4557", "#BA90C6", "#E8A0BF", 30, 30, 30, 30, "Coolors Random"]
 
-  const themeSet1 = ["#0057FF", "#7FC9FF", "#C1EFFF", "#D5E8FC", "#0A2647", "#003F76", "#004DFF", "#3974FF", 10, 10, 10, 10, "Cool Blue"]
+  const themeSet1 = ["#0057FF", "#7FC9FF", "#E7F6FD", "#FFFFFF", "#0A2647", "#003F76", "#004DFF", "#3974FF", 10, 10, 10, 10, "Cool Blue"]
 
-  const themeSet2 = ["#263A29", "#41644A", "#E8D2A6", "#B3E5BE", "#3C2317", "#665A48", "#367E18", "#BFDB38", 20, 10, 20, 10, "Forest Green"]
+  const themeSet2 = ["#263A29", "#41644A", "#E8D2A6", "#B3E5BE", "#3C2317", "#665A48", "#367E18", "#BFDB38", 50, 10, 10, 50, "Forest Green"]
 
   const themeSet3 = ["#89375F", "#CE5959", "#BACDDB", "#F3E8FF", "#2A2F4F", "#4F4557", "#BA90C6", "#E8A0BF", 30, 30, 30, 30, "Floral Pink"]
 
-  const themeSet4 = ["#A84448", "#F2CD5C", "#FFF2CC", "#FFAFB2", "#FFD966", "#F6F1E9", "#E74646", "#FFD93D", 0, 30, 30, 30, "Brick Red"]
+  const themeSet4 = ["#A84448", "#F2CD5C", "#FFAFB2", "#FFF2CC", "#570000", "#570000", "#E74646", "#FFD93D", 0, 30, 30, 30, "Brick Red"]
 
+  const setAllTheme = (payload) => {
+    console.log(payload)
+    setDarkColor(payload[0])
+    setLightColor(payload[1])
+    setBgBody(payload[2])
+    setBgItem(payload[3])
+    setTextPrimary(payload[4])
+    setTextSecondary(payload[5])
+    setTextTertiary(payload[5])
+    setOutlineDark(payload[6])
+    setOutlineLight(payload[7])
+    setSolidDark(payload[6])
+    setSolidLight(payload[7])
+    setBorderTL(payload[8])
+    setBorderTR(payload[9])
+    setBorderBL(payload[10])
+    setBorderBR(payload[11])
+    setSolidText(payload[5])
+    setOutlineText(payload[5])
+  }
+  
+  const [isHovered, setIsHovered] = useState(false);
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  const categorySampleHover = {
+    transform: 'translateY(-0.6rem) translateX(1rem)',
+    filter: `drop-shadow(-6px 6px 0px ${DarkColor})`,
+  };  
+
+  const [isClicked, setIsClicked] = useState(false);
+  const [isClicked2, setIsClicked2] = useState(false);
+  const [isClicked3, setIsClicked3] = useState(false);
+
+  const categorySampleClick = {
+      transform: "translateY(0rem) translateX(0rem)",
+      filter: `drop-shadow(-1px 1px 0px ${DarkColor}) brightness(120%) drop-shadow(0px 0px 10px ${bgItem})`
+    }
+
+    const ActionDemo1 = {
+      filter: "brightness(120%)",
+      boxShadow: `0 0 0 2px ${solidDark}, 0 0 0 4px ${bgItem}`
+    };
+
+    const ActionDemo2 = {
+      filter: "brightness(120%)",
+      boxShadow: `inset 0 0 0 10px ${bgItem}, 0 0 0 2px ${outlineDark},
+        0 0 0 4px ${bgItem}`
+    };
+    
+
+  const categSample = `category-sample ${isHovered ? "category-sample-hover" : ""}`;
+  
   return <Fragment>
   <Head>
     <title>Design Mart</title>
@@ -207,13 +250,13 @@ function Designing({ shopID }) {
           <h1 className="heading-secondary no-margin">Light Themes</h1>
         </span>
 
-        <ThemePack themeSet={themeSet1}></ThemePack>
+        <ThemePack themeSet={themeSet1} set={setAllTheme}></ThemePack>
 
-        <ThemePack themeSet={themeSet2}></ThemePack>
+        <ThemePack themeSet={themeSet2} set={setAllTheme}></ThemePack>
 
-        <ThemePack themeSet={themeSet3}></ThemePack>
+        <ThemePack themeSet={themeSet3} set={setAllTheme}></ThemePack>
 
-        <ThemePack themeSet={themeSet4}></ThemePack>
+        <ThemePack themeSet={themeSet4} set={setAllTheme}></ThemePack>
 
         <span className="page-heading flex-row-align">
           <div className="heading-icon-dropshadow">
@@ -295,20 +338,28 @@ function Designing({ shopID }) {
       </div>
 
       <div className="design-col-4">
-        <div className="design-demo item-setup-dark">
+        <div className="design-demo item-setup-dark" style={{backgroundImage: `linear-gradient( to right, ${bgBody}, ${bgBody}), 
+        linear-gradient( to right, ${DarkColor}, ${LightColor})`, boxShadow: `inset 0 0 0 2rem ${bgBody}`}}>
           <span className="page-heading flex-row-align">
-            <div className="heading-icon-dropshadow">
-              <div className="heading-icon-preview svg-color" style={{backgroundImage: `linear-gradient( to right, red, yellow ) !important`}}>&nbsp;</div>
+            <div className="heading-icon-dropshadow-demo" style={{filter: `drop-shadow(-2px 2px 0px ${textPrimary})`}}>
+              <div className="heading-icon-preview" style={{backgroundImage: `linear-gradient( to right, ${DarkColor}, ${LightColor} )`}}>&nbsp;</div>
             </div>
-            <h1 className="heading-primary-demo" style={{ color: `${textPrimary}`, fontFamily: `${textPrimaryFont}`}}>Main Preview</h1>
+            
+            <h1 className="heading-primary-demo" style={{ color: `${textPrimary}`, fontFamily: `${textPrimaryFont}`, marginTop: "-1rem", marginLeft:"-0.5rem"}}>Main Preview</h1>
+    
           </span>
 
-          <div className="category-sample" style={{borderRadius: `${borderTL}px ${borderTR}px ${borderBR}px ${borderBL}px`}}>
-                     <div className="image-container">
+        <div style={{filter: `drop-shadow(-4px 4px 0px ${DarkColor})`, margin: "0 auto"}}>
+          <div className={categSample} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} onMouseUp={() => setIsClicked(false)} onMouseDown={() => setIsClicked(true)}
+          style={{borderRadius: `${borderTL}px ${borderTR}px ${borderBR}px ${borderBL}px`, cursor: "pointer",
+    backgroundImage: `linear-gradient(${bgItem}, ${bgItem}), linear-gradient(${LightColor}, ${DarkColor})`, ... (isHovered ? categorySampleHover : {}), ...(isClicked ? categorySampleClick : {}),
+  }}>
+
+                     <div className="image-container-demo" style={{borderImage: `linear-gradient(45deg, ${DarkColor}, ${LightColor}) 1`, backgroundColor: `${bgItem}`}}>
               <img src="/categories.jpg" className="category-img" alt="Sample Image"></img>
             </div>
 
-            <div className="category-content">
+            <div className="category-content-demo" style={{backgroundColor: `${bgItem}`}}>
               <div>
                 <h2 className="heading-secondary-demo category-name" style={{ color: `${textSecondary}`, fontFamily: `${textSecondaryFont}`, marginLeft:"1rem"}}>Heading Secondary</h2>
                 <h3 className="heading-tertiary-demo" style={{ color: `${textTertiary}`, fontFamily: `${textTertiaryFont}`, marginLeft:"1rem"}}>Sample Heading Tertiary Sample Heading Tertiary Sample Heading Tertiary</h3>
@@ -319,11 +370,13 @@ function Designing({ shopID }) {
               </div>
             </div>
           </div>
-
+        </div>
 
           <div className="text-group" style={{ marginTop: "1rem" }}>
-            <button className="product-action-1-demo heading-secondary-demo" type="button" style={{ margin: "0rem", width: "100%", color: `${textSecondary}`, fontFamily: `${textSecondaryFont}` }}>Outline</button>
-            <button className="product-action-2-demo heading-secondary-demo" type="button" style={{ margin: "0rem", width: "100%", color: `${textSecondary}`, fontFamily: `${textSecondaryFont}` }}>Solid</button>
+            <button className="product-action-1-demo heading-secondary-demo" type="button" onMouseUp={() => setIsClicked3(false)} onMouseDown={() => setIsClicked3(true)} style={{ margin: "0rem", width: "100%", color: `${outlineText}`, fontFamily: `${textSecondaryFont}`, 
+            backgroundImage: `linear-gradient(${bgItem}, ${bgItem}), linear-gradient(${outlineDark}, ${outlineLight})`, boxShadow: `inset 0 0 0 2rem ${bgItem}`, ...(isClicked3 ? ActionDemo2 : {})}}>Outline</button>
+            <button className="product-action-2-demo heading-secondary-demo" type="button" onMouseUp={() => setIsClicked2(false)} onMouseDown={() => setIsClicked2(true)} style={{ margin: "0rem", width: "100%", color: `${solidText}`, 
+            fontFamily: `${textSecondaryFont}`, backgroundImage: `linear-gradient(${solidLight}, ${solidDark})`, ...(isClicked2 ? ActionDemo1 : {}) }}>Solid</button>
           </div>
 
         </div>
@@ -334,13 +387,17 @@ function Designing({ shopID }) {
             </div>
             <h1 className="heading-secondary no-margin">Typography Preview</h1>
           </span>
-          <div className="typo-prev-1 item-setup-2-b">
+
+          <div className="typo-prev-1 item-setup-2-b" style={{backgroundImage: `linear-gradient( to right, ${bgBody}, ${bgBody}), 
+        linear-gradient( to right, ${DarkColor}, ${LightColor})`, boxShadow: `inset 0 0 0 2rem ${bgBody}`}}>
           <button className="contrast-init"><h2 className="heading-tertiary">O 5.5</h2></button><h1 className="heading-primary-demo" style={{ color: `${textPrimary}`, fontFamily: `${textPrimaryFont}`, marginLeft:"1rem"}}>Lorem Ipsum</h1>
           </div>
-          <div className="typo-prev-2 item-setup-2">
+          <div className="typo-prev-2 item-setup-2" style={{backgroundImage: `linear-gradient( to right, ${bgItem}, ${bgItem}), 
+        linear-gradient( to right, ${DarkColor}, ${LightColor})`, boxShadow: `inset 0 0 0 2rem ${bgItem}`}}>
           <button className="contrast-init"><h2 className="heading-tertiary">O 5.5</h2></button><h2 className="heading-secondary-demo" style={{ color: `${textSecondary}`, fontFamily: `${textSecondaryFont}`, marginLeft:"1rem"}}>Lorem Ipsum Dolor</h2>
           </div>
-          <div className="typo-prev-3 item-setup-2">
+          <div className="typo-prev-3 item-setup-2" style={{backgroundImage: `linear-gradient( to right, ${bgItem}, ${bgItem}), 
+        linear-gradient( to right, ${DarkColor}, ${LightColor})`, boxShadow: `inset 0 0 0 2rem ${bgItem}` }}>
           <button className="contrast-init"><h2 className="heading-tertiary">O 5.5</h2></button><h2 className="heading-tertiary-demo" style={{ color: `${textTertiary}`, fontFamily: `${textTertiaryFont}`, marginLeft:"1rem"}}>Lorem Ipsum Dolor</h2>
           </div>
 

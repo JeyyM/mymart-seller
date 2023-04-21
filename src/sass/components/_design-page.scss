@@ -314,7 +314,6 @@
 }
 
 .category-sample {
-  @include button-style;
   position: relative;
   display: inline-block;
   overflow: hidden;
@@ -325,4 +324,47 @@
   z-index: 5;
   align-self: center;
   border-radius: 0rem;
+
+  @include border-round;
+  position: relative;
+  justify-items: center;
+  align-items: center;
+  transition: all 0.2s;
 }
+
+.heading-icon-dropshadow-demo {
+  background-clip: text;
+}
+
+.image-container-demo {
+  position: relative;
+  width: 100%;
+  height: 40%;
+  display: flex;
+  @include border;
+  display: flex;
+  border-style: none none solid none;
+}
+
+.category-content-demo{
+  padding: 0.5rem 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  height:60%;
+  z-index: 5;
+  background-color: $theme-bg;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+// .category-sample-hover{
+//   transform: translateY(-0.6rem) translateX(1rem) !important;
+//   filter: drop-shadow(-6px 6px 0px green);}
+
+// .homepage-button:active.x, .category:active, .category-sample:active, .theme-pack:active{
+//   transform: translateY(0rem) translateX(0rem) !important;
+//   filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["bg-item"]}) !important;}
+

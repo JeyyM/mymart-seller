@@ -272,6 +272,7 @@
   display: flex;
   justify-items: center;
   align-items: center;
+  // transition: all 0.2s !important;
   transition: all 0.2s !important;
   background-image: $theme-bg,
     linear-gradient(45deg, $color-primary-dark, $color-primary-light);
