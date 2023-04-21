@@ -250,3 +250,18 @@
   align-items: center;
   cursor: pointer;
 }
+
+.text-options {
+  @include text-input-small;
+  z-index: 5;
+  appearance: none;
+}
+
+.text-options {
+  @include text-input-small-style;
+  color: black;
+}
+
+.text-options {
+  @include text-input-small-focus;
+}

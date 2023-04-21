@@ -12,10 +12,11 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import ThemePack from "@/components/design/ThemePack";
 
+import FontOptions from "@/components/design/FontOptions";
+
 function Designing({ shopID }) {
   const router = useRouter()
   const designs = shopID.shopData.shopDesigns
-
 
   async function finishForm(formdata) {
     const response = await fetch(
@@ -29,24 +30,142 @@ function Designing({ shopID }) {
     const data = await response.json();
   }
 
-  const [Light_LightColor, setLight_LightColor] = useState(designs.lightDesign["color-primary-light"]);
-  const handleLight_LightColorChange = (event) => {
-    setLight_LightColor(event.target.value);
+  const [currentMode, setCurrentMode] = useState(designs.defaultMode)
+  const handleCurrentMode = () => {
+    setCurrentMode(!currentMode)
+  }
+
+  let activeMode = {}
+
+  if (currentMode){
+    activeMode = designs.lightDesign
+  } else {activeMode = designs.darkDesign}
+
+  const [LightColor, setLightColor] = useState(activeMode["color-primary-light"]);
+  const handleLightColorChange = (event) => {
+    setLightColor(event.target.value);
   };
 
-  const [Light_DarkColor, setLight_DarkColor] = useState(designs.lightDesign["color-primary-dark"]);
-  const handleLight_DarkColorChange = (event) => {
-    setLight_DarkColor(event.target.value);
+  const [DarkColor, setDarkColor] = useState(activeMode["color-primary-dark"]);
+  const handleDarkColorChange = (event) => {
+    setDarkColor(event.target.value);
   };
+
+  const [bgBody, setBgBody] = useState(activeMode["bg-body"]);
+  const handleBgBody = (event) => {
+    setBgBody(event.target.value);
+  };
+
+  const [bgItem, setBgItem] = useState(activeMode["bg-item"]);
+  const handleBgItem = (event) => {
+    setBgItem(event.target.value);
+  };
+
+  const [textPrimary, setTextPrimary] = useState(activeMode["text-primary-color"]);
+  const handleTextPrimary = (event) => {
+    setTextPrimary(event.target.value);
+  };
+  const [textPrimaryFont, setTextPrimaryFont] = useState(activeMode["text-primary-font"]);
+  const handleTextPrimaryFont = (event) => {
+    setTextPrimaryFont(event.target.value);
+  };
+
+  const [textSecondary, setTextSecondary] = useState(activeMode["text-secondary-color"]);
+  const handleTextSecondary = (event) => {
+    setTextSecondary(event.target.value);
+  };
+  const [textSecondaryFont, setTextSecondaryFont] = useState(activeMode["text-secondary-font"]);
+  const handleTextSecondaryFont = (event) => {
+    setTextSecondaryFont(event.target.value);
+  };
+
+  const [textTertiary, setTextTertiary] = useState(activeMode["text-tertiary-color"]);
+  const handleTextTertiary = (event) => {
+    setTextTertiary(event.target.value);
+  };
+  const [textTertiaryFont, setTextTertiaryFont] = useState(activeMode["text-tertiary-font"]);
+  const handleTextTertiaryFont = (event) => {
+    setTextTertiaryFont(event.target.value);
+  };
+
+  const [borderTL, setBorderTL] = useState(activeMode["border-tl"])
+  const handleBorderTL = (event) => {
+    setBorderTL(event.target.value);
+  };
+  const [borderTR, setBorderTR] = useState(activeMode["border-tr"])
+  const handleBorderTR = (event) => {
+    setBorderTR(event.target.value);
+  };
+  const [borderBL, setBorderBL] = useState(activeMode["border-bl"])
+  const handleBorderBL = (event) => {
+    setBorderBL(event.target.value);
+  };
+  const [borderBR, setBorderBR] = useState(activeMode["border-br"])
+  const handleBorderBR = (event) => {
+    setBorderBR(event.target.value);
+  };
+
+  const [outlineDark, setOutlineDark] = useState(activeMode["button-outline-dark"])
+  const handleOutlineDark = (event) => {
+    setOutlineDark(event.target.value);
+  };
+  const [outlineLight, setOutlineLight] = useState(activeMode["button-outline-light"])
+  const handleOutlineLight = (event) => {
+    setOutlineLight(event.target.value);
+  };
+  const [outlineText, setOutlineText] = useState(activeMode["button-outline-text"])
+  const handleOutlineText = (event) => {
+    setOutlineText(event.target.value);
+  };
+
+  const [solidDark, setSolidDark] = useState(activeMode["button-solid-dark"])
+  const handleSolidDark = (event) => {
+    setSolidDark(event.target.value);
+  };
+  const [solidLight, setSolidLight] = useState(activeMode["button-solid-light"])
+  const handleSolidLight = (event) => {
+    setSolidLight(event.target.value);
+  };
+  const [solidText, setSolidText] = useState(activeMode["button-solid-text"])
+  const handleSolidText = (event) => {
+    setSolidText(event.target.value);
+  };
+
+
+
+
+
+
+
+
+
+/////////////PREVIEW CLASSES///////////////////////
+let itemSetupDark = `{
+  background-image: linear-gradient(${bgBody}, ${bgBody}}),
+  linear-gradient(to right, ${DarkColor}, ${DarkColor}) !important;
+  box-shadow: inset 0 0 0 2rem ${bgBody} !important;
+}`
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////
 
   function onSubmit(event) {
     event.preventDefault()
-    const data = { "color-primary-dark": Light_DarkColor, "color-primary-light": Light_LightColor }
+    // const data = { "color-primary-dark": Light_DarkColor, "color-primary-light": Light_LightColor }
     // console.log(data)
     finishForm(data)
   }
 
-  const [color, setColor] = useState("#fff")
+  const [color, setColor] = useState("#ffffff")
 
   const themeSet = ["#89375F", "#CE5959", "#BACDDB", "#F3E8FF", "#2A2F4F", "#4F4557", "#BA90C6", "#E8A0BF", 30, 30, 30, 30, "Coolors Random"]
 
@@ -60,6 +179,9 @@ function Designing({ shopID }) {
 
 
   return <Fragment>
+  <Head>
+    <title>Design Mart</title>
+  </Head>
 
     <div className="design-grid">
       <div className="design-col-1">
@@ -126,36 +248,36 @@ function Designing({ shopID }) {
 
           <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Main Colors</h3>
           <div className="text-group">
-            <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
-            <input type="text" placeholder="Light Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+            <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}  value={DarkColor} onChange={handleDarkColorChange}></input>
+            <input type="text" placeholder="Light Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={LightColor} onChange={handleLightColorChange}></input>
           </div>
 
           <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Background Colors</h3>
           <div className="text-group">
-            <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
-            <input type="text" placeholder="Light Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+            <input type="text" placeholder="Body Bg" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={bgBody} onChange={handleBgBody}></input>
+            <input type="text" placeholder="Item Bg" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={bgItem} onChange={handleBgItem}></input>
           </div>
 
           <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Border Radius (px)</h3>
           <div className="text-group-4">
-            <input type="text" placeholder="T L" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
-            <input type="text" placeholder="T R" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
-            <input type="text" placeholder="B L" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
-            <input type="text" placeholder="B R" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+            <input type="text" placeholder="T L" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={borderTL} onChange={handleBorderTL}></input>
+            <input type="text" placeholder="T R" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={borderTR} onChange={handleBorderTR}></input>
+            <input type="text" placeholder="B L" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={borderBL} onChange={handleBorderBL}></input>
+            <input type="text" placeholder="B R" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={borderBR} onChange={handleBorderBR}></input>
           </div>
 
           <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Button Outline</h3>
           <div className="text-group-3">
-            <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
-            <input type="text" placeholder="Light Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
-            <input type="text" placeholder="Text Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+            <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={outlineDark} onChange={handleOutlineDark}></input>
+            <input type="text" placeholder="Light Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={outlineLight} onChange={handleOutlineLight}></input>
+            <input type="text" placeholder="Text Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={outlineText} onChange={handleOutlineText}></input>
           </div>
 
           <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Button Solid</h3>
           <div className="text-group-3">
-            <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
-            <input type="text" placeholder="Light Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
-            <input type="text" placeholder="Text Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+            <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={solidDark} onChange={handleSolidDark}></input>
+            <input type="text" placeholder="Light Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={solidLight} onChange={handleSolidLight}></input>
+            <input type="text" placeholder="Text Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={solidText} onChange={handleSolidText}></input>
           </div>
 
         </div>
@@ -168,27 +290,28 @@ function Designing({ shopID }) {
           </span>
 
           <div className="text-group-3" style={{ marginTop: "1rem" }}>
-            <input type="text" placeholder="Font Family" className="text-small input-number text-span" autoComplete="off" style={{ width: "100%" }}></input>
-            <input type="text" placeholder="Text Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+            <FontOptions defaultFont={textPrimaryFont} type={"heading-primary-select"}></FontOptions>
+            <input type="text" placeholder="Text Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={textPrimary} onChange={handleTextPrimary}></input>
           </div>
           <div className="text-group-3" style={{ marginTop: "1rem" }}>
-            <input type="text" placeholder="Font Family" className="text-small input-number text-span" autoComplete="off" style={{ width: "100%" }}></input>
-            <input type="text" placeholder="Text Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+          <FontOptions defaultFont={textSecondaryFont} type={"heading-secondary-select"}></FontOptions>
+            <input type="text" placeholder="Text Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={textSecondary} onChange={handleTextSecondary}></input>
           </div>
           <div className="text-group-3" style={{ marginTop: "1rem" }}>
-            <input type="text" placeholder="Font Family" className="text-small input-number text-span" autoComplete="off" style={{ width: "100%" }}></input>
-            <input type="text" placeholder="Text Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+          <FontOptions defaultFont={textTertiaryFont} type={"heading-tertiary-select"}></FontOptions>
+            <input type="text" placeholder="Text Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }} value={textTertiary} onChange={handleTextTertiary}></input>
           </div>
         </div>
       </div>
 
       <div className="design-col-4">
-        <div className="design-demo item-setup-dark">
+      <div className="design-demo" style={{backgroundImage: `linear-gradient(${bgBody}, ${bgBody}), linear-gradient(to right, ${DarkColor}, ${DarkColor}) !important`, boxShadow: `inset 0 0 0 2rem ${bgBody} !important`}}>
+
           <span className="page-heading flex-row-align">
             <div className="heading-icon-dropshadow">
-              <div className="heading-icon-preview svg-color">&nbsp;</div>
+              <div className="heading-icon-preview">&nbsp;</div>
             </div>
-            <h1 className="heading-primary no-margin">Main Preview</h1>
+            <h1 className="no-margin">Main Preview</h1>
           </span>
 
           <div className="category-sample">
@@ -244,3 +367,82 @@ function Designing({ shopID }) {
 export default Designing
 
 export { getServerSideProps }
+
+// .svg-color -demo{
+//   background-image: linear-gradient(
+//   to right,
+//   ${props.color["color-primary-dark"]},
+//   ${props.color["color-primary-light"]}
+// ) !important;}
+
+// .heading-primary -demo {font-family: ${props.color["text-primary-font"]} !important;
+//     color: ${props.color["text-primary-color"]} !important;}
+
+// .category-sample{
+//   border-radius: ${props.color["border-tl"]} ${props.color["border-tr"]} ${props.color["border-br"]} ${props.color["border-bl"]} !important;}
+
+// .category-sample:hover {
+//   filter: drop-shadow(-6px 6px 0px ${props.color["color-primary-dark"]}) !important}
+
+// .category-sample:active{
+//   transform: translateY(0rem) translateX(0rem) !important;
+//   filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["bg-item"]}) !important;}
+
+
+// .image-container -demo{border-image: linear-gradient(
+//   45deg,
+//   ${props.color["color-primary-dark"]},
+//   ${props.color["color-primary-light"]}
+// )
+// 1 !important;
+// background-color:${props.color["bg-item"]} !important;}
+
+// .category-sample{
+//   background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
+//   linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;}
+
+// .category-content -demo{
+//   background-color:${props.color["bg-item"]} !important;
+// }
+
+// .product-action-1{
+//   background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
+//   linear-gradient(to right, ${props.color["button-outline-dark"]}, ${props.color["button-outline-light"]} ) !important;
+//   box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;
+//   color: ${props.color["button-outline-text"]} !important;
+// }
+
+// .product-action-1:active{
+//   filter: brightness(120%) !important;
+// box-shadow: inset 0 0 0 10px ${props.color["bg-item"]}, 0 0 0 2px ${props.color["button-outline-dark"]},
+//   0 0 0 4px ${props.color["bg-item"]} !important;
+// }
+
+// .product-action-2, .product-action-2-small{
+//   background-image: linear-gradient(${props.color["button-solid-light"]}, ${props.color["button-solid-dark"]}),
+//   linear-gradient(to right, ${props.color["button-solid-dark"]}, ${props.color["button-solid-light"]} ) !important;
+//   color: ${props.color["button-solid-text"]} !important;
+// }
+
+// .product-action-2:active, .product-action-2-small:active{
+//   filter: brightness(120%) !important;
+//   box-shadow: 0 0 0 2px ${props.color["bg-item"]}, 0 0 0 4px ${props.color["button-solid-dark"]} !important;
+// }
+
+// .item-setup{
+//   background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
+//   linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
+//   box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;
+// }
+
+// .item-setup-2-b{
+//   background-image: linear-gradient(${props.color["bg-body"]}, ${props.color["bg-body"]}),
+//   linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
+//   box-shadow: inset 0 0 0 2rem ${props.color["bg-body"]} !important;
+// }
+
+// .item-setup-2{
+//   background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
+//   linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
+//   box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;
+// }
