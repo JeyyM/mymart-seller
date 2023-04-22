@@ -135,7 +135,7 @@
 .theme-button {
   height: 8rem;
   width: 8rem;
-  background: red;
+  background: transparent;
   @include border-round;
   border-radius: 50%;
   cursor: pointer;
@@ -145,6 +145,8 @@
   display: block;
   filter: drop-shadow(-2px 2px 0px #0057ff);
   transition: all 0.2s;
+  display: flex;
+  justify-content: center;
 }
 
 .theme-button:hover {
@@ -159,6 +161,11 @@
 
 .button-theme-sun {
   @include heading-logo(sun, 6rem, 6rem);
+  margin: auto;
+}
+
+.button-theme-moon {
+  @include heading-logo(moon, 6rem, 6rem);
   margin: auto;
 }
 

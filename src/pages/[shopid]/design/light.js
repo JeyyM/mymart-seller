@@ -30,10 +30,10 @@ function Designing({ shopID }) {
     const data = await response.json();
   }
 
-  const [currentMode, setCurrentMode] = useState(designs.defaultMode)
-  const handleCurrentMode = () => {
-    setCurrentMode(!currentMode)
-  }
+  const [currentMode, setCurrentMode] = useState(true)
+  // const handleCurrentMode = () => {
+  //   setCurrentMode(!currentMode)
+  // }
 
   let activeMode = {}
 
@@ -141,7 +141,6 @@ function Designing({ shopID }) {
 
   const [color, setColor] = useState("#fff")
 
-  ////////////     ColorDark - ColorLight - BgBody - BgItem - textprime - text seco/tert - button dark - button light
   const themeSet = ["#89375F", "#CE5959", "#BACDDB", "#F3E8FF", "#2A2F4F", "#4F4557", "#BA90C6", "#E8A0BF", 30, 30, 30, 30, "Coolors Random"]
 
   const themeSet1 = ["#0057FF", "#7FC9FF", "#E7F6FD", "#FFFFFF", "#0A2647", "#003F76", "#004DFF", "#3974FF", 10, 10, 10, 10, "Cool Blue"]
@@ -207,6 +206,16 @@ function Designing({ shopID }) {
       boxShadow: `inset 0 0 0 10px ${bgItem}, 0 0 0 2px ${outlineDark},
         0 0 0 4px ${bgItem}`
     };
+
+//     if (props.mode === false) {
+//       placeholder = `{color: ${props.color["bg-item"]};
+// opacity: 0.8;
+// filter: brightness(150%);}`
+//   } else {
+//       placeholder = `{color: ${props.color["bg-item"]};
+// opacity: 0.8;
+// filter: brightness(-50%);}`
+//   }
     
 
   const categSample = `category-sample ${isHovered ? "category-sample-hover" : ""}`;
@@ -214,6 +223,9 @@ function Designing({ shopID }) {
   return <Fragment>
   <Head>
     <title>Design Mart</title>
+    <style>
+    {`::placeholder {color: ${bgItem}; opacity: 0.8; filter: brightness(50%)};`}
+    </style>
   </Head>
 
     <div className="design-grid">
@@ -227,7 +239,7 @@ function Designing({ shopID }) {
 
         <div className="color-moder item-setup">
           <h2 className="heading-secondary">Color Theme</h2>
-          <button className="theme-button x"><div className="button-theme-sun svg-color">&nbsp;</div></button>
+          <a className="theme-button x" href="dark"><div className="button-theme-sun svg-color">&nbsp;</div></a>
           <button className="product-action-2-small heading-secondary">Set Default</button>
         </div>
 
@@ -235,7 +247,7 @@ function Designing({ shopID }) {
 
         <div className="design-conf-buttons">
         <div className="text-group" style={{ marginBottom: "1rem" }}>
-            <button className="product-action-3 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }}>Hard Reset</button>
+            <button className="product-action-3 heading-secondary white" type="button" style={{ margin: "0rem", width: "100%", color: "white" }}>Hard Reset</button>
             <button className="product-action-1 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }}>Reset</button>
           </div>
           <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }}>Submit</button>

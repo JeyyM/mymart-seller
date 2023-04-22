@@ -6,8 +6,6 @@ import Head from "next/head";
 function NavbarLayout(props) {
     const router = useRouter()
 
-    console.log("in navbar layout", props.color)
-
     function hexToRgb(hex) {
         hex = hex.replace('#', '');
 
@@ -21,15 +19,20 @@ function NavbarLayout(props) {
     const primaryDarkHex = hexToRgb(`${props.color["color-primary-dark"]}`)
 
     let placeholder = {}
+    let colormode = ""
 
     if (props.mode === false) {
         placeholder = `{color: ${props.color["bg-item"]};
 opacity: 0.8;
 filter: brightness(150%);}`
+
+colormode = "/dark"
     } else {
         placeholder = `{color: ${props.color["bg-item"]};
 opacity: 0.8;
-filter: brightness(-50%);}`
+filter: brightness(50%);}`
+
+colormode = "/light"
     }
 
     return (
@@ -69,7 +72,7 @@ border-image: linear-gradient(
 .homepage-button:hover.x, .category:hover {
     filter: drop-shadow(-6px 6px 0px ${props.color["color-primary-dark"]}) !important}
 
-.homepage-button:active.x, .category:active, .theme-pack:active{
+.homepage-button:active.x, .category:active, .theme-pack:active {
     transform: translateY(0rem) translateX(0rem) !important;
     filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["bg-item"]}) !important;}
 
@@ -234,7 +237,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 }
 
 ::-webkit-scrollbar-track {
-  background-color: ${props.color["bg-item" ]};
+  background-color: ${props.color["bg-item"]};
 }
 
 ::-webkit-scrollbar-thumb {
@@ -252,7 +255,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     ` }
                 </style>
             </Head>
-            <NavbarItems shopid={router.query.shopid} />
+            <NavbarItems shopid={router.query.shopid} colormode={colormode} />
             <div>{props.children}</div>
         </Fragment>
     );

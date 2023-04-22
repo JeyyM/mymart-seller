@@ -14,6 +14,11 @@ function HomePage({ shopID }){
     const shopData = shopID.shopData;
     // console.log("shopData", shopData)
 
+    let mode = ""
+    if (shopData.shopDesigns.defaultMode){mode = "/light"} else {
+        mode = "/dark"
+    }
+
     const colorState = shopData.shopDesigns.defaultMode
 
     let defaultColors = {}
@@ -35,7 +40,7 @@ function HomePage({ shopID }){
             <HomepageButton color={defaultColors} item="home-manage" label="My Mart" direction="mart"></HomepageButton>
             <HomepageButton color={defaultColors} item="home-insights" label="Mart Analytics" direction="analytics"></HomepageButton>
             <HomepageButton color={defaultColors} item="home-receipt" label="Customer Records" direction="records"></HomepageButton>
-            <HomepageButton color={defaultColors} item="home-brush" label="Mart Design" direction="design"></HomepageButton>
+            <HomepageButton color={defaultColors} item="home-brush" label="Mart Design" direction="design" extra={mode}></HomepageButton>
             <HomepageButtonBlank color={defaultColors} item="home-policy" label="Terms & Policies" direction="policies"></HomepageButtonBlank>
             <HomepageButtonBlank color={defaultColors} item="home-support" label="Customer Service" direction="customer-service"></HomepageButtonBlank>
             <HomepageButtonBlank color={defaultColors} item="home-quiz" label="Frequently Asked Questions" direction="faq"></HomepageButtonBlank>

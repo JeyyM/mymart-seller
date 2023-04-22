@@ -13,6 +13,12 @@ function HomepageButton(props) {
     linear-gradient(45deg, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
 `
 
+let extension=""
+
+  if (props.extra){extension = props.extra} else {
+    extension = ""
+  }
+
   return (
     <Fragment>
     <Head>
@@ -59,7 +65,7 @@ function HomepageButton(props) {
       <Link
         className={`homepage-button ${props.item} bg-gradient-${props.direction} x`}
         href={{
-          pathname: `/${shopId}/${props.direction}`,
+          pathname: `/${shopId}/${props.direction}${extension}`,
           query: { shopid: shopId },
         }}
         aria-label={props.label}
