@@ -28,11 +28,34 @@ function Designing({ shopID }) {
     const data = await response.json();
   }
 
-  const [notification, setNotification] = useState(null);
+  const [coolors, setCoolors] = useState([])
 
-  const handleNotification = () => {
-    setNotification();
-  };
+  // const fetchCoolors = () => {
+  //   const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  //   const apiUrl = 'https://coolors.co/api/palettes/random';
+  //   fetch(proxyUrl + apiUrl)
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       setCoolors(data.colors);
+  //       console.log(coolors)
+  //     })
+  //     .catch(error => console.error(error));
+  // }
+  
+  const fetchCoolors = () => {
+    const apiUrl = 'https://api.opencolor.dev/v1/schemes/opencolor.json';
+  
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        // The colors are available under data.colors object
+        console.log(data.colors);
+      })
+      .catch(error => console.error(error));
+  }
+  
+
+  const [notification, setNotification] = useState(null);
 
   function handleFocus(event) {
     console.log("select")
@@ -232,12 +255,12 @@ function Designing({ shopID }) {
     </style>
   </Head>
 
-  {notification && (
+  
         <CopyNotifier
           status={notification}
           disable={() => {setNotification(false)}}
         />
-      )}
+    
 
     <div className="design-grid">
       <div className="design-col-1">
@@ -292,7 +315,22 @@ function Designing({ shopID }) {
           </div>
           <h1 className="heading-secondary no-margin">Random Themes</h1>
         </span>
-        <button className="product-action-1" style={{ margin: "0rem auto", width: "20rem", height: "6rem" }}>Randomize</button>
+        <button className="product-action-1" onClick={fetchCoolors} style={{ margin: "0rem auto", width: "20rem", height: "6rem" }}>Randomize</button>
+
+        <div>
+  {coolors.map(color => (
+    <div
+      key={color}
+      style={{
+        backgroundColor: `#${color}`,
+        width: '50px',
+        height: '50px',
+        display: 'inline-block',
+        margin: '5px',
+      }}
+    />
+  ))}
+</div>
 
         <ThemePack themeSet={themeSet}></ThemePack>
 
