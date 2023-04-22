@@ -2,10 +2,6 @@ import { MongoClient, ObjectId } from "mongodb"
 
 async function handler(req, res){
 if (req.method === "PATCH"){
-    const data = req.body;
-
-    console.log(req.query.state)
-    console.log(data)
 
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
@@ -14,25 +10,17 @@ if (req.method === "PATCH"){
     const db = client.db();
     const martId = new ObjectId(req.query.martid);
 
-    if (req.query.state === "true"){
-      console.log("updating light mode")
+    console.log(martId)
+
     const result = await db.collection("shops").updateOne(
       { _id: martId },
       { $set: {
-          [`shopData.shopDesigns.lightDesign`]: data
+          [`shopData.shopDesigns.defaultMode`]: JSON.parse(req.query.state)
         }
       }
     );
-    } else {
-      console.log("updating dark mode")
-      const result = await db.collection("shops").updateOne(
-        { _id: martId },
-        { $set: {
-            [`shopData.shopDesigns.darkDesign`]: data
-          }
-        }
-      );
-    }
+
+    console.log(result)
     
     client.close();
     

@@ -181,13 +181,16 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 
 
 .form-label {font-family: ${props.color["text-tertiary-font"]} !important;
-    color: ${props.color["color-primary-light"]} !important;}
+    color: ${props.color["text-tertiary-color"]} !important;}
 
 .invalid-form, .invalid-form-box, .invalid-form-2{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, red, darkred ) !important;
     filter: brightness(120%) !important
     }
+
+.invalid-form-2.z{margin-top: 0rem !important}
+.form-label.inv.z{margin-top: 0.5rem !important; transform: translateY(-0.2rem)}
 
 .form-label.inv{
     color: red !important;
