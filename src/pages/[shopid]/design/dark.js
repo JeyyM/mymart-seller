@@ -3,6 +3,9 @@ import { getServerSideProps } from "../../../utilities/serversideProps"
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useEffect } from "react";
+import Acc1 from "@/components/design/Acc1";
+import Acc2 from "@/components/design/Acc3";
+import Acc3 from "@/components/design/Acc2";
 
 import { ChromePicker } from "react-color";
 import chroma from 'chroma-js';
@@ -436,10 +439,31 @@ function Designing({ shopID }) {
   const [secondaryContrast, setSecondaryContrast] = useState(0)
   const [tertiaryContrast, setTertiaryContrast] = useState(0)
 
+  const [primaryContrastBg, setPrimaryContrastBg] = useState({background: "#C9F4AA"})
+  const [secondaryContrastBg, setSecondaryContrastBg] = useState({background: "#C9F4AA"})
+  const [tertiaryContrastBg, setTertiaryContrastBg] = useState({background: "#C9F4AA"})
+
+  const [primaryContrastText, setPrimaryContrastText] = useState("heading-tertiary green")
+  const [secondaryContrastText, setSecondaryContrastText] = useState("heading-tertiary green")
+  const [tertiaryContrastText, setTertiaryContrastText] = useState("heading-tertiary green")
+
   useEffect(() => {
     const contrastRatioPrimary = tinycolor.readability(bgBody, textPrimary);
     setPrimaryContrast(contrastRatioPrimary.toFixed(2))
+
   }, [bgBody, textPrimary])
+
+  useEffect(() => {
+    if (primaryContrast >= 7){setPrimaryContrastBg({background: "#C9F4AA"})}
+    else if ( 7 > primaryContrast && primaryContrast >= 4.5){setPrimaryContrastBg({background: "#FFD966"})}
+    else if (primaryContrast < 4.5){setPrimaryContrastBg({background: "#D27685"})}
+
+    if (primaryContrast >= 7){setPrimaryContrastText("heading-tertiary green")}
+    else if ( 7 > primaryContrast && primaryContrast >= 4.5){setPrimaryContrastText("heading-tertiary yellow")}
+    else if (primaryContrast < 4.5){setPrimaryContrastText("heading-tertiary red")}
+
+  }, [primaryContrast])
+
 
   useEffect(() => {
     const contrastRatioSecondary = tinycolor.readability(bgItem, textSecondary);
@@ -447,10 +471,47 @@ function Designing({ shopID }) {
   }, [bgItem, textSecondary])
 
   useEffect(() => {
+    if (secondaryContrast >= 7){setSecondaryContrastBg({background: "#C9F4AA"})}
+    else if ( 7 > secondaryContrast && secondaryContrast >= 4.5){setSecondaryContrastBg({background: "#FFD966"})}
+    else if (secondaryContrast < 4.5){setSecondaryContrastBg({background: "#D27685"})}
+
+    if (secondaryContrast >= 7){setSecondaryContrastText("heading-tertiary green")}
+    else if ( 7 > secondaryContrast && secondaryContrast >= 4.5){setSecondaryContrastText("heading-tertiary yellow")}
+    else if (secondaryContrast < 4.5){setSecondaryContrastText("heading-tertiary red")}
+
+  }, [secondaryContrast])
+
+
+  useEffect(() => {
     const contrastRatioTertiary = tinycolor.readability(bgItem, textTertiary);
     setTertiaryContrast(contrastRatioTertiary.toFixed(2))
   }, [bgItem, textTertiary])
 
+  useEffect(() => {
+    if (tertiaryContrast >= 7){setTertiaryContrastBg({background: "#C9F4AA"})}
+    else if ( 7 > tertiaryContrast && tertiaryContrast >= 4.5){setTertiaryContrastBg({background: "#FFD966"})}
+    else if (tertiaryContrast < 4.5){setTertiaryContrastBg({background: "#D27685"})}
+
+    if (tertiaryContrast >= 7){setTertiaryContrastText("heading-tertiary green")}
+    else if ( 7 > tertiaryContrast && tertiaryContrast >= 4.5){setTertiaryContrastText("heading-tertiary yellow")}
+    else if (tertiaryContrast < 4.5){setTertiaryContrastText("heading-tertiary red")}
+
+  }, [tertiaryContrast])
+
+  const [primaryAcc, setPrimaryAcc] = useState(false)
+  const handlePrimaryAcc = () => {
+    setPrimaryAcc(!primaryAcc)
+  }
+
+  const [secondaryAcc, setSecondaryAcc] = useState(false)
+  const handleSecondaryAcc = () => {
+    setSecondaryAcc(!secondaryAcc)
+  }
+
+  const [tertiaryAcc, setTertiaryAcc] = useState(false)
+  const handleTertiaryAcc = () => {
+    setTertiaryAcc(!tertiaryAcc)
+  }
 
   return <Fragment>
     <Head>
@@ -461,6 +522,9 @@ function Designing({ shopID }) {
     </Head>
 
 
+    <Acc1 disable={handlePrimaryAcc} modalStatus={primaryAcc} value={primaryContrast} color={primaryContrastText} bg={primaryContrastBg}></Acc1>
+    <Acc2 disable={handleSecondaryAcc} modalStatus={secondaryAcc} value={secondaryContrast} color={secondaryContrastText} bg={secondaryContrastBg}></Acc2>
+    <Acc3 disable={handleTertiaryAcc} modalStatus={tertiaryAcc} value={tertiaryContrast} color={tertiaryContrastText} bg={tertiaryContrastBg}></Acc3>
     <CopyNotifier
       status={notification}
       disable={() => { setNotification(false) }}
@@ -479,7 +543,7 @@ function Designing({ shopID }) {
         <div className="color-moder item-setup">
           <h2 className="heading-secondary">Color Theme</h2>
           <a className="theme-button x" href="light"><div className="button-theme-moon svg-color">&nbsp;</div></a>
-          <button className="product-action-2-small heading-secondary" disabled={loading} onClick={setAsDefault}>Set Default</button>
+          <button  aria-label="Set Default Color Theme" className="product-action-2-small heading-secondary" disabled={loading} onClick={setAsDefault}>Set Default</button>
         </div>
 
         <div style={{ height: "22em", overflow: "hidden" }}>
@@ -490,10 +554,10 @@ function Designing({ shopID }) {
 
         <div className="design-conf-buttons">
           <div className="text-group" style={{ marginBottom: "1rem" }}>
-            <button className="product-action-3 heading-secondary white" type="button" style={{ margin: "0rem", width: "100%" }} onClick={() => { hardReset(themeSet1) }} disabled={loading}>Hard Reset</button>
-            <button className="product-action-1 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }} onClick={softReset} disabled={loading}>Reset</button>
+            <button aria-label="Hard Reset" className="product-action-3 heading-secondary white" type="button" style={{ margin: "0rem", width: "100%" }} onClick={() => { hardReset(themeSet1) }} disabled={loading}>Hard Reset</button>
+            <button aria-label="Soft Reset" className="product-action-1 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }} onClick={softReset} disabled={loading}>Reset</button>
           </div>
-          <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }} onClick={onSubmit} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit")}</button>
+          <button aria-label="Submit" className="product-action-2 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }} onClick={onSubmit} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit")}</button>
         </div>
       </div>
 
@@ -519,7 +583,7 @@ function Designing({ shopID }) {
           </div>
           <h1 className="heading-secondary no-margin">Random Colors</h1>
         </span>
-        <button className="product-action-1" onClick={fetchChroma} style={{ margin: "0rem auto", width: "20rem", height: "6rem" }}>Randomize</button>
+        <button aria-label="Submit" className="product-action-1" onClick={fetchChroma} style={{ margin: "0rem auto", width: "20rem", height: "6rem" }}>Randomize</button>
 
         <ThemePack2 themeSet={chromaItems} copy={copyItem}></ThemePack2>
 
@@ -633,11 +697,11 @@ function Designing({ shopID }) {
           </div>
 
           <div className="text-group" style={{ marginTop: "1rem" }}>
-            <button className="product-action-1-demo heading-secondary-demo" type="button" onMouseUp={() => setIsClicked3(false)} onMouseDown={() => setIsClicked3(true)} style={{
+            <button aria-label="Outline demo button" className="product-action-1-demo heading-secondary-demo" type="button" onMouseUp={() => setIsClicked3(false)} onMouseDown={() => setIsClicked3(true)} style={{
               margin: "0rem", width: "100%", color: `${outlineText}`, fontFamily: `${textSecondaryFont}`,
               backgroundImage: `linear-gradient(${bgItem}, ${bgItem}), linear-gradient(${outlineDark}, ${outlineLight})`, boxShadow: `inset 0 0 0 2rem ${bgItem}`, ...(isClicked3 ? ActionDemo2 : {})
             }}>Outline</button>
-            <button className="product-action-2-demo heading-secondary-demo" type="button" onMouseUp={() => setIsClicked2(false)} onMouseDown={() => setIsClicked2(true)} style={{
+            <button aria-label="Solid demo button" className="product-action-2-demo heading-secondary-demo" type="button" onMouseUp={() => setIsClicked2(false)} onMouseDown={() => setIsClicked2(true)} style={{
               margin: "0rem", width: "100%", color: `${solidText}`,
               fontFamily: `${textSecondaryFont}`, backgroundImage: `linear-gradient(${solidLight}, ${solidDark})`, ...(isClicked2 ? ActionDemo1 : {})
             }}>Solid</button>
@@ -656,19 +720,19 @@ function Designing({ shopID }) {
             backgroundImage: `linear-gradient( to right, ${bgBody}, ${bgBody}), 
         linear-gradient( to right, ${DarkColor}, ${LightColor})`, boxShadow: `inset 0 0 0 2rem ${bgBody}`
           }}>
-            <button className="contrast-init"><h2 className="heading-tertiary white">O {primaryContrast}</h2></button><h1 className="heading-primary-demo" style={{ color: `${textPrimary}`, fontFamily: `${textPrimaryFont}`, marginLeft: "1rem" }}>Lorem Ipsum</h1>
+            <button aria-label="Primary accessibility button" onClick={handlePrimaryAcc} className="contrast-init" style={primaryContrastBg}><h2 className={primaryContrastText}>{primaryContrast >= 7 ? <div className="heading-icon-full-star" style={{background: "linear-gradient(to right, #285430, #285430)"}}>&nbsp;</div> : primaryContrast >= 4.5 ? <div className="heading-icon-half-star" style={{background: "linear-gradient(to right, #3b2f01, #3b2f01)"}}>&nbsp;</div> : <div className="heading-icon-no-star" style={{background: "linear-gradient(to right, #540804, #540804)"}}>&nbsp;</div>}{primaryContrast}</h2></button><h1 className="heading-primary-demo" style={{ color: `${textPrimary}`, fontFamily: `${textPrimaryFont}`, marginLeft: "1rem" }}>Lorem Ipsum</h1>
           </div>
           <div className="typo-prev-2 item-setup-2" style={{
             backgroundImage: `linear-gradient( to right, ${bgItem}, ${bgItem}), 
         linear-gradient( to right, ${DarkColor}, ${LightColor})`, boxShadow: `inset 0 0 0 2rem ${bgItem}`
           }}>
-            <button className="contrast-init"><h2 className="heading-tertiary white">O {secondaryContrast}</h2></button><h2 className="heading-secondary-demo" style={{ color: `${textSecondary}`, fontFamily: `${textSecondaryFont}`, marginLeft: "1rem" }}>Lorem Ipsum Dolor</h2>
+            <button aria-label="Secondary accessibility button" onClick={handleSecondaryAcc} className="contrast-init" style={secondaryContrastBg}><h2 className={secondaryContrastText}>{secondaryContrast >= 7 ? <div className="heading-icon-full-star" style={{background: "linear-gradient(to right, #285430, #285430)"}}>&nbsp;</div> : secondaryContrast >= 4.5 ? <div className="heading-icon-half-star" style={{background: "linear-gradient(to right, #3b2f01, #3b2f01)"}}>&nbsp;</div> : <div className="heading-icon-no-star" style={{background: "linear-gradient(to right, #540804, #540804)"}}>&nbsp;</div>} {secondaryContrast}</h2></button><h2 className="heading-secondary-demo" style={{ color: `${textSecondary}`, fontFamily: `${textSecondaryFont}`, marginLeft: "1rem" }}>Lorem Ipsum Dolor</h2>
           </div>
           <div className="typo-prev-3 item-setup-2" style={{
             backgroundImage: `linear-gradient( to right, ${bgItem}, ${bgItem}), 
         linear-gradient( to right, ${DarkColor}, ${LightColor})`, boxShadow: `inset 0 0 0 2rem ${bgItem}`
           }}>
-            <button className="contrast-init"><h2 className="heading-tertiary white">O {tertiaryContrast}</h2></button><h2 className="heading-tertiary-demo" style={{ color: `${textTertiary}`, fontFamily: `${textTertiaryFont}`, marginLeft: "1rem" }}>Lorem Ipsum Dolor</h2>
+            <button aria-label="Tertiary accessibility button" onClick={handleTertiaryAcc} className="contrast-init" style={tertiaryContrastBg}><h2 className={tertiaryContrastText}>{tertiaryContrast >= 7 ? <div className="heading-icon-full-star" style={{background: "linear-gradient(to right, #285430, #285430)"}}>&nbsp;</div> : tertiaryContrast >= 4.5 ? <div className="heading-icon-half-star" style={{background: "linear-gradient(to right, #3b2f01, #3b2f01)"}}>&nbsp;</div> : <div className="heading-icon-no-star" style={{background: "linear-gradient(to right, #540804, #540804)"}}>&nbsp;</div>} {tertiaryContrast}</h2></button><h2 className="heading-tertiary-demo" style={{ color: `${textTertiary}`, fontFamily: `${textTertiaryFont}`, marginLeft: "1rem" }}>Lorem Ipsum Dolor</h2>
           </div>
 
 

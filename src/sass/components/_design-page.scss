@@ -367,6 +367,21 @@
   bottom: 0;
 }
 
+.heading-icon-full-star {
+  @include empty-logo(star-1, 2.7rem, 2.7rem);
+  margin: 0 auto
+}
+
+.heading-icon-half-star {
+  @include heading-logo(star-2, 2.7rem, 2.7rem);
+  margin: 0 auto;
+}
+
+.heading-icon-no-star {
+  @include heading-logo(star-3, 2.7rem, 2.7rem);
+  margin: 0 auto;
+}
+
 // .category-sample-hover{
 //   transform: translateY(-0.6rem) translateX(1rem) !important;
 //   filter: drop-shadow(-6px 6px 0px green);}

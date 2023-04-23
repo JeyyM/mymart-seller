@@ -233,6 +233,12 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 
 .white{color: white !important;}
 
+.green{color: #285430 !important;}
+
+.yellow{color: #3b2f01 !important;}
+
+.red{color: #540804 !important;}
+
 .home-label{text-align: center}
 
 ::-webkit-scrollbar {
