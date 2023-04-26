@@ -1,9 +1,10 @@
 .design-grid {
   width: 100%;
-  height: calc(100vh - $navbar-height);
+  height: min-content;
   background-color: transparent;
   display: grid;
   grid-template-columns: repeat(14, 1fr);
+  padding-bottom: 2rem;
 }
 
 .design-col-1 {

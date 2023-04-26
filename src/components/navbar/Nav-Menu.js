@@ -33,12 +33,12 @@ function NavMenu(props) {
     return <Fragment>
       <div className="navmenu">
         <div className="menu-decoy"></div>
-        <NavMenuItem logo={"category"} label={"Categories & Products"} link={"categories"} function={props.function}></NavMenuItem>
+        <NavMenuItem logo={"category"} label={"Categories & Products"} link={"categories"} function={props.function} title={"Add and edit categories, products, and variations"}></NavMenuItem>
         <NavMenuItem logo={"insights"} label={"My Analytics"}></NavMenuItem>
         <NavMenuItem logo={"ongoing"} label={"Ongoing Sales"}></NavMenuItem>
-        <NavMenuItem logo={"manage"} label={"My Mart"}></NavMenuItem>
+        <NavMenuItem logo={"manage"} label={"My Mart"} link={"mart"} title={"Set about page, descriptions, footers, and details of your mart"}></NavMenuItem>
         <NavMenuItem logo={"receipt"} label={"Customer Records"}></NavMenuItem>
-        <NavMenuItem logo={"brush"} label={"Mart Design"} link={"design/dark"}></NavMenuItem>
+        <NavMenuItem logo={"brush"} label={"Mart Design"} link={"design/dark"} title={"Edit mart's colors and fonts"}></NavMenuItem>
         <NavMenuItem logo={"quiz"} label={"Frequently Asked Questions"}></NavMenuItem>
         <NavMenuItem logo={"policy"} label={"Terms & Policies"}></NavMenuItem>
         <NavMenuItem logo={"support"} label={"Customer Service"}></NavMenuItem>

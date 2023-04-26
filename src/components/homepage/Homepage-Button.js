@@ -69,6 +69,7 @@ let extension=""
           query: { shopid: shopId },
         }}
         aria-label={props.label}
+        title={props.title}
       >
         <figure className={`${props.item}__logo`}></figure>
         <h2 className="home-label heading-secondary">{props.label}</h2>

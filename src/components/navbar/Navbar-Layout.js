@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import NavbarItems from "./Navbar-Items";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import Footer from "../Mart/Footer";
 
 function NavbarLayout(props) {
     const router = useRouter()
@@ -35,6 +36,8 @@ filter: brightness(50%);}`
 colormode = "/light"
     }
 
+    const id = router.query.shopid
+
     return (
         <Fragment>
             <Head>
@@ -44,7 +47,7 @@ colormode = "/light"
 
 body{background-color: ${props.color["bg-body"]} !important;}
 
-.maincontainer, .category-container {filter: drop-shadow(-4px 4px 0px ${props.color["color-primary-dark"]}) !important;}
+.maincontainer, .category-container, .setting-grid {filter: drop-shadow(-4px 4px 0px ${props.color["color-primary-dark"]}) !important;}
 
 .heading-primary {font-family: ${props.color["text-primary-font"]} !important;
     color: ${props.color["text-primary-color"]} !important;}
@@ -261,11 +264,21 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
     box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;
 }
+
+.svg-down {background-image: linear-gradient(
+    to bottom,
+    ${props.color["color-primary-dark"]},
+    ${props.color["color-primary-light"]}
+  ) !important;
+  }
     ` }
                 </style>
             </Head>
+            
             <NavbarItems shopid={router.query.shopid} colormode={colormode} />
             <div>{props.children}</div>
+            {router.asPath !== `/${id}/mart/details` ? <Footer></Footer> : <Fragment></Fragment>}
+
         </Fragment>
     );
 }

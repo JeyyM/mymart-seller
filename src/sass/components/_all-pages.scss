@@ -147,6 +147,13 @@
   flex: 1;
 }
 
+.flex-col-center{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: center;
+}
+
 .flex-row{
   display: flex;
   flex-direction: row;

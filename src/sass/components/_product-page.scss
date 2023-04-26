@@ -16,7 +16,7 @@
 }
 
 .product-container {
-  height: calc(100vh - $navbar-height - 4rem);
+  height: min-content;
   display: grid;
   grid-template-columns:
     minmax(0, 1fr) [center-start] repeat(

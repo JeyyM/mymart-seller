@@ -35,12 +35,12 @@ function HomePage({ shopID }){
 </Head>
         <h1 className="heading-primary">Dashboard</h1>
         <main className="maincontainer">
-            <HomepageButton color={defaultColors} item="home-category" label="Categories & Products" direction="categories"></HomepageButton>
+            <HomepageButton color={defaultColors} title={"Add and edit categories, products, and variations"} item="home-category" label="Categories & Products" direction="categories"></HomepageButton>
             <HomepageButton color={defaultColors} item="home-ongoing" label="Ongoing Sales" direction="ongoing"></HomepageButton>
-            <HomepageButton color={defaultColors} item="home-manage" label="My Mart" direction="mart"></HomepageButton>
+            <HomepageButton color={defaultColors} title={"Set about page, descriptions, footers, and details of your mart"} item="home-manage" label="My Mart" direction="mart"></HomepageButton>
             <HomepageButton color={defaultColors} item="home-insights" label="Mart Analytics" direction="analytics"></HomepageButton>
             <HomepageButton color={defaultColors} item="home-receipt" label="Customer Records" direction="records"></HomepageButton>
-            <HomepageButton color={defaultColors} item="home-brush" label="Mart Design" direction="design" extra={mode}></HomepageButton>
+            <HomepageButton color={defaultColors} title={"Edit mart's colors and fonts"} item="home-brush" label="Mart Design" direction="design" extra={mode}></HomepageButton>
             <HomepageButtonBlank color={defaultColors} item="home-policy" label="Terms & Policies" direction="policies"></HomepageButtonBlank>
             <HomepageButtonBlank color={defaultColors} item="home-support" label="Customer Service" direction="customer-service"></HomepageButtonBlank>
             <HomepageButtonBlank color={defaultColors} item="home-quiz" label="Frequently Asked Questions" direction="faq"></HomepageButtonBlank>
