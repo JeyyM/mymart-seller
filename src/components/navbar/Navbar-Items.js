@@ -29,7 +29,7 @@ return <Fragment>
 
 <NavMenu menuStatus={menuIsOn} onClick={showMenuToggler} function={showMenuToggler}></NavMenu>
 
-<div className="navbar">
+<header className="navbar">
     <NavButton menuHandler={showMenuToggler} status={menuIsOn}></NavButton>
     <NavLogo></NavLogo>
     <div className="navcontainer">
@@ -41,7 +41,7 @@ return <Fragment>
     <NavItem svg={<Receipt  className="menu-receipt svg-color"></Receipt>} link="#" label="Customer Records"></NavItem>
     <NavItem svg={<Power  className="menu-power svg-color"></Power>} link="#" label="Close or Open Mart"></NavItem>
     </div>
-</div>
+</header>
 </Fragment>
 }
 

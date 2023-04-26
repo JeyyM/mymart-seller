@@ -61,7 +61,7 @@ body{background-color: ${props.color["bg-body"]} !important;}
 
 .empty-text {color: ${props.color["color-primary-dark"]} !important;}
 
-.navbar, .navmenu, .navmenu-item, .menu-decoy {background-color: ${props.color["bg-item"]} !important;
+.navbar, .navmenu, .navmenu-item, .menu-decoy, .footer, .footer-column {background-color: ${props.color["bg-item"]} !important;
 border-image: linear-gradient(
       45deg,
       ${props.color["color-primary-dark"]},
@@ -77,7 +77,7 @@ border-image: linear-gradient(
 
 .homepage-button:active.x, .category:active, .theme-pack:active {
     transform: translateY(0rem) translateX(0rem) !important;
-    filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["bg-item"]}) !important;}
+    filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["color-primary-light"]}) !important;}
 
 .navitem, .image-container{border-image: linear-gradient(
       45deg,
@@ -125,7 +125,7 @@ border-image: linear-gradient(
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
 }
 
-.categ-modal, .confirm-modal, .category, .categ-edit-button, .product-edit-button, .add-img, .side-img, .add-prod-img, .product-image, .varItem{
+.categ-modal, .confirm-modal, .category, .categ-edit-button, .product-edit-button, .add-img, .side-img, .add-prod-img, .product-image, .varItem, .footer{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;}
 
@@ -271,13 +271,15 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     ${props.color["color-primary-light"]}
   ) !important;
   }
+
+
     ` }
                 </style>
             </Head>
             
             <NavbarItems shopid={router.query.shopid} colormode={colormode} />
             <div>{props.children}</div>
-            {router.asPath !== `/${id}/mart/details` ? <Footer></Footer> : <Fragment></Fragment>}
+            {router.asPath !== `/${id}/mart/details` && router.asPath !== "/" ? <Footer details={props.contents}></Footer> : <Fragment></Fragment>}
 
         </Fragment>
     );

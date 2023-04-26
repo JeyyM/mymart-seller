@@ -413,7 +413,7 @@ function Designing({ shopID }) {
 
   const categorySampleClick = {
     transform: "translateY(0rem) translateX(0rem)",
-    filter: `drop-shadow(-1px 1px 0px ${DarkColor}) brightness(120%) drop-shadow(0px 0px 10px ${bgItem})`
+    filter: `drop-shadow(-1px 1px 0px ${DarkColor}) brightness(120%) drop-shadow(0px 0px 10px ${LightColor})`
   }
 
   const ActionDemo1 = {
