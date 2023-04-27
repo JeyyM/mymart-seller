@@ -61,16 +61,20 @@ export default function Details (martID){
 
       <div className="detail-inputs">
       <div className="detail-row">
-      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input><button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+      <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
       </div>
       <div className="detail-row">
-      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input><button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+      <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
       </div>
       <div className="detail-row">
-      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input><button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+      <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
       </div>
       <div className="detail-row">
-      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input><button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+      <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
       </div>
       </div>
       </div>
@@ -84,16 +88,20 @@ export default function Details (martID){
 
       <div className="detail-inputs">
       <div className="detail-row">
-      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input><button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+      <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
       </div>
       <div className="detail-row">
-      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input><button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+      <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
       </div>
       <div className="detail-row">
-      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input><button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+      <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
       </div>
       <div className="detail-row">
-      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input><button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+      <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
       </div>
       </div>
       </div>
@@ -108,9 +116,59 @@ export default function Details (martID){
 
       <div className="detail-inputs">
       <div className="detail-row">
-      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input><button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <button className="add-img" type="button">
+      <div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
       </div>
-
+      </div>
+      <div className="detail-inputs">
+      <div className="detail-row">
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <button className="add-img" type="button">
+      <div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      </div>
+      </div>
+      <div className="detail-inputs">
+      <div className="detail-row">
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <button className="add-img" type="button">
+      <div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      </div>
+      </div>
+      <div className="detail-inputs">
+      <div className="detail-row">
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <button className="add-img" type="button">
+      <div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      </div>
+      </div>
+      <div className="detail-inputs">
+      <div className="detail-row">
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <button className="add-img" type="button">
+      <div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      </div>
+      </div>
+      <div className="detail-inputs">
+      <div className="detail-row">
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <button className="add-img" type="button">
+      <div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      </div>
+      </div>
+      <div className="detail-inputs">
+      <div className="detail-row">
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <button className="add-img" type="button">
+      <div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      </div>
       </div>
 
       </div>
@@ -119,15 +177,33 @@ export default function Details (martID){
       <span className="page-heading">
       <div className="heading-icon-img-sm svg-color">&nbsp;</div>
       <h1 className="heading-secondary no-margin">&nbsp;Footer Image &nbsp;</h1>
-        <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
       </span>
+
+      <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+
+      <div className="detail-inputs">
+      <div className="detail-row">
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
+      </div>
+      <img src="https://i.imgur.com/qlmYdJO.jpeg" className="footer-img"></img>
+      </div>
+      
       </div>
       <div className="detail-slot">
       <span className="page-heading">
       <div className="heading-icon-about svg-color">&nbsp;</div>
       <h1 className="heading-secondary no-margin">&nbsp;Footer Message &nbsp;</h1>
-        <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+    
       </span>
+      <textarea
+            id='description'
+            required
+            rows='5'
+            value={descValue}
+            className={descClasses}
+            placeholder="Description"
+            onChange={handleDescChange}
+          ></textarea>
       </div>
             <div className="detail-slot">
       <span className="page-heading">
@@ -135,6 +211,47 @@ export default function Details (martID){
       <h1 className="heading-secondary no-margin">&nbsp;Additional Links &nbsp;</h1>
         <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
       </span>
+      
+      <div className="detail-inputs">
+      <div className="detail-row">
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <button className="add-img" type="button">
+      <div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      </div>
+      </div>
+      <div className="detail-inputs">
+      <div className="detail-row">
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <button className="add-img" type="button">
+      <div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      </div>
+      </div>
+      <div className="detail-inputs">
+      <div className="detail-row">
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <button className="add-img" type="button">
+      <div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      </div>
+      </div>
+      <div className="detail-inputs">
+      <div className="detail-row">
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <button className="add-img" type="button">
+      <div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      </div>
+      </div>
+      <div className="detail-inputs">
+      <div className="detail-row">
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "40%" }}></input>
+      <button className="add-img" type="button">
+      <div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+      </div>
+      </div>
       </div>
       
 
