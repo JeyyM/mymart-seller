@@ -88,16 +88,18 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   min-height: calc(100vh - $navbar-height - 5.5rem);
-  background-color: green;
+  background-color: transparent;
+  gap: 1rem;
+  padding: 1rem;
 }
 
 .detail-slot{
   min-height: 15rem;
   width: 100%;
- background-color: red;
- border: 5px solid black;
+ border: 5px solid transparent;
  padding: 1rem;
  transition: all 0.2s;
+ background-color: red
 }
 
 .heading-icon-pin {

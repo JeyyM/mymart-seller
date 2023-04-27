@@ -2,8 +2,14 @@ import { Fragment } from "react"
 import { getServerSideProps } from "../categories"
 import Head from "next/head"
 import Footer from "@/components/Mart/Footer"
+import { useState } from "react"
 
 export default function Details (martID){
+  console.log(martID)
+    const footerItems = martID.shopID.shopData.shopDetails.footerData
+    const locationSet = martID.shopID.shopData.shopDetails.shopLocation
+    console.log(footerItems, locationSet)
+
     const sampleDetails = {
         shopEmails: [ 'email 1 X', 'email 2 X' ],
         shopPhone: [ '123 X', '456 X' ],
@@ -27,16 +33,36 @@ export default function Details (martID){
           { link: 'https://www.reddit.com/', label: 'Link 2 reddit XZ' }
         ]
       } 
-      
-      const sampleAddress = {
-        shopAddress: {
-          country: 'Philippines',
-          street: 'Major Eseo St, Brgy II-B',
-          region: 'Laguna',
-          city: 'San Pablo City',
-          zip: '4000'
+
+      console.log(footerItems.shopPhone)
+
+      const [confirmDelete, setConfirmDelete] = useState(null);
+
+      const [phone, setPhone] = useState(footerItems.shopPhone);
+      function handlePhoneChange(index, value) {
+        const newPhone = [...phone];
+        newPhone[index] = value;
+        setPhone(newPhone);
+      }
+      function handlePhoneInput() {
+        setPhone([...phone, '']);
+      }
+
+      function handlePhoneDelete(index) {
+        if (confirmDelete === index) {
+          const newPhone = [...phone];
+          newPhone.splice(index, 1);
+          setPhone(newPhone);
+          setConfirmDelete(null);
+        } else {
+          setConfirmDelete(index);
+          setTimeout(() => {
+            setConfirmDelete(null);
+          }, 2000);
         }
       }
+    
+
 
 
 
@@ -54,30 +80,32 @@ export default function Details (martID){
 
       <div className="detail-slot">
       <span className="page-heading">
-      <div className="heading-icon-phone svg-color">&nbsp;</div>
+        <div className="heading-icon-phone svg-color">&nbsp;</div>
         <h1 className="heading-secondary no-margin">&nbsp;Phone Numbers &nbsp;</h1>
-        <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+        <button className="add-img" type="button" onClick={handlePhoneInput}>
+          <div className="heading-icon-plus-marginless svg-color">&nbsp;</div>
+        </button>
       </span>
 
       <div className="detail-inputs">
-      <div className="detail-row">
-      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
-      <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+        {phone.map((num, index) => (
+          <div className="detail-row" key={index}>
+            <input
+              type="text"
+              placeholder="Dark Color"
+              className="text-small input-number"
+              autoComplete="off"
+              style={{ width: "100%" }}
+              value={num}
+              onChange={(event) => handlePhoneChange(index, event.target.value)}
+            />
+            <button className="add-img" type="button" onClick={() => handlePhoneDelete(index)}>
+            {confirmDelete === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
+            </button>
+          </div>
+        ))}
       </div>
-      <div className="detail-row">
-      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
-      <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
-      </div>
-      <div className="detail-row">
-      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
-      <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
-      </div>
-      <div className="detail-row">
-      <input type="text" placeholder="Dark Color" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
-      <button className="add-img" type="button"><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
-      </div>
-      </div>
-      </div>
+    </div>
 
       <div className="detail-slot">
       <span className="page-heading">
@@ -254,7 +282,7 @@ export default function Details (martID){
       
 
         <div style={{gridColumn: "1/-1"}}>
-        <Footer details={sampleDetails} address={sampleAddress}></Footer>
+        <Footer details={sampleDetails} address={locationSet}></Footer>
         </div>
       </section>
     </Fragment>

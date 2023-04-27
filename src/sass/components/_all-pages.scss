@@ -36,6 +36,14 @@
   @include heading-logo(plus, 3rem, 3rem);
 }
 
+.heading-icon-minus-marginless {
+  @include heading-logo(minus, 3rem, 3rem);
+}
+
+.heading-icon-check-marginless {
+  @include heading-logo(check, 3rem, 3rem);
+}
+
 .heading-icon-edit {
   @include heading-logo(edit, 4rem, 4rem);
   margin-left: 1rem;

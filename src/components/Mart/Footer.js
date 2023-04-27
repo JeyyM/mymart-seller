@@ -8,7 +8,6 @@ export default function Footer(props) {
     const socials = props.details.shopSocials
     const additional = props.details.additionalLinks
     const about = props.details.footerAbout
-    console.log(props.details, props.address)
 
 
     return <footer className="footer">
