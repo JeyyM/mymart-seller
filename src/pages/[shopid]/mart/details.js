@@ -199,10 +199,8 @@ export default function Details (martID){
             id='description'
             required
             rows='5'
-            value={descValue}
-            className={descClasses}
+            className="desc-text-area"
             placeholder="Description"
-            onChange={handleDescChange}
           ></textarea>
       </div>
             <div className="detail-slot">
