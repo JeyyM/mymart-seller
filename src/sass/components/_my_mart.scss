@@ -99,7 +99,8 @@
  border: 5px solid transparent;
  padding: 1rem;
  transition: all 0.2s;
- background-color: red
+ background-color: $theme-bg;
+ @include border-round;
 }
 
 .heading-icon-pin {
