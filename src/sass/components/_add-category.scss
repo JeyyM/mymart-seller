@@ -99,7 +99,8 @@
   transform: scale(0.9);
 }
 
-.page-heading {display: flex;}
+.page-heading {display: flex;
+align-items: center;}
 
 .page-heading-secondary {display: flex;
 gap: 1rem;}

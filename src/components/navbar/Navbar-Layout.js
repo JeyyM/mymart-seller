@@ -279,7 +279,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
             
             <NavbarItems shopid={router.query.shopid} colormode={colormode} />
             <div>{props.children}</div>
-            {router.asPath !== `/${id}/mart/details` && router.asPath !== "/" ? <Footer details={props.contents}></Footer> : <Fragment></Fragment>}
+            {router.asPath !== `/${id}/mart/details` && router.asPath !== "/" ? <Footer details={props.contents} address={props.address}></Footer> : <Fragment></Fragment>}
 
         </Fragment>
     );

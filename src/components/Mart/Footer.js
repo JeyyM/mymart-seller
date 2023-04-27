@@ -2,15 +2,13 @@ import Link from "next/link"
 
 export default function Footer(props) {
 
-    console.log(props.details)
-    console.log(props.details.shopPhone)
-    const address = props.details.shopAddress
+    const address = props.address.shopAddress
     const numbers = props.details.shopPhone
     const emails = props.details.shopEmails
     const socials = props.details.shopSocials
     const additional = props.details.additionalLinks
     const about = props.details.footerAbout
-    console.log(about)
+    console.log(props.details, props.address)
 
 
     return <footer className="footer">
@@ -36,8 +34,8 @@ export default function Footer(props) {
             <h3 className="heading-tertiary"><strong>Social Media</strong></h3>
             <div className="socials-container">
             {socials.map((index) => {
-                return <Link href={index.link} target="_blank">
-                <img key={index} className="social-icon" src={`/socials/${index.type}.webp`}></img>
+                return <Link key={index.link} href={index.link} target="_blank">
+                <img className="social-icon" src={`/socials/${index.type}.webp`}></img>
                 </Link>
             })}
             </div>;
@@ -65,6 +63,7 @@ export default function Footer(props) {
 
         <h3 className="heading-tertiary">{about.footerMessage}</h3>
         </div>
+        <h3 className="heading-tertiary" style={{gridColumn:"1/-1", justifySelf:"center"}}><strong>Copyright &copy; YEAR Company Name</strong></h3>
     </footer>
 }
 

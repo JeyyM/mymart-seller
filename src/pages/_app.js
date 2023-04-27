@@ -11,10 +11,12 @@ export default function App({ Component, pageProps }) {
   let data = {}
   let database = {}
   let details = {}
+  let address = {}
 
   if (pageProps.shopID){
   database = pageProps.shopID.shopData.shopDesigns
-  details = pageProps.shopID.shopData.shopDetails
+  details = pageProps.shopID.shopData.shopDetails.footerData
+  address = pageProps.shopID.shopData.shopDetails.shopLocation
   if (database.defaultMode){
     data = database.lightDesign
   } else {data = database.darkDesign}
@@ -29,7 +31,7 @@ export default function App({ Component, pageProps }) {
     database = false
 }
 
-  return <NavbarLayout color={data} mode={database} contents={details}><Component {...pageProps} /></NavbarLayout>;
+  return <NavbarLayout color={data} mode={database} contents={details} address={address}><Component {...pageProps} /></NavbarLayout>;
 }
 
 export {getServerSideProps}

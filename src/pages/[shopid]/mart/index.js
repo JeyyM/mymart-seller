@@ -25,11 +25,11 @@ function Mart(martID){
         </Link>
         <Link className="homepage-button x item-setup flex-col-center" href={`/${id}/mart/details`} style={{textDecoration:"none"}}>
             <div className="about-button-pin svg-down"></div>
-            <h2 className="heading-primary" style={{display:"inline", margin:"1rem auto", textAlign:"center"}}>Contact Details and Footer</h2>
+            <h2 className="heading-primary" style={{display:"inline", margin:"1rem auto", textAlign:"center"}}>Contact Details & Footer</h2>
         </Link>
         <Link className="homepage-button x item-setup flex-col-center" href={`/${id}/mart/payment`} style={{textDecoration:"none"}}>
             <div className="about-button-credit svg-down"></div>
-            <h2 className="heading-primary" style={{display:"inline", margin:"1rem auto", textAlign:"center"}}>Payment and Fees</h2>
+            <h2 className="heading-primary" style={{display:"inline", margin:"1rem auto", textAlign:"center"}}>Payment & Fees</h2>
         </Link>
         <Link className="homepage-button x item-setup flex-col-center" href={`/${id}/mart/about`} style={{textDecoration:"none"}}>
             <div className="about-button-home-pin svg-down"></div>
@@ -37,7 +37,7 @@ function Mart(martID){
         </Link>
         <Link className="homepage-button x item-setup flex-col-center" href={`/${id}/mart/about`} style={{textDecoration:"none"}}>
             <div className="about-button-pop-up svg-down"></div>
-            <h2 className="heading-primary" style={{display:"inline", margin:"1rem auto", textAlign:"center"}}>Images and Pop-up</h2>
+            <h2 className="heading-primary" style={{display:"inline", margin:"1rem auto", textAlign:"center"}}>Images & Pop-up</h2>
         </Link>
         <Link className="homepage-button x item-setup flex-col-center" href={`/${id}/mart/about`} style={{textDecoration:"none"}}>
             <div className="about-button-messenger svg-down"></div>
@@ -48,8 +48,6 @@ function Mart(martID){
     </div>
     </Fragment>
 }
-
-Mart.excludeNavbar = true;
 
 export default Mart
 

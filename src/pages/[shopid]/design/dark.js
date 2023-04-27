@@ -546,9 +546,9 @@ function Designing({ shopID }) {
           <button  aria-label="Set Default Color Theme" className="product-action-2-small heading-secondary" disabled={loading} onClick={setAsDefault}>Set Default</button>
         </div>
 
-        <div style={{ height: "22em", overflow: "hidden" }}>
+        {/* <div style={{ height: "22em", overflow: "hidden" }}>
           <ChromePicker color={color} onChange={updatedColor => setColor(updatedColor)} className="color-picker" disableAlpha={true} renderers={{ hex: ChromePicker }} styles={{ default: { picker: { backgroundColor: `${activeMode["bg-body"]}` } } }}></ChromePicker>
-        </div>
+        </div> */}
 
         <input onFocus={copyHex} onTouchStart={copyHex} type="text" placeholder="HEXCODE" className="text-small input-number" autoComplete="off" style={{ width: "50%", margin: "0 auto" }} value={color.hex}></input>
 

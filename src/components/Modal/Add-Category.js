@@ -114,11 +114,7 @@ function AddCategory(props) {
         nameExist = false
       } 
     }
-
-    // nameValid = nameValue !== "" && !props.list.includes(nameValue.toUpperCase())
-
-    // nameExist = props.list.includes(nameValue.toUpperCase())
-    // if (nameValue.toUpperCase() === setDefaultName.toUpperCase()) { nameExist = false; nameValid = true }
+    
     const imgValid = startsImgur(imgValue) && !isEmpty(imgValue)
     const descValid = descValue !== ""
 
