@@ -1,0 +1,134 @@
+.categ-modals{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.categ-modal {
+    width: clamp(50%, 700px, 90%);
+    height: auto;
+    min-height: 50%;
+    max-height: 80%;
+    margin: auto;
+    padding: 2rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    @include border-round;
+    box-shadow: inset 0 0 0 2rem $theme-bg,
+    0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+    transition: all 0.2s;
+    overflow-y: scroll;
+    z-index: -1;
+  }
+
+// .add-categ-img-container{
+//   max-width: 40%;
+//   max-height: 40%;
+// }
+
+// .add-categ-img-container {
+//   position: relative;
+//   max-width: 40% !important;
+//   max-height: 40% !important;
+//   // display: flex;
+// }
+
+.add-categ-img-container {
+  position: relative;
+  max-width: 40%;
+  max-height: 40%;
+  display: flex;
+  margin: 1rem auto 1rem;
+  justify-content: center;
+}
+
+.add-categ-img{
+  @include border-round;
+  display: block;
+  margin: 1rem auto 0rem;
+  max-width: 40%;
+  max-height: 40%;
+}
+
+
+// .add-categ-img {
+//   position: absolute;
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+// }
+
+.add-categ-buttons{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  gap:3rem;
+  margin-top: 1rem;
+}
+
+.categ-button-1{
+  width: 20rem
+}
+
+.categ-button-2{
+  width: 20rem
+}
+
+.add-categ-init{
+  @include border-round;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  // justify-content: center;
+  width: 19rem;
+  height: 4rem;
+  margin-top: 0.4rem;
+  margin-left: 0.5rem;
+  transition: all 0.2s;
+}
+
+.add-categ-init:hover{
+  filter: brightness(120%);
+}
+
+.add-categ-init:focus{
+  box-shadow: inset 0 0 0 10px $theme-bg, 0 0 0 2px $color-primary-dark,
+    0 0 0 4px white;
+  transform: scale(0.9);
+}
+
+.page-heading {display: flex;
+align-items: center;}
+
+.page-heading-secondary {display: flex;
+gap: 1rem;}
+
+.text-limited{
+  box-shadow: inset 0 0 0 1rem $theme-bg, inset -7.5rem 0 0rem 1rem rgb(255, 255, 255) !important;
+}
+
+input[type="text"].text-limited {
+  padding-right: 8.5rem;
+}
+
+input[type="text"].text-limited:focus {
+  padding-right: 8.5rem;
+}
+
+.limit-numbers{
+  margin-left: -8rem;
+  z-index: 1;
+  color: black;
+  line-height: 1;
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 500;
+  transform: translateY(0.5rem);
+}
+
+.overlength {
+  color:red;
+  transition: all 0.2s;
+}

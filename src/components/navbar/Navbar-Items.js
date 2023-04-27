@@ -2,6 +2,7 @@ import { Fragment } from "react"
 import NavButton from "./Nav-Button"
 import NavLogo from "./Nav-Logo"
 import NavItem from "./NavItem"
+import Head from "next/head"
 
 import { Category } from "../svgs"
 import { Insights } from "../svgs"
@@ -14,7 +15,9 @@ import { useState } from "react"
 import NavMenu from "./Nav-Menu"
 import { motion } from "framer-motion"
 
-function NavbarItems(){
+function NavbarItems(props){
+console.log("colormode here", props.colormode)
+
 const [menuIsOn, setMenuIsOn] = useState(false)
 
 const showMenuToggler = () => {
@@ -22,21 +25,23 @@ const showMenuToggler = () => {
 }
 
 return <Fragment>
-<NavMenu menuStatus={menuIsOn} onClick={showMenuToggler}></NavMenu>
 
-<div className="navbar">
+
+<NavMenu menuStatus={menuIsOn} onClick={showMenuToggler} function={showMenuToggler}></NavMenu>
+
+<header className="navbar">
     <NavButton menuHandler={showMenuToggler} status={menuIsOn}></NavButton>
     <NavLogo></NavLogo>
     <div className="navcontainer">
-    <NavItem svg={<Category  className="nav-category"></Category>} link="#" label="Categories & Products"></NavItem>
-    <NavItem svg={<Insights  className="nav-insights"></Insights>} link="#" label="My Analytics"></NavItem>
-    <NavItem svg={<Ongoing  className="nav-ongoing"></Ongoing>} link="#" label="Ongoing Sales"></NavItem>
-    <NavItem svg={<Brush  className="nav-brush"></Brush>} link="#" label="Mart Design"></NavItem>
-    <NavItem svg={<Manage  className="nav-manage"></Manage>} link="#" label="My Mart"></NavItem>
-    <NavItem svg={<Receipt  className="nav-receipt"></Receipt>} link="#" label="Customer Records"></NavItem>
-    <NavItem svg={<Power  className="nav-power"></Power>} link="#" label="Close or Open Mart"></NavItem>
+    <NavItem svg={<Category  className="menu-category svg-color"></Category>} title={"Add and edit categories, products, and variations"} link={"categories"} label="Categories & Products" ></NavItem>
+    <NavItem svg={<Insights  className="menu-insights svg-color"></Insights>} link={"analytics"} label="My Analytics"></NavItem>
+    <NavItem svg={<Ongoing  className="menu-ongoing svg-color"></Ongoing>} link="#" label="Ongoing Sales"></NavItem>
+    <NavItem svg={<Brush  className="menu-brush svg-color"></Brush>} link={"design"} title={"Edit mart's colors and fonts"} label="Mart Design" extension={props.colormode}></NavItem>
+    <NavItem svg={<Manage className="menu-manage svg-color"></Manage>} title={"Set about page, descriptions, footers, and details of your mart"} link={"mart"} label="My Mart"></NavItem>
+    <NavItem svg={<Receipt  className="menu-receipt svg-color"></Receipt>} link="#" label="Customer Records"></NavItem>
+    <NavItem svg={<Power  className="menu-power svg-color"></Power>} link="#" label="Close or Open Mart"></NavItem>
     </div>
-</div>
+</header>
 </Fragment>
 }
 

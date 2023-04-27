@@ -7,7 +7,7 @@ export default function Document() {
       <body>
         <Main />
         <NextScript />
-        <div id="menu"></div>
+
       </body>
     </Html>
   )

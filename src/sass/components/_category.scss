@@ -1,10 +1,9 @@
 .category-container {
-    height: min-content;
+    min-height: calc(100vh - $navbar-height);
     display: grid;
     grid-template-columns:
       [center-start] repeat(4, [col-start] minmax(min-content, 1fr) [col-end])
       [center-end];
-    // grid-template-rows: repeat(8, min-content, 1fr);
     padding: 2rem;
     gap: 2rem;
     grid-auto-rows: auto;
@@ -13,22 +12,91 @@
   }
 
   .category {
-    @include border-round;
-    height: 22rem;
+    @include button-style;
     position: relative;
-    display: flex;
-    justify-items: center;
-    align-items: center;
-    transition: all 0.2s;
-    background-image: $theme-bg,
-      linear-gradient(45deg, $color-primary-dark, $color-primary-light);
-  
-    &:hover {
-      transform: translateY(-0.6rem) translateX(1rem);
-      filter: drop-shadow(-6px 6px 0px $color-primary-dark);
-    }
-    &:active {
-      transform: translateY(0rem) translateX(0rem);
-      filter: drop-shadow(-1px 1px 0px $color-primary-dark);
-    }
+    display: inline-block;
+    overflow: hidden;
+    height: 30rem;
+    text-decoration: none;
+    width: calc(100vw / 4 - 3rem);
+    word-wrap: break-word;
+    z-index: -6;
   }
+
+  .image-container {
+    position: relative;
+    width: 100%;
+    height: 40%;
+    display: flex;
+    @include border;
+    display: flex;
+    border-style: none none solid none;
+  }
+  
+  .category-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .category-content{
+    padding: 0.5rem 1rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    height:60%;
+    z-index: 5;
+    background-color: $theme-bg;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+  }
+
+  .category-name {margin-bottom: 0.5rem;}
+
+  .product-number-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .product-numbers{
+    color: $text-secondary-color;
+    line-height: 1;
+    margin-top: 0px;
+    font-size: 2.5rem;
+    font-family: "Roboto";
+    font-weight: 700;
+  }
+
+.category-description{
+  margin-left: 2rem;
+  margin-top: 1rem;
+}
+
+.categ-edit-button{
+  position: absolute;
+  top: 0;
+  right:0;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  height:5.5rem;
+  width: 5.5rem;
+  @include border-round;
+  border-radius: 50%;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+  cursor: cell;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.categ-edit-button:hover{
+  filter: brightness(120%);
+}
+
+.categ-edit-button:active{
+  filter: brightness(120%);
+  box-shadow: inset 0 0 0 10px white, 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+}

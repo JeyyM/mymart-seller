@@ -33,23 +33,6 @@
   }
 }
 
-// .home-category {
-//   @include home-button-column(1/8);
-//   background-image: url(../../assets/mainlogo.png),
-//     linear-gradient(45deg, $color-primary-dark, $color-primary-light);
-// }
-
-// .outline {
-//   z-index: 99;
-//   width: 10rem;
-//   height: 10rem;
-//   background-color: red;
-//   background-clip: text;
-//   // filter: drop-shadow(10px 10px black);
-
-//   position: absolute;
-// }
-
 .home-label {
   position: absolute;
   z-index: 16;
@@ -62,7 +45,6 @@
   @include home-setup("category.jpg");
   &__logo {
     @include home-setup-logo(category);
-
     &-outline {
       @include home-setup-logo-outline(category, 0, 0rem, 12rem);
     }
@@ -218,11 +200,8 @@
   }
 }
 
-// .outline {
-//   z-index: 99;
-//   width:10rem;
-//   height: 10rem;
-//   background-color: transparent;
-//   // filter: drop-shadow(10px 10px black);
-//   background-clip: text;
-// }
+/////////////// DB Changes
+.bg-gradient {
+  background-image: linear-gradient($theme-bg, $theme-bg),
+  linear-gradient(45deg, $color-primary-dark, $color-primary-light);
+}

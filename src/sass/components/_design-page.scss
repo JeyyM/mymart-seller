@@ -1,0 +1,393 @@
+.design-grid {
+  width: 100%;
+  height: min-content;
+  background-color: transparent;
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  padding-bottom: 2rem;
+}
+
+.design-col-1 {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  grid-column: 1/4;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.design-col-2 {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  grid-column: 4/7;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.design-col-3 {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  grid-column: 7/11;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.design-col-4 {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  grid-column: 11/15;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.color-picker {
+  width: 100% !important;
+}
+
+.color-moder {
+  width: 100%;
+  height: 21rem;
+  background-color: white;
+}
+
+.design-conf-buttons {
+  width: 100%;
+  height: 15rem;
+  background-color: transparent;
+}
+
+.theme-pack {
+  height: auto;
+  width: 100%;
+  background-color: white;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.theme-pack:active {
+  background-color: white;
+}
+
+.theme-pack-colors {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: space-around;
+}
+
+.design-primary {
+  height: 47rem;
+  width: 100%;
+  background-color: white;
+}
+
+.design-typography {
+  height: 25rem;
+  width: 100%;
+  background-color: white;
+}
+
+.design-demo {
+  height: 45rem;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.demo-typography {
+  height: 26rem;
+  width: 100%;
+  background-color: white;
+}
+
+.item-setup {
+  @include border-round;
+  border: solid 5px transparent;
+  position: relative;
+  transition: all 0.2s;
+  padding: 1rem;
+  box-shadow: inset 0 0 0 2rem $theme-bg;
+  overflow: hidden;
+}
+
+.item-setup-dark {
+  @include border-round;
+  border: solid 5px transparent;
+  position: relative;
+  transition: all 0.2s;
+  padding: 1rem;
+  box-shadow: inset 0 0 0 2rem $background-color;
+}
+
+.theme-button {
+  height: 8rem;
+  width: 8rem;
+  background: transparent;
+  @include border-round;
+  border-radius: 50%;
+  cursor: pointer;
+  background-image: linear-gradient($theme-bg, $theme-bg),
+    linear-gradient(to right, $color-primary-dark, $color-primary-light);
+  margin: 0.5rem auto;
+  display: block;
+  filter: drop-shadow(-2px 2px 0px #0057ff);
+  transition: all 0.2s;
+  display: flex;
+  justify-content: center;
+}
+
+.theme-button:hover {
+  transform: translateY(-0.3rem) translateX(0.5rem);
+  filter: drop-shadow(-4px 4px 0px #0057ff) brightness(110%);
+}
+
+.theme-button:active {
+  transform: translateY(0rem) translateX(0rem);
+  filter: drop-shadow(-1px 1px 0px #89375f);
+}
+
+.button-theme-sun {
+  @include heading-logo(sun, 6rem, 6rem);
+  margin: auto;
+}
+
+.button-theme-moon {
+  @include heading-logo(moon, 6rem, 6rem);
+  margin: auto;
+}
+
+.product-action-2-small {
+  @include button-dark;
+  width: 17rem;
+  height: 5rem;
+  display: block;
+  margin: 1rem auto;
+}
+
+.text-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.text-group-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+}
+
+.text-group-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2rem;
+}
+
+.text-span {
+  grid-column: 1/3;
+}
+
+.typo-prev-1 {
+  width: 100%;
+  height: 7rem;
+  background-color: white;
+}
+
+.typo-prev-2 {
+  width: 100%;
+  height: 6rem;
+  background-color: rgb(255, 0, 0);
+}
+
+.typo-prev-3 {
+  width: 100%;
+  height: 6rem;
+  background-color: rgb(0, 8, 255);
+}
+
+.item-setup-2 {
+  @include border-round;
+  border: solid 0px transparent;
+  border-top: solid 6px transparent;
+  border-radius: 0rem;
+  position: relative;
+  transition: all 0.2s;
+  box-shadow: inset 0 0 0 2rem $theme-bg;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+}
+
+.item-setup-2-b {
+  @include border-round;
+  border: solid 0px transparent;
+  border-top: solid 6px transparent;
+  border-radius: 0rem;
+  position: relative;
+  transition: all 0.2s;
+  box-shadow: inset 0 0 0 2rem $theme-bg;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.contrast-init {
+  background-color: #0057ff;
+  height: 5.5rem;
+  width: 7rem;
+  margin-left: 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.text-options {
+  @include text-input-small;
+  z-index: 5;
+  appearance: none;
+}
+
+.text-options {
+  @include text-input-small-style;
+  color: black;
+}
+
+.text-options {
+  @include text-input-small-focus;
+}
+
+.heading-primary-demo{
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin-left: 2rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.heading-secondary-demo {
+  line-height: 1;
+  margin-top: 0px;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.heading-tertiary-demo {
+  line-height: 1;
+  transform: translateY(-0.2rem);
+  margin-top: 0px;
+  font-size: 2rem;
+  font-weight: 500;
+  word-wrap: break-word;
+}
+
+.product-action-2-demo {
+  @include button-dark;
+  width: 22rem;
+}
+
+.product-action-1-demo {
+  width: 1fr;
+  height: 7rem;
+  @include border-round;
+  margin-bottom: 3rem;
+  font-size: 2.5rem;
+  padding: 1rem;
+  box-shadow: inset 0 0 0 1rem $theme-bg;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.product-action-1-demo:active {
+  filter: brightness(120%);
+  box-shadow: inset 0 0 0 10px $theme-bg, 0 0 0 2px $color-primary-dark,
+    0 0 0 4px white;
+}
+
+.category-sample {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  height: 30rem;
+  text-decoration: none;
+  width: calc(100vw / 4 - 3rem);
+  word-wrap: break-word;
+  z-index: 5;
+  align-self: center;
+  border-radius: 0rem;
+
+  @include border-round;
+  position: relative;
+  justify-items: center;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.heading-icon-dropshadow-demo {
+  background-clip: text;
+}
+
+.image-container-demo {
+  position: relative;
+  width: 100%;
+  height: 40%;
+  display: flex;
+  @include border;
+  display: flex;
+  border-style: none none solid none;
+}
+
+.category-content-demo{
+  padding: 0.5rem 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  height:60%;
+  z-index: 5;
+  background-color: $theme-bg;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.heading-icon-full-star {
+  @include empty-logo(star-1, 2.7rem, 2.7rem);
+  margin: 0 auto
+}
+
+.heading-icon-half-star {
+  @include heading-logo(star-2, 2.7rem, 2.7rem);
+  margin: 0 auto;
+}
+
+.heading-icon-no-star {
+  @include heading-logo(star-3, 2.7rem, 2.7rem);
+  margin: 0 auto;
+}
+
+// .category-sample-hover{
+//   transform: translateY(-0.6rem) translateX(1rem) !important;
+//   filter: drop-shadow(-6px 6px 0px green);}
+
+// .homepage-button:active.x, .category:active, .category-sample:active, .theme-pack:active{
+//   transform: translateY(0rem) translateX(0rem) !important;
+//   filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["bg-item"]}) !important;}
+

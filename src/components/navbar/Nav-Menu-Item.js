@@ -1,13 +1,17 @@
 import { Fragment } from "react";
+import Link from "next/link"
+import { useRouter } from "next/router"
 
 function NavMenuItem(props) {
+  const router = useRouter()
+
   return (
-    <Fragment>
-      <button className="navmenu-item">
-        <div className={`menu-${props.logo}`}>&nbsp;</div>
+    <Link href={`/${router.query.shopid}/${props.link}`} style={{ textDecoration: 'none' }} title={props.title}>
+      <button className="navmenu-item" onClick={props.function}>
+        <div className={`menu-${props.logo} svg-color`}>&nbsp;</div>
         <h2 className="heading-secondary">{props.label}</h2>
       </button>
-    </Fragment>
+      </Link>
   );
 }
 
