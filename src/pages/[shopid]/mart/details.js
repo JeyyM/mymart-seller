@@ -6,10 +6,17 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import SocialOptions from "@/components/detail/SocialOptions"
 import Link from "next/link"
+import { useRouter } from "next/router"
 
 export default function Details(martID) {
   const footerItems = martID.shopID.shopData.shopDetails.footerData
   const locationSet = martID.shopID.shopData.shopDetails.shopLocation.shopAddress
+
+  const router = useRouter()
+
+  function waitSeconds() {
+    return new Promise(resolve => setTimeout(resolve, 2000));
+  }
 
   const slide = {
     hidden: {
@@ -120,8 +127,6 @@ export default function Details(martID) {
   }
 
 
-  console.log("social", socials)
-
   const [borderless, setBorderless] = useState(footerItems.footerAbout.borderless)
   function handleToggle(){
     setBorderless(!borderless)
@@ -139,7 +144,6 @@ export default function Details(martID) {
   const [confirmDelete4, setConfirmDelete4] = useState(null);
 
   const [additional, setAdditional] = useState(footerItems.additionalLinks);
-  console.log("additional here", additional)
 
     function handleAddAdditional(link, type) {
     const newAdditional = [...additional, { link: "", label: "" }];
@@ -170,12 +174,62 @@ export default function Details(martID) {
       }, 2000);
     }
   }
-
-  console.log(footerItems.shopSocials)
   
+  function isEmpty(word) {
+    word.trim() === ""
+  }
+
+  function startsImgur(word) {
+    return word.slice(0, 20) === "https://i.imgur.com/";
+  }
+
+  const [loading, setLoading] = useState(false)
+
+  async function editFooter(formdata, key) {
+
+    const response = await fetch(
+      `../../api/edit-footer?martid=${router.query.shopid}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formdata)
+      }
+    );
+    const data = await response.json();
+  }
+
   function submitChanges(){
-    const payload={shopEmails: emails, shopPhone: phone, footerAbout: {footerImg: prevImg, footerMessage: aboutMsg, borderless: borderless}, shopSocials: socials, additionalLinks: additional}
-    console.log(payload)
+    setLoading(true)
+
+    const filteredPhone = phone.filter((number) => number !== "");
+    const filteredEmails = emails.filter((email) => email !== "")
+    const filteredSocials = socials.filter((entry) => {
+      if (entry.link.trim() === "") {
+        return false;
+      }
+      if (entry.type === "None") {
+        return false;
+      }
+      if (!entry.link.toLowerCase().includes(entry.type.toLowerCase())) {
+        return false;
+      }
+      return true;
+    });
+
+    const filteredImg = prevImg === "" || startsImgur(prevImg) ? prevImg : null;
+    const filteredAdditionals = additional.filter((item) => {
+      return item.link.trim() !== "" && item.label.trim() !== "";
+    });
+
+    const payload={shopEmails: filteredEmails, 
+      shopPhone: filteredPhone, 
+      footerAbout: {footerImg: filteredImg, footerMessage: aboutMsg, borderless: borderless}, 
+      shopSocials: filteredSocials, 
+      additionalLinks: filteredAdditionals}
+    
+    editFooter(payload)
+
+    router.reload()
   }
 
   return <Fragment>
@@ -189,7 +243,7 @@ export default function Details(martID) {
       </div>
       <h1 className="heading-primary no-margin">Contact Details and Footer&nbsp;</h1>
       <button className="heading-tertiary add-categ-init" style={{width:"max-content"}} onClick={submitChanges}>
-          <div className="heading-icon-plus svg-color">&nbsp;</div>Submit Changes &nbsp;</button>
+          <div className="heading-icon-plus svg-color">&nbsp;</div>{loading ? "Submitting..." : "Submit Changes"} &nbsp;</button>
     </span>
     <section className="contact-container">
 
@@ -263,10 +317,11 @@ export default function Details(martID) {
       <div className="detail-slot">
         <span className="page-heading">
           <div className="heading-icon-socials svg-color">&nbsp;</div>
-          <h1 className="heading-secondary no-margin">&nbsp;Social Media &nbsp;</h1>
+          <h2 className="heading-secondary no-margin">&nbsp;Social Media &nbsp;</h2>
           <button className="add-img" type="button" onClick={handleAddSocial}><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
         </span>
 
+        <h2 className="heading-tertiary" style={{marginTop:"1rem"}}>The link must match the chosen social media</h2>
         <div className="detail-inputs">
         <AnimatePresence>
           {socials.map((social, index) => (<div className="detail-row" key={index}>
@@ -289,7 +344,7 @@ export default function Details(martID) {
           <div className="heading-icon-img-sm svg-color">&nbsp;</div>
           <h1 className="heading-secondary no-margin">&nbsp;Footer Image &nbsp;</h1>
         </span>
-
+        <h2 className="heading-tertiary" style={{marginTop:"1rem"}}>Can be left blank</h2>
       <div className="flex-row-align" style={{marginTop: "1rem"}}>
         <input checked={borderless} onChange={handleToggle} type="checkbox" id="switch" className="toggle-switch" /><label htmlFor="switch" className="toggle-label">Toggle</label>
         <h3 className="heading-tertiary">Borderless</h3>
@@ -326,7 +381,7 @@ export default function Details(martID) {
           <h1 className="heading-secondary no-margin">&nbsp;Additional Links &nbsp;</h1>
           <button className="add-img" type="button" onClick={handleAddAdditional} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
         </span>
-
+        <h2 className="heading-tertiary" style={{marginTop:"1rem"}}>Incomplete entries will be ignored</h2>
         <div className="detail-inputs">
         <AnimatePresence>
         {additional.map((item, index)=>(<div className="detail-row" key={index}>
@@ -354,12 +409,16 @@ export default function Details(martID) {
             <br></br>
 
             <h3 className="heading-tertiary"><strong>Phone Numbers</strong></h3>
+            {phone.length === 0 ? <h3 className="heading-tertiary">-</h3> : ""}
+            
             {phone.map((num, index) => {
               return <h3 key={index} className="heading-tertiary">{num}</h3>;
             })}
           </div>
           <div className="footer-column">
             <h3 className="heading-tertiary"><strong>Emails</strong></h3>
+            {emails.length === 0 ? <h3 className="heading-tertiary">-</h3> : ""}
+
             {emails.map((email, index) => {
               return <h3 key={index} className="heading-tertiary">{email}</h3>;
             })}
@@ -368,6 +427,7 @@ export default function Details(martID) {
 
             <h3 className="heading-tertiary"><strong>Social Media</strong></h3>
             <div className="socials-container">
+            {socials.length === 0 ? <h3 className="heading-tertiary">-</h3> : ""}
               {socials.map((index) => {
                 return <Link key={index.link} href={index.link} target="_blank">
                   <img className="social-icon" src={`/socials/${index.type}.webp`}></img>
@@ -387,16 +447,17 @@ export default function Details(martID) {
             <br></br>
 
             <h3 className="heading-tertiary"><strong>Additional Links</strong></h3>
+            {additional.length === 0 ? <h3 className="heading-tertiary">-</h3> : ""}
             {additional.map((index) => {
               return <a key={index.label} className="heading-tertiary" href={index.link} style={{ textDecoration: "none" }}>{index.label}</a>;
             })}
           </div>
           <div className="footer-column">
-            <img src={prevImg} className={borderless ? "footer-img" : "footer-img round-borderer"}></img>
+          {prevImg === "" ? <h3 className="heading-tertiary">-</h3> : <img src={prevImg} className={borderless ? "footer-img" : "footer-img round-borderer"}></img>}
 
             <br></br>
+            {aboutMsg === "" ? <h3 className="heading-tertiary">-</h3> : <h3 className="heading-tertiary">{aboutMsg}</h3>}
 
-            <h3 className="heading-tertiary">{aboutMsg}</h3>
           </div>
 
           <h3 className="heading-tertiary" style={{ gridColumn: "1/-1", justifySelf: "center" }}><strong>Copyright &copy; YEAR Company Name</strong></h3>
