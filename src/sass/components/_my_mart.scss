@@ -151,4 +151,50 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  gap: 1rem;
 }
+
+
+input[type=checkbox].toggle-switch{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label.toggle-label {
+	cursor: pointer;
+	text-indent: -9999px;
+	width: 8rem;
+	height: 4rem;
+	background: grey;
+	display: block;
+	border-radius: 100px;
+	position: relative;
+}
+
+ .toggle-label:after {
+	content: '';
+	position: absolute;
+	top: 0.20rem;
+	left: 0.25rem;
+	width: 3.6rem;
+	height: 3.6rem;
+	background: #fff;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+input:checked + .toggle-label {
+	background: #bada55;
+}
+
+input:checked + .toggle-label:after {
+	left: calc(100% - 2px);
+	transform: translateX(-100%);
+}
+
+.toggle-label:active:after {
+	width: 5.2rem;
+}
+
+

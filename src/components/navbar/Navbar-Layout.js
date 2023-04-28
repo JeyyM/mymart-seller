@@ -87,7 +87,7 @@ border-image: linear-gradient(
     1 !important;
     background-color:${props.color["bg-item"]} !important;}
 
-.svg-color{
+.svg-color, input:checked + .toggle-label{
     background-image: linear-gradient(
     to right,
     ${props.color["color-primary-dark"]},
@@ -125,7 +125,7 @@ border-image: linear-gradient(
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
 }
 
-.categ-modal, .confirm-modal, .category, .categ-edit-button, .product-edit-button, .add-img, .side-img, .add-prod-img, .product-image, .varItem, .footer, .detail-slot{
+.categ-modal, .confirm-modal, .category, .categ-edit-button, .product-edit-button, .add-img, .side-img, .add-prod-img, .product-image, .varItem, .footer, .detail-slot, .round-borderer{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;}
 

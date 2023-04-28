@@ -56,7 +56,7 @@ export default function Footer(props) {
             })}
         </div>
         <div className="footer-column">
-            <img src={about.footerImg} className="footer-img"></img>
+            <img src={about.footerImg} className={about.borderless ? "footer-img" : "footer-img round-borderer"}></img>
 
             <br></br>
 

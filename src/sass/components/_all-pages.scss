@@ -202,3 +202,7 @@ input[type=number].shortener-25{
   cursor: pointer;
   height: 5rem;
 }
+
+.round-borderer{
+  @include border-round;
+}
