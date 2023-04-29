@@ -14,6 +14,11 @@
   margin-left: 1rem;
 }
 
+.heading-icon-home {
+  @include heading-logo(home, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
 .about-button-flag {
   @include empty-logo(flag, 10rem, 10rem);
 }
@@ -36,6 +41,10 @@
 
 .about-button-home-pin {
   @include empty-logo(home-pin, 10rem, 10rem);
+}
+
+.about-button-home {
+  @include empty-logo(home, 10rem, 10rem);
 }
 
 .footer {
@@ -198,3 +207,6 @@ input:checked + .toggle-label:after {
 }
 
 
+.location-container{
+  height: calc(100vh - $navbar-height);
+}

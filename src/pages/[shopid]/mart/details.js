@@ -232,6 +232,20 @@ export default function Details(martID) {
     router.reload()
   }
 
+  // const testApi = "https://maps.googleapis.com/maps/api/geocode/json?address=United+States&key=AIzaSyAKFXsBtjJge9rYwe-j79QfRtCabySspOk"
+  // const getCountry = async () => {
+  //   const response = await fetch(testApi);
+  //   const data = await response.json();
+  //   const result = data.results[0]
+
+  //   const addressComponents = result.address_components;
+  //   const administrativeAreas = addressComponents.filter(component => component.types.includes("administrative_area_level_1"));
+  //   const administrativeAreaNames = administrativeAreas.map(area => area.long_name);
+  //   console.log("end of line here", addressComponents)
+  // }
+
+  // getCountry()
+
   return <Fragment>
     <Head>
       <title>Contact Details & Footer</title>
@@ -248,7 +262,32 @@ export default function Details(martID) {
     <section className="contact-container">
 
       <div className="detail-slot">
-        <span className="page-heading">
+      <span className="page-heading">
+          <div className="heading-icon-home svg-color">&nbsp;</div>
+          <h1 className="heading-secondary no-margin">&nbsp;Location &nbsp;</h1>
+        </span>
+
+        {/* <div style={{width: "100%", height: "400px"}}>
+  <iframe
+    title="map"
+    width="100%"
+    height="100%"
+    frameBorder="0"
+    style={{border:0}}
+    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAKFXsBtjJge9rYwe-j79QfRtCabySspOk&q=Barangay+San+Rafael,+San+Pablo+City,+Laguna,+Philippines" allowFullScreen>
+  </iframe>
+</div>
+ */}
+
+
+
+
+
+
+      </div>
+
+      <div className="detail-slot">
+      <span className="page-heading">
           <div className="heading-icon-phone svg-color">&nbsp;</div>
           <h1 className="heading-secondary no-margin">&nbsp;Phone Numbers &nbsp;</h1>
           <button className="add-img" type="button" onClick={handleAddPhone}>
@@ -278,10 +317,7 @@ export default function Details(martID) {
           </AnimatePresence>
         </div>
 
-      </div>
-
-      <div className="detail-slot">
-        <span className="page-heading">
+        <span className="page-heading" style={{marginTop:"1rem"}}>
           <div className="heading-icon-mail svg-color">&nbsp;</div>
           <h1 className="heading-secondary no-margin">&nbsp;Emails &nbsp;</h1>
           <button className="add-img" type="button" onClick={handleAddEmail}>
@@ -399,6 +435,7 @@ export default function Details(martID) {
 
       </div>
 
+      <h2 className="heading-secondary">Footer Preview</h2>
 
       <div style={{ gridColumn: "1/-1" }}>
         <footer className="footer">
