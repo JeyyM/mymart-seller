@@ -8,6 +8,8 @@ import SocialOptions from "@/components/detail/SocialOptions"
 import Link from "next/link"
 import { useRouter } from "next/router"
 
+import GoogleMapReact from 'google-map-react';
+
 export default function Details(martID) {
   const footerItems = martID.shopID.shopData.shopDetails.footerData
   const locationSet = martID.shopID.shopData.shopDetails.shopLocation.shopAddress
@@ -245,55 +247,74 @@ export default function Details(martID) {
   // }
 
   // getCountry()
-  const [chosenCountry, setChosenCountry] = useState("Choose Country")
-  function countryChangeHandler(event){
-    setChosenCountry(event.target.value)
-  }
+  // const [chosenCountry, setChosenCountry] = useState("Choose Country")
+  // function countryChangeHandler(event){
+  //   setChosenCountry(event.target.value)
+  // }
 
-  const [sortedCountries, setSortedCountries] = useState([]);
+  // const [sortedCountries, setSortedCountries] = useState([]);
 
-  async function getCountries() {
-    const response = await fetch('https://restcountries.com/v3.1/all');
-    const data = await response.json();
-    const countryNames = data.map(country => country.name.common);
-    return countryNames;
-  }
+  // async function getCountries() {
+  //   const response = await fetch('https://restcountries.com/v3.1/all');
+  //   const data = await response.json();
+  //   const countryNames = data.map(country => country.name.common);
+  //   return countryNames;
+  // }
 
-  async function countrySorter() {
-    const sortedCountries = await getCountries();
-    sortedCountries.sort();
-    sortedCountries.unshift('Choose Country');
-    setSortedCountries(sortedCountries);
-  }
+  // async function countrySorter() {
+  //   const sortedCountries = await getCountries();
+  //   sortedCountries.sort();
+  //   sortedCountries.unshift('Choose Country');
+  //   setSortedCountries(sortedCountries);
+  // }
 
-  async function getRegions() {
-    if (chosenCountry !== "Choose Country"){
-      console.log("country change")
+  // async function getRegions() {
+  //   if (chosenCountry !== "Choose Country"){
+  //     console.log("country change")
 
-      let encoded = encodeURIComponent(chosenCountry)
-      const response = await fetch(`https://restcountries.com/v3.1/name/united%20states?fullText=true`);
-      const data = await response.json();
-      // const states = data[0].states.map(state => state.name);
+  //     let encoded = encodeURIComponent(chosenCountry)
+  //     const response = await fetch(`https://restcountries.com/v3.1/name/united%20states?fullText=true`);
+  //     const data = await response.json();
+  //     const states = data[0].states.map(state => state.name);
 
-      console.log(data)
+  //     console.log(states)
+  //   }
+
+  //   // console.log(data)
+  //   // const states = data[0].states.map(state => state.name);
+  //   // console.log("states lsit", states)
+  //   // return states;
+  // }
+
+  // useEffect(() => {
+  //   getRegions(chosenCountry);
+  // }, [chosenCountry]);
+
+
+  // useEffect(() => {
+  //   countrySorter()
+  // }, [])
+
+  // console.log(chosenCountry)
+
+  const [center, setCenter] = useState(null);
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setCenter({ lat: latitude, lng: longitude });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      console.log('Geolocation is not supported by this browser.');
     }
+  }, []);
 
-    // console.log(data)
-    // const states = data[0].states.map(state => state.name);
-    // console.log("states lsit", states)
-    // return states;
-  }
-
-  useEffect(() => {
-    getRegions(chosenCountry);
-  }, [chosenCountry]);
-
-
-  useEffect(() => {
-    countrySorter()
-  }, [])
-
-  console.log(chosenCountry)
   return <Fragment>
     <Head>
       <title>Contact Details & Footer</title>
@@ -315,15 +336,26 @@ export default function Details(martID) {
           <h1 className="heading-secondary no-margin">&nbsp;Location &nbsp;</h1>
         </span>
 
-        <label htmlFor="country" className="heading-tertiary" style={{marginRight:"1rem"}}>Country:</label>
+        {/* <label htmlFor="country" className="heading-tertiary" style={{marginRight:"1rem"}}>Country:</label>
         <select onChange={countryChangeHandler} id="country" value={chosenCountry} className={`text-options text-span`} style={{width:"50%"}}>
       {sortedCountries.map((country) => (
         <option key={country} value={country}>
           {country}
         </option>
       ))}
-    </select>
+    </select> */}
 
+
+
+    <div style={{ height: '100vh', width: '100%' }}>
+      {center && (
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: 'AIzaSyAKFXsBtjJge9rYwe-j79QfRtCabySspOk' }}
+          defaultCenter={center}
+          defaultZoom={15}
+        />
+      )}
+    </div>
 
 
 
