@@ -245,7 +245,55 @@ export default function Details(martID) {
   // }
 
   // getCountry()
+  const [chosenCountry, setChosenCountry] = useState("Choose Country")
+  function countryChangeHandler(event){
+    setChosenCountry(event.target.value)
+  }
 
+  const [sortedCountries, setSortedCountries] = useState([]);
+
+  async function getCountries() {
+    const response = await fetch('https://restcountries.com/v3.1/all');
+    const data = await response.json();
+    const countryNames = data.map(country => country.name.common);
+    return countryNames;
+  }
+
+  async function countrySorter() {
+    const sortedCountries = await getCountries();
+    sortedCountries.sort();
+    sortedCountries.unshift('Choose Country');
+    setSortedCountries(sortedCountries);
+  }
+
+  async function getRegions() {
+    if (chosenCountry !== "Choose Country"){
+      console.log("country change")
+
+      let encoded = encodeURIComponent(chosenCountry)
+      const response = await fetch(`https://restcountries.com/v3.1/name/united%20states?fullText=true`);
+      const data = await response.json();
+      // const states = data[0].states.map(state => state.name);
+
+      console.log(data)
+    }
+
+    // console.log(data)
+    // const states = data[0].states.map(state => state.name);
+    // console.log("states lsit", states)
+    // return states;
+  }
+
+  useEffect(() => {
+    getRegions(chosenCountry);
+  }, [chosenCountry]);
+
+
+  useEffect(() => {
+    countrySorter()
+  }, [])
+
+  console.log(chosenCountry)
   return <Fragment>
     <Head>
       <title>Contact Details & Footer</title>
@@ -266,6 +314,20 @@ export default function Details(martID) {
           <div className="heading-icon-home svg-color">&nbsp;</div>
           <h1 className="heading-secondary no-margin">&nbsp;Location &nbsp;</h1>
         </span>
+
+        <label htmlFor="country" className="heading-tertiary" style={{marginRight:"1rem"}}>Country:</label>
+        <select onChange={countryChangeHandler} id="country" value={chosenCountry} className={`text-options text-span`} style={{width:"50%"}}>
+      {sortedCountries.map((country) => (
+        <option key={country} value={country}>
+          {country}
+        </option>
+      ))}
+    </select>
+
+
+
+
+
 
         {/* <div style={{width: "100%", height: "400px"}}>
   <iframe
