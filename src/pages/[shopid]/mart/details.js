@@ -8,10 +8,9 @@ import SocialOptions from "@/components/detail/SocialOptions"
 import Link from "next/link"
 import { useRouter } from "next/router"
 
-import GoogleMapReact from 'google-map-react';
 import { GoogleMap, useLoadScript } from '@react-google-maps/api';
-import { FaMapMarkerAlt } from 'react-icons/fa';
 import { Marker } from '@react-google-maps/api';
+import { Autocomplete } from '@react-google-maps/api';
 
 export default function Details(martID) {
   const footerItems = martID.shopID.shopData.shopDetails.footerData
@@ -238,10 +237,16 @@ export default function Details(martID) {
   }
 
   const libraries = ['places'];
-const mapContainerStyle = { width: '100%', height: '100%' };
+  const mapContainerStyle = { width: '100%', height: '100%' };
 
-const [center, setCenter] = useState({ lat: 40.712776, lng: -74.005974 });
+  const [center, setCenter] = useState(null);
   const [locationName, setLocationName] = useState('');
+  const [autocomplete, setAutocomplete] = useState(null);
+
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GMAPS_API_KEY,
+    libraries,
+  });
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -259,14 +264,48 @@ const [center, setCenter] = useState({ lat: 40.712776, lng: -74.005974 });
     }
   }, []);
 
-  // const geocoder = new window.google.maps.Geocoder();
-  // geocoder.geocode({ location: center }, (results, status) => {
-  //   if (status === 'OK') {
-  //     console.log(results[0].formatted_address);
-  //   } else {
-  //     console.log('Geocoder failed due to: ' + status);
-  //   }
-  // });
+  const handleMapClick = (event) => {
+    const newCenter = {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+      };
+    setCenter(newCenter);
+    console.log("sup")
+
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ location: newCenter }, (results, status) => {
+      if (status === 'OK') {
+        setLocationName(results[0].formatted_address);
+      } else {
+        console.log('Geocoder failed due to: ' + status);
+      }
+    });
+  };
+
+  if (loadError) return "Error loading maps";
+  if (!isLoaded) return "Loading Maps";
+
+  const onLoad = (autocomplete) => {
+    setAutocomplete(autocomplete);
+  };
+
+  const onPlaceChanged = () => {
+    if (autocomplete !== null) {
+      const place = autocomplete.getPlace();
+      if (place.geometry !== undefined) {
+        setCenter({
+          lat: place.geometry.location.lat(),
+          lng: place.geometry.location.lng(),
+        });
+        setLocationName(place.formatted_address);
+      } else {
+        console.log('Geocode was not successful for the following reason: ', status);
+      }
+    } else {
+      console.log('Autocomplete is not loaded yet!');
+    }
+  };
+
 
   return <Fragment>
     <Head>
@@ -299,7 +338,7 @@ const [center, setCenter] = useState({ lat: 40.712776, lng: -74.005974 });
       )}
     </div> */}
 
-    <h1>{locationName}</h1>
+    {/* <h1>{locationName}</h1>
 
     <GoogleMap
   mapContainerStyle={mapContainerStyle}
@@ -308,7 +347,7 @@ const [center, setCenter] = useState({ lat: 40.712776, lng: -74.005974 });
   libraries={libraries}
 >
   <Marker position={center} icon={{ url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' }} />
-</GoogleMap>
+</GoogleMap> */}
 
       </div>
 
