@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/font": "13.2.3",
+    "@react-google-maps/api": "^2.18.1",
     "@react-spring/web": "^9.7.1",
     "@svgr/webpack": "^6.5.1",
     "chroma-js": "^2.4.2",
@@ -23,6 +24,7 @@
     "react": "18.2.0",
     "react-color": "^2.19.3",
     "react-dom": "18.2.0",
+    "react-icons": "^4.8.0",
     "react-morph": "^0.4.0",
     "react-router-dom": "^6.8.2",
     "sass": "^1.58.3",

@@ -9,6 +9,9 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 
 import GoogleMapReact from 'google-map-react';
+import { GoogleMap, useLoadScript } from '@react-google-maps/api';
+import { FaMapMarkerAlt } from 'react-icons/fa';
+import { Marker } from '@react-google-maps/api';
 
 export default function Details(martID) {
   const footerItems = martID.shopID.shopData.shopDetails.footerData
@@ -234,70 +237,11 @@ export default function Details(martID) {
     router.reload()
   }
 
-  // const testApi = "https://maps.googleapis.com/maps/api/geocode/json?address=United+States&key=AIzaSyAKFXsBtjJge9rYwe-j79QfRtCabySspOk"
-  // const getCountry = async () => {
-  //   const response = await fetch(testApi);
-  //   const data = await response.json();
-  //   const result = data.results[0]
+  const libraries = ['places'];
+const mapContainerStyle = { width: '100%', height: '100%' };
 
-  //   const addressComponents = result.address_components;
-  //   const administrativeAreas = addressComponents.filter(component => component.types.includes("administrative_area_level_1"));
-  //   const administrativeAreaNames = administrativeAreas.map(area => area.long_name);
-  //   console.log("end of line here", addressComponents)
-  // }
-
-  // getCountry()
-  // const [chosenCountry, setChosenCountry] = useState("Choose Country")
-  // function countryChangeHandler(event){
-  //   setChosenCountry(event.target.value)
-  // }
-
-  // const [sortedCountries, setSortedCountries] = useState([]);
-
-  // async function getCountries() {
-  //   const response = await fetch('https://restcountries.com/v3.1/all');
-  //   const data = await response.json();
-  //   const countryNames = data.map(country => country.name.common);
-  //   return countryNames;
-  // }
-
-  // async function countrySorter() {
-  //   const sortedCountries = await getCountries();
-  //   sortedCountries.sort();
-  //   sortedCountries.unshift('Choose Country');
-  //   setSortedCountries(sortedCountries);
-  // }
-
-  // async function getRegions() {
-  //   if (chosenCountry !== "Choose Country"){
-  //     console.log("country change")
-
-  //     let encoded = encodeURIComponent(chosenCountry)
-  //     const response = await fetch(`https://restcountries.com/v3.1/name/united%20states?fullText=true`);
-  //     const data = await response.json();
-  //     const states = data[0].states.map(state => state.name);
-
-  //     console.log(states)
-  //   }
-
-  //   // console.log(data)
-  //   // const states = data[0].states.map(state => state.name);
-  //   // console.log("states lsit", states)
-  //   // return states;
-  // }
-
-  // useEffect(() => {
-  //   getRegions(chosenCountry);
-  // }, [chosenCountry]);
-
-
-  // useEffect(() => {
-  //   countrySorter()
-  // }, [])
-
-  // console.log(chosenCountry)
-
-  const [center, setCenter] = useState(null);
+const [center, setCenter] = useState({ lat: 40.712776, lng: -74.005974 });
+  const [locationName, setLocationName] = useState('');
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -314,6 +258,15 @@ export default function Details(martID) {
       console.log('Geolocation is not supported by this browser.');
     }
   }, []);
+
+  // const geocoder = new window.google.maps.Geocoder();
+  // geocoder.geocode({ location: center }, (results, status) => {
+  //   if (status === 'OK') {
+  //     console.log(results[0].formatted_address);
+  //   } else {
+  //     console.log('Geocoder failed due to: ' + status);
+  //   }
+  // });
 
   return <Fragment>
     <Head>
@@ -336,47 +289,26 @@ export default function Details(martID) {
           <h1 className="heading-secondary no-margin">&nbsp;Location &nbsp;</h1>
         </span>
 
-        {/* <label htmlFor="country" className="heading-tertiary" style={{marginRight:"1rem"}}>Country:</label>
-        <select onChange={countryChangeHandler} id="country" value={chosenCountry} className={`text-options text-span`} style={{width:"50%"}}>
-      {sortedCountries.map((country) => (
-        <option key={country} value={country}>
-          {country}
-        </option>
-      ))}
-    </select> */}
-
-
-
-    <div style={{ height: '100vh', width: '100%' }}>
+    {/* <div style={{ height: '100vh', width: '100%' }}>
       {center && (
         <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyAKFXsBtjJge9rYwe-j79QfRtCabySspOk' }}
+          bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GMAPS_API_KEY }}
           defaultCenter={center}
           defaultZoom={15}
         />
       )}
-    </div>
+    </div> */}
 
+    <h1>{locationName}</h1>
 
-
-
-
-        {/* <div style={{width: "100%", height: "400px"}}>
-  <iframe
-    title="map"
-    width="100%"
-    height="100%"
-    frameBorder="0"
-    style={{border:0}}
-    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAKFXsBtjJge9rYwe-j79QfRtCabySspOk&q=Barangay+San+Rafael,+San+Pablo+City,+Laguna,+Philippines" allowFullScreen>
-  </iframe>
-</div>
- */}
-
-
-
-
-
+    <GoogleMap
+  mapContainerStyle={mapContainerStyle}
+  center={center}
+  zoom={15}
+  libraries={libraries}
+>
+  <Marker position={center} icon={{ url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' }} />
+</GoogleMap>
 
       </div>
 
