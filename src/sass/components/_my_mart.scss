@@ -225,3 +225,16 @@ input:checked + .toggle-label:after {
   @include heading-logo(credit, 4rem, 4rem);
   margin-left: 1rem;
 }
+
+.pay-segment {
+  width: 100%;
+  height: auto;
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  @include border-round;
+  box-shadow: inset 0 0 0 2rem $theme-bg,
+  0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+  transition: all 0.2s;
+}

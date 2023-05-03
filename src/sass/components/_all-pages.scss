@@ -160,6 +160,11 @@
   flex: 1;
 }
 
+.flex-col-none{
+  display: flex;
+  flex-direction: column;
+}
+
 .flex-col-center{
   display: flex;
   flex-direction: column;

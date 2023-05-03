@@ -30,8 +30,9 @@ function Payment(martID) {
         month: true,
         year: true,
         cvv: true,
-        currency: true
-      });
+        currency: true,
+        desc: true
+    });
 
     const handleCurrencyChange = (event) => {
         setCurrency(event.target.value);
@@ -43,11 +44,11 @@ function Payment(martID) {
 
     const handleRefundDurationChange = (event) => {
         setRefundDuration(event.target.value);
-      };
+    };
 
     const handleRefundCountChange = (event) => {
         setRefundCount(parseInt(event.target.value));
-      };
+    };
 
 
 
@@ -65,8 +66,9 @@ function Payment(martID) {
     const handleCancelFee = (event) => {
         setCancelFee(event.target.value);
     };
-
     
+
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -92,7 +94,11 @@ function Payment(martID) {
         console.log(payload);
     };
 
-
+    const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"}`;
+    const monthClasses = `${formInputValidity.month ? "text-small input-number" : "invalid-form-2"}`;
+    const yearClasses = `${formInputValidity.year ? "text-small input-number" : "invalid-form-2"}`;
+    const cvvClasses = `${formInputValidity.cvv ? "text-small input-number" : "invalid-form-2"}`;
+    const descClasses = `${formInputValidity.desc ? "desc-text-area" : "invalid-form-box"}`;
 
     return <Fragment>
         <Head>
@@ -108,8 +114,75 @@ function Payment(martID) {
 
         <div className="payment-grid">
 
-        <div className="categ-modal">
-              {/* <form onSubmit={handleClick}>
+            <div className="pay-segment round-borderer round-borderer-extra">
+                <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
+                    <div className="heading-icon-dropshadow">
+                        <div className="heading-icon-credit svg-color">&nbsp;</div>
+                    </div>
+                    <h1 className="heading-secondary no-margin">Credit Card Details</h1>
+                </span>
+
+                <div className="form-group">
+                    <input
+                        type="text"
+                        className={`${nameClasses}`}
+                        placeholder="Name on Credit card"
+                        value={cardName}
+                        onChange={(event) => setCardName(event.target.value)}
+                        id="name"
+                        autoComplete="off"
+                    ></input>
+                    {formInputValidity.name ? <label className="form-label">Name on Credit Card </label> : <label className="form-label inv">Category name already exists</label>}
+                </div>
+
+                <div className="form-group">
+                    <input
+                        type="text"
+                        className={`${nameClasses}`}
+                        placeholder="Credit Card Number"
+                        value={cardNumber}
+                        onChange={(event) => setCardNumber(event.target.value)}
+                        id="number"
+                        autoComplete="off"
+                    ></input>
+                    {formInputValidity.name ? <label className="form-label">Credit Card Number </label> : <label className="form-label inv">Category name already exists</label>}
+                </div>
+
+                <div className="flex-row-spaceless" style={{ alignItems: "center", gap: "2rem" }}>
+                    <label className="heading-secondary product-currency">Expiry Date:</label>
+                    <div className="flex-col-none">
+                        <input style={{ width: "8rem", margin: "0" }} type="number" className={monthClasses} placeholder="MM" autoComplete="off" id='month' value={expiryMonth} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setExpiryMonth(newValue); } }}></input>
+                        {formInputValidity.month ? <label className="form-label">Month</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}
+                    </div>
+
+                    <label className="heading-secondary product-currency">/</label>
+
+                    <div className="flex-col-none">
+                        <input style={{ width: "8rem", margin: "0" }} type="number" className={yearClasses} placeholder="YY" autoComplete="off" id='year' value={expiryYear} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setExpiryYear(newValue); } }}></input>
+                        {formInputValidity.year ? <label className="form-label">Year</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}
+                    </div>
+
+                    <label className="heading-secondary product-currency">CVV:</label>
+
+                    <div className="flex-col-none">
+                        <input style={{ width: "12rem", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" id='year' value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setCvv(newValue); } }}></input>
+                        {formInputValidity.year ? <label className="form-label">&nbsp;</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}
+                    </div>
+                </div>
+
+                <div className="form-group">
+                    <textarea
+                        id="description"
+                        rows="5"
+                        className={descClasses}
+                        placeholder="Checkout Message"
+                        onChange={(event) => setMessage(event.target.value)}
+                        value={message}
+                        autoComplete="off"
+                    ></textarea>
+                    <label className="form-label" title="This message will be shown at the end of the checkout process. Write the sales process or other info the customer should know.">Checkout Message</label>
+                </div>
+                {/* <form onSubmit={handleClick}>
                 <span className="page-heading">
                   <h2 className="heading-primary no-margin">{setting}</h2>
                   <div className="heading-icon-dropshadow">
@@ -172,10 +245,10 @@ function Payment(martID) {
 
 
 
-
+            {/* 
 
             <form onSubmit={handleSubmit}>
-            <label>
+                <label>
                     Name on Card:
                     <input
                         type="text"
@@ -306,20 +379,20 @@ function Payment(martID) {
                                 <option value="8">8</option>
                                 <option value="9">9</option>
                             </select>
-                        </label>                
+                        </label>
                         <label> Cancel Fees:
-                    <input
-                        type="number"
-                        value={cancelFee}
-                        onChange={(event) => setCancelFee(event.target.value)}
-                    />
-                    %
-                </label>
+                            <input
+                                type="number"
+                                value={cancelFee}
+                                onChange={(event) => setCancelFee(event.target.value)}
+                            />
+                            %
+                        </label>
                     </>
                 )}
 
                 <button type="submit">Submit</button>
-            </form>
+            </form> */}
         </div>
 
 
