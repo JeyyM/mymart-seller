@@ -9,6 +9,16 @@
   filter: drop-shadow(-4px 4px 0px #0057ff);
 }
 
+.payment-grid {
+  width: 100%;
+  height: calc(100vh - $navbar-height - 5rem);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-flow: dense;
+  gap: 5rem;
+  padding: 1rem 3rem 3rem;
+}
+
 .heading-icon-manage {
   @include heading-logo(manage, 4rem, 4rem);
   margin-left: 1rem;
@@ -209,4 +219,9 @@ input:checked + .toggle-label:after {
 
 .location-container{
   height: calc(100vh - $navbar-height);
+}
+
+.heading-icon-credit {
+  @include heading-logo(credit, 4rem, 4rem);
+  margin-left: 1rem;
 }

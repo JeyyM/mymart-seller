@@ -74,6 +74,11 @@
   margin-left: 1rem;
 }
 
+.heading-icon-check {
+  @include heading-logo(check, 3rem, 3rem);
+  margin-left: 1rem;
+}
+
 .empty-logo{
   @include empty-logo(empty, 8rem, 8rem);
     transform: translateY(-10rem);

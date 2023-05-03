@@ -19,10 +19,6 @@ function Mart(martID) {
         </span>
 
         <div className="setting-grid">
-            <Link className="homepage-button x item-setup flex-col-center" href={`/${id}/mart/address`} style={{ textDecoration: "none" }}>
-                <div className="about-button-home svg-down"></div>
-                <h2 className="heading-primary" style={{ display: "inline", margin: "1rem auto", textAlign: "center" }}>Set Address Details</h2>
-            </Link>
             <Link className="homepage-button x item-setup flex-col-center" href={`/${id}/mart/details`} style={{ textDecoration: "none" }}>
                 <div className="about-button-pin svg-down"></div>
                 <h2 className="heading-primary" style={{ display: "inline", margin: "1rem auto", textAlign: "center" }}>Contact Details & Footer</h2>

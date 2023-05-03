@@ -9,8 +9,11 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 
 import { GoogleMap, useLoadScript } from '@react-google-maps/api';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 import { Marker } from '@react-google-maps/api';
 import { Autocomplete } from '@react-google-maps/api';
+
+const libraries = ['places'];
 
 export default function Details(martID) {
   const footerItems = martID.shopID.shopData.shopDetails.footerData
@@ -132,24 +135,26 @@ export default function Details(martID) {
 
 
   const [borderless, setBorderless] = useState(footerItems.footerAbout.borderless)
-  function handleToggle(){
+  function handleToggle() {
     setBorderless(!borderless)
   }
 
   const [prevImg, setPrevImg] = useState(footerItems.footerAbout.footerImg)
   const handlePrevImg = (event) => {
-    setPrevImg(event.target.value);}
+    setPrevImg(event.target.value);
+  }
 
   const [aboutMsg, setAboutMsg] = useState(footerItems.footerAbout.footerMessage)
   const handleAboutMsg = (event) => {
-    setAboutMsg(event.target.value);}
+    setAboutMsg(event.target.value);
+  }
 
 
   const [confirmDelete4, setConfirmDelete4] = useState(null);
 
   const [additional, setAdditional] = useState(footerItems.additionalLinks);
 
-    function handleAddAdditional(link, type) {
+  function handleAddAdditional(link, type) {
     const newAdditional = [...additional, { link: "", label: "" }];
     setAdditional(newAdditional);
   }
@@ -178,7 +183,7 @@ export default function Details(martID) {
       }, 2000);
     }
   }
-  
+
   function isEmpty(word) {
     word.trim() === ""
   }
@@ -202,7 +207,7 @@ export default function Details(martID) {
     const data = await response.json();
   }
 
-  function submitChanges(){
+  async function submitChanges() {
     setLoading(true)
 
     const filteredPhone = phone.filter((number) => number !== "");
@@ -225,22 +230,27 @@ export default function Details(martID) {
       return item.link.trim() !== "" && item.label.trim() !== "";
     });
 
-    const payload={shopEmails: filteredEmails, 
-      shopPhone: filteredPhone, 
-      footerAbout: {footerImg: filteredImg, footerMessage: aboutMsg, borderless: borderless}, 
-      shopSocials: filteredSocials, 
-      additionalLinks: filteredAdditionals}
-    
+    const payload = {
+      shopEmails: filteredEmails,
+      shopPhone: filteredPhone,
+      footerAbout: { footerImg: filteredImg, footerMessage: aboutMsg, borderless: borderless },
+      shopSocials: filteredSocials,
+      additionalLinks: filteredAdditionals,
+      shopLocation: locationName,
+      shopCoords: center
+    }
+
     editFooter(payload)
+
+    await waitSeconds()
 
     router.reload()
   }
 
-  const libraries = ['places'];
   const mapContainerStyle = { width: '100%', height: '100%' };
 
   const [center, setCenter] = useState(null);
-  const [locationName, setLocationName] = useState('');
+  const [locationName, setLocationName] = useState(footerItems.shopLocation);
   const [autocomplete, setAutocomplete] = useState(null);
 
   const { isLoaded, loadError } = useLoadScript({
@@ -248,29 +258,47 @@ export default function Details(martID) {
     libraries,
   });
 
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setCenter({ lat: latitude, lng: longitude });
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    } else {
-      console.log('Geolocation is not supported by this browser.');
-    }
-  }, []);
+useEffect(() => {
+  if (window.google && window.google.maps && center) {
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ location: center }, (results, status) => {
+      if (status === 'OK') {
+        setLocationName(results[0].formatted_address);
+      } else {
+        console.log('Geocoder failed due to: ' + status);
+      }
+    });
+  }
+}, [center]);
+
+function currentLoc () {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setCenter({ lat: latitude, lng: longitude });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  } else {
+    console.log('Geolocation is not supported by this browser.');
+  }
+}
+
+function resetLoc () {
+  setCenter(footerItems.shopCoords)
+} 
+
+  useEffect(() => {setCenter(footerItems.shopCoords)}, [])
 
   const handleMapClick = (event) => {
     const newCenter = {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-      };
+      lat: event.latLng.lat(),
+      lng: event.latLng.lng(),
+    };
     setCenter(newCenter);
-    console.log("sup")
 
     const geocoder = new window.google.maps.Geocoder();
     geocoder.geocode({ location: newCenter }, (results, status) => {
@@ -306,7 +334,6 @@ export default function Details(martID) {
     }
   };
 
-
   return <Fragment>
     <Head>
       <title>Contact Details & Footer</title>
@@ -317,42 +344,45 @@ export default function Details(martID) {
         <div className="heading-icon-pin svg-color">&nbsp;</div>
       </div>
       <h1 className="heading-primary no-margin">Contact Details and Footer&nbsp;</h1>
-      <button className="heading-tertiary add-categ-init" style={{width:"max-content"}} onClick={submitChanges}>
-          <div className="heading-icon-plus svg-color">&nbsp;</div>{loading ? "Submitting..." : "Submit Changes"} &nbsp;</button>
+      <button className="heading-tertiary add-categ-init" style={{ width: "max-content" }} onClick={submitChanges}>
+        <div className="heading-icon-check svg-color">&nbsp;</div>{loading ? "Submitting..." : "Submit Changes"} &nbsp;</button>
     </span>
     <section className="contact-container">
 
       <div className="detail-slot">
-      <span className="page-heading">
+        <span className="page-heading">
           <div className="heading-icon-home svg-color">&nbsp;</div>
           <h1 className="heading-secondary no-margin">&nbsp;Location &nbsp;</h1>
         </span>
 
-    {/* <div style={{ height: '100vh', width: '100%' }}>
-      {center && (
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: process.env.NEXT_PUBLIC_GMAPS_API_KEY }}
-          defaultCenter={center}
-          defaultZoom={15}
-        />
-      )}
-    </div> */}
+        <h2 className="heading-tertiary">{locationName}</h2>
 
-    {/* <h1>{locationName}</h1>
+        <div style={{ height: "calc(100% - 16rem)"}}>
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          center={center}
+          zoom={15}
+          onClick={handleMapClick}
+          onLoad={() => console.log("Map loaded")}
+        >
+          <Marker position={center} icon={{ url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' }} />
 
-    <GoogleMap
-  mapContainerStyle={mapContainerStyle}
-  center={center}
-  zoom={15}
-  libraries={libraries}
->
-  <Marker position={center} icon={{ url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' }} />
-</GoogleMap> */}
+          <div style={{ position: 'relative', width: '50%', height: '40px', margin: '0 auto' }}>
+            <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+              <input type="text" placeholder="Enter a location" style={{ width: '100%', height: '100%', border:"1px solid black", padding:"1rem" }} />
+            </Autocomplete>
+          </div>
+        </GoogleMap>
+        </div>
 
+        <div className="flex-row" style={{marginTop:"1rem", width:"100%", justifyContent:"space-around"}}>
+        <button onClick={currentLoc} className="product-action-1 heading-secondary">Current Location</button>
+        <button onClick={resetLoc} className="product-action-3 heading-secondary white">Reset to Default</button>
+        </div>
       </div>
 
       <div className="detail-slot">
-      <span className="page-heading">
+        <span className="page-heading">
           <div className="heading-icon-phone svg-color">&nbsp;</div>
           <h1 className="heading-secondary no-margin">&nbsp;Phone Numbers &nbsp;</h1>
           <button className="add-img" type="button" onClick={handleAddPhone}>
@@ -382,7 +412,7 @@ export default function Details(martID) {
           </AnimatePresence>
         </div>
 
-        <span className="page-heading" style={{marginTop:"1rem"}}>
+        <span className="page-heading" style={{ marginTop: "1rem" }}>
           <div className="heading-icon-mail svg-color">&nbsp;</div>
           <h1 className="heading-secondary no-margin">&nbsp;Emails &nbsp;</h1>
           <button className="add-img" type="button" onClick={handleAddEmail}>
@@ -422,20 +452,20 @@ export default function Details(martID) {
           <button className="add-img" type="button" onClick={handleAddSocial}><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
         </span>
 
-        <h2 className="heading-tertiary" style={{marginTop:"1rem"}}>The link must match the chosen social media</h2>
+        <h2 className="heading-tertiary" style={{ marginTop: "1rem" }}>The link must match the chosen social media</h2>
         <div className="detail-inputs">
-        <AnimatePresence>
-          {socials.map((social, index) => (<div className="detail-row" key={index}>
-          <motion.div className="detail-row" key={index} variants={slide} initial="hidden" animate="visible" exit="exit" style={{width:"100%"}}>
-            <input onChange={(event) => handleSocialLinkChange(index, event.target.value)} type="text" value={socials[index].link} placeholder="Link" className="text-small input-number" autoComplete="off" style={{ width: "70%", margin: "0rem" }}></input>
-            <SocialOptions defaultSocials={social.type} content={socials} effect={handleSocialTypeChange} index={index}></SocialOptions>
-            <button className="add-img" type="button" onClick={() => handleDeleteSocial(index)}>
-            {confirmDelete3 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
-            </button>
-            </motion.div>
-          </div>
-          ))}
-       </AnimatePresence>
+          <AnimatePresence>
+            {socials.map((social, index) => (<div className="detail-row" key={index}>
+              <motion.div className="detail-row" key={index} variants={slide} initial="hidden" animate="visible" exit="exit" style={{ width: "100%" }}>
+                <input onChange={(event) => handleSocialLinkChange(index, event.target.value)} type="text" value={socials[index].link} placeholder="Link" className="text-small input-number" autoComplete="off" style={{ width: "70%", margin: "0rem" }}></input>
+                <SocialOptions defaultSocials={social.type} content={socials} effect={handleSocialTypeChange} index={index}></SocialOptions>
+                <button className="add-img" type="button" onClick={() => handleDeleteSocial(index)}>
+                  {confirmDelete3 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
+                </button>
+              </motion.div>
+            </div>
+            ))}
+          </AnimatePresence>
         </div>
 
       </div>
@@ -445,11 +475,11 @@ export default function Details(martID) {
           <div className="heading-icon-img-sm svg-color">&nbsp;</div>
           <h1 className="heading-secondary no-margin">&nbsp;Footer Image &nbsp;</h1>
         </span>
-        <h2 className="heading-tertiary" style={{marginTop:"1rem"}}>Can be left blank</h2>
-      <div className="flex-row-align" style={{marginTop: "1rem"}}>
-        <input checked={borderless} onChange={handleToggle} type="checkbox" id="switch" className="toggle-switch" /><label htmlFor="switch" className="toggle-label">Toggle</label>
-        <h3 className="heading-tertiary">Borderless</h3>
-      </div>
+        <h2 className="heading-tertiary" style={{ marginTop: "1rem" }}>Can be left blank</h2>
+        <div className="flex-row-align" style={{ marginTop: "1rem" }}>
+          <input checked={borderless} onChange={handleToggle} type="checkbox" id="switch" className="toggle-switch" /><label htmlFor="switch" className="toggle-label">Toggle</label>
+          <h3 className="heading-tertiary">Borderless</h3>
+        </div>
 
         <div className="detail-inputs">
           <div className="detail-row">
@@ -482,20 +512,20 @@ export default function Details(martID) {
           <h1 className="heading-secondary no-margin">&nbsp;Additional Links &nbsp;</h1>
           <button className="add-img" type="button" onClick={handleAddAdditional} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
         </span>
-        <h2 className="heading-tertiary" style={{marginTop:"1rem"}}>Incomplete entries will be ignored</h2>
+        <h2 className="heading-tertiary" style={{ marginTop: "1rem" }}>Incomplete entries will be ignored</h2>
         <div className="detail-inputs">
-        <AnimatePresence>
-        {additional.map((item, index)=>(<div className="detail-row" key={index}>
-        <motion.div className="detail-row" key={index} variants={slide} initial="hidden" animate="visible" exit="exit" style={{width:"100%"}}>
-            <input onChange={(event) => handleAddLinkChange(index, event.target.value)} type="text" value={item.link} placeholder="Link" className="text-small input-number" autoComplete="off" style={{ width: "70%", margin: "0rem" }}></input>
-            <input onChange={(event) => handleAddLabelChange(index, event.target.value)} type="text" value={item.label} placeholder="Displayed Label" className="text-small input-number" autoComplete="off" style={{ width: "70%", margin: "0rem" }}></input>
-            <button className="add-img" type="button"  onClick={() => handleDeleteAdd(index)}>
-            {confirmDelete4 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
-            </button>
-            </motion.div>
-          </div>
-        ))}
-        </AnimatePresence>
+          <AnimatePresence>
+            {additional.map((item, index) => (<div className="detail-row" key={index}>
+              <motion.div className="detail-row" key={index} variants={slide} initial="hidden" animate="visible" exit="exit" style={{ width: "100%" }}>
+                <input onChange={(event) => handleAddLinkChange(index, event.target.value)} type="text" value={item.link} placeholder="Link" className="text-small input-number" autoComplete="off" style={{ width: "70%", margin: "0rem" }}></input>
+                <input onChange={(event) => handleAddLabelChange(index, event.target.value)} type="text" value={item.label} placeholder="Displayed Label" className="text-small input-number" autoComplete="off" style={{ width: "70%", margin: "0rem" }}></input>
+                <button className="add-img" type="button" onClick={() => handleDeleteAdd(index)}>
+                  {confirmDelete4 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
+                </button>
+              </motion.div>
+            </div>
+            ))}
+          </AnimatePresence>
         </div>
 
       </div>
@@ -506,13 +536,13 @@ export default function Details(martID) {
         <footer className="footer">
           <div className="footer-column">
             <h3 className="heading-tertiary"><strong>Address</strong></h3>
-            <h3 className="heading-tertiary">{`${locationSet.street}, ${locationSet.city}, ${locationSet.region}, ${locationSet.zip}, ${locationSet.country},`}</h3>
+            {locationName.length !== 0 ? <h3 className="heading-tertiary">{locationName}</h3> : <h3 className="heading-tertiary">-</h3>}
 
             <br></br>
 
             <h3 className="heading-tertiary"><strong>Phone Numbers</strong></h3>
             {phone.length === 0 ? <h3 className="heading-tertiary">-</h3> : ""}
-            
+
             {phone.map((num, index) => {
               return <h3 key={index} className="heading-tertiary">{num}</h3>;
             })}
@@ -529,7 +559,7 @@ export default function Details(martID) {
 
             <h3 className="heading-tertiary"><strong>Social Media</strong></h3>
             <div className="socials-container">
-            {socials.length === 0 ? <h3 className="heading-tertiary">-</h3> : ""}
+              {socials.length === 0 ? <h3 className="heading-tertiary">-</h3> : ""}
               {socials.map((index) => {
                 return <Link key={index.link} href={index.link} target="_blank">
                   <img className="social-icon" src={`/socials/${index.type}.webp`}></img>
@@ -555,7 +585,7 @@ export default function Details(martID) {
             })}
           </div>
           <div className="footer-column">
-          {prevImg === "" ? <h3 className="heading-tertiary">-</h3> : <img src={prevImg} className={borderless ? "footer-img" : "footer-img round-borderer"}></img>}
+            {prevImg === "" ? <h3 className="heading-tertiary">-</h3> : <img src={prevImg} className={borderless ? "footer-img" : "footer-img round-borderer"}></img>}
 
             <br></br>
             {aboutMsg === "" ? <h3 className="heading-tertiary">-</h3> : <h3 className="heading-tertiary">{aboutMsg}</h3>}
