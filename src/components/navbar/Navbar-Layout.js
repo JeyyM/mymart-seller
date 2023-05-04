@@ -230,6 +230,10 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     box-shadow: 0 0 0 2px ${props.color["bg-item"]}, 0 0 0 4px ${props.color["button-solid-dark"]} !important;
 }
 
+.checkbox-container:hover{
+    filter: brightness(120%) !important;
+}
+
 .category-content{
     background-color:${props.color["bg-item"]} !important;
 }

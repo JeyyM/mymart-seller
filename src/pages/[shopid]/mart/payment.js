@@ -40,9 +40,11 @@ function Payment(martID) {
     const [message, setMessage] = useState('');
 
     const [currency, setCurrency] = useState('$');
+
     const [allowRefunds, setAllowRefunds] = useState(false);
     const [refundDuration, setRefundDuration] = useState('hour');
     const [refundCount, setRefundCount] = useState(1);
+    const [refundFee, setRefundFee] = useState(0);
 
     const [allowCancel, setAllowCancel] = useState(false);
     const [cancelDuration, setCancelDuration] = useState('hour');
@@ -143,7 +145,7 @@ function Payment(martID) {
         }
     }
 
-    
+
     const [PickFee, setPickFee] = useState(sampledata2);
 
     function handleAddPickFee(link, type) {
@@ -223,9 +225,7 @@ function Payment(martID) {
 
             <div className="pay-segment round-borderer round-borderer-extra">
                 <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
-                    <div className="heading-icon-dropshadow">
                         <div className="heading-icon-credit svg-color">&nbsp;</div>
-                    </div>
                     <h1 className="heading-secondary no-margin">Credit Card Details</h1>
                 </span>
 
@@ -314,16 +314,14 @@ function Payment(martID) {
                         <option value="NZ$">$ - New Zealand Dollar</option>
                         <option value="SG$">$ - Singapore Dollar</option>
                         <option value="₹">₹ - Indian Rupee</option>
-                        <option value="₱">₱ - Mexican Peso</option>
+                        <option value="₱">₱ - Philippine Peso</option>
                         <option value="R">R - South African Rand</option>
                     </select>
                 </label>
 
                 <span className="page-heading flex-row-align" style={{ margin: "1rem 0" }}>
-                    <div className="heading-icon-dropshadow">
                         <div className="heading-icon-fee svg-color">&nbsp;</div>
-                    </div>
-                    <h1 className="heading-secondary no-margin">Payments and Fees</h1>
+                    <h1 className="heading-secondary no-margin">Set Fees</h1>
                 </span>
                 <div className="fee-cols">
 
@@ -368,9 +366,92 @@ function Payment(martID) {
                             </AnimatePresence>
                         </div>
                     </div>
-
-
                 </div>
+                <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
+                <div className="heading-icon-refund svg-color">&nbsp;</div>
+                    <h1 className="heading-secondary no-margin">Allow Refunds?</h1>
+                    <div className="checkbox-container">
+                        {allowRefunds ? <div className="checkbox-fill svg-color"></div> : <div className="checkbox-blank svg-color"></div>}
+                        <input
+                            type="checkbox"
+                            checked={allowRefunds}
+                            onChange={handleRefundsChange}
+                            className="checkbox-style"
+                        />
+                    </div>
+                </span>
+
+                {allowRefunds && (
+                    <motion.div variants={slide} initial="hidden" animate="visible" exit="exit" className="flex-row-spaceless" style={{ alignItems: "center", gap: "2rem" }}>
+                        <h2 className="heading-secondary">Length:</h2>
+                        <select value={refundCount} onChange={handleRefundCountChange} className="text-options text-span" style={{ width: "5rem" }}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                        </select>
+
+                        <h2 className="heading-secondary">Duration:</h2>
+                        <select value={refundDuration} onChange={handleRefundDurationChange} className="text-options text-span" style={{ width: "12rem" }}>
+                            <option value="minute">Minutes</option>
+                            <option value="hour">Hours</option>
+                            <option value="day">Days</option>
+                            <option value="week">Weeks</option>
+                            <option value="month">Months</option>
+                        </select>
+
+                        <h2 className="heading-secondary" title="Will charge the customer by a % of their refunded total.">%Fee:</h2>
+                        <input onChange={(event) => setRefundFee(event.target.value)} value={refundFee} type="number" placeholder="%Penalty" className="text-small input-number" autoComplete="off" style={{ width: "20%", margin: "0rem" }}></input>
+                    </motion.div>
+                )}
+
+                <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
+                    <h1 className="heading-secondary no-margin" style={{ marginTop: "1rem" }}>Allow Cancellation?</h1>
+                    <div className="checkbox-container">
+                        {allowCancel ? <div className="checkbox-fill svg-color"></div> : <div className="checkbox-blank svg-color"></div>}
+                        <input
+                            type="checkbox"
+                            checked={allowCancel}
+                            onChange={handleCancelChange}
+                            className="checkbox-style"
+                        />
+                    </div>
+                </span>
+
+                {allowCancel && (
+                    <motion.div variants={slide} initial="hidden" animate="visible" exit="exit" className="flex-row-spaceless" style={{ alignItems: "center", gap: "2rem" }}>
+                        <h2 className="heading-secondary">Length:</h2>
+                        <select value={cancelCount} onChange={handleCancelCountChange} className="text-options text-span" style={{ width: "5rem" }}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                        </select>
+
+                        <h2 className="heading-secondary">Duration:</h2>
+                        <select value={cancelDuration} onChange={handleCancelDurationChange} className="text-options text-span" style={{ width: "12rem" }}>
+                            <option value="minute">Minutes</option>
+                            <option value="hour">Hours</option>
+                            <option value="day">Days</option>
+                            <option value="week">Weeks</option>
+                            <option value="month">Months</option>
+                        </select>
+
+                        <h2 className="heading-secondary" title="Will charge the customer by a % of their cancelled total.">%Fee:</h2>
+                        <input onChange={(event) => setRefundFee(event.target.value)} value={refundFee} type="number" placeholder="%Penalty" className="text-small input-number" autoComplete="off" style={{ width: "20%", margin: "0rem" }}></input>
+                    </motion.div>
+                )}
+
             </div>
 
 
@@ -379,6 +460,156 @@ function Payment(martID) {
                 <button className="product-action-3 heading-secondary white">Reset to Default</button>
             </div>
         </div>
+
+
+        {/* 
+
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Name on Card:
+                    <input
+                        type="text"
+                        value={cardName}
+                        onChange={(event) => setCardName(event.target.value)}
+                    />
+                </label>
+                <label>
+                    Card Number:
+                    <input
+                        type="number"
+                        value={cardNumber}
+                        onChange={(event) => setCardNumber(event.target.value)}
+                    />
+                </label>
+                <label>
+                    Expiry Date:
+                    <input
+                        type="text"
+                        value={expiryMonth}
+                        maxLength="2"
+                        onChange={(event) => setExpiryMonth(event.target.value)}
+                    />/
+                    <input
+                        type="text"
+                        value={expiryYear}
+                        maxLength="2"
+                        onChange={(event) => setExpiryYear(event.target.value)}
+                    />
+                </label>
+                <label>
+                    CVV:
+                    <input
+                        type="text"
+                        value={cvv}
+                        onChange={(event) => setCvv(event.target.value)}
+                    />
+                </label>
+                <button type="submit">Submit</button>
+            </form>
+
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Currency:
+                    <select value={currency} onChange={handleCurrencyChange}>
+                        <option value="USD">$ - US Dollar</option>
+                        <option value="EUR">€ - Euro</option>
+                        <option value="GBP">£ - British Pound Sterling</option>
+                        <option value="JPY">¥ - Japanese Yen</option>
+                        <option value="AUD">$ - Australian Dollar</option>
+                        <option value="CAD">$ - Canadian Dollar</option>
+                        <option value="CHF">Fr - Swiss Franc</option>
+                        <option value="CNY">元 - Chinese Yuan</option>
+                        <option value="HKD">$ - Hong Kong Dollar</option>
+                        <option value="NZD">$ - New Zealand Dollar</option>
+                        <option value="SGD">$ - Singapore Dollar</option>
+                        <option value="INR">₹ - Indian Rupee</option>
+                        <option value="MXN">$ - Mexican Peso</option>
+                        <option value="ZAR">R - South African Rand</option>
+                    </select>
+                </label>
+                <label>
+                    Allow refunds?
+                    <input
+                        type="checkbox"
+                        checked={allowRefunds}
+                        onChange={handleRefundsChange}
+                    />
+                </label>
+                {allowRefunds && (
+                    <>
+                        <label>
+                            Refund duration:
+                            <select value={refundDuration} onChange={handleRefundDurationChange}>
+                                <option value="hour">Within 1 hour</option>
+                                <option value="day">Within 1 day</option>
+                                <option value="week">Within 1 week</option>
+                                <option value="month">Within 1 month</option>
+                            </select>
+                        </label>
+                        <label>
+                            Number of allowed refunds:
+                            <select value={refundCount} onChange={handleRefundCountChange}>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                            </select>
+                        </label>
+                    </>
+                )}
+
+                <label>
+                    Allow Cancellation?
+                    <input
+                        type="checkbox"
+                        checked={allowCancel}
+                        onChange={handleCancelChange}
+                    />
+                </label>
+
+                {allowCancel && (
+                    <>
+                        <label>
+                            Cancel duration:
+                            <select value={cancelDuration} onChange={handleCancelDurationChange}>
+                                <option value="hour">Within 1 hour</option>
+                                <option value="day">Within 1 day</option>
+                                <option value="week">Within 1 week</option>
+                                <option value="month">Within 1 month</option>
+                            </select>
+                        </label>
+                        <label>
+                            Number of allowed cancel:
+                            <select value={cancelCount} onChange={handleCancelCountChange}>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                            </select>
+                        </label>
+                        <label> Cancel Fees:
+                            <input
+                                type="number"
+                                value={cancelFee}
+                                onChange={(event) => setCancelFee(event.target.value)}
+                            />
+                            %
+                        </label>
+                    </>
+                )}
+
+                <button type="submit">Submit</button>
+            </form> */}
     </Fragment>
 }
 

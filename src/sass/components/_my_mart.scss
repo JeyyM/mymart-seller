@@ -29,6 +29,11 @@
   margin-left: 1rem;
 }
 
+.heading-icon-refund {
+  @include heading-logo(refund, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
 .about-button-flag {
   @include empty-logo(flag, 10rem, 10rem);
 }
@@ -269,5 +274,28 @@ input:checked + .toggle-label:after {
   grid-template-columns: 1fr 1fr;
   width: 100%;
   gap: 1rem;
-
+  margin-bottom: 1rem;
 }
+
+
+
+input[type="checkbox"].checkbox-style {
+  position: absolute;
+  transform: translateX(-10px) translateY(-5px);
+  width: 4em;
+  height: 4rem;
+  opacity: 0;
+}
+
+
+.checkbox-container{
+  transition: all 0.2s;
+  position: relative;
+  background-color: transparent;
+  height: 4rem;
+  width: 4rem;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+

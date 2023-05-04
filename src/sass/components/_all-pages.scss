@@ -84,6 +84,16 @@
     transform: translateY(-10rem);
 }
 
+.checkbox-blank {
+  @include heading-logo(checkbox-blank, 5rem, 5rem);
+  transform: translateY(-5px);
+}
+
+.checkbox-fill {
+  @include heading-logo(checkbox-fill, 5rem, 5rem);
+  transform: translateY(-5px);
+}
+
 
 .backdrop {
   position: fixed;
