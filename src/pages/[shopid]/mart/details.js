@@ -17,7 +17,6 @@ const libraries = ['places'];
 
 export default function Details(martID) {
   const footerItems = martID.shopID.shopData.shopDetails.footerData
-  const locationSet = martID.shopID.shopData.shopDetails.shopLocation.shopAddress
 
   const router = useRouter()
 

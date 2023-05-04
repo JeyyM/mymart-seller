@@ -1,8 +1,7 @@
 import Link from "next/link"
 
 export default function Footer(props) {
-
-    const address = props.address.shopAddress
+    
     const numbers = props.details.shopPhone
     const emails = props.details.shopEmails
     const socials = props.details.shopSocials

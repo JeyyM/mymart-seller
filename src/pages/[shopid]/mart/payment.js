@@ -4,8 +4,33 @@ import { getServerSideProps } from "../categories"
 import Link from "next/link"
 import { useState } from 'react';
 
+import { motion, AnimatePresence } from "framer-motion"
+
 function Payment(martID) {
     const id = martID.shopID._id
+
+    const slide = {
+        hidden: {
+            x: "-10rem",
+            opacity: 0,
+        },
+        visible: {
+            x: "0px",
+            opacity: 1,
+            transition: {
+                type: "spring",
+                duration: 0.3,
+                bounce: 0.2,
+            },
+        },
+        exit: {
+            x: "-10rem",
+            opacity: 0,
+            transition: {
+                duration: 0.1,
+            },
+        },
+    };
 
     const [cardName, setCardName] = useState('');
     const [cardNumber, setCardNumber] = useState('');
@@ -66,9 +91,92 @@ function Payment(martID) {
     const handleCancelFee = (event) => {
         setCancelFee(event.target.value);
     };
+
+    const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"}`;
+    const monthClasses = `${formInputValidity.month ? "text-small input-number" : "invalid-form-2"}`;
+    const yearClasses = `${formInputValidity.year ? "text-small input-number" : "invalid-form-2"}`;
+    const cvvClasses = `${formInputValidity.cvv ? "text-small input-number" : "invalid-form-2"}`;
+    const descClasses = `${formInputValidity.desc ? "desc-text-area" : "invalid-form-box"}`;
+
+
+    const sampledata = [{
+        "name": "del",
+        "cost": "123"
+    }]
+
+    const sampledata2 = [{
+        "name": "pick",
+        "cost": "456"
+    }]
+
+    const [DelFee, setDelFee] = useState(sampledata);
+
+    function handleAddDelFee(link, type) {
+        const newDelFee = [...DelFee, { name: "", cost: "" }];
+        setDelFee(newDelFee);
+    }
+
+    function handleDelFeeNameChange(index) {
+        const newDelFee = [...DelFee];
+        newDelFee[index].name = event.target.value;
+        setDelFee(newDelFee)
+    }
+
+    function handleDelFeeCostChange(index) {
+        const newDelFee = [...DelFee];
+        newDelFee[index].cost = event.target.value;
+        setDelFee(newDelFee)
+    }
+
+    const [confirmDelete1, setConfirmDelete1] = useState(null);
+
+    function handleDeleteDel(index) {
+        if (confirmDelete1 === index) {
+            let newDelFee = DelFee.filter((add, i) => i !== index);
+            setDelFee(newDelFee);
+            setConfirmDelete1(null);
+        } else {
+            setConfirmDelete1(index);
+            setTimeout(() => {
+                setConfirmDelete1(null);
+            }, 2000);
+        }
+    }
+
     
+    const [PickFee, setPickFee] = useState(sampledata2);
 
+    function handleAddPickFee(link, type) {
+        const newPickFee = [...PickFee, { name: "", cost: "" }];
+        setPickFee(newPickFee);
+    }
 
+    function handlePickFeeNameChange(index) {
+        const newPickFee = [...PickFee];
+        newPickFee[index].name = event.target.value;
+        setPickFee(newPickFee)
+    }
+
+    function handlePickFeeCostChange(index) {
+        const newPickFee = [...PickFee];
+        newPickFee[index].cost = event.target.value;
+        setPickFee(newPickFee)
+    }
+
+    const [confirmDelete2, setConfirmDelete2] = useState(null);
+
+    function handleDeletePick(index) {
+        if (confirmDelete2 === index) {
+            let newPickFee = PickFee.filter((add, i) => i !== index);
+            setPickFee(newPickFee);
+            setConfirmDelete2(null);
+        } else {
+            setConfirmDelete2(index);
+            setTimeout(() => {
+                setConfirmDelete2(null);
+            }, 2000);
+        }
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -79,8 +187,13 @@ function Payment(martID) {
             expiryMonth,
             expiryYear,
             cvv,
+            message,
 
             currency,
+
+            DelFee,
+            PickFee,
+
             allowRefunds,
             refundDuration,
             refundCount,
@@ -93,12 +206,6 @@ function Payment(martID) {
 
         console.log(payload);
     };
-
-    const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"}`;
-    const monthClasses = `${formInputValidity.month ? "text-small input-number" : "invalid-form-2"}`;
-    const yearClasses = `${formInputValidity.year ? "text-small input-number" : "invalid-form-2"}`;
-    const cvvClasses = `${formInputValidity.cvv ? "text-small input-number" : "invalid-form-2"}`;
-    const descClasses = `${formInputValidity.desc ? "desc-text-area" : "invalid-form-box"}`;
 
     return <Fragment>
         <Head>
@@ -182,220 +289,96 @@ function Payment(martID) {
                     ></textarea>
                     <label className="form-label" title="This message will be shown at the end of the checkout process. Write the sales process or other info the customer should know.">Checkout Message</label>
                 </div>
-                {/* <form onSubmit={handleClick}>
-                <span className="page-heading">
-                  <h2 className="heading-primary no-margin">{setting}</h2>
-                  <div className="heading-icon-dropshadow">
-                    <div className="heading-icon-category svg-color">&nbsp;</div>
-                  </div>
+            </div>
+
+            <div className="pay-segment-2 round-borderer round-borderer-extra">
+                <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
+                    <div className="heading-icon-dropshadow">
+                        <div className="heading-icon-payment svg-color">&nbsp;</div>
+                    </div>
+                    <h1 className="heading-secondary no-margin">Payments and Fees</h1>
                 </span>
 
-                <div className="form-group">
+                <label className="heading-secondary">
+                    Currency: &nbsp;
+                    <select value={currency} onChange={handleCurrencyChange} className="text-options text-span" style={{ width: "27rem" }}>
+                        <option value="$">$ - US Dollar</option>
+                        <option value="€">€ - Euro</option>
+                        <option value="£">£ - British Pound Sterling</option>
+                        <option value="¥">¥ - Japanese Yen</option>
+                        <option value="AUD$">$ - Australian Dollar</option>
+                        <option value="CAD$">$ - Canadian Dollar</option>
+                        <option value="Fr">Fr - Swiss Franc</option>
+                        <option value="元">元 - Chinese Yuan</option>
+                        <option value="HK$">$ - Hong Kong Dollar</option>
+                        <option value="NZ$">$ - New Zealand Dollar</option>
+                        <option value="SG$">$ - Singapore Dollar</option>
+                        <option value="₹">₹ - Indian Rupee</option>
+                        <option value="₱">₱ - Mexican Peso</option>
+                        <option value="R">R - South African Rand</option>
+                    </select>
+                </label>
 
-                  <input
-                    type="text"
-                    className={`${nameClasses}`}
-                    placeholder="Category Name"
-                    value={nameValue}
-                    // defaultValue={props.defs[0]}
-                    onChange={handleNameChange}
-                    // required
-                    id="name"
-                    autoComplete="off"
-                  ></input>
-                  {formInputValidity.name && !formInputValidity.exist ? <label title="Upon reaching 40 digits in length, an ellipsis (...) will be added." className="form-label">Category Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span> </label> : !formInputValidity.exist ? <label className="form-label inv">Enter a valid category name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label inv">Category name already exists</label>}
-                </div>
+                <span className="page-heading flex-row-align" style={{ margin: "1rem 0" }}>
+                    <div className="heading-icon-dropshadow">
+                        <div className="heading-icon-fee svg-color">&nbsp;</div>
+                    </div>
+                    <h1 className="heading-secondary no-margin">Payments and Fees</h1>
+                </span>
+                <div className="fee-cols">
 
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className={imgClasses}
-                    placeholder="Category Image (Imgur Links Only)"
-                    value={imgValue}
-                    onChange={handleImgChange}
-                    // required
-                    id="image"
-                    autoComplete="off"
-                  ></input>
-                  {formInputValidity.img ? <label className="form-label">Category Image (Imgur Links Only)</label> : <label className="form-label inv">Enter a valid Imgur link</label>}
-                </div>
-                {imgValue && <img src={imgValue} className="add-categ-img" alt="Link is Invalid"></img>}
+                    <div className="detail-slot">
+                        <span className="page-heading">
+                            <h1 className="heading-secondary no-margin" title="Fees that customers will pay if they choose for their items to be delivered.">&nbsp;Delivery Fees &nbsp;</h1>
+                            <button className="add-img" type="button" onClick={handleAddDelFee} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+                        </span>
+                        <div className="detail-inputs">
+                            <AnimatePresence>
+                                {DelFee.map((item, index) => (<div className="detail-row" key={index}>
+                                    <motion.div className="detail-row" key={index} variants={slide} initial="hidden" animate="visible" exit="exit" style={{ width: "100%" }}>
+                                        <input onChange={(event) => handleDelFeeNameChange(index, event.target.value)} type="text" value={item.name} placeholder="Fee Name" className="text-small input-number" autoComplete="off" style={{ width: "70%", margin: "0rem" }}></input>
+                                        <input onChange={(event) => handleDelFeeCostChange(index, event.target.value)} type="number" value={item.cost} placeholder="Fee Cost" className="text-small input-number" autoComplete="off" style={{ width: "70%", margin: "0rem" }}></input>
+                                        <button className="add-img" type="button" onClick={() => handleDeleteDel(index)}>
+                                            {confirmDelete1 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
+                                        </button>
+                                    </motion.div>
+                                </div>
+                                ))}
+                            </AnimatePresence>
+                        </div>
+                    </div>
 
-                <div className="form-group">
-                  <textarea
-                    id="description"
-                    // required
-                    rows="5"
-                    className={descClasses}
-                    placeholder="Description"
-                    onChange={handleDescChange}
-                    value={descValue}
-                    autoComplete="off"
-                  ></textarea>
-                  {formInputValidity.desc ? <label title="Upon reaching 150 digits in length, an ellipsis (...) will be added." className="form-label">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label inv">Enter a valid description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label>}
+                    <div className="detail-slot">
+                        <span className="page-heading">
+                            <h1 className="heading-secondary no-margin" title="Fees that customers will pay if they choose for their items to be picked up.">&nbsp;Pick-Up Fees &nbsp;</h1>
+                            <button className="add-img" type="button" onClick={handleAddPickFee} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+                        </span>
+                        <div className="detail-inputs">
+                            <AnimatePresence>
+                                {PickFee.map((item, index) => (<div className="detail-row" key={index}>
+                                    <motion.div className="detail-row" key={index} variants={slide} initial="hidden" animate="visible" exit="exit" style={{ width: "100%" }}>
+                                        <input onChange={(event) => handlePickFeeNameChange(index, event.target.value)} type="text" value={item.name} placeholder="Fee Name" className="text-small input-number" autoComplete="off" style={{ width: "70%", margin: "0rem" }}></input>
+                                        <input onChange={(event) => handlePickFeeCostChange(index, event.target.value)} type="number" value={item.cost} placeholder="Fee Cost" className="text-small input-number" autoComplete="off" style={{ width: "70%", margin: "0rem" }}></input>
+                                        <button className="add-img" type="button" onClick={() => handleDeletePick(index)}>
+                                            {confirmDelete2 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
+                                        </button>
+                                    </motion.div>
+                                </div>
+                                ))}
+                            </AnimatePresence>
+                        </div>
+                    </div>
+
+
                 </div>
-                <div className="add-categ-buttons">
-                  {setting === "Edit Category" && <button className="product-action-3 heading-secondary categ-button-2 white" type="button" onClick={delCategHandler} disabled={loading}>Delete</button>}
-                  <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={emptyContents} disabled={loading}>Cancel</button>
-                  <button className="product-action-2 heading-secondary categ-button-2" type="submit" disabled={loading}> {loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit")}</button>
-                </div>
-              </form> */}
             </div>
 
 
-
-
-            {/* 
-
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Name on Card:
-                    <input
-                        type="text"
-                        value={cardName}
-                        onChange={(event) => setCardName(event.target.value)}
-                    />
-                </label>
-                <label>
-                    Card Number:
-                    <input
-                        type="number"
-                        value={cardNumber}
-                        onChange={(event) => setCardNumber(event.target.value)}
-                    />
-                </label>
-                <label>
-                    Expiry Date:
-                    <input
-                        type="text"
-                        value={expiryMonth}
-                        maxLength="2"
-                        onChange={(event) => setExpiryMonth(event.target.value)}
-                    />/
-                    <input
-                        type="text"
-                        value={expiryYear}
-                        maxLength="2"
-                        onChange={(event) => setExpiryYear(event.target.value)}
-                    />
-                </label>
-                <label>
-                    CVV:
-                    <input
-                        type="text"
-                        value={cvv}
-                        onChange={(event) => setCvv(event.target.value)}
-                    />
-                </label>
-                <button type="submit">Submit</button>
-            </form>
-
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Currency:
-                    <select value={currency} onChange={handleCurrencyChange}>
-                        <option value="USD">$ - US Dollar</option>
-                        <option value="EUR">€ - Euro</option>
-                        <option value="GBP">£ - British Pound Sterling</option>
-                        <option value="JPY">¥ - Japanese Yen</option>
-                        <option value="AUD">$ - Australian Dollar</option>
-                        <option value="CAD">$ - Canadian Dollar</option>
-                        <option value="CHF">Fr - Swiss Franc</option>
-                        <option value="CNY">元 - Chinese Yuan</option>
-                        <option value="HKD">$ - Hong Kong Dollar</option>
-                        <option value="NZD">$ - New Zealand Dollar</option>
-                        <option value="SGD">$ - Singapore Dollar</option>
-                        <option value="INR">₹ - Indian Rupee</option>
-                        <option value="MXN">$ - Mexican Peso</option>
-                        <option value="ZAR">R - South African Rand</option>
-                    </select>
-                </label>
-                <label>
-                    Allow refunds?
-                    <input
-                        type="checkbox"
-                        checked={allowRefunds}
-                        onChange={handleRefundsChange}
-                    />
-                </label>
-                {allowRefunds && (
-                    <>
-                        <label>
-                            Refund duration:
-                            <select value={refundDuration} onChange={handleRefundDurationChange}>
-                                <option value="hour">Within 1 hour</option>
-                                <option value="day">Within 1 day</option>
-                                <option value="week">Within 1 week</option>
-                                <option value="month">Within 1 month</option>
-                            </select>
-                        </label>
-                        <label>
-                            Number of allowed refunds:
-                            <select value={refundCount} onChange={handleRefundCountChange}>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                            </select>
-                        </label>
-                    </>
-                )}
-
-                <label>
-                    Allow Cancellation?
-                    <input
-                        type="checkbox"
-                        checked={allowCancel}
-                        onChange={handleCancelChange}
-                    />
-                </label>
-
-                {allowCancel && (
-                    <>
-                        <label>
-                            Cancel duration:
-                            <select value={cancelDuration} onChange={handleCancelDurationChange}>
-                                <option value="hour">Within 1 hour</option>
-                                <option value="day">Within 1 day</option>
-                                <option value="week">Within 1 week</option>
-                                <option value="month">Within 1 month</option>
-                            </select>
-                        </label>
-                        <label>
-                            Number of allowed cancel:
-                            <select value={cancelCount} onChange={handleCancelCountChange}>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                            </select>
-                        </label>
-                        <label> Cancel Fees:
-                            <input
-                                type="number"
-                                value={cancelFee}
-                                onChange={(event) => setCancelFee(event.target.value)}
-                            />
-                            %
-                        </label>
-                    </>
-                )}
-
-                <button type="submit">Submit</button>
-            </form> */}
+            <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
+                <button className="product-action-1 heading-secondary" onClick={handleSubmit}>Submit Changes</button>
+                <button className="product-action-3 heading-secondary white">Reset to Default</button>
+            </div>
         </div>
-
-
     </Fragment>
 }
 
