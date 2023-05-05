@@ -11,6 +11,8 @@ import Head from "next/head";
 function ProductPage({ shopID }) {
   const router = useRouter()
 
+  const shopCurrency = shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
+
 
   function waitSeconds() {
     return new Promise(resolve => setTimeout(resolve, 2500));
@@ -283,7 +285,7 @@ function ProductPage({ shopID }) {
       img4Valid && { image: imgValue4 },
     ].filter(Boolean)
 
-    let nameValid = nameValue !== "" && !upperProductNames.includes(nameValue.toUpperCase())
+    let nameValid = nameValue.trim() !== "" && !upperProductNames.includes(nameValue.toUpperCase())
     let nameExist = upperProductNames.includes(nameValue.toUpperCase())
     if (nameValue.toUpperCase() === varArray[varState][`var${varNum}`].productName.toUpperCase()) { nameExist = false; nameValid = true }
     const descValid = descValue !== ""
@@ -462,7 +464,7 @@ function ProductPage({ shopID }) {
       <title>{varArray[0][`var${1}`].productName}</title>
     </Head>
     <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
-    <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation}></AddVariation>
+    <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation} currency={shopCurrency}></AddVariation>
     <Confirmer2 modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${varArray[varState][`var${varNum}`].productName}?`} load={() => { setLoading(true) }} default={varNum} finish={delVariation} names={upcoming} routing={routerData} productFix={productFixer}></Confirmer2>
     <AddTags modalStatus={tagStatus} disable={handleTags} list={tagsValue} submit={submitTags}></AddTags>
 
@@ -505,7 +507,7 @@ function ProductPage({ shopID }) {
           </div>
 
           <div className="price-pair">
-            <label className="heading-secondary product-currency">$</label>
+            <label className="heading-secondary product-currency">{shopCurrency}</label>
             <div className="flex-col">
               <div className="add-buttons flex-row-spaceless">
                 <button type="button" className="minus-button" onClick={minusPrice}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>

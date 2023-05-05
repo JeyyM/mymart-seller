@@ -52,7 +52,7 @@ body{background-color: ${props.color["bg-body"]} !important;}
 .heading-primary {font-family: ${props.color["text-primary-font"]} !important;
     color: ${props.color["text-primary-color"]} !important;}
 
-.heading-secondary, input[type="text"].text-full, input[type="text"].invalid-form, input[type="number"].text-small, input[type="text"].text-small, input[type="number"].invalid-form-2, input[type="text"].invalid-form-2 {font-family: ${props.color["text-secondary-font"]} !important;
+.heading-secondary, input[type="text"].text-full, input[type="number"].text-full, input[type="text"].invalid-form, input[type="number"].text-small, input[type="text"].text-small, input[type="number"].invalid-form-2, input[type="text"].invalid-form-2 {font-family: ${props.color["text-secondary-font"]} !important;
     color: ${props.color["text-secondary-color"]} !important;
     font-weight: 700 !important;}
 

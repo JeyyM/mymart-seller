@@ -43,6 +43,10 @@ input[type="text"].text-full {
   @include text-input-style;
 }
 
+input[type="number"].text-full {
+  @include text-input-style;
+}
+
 input[type="text"].text-full:focus {
   @include text-input-focus;
 }
@@ -64,6 +68,15 @@ input[type="text"].invalid-form {
 }
 
 input[type="text"].invalid-form:focus {
+  filter: brightness(120%);
+  outline-color: red;
+}
+
+input[type="number"].invalid-form {
+  @include text-input-style;
+}
+
+input[type="number"].invalid-form:focus {
   filter: brightness(120%);
   outline-color: red;
 }

@@ -183,10 +183,6 @@ export default function Details(martID) {
     }
   }
 
-  function isEmpty(word) {
-    word.trim() === ""
-  }
-
   function startsImgur(word) {
     return word.slice(0, 20) === "https://i.imgur.com/";
   }
@@ -375,7 +371,7 @@ function resetLoc () {
         </div>
 
         <div className="flex-row" style={{marginTop:"1rem", width:"100%", justifyContent:"space-around"}}>
-        <button onClick={currentLoc} className="product-action-1 heading-secondary">Current Location</button>
+        <button onClick={currentLoc} className="product-action-2 heading-secondary">Current Location</button>
         <button onClick={resetLoc} className="product-action-3 heading-secondary white">Reset to Default</button>
         </div>
       </div>

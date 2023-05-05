@@ -1,13 +1,30 @@
-import { Fragment } from "react"
+import { Fragment, useEffect } from "react"
 import Head from "next/head"
 import { getServerSideProps } from "../categories"
 import Link from "next/link"
 import { useState } from 'react';
+import { useRouter } from "next/router";
 
 import { motion, AnimatePresence } from "framer-motion"
 
 function Payment(martID) {
     const id = martID.shopID._id
+    const router = useRouter()
+
+    const paymentDetails = martID.shopID.shopData.shopDetails.paymentData
+    const cardData = paymentDetails.cardInfo
+    const checkoutData = paymentDetails.checkoutInfo
+    const addsData = paymentDetails.Adds
+    const takebackData = paymentDetails.Takebacks
+
+    const checkmark = (
+        <svg viewBox="0 0 100 100" width="7rem" height="7rem">
+          <path id="checkmark" d="M25,50 L40,65 L75,30" stroke="#FFFFFF" strokeWidth="8" fill="none"
+            strokeDasharray="200" strokeDashoffset="200">
+            <animate attributeName="stroke-dashoffset" from="200" to="0" dur="0.5s" begin="indefinite" />
+          </path>
+        </svg>
+      )
 
     const slide = {
         hidden: {
@@ -32,26 +49,29 @@ function Payment(martID) {
         },
     };
 
-    const [cardName, setCardName] = useState('');
-    const [cardNumber, setCardNumber] = useState('');
-    const [expiryMonth, setExpiryMonth] = useState('');
-    const [expiryYear, setExpiryYear] = useState('');
-    const [cvv, setCvv] = useState('');
-    const [message, setMessage] = useState('');
+    const [cardName, setCardName] = useState(cardData.cardName);
+    const [cardNumber, setCardNumber] = useState(cardData.cardNumber);
+    const [expiryMonth, setExpiryMonth] = useState(cardData.expiryMonth);
+    const [expiryYear, setExpiryYear] = useState(cardData.expiryYear);
+    const [cvv, setCvv] = useState(cardData.cvv);
+    const [message, setMessage] = useState(checkoutData.message);
 
-    const [currency, setCurrency] = useState('$');
+    const [currency, setCurrency] = useState(checkoutData.currency);
 
-    const [allowRefunds, setAllowRefunds] = useState(false);
-    const [refundDuration, setRefundDuration] = useState('hour');
-    const [refundCount, setRefundCount] = useState(1);
-    const [refundFee, setRefundFee] = useState(0);
+    const [allowRefunds, setAllowRefunds] = useState(takebackData.allowRefunds);
+    const [refundDuration, setRefundDuration] = useState(takebackData.refundDuration);
+    const [refundCount, setRefundCount] = useState(takebackData.refundCount);
+    const [refundFee, setRefundFee] = useState(takebackData.refundFee);
 
-    const [allowCancel, setAllowCancel] = useState(false);
-    const [cancelDuration, setCancelDuration] = useState('hour');
-    const [cancelCount, setCancelCount] = useState(1);
-    const [cancelFee, setCancelFee] = useState(0);
+    const [allowCancel, setAllowCancel] = useState(takebackData.allowCancel);
+    const [cancelDuration, setCancelDuration] = useState(takebackData.cancelDuration);
+    const [cancelCount, setCancelCount] = useState(takebackData.cancelCount);
+    const [cancelFee, setCancelFee] = useState(takebackData.cancelFee);
 
-    const [showMap, setShowMap] = useState(false);
+    const [showMap, setShowMap] = useState(checkoutData.showMap);
+
+    const [DelFee, setDelFee] = useState(addsData.DelFee);
+    const [PickFee, setPickFee] = useState(addsData.PickFee);
 
     const [formInputValidity, setFormInputValidity] = useState({
         name: true,
@@ -79,8 +99,6 @@ function Payment(martID) {
         setRefundCount(parseInt(event.target.value));
     };
 
-
-
     const handleCancelChange = (event) => {
         setAllowCancel(event.target.checked);
     };
@@ -101,23 +119,11 @@ function Payment(martID) {
     };
 
     const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"}`;
+    const cardClasses = `${formInputValidity.number ? "text-full" : "invalid-form"}`;
     const monthClasses = `${formInputValidity.month ? "text-small input-number" : "invalid-form-2"}`;
     const yearClasses = `${formInputValidity.year ? "text-small input-number" : "invalid-form-2"}`;
     const cvvClasses = `${formInputValidity.cvv ? "text-small input-number" : "invalid-form-2"}`;
     const descClasses = `${formInputValidity.desc ? "desc-text-area" : "invalid-form-box"}`;
-
-
-    const sampledata = [{
-        "name": "del",
-        "cost": "123"
-    }]
-
-    const sampledata2 = [{
-        "name": "pick",
-        "cost": "456"
-    }]
-
-    const [DelFee, setDelFee] = useState(sampledata);
 
     function handleAddDelFee(link, type) {
         const newDelFee = [...DelFee, { name: "", cost: "" }];
@@ -151,9 +157,6 @@ function Payment(martID) {
         }
     }
 
-
-    const [PickFee, setPickFee] = useState(sampledata2);
-
     function handleAddPickFee(link, type) {
         const newPickFee = [...PickFee, { name: "", cost: "" }];
         setPickFee(newPickFee);
@@ -186,13 +189,73 @@ function Payment(martID) {
         }
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    function waitSeconds() {
+        return new Promise(resolve => setTimeout(resolve, 2000));
+      }
 
-        const cardInfo = {cardName, cardNumber, expiryMonth, expiryYear, cvv}
-        const checkoutInfo = {message, currency, showMap}
-        const Adds = {DelFee, PickFee}
-        const Takebacks = {allowRefunds, refundDuration, refundCount, refundFee, allowCancel, cancelDuration, cancelCount, cancelFee,}
+    const [loading, setLoading] = useState(false)
+    const [completion, setCompletion] = useState(false)
+
+    async function editPayment(formdata, key) {
+
+      const response = await fetch(
+
+        `../../api/edit-payment?martid=${router.query.shopid}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formdata)
+        }
+      );
+      const data = await response.json();
+    }
+  
+    async function submitChanges() {
+        let newCFee = 0
+        let newRFee = 0
+
+        if (cancelFee !== "" || cancelFee < 0){
+            setCancelFee(0)
+            newCFee = cancelFee
+        }
+        if (refundFee !== "" || refundFee < 0){
+            setRefundFee(0)
+            newRFee = refundFee
+        }
+
+        const filteredDel = DelFee.filter((item) => {
+            return item.name.trim() !== "" && item.cost.trim() !== "";
+          });
+
+          const filteredPick = PickFee.filter((item) => {
+            return item.name.trim() !== "" && item.cost.trim() !== "";
+          });
+
+        const nameValid = cardName.trim() !== ""
+        const numValid = cardNumber.trim() !== ""
+        const monthValid = expiryMonth.length === 2
+        const yearValid = expiryYear.length === 2
+        const cvvValid = cvv.length === 3
+
+        setFormInputValidity({
+            name: nameValid,
+            number: numValid,
+            month: monthValid,
+            year: yearValid,
+            cvv: cvvValid,
+            currency: true,
+            desc: true
+        });
+        
+        const submissionValid = nameValid && numValid && monthValid && yearValid && cvvValid
+
+        if (submissionValid){
+        setLoading(true)
+  
+        const cardInfo = {cardName: cardName, cardNumber: cardNumber, expiryMonth: expiryMonth, expiryYear: expiryYear, cvv: cvv}
+        const checkoutInfo = {message: message, currency:currency, showMap: showMap}
+        const Adds = {DelFee: filteredDel, PickFee:filteredPick}
+        const Takebacks = {allowRefunds: allowRefunds, refundDuration: refundDuration, refundCount: refundCount, refundFee: newRFee, allowCancel: allowCancel, cancelDuration: cancelDuration, cancelCount: cancelCount, cancelFee: newCFee}
 
         const payload = {
             cardInfo,
@@ -200,9 +263,43 @@ function Payment(martID) {
             Adds,
             Takebacks
         };
+  
+      editPayment(payload)
+  
+      await waitSeconds()
 
-        console.log(payload);
-    };
+      setLoading(false)
+      setCompletion(true)
+  
+      console.log(payload)
+      router.reload()
+    }
+    }
+
+    function resetChanges(){
+        setCardName(cardData.cardName)
+        setCardNumber(cardData.cardNumber)
+        setExpiryMonth(cardData.expiryMonth)
+        setExpiryYear(cardData.expiryYear)
+        setCvv(cardData.cvv)
+
+        setMessage(checkoutData.message)
+        setCurrency(checkoutData.currency)
+
+        setAllowRefunds(takebackData.allowRefunds)
+        setRefundCount(takebackData.refundCount)
+        setRefundDuration(takebackData.refundDuration)
+        setRefundFee(takebackData.refundFee)
+
+        setAllowCancel(takebackData.allowCancel)
+        setCancelCount(takebackData.cancelCount)
+        setCancelDuration(takebackData.cancelDuration)
+        setCancelFee(takebackData.cancelFee)
+
+        setShowMap(checkoutData.showMap)
+        setDelFee(addsData.DelFee)
+        setPickFee(addsData.PickFee)
+    }
 
     return <Fragment>
         <Head>
@@ -234,41 +331,41 @@ function Payment(martID) {
                         id="name"
                         autoComplete="off"
                     ></input>
-                    {formInputValidity.name ? <label className="form-label">Name on Credit Card </label> : <label className="form-label inv">Category name already exists</label>}
+                    {formInputValidity.name ? <label className="form-label">Name on Credit Card </label> : <label className="form-label inv">Enter a valid card name</label>}
                 </div>
 
                 <div className="form-group">
                     <input
-                        type="text"
-                        className={`${nameClasses}`}
+                        type="number"
+                        className={`${cardClasses}`}
                         placeholder="Credit Card Number"
                         value={cardNumber}
                         onChange={(event) => setCardNumber(event.target.value)}
                         id="number"
                         autoComplete="off"
                     ></input>
-                    {formInputValidity.name ? <label className="form-label">Credit Card Number </label> : <label className="form-label inv">Category name already exists</label>}
+                    {formInputValidity.number ? <label className="form-label">Credit Card Number </label> : <label className="form-label inv">Enter a valid card number</label>}
                 </div>
 
                 <div className="flex-row-spaceless" style={{ alignItems: "center", gap: "2rem" }}>
                     <label className="heading-secondary product-currency">Expiry Date:</label>
                     <div className="flex-col-none">
                         <input style={{ width: "8rem", margin: "0" }} type="number" className={monthClasses} placeholder="MM" autoComplete="off" id='month' value={expiryMonth} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setExpiryMonth(newValue); } }}></input>
-                        {formInputValidity.month ? <label className="form-label">Month</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}
+                        {formInputValidity.month ? <label className="form-label">Month</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid month</label>}
                     </div>
 
                     <label className="heading-secondary product-currency">/</label>
 
                     <div className="flex-col-none">
                         <input style={{ width: "8rem", margin: "0" }} type="number" className={yearClasses} placeholder="YY" autoComplete="off" id='year' value={expiryYear} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setExpiryYear(newValue); } }}></input>
-                        {formInputValidity.year ? <label className="form-label">Year</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}
+                        {formInputValidity.year ? <label className="form-label">Year</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid year</label>}
                     </div>
 
                     <label className="heading-secondary product-currency">CVV:</label>
 
                     <div className="flex-col-none">
                         <input style={{ width: "12rem", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" id='year' value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setCvv(newValue); } }}></input>
-                        {formInputValidity.year ? <label className="form-label">&nbsp;</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}
+                        {formInputValidity.cvv ? <label className="form-label">&nbsp;</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid CVV</label>}
                     </div>
                 </div>
 
@@ -465,160 +562,11 @@ function Payment(martID) {
 
 
             <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
-                <button className="product-action-1 heading-secondary" onClick={handleSubmit}>Submit Changes</button>
-                <button className="product-action-3 heading-secondary white">Reset to Default</button>
+                <button className="product-action-2 heading-secondary" onClick={submitChanges} disabled={loading} style={{width:"25rem"}}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
+                {/* <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading} type="button">{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button> */}
+                <button className="product-action-3 heading-secondary white" onClick={resetChanges} disabled={loading} style={{width:"25rem"}}>Reset to Default</button>
             </div>
         </div>
-
-
-        {/* 
-
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Name on Card:
-                    <input
-                        type="text"
-                        value={cardName}
-                        onChange={(event) => setCardName(event.target.value)}
-                    />
-                </label>
-                <label>
-                    Card Number:
-                    <input
-                        type="number"
-                        value={cardNumber}
-                        onChange={(event) => setCardNumber(event.target.value)}
-                    />
-                </label>
-                <label>
-                    Expiry Date:
-                    <input
-                        type="text"
-                        value={expiryMonth}
-                        maxLength="2"
-                        onChange={(event) => setExpiryMonth(event.target.value)}
-                    />/
-                    <input
-                        type="text"
-                        value={expiryYear}
-                        maxLength="2"
-                        onChange={(event) => setExpiryYear(event.target.value)}
-                    />
-                </label>
-                <label>
-                    CVV:
-                    <input
-                        type="text"
-                        value={cvv}
-                        onChange={(event) => setCvv(event.target.value)}
-                    />
-                </label>
-                <button type="submit">Submit</button>
-            </form>
-
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Currency:
-                    <select value={currency} onChange={handleCurrencyChange}>
-                        <option value="USD">$ - US Dollar</option>
-                        <option value="EUR">€ - Euro</option>
-                        <option value="GBP">£ - British Pound Sterling</option>
-                        <option value="JPY">¥ - Japanese Yen</option>
-                        <option value="AUD">$ - Australian Dollar</option>
-                        <option value="CAD">$ - Canadian Dollar</option>
-                        <option value="CHF">Fr - Swiss Franc</option>
-                        <option value="CNY">元 - Chinese Yuan</option>
-                        <option value="HKD">$ - Hong Kong Dollar</option>
-                        <option value="NZD">$ - New Zealand Dollar</option>
-                        <option value="SGD">$ - Singapore Dollar</option>
-                        <option value="INR">₹ - Indian Rupee</option>
-                        <option value="MXN">$ - Mexican Peso</option>
-                        <option value="ZAR">R - South African Rand</option>
-                    </select>
-                </label>
-                <label>
-                    Allow refunds?
-                    <input
-                        type="checkbox"
-                        checked={allowRefunds}
-                        onChange={handleRefundsChange}
-                    />
-                </label>
-                {allowRefunds && (
-                    <>
-                        <label>
-                            Refund duration:
-                            <select value={refundDuration} onChange={handleRefundDurationChange}>
-                                <option value="hour">Within 1 hour</option>
-                                <option value="day">Within 1 day</option>
-                                <option value="week">Within 1 week</option>
-                                <option value="month">Within 1 month</option>
-                            </select>
-                        </label>
-                        <label>
-                            Number of allowed refunds:
-                            <select value={refundCount} onChange={handleRefundCountChange}>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                            </select>
-                        </label>
-                    </>
-                )}
-
-                <label>
-                    Allow Cancellation?
-                    <input
-                        type="checkbox"
-                        checked={allowCancel}
-                        onChange={handleCancelChange}
-                    />
-                </label>
-
-                {allowCancel && (
-                    <>
-                        <label>
-                            Cancel duration:
-                            <select value={cancelDuration} onChange={handleCancelDurationChange}>
-                                <option value="hour">Within 1 hour</option>
-                                <option value="day">Within 1 day</option>
-                                <option value="week">Within 1 week</option>
-                                <option value="month">Within 1 month</option>
-                            </select>
-                        </label>
-                        <label>
-                            Number of allowed cancel:
-                            <select value={cancelCount} onChange={handleCancelCountChange}>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                            </select>
-                        </label>
-                        <label> Cancel Fees:
-                            <input
-                                type="number"
-                                value={cancelFee}
-                                onChange={(event) => setCancelFee(event.target.value)}
-                            />
-                            %
-                        </label>
-                    </>
-                )}
-
-                <button type="submit">Submit</button>
-            </form> */}
     </Fragment>
 }
 

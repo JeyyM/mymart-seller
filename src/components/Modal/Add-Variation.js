@@ -168,7 +168,7 @@ function AddProduct(props) {
       img4Valid && { image: imgValue4 },
     ].filter(Boolean)
 
-    let nameValid = nameValue !== "" && !props.names.includes(nameValue.toUpperCase())
+    let nameValid = nameValue.trim() !== "" && !props.names.includes(nameValue.toUpperCase())
     let nameExist = props.names.includes(nameValue.toUpperCase())
     const descValid = descValue !== ""
     const priceValid = priceValue !== "" && priceValue >= 0
@@ -394,7 +394,7 @@ function AddProduct(props) {
 
 
                 <div className="price-pair">
-                  <label className="heading-secondary product-currency">$</label>
+                  <label className="heading-secondary product-currency">{props.currency}</label>
                   <div>
                     <input type="number" className={priceClasses} placeholder="Price" autoComplete="off" id='price' value={priceValue} onChange={handlePriceChange}></input>
                     {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}

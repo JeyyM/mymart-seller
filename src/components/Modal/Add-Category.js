@@ -106,7 +106,7 @@ function AddCategory(props) {
       nameValid = true;
       nameExist = false;
     } else{
-      nameValid = nameValue !== "" && !props.list.includes(nameValue.toUpperCase())
+      nameValid = nameValue.trim() !== "" && !props.list.includes(nameValue.toUpperCase())
       nameExist = props.list.includes(nameValue.toUpperCase())
 
       if (nameValue.toUpperCase() === setDefaultName.toUpperCase()){

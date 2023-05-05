@@ -176,12 +176,12 @@ function AddProduct(props) {
       nameValid = false;
       nameExist = false;
     } else{
-      nameValid = nameValue !== "" && !props.names.includes(nameValue.toUpperCase())
+      nameValid = nameValue.trim() !== "" && !props.names.includes(nameValue.toUpperCase())
       nameExist = props.names.includes(nameValue.toUpperCase())
     }
     
     // if (nameValue === setDefaultName) { nameExist = false; nameValid = true }
-    nameValid = nameValue !== ""
+    nameValid = nameValue.trim() !== ""
     const descValid = descValue !== ""
     const priceValid = priceValue !== "" && priceValue >= 0
     const amountValid = stockAmount !== "" && stockAmount >= 0
@@ -408,7 +408,7 @@ function AddProduct(props) {
 
 
                 <div className="price-pair">
-                  <label className="heading-secondary product-currency">$</label>
+                  <label className="heading-secondary product-currency">{props.currency}</label>
                   <div>
                     <input type="number" className={priceClasses} placeholder="Price" autoComplete="off" id='price' value={priceValue} onChange={handlePriceChange}></input>
                     {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}

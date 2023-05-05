@@ -1,0 +1,18 @@
+.about-grid-1 {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+  }
+
+  .heading-icon-flag {
+    @include heading-logo(flag, 4rem, 4rem);
+    margin-left: 1rem;
+  }
+
+  .div-preview{
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    z-index: -1;
+  }

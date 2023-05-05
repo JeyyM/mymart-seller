@@ -26,6 +26,8 @@ function Designing({ shopID }) {
   const [loading, setLoading] = useState(false)
   const [completion, setCompletion] = useState(false)
 
+  const shopCurrency = shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
+
   function waitSeconds() {
     return new Promise(resolve => setTimeout(resolve, 2500));
   }
@@ -592,9 +594,7 @@ function Designing({ shopID }) {
       <div className="design-col-3">
         <div className="design-primary item-setup">
           <span className="page-heading flex-row-align">
-            <div className="heading-icon-dropshadow">
               <div className="heading-icon-brush svg-color">&nbsp;</div>
-            </div>
             <h1 className="heading-secondary no-margin">Primary Designs</h1>
           </span>
 
@@ -637,9 +637,7 @@ function Designing({ shopID }) {
         </div>
         <div className="design-typography item-setup">
           <span className="page-heading flex-row-align">
-            <div className="heading-icon-dropshadow">
               <div className="heading-icon-typography svg-color">&nbsp;</div>
-            </div>
             <h1 className="heading-secondary no-margin">Typography</h1>
           </span>
 
@@ -689,7 +687,7 @@ function Designing({ shopID }) {
                   <h3 className="heading-tertiary-demo" style={{ color: `${textTertiary}`, fontFamily: `${textTertiaryFont}`, marginLeft: "1rem" }}>Sample Heading Tertiary Sample Heading Tertiary Sample Heading Tertiary</h3>
                 </div>
                 <div className="product-number-container">
-                  <h2 className="heading-secondary-demo product-numbers product-price" style={{ color: `${textSecondary}`, fontFamily: `${textSecondaryFont}` }}>$123</h2>
+                  <h2 className="heading-secondary-demo product-numbers product-price" style={{ color: `${textSecondary}`, fontFamily: `${textSecondaryFont}` }}>{shopCurrency} 123</h2>
                   <h2 className="heading-secondary-demo product-numbers" style={{ color: `${textSecondary}`, fontFamily: `${textSecondaryFont}` }}>456 Units</h2>
                 </div>
               </div>
@@ -710,9 +708,8 @@ function Designing({ shopID }) {
         </div>
         <div className="demo-typography item-setup" style={{ padding: "0rem" }}>
           <span className="page-heading flex-row-align" style={{ padding: "1rem" }}>
-            <div className="heading-icon-dropshadow">
+
               <div className="heading-icon-typography svg-color">&nbsp;</div>
-            </div>
             <h1 className="heading-secondary no-margin">Typography Preview</h1>
           </span>
 

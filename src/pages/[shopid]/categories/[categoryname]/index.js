@@ -11,6 +11,9 @@ function ProductsPage({ shopID }) {
   const queryCategoryName = router.query.categoryname
 
   const { shopData } = shopID;
+
+  const shopCurrency = shopData.shopDetails.paymentData.checkoutInfo.currency
+
   const contents = shopData.shopCategories;
 
   const chosenCategory = Object.values(contents).find(
@@ -80,7 +83,7 @@ if (products.length > 0){
     <Head>
     <title>{queryCategoryName}</title>
   </Head>
-  <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} categKey={chosenKey} length={products.length} names={upperProductNames}></AddProduct>
+  <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} categKey={chosenKey} length={products.length} names={upperProductNames} currency={shopCurrency}></AddProduct>
   <span className="page-heading">
     <h1 className="heading-primary">{router.query.categoryname}</h1>
     <button onClick={addProdHandler} className="add-prod-init heading-tertiary">
@@ -91,7 +94,7 @@ if (products.length > 0){
   <section className="category-container">
     {products.map((prod, index) => (
       <Fragment key={index}>
-        <CategoryProducts items={prod.value.var1} categName={queryCategoryName} id={router.query.shopid} index={index} state={addProduct}></CategoryProducts>
+        <CategoryProducts items={prod.value.var1} categName={queryCategoryName} id={router.query.shopid} index={index} state={addProduct} currency={shopCurrency} ></CategoryProducts>
       </Fragment>
     ))}
   </section>
