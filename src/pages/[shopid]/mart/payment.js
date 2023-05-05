@@ -51,6 +51,8 @@ function Payment(martID) {
     const [cancelCount, setCancelCount] = useState(1);
     const [cancelFee, setCancelFee] = useState(0);
 
+    const [showMap, setShowMap] = useState(false);
+
     const [formInputValidity, setFormInputValidity] = useState({
         name: true,
         number: true,
@@ -92,6 +94,10 @@ function Payment(martID) {
     };
     const handleCancelFee = (event) => {
         setCancelFee(event.target.value);
+    };
+
+    const handleMapChange = (event) => {
+        setShowMap(event.target.checked);
     };
 
     const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"}`;
@@ -183,27 +189,16 @@ function Payment(martID) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        const cardInfo = {cardName, cardNumber, expiryMonth, expiryYear, cvv}
+        const checkoutInfo = {message, currency, showMap}
+        const Adds = {DelFee, PickFee}
+        const Takebacks = {allowRefunds, refundDuration, refundCount, refundFee, allowCancel, cancelDuration, cancelCount, cancelFee,}
+
         const payload = {
-            cardName,
-            cardNumber,
-            expiryMonth,
-            expiryYear,
-            cvv,
-            message,
-
-            currency,
-
-            DelFee,
-            PickFee,
-
-            allowRefunds,
-            refundDuration,
-            refundCount,
-
-            allowCancel,
-            cancelDuration,
-            cancelCount,
-            cancelFee,
+            cardInfo,
+            checkoutInfo,
+            Adds,
+            Takebacks
         };
 
         console.log(payload);
@@ -410,8 +405,9 @@ function Payment(martID) {
                     </motion.div>
                 )}
 
-                <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
-                    <h1 className="heading-secondary no-margin" style={{ marginTop: "1rem" }}>Allow Cancellation?</h1>
+                <span className="page-heading flex-row-align" style={{ margin: "1rem 0" }}>
+                <div className="heading-icon-cancel svg-color">&nbsp;</div>
+                    <h1 className="heading-secondary no-margin" style={{ marginTop: "0rem" }}>Allow Cancellation?</h1>
                     <div className="checkbox-container">
                         {allowCancel ? <div className="checkbox-fill svg-color"></div> : <div className="checkbox-blank svg-color"></div>}
                         <input
@@ -448,10 +444,23 @@ function Payment(martID) {
                         </select>
 
                         <h2 className="heading-secondary" title="Will charge the customer by a % of their cancelled total.">%Fee:</h2>
-                        <input onChange={(event) => setRefundFee(event.target.value)} value={refundFee} type="number" placeholder="%Penalty" className="text-small input-number" autoComplete="off" style={{ width: "20%", margin: "0rem" }}></input>
+                        <input onChange={(event) => setCancelFee(event.target.value)} value={cancelFee} type="number" placeholder="%Penalty" className="text-small input-number" autoComplete="off" style={{ width: "20%", margin: "0rem" }}></input>
                     </motion.div>
                 )}
 
+                <span className="page-heading flex-row-align" style={{ margin: "2rem 0" }}>
+                <div className="heading-icon-pin svg-color">&nbsp;</div>
+                    <h1 className="heading-secondary no-margin" style={{ marginTop: "0rem" }} title="A Google Map along with directions will be at checkout so the users know where to pick up their items, etc.">Show Google Map Location at Checkout?</h1>
+                    <div className="checkbox-container">
+                        {showMap ? <div className="checkbox-fill svg-color"></div> : <div className="checkbox-blank svg-color"></div>}
+                        <input
+                            type="checkbox"
+                            checked={showMap}
+                            onChange={handleMapChange}
+                            className="checkbox-style"
+                        />
+                    </div>
+                </span>
             </div>
 
 
