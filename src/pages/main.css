@@ -4177,11 +4177,13 @@ input[type=checkbox].checkbox-style {
 }
 
 .about-grid-1 {
-  width: 100vw;
-  min-height: 56.25vw;
+  width: calc(100vw - 1.2rem);
+  height: 56.25vw;
   display: grid;
-  grid-template-columns: repeat(10, 10vw);
+  grid-template-columns: repeat(10, calc(10vw - 1.2px));
   grid-auto-rows: 10%;
+  margin: 0 auto;
+  transition: all 0.2s;
 }
 
 .heading-icon-flag {
@@ -4206,8 +4208,8 @@ input[type=checkbox].checkbox-style {
 }
 
 .div-preview {
-  width: 100%;
+  max-width: 10vw;
   background-color: transparent;
   z-index: -1;
-  border: 2px dashed red;
+  border: 2px dashed rgba(255, 0, 0, 0.502);
 }/*# sourceMappingURL=main.css.map */

@@ -1,9 +1,11 @@
 .about-grid-1 {
-    width: 100vw;
-    min-height: calc(100vw * 0.5625);
+    width: calc(100vw - 1.2rem);
+    height: calc(100vw * 0.5625);
     display: grid;
-    grid-template-columns: repeat(10, calc(100vw /10));
+    grid-template-columns: repeat(10, calc((100vw /10) - 1.2px));
     grid-auto-rows: 10%;
+    margin: 0 auto;
+    transition: all 0.2s;
   }
 
   // <div style={{backgroundColor:"red", height:"calc(100vw * 0.5625)", width:"100vw"}}>Hey</div>
@@ -14,8 +16,8 @@
   }
 
   .div-preview{
-    width: 100%;
+    max-width: calc(100vw / 10);
     background-color: transparent;
     z-index: -1;
-    border: 2px dashed red;
+    border: 2px dashed rgba(255, 0, 0, 0.502);
   }

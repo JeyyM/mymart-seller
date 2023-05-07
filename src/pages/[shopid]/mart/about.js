@@ -33,15 +33,30 @@ const prevDivs = Array.from({ length: (rowCount * 10) }, (_, index) => (
     <label>Row count</label> <input value={rowCount} onChange={event => {setRowCount(event.target.value)}} type="number"></input>
     <label>height count</label> <input value={rowHeight} onChange={event => {setRowHeight(event.target.value)}} type="number"></input>
 
-    <span className="page-heading">
-      <div className="heading-icon-dropshadow">
-        <div className="heading-icon-preview svg-color">&nbsp;</div>
-      </div>
-      <h1 className="heading-primary no-margin">About Page Preview&nbsp;</h1>
-    </span>
+      <span className="page-heading">
+        <div className="heading-icon-dropshadow">
+          <div className="heading-icon-preview svg-color">&nbsp;</div>
+        </div>
+        <h1 className="heading-primary no-margin">About Page Preview&nbsp;</h1>
+      </span>
         <section className="about-grid-1">
       
         <>{prevDivs}</>  
+
+        <img
+    src="https://i.imgur.com/bTIbBnY.jpeg"
+    style={{
+      gridRow: "1/6",
+      gridColumn: "1/11",
+      // border: "2px dashed black",
+      margin: "0",
+      textAlign: "left",
+      maxHeight: "100%",
+      maxWidth: "100%",
+      margin: "auto auto"
+    }}
+    alt="Image"
+  />
 
         </section>  
     </Fragment>

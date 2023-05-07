@@ -525,7 +525,10 @@ function resetLoc () {
 
       </div>
 
-      <h2 className="heading-secondary">Footer Preview</h2>
+      <span className="page-heading">
+        <div className="heading-icon-preview svg-color">&nbsp;</div>
+      <h1 className="heading-secondary no-margin">Footer Preview&nbsp;</h1>
+    </span>
 
       <div style={{ gridColumn: "1/-1" }}>
         <footer className="footer">
