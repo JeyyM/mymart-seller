@@ -41,7 +41,7 @@ export default function Footer(props) {
                 <img className="social-icon" src={`/socials/${index.type}.webp`}></img>
                 </Link>
             })}
-            </div>;
+            </div>
         </div>
 
         <div className="footer-column">
