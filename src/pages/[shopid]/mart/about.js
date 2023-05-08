@@ -34,11 +34,12 @@ function About(shopID) {
   const [grid, setGrid] = useState(true)
   function handleGrid(){setGrid(!grid)}
  
-  const [TextArray, setTextArray] = useState([{ type: "heading-primary", row1: "1", row2: "2", col1: "1", col2: "2", align: "center", zInd: "1", content: "" }]);
-  const [ImgArray, setImgArray] = useState([{ img: "https://i.imgur.com/qlmYdJO.jpeg", row1: "1", row2: "2", col1: "1", col2: "2", align: "center", zInd: "1", content: "", border: true}]);
+  const [TextArray, setTextArray] = useState([{ type: "heading-primary", row1: "1", row2: "2", col1: "1", col2: "2", align: "center", zInd: "1", content: "", scale: "1" }]);
+  const [ImgArray, setImgArray] = useState([{ img: "https://i.imgur.com/qlmYdJO.jpeg", row1: "1", row2: "2", col1: "1", col2: "2", zInd: "1", border: "", scale: "1"}]);
+  
 
   function handleAddTextArray(link, type) {
-    const newTextArray = [...TextArray, { type: "heading-primary", row1: "1", row2: "2", col1: "1", col2: "2", align: "center", zInd: "1", content: "" }];
+    const newTextArray = [...TextArray, { type: "heading-primary", row1: "1", row2: "2", col1: "1", col2: "2", align: "center", zInd: "1", content: "", scale: "1" }];
     setTextArray(newTextArray);
   }
 
@@ -92,7 +93,17 @@ function About(shopID) {
     setTextArray(newTextArray);
   }  
 
+  function handleTextArrayScaleChange(event, index) {
+    const newTextArray = [...TextArray];
+    newTextArray[index].scale = event.target.value
+    setTextArray(newTextArray);
+  }  
+
   
+  function handleAddImgArray() {
+    const newImgArray = [...ImgArray, { img: "https://i.imgur.com/qlmYdJO.jpeg", row1: "1", row2: "2", col1: "1", col2: "2", zInd: "1", border: "", scale: "1"}];
+    setImgArray(newImgArray);
+  }
 
   function handleImgArrayImageChange(event, index) {
     const newImgArray = [...ImgArray];
@@ -130,13 +141,26 @@ function About(shopID) {
     setImgArray(newImgArray)
   }
 
+  function handleImgArrayBorderChange(index) {
+    const newImgArray = [...ImgArray];
+    newImgArray[index].border = event.target.value;
+    setImgArray(newImgArray)
+  }
+
+  function handleImgArrayScaleChange(event, index) {
+    const newImgArray = [...ImgArray];
+    newImgArray[index].scale = event.target.value
+    setImgArray(newImgArray);
+  }  
+
 
 
   const [confirmDelete1, setConfirmDelete1] = useState(null);
+  const [confirmDelete2, setConfirmDelete2] = useState(null);
 
-  function handleDeleteDel(index) {
+  function handleDeleteText(index) {
     if (confirmDelete1 === index) {
-      let newTextArray = TextArray.filter((add, i) => i !== index);
+      let newTextArray = TextArray.filter((item, i) => i !== index);
       setTextArray(newTextArray);
       setConfirmDelete1(null);
     } else {
@@ -147,9 +171,23 @@ function About(shopID) {
     }
   }
 
+  function handleDeleteImg(index) {
+    if (confirmDelete2 === index) {
+      let newImgArray = ImgArray.filter((item, i) => i !== index);
+      setImgArray(newImgArray);
+      setConfirmDelete2(null);
+    } else {
+      setConfirmDelete2(index);
+      setTimeout(() => {
+        setConfirmDelete2(null);
+      }, 2000);
+    }
+  }
+
 
 
   console.log(TextArray)
+  console.log(ImgArray)
 
   const textElements = TextArray.map((item, index) => (
     <h3
@@ -161,11 +199,32 @@ function About(shopID) {
         textAlign: item.align,
         zIndex: item.zInd,
         margin: "0",
-        alignSelf: "center"
+        alignSelf: "center",
+        transform: `scale(${item.scale})`
       }}
       dangerouslySetInnerHTML={{ __html: item.content }}
     >
     </h3>
+  ));
+
+  // const newImgArray = [...ImgArray, { img: "https://i.imgur.com/qlmYdJO.jpeg", row1: "1", row2: "2", col1: "1", col2: "2", zInd: "1", border: "", scale: "1"}];
+
+  const imgElements = ImgArray.map((item, index) => (
+    <img
+      src={item.img}
+      key={index}
+      className={item.border}
+      style={{
+        gridRow: `${item.row1}/${item.row2}`,
+        gridColumn: `${item.col1}/${item.col2}`,
+        zIndex: item.zInd,
+        maxHeight:"100%",
+        maxWidth: "100%",
+        margin: "auto auto",
+        transform: `scale(${item.scale})`,
+      }}
+    >
+    </img>
   ));
 
   const prevClasses = `${grid ? "div-preview grided" : "div-preview"}`;
@@ -214,7 +273,7 @@ function About(shopID) {
         </div>
 
                 <button className="product-action-2 heading-secondary" style={{width:"15rem", margin:"0"}}>Submit</button>
-                <button className="product-action-3 white heading-secondary" style={{width:"15rem", margin:"0"}}>Reset</button>
+                <button className="product-action-3 white heading-secondary" style={{width:"15rem", margin:"0", zIndex:"99"}}>Reset</button>
 
           </div>
 
@@ -225,10 +284,7 @@ function About(shopID) {
             </div>
 
         </div>
-      </div>
-
-      <div className="flex-col">
-        <span className="page-heading" style={{ marginBottom: "1rem" }}>
+        <span className="page-heading" style={{ margin: "1rem" }}>
           <div className="heading-icon-typography svg-color">&nbsp;</div>
           <h1 className="heading-secondary no-margin" title="Fees that customers will pay if they choose for their items to be delivered.">&nbsp;Text Items &nbsp;</h1>
           <button className="add-img" type="button" onClick={handleAddTextArray} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
@@ -276,6 +332,20 @@ function About(shopID) {
                           ))}
                         </select>
                       </div>
+                      <div className="flex-col">
+                      <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc. Blank results will be turned to 1 upon submission.">Scale: &nbsp;</label>
+                      <div className="flex-row-align">
+                        <input
+                          type="number"
+                          placeholder="Z-Index"
+                          className="text-small input-number"
+                          autoComplete="off"
+                          style={{ width: "100%", margin: "0" }}
+                          value={item.scale}
+                          onChange={(event) => handleTextArrayScaleChange(event, index)}
+                        ></input>                
+                        </div>
+                    </div>
                     </div>
 
 
@@ -359,12 +429,11 @@ function About(shopID) {
                           style={{ width: "100%", margin: "0" }}
                           value={item.content}
                           onChange={(event) => handleTextArrayContentChange(event, index)}
-                        ></input>                </div>
+                        ></input>                
+                        </div>
                     </div>
-
-
                   </div>
-                  <button className="add-img" type="button" onClick={() => handleDeleteDel(index)}>
+                  <button className="add-img" type="button" onClick={() => handleDeleteText(index)}>
                     {confirmDelete1 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
                   </button>
                 </motion.div>
@@ -373,37 +442,45 @@ function About(shopID) {
             </AnimatePresence>
           </div>
         </div>
+      </div>
+
+      <div className="flex-col">
 
         
         <div className="flex-col">
         <span className="page-heading" style={{ margin: "1rem 0" }}>
           <div className="heading-icon-add-img svg-color">&nbsp;</div>
           <h1 className="heading-secondary no-margin">&nbsp;Image Items &nbsp;</h1>
-          <button className="add-img" type="button" onClick={handleAddTextArray} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+          <button className="add-img" type="button" onClick={handleAddImgArray} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
         </span>
         <div>
           <div className="detail-inputs">
             <AnimatePresence>
-              {TextArray.map((item, index) => (<div className="detail-row-about" key={index}>
+              {ImgArray.map((item, index) => (<div className="detail-row-about" key={index}>
                 <motion.div className="detail-row-about" key={index} variants={slide} initial="hidden" animate="visible" exit="exit">
 
                   <div className="flex-col confirm-modal" style={{ gap: "1rem" }}>
-                    <div className="flex-row" >
+                    <div className="flex-row">
                       <div className="flex-col">
-                        <label className="heading-tertiary">Heading Type: &nbsp;</label>
-                        <select value={item.name} onChange={(event) => handleTextArrayTypeChange(index, event.target.value)} className="text-options text-span" style={{ width: "100%", marginTop: "1rem" }}>
-                          <option value="heading-primary">Primary Heading</option>
-                          <option value="heading-secondary">Secondary Heading</option>
-                          <option value="heading-tertiary">Tertiary heading</option>
-                        </select>
-                      </div>
+                      <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Text Content: &nbsp;</label>
+                      <div className="flex-row-align">
+                        <input
+                          type="text"
+                          placeholder="Imgur Link"
+                          className="text-small input-number"
+                          autoComplete="off"
+                          style={{ width: "100%", margin: "0" }}
+                          value={item.img}
+                          onChange={(event) => handleTextArrayContentChange(event, index)}
+                        ></input>                
+                        </div>
+                    </div>
 
                       <div className="flex-col">
-                        <label className="heading-tertiary">Text Align: &nbsp;</label>
-                        <select value={item.align} onChange={(event) => handleTextArrayAlignChange(index, event.target.value)} className="text-options text-span" style={{ width: "100%", marginTop: "1rem" }}>
-                          <option value="center">Center</option>
-                          <option value="left">Left</option>
-                          <option value="right">Right</option>
+                        <label className="heading-tertiary">Border: &nbsp;</label>
+                        <select value={item.border} onChange={(event) => handleImgArrayBorderChange(index, event.target.value)} className="text-options text-span" style={{ width: "100%", marginTop: "1rem" }}>
+                          <option value="round-borderer">On</option>
+                          <option value="">Off</option>
                         </select>
                       </div>
 
@@ -411,7 +488,7 @@ function About(shopID) {
                         <label className="heading-tertiary">Z-Index: &nbsp;</label>
                         <select
                           value={item.zInd}
-                          onChange={(event) => handleTextArrayZChange(index, event.target.value)}
+                          onChange={(event) => handleImgArrayZChange(index, event.target.value)}
                           className="text-options text-span"
                           style={{ width: "100%", marginTop: "1rem" }}
                         >
@@ -423,9 +500,22 @@ function About(shopID) {
                           ))}
                         </select>
                       </div>
+                      <div className="flex-col">
+                      <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc. Blank results will be turned to 1 upon submission. The main method of sizing should be the grid system.">Scale: &nbsp;</label>
+                      <div className="flex-row-align">
+                        <input
+                          type="number"
+                          placeholder="Z-Index"
+                          className="text-small input-number"
+                          autoComplete="off"
+                          style={{ width: "100%", margin: "0" }}
+                          value={item.scale}
+                          onChange={(event) => handleImgArrayScaleChange(event, index)}
+                        ></input>                
+                        </div>
                     </div>
-
-
+                    </div>
+                    
                     <div className="flex-row" style={{ marginBottom: "1rem" }}>
 
                       <div className="flex-col">
@@ -433,7 +523,7 @@ function About(shopID) {
                         <div className="flex-row-align">
                           <select
                             value={item.col1}
-                            onChange={(event) => handleTextArrayC1Change(index, event.target.value)}
+                            onChange={(event) => handleImgArrayC1Change(index, event.target.value)}
                             className="text-options text-span"
                             style={{ width: "100%", marginTop: "1rem" }}
                           >
@@ -447,7 +537,7 @@ function About(shopID) {
                           <h2 className="heading-secondary">/</h2>
                           <select
                             value={item.col2}
-                            onChange={(event) => handleTextArrayC2Change(index, event.target.value)}
+                            onChange={(event) => handleImgArrayC2Change(index, event.target.value)}
                             className="text-options text-span"
                             style={{ width: "100%", marginTop: "1rem" }}
                           >
@@ -466,7 +556,7 @@ function About(shopID) {
                         <div className="flex-row-align">
                           <select
                             value={item.row1}
-                            onChange={(event) => handleTextArrayR1Change(index, event.target.value)}
+                            onChange={(event) => handleImgArrayR1Change(index, event.target.value)}
                             className="text-options text-span"
                             style={{ width: "100%", marginTop: "1rem" }}
                           >
@@ -480,7 +570,7 @@ function About(shopID) {
                           <h2 className="heading-secondary">/</h2>
                           <select
                             value={item.row2}
-                            onChange={(event) => handleTextArrayR2Change(index, event.target.value)}
+                            onChange={(event) => handleImgArrayR2Change(index, event.target.value)}
                             className="text-options text-span"
                             style={{ width: "100%", marginTop: "1rem" }}
                           >
@@ -495,24 +585,156 @@ function About(shopID) {
                       </div>
                     </div>
 
-                    <div className="flex-col">
+                  </div>
+                  <button className="add-img" type="button" onClick={() => handleDeleteImg(index)}>
+                    {confirmDelete2 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
+                  </button>
+                </motion.div>
+              </div>
+              ))}
+            </AnimatePresence>
+          </div>
+        </div>
+        <span className="page-heading" style={{ margin: "1rem 0" }}>
+          <div className="heading-icon-cube svg-color">&nbsp;</div>
+          <h1 className="heading-secondary no-margin">&nbsp;Container Items &nbsp;</h1>
+          <button className="add-img" type="button" onClick={handleAddImgArray} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+        </span>
+        <div>
+          <div className="detail-inputs">
+            <AnimatePresence>
+              {ImgArray.map((item, index) => (<div className="detail-row-about" key={index}>
+                <motion.div className="detail-row-about" key={index} variants={slide} initial="hidden" animate="visible" exit="exit">
+
+                  <div className="flex-col confirm-modal" style={{ gap: "1rem" }}>
+                    <div className="flex-row">
+                      <div className="flex-col">
                       <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Text Content: &nbsp;</label>
                       <div className="flex-row-align">
                         <input
                           type="text"
-                          placeholder="Content"
+                          placeholder="Imgur Link"
                           className="text-small input-number"
                           autoComplete="off"
                           style={{ width: "100%", margin: "0" }}
-                          value={item.content}
+                          value={item.img}
                           onChange={(event) => handleTextArrayContentChange(event, index)}
-                        ></input>                </div>
+                        ></input>                
+                        </div>
                     </div>
 
+                      <div className="flex-col">
+                        <label className="heading-tertiary">Border: &nbsp;</label>
+                        <select value={item.border} onChange={(event) => handleImgArrayBorderChange(index, event.target.value)} className="text-options text-span" style={{ width: "100%", marginTop: "1rem" }}>
+                          <option value="round-borderer">On</option>
+                          <option value="">Off</option>
+                        </select>
+                      </div>
+
+                      <div className="flex-col">
+                        <label className="heading-tertiary">Z-Index: &nbsp;</label>
+                        <select
+                          value={item.zInd}
+                          onChange={(event) => handleImgArrayZChange(index, event.target.value)}
+                          className="text-options text-span"
+                          style={{ width: "100%", marginTop: "1rem" }}
+                        >
+
+                          {Array.from({ length: 10 }, (_, index) => (
+                            <option key={index + 1} value={index + 1}>
+                              {index + 1}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="flex-col">
+                      <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc. Blank results will be turned to 1 upon submission. The main method of sizing should be the grid system.">Scale: &nbsp;</label>
+                      <div className="flex-row-align">
+                        <input
+                          type="number"
+                          placeholder="Z-Index"
+                          className="text-small input-number"
+                          autoComplete="off"
+                          style={{ width: "100%", margin: "0" }}
+                          value={item.scale}
+                          onChange={(event) => handleImgArrayScaleChange(event, index)}
+                        ></input>                
+                        </div>
+                    </div>
+                    </div>
+                    
+                    <div className="flex-row" style={{ marginBottom: "1rem" }}>
+
+                      <div className="flex-col">
+                        <label className="heading-tertiary">Grid Column: &nbsp;</label>
+                        <div className="flex-row-align">
+                          <select
+                            value={item.col1}
+                            onChange={(event) => handleImgArrayC1Change(index, event.target.value)}
+                            className="text-options text-span"
+                            style={{ width: "100%", marginTop: "1rem" }}
+                          >
+
+                            {Array.from({ length: 12 }, (_, index) => (
+                              <option key={index + 1} value={index + 1}>
+                                {index + 1}
+                              </option>
+                            ))}
+                          </select>
+                          <h2 className="heading-secondary">/</h2>
+                          <select
+                            value={item.col2}
+                            onChange={(event) => handleImgArrayC2Change(index, event.target.value)}
+                            className="text-options text-span"
+                            style={{ width: "100%", marginTop: "1rem" }}
+                          >
+
+                            {Array.from({ length: 12 }, (_, index) => (
+                              <option key={index + 1} value={index + 1}>
+                                {index + 1}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="flex-col">
+                        <label className="heading-tertiary">Grid Row: &nbsp;</label>
+                        <div className="flex-row-align">
+                          <select
+                            value={item.row1}
+                            onChange={(event) => handleImgArrayR1Change(index, event.target.value)}
+                            className="text-options text-span"
+                            style={{ width: "100%", marginTop: "1rem" }}
+                          >
+
+                            {Array.from({ length: rowCount }, (_, index) => (
+                              <option key={index + 1} value={index + 1}>
+                                {index + 1}
+                              </option>
+                            ))}
+                          </select>
+                          <h2 className="heading-secondary">/</h2>
+                          <select
+                            value={item.row2}
+                            onChange={(event) => handleImgArrayR2Change(index, event.target.value)}
+                            className="text-options text-span"
+                            style={{ width: "100%", marginTop: "1rem" }}
+                          >
+
+                            {Array.from({ length: rowCount }, (_, index) => (
+                              <option key={index + 1} value={index + 1}>
+                                {index + 1}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
 
                   </div>
-                  <button className="add-img" type="button" onClick={() => handleDeleteDel(index)}>
-                    {confirmDelete1 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
+                  <button className="add-img" type="button" onClick={() => handleDeleteImg(index)}>
+                    {confirmDelete2 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
                   </button>
                 </motion.div>
               </div>
@@ -526,21 +748,19 @@ function About(shopID) {
 
     
 
-    
-
-
-    <span className="page-heading">
+    <span className="page-heading" style={{marginBottom:"1rem"}}>
       <div className="heading-icon-dropshadow">
         <div className="heading-icon-preview svg-color">&nbsp;</div>
       </div>
       <h1 className="heading-primary no-margin">About Page Preview</h1>
-      <div className="heading-icon-warning svg-color" title="Warning, the preview is an approximation for different screen sizes and may not be prefectly accurate depending on which screen size you are on.">&nbsp;</div>
+      <div className="heading-icon-warning svg-color" title="Warning, the preview is an approximation for different screen sizes and may not be perfectly accurate depending on which screen size you are on.">&nbsp;</div>
     </span>
     <section className="about-grid-1">
 
       <>{prevDivs}</>
 
       {textElements}
+      {imgElements}
 
 
     </section>
