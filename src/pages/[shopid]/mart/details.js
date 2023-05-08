@@ -480,7 +480,7 @@ function resetLoc () {
           <div className="detail-row">
             <input type="text" value={prevImg} onChange={handlePrevImg} placeholder="Footer Image (Imgur Links Only)" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
           </div>
-          <img src={prevImg} className={borderless ? "footer-img" : "footer-img round-borderer"}></img>
+          <img src={prevImg} className={borderless ? "footer-img" : "footer-img round-borderer"} alt="invalid image"></img>
         </div>
 
       </div>
@@ -583,7 +583,7 @@ function resetLoc () {
             })}
           </div>
           <div className="footer-column">
-            {prevImg === "" ? <h3 className="heading-tertiary">-</h3> : <img src={prevImg} className={borderless ? "footer-img" : "footer-img round-borderer"}></img>}
+            {prevImg === "" ? <h3 className="heading-tertiary">-</h3> : <img src={prevImg} className={borderless ? "footer-img" : "footer-img round-borderer"} alt="invalid image"></img>}
 
             <br></br>
             {aboutMsg === "" ? <h3 className="heading-tertiary">-</h3> : <h3 className="heading-tertiary">{aboutMsg}</h3>}

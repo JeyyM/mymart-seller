@@ -324,7 +324,7 @@ const themeSet = ["#89375F", "#CE5959", "#BACDDB", "#F3E8FF", "#2A2F4F", "#4F455
 
 const themeSet1 = ["#0057FF", "#7FC9FF", "#E7F6FD", "#FFFFFF", "#0A2647", "#003F76", "#004DFF", "#3974FF", 10, 10, 10, 10, "Cool Blue"]
 
-const themeSet2 = ["#263A29", "#41644A", "#E8D2A6", "#B3E5BE", "#3C2317", "#665A48", "#367E18", "#BFDB38", 50, 10, 10, 50, "Forest Green"]
+const themeSet2 = ["#263A29", "#41644A", "#E8D2A6", "#B3E5BE", "#3C2317", "#003700", "#367E18", "#BFDB38", 50, 10, 10, 50, "Forest Green"]
 
 const themeSet3 = ["#89375F", "#CE5959", "#BACDDB", "#F3E8FF", "#2A2F4F", "#4F4557", "#BA90C6", "#E8A0BF", 30, 30, 30, 30, "Floral Pink"]
 

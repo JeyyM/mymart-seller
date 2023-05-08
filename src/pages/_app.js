@@ -31,7 +31,8 @@ export default function App({ Component, pageProps }) {
     database = false
 }
 
-  return <NavbarLayout color={data} mode={database} contents={details} address={address}><Component {...pageProps} /></NavbarLayout>;
+
+  return <NavbarLayout color={data} mode={database} contents={details}><Component {...pageProps} /></NavbarLayout>;
 }
 
 export {getServerSideProps}

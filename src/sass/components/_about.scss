@@ -1,8 +1,16 @@
+.about-ui {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 1rem;
+}
+
 .about-grid-1 {
     width: calc(100vw - 1.2rem);
     height: calc(100vw * 0.5625);
     display: grid;
-    grid-template-columns: repeat(10, calc((100vw /10) - 1.2px));
+    grid-template-columns: repeat(12, calc((100vw /12) - 1.2px));
     grid-auto-rows: 10%;
     margin: 0 auto;
     transition: all 0.2s;
@@ -15,9 +23,38 @@
     margin-left: 1rem;
   }
 
-  .div-preview{
-    max-width: calc(100vw / 10);
+  .heading-icon-settings {
+    @include heading-logo(settings, 4rem, 4rem);
+    margin-left: 1rem;
+  }
+
+  .heading-icon-warning {
+    @include heading-logo(warning, 4rem, 4rem);
+    margin-left: 1rem;
+  }
+
+  .div-preview {
+    max-width: calc(100vw / 12);
     background-color: transparent;
-    z-index: -1;
-    border: 2px dashed rgba(255, 0, 0, 0.502);
+    z-index: -20;
+  }
+
+  .grided {border: 2px dashed rgba(255, 0, 0, 0.502);}
+
+  .detail-slot-about{
+    min-height: min-content;
+    width: 100%;
+   border: 5px solid transparent;
+   padding: 1rem;
+   transition: all 0.2s;
+   background-color: $theme-bg;
+   @include border-round;
+  }
+
+  .detail-row-about{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
   }

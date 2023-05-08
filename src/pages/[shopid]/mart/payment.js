@@ -563,7 +563,6 @@ function Payment(martID) {
 
             <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
                 <button className="product-action-2 heading-secondary" onClick={submitChanges} disabled={loading} style={{width:"25rem"}}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
-                {/* <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading} type="button">{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button> */}
                 <button className="product-action-3 heading-secondary white" onClick={resetChanges} disabled={loading} style={{width:"25rem"}}>Reset to Default</button>
             </div>
         </div>
