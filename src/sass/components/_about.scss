@@ -43,7 +43,7 @@
 
   .detail-slot-about{
     min-height: min-content;
-    width: 100%;
+    max-width: 100%;
    border: 5px solid transparent;
    padding: 1rem;
    transition: all 0.2s;
@@ -57,4 +57,45 @@
     align-items: center;
     gap: 1rem;
     width: 100%;
+    transition: height 0.2s ease; /* Added transition property for height */
+  }
+
+  .set-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin: auto;
+    padding: 2rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    @include border-round;
+    box-shadow: inset 0 0 0 2rem $theme-bg,
+    0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+    transition: height 0.2s ease; /* Added transition property for height */
+  }
+
+  .min-button {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    position: absolute;
+    height: 5rem;
+    width: 5rem;
+    top: 0;
+    right: 0;
+    transition: all 0.2s;
+    z-index: 5;
+    border: transparent;
+    background-color: transparent
+  }
+
+  .heading-icon-chevron {
+    @include heading-logo(chevron, 5rem, 5rem);
+    width: 100%;
+    height: 100%;
+  }
+
+  .rotater {
+    transform: rotate(180deg);
   }
