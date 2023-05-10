@@ -181,27 +181,27 @@ function About(shopID) {
     //     phone: phoneHolder.text
     //   })
 
-    // if (device === "desktop"){
-    //     setAllTexts({
-    //         desktop: TextArray[device],
-    //         tablet: tabletHolder.text,
-    //         phone: phoneHolder.text
-    //       })
-    // }
-    // if (device === "tablet"){
-    //     setAllTexts({
-    //         desktop: desktopHolder.text,
-    //         tablet: TextArray[device],
-    //         phone: phoneHolder.text
-    //       })
-    // }
-    // if (device === "phone"){
-    //     setAllTexts({
-    //         desktop: desktopHolder.text,
-    //         tablet: tabletHolder.text,
-    //         phone: TextArray[device],
-    //       })
-    // }
+    if (device === "desktop"){
+        setAllTexts({
+            desktop: TextArray[device],
+            tablet: tabletHolder.text,
+            phone: phoneHolder.text
+          })
+    }
+    if (device === "tablet"){
+        setAllTexts({
+            desktop: desktopHolder.text,
+            tablet: TextArray[device],
+            phone: phoneHolder.text
+          })
+    }
+    if (device === "phone"){
+        setAllTexts({
+            desktop: desktopHolder.text,
+            tablet: tabletHolder.text,
+            phone: TextArray[device],
+          })
+    }
 
     // setTextArray(AllTexts[device]);
   }, [device]);
