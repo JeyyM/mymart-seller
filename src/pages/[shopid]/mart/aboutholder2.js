@@ -203,7 +203,7 @@ function About(shopID) {
           })
     }
 
-    // setTextArray(AllTexts[device]);
+    setTextArray(AllTexts[device]);
   }, [device]);
 
   return <Fragment>

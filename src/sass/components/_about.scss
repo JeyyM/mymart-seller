@@ -17,6 +17,46 @@
     overflow: hidden;
   }
 
+  .about-grid-2 {
+    width: calc(50vw - 1.2rem);
+    height: calc(50vw * 1.77);
+    display: grid;
+    grid-template-columns: repeat(9, calc((50vw /9) - 1.2px));
+    grid-auto-rows: 10%;
+    margin: 0 auto;
+    transition: all 0.2s;
+    overflow: hidden;
+  }
+
+  .about-grid-3 {
+    width: calc(100vw - 1.2rem);
+    height: calc((100vw * 1.77));
+    display: grid;
+    grid-template-columns: repeat(4, calc((100vw / 4) - 1.2px));
+    grid-auto-rows: 10%;
+    margin: 0 auto;
+    transition: all 0.2s;
+    overflow: hidden;
+  }
+
+  .div-preview-1 {
+    max-width: calc(100vw / 12);
+    background-color: transparent;
+    z-index: -20;
+  }
+
+  .div-preview-2 {
+    max-width: calc(100vw / 9);
+    background-color: transparent;
+    z-index: -20;
+  }
+
+  .div-preview-3 {
+    max-width: calc(100vw / 4);
+    background-color: transparent;
+    z-index: -20;
+  }
+
   // <div style={{backgroundColor:"red", height:"calc(100vw * 0.5625)", width:"100vw"}}>Hey</div>
 
   .heading-icon-flag {
@@ -34,11 +74,6 @@
     margin-left: 1rem;
   }
 
-  .div-preview {
-    max-width: calc(100vw / 12);
-    background-color: transparent;
-    z-index: -20;
-  }
 
   .grided {border: 2px dashed rgba(255, 0, 0, 0.502);}
 
