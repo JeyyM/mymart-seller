@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { getServerSideProps } from "../categories";
 import Head from "next/head";
 import { AnimatePresence, motion } from "framer-motion";
@@ -27,6 +27,24 @@ function About(shopID) {
     },
   };
 
+  // 1920  1366 360
+  const [device, setDevice] = useState("desktop")
+  const [screenPx, setScreenPx] = useState(1920)
+
+  const deviceManager = useState("desktop")
+
+  const desktopTextArray = [{ type: "heading-primary", row1: "1", row2: "2", col1: "1", col2: "10", align: "center", zInd: "1", content: "Desktop", scale: "1" }]
+  const desktopImgArray = [{ img: "https://i.imgur.com/qlmYdJO.jpeg", row1: "1", row2: "5", col1: "1", col2: "2", zInd: "1", border: "", scale: "1" }]
+  const desktopContainerArray = [{ color: "#FF0000", border: "", scale: "1", zInd: "1", opacity: "1", row1: "1", row2: "2", col1: "1", col2: "2", tl: "10", tr: "20", bl: "30", br: "40" }]
+
+  const tabletTextArray = [{ type: "heading-primary", row1: "1", row2: "2", col1: "1", col2: "10", align: "center", zInd: "1", content: "Tablet", scale: "1" }]
+  const tabletImgArray = [{ img: "https://i.imgur.com/EAQkahw.jpeg", row1: "1", row2: "5", col1: "1", col2: "2", zInd: "1", border: "", scale: "1" }]
+  const tabletContainerArray = [{ color: "#00FF00  ", border: "", scale: "1", zInd: "1", opacity: "1", row1: "1", row2: "2", col1: "1", col2: "2", tl: "10", tr: "20", bl: "30", br: "40" }]
+
+  const phoneTextArray = [{ type: "heading-primary", row1: "1", row2: "2", col1: "1", col2: "10", align: "center", zInd: "1", content: "Tablet", scale: "1" }]
+  const phoneImgArray = [{ img: "https://i.imgur.com/AmOZySa.jpeg", row1: "1", row2: "5", col1: "1", col2: "2", zInd: "1", border: "", scale: "1" }]
+  const phoneContainerArray = [{ color: "#0000FF  ", border: "", scale: "1", zInd: "1", opacity: "1", row1: "1", row2: "2", col1: "1", col2: "2", tl: "10", tr: "20", bl: "30", br: "40" }]
+
   const [rowCount, setRowCount] = useState(10)
 
   let colLimit = 12
@@ -34,9 +52,9 @@ function About(shopID) {
   const [grid, setGrid] = useState(true)
   function handleGrid() { setGrid(!grid) }
 
-  const [TextArray, setTextArray] = useState([{ type: "heading-primary", row1: "1", row2: "2", col1: "1", col2: "2", align: "center", zInd: "1", content: "", scale: "1" }]);
-  const [ImgArray, setImgArray] = useState([{ img: "https://i.imgur.com/qlmYdJO.jpeg", row1: "1", row2: "2", col1: "1", col2: "2", zInd: "1", border: "", scale: "1" }]);
-  const [ContainerArray, setContainerArray] = useState([{ color: "#FF0000", border: "", scale: "1", zInd: "1", opacity: "1", row1: "1", row2: "2", col1: "1", col2: "2", tl: "10", tr: "20", bl: "30", br: "40" }]);
+  const [TextArray, setTextArray] = useState(desktopTextArray);
+  const [ImgArray, setImgArray] = useState(desktopImgArray);
+  const [ContainerArray, setContainerArray] = useState(desktopContainerArray);
 
 
   function handleAddTextArray(link, type) {
@@ -292,6 +310,32 @@ function About(shopID) {
   console.log(ImgArray)
   console.log(ContainerArray)
 
+  const [screenWidth, setScreenWidth] = useState(0);
+  const [screenScale, setScreenScale] = useState(1)
+
+  useEffect(() => {
+    let screenSize = 1920
+  const handleResize = () => {
+    const newScreenWidth = window.innerWidth;
+    const newScale = (newScreenWidth / screenSize).toFixed(2);
+    setScreenWidth(newScreenWidth);
+    setScreenScale(newScale);
+  };
+
+  handleResize()
+
+  if (typeof window !== 'undefined') {
+    setScreenWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+  }
+
+  return () => {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', handleResize);
+    }
+  };
+}, []);
+
   const textElements = TextArray.map((item, index) => (
     <h3
       key={index}
@@ -303,7 +347,7 @@ function About(shopID) {
         zIndex: item.zInd,
         margin: "0",
         alignSelf: "center",
-        transform: `scale(${item.scale})`
+        transform: `scale(${item.scale * screenScale})`
       }}
       dangerouslySetInnerHTML={{ __html: item.content }}
     >
@@ -348,9 +392,6 @@ function About(shopID) {
     &nbsp;
     </div>
   ));
-
-  // background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
-  //   linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]})
 
   const prevClasses = `${grid ? "div-preview grided" : "div-preview"}`;
 
@@ -407,6 +448,8 @@ function About(shopID) {
       </div>
       <h1 className="heading-primary no-margin">Create About Page&nbsp;</h1>
     </span>
+    <p>Screen Width: {screenWidth}</p>
+    <p>Screen Scale: {screenScale}</p>
 
 
     <div className="flex-row" style={{ padding: "1rem" }}>
@@ -433,10 +476,15 @@ function About(shopID) {
           </div>
 
           <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
-            <button className="product-action-2 heading-secondary" style={{ width: "15rem" }}>Submit</button>
-            <button className="product-action-2 heading-secondary" style={{ width: "15rem" }}>Submit</button>
-            <button className="product-action-3 heading-secondary white" style={{ width: "15rem" }}>Reset</button>
+            <button className="product-action-2 heading-secondary" style={{ width: "15rem" }} onClick={() => {setTextArray(desktopTextArray); setImgArray(desktopImgArray); setContainerArray(desktopContainerArray)}}>Desktop</button>
+            <button className="product-action-2 heading-secondary" style={{ width: "15rem" }} onClick={() => {setTextArray(desktopTextArray); setImgArray(desktopImgArray); setContainerArray(desktopContainerArray)}}>Tablet</button>
+            <button className="product-action-2 heading-secondary" style={{ width: "15rem" }} onClick={() => {setTextArray(desktopTextArray); setImgArray(desktopImgArray); setContainerArray(desktopContainerArray)}}>Phone</button>
           </div>
+
+          
+  {/* const [TextArray, setTextArray] = useState(desktopTextArray);
+  const [ImgArray, setImgArray] = useState(desktopImgArray);
+  const [ContainerArray, setContainerArray] = useState(desktopContainerArray); */}
 
         </div>
         <span className="page-heading" style={{ margin: "1rem" }}>
@@ -521,7 +569,7 @@ function About(shopID) {
                                 style={{ width: "100%", marginTop: "1rem" }}
                               >
 
-                                {Array.from({ length: 12 }, (_, index) => (
+                                {Array.from({ length: 13 }, (_, index) => (
                                   <option key={index + 1} value={index + 1}>
                                     {index + 1}
                                   </option>
@@ -535,7 +583,7 @@ function About(shopID) {
                                 style={{ width: "100%", marginTop: "1rem" }}
                               >
 
-                                {Array.from({ length: 12 }, (_, index) => (
+                                {Array.from({ length: 13 }, (_, index) => (
                                   <option key={index + 1} value={index + 1}>
                                     {index + 1}
                                   </option>
@@ -631,7 +679,7 @@ function About(shopID) {
                                 style={{ width: "100%", marginTop: "1rem" }}
                               >
 
-                                {Array.from({ length: 12 }, (_, index) => (
+                                {Array.from({ length: 13 }, (_, index) => (
                                   <option key={index + 1} value={index + 1}>
                                     {index + 1}
                                   </option>
@@ -645,7 +693,7 @@ function About(shopID) {
                                 style={{ width: "100%", marginTop: "1rem" }}
                               >
 
-                                {Array.from({ length: 12 }, (_, index) => (
+                                {Array.from({ length: 13 }, (_, index) => (
                                   <option key={index + 1} value={index + 1}>
                                     {index + 1}
                                   </option>
@@ -751,7 +799,7 @@ function About(shopID) {
                                   style={{ width: "100%", marginTop: "1rem" }}
                                 >
 
-                                  {Array.from({ length: 12 }, (_, index) => (
+                                  {Array.from({ length: 13 }, (_, index) => (
                                     <option key={index + 1} value={index + 1}>
                                       {index + 1}
                                     </option>
@@ -765,7 +813,7 @@ function About(shopID) {
                                   style={{ width: "100%", marginTop: "1rem" }}
                                 >
 
-                                  {Array.from({ length: 12 }, (_, index) => (
+                                  {Array.from({ length: 13 }, (_, index) => (
                                     <option key={index + 1} value={index + 1}>
                                       {index + 1}
                                     </option>
@@ -889,7 +937,7 @@ function About(shopID) {
                                   style={{ width: "100%", marginTop: "1rem" }}
                                 >
 
-                                  {Array.from({ length: 12 }, (_, index) => (
+                                  {Array.from({ length: 13 }, (_, index) => (
                                     <option key={index + 1} value={index + 1}>
                                       {index + 1}
                                     </option>
@@ -903,7 +951,7 @@ function About(shopID) {
                                   style={{ width: "100%", marginTop: "1rem" }}
                                 >
 
-                                  {Array.from({ length: 12 }, (_, index) => (
+                                  {Array.from({ length: 13 }, (_, index) => (
                                     <option key={index + 1} value={index + 1}>
                                       {index + 1}
                                     </option>
@@ -1003,7 +1051,7 @@ function About(shopID) {
                                   style={{ width: "100%", marginTop: "1rem" }}
                                 >
 
-                                  {Array.from({ length: 12 }, (_, index) => (
+                                  {Array.from({ length: 13 }, (_, index) => (
                                     <option key={index + 1} value={index + 1}>
                                       {index + 1}
                                     </option>
@@ -1017,7 +1065,7 @@ function About(shopID) {
                                   style={{ width: "100%", marginTop: "1rem" }}
                                 >
 
-                                  {Array.from({ length: 12 }, (_, index) => (
+                                  {Array.from({ length: 13 }, (_, index) => (
                                     <option key={index + 1} value={index + 1}>
                                       {index + 1}
                                     </option>
@@ -1091,7 +1139,7 @@ function About(shopID) {
                             </div>
 
                             <div className="flex-col">
-                              <label className="heading-tertiary">Container: &nbsp;</label>
+                              <label className="heading-tertiary">Body: &nbsp;</label>
                               <select value={item.border} onChange={(event) => handleContArrayBorderChange(index, event.target.value)} className="text-options text-span" style={{ width: "100%", marginTop: "1rem" }}>
                                 <option value="round-borderer">On</option>
                                 <option value="">Off</option>
@@ -1156,7 +1204,7 @@ function About(shopID) {
                                   style={{ width: "100%", marginTop: "1rem" }}
                                 >
 
-                                  {Array.from({ length: 12 }, (_, index) => (
+                                  {Array.from({ length: 13 }, (_, index) => (
                                     <option key={index + 1} value={index + 1}>
                                       {index + 1}
                                     </option>
@@ -1170,7 +1218,7 @@ function About(shopID) {
                                   style={{ width: "100%", marginTop: "1rem" }}
                                 >
 
-                                  {Array.from({ length: 12 }, (_, index) => (
+                                  {Array.from({ length: 13 }, (_, index) => (
                                     <option key={index + 1} value={index + 1}>
                                       {index + 1}
                                     </option>
