@@ -498,6 +498,8 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
     }}></div>
 ));
 
+/////// some 
+
   return <Fragment>
     <Head>
       <title>Create About Page</title>
