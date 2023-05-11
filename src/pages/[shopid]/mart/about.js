@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 
 function About({shopID}) {
-  const startingInfo = shopID.shopData.shopDetails.aboutData
+    const startingInfo = shopID.shopData.shopDetails.aboutData
 
   const router = useRouter()
   const slide = {
@@ -39,6 +39,10 @@ function About({shopID}) {
   const desktopImgArray = startingInfo.img.desktop
   const desktopContainerArray = startingInfo.container.desktop
 
+  // const defdesktopTextArray = JSON.parse(JSON.stringify(startingInfo.text.desktop));
+  // const defdesktopImgArray = JSON.parse(JSON.stringify(startingInfo.img.desktop));
+  // const defdesktopContainerArray = JSON.parse(JSON.stringify(startingInfo.container.desktop));
+
   const tabletTextArray = startingInfo.text.tablet
   const tabletImgArray = startingInfo.img.tablet
   const tabletContainerArray = startingInfo.container.tablet
@@ -47,23 +51,23 @@ function About({shopID}) {
   const phoneImgArray = startingInfo.img.phone
   const phoneContainerArray = startingInfo.container.phone
 
-  const AllTexts = {
+  const [AllTexts, setAllTexts] = useState({
     desktop: desktopTextArray,
     tablet: tabletTextArray,
     phone: phoneTextArray
-  }
+  })
 
-  const AllImg = {
+  const [AllImg, setAllImg] = useState({
     desktop: desktopImgArray,
     tablet: tabletImgArray,
     phone: phoneImgArray
-  }
+  })
 
-  const AllContainer = {
+  const [AllContainer, setAllContainer] = useState({
     desktop: desktopContainerArray,
     tablet: tabletContainerArray,
     phone: phoneContainerArray
-  }
+  })
 
   const [rowCount, setRowCount] = useState(10)
 
@@ -333,22 +337,6 @@ function About({shopID}) {
   }
 
   function handleSubmit() {
-    // console.log(AllTexts)
-    // console.log(device)
-    // // const payload = {text: AllTexts, img: AllImg, container: AllContainer}
-
-    // // const payloadText = payload.text[device]
-    // // console.log("payload here", payload)
-
-    // // console.log("payload text here", payloadText)
-
-    // // console.log("current device", device)
-    // console.log(TextArray)
-    // // console.log(ImgArray)
-    // // console.log(ContainerArray)
-    // // submitChanges(payload)
-    console.log("previous data", AllTexts)
-
     const updatedAllTexts = {
       ...AllTexts,
       [device]: TextArray
@@ -366,6 +354,10 @@ function About({shopID}) {
     
     const payload = {text: updatedAllTexts, img: updatedAllImg, container: updatedAllCont}
     submitChanges(payload)
+  }
+
+  function handleReset(){
+    router.reload()
   }
 
   const [screenWidth, setScreenWidth] = useState(0);
@@ -542,7 +534,7 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
           </div>
           <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
           <button className="product-action-2 heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleSubmit}>Submit</button>
-            <button className="product-action-3 white heading-secondary" style={{ width: "15rem", margin: "0", zIndex: "99" }}>Reset</button>
+            <button className="product-action-3 white heading-secondary" style={{ width: "15rem", margin: "0", zIndex: "99" }} onClick={handleReset}>Reset</button>
           </div>
 
           <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
@@ -550,11 +542,6 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
             <button className={device === "tablet" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("tablet"); setColLimit(8) }}>Tablet</button>
             <button className={device === "phone" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("phone"); setColLimit(4) }}>Phone</button>
           </div>
-
-
-          {/* const [TextArray, setTextArray] = useState(desktopTextArray);
-  const [ImgArray, setImgArray] = useState(desktopImgArray);
-  const [ContainerArray, setContainerArray] = useState(desktopContainerArray); */}
 
         </div>
         <span className="page-heading" style={{ margin: "1rem" }}>
@@ -595,7 +582,7 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
                           </div>
 
                           <div className="flex-col">
-                            <label className="heading-tertiary">Z-Index: &nbsp;</label>
+                            <label className="heading-tertiary" title="For stacking priority. If the number is higher, it will appear on top of the other items.">Z-Index: &nbsp;</label>
                             <select
                               value={item.zInd}
                               onChange={(event) => handleTextArrayZChange(index, event.target.value)}
@@ -611,7 +598,7 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
                             </select>
                           </div>
                           <div className="flex-col">
-                            <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc. Blank results will be turned to 1 upon submission.">Scale: &nbsp;</label>
+                            <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc.">Scale: &nbsp;</label>
                             <div className="flex-row-align">
                               <input
                                 type="number"
@@ -964,7 +951,7 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
                             </div>
 
                             <div className="flex-col">
-                              <label className="heading-tertiary">Z-Index: &nbsp;</label>
+                              <label className="heading-tertiary" title="For stacking priority. If the number is higher, it will appear on top of the other items.">Z-Index: &nbsp;</label>
                               <select
                                 value={item.zInd}
                                 onChange={(event) => handleImgArrayZChange(index, event.target.value)}
@@ -980,7 +967,7 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
                               </select>
                             </div>
                             <div className="flex-col">
-                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc. Blank results will be turned to 1 upon submission. The main method of sizing should be the grid system.">Scale: &nbsp;</label>
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc. The main method of sizing should be the grid system.">Scale: &nbsp;</label>
                               <div className="flex-row-align">
                                 <input
                                   type="number"
@@ -1217,7 +1204,7 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
                             </div>
 
                             <div className="flex-col">
-                              <label className="heading-tertiary">Z-Index: &nbsp;</label>
+                              <label className="heading-tertiary" title="For stacking priority. If the number is higher, it will appear on top of the other items.">Z-Index: &nbsp;</label>
                               <select
                                 value={item.zInd}
                                 onChange={(event) => handleContArrayZChange(index, event.target.value)}
@@ -1233,7 +1220,7 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
                               </select>
                             </div>
                             <div className="flex-col">
-                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc. Blank results will be turned to 1 upon submission. The main method of sizing should be the grid system.">Scale: &nbsp;</label>
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc. The main method of sizing should be the grid system.">Scale: &nbsp;</label>
                               <div className="flex-row-align">
                                 <input
                                   type="number"

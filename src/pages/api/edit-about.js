@@ -3,8 +3,6 @@ import { MongoClient, ObjectId } from "mongodb"
 async function handler(req, res){
 if (req.method === "PATCH"){
     const data = req.body;
-    console.log(data)
-    console.log("in handler", data)
     
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
