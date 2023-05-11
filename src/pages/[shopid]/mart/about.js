@@ -2,8 +2,12 @@ import { Fragment, useState, useEffect } from "react";
 import { getServerSideProps } from "../categories";
 import Head from "next/head";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/router";
 
-function About(shopID) {
+function About({shopID}) {
+  const startingInfo = shopID.shopData.shopDetails.aboutData
+
+  const router = useRouter()
   const slide = {
     hidden: {
       x: "-10rem",
@@ -31,23 +35,17 @@ function About(shopID) {
   const [device, setDevice] = useState("desktop")
   const [screenPx, setScreenPx] = useState(1920)
 
-  const desktopTextInitial = [{ type: "heading-primary", row1: "1", row2: "2", col1: "1", col2: "10", align: "center", zInd: "1", content: "Desktop", scale: "1" }]
-  const desktopImgInitial = [{ img: "https://i.imgur.com/qlmYdJO.jpeg", row1: "1", row2: "5", col1: "1", col2: "2", zInd: "1", border: "", scale: "1" }]
-  const desktopContainerInitial = [{ color: "#FF0000", border: "", scale: "1", zInd: "1", opacity: "1", row1: "1", row2: "2", col1: "1", col2: "2", tl: "10", tr: "20", bl: "30", br: "40" }]
+  const desktopTextArray = startingInfo.text.desktop
+  const desktopImgArray = startingInfo.img.desktop
+  const desktopContainerArray = startingInfo.container.desktop
 
-  let desktopHolder = { text: desktopTextInitial, img: desktopImgInitial, container: desktopContainerInitial }
+  const tabletTextArray = startingInfo.text.tablet
+  const tabletImgArray = startingInfo.img.tablet
+  const tabletContainerArray = startingInfo.container.tablet
 
-  const desktopTextArray = desktopHolder.text
-  const desktopImgArray = desktopHolder.img
-  const desktopContainerArray = desktopHolder.container
-
-  const tabletTextArray = [{ type: "heading-primary", row1: "1", row2: "2", col1: "1", col2: "10", align: "center", zInd: "1", content: "Tablet", scale: "1" }]
-  const tabletImgArray = [{ img: "https://i.imgur.com/EAQkahw.jpeg", row1: "1", row2: "5", col1: "1", col2: "2", zInd: "1", border: "", scale: "1" }]
-  const tabletContainerArray = [{ color: "#00FF00  ", border: "", scale: "1", zInd: "1", opacity: "1", row1: "1", row2: "2", col1: "1", col2: "2", tl: "10", tr: "20", bl: "30", br: "40" }]
-
-  const phoneTextArray = [{ type: "heading-primary", row1: "1", row2: "2", col1: "1", col2: "10", align: "center", zInd: "1", content: "Phone", scale: "1" }]
-  const phoneImgArray = [{ img: "https://i.imgur.com/AmOZySa.jpeg", row1: "1", row2: "5", col1: "1", col2: "2", zInd: "1", border: "", scale: "1" }]
-  const phoneContainerArray = [{ color: "#0000FF  ", border: "", scale: "1", zInd: "1", opacity: "1", row1: "1", row2: "2", col1: "1", col2: "2", tl: "10", tr: "20", bl: "30", br: "40" }]
+  const phoneTextArray = startingInfo.text.phone
+  const phoneImgArray = startingInfo.img.phone
+  const phoneContainerArray = startingInfo.container.phone
 
   const AllTexts = {
     desktop: desktopTextArray,
@@ -79,7 +77,7 @@ function About(shopID) {
   const [ContainerArray, setContainerArray] = useState(AllContainer[device]);
 
   function handleAddTextArray(link, type) {
-    const newTextArray = [...TextArray, { type: "heading-primary", row1: "1", row2: "2", col1: "1", col2: "2", align: "center", zInd: "1", content: "", scale: "1" }];
+    const newTextArray = [...TextArray, { type: "heading-primary", row1: "1", row2: "2", col1: "1", col2: "2", align: "center", zInd: "1", content: "Item", scale: "1" }];
     setTextArray(newTextArray);
   }
 
@@ -196,7 +194,7 @@ function About(shopID) {
 
 
   function handleAddContArray() {
-    const newContArray = [...ContainerArray, { color: "#FF0000", border: "", scale: "1", zInd: "1", opacity: "1", row1: "1", row2: "2", col1: "1", col2: "2", tl: "10", tr: "20", bl: "30", br: "40" }];
+    const newContArray = [...ContainerArray, { color: "#FF0000", border: "", scale: "1", zInd: "1", opacity: "1", row1: "1", row2: "2", col1: "1", col2: "2", tl: "0", tr: "0", bl: "0", br: "0" }];
     setContainerArray(newContArray);
   }
 
@@ -321,20 +319,62 @@ function About(shopID) {
     }
   }
 
-  function printall() {
-    console.log(TextArray)
-    console.log(ImgArray)
-    console.log(ContainerArray)
+  async function submitChanges(formdata) {
+
+    const response = await fetch(
+      `../../api/edit-about?martid=${router.query.shopid}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formdata)
+      }
+    );
+    const data = await response.json();
+  }
+
+  function handleSubmit() {
+    // console.log(AllTexts)
+    // console.log(device)
+    // // const payload = {text: AllTexts, img: AllImg, container: AllContainer}
+
+    // // const payloadText = payload.text[device]
+    // // console.log("payload here", payload)
+
+    // // console.log("payload text here", payloadText)
+
+    // // console.log("current device", device)
+    // console.log(TextArray)
+    // // console.log(ImgArray)
+    // // console.log(ContainerArray)
+    // // submitChanges(payload)
+    console.log("previous data", AllTexts)
+
+    const updatedAllTexts = {
+      ...AllTexts,
+      [device]: TextArray
+    };
+
+    const updatedAllImg = {
+      ...AllImg,
+      [device]: ImgArray
+    };
+
+    const updatedAllCont = {
+      ...AllContainer,
+      [device]: ContainerArray
+    };
+    
+    const payload = {text: updatedAllTexts, img: updatedAllImg, container: updatedAllCont}
+    submitChanges(payload)
   }
 
   const [screenWidth, setScreenWidth] = useState(0);
   const [screenScale, setScreenScale] = useState(1)
 
   useEffect(() => {
-    let screenSize = 1920
     const handleResize = () => {
       const newScreenWidth = window.innerWidth;
-      const newScale = (newScreenWidth / screenSize).toFixed(2);
+      const newScale = (newScreenWidth / screenPx).toFixed(2);
       setScreenWidth(newScreenWidth);
       setScreenScale(newScale);
     };
@@ -443,14 +483,6 @@ function About(shopID) {
   };
 
 useEffect(() => {
-  console.log("before", desktopHolder);
-
-  desktopHolder.text = TextArray;
-  desktopHolder.img = ImgArray;
-  desktopHolder.container = ContainerArray;
-
-  console.log("after", desktopHolder);
-  
   setTextArray(AllTexts[device]);
   setImgArray(AllImg[device]);
   setContainerArray(AllContainer[device]);
@@ -458,6 +490,9 @@ useEffect(() => {
 
 const gridClass = `${device === "desktop" ? "about-grid-1" : device === "tablet" ? "about-grid-2" : "about-grid-3"}`;
 const prevBase = `${device === "desktop" ? "div-preview-1" : device === "tablet" ? "div-preview-2" : "div-preview-3"}`;
+
+const modeButton = "product-action-1 heading-secondary"
+const modeButtonActive = "product-action-2 heading-secondary"
 
 const prevClasses = `${grid ? "div-preview grided" : prevBase}`;
 
@@ -486,9 +521,6 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
       <h1 className="heading-primary no-margin">Create About Page&nbsp;</h1>
     </span>
 
-    <p>Screen Width: {screenWidth}</p>
-    <p>Screen Scale: {screenScale}</p>
-
     <div className="flex-row" style={{ padding: "1rem" }}>
       <div className="flex-col">
         <div className="detail-slot-about">
@@ -507,15 +539,16 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
               <input checked={grid} onChange={handleGrid} type="checkbox" id="switch" className="toggle-switch" /><label htmlFor="switch" className="toggle-label">Toggle</label>
             </div>
 
-            <button className="product-action-2 heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={printall}>Submit</button>
+          </div>
+          <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
+          <button className="product-action-2 heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleSubmit}>Submit</button>
             <button className="product-action-3 white heading-secondary" style={{ width: "15rem", margin: "0", zIndex: "99" }}>Reset</button>
-
           </div>
 
           <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
-            <button className="product-action-2 heading-secondary" style={{ width: "15rem" }} onClick={() => { setDevice("desktop"); setColLimit(12) }}>Desktop</button>
-            <button className="product-action-2 heading-secondary" style={{ width: "15rem" }} onClick={() => { setDevice("tablet"); setColLimit(8) }}>Tablet</button>
-            <button className="product-action-2 heading-secondary" style={{ width: "15rem" }} onClick={() => { setDevice("phone"); setColLimit(4) }}>Phone</button>
+            <button className={device === "desktop" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("desktop"); setColLimit(12) }}>Desktop</button>
+            <button className={device === "tablet" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("tablet"); setColLimit(8) }}>Tablet</button>
+            <button className={device === "phone" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("phone"); setColLimit(4) }}>Phone</button>
           </div>
 
 
@@ -1078,7 +1111,7 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
                               </div>
                             </div>
 
-                            <dizzv className="flex-col">
+                            <div className="flex-col">
                               <label className="heading-tertiary">Grid Column: &nbsp;</label>
                               <div className="flex-row-align">
                                 <select
@@ -1109,7 +1142,7 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
                                   ))}
                                 </select>
                               </div>
-                            </dizzv>
+                            </div>
 
                             <div className="flex-col">
                               <label className="heading-tertiary">Grid Row: &nbsp;</label>

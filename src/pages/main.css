@@ -4192,6 +4192,47 @@ input[type=checkbox].checkbox-style {
   grid-auto-rows: 10%;
   margin: 0 auto;
   transition: all 0.2s;
+  overflow: hidden;
+}
+
+.about-grid-2 {
+  width: 66vw;
+  height: 66vw;
+  display: grid;
+  grid-template-columns: repeat(8, calc(8.25vw - 1.2px));
+  grid-auto-rows: 10%;
+  margin: 0 auto;
+  transition: all 0.2s;
+  overflow: hidden;
+}
+
+.about-grid-3 {
+  width: 20vw;
+  height: 35.4vw;
+  display: grid;
+  grid-template-columns: repeat(4, calc(5vw - 1.2px));
+  grid-auto-rows: 10%;
+  margin: 0 auto;
+  transition: all 0.2s;
+  overflow: hidden;
+}
+
+.div-preview-1 {
+  max-width: 8.3333333333vw;
+  background-color: transparent;
+  z-index: -20;
+}
+
+.div-preview-2 {
+  max-width: 8.25vw;
+  background-color: transparent;
+  z-index: -20;
+}
+
+.div-preview-3 {
+  max-width: 5vw;
+  background-color: transparent;
+  z-index: -20;
 }
 
 .heading-icon-flag {
@@ -4257,12 +4298,6 @@ input[type=checkbox].checkbox-style {
   margin-left: 1rem;
 }
 
-.div-preview {
-  max-width: 8.3333333333vw;
-  background-color: transparent;
-  z-index: -20;
-}
-
 .grided {
   border: 2px dashed rgba(255, 0, 0, 0.502);
 }
@@ -4270,7 +4305,7 @@ input[type=checkbox].checkbox-style {
 .detail-slot-about {
   min-height: -moz-min-content;
   min-height: min-content;
-  width: 100%;
+  max-width: 100%;
   border: 5px solid transparent;
   padding: 1rem;
   transition: all 0.2s;
@@ -4288,4 +4323,64 @@ input[type=checkbox].checkbox-style {
   align-items: center;
   gap: 1rem;
   width: 100%;
+  transition: height 0.2s ease; /* Added transition property for height */
+}
+
+.set-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin: auto;
+  padding: 2rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  border: solid 5px transparent;
+  border-radius: 15px;
+  background-image: linear-gradient(white, white), linear-gradient(45deg, #0057FF, #7FC9FF);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: inset 0 0 0 2rem white, 0 0 0 2px #0057FF, 0 0 0 4px white;
+  transition: height 0.2s ease; /* Added transition property for height */
+}
+
+.min-button {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  position: absolute;
+  height: 5rem;
+  width: 5rem;
+  top: 0;
+  right: 0;
+  transition: all 0.2s;
+  z-index: 5;
+  border: transparent;
+  background-color: transparent;
+}
+
+.heading-icon-chevron {
+  -webkit-mask-size: 5rem;
+          mask-size: 5rem;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-image: url("../../components/svgs/chevron.svg");
+          mask-image: url("../../components/svgs/chevron.svg");
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  transform: translateY(0.3rem);
+  height: 5rem;
+  fill: transparent;
+  width: 110%;
+  height: 5rem;
+  width: 5rem;
+  transform: translateY(0rem);
+  width: 100%;
+  height: 100%;
+}
+
+.rotater {
+  transform: rotate(180deg);
 }/*# sourceMappingURL=main.css.map */
