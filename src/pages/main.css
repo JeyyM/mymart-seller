@@ -4186,37 +4186,53 @@ input[type=checkbox].checkbox-style {
 
 .about-grid-1 {
   width: calc(100vw - 1.2rem);
-  height: 56.25vw;
+  min-height: 56.25vw;
+  max-height: -moz-min-content;
+  max-height: min-content;
   display: grid;
   grid-template-columns: repeat(12, calc(8.3333333333vw - 1.2px));
   grid-auto-rows: 10%;
   margin: 0 auto;
   transition: all 0.2s;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .about-grid-2 {
   width: 66vw;
-  height: 66vw;
+  min-height: 66vw;
+  max-height: -moz-min-content;
+  max-height: min-content;
   display: grid;
   grid-template-columns: repeat(8, calc(8.25vw - 1.2px));
   grid-auto-rows: 10%;
   margin: 0 auto;
   transition: all 0.2s;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .about-grid-3 {
-  width: 20vw;
-  height: 35.4vw;
+  width: 25vw;
+  height: 44.25vw;
   display: grid;
-  grid-template-columns: repeat(4, calc(5vw - 1.2px));
+  grid-template-columns: repeat(4, calc(6.25vw - 1.2px));
   grid-auto-rows: 10%;
   margin: 0 auto;
   transition: all 0.2s;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
+@media (min-width: 361px) and (max-width: 1366px) {
+  .about-grid-2 {
+    width: 100vw;
+    height: 100vw;
+    grid-template-columns: repeat(8, calc(12.5vw - 1.2px));
+  }
+  .about-grid-3 {
+    width: 38vw;
+    height: 38vw;
+    grid-template-columns: repeat(8, calc(9.5vw - 1.2px));
+  }
+}
 .div-preview-1 {
   max-width: 8.3333333333vw;
   background-color: transparent;
@@ -4230,7 +4246,7 @@ input[type=checkbox].checkbox-style {
 }
 
 .div-preview-3 {
-  max-width: 5vw;
+  max-width: 6.25vw;
   background-color: transparent;
   z-index: -20;
 }

@@ -271,7 +271,6 @@ function Payment(martID) {
       setLoading(false)
       setCompletion(true)
   
-      console.log(payload)
       router.reload()
     }
     }

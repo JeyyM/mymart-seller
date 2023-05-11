@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 
 function About({shopID}) {
     const startingInfo = shopID.shopData.shopDetails.aboutData
+    const rowInfo = shopID.shopData.shopDetails.aboutData.rows
 
   const router = useRouter()
   const slide = {
@@ -38,11 +39,7 @@ function About({shopID}) {
   const desktopTextArray = startingInfo.text.desktop
   const desktopImgArray = startingInfo.img.desktop
   const desktopContainerArray = startingInfo.container.desktop
-
-  // const defdesktopTextArray = JSON.parse(JSON.stringify(startingInfo.text.desktop));
-  // const defdesktopImgArray = JSON.parse(JSON.stringify(startingInfo.img.desktop));
-  // const defdesktopContainerArray = JSON.parse(JSON.stringify(startingInfo.container.desktop));
-
+  
   const tabletTextArray = startingInfo.text.tablet
   const tabletImgArray = startingInfo.img.tablet
   const tabletContainerArray = startingInfo.container.tablet
@@ -69,7 +66,17 @@ function About({shopID}) {
     phone: phoneContainerArray
   })
 
-  const [rowCount, setRowCount] = useState(10)
+  const [DeskRowCount, setDeskRowCount] = useState(rowInfo.desktop)
+  const [TabRowCount, setTabRowCount] = useState(rowInfo.tablet)
+  const [PhoneRowCount, setPhoneRowCount] = useState(rowInfo.phone)
+
+  const [rowCount, setRowCount] = useState(DeskRowCount)
+
+  const [AllRows, setAllRows] = useState({
+    desktop: DeskRowCount,
+    tablet: TabRowCount,
+    phone: phoneContainerArray
+  })
 
   const [colLimit, setColLimit] = useState(12)
 
@@ -323,6 +330,22 @@ function About({shopID}) {
     }
   }
 
+  const [loading, setLoading] = useState(false)
+  const [completion, setCompletion] = useState(false)
+
+  const checkmark = (
+    <svg viewBox="0 0 100 100" width="7rem" height="7rem">
+      <path id="checkmark" d="M25,50 L40,65 L75,30" stroke="#FFFFFF" strokeWidth="8" fill="none"
+        strokeDasharray="200" strokeDashoffset="200">
+        <animate attributeName="stroke-dashoffset" from="200" to="0" dur="0.5s" begin="indefinite" />
+      </path>
+    </svg>
+  )
+
+  async function waitSeconds() {
+    return new Promise(resolve => setTimeout(resolve, 1000));
+  }
+
   async function submitChanges(formdata) {
 
     const response = await fetch(
@@ -336,7 +359,9 @@ function About({shopID}) {
     const data = await response.json();
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
+    setLoading(true)
+
     const updatedAllTexts = {
       ...AllTexts,
       [device]: TextArray
@@ -351,9 +376,20 @@ function About({shopID}) {
       ...AllContainer,
       [device]: ContainerArray
     };
+
+    const updatedRow = {
+      ...AllRows,
+      [device]: rowCount
+    };
     
-    const payload = {text: updatedAllTexts, img: updatedAllImg, container: updatedAllCont}
+    const payload = {text: updatedAllTexts, img: updatedAllImg, container: updatedAllCont, rows: updatedRow }
     submitChanges(payload)
+
+    await waitSeconds()
+
+    setLoading(false)
+    setCompletion(true)
+    router.reload()
   }
 
   function handleReset(){
@@ -398,7 +434,7 @@ function About({shopID}) {
         zIndex: item.zInd,
         margin: "0",
         alignSelf: "center",
-        transform: `scale(${item.scale * screenScale })`
+        transform: `scale(${device === "desktop" ? item.scale * screenScale : item.scale})`
       }}
       dangerouslySetInnerHTML={{ __html: item.content }}
     >
@@ -488,7 +524,6 @@ const modeButtonActive = "product-action-2 heading-secondary"
 
 const prevClasses = `${grid ? "div-preview grided" : prevBase}`;
 
-
 const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
   <div key={index}
     className={prevClasses}
@@ -535,14 +570,14 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
 
           </div>
           <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
-          <button className="product-action-2 heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleSubmit}>Submit</button>
-            <button className="product-action-3 white heading-secondary" style={{ width: "15rem", margin: "0", zIndex: "99" }} onClick={handleReset}>Reset</button>
+          <button className="product-action-2 heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleSubmit} disabled={loading} >{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit")}</button>
+            <button className="product-action-3 white heading-secondary" style={{ width: "15rem", margin: "0", zIndex: "99" }} onClick={handleReset} disabled={loading} >Reset</button>
           </div>
 
           <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
-            <button className={device === "desktop" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("desktop"); setColLimit(12) }}>Desktop</button>
-            <button className={device === "tablet" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("tablet"); setColLimit(8) }}>Tablet</button>
-            <button className={device === "phone" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("phone"); setColLimit(4) }}>Phone</button>
+            <button className={device === "desktop" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("desktop"); setColLimit(12); setRowCount(DeskRowCount) }}>Desktop</button>
+            <button className={device === "tablet" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("tablet"); setColLimit(8); setRowCount(TabRowCount) }}>Tablet</button>
+            <button className={device === "phone" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("phone"); setColLimit(4); setRowCount(PhoneRowCount) }}>Phone</button>
           </div>
 
         </div>
