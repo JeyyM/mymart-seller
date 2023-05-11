@@ -353,6 +353,8 @@ function About(shopID) {
     };
   }, []);
 
+  const textScaler = `${device === "desktop" ? 1 : device === "tablet" ? 0.44 : 0.15}`;
+
   const textElements = TextArray.map((item, index) => (
     <h3
       key={index}
@@ -364,7 +366,7 @@ function About(shopID) {
         zIndex: item.zInd,
         margin: "0",
         alignSelf: "center",
-        transform: `scale(${item.scale * screenScale})`
+        transform: `scale(${item.scale * screenScale })`
       }}
       dangerouslySetInnerHTML={{ __html: item.content }}
     >
@@ -457,7 +459,7 @@ useEffect(() => {
 const gridClass = `${device === "desktop" ? "about-grid-1" : device === "tablet" ? "about-grid-2" : "about-grid-3"}`;
 const prevBase = `${device === "desktop" ? "div-preview-1" : device === "tablet" ? "div-preview-2" : "div-preview-3"}`;
 
-const prevClasses = `${grid ? "div-preview grided" : "div-preview"}`;
+const prevClasses = `${grid ? "div-preview grided" : prevBase}`;
 
 
 const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
@@ -512,7 +514,7 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
 
           <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
             <button className="product-action-2 heading-secondary" style={{ width: "15rem" }} onClick={() => { setDevice("desktop"); setColLimit(12) }}>Desktop</button>
-            <button className="product-action-2 heading-secondary" style={{ width: "15rem" }} onClick={() => { setDevice("tablet"); setColLimit(9) }}>Tablet</button>
+            <button className="product-action-2 heading-secondary" style={{ width: "15rem" }} onClick={() => { setDevice("tablet"); setColLimit(8) }}>Tablet</button>
             <button className="product-action-2 heading-secondary" style={{ width: "15rem" }} onClick={() => { setDevice("phone"); setColLimit(4) }}>Phone</button>
           </div>
 

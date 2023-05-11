@@ -18,10 +18,10 @@
   }
 
   .about-grid-2 {
-    width: calc(50vw - 1.2rem);
-    height: calc(50vw * 1.77);
+    width: calc(66vw);
+    height: calc(66vw);
     display: grid;
-    grid-template-columns: repeat(9, calc((50vw /9) - 1.2px));
+    grid-template-columns: repeat(8, calc((66vw /8) - 1.2px));
     grid-auto-rows: 10%;
     margin: 0 auto;
     transition: all 0.2s;
@@ -29,10 +29,10 @@
   }
 
   .about-grid-3 {
-    width: calc(100vw - 1.2rem);
-    height: calc((100vw * 1.77));
+    width: calc(20vw);
+    height: calc((20vw * 1.77));
     display: grid;
-    grid-template-columns: repeat(4, calc((100vw / 4) - 1.2px));
+    grid-template-columns: repeat(4, calc((20vw / 4) - 1.2px));
     grid-auto-rows: 10%;
     margin: 0 auto;
     transition: all 0.2s;
@@ -46,13 +46,13 @@
   }
 
   .div-preview-2 {
-    max-width: calc(100vw / 9);
+    max-width: calc(66vw / 8);
     background-color: transparent;
     z-index: -20;
   }
 
   .div-preview-3 {
-    max-width: calc(100vw / 4);
+    max-width: calc(20vw / 4);
     background-color: transparent;
     z-index: -20;
   }
