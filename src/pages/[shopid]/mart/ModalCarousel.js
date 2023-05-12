@@ -70,7 +70,6 @@ const ModalCarousel = ({ images, text, title, disable, modalStatus }) => {
     mode={"wait"}
     onExitComplete={() => null}
   >
-
     {modalStatus && (
         <Backdrop onClick={disable} className="categ-modals">
         <motion.div className='detail-slot-carousel' 
@@ -78,7 +77,9 @@ const ModalCarousel = ({ images, text, title, disable, modalStatus }) => {
             variants={appear}
             initial="hidden"
             animate="visible"
-            exit="exit">
+            exit="exit"
+            style={{height:"80%"}}
+            >
       <div className='carousel-buttons'>
         <button className='carousel-button prev-button add-img prev-item'><div className='heading-icon-chevron svg-color' style={{transform: "rotate(90deg)", marginRight:"10rem"}}>&nbsp;</div></button>
         <button className='carousel-button next-button add-img next-item'><div className='heading-icon-chevron svg-color' style={{transform: "rotate(270deg)"}}>&nbsp;</div></button>
