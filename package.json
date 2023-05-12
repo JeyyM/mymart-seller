@@ -30,7 +30,9 @@
     "react-icons": "^4.8.0",
     "react-morph": "^0.4.0",
     "react-router-dom": "^6.8.2",
+    "react-slick": "^0.29.0",
     "sass": "^1.58.3",
+    "slick-carousel": "^1.8.1",
     "spectrum-colorpicker2": "^2.0.10",
     "styled-jsx": "^5.1.2",
     "tinycolor2": "^1.6.0"
