@@ -585,7 +585,7 @@ function handleModal(){
           </div>
           <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
           <button className="product-action-2 heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleSubmit} disabled={loading} >{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit")}</button>
-            <button className="product-action-3 white heading-secondary" style={{ width: "15rem", margin: "0", zIndex: "99" }} onClick={handleReset} disabled={loading} >Reset</button>
+            <button className="product-action-3 white heading-secondary" style={{ width: "15rem", margin: "0"}} onClick={handleReset} disabled={loading} >Reset</button>
           </div>
 
           <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
