@@ -3,6 +3,9 @@ import { getServerSideProps } from "../categories";
 import Head from "next/head";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
+import { GliderComponent } from 'react-glider';
+import 'glider-js/glider.min.css';
+import ModalCarousel from "./ModalCarousel";
 
 function About({shopID}) {
     const startingInfo = shopID.shopData.shopDetails.aboutData
@@ -533,7 +536,14 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
     }}></div>
 ));
 
-/////// some 
+const titles = ["The Grid System", "Cell Limitation", "Screen Versions", "Z-Index, Opacity, and Scale", "Containers", "Switch Warning"]
+const images = ['/about/about-1.png', '/about/about-1.png', '/about/about-1.png', '/about/about-1.png', '/about/about-1.png', '/about/about-1.png'];
+const text = ['In the about page maker, you can make your own layout of your about page through the grid system. The grid system works by making lines that start from 1 up until the end. The grid columns specify where an item is placed horizontally, and the grid row specifies where it is placed vertically.',
+ 'Mix and match the 2 properties to set how big the space an item occupies. Each item will be limited to their sides and are set to be centered. For example, tall images will be limited to their ceiling and floor while wide images are limited by their sizes and will be centered. This applies to text as well. ', 
+ 'There are different column amounts for different screen sizes. The preview is an approximation of the screen sizes. There are 12 columns for desktops, 8 columns for tablets, and 4 for phones. You will need to make a version of the about page for all 3 so that it is accessible wherever the user accesses your page. Edit the row count to expand the height of your page.',
+"There are properties such as Z-Index that specifies which items appear on top. Opacity that sets the transparency of item, as well as scale. Scale multiplies the size of an item. When opacity and scale are at 1, it means 100%, so other decimal places mean their percentages such as 0.5 being 50%. Make sure you use the grid system to set the sizes of your items first because it and scale are multiplicative and may grow too big.",
+"Containers are used for creating text boxes and other figures. They may even be set to Body Mode to make it look like a foreground. However, be mindful of which colors you pick as the light mode and dark mode designs are different and may make your about page inaccessible at certain color modes.",
+"Data will be lost upon switching modes. Make sure to submit to save your changes before changing to another device. Make sure to submit often to protect your progress. Should you need to use other screen designs as references, it is recommended to open this page in another tab to compare."];
 
   return <Fragment>
     <Head>
@@ -548,7 +558,10 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
         <div className="heading-icon-flag svg-color">&nbsp;</div>
       </div>
       <h1 className="heading-primary no-margin">Create About Page&nbsp;</h1>
+      <button className="help-button"><div className="heading-icon-question svg-color">&nbsp;</div></button>
     </span>
+
+    <ModalCarousel images={images} text={text} title={titles} />
 
     <div className="flex-row" style={{ padding: "1rem" }}>
       <div className="flex-col">
@@ -1288,7 +1301,7 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
 
                           <div className="flex-row" style={{ marginBottom: "1rem" }}>
 
-                            <dizzv className="flex-col">
+                            <div className="flex-col">
                               <label className="heading-tertiary">Grid Column: &nbsp;</label>
                               <div className="flex-row-align">
                                 <select
@@ -1319,7 +1332,7 @@ const prevDivs = Array.from({ length: (rowCount * colLimit) }, (_, index) => (
                                   ))}
                                 </select>
                               </div>
-                            </dizzv>
+                            </div>
 
                             <div className="flex-col">
                               <label className="heading-tertiary">Grid Row: &nbsp;</label>

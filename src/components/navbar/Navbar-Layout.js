@@ -70,7 +70,7 @@ border-image: linear-gradient(
     1 !important;}
 
 
-.homepage-button, .add-categ-init, .add-prod-init, .category, .product-image, .side-img, .varItem, .detail-slot, .detail-slot-about{border-radius: ${props.color["border-tl"]} ${props.color["border-tr"]} ${props.color["border-br"]} ${props.color["border-bl"]} !important;}
+.homepage-button, .add-categ-init, .add-prod-init, .category, .product-image, .side-img, .varItem, .detail-slot, .detail-slot-carousel, .detail-slot-about{border-radius: ${props.color["border-tl"]} ${props.color["border-tr"]} ${props.color["border-br"]} ${props.color["border-bl"]} !important;}
 
 .homepage-button:hover.x, .category:hover {
     filter: drop-shadow(-6px 6px 0px ${props.color["color-primary-dark"]}) !important}
@@ -125,7 +125,7 @@ border-image: linear-gradient(
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
 }
 
-.categ-modal, .confirm-modal, .set-container, .category, .categ-edit-button, .product-edit-button, .add-img, .side-img, .add-prod-img, .product-image, .varItem, .footer, .detail-slot, .detail-slot-about , .round-borderer{
+.categ-modal, .confirm-modal, .set-container, .category, .categ-edit-button, .product-edit-button, .add-img, .help-button, .side-img, .add-prod-img, .product-image, .varItem, .footer, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;}
 
@@ -149,7 +149,7 @@ border-image: linear-gradient(
   filter: brightness(120%) !important;
 }
 
-.add-categ-init:focus, .add-prod-init:focus, .categ-modal, .confirm-modal, .set-container, .text-full, input[type="text"].text-full:focus, .desc-text-area, input[type="text"].desc-text-area:focus, .text-small, .invalid-form, .invalid-form-2, .invalid-form-box, .detail-slot, .detail-slot-about, .round-borderer-extra{
+.add-categ-init:focus, .add-prod-init:focus, .categ-modal, .confirm-modal, .set-container, .text-full, input[type="text"].text-full:focus, .desc-text-area, input[type="text"].desc-text-area:focus, .text-small, .invalid-form, .invalid-form-2, .invalid-form-box, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer-extra{
     box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]}, 0 0 0 2px ${props.color["color-primary-dark"]},
     0 0 0 4px ${props.color["bg-item"]} !important;
 }
@@ -198,7 +198,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     color: red !important;
 }
 
-.categ-edit-button:active, .product-edit-button:active, .add-img:active, .side-img.active-var, .varItem.active-var{
+.categ-edit-button:active, .product-edit-button:active, .add-img:active, .help-button:active, .side-img.active-var, .varItem.active-var{
     filter: brightness(120%) !important;
   box-shadow: inset 0 0 0 10px ${props.color["bg-item"]}, 0 0 0 2px ${props.color["color-primary-dark"]},
     0 0 0 4px ${props.color["bg-item"]} !important;
