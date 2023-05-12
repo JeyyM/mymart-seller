@@ -94,7 +94,7 @@ border-image: linear-gradient(
     ${props.color["color-primary-light"]}
   ) !important;}
 
-.svg-decolor{
+.svg-decolor, .glider-dot{
     background-image: linear-gradient(
     to right,
     ${props.color["bg-item"]},
@@ -133,7 +133,7 @@ border-image: linear-gradient(
     background-image: linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
 }
 
-.navmenu {
+.navmenu, .glider-dot {
     box-shadow: 0 0 0 2px ${props.color["color-primary-dark"]}, 0 0 0 4px ${props.color["bg-item"]} !important;
 }
 
@@ -268,7 +268,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;
 }
 
-.svg-down {background-image: linear-gradient(
+.svg-down, .glider-dot.active {background-image: linear-gradient(
     to bottom,
     ${props.color["color-primary-dark"]},
     ${props.color["color-primary-light"]}

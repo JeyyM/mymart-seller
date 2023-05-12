@@ -272,7 +272,7 @@ function AddCategory(props) {
         onExitComplete={() => null}
       >
         {props.modalStatus && (
-          <Backdrop onClick={loading ? null : emptyContents} className="categ-modals">
+          <Backdrop onClick={loading ? null : props.disable} className="categ-modals">
             <Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} action="Delete Category?" delete={delCategHandler} default={setDefaultName} finish={handleDelete} chosenItem={props.defs[0]} msg="Are you sure you want to delete the category? This cannot be undone. However, the data from this category's statistics will remain." label={`Will you delete ${setDefaultName}?`} load={() => { setLoading(true) }}></Confirmer>
             <motion.div
               onClick={(e) => e.stopPropagation()}
