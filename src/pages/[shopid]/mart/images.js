@@ -8,14 +8,14 @@ function Mart(martID) {
 
     return <Fragment>
         <Head>
-            <title>Mart Details</title>
+            <title>Images</title>
         </Head>
 
         <span className="page-heading">
             <div className="heading-icon-dropshadow">
-                <div className="heading-icon-manage svg-color">&nbsp;</div>
+                <div className="heading-icon-pop-up svg-color">&nbsp;</div>
             </div>
-            <h1 className="heading-primary no-margin">My Mart</h1>
+            <h1 className="heading-primary no-margin">&nbsp;Images</h1>
         </span>
 
         <div className="setting-grid">
@@ -31,11 +31,11 @@ function Mart(martID) {
                 <div className="about-button-flag svg-down"></div>
                 <h2 className="heading-primary" style={{ display: "inline", margin: "1rem auto", textAlign: "center" }}>Create About Page</h2>
             </Link>
-            <Link className="homepage-button x item-setup flex-col-center" href={`/${id}/mart/images`} style={{ textDecoration: "none" }}>
+            <Link className="homepage-button x item-setup flex-col-center" href={`/${id}/mart/about`} style={{ textDecoration: "none" }}>
                 <div className="about-button-pop-up svg-down"></div>
                 <h2 className="heading-primary" style={{ display: "inline", margin: "1rem auto", textAlign: "center" }}>Images & Pop-up</h2>
             </Link>
-            <Link className="homepage-button x item-setup flex-col-center" href={`/${id}/mart/about`} style={{ textDecoration: "none" }}>
+            <Link className="homepage-button x item-setup flex-col-center" href={`/${id}/mart/images`} style={{ textDecoration: "none" }}>
                 <div className="about-button-messenger svg-down"></div>
                 <h2 className="heading-primary" style={{ display: "inline", margin: "1rem auto", textAlign: "center" }}>Messenger Plugin</h2>
             </Link>

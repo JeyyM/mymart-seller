@@ -43,7 +43,7 @@ function NavMenu(props) {
         <NavMenuItem logo={"policy"} label={"Terms & Policies"}></NavMenuItem>
         <NavMenuItem logo={"support"} label={"Customer Service"}></NavMenuItem>
         <NavMenuItem logo={"power"} label={"Close or Open Mart"}></NavMenuItem>
-        <NavMenuItem logo={"settings"} label={"Close or Open Mart"}></NavMenuItem>
+        <NavMenuItem logo={"settings"} label={"Settings"}></NavMenuItem>
       </div>
     </Fragment>
   }

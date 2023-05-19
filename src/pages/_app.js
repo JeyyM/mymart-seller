@@ -9,7 +9,8 @@ export default function App({ Component, pageProps }) {
   const router = useRouter()
 
   let data = {}
-  let database = pageProps.shopID.shopData.shopDesigns.defaultMode
+  let database = pageProps.shopID.shopData.shopDesigns
+  let colormode = pageProps.shopID.shopData.shopDesigns.defaultMode
   let details = {}
 
   if (pageProps.shopID){
@@ -21,19 +22,14 @@ export default function App({ Component, pageProps }) {
 
   if (router.asPath === `/${router.query.shopid}/design/light`){
         data = database.lightDesign
-        // database = true
-        // console.log("lightmod here")
-      }
+        colormode = true}
 
   if (router.asPath === `/${router.query.shopid}/design/dark`){
-    data = database.darkDesign}
-    // database = false
-    // console.log("dark mode here")
+    data = database.darkDesign
+    colormode = false}
 }
 
-console.log("in other _app", pageProps.shopID.shopData.shopDesigns.defaultMode)
-
-  return <NavbarLayout color={data} mode={pageProps.shopID.shopData.shopDesigns.defaultMode} contents={details}><Component {...pageProps} /></NavbarLayout>;
+  return <NavbarLayout color={data} mode={colormode} contents={details}><Component {...pageProps} /></NavbarLayout>;
 }
 
 export {getServerSideProps}

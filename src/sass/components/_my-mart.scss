@@ -167,6 +167,11 @@
   margin-left: 1rem;
 }
 
+.heading-icon-pop-up {
+  @include heading-logo(pop-up, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
 .detail-inputs{
   display: flex;
   margin-top: 1rem;

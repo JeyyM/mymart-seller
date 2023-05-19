@@ -113,6 +113,10 @@ function AddCategory(props) {
         nameValid = true
         nameExist = false
       } 
+
+      if (nameValue.trim() === ""){
+        nameValid = false
+      }
     }
     
     const imgValid = startsImgur(imgValue) && !isEmpty(imgValue)
@@ -336,7 +340,7 @@ function AddCategory(props) {
                 </div>
                 <div className="add-categ-buttons">
                   {setting === "Edit Category" && <button className="product-action-3 heading-secondary categ-button-2 white" type="button" onClick={delCategHandler} disabled={loading}>Delete</button>}
-                  <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={() => emptyContents} disabled={loading}>Cancel</button>
+                  <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={emptyContents} disabled={loading}>Cancel</button>
                   <button className="product-action-2 heading-secondary categ-button-2" type="submit" disabled={loading}> {loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit")}</button>
                 </div>
               </form>

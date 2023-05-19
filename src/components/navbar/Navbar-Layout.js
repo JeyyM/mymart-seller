@@ -25,10 +25,11 @@ function NavbarLayout(props) {
     if (props.mode === false) {
         placeholder = `{color: ${props.color["bg-item"]};
 opacity: 0.8;
-filter: brightness(50%);}`
+filter: brightness(200%);}`
 
 colormode = "/dark"
-    } else {
+    } 
+    if (props.mode === true) {
         placeholder = `{color: ${props.color["bg-item"]};
 opacity: 0.8;
 filter: brightness(50%);}`
@@ -277,7 +278,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 
   .slick-dots li.slick-active button:before, .slick-dots li button:before {
     opacity: 1;
-    color: ${props.color["color-primary-dark"]} !important;
+    color: ${props.color["color-primary-light"]} !important;
 }
 
 
