@@ -16,7 +16,6 @@ import NavMenu from "./Nav-Menu"
 import { motion } from "framer-motion"
 
 function NavbarItems(props){
-console.log("colormode here", props.colormode)
 
 const [menuIsOn, setMenuIsOn] = useState(false)
 

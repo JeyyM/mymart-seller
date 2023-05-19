@@ -272,7 +272,7 @@ function AddCategory(props) {
         onExitComplete={() => null}
       >
         {props.modalStatus && (
-          <Backdrop onClick={loading ? null : props.disable} className="categ-modals">
+          <Backdrop onClick={loading ? null : emptyContents} className="categ-modals">
             <Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} action="Delete Category?" delete={delCategHandler} default={setDefaultName} finish={handleDelete} chosenItem={props.defs[0]} msg="Are you sure you want to delete the category? This cannot be undone. However, the data from this category's statistics will remain." label={`Will you delete ${setDefaultName}?`} load={() => { setLoading(true) }}></Confirmer>
             <motion.div
               onClick={(e) => e.stopPropagation()}
@@ -336,7 +336,7 @@ function AddCategory(props) {
                 </div>
                 <div className="add-categ-buttons">
                   {setting === "Edit Category" && <button className="product-action-3 heading-secondary categ-button-2 white" type="button" onClick={delCategHandler} disabled={loading}>Delete</button>}
-                  <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={emptyContents} disabled={loading}>Cancel</button>
+                  <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={() => emptyContents} disabled={loading}>Cancel</button>
                   <button className="product-action-2 heading-secondary categ-button-2" type="submit" disabled={loading}> {loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit")}</button>
                 </div>
               </form>

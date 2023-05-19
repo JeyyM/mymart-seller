@@ -9,30 +9,31 @@ export default function App({ Component, pageProps }) {
   const router = useRouter()
 
   let data = {}
-  let database = {}
+  let database = pageProps.shopID.shopData.shopDesigns.defaultMode
   let details = {}
-  let address = {}
 
   if (pageProps.shopID){
   database = pageProps.shopID.shopData.shopDesigns
   details = pageProps.shopID.shopData.shopDetails.footerData
-  address = pageProps.shopID.shopData.shopDetails.shopLocation
   if (database.defaultMode){
     data = database.lightDesign
   } else {data = database.darkDesign}
 
   if (router.asPath === `/${router.query.shopid}/design/light`){
         data = database.lightDesign
-        database = true
+        // database = true
+        // console.log("lightmod here")
       }
 
   if (router.asPath === `/${router.query.shopid}/design/dark`){
     data = database.darkDesign}
-    database = false
+    // database = false
+    // console.log("dark mode here")
 }
 
+console.log("in other _app", pageProps.shopID.shopData.shopDesigns.defaultMode)
 
-  return <NavbarLayout color={data} mode={database} contents={details}><Component {...pageProps} /></NavbarLayout>;
+  return <NavbarLayout color={data} mode={pageProps.shopID.shopData.shopDesigns.defaultMode} contents={details}><Component {...pageProps} /></NavbarLayout>;
 }
 
 export {getServerSideProps}

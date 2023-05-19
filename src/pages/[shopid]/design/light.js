@@ -103,7 +103,6 @@ function Designing({ shopID }) {
   }
 
   async function setAsDefault() {
-    console.log("state", currentMode)
     const response = await fetch(
       `../../api/set-default?martid=${router.query.shopid}&state=${currentMode}`,
       {
@@ -296,8 +295,6 @@ function Designing({ shopID }) {
 
     const submissionValid = mainDarkValid && mainLightValid && bgBodyValid && bgItemValid && TLValid && TRValid && BLValid && BRValid && outlineDarkValid && outlineLightValid && outlineFontValid && solidDarkValid && solidLightValid && solidFontValid && primaryFontValid && primaryColValid && secondaryFontValid && secondaryColValid && tertiaryColValid && tertiaryFontValid
 
-    console.log("submission valid", submissionValid)
-
     if (submissionValid) {
       setLoading(true)
       const data = {
@@ -306,9 +303,6 @@ function Designing({ shopID }) {
         "button-outline-light": outlineLight, "button-solid-dark": solidDark, "button-solid-light": solidLight, "border-tl": borderTL + "px", "border-tr": borderTR + "px", "border-bl": borderBL + "px",
         "border-br": borderBR + "px", "button-solid-text": solidText, "button-outline-text": outlineText
       }
-      console.log(data)
-
-      console.log(currentMode)
 
       finishForm(data, currentMode)
       await waitSeconds();
