@@ -5,14 +5,12 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import Head from "next/head"
 import { getServerSideProps } from "@/utilities/serversideProps"
-// import { css } from "styled-jsx/css";
-
 
 function HomePage({ shopID }){
     const router = useRouter();
     const { shopid } = router.query;
     const shopData = shopID.shopData;
-    // console.log("shopData", shopData)
+
 
     let mode = ""
     if (shopData.shopDesigns.defaultMode){mode = "/light"} else {
@@ -26,8 +24,6 @@ function HomePage({ shopID }){
     if (colorState){
         defaultColors = shopData.shopDesigns.lightDesign
     } else {defaultColors = shopData.shopDesigns.darkDesign}
-
-    // console.log(defaultColors)    
 
     return <Fragment>
 <Head>

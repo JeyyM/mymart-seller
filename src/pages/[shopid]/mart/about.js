@@ -548,7 +548,6 @@ function About({ shopID }) {
   const [modal, showModal] = useState(false)
   function handleModal() {
     showModal(!modal)
-    console.log(modal)
   }
   return <Fragment>
     <Head>

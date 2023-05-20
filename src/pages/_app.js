@@ -9,8 +9,8 @@ export default function App({ Component, pageProps }) {
   const router = useRouter()
 
   let data = {}
-  let database = pageProps.shopID.shopData.shopDesigns
-  let colormode = pageProps.shopID.shopData.shopDesigns.defaultMode
+  let database = {}
+  let colormode = ""
   let details = {}
 
   if (pageProps.shopID){

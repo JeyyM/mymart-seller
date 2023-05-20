@@ -1,5 +1,4 @@
 export default function ThemePack(props){
-    // console.log(props.themeSet)
     function Work(){
       props.set(props.themeSet)
     }

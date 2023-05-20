@@ -165,6 +165,7 @@
   justify-self: center;
   width: 20rem;
   @include border;
+  transition: all 0.2s;
 }
 
 .company-logo-med:hover{
@@ -174,6 +175,7 @@
 .navcontainer {
   margin-left: auto;
   display: flex;
+  
 }
 
 .navitem {

@@ -65,8 +65,6 @@ function ProdImg(props) {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        console.log("submitting")
-
         const img1Valid = startsImgur(imgValue1) && !isEmpty(imgValue1)
         const img2Valid = startsImgur(imgValue2) && !isEmpty(imgValue2)
         const img3Valid = startsImgur(imgValue3) && !isEmpty(imgValue3)
@@ -126,7 +124,6 @@ function ProdImg(props) {
     const handleAddImgNumber = () => {
         if (newLength <= 3) {
             setNewLength(newLength + 1)
-            console.log(newLength)
         }
         else { return }
     }

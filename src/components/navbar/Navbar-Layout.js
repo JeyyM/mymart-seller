@@ -263,7 +263,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
   filter: brightness(120%) !important;
 }
 
-.item-setup{
+.item-setup, .images-column{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
     box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;
@@ -286,7 +286,9 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     ` }
                 </style>
             </Head>
-            
+{/* {router.asPath !== `/${id}/mart/images` &&
+<NavbarItems shopid={router.query.shopid} colormode={colormode} />} */}
+
             <NavbarItems shopid={router.query.shopid} colormode={colormode} />
             <div>{props.children}</div>
             {router.asPath !== `/${id}/mart/details` && router.asPath !== "/" ? <Footer details={props.contents} address={props.address}></Footer> : <Fragment></Fragment>}

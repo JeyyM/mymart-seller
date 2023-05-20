@@ -1,0 +1,28 @@
+.images-container{
+    min-height: min-content;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+.images-column{
+    @include border-round;
+    border: solid 5px transparent;
+    position: relative;
+    transition: all 0.2s;
+    padding: 1rem;
+    box-shadow: inset 0 0 0 2rem $theme-bg;
+    overflow: hidden;
+}
+
+.heading-icon-favicon {
+    @include heading-logo(favicon, 4rem, 4rem);
+    margin-left: 1rem;
+  }
+
+  .heading-icon-navbar-logo {
+    @include heading-logo(navbar-logo, 4rem, 4rem);
+    margin-left: 1rem;
+  }

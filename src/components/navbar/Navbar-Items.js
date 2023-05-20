@@ -13,7 +13,6 @@ import { Receipt } from "../svgs"
 import { Power } from "../svgs"
 import { useState } from "react"
 import NavMenu from "./Nav-Menu"
-import { motion } from "framer-motion"
 
 function NavbarItems(props){
 
@@ -45,9 +44,3 @@ return <Fragment>
 }
 
 export default NavbarItems
-
-// mask-image: url(../../components/svgs/category.svg);
-// mask-size: cover;
-// mask-image: url(../../components/svgs/category.svg);
-// mask-size: cover;
-// background-image: linear-gradient(to right, $color-primary-dark, $color-primary-light);
