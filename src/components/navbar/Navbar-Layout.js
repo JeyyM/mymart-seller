@@ -27,14 +27,14 @@ function NavbarLayout(props) {
 opacity: 0.8;
 filter: brightness(200%);}`
 
-colormode = "/dark"
-    } 
+        colormode = "/dark"
+    }
     if (props.mode === true) {
         placeholder = `{color: ${props.color["bg-item"]};
 opacity: 0.8;
 filter: brightness(50%);}`
 
-colormode = "/light"
+        colormode = "/light"
     }
 
     const id = router.query.shopid

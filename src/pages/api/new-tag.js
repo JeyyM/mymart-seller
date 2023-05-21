@@ -1,19 +1,19 @@
 import { MongoClient, ObjectId } from "mongodb"
 
-async function handler(req, res){
-    if (req.method === "PATCH"){
+async function handler(req, res) {
+    if (req.method === "PATCH") {
         const data = req.body
         console.log(data)
 
         const client = await MongoClient.connect(process.env.MONGODB_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
-          })
+        })
         const db = client.db()
-        
+
         const id = new ObjectId(req.query.martid);
         const item = await db.collection("shops").findOne({ _id: id });
-        
+
         item._id = item._id.toString();
 
         console.log(req.query)
@@ -29,8 +29,8 @@ async function handler(req, res){
                 }
                 client.close();
             }
-            );
+        );
         console.log(result)
+    }
 }
-} 
 export default handler

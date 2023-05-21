@@ -147,10 +147,10 @@ function ProdImg(props) {
         }`;
 
     function massReset() {
-        props.disable(); 
-        setNewLength(props.imgnumber); 
+        props.disable();
+        setNewLength(props.imgnumber);
         resetLines(props.imgnumber)
-        setFormInputValidity({img: true})
+        setFormInputValidity({ img: true })
     }
 
     return (
@@ -178,69 +178,69 @@ function ProdImg(props) {
                                 </div>
                             </span>
                             <div className="image-modal">
-                            <div className="flex-col">
-                                {newLength >= 1 && <div className="form-group">
-                                    <input
-                                        type="text"
-                                        className={imgClasses}
-                                        placeholder="Category Image 1 (Imgur Links Only)"
-                                        value={imgValue1}
-                                        onChange={handleImgChange1}
-                                        // required
-                                        id="image1"
-                                        autoComplete="off"
-                                    ></input>
+                                <div className="flex-col">
+                                    {newLength >= 1 && <div className="form-group">
+                                        <input
+                                            type="text"
+                                            className={imgClasses}
+                                            placeholder="Category Image 1 (Imgur Links Only)"
+                                            value={imgValue1}
+                                            onChange={handleImgChange1}
+                                            // required
+                                            id="image1"
+                                            autoComplete="off"
+                                        ></input>
 
-                                    {formInputValidity.img ? <label className="form-label">Product Image 1 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
-                                </div>}
+                                        {formInputValidity.img ? <label className="form-label">Product Image 1 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
+                                    </div>}
 
-                                {newLength >= 2 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
-                                    <input
-                                        type="text"
-                                        className={imgClasses}
-                                        placeholder="Category Image 2 (Imgur Links Only)"
-                                        value={imgValue2}
-                                        onChange={handleImgChange2}
-                                        // required
-                                        id="image2"
-                                        autoComplete="off"
-                                    ></input>
-                                    {formInputValidity.img ? <label className="form-label">Product Image 2 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
-                                </motion.div>}
+                                    {newLength >= 2 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
+                                        <input
+                                            type="text"
+                                            className={imgClasses}
+                                            placeholder="Category Image 2 (Imgur Links Only)"
+                                            value={imgValue2}
+                                            onChange={handleImgChange2}
+                                            // required
+                                            id="image2"
+                                            autoComplete="off"
+                                        ></input>
+                                        {formInputValidity.img ? <label className="form-label">Product Image 2 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
+                                    </motion.div>}
 
-                                {newLength >= 3 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
-                                    <input
-                                        type="text"
-                                        className={imgClasses}
-                                        placeholder="Category Image 3 (Imgur Links Only)"
-                                        value={imgValue3}
-                                        onChange={handleImgChange3}
-                                        id="image3"
-                                        autoComplete="off"
-                                    ></input>
-                                    {formInputValidity.img ? <label className="form-label">Product Image 3 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
-                                </motion.div>}
+                                    {newLength >= 3 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
+                                        <input
+                                            type="text"
+                                            className={imgClasses}
+                                            placeholder="Category Image 3 (Imgur Links Only)"
+                                            value={imgValue3}
+                                            onChange={handleImgChange3}
+                                            id="image3"
+                                            autoComplete="off"
+                                        ></input>
+                                        {formInputValidity.img ? <label className="form-label">Product Image 3 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
+                                    </motion.div>}
 
-                                {newLength >= 4 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
-                                    <input
-                                        type="text"
-                                        className={imgClasses}
-                                        placeholder="Category Image 4 (Imgur Links Only)"
-                                        value={imgValue4}
-                                        onChange={handleImgChange4}
-                                        id="image4"
-                                        autoComplete="off"
-                                    ></input>
-                                    {formInputValidity.img ? <label className="form-label">Product Image 4 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
-                                </motion.div>}
-                            </div>
+                                    {newLength >= 4 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
+                                        <input
+                                            type="text"
+                                            className={imgClasses}
+                                            placeholder="Category Image 4 (Imgur Links Only)"
+                                            value={imgValue4}
+                                            onChange={handleImgChange4}
+                                            id="image4"
+                                            autoComplete="off"
+                                        ></input>
+                                        {formInputValidity.img ? <label className="form-label">Product Image 4 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
+                                    </motion.div>}
+                                </div>
 
-                            <div className="image-collection">
-                                {imgValue1 && newLength >= 1 && <img src={imgValue1} className="add-prod-img" alt="Link is Invalid"></img>}
-                                {imgValue2 && newLength >= 2 && <img src={imgValue2} className="add-prod-img" alt="Link is Invalid"></img>}
-                                {imgValue3 && newLength >= 3 && <img src={imgValue3} className="add-prod-img" alt="Link is Invalid"></img>}
-                                {imgValue4 && newLength >= 4 && <img src={imgValue4} className="add-prod-img" alt="Link is Invalid"></img>}
-                            </div>
+                                <div className="image-collection">
+                                    {imgValue1 && newLength >= 1 && <img src={imgValue1} className="add-prod-img" alt="Link is Invalid"></img>}
+                                    {imgValue2 && newLength >= 2 && <img src={imgValue2} className="add-prod-img" alt="Link is Invalid"></img>}
+                                    {imgValue3 && newLength >= 3 && <img src={imgValue3} className="add-prod-img" alt="Link is Invalid"></img>}
+                                    {imgValue4 && newLength >= 4 && <img src={imgValue4} className="add-prod-img" alt="Link is Invalid"></img>}
+                                </div>
                             </div>
                             <div className="add-categ-buttons">
                                 <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={() => { massReset() }}>Cancel</button>

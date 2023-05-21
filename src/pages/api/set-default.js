@@ -1,7 +1,7 @@
 import { MongoClient, ObjectId } from "mongodb"
 
-async function handler(req, res){
-if (req.method === "PATCH"){
+async function handler(req, res) {
+  if (req.method === "PATCH") {
 
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
@@ -14,18 +14,19 @@ if (req.method === "PATCH"){
 
     const result = await db.collection("shops").updateOne(
       { _id: martId },
-      { $set: {
+      {
+        $set: {
           [`shopData.shopDesigns.defaultMode`]: JSON.parse(req.query.state)
         }
       }
     );
 
     console.log(result)
-    
+
     client.close();
-    
+
     res.status(200).json({ message: "Category updated" });
-  }  
+  }
 }
 
 export default handler

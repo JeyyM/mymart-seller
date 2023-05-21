@@ -13,17 +13,17 @@ function HomepageButton(props) {
     linear-gradient(45deg, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
 `
 
-let extension=""
+  let extension = ""
 
-  if (props.extra){extension = props.extra} else {
+  if (props.extra) { extension = props.extra } else {
     extension = ""
   }
 
   return (
     <Fragment>
-    <Head>
-    <style> 
-  { `
+      <Head>
+        <style>
+          {`
   .bg-gradient-${props.direction} {${buttonClasses}}
 
   .${props.item}::before {
@@ -59,9 +59,9 @@ let extension=""
   }
 
   ` }
-  
-</style>
-    </Head>
+
+        </style>
+      </Head>
       <Link
         className={`homepage-button ${props.item} bg-gradient-${props.direction} x`}
         href={{

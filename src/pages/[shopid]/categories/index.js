@@ -36,7 +36,7 @@ function CategoryPage({ shopID }) {
     setDefaultValues([data[0], data[1], data[2]])
   }
 
-  function defClearer(){
+  function defClearer() {
     setDefaultValues(["", "", ""])
   }
 
@@ -52,7 +52,7 @@ function CategoryPage({ shopID }) {
     );
     const data = await response.json();
   }
-  
+
   async function editForm(formdata, key) {
 
     const chosenCateg = formdata.categoryName
@@ -82,44 +82,44 @@ function CategoryPage({ shopID }) {
   }
 
   if (categoryAmount > 0) {
-  return (
+    return (
 
-    <Fragment>
-    <Head>
-      <title>Categories</title>
-    </Head>
+      <Fragment>
+        <Head>
+          <title>Categories</title>
+        </Head>
+        <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={upperCategNames}></AddCategory>
+        <span className="page-heading">
+          <div className="heading-icon-dropshadow">
+            <div className="heading-icon-category svg-color">&nbsp;</div>
+          </div>
+          <h1 className="heading-primary no-margin">Categories</h1>
+          <button onClick={addCategHandler} className="add-categ-init heading-tertiary">
+            <div className="heading-icon-plus svg-color">&nbsp;</div>Add Category</button>
+        </span>
+
+        <section className="category-container">
+          {result.map((categ, index) => {
+            return (
+              <Category
+                items={categ.value}
+                id={router.query.shopid}
+                key={index}
+                state={addCateg}
+                length={result.length}
+                edit={addCategHandler}
+                edit2={editCategHandler}
+                categIndex={index}
+              ></Category>
+            );
+          })}
+        </section>
+
+      </Fragment>
+    );
+  } else {
+    return <Fragment>
       <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={upperCategNames}></AddCategory>
-      <span className="page-heading">
-        <div className="heading-icon-dropshadow">
-          <div className="heading-icon-category svg-color">&nbsp;</div>
-        </div>
-        <h1 className="heading-primary no-margin">Categories</h1>
-        <button onClick={addCategHandler} className="add-categ-init heading-tertiary">
-          <div className="heading-icon-plus svg-color">&nbsp;</div>Add Category</button>
-      </span>
-
-      <section className="category-container">
-        {result.map((categ, index) => {
-          return (
-            <Category
-              items={categ.value}
-              id={router.query.shopid}
-              key={index}
-              state={addCateg}
-              length={result.length}
-              edit={addCategHandler}
-              edit2={editCategHandler}
-              categIndex = {index}
-            ></Category>
-          );
-        })}
-      </section>
-
-    </Fragment>
-  );
-      } else {
-        return <Fragment>
-          <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={upperCategNames}></AddCategory>
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-category svg-color">&nbsp;</div>
@@ -128,14 +128,14 @@ function CategoryPage({ shopID }) {
         <button onClick={addCategHandler} className="heading-tertiary add-categ-init">
           <div className="heading-icon-plus svg-color">&nbsp;</div>Add Category</button>
       </span>
-        <div className="empty-contents">
+      <div className="empty-contents">
         <div className="empty-logo svg-color">&nbsp;</div>
         <h2 className="empty-text">There seems to be no categories yet</h2>
-        </div>
-        </Fragment>
-      }
+      </div>
+    </Fragment>
+  }
 }
 
 export default CategoryPage;
 
-export {getServerSideProps}
+export { getServerSideProps }

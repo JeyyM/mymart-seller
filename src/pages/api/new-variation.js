@@ -69,13 +69,13 @@ async function handler(req, res) {
     const product = updatedShop.shopData.shopCategories[req.query.categorykey].categoryProducts[req.query.productkey];
 
     const filteredData = Object.keys(product)
-  .filter(key => key !== 'productTags')
-  .reduce((obj, key) => {
-    obj[key] = product[key];
-    return obj;
-  }, {});
+      .filter(key => key !== 'productTags')
+      .reduce((obj, key) => {
+        obj[key] = product[key];
+        return obj;
+      }, {});
 
-const varKeys = Object.keys(filteredData)
+    const varKeys = Object.keys(filteredData)
 
     const setTags = product.productTags
 
@@ -94,12 +94,12 @@ const varKeys = Object.keys(filteredData)
     }
 
     const categoryProductKey = `shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`;
-    
+
     const updateResult1 = await db.collection("shops").updateOne(
       { _id: id },
       { $set: { [categoryProductKey]: newVars } }
     );
-    
+
     const updateResult2 = await db.collection("shops").updateOne(
       { _id: id },
       { $set: { [`${categoryProductKey}.productTags`]: setTags } }

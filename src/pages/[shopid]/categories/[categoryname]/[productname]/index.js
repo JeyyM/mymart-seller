@@ -446,8 +446,9 @@ function ProductPage({ shopID }) {
   }
 
   function minusPrice() {
-    if (priceValue > 0){
-    setPriceValue(parseInt(priceValue) - 1)}
+    if (priceValue > 0) {
+      setPriceValue(parseInt(priceValue) - 1)
+    }
   }
 
   function addStock() {
@@ -456,7 +457,8 @@ function ProductPage({ shopID }) {
 
   function minusStock() {
     if (stockAmount > 0) {
-    setStockAmount(parseInt(stockAmount) - 1)}
+      setStockAmount(parseInt(stockAmount) - 1)
+    }
   }
 
   return <Fragment>

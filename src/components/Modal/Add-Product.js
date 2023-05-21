@@ -172,14 +172,14 @@ function AddProduct(props) {
     let nameValid = true;
     let nameExist = false;
 
-    if (!props.names){
+    if (!props.names) {
       nameValid = false;
       nameExist = false;
-    } else{
+    } else {
       nameValid = nameValue.trim() !== "" && !props.names.includes(nameValue.toUpperCase())
       nameExist = props.names.includes(nameValue.toUpperCase())
     }
-    
+
     // if (nameValue === setDefaultName) { nameExist = false; nameValid = true }
     nameValid = nameValue.trim() !== ""
     const descValid = descValue !== ""

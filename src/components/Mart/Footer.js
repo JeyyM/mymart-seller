@@ -1,7 +1,7 @@
 import Link from "next/link"
 
 export default function Footer(props) {
-    
+
     const numbers = props.details.shopPhone
     const emails = props.details.shopEmails
     const socials = props.details.shopSocials
@@ -35,12 +35,12 @@ export default function Footer(props) {
 
             <h3 className="heading-tertiary"><strong>Social Media</strong></h3>
             <div className="socials-container">
-            {socials.length === 0 ? <h3 className="heading-tertiary">-</h3> : ""}
-            {socials.map((index) => {
-                return <Link key={index.link} href={index.link} target="_blank">
-                <img className="social-icon" src={`/socials/${index.type}.webp`}></img>
-                </Link>
-            })}
+                {socials.length === 0 ? <h3 className="heading-tertiary">-</h3> : ""}
+                {socials.map((index) => {
+                    return <Link key={index.link} href={index.link} target="_blank">
+                        <img className="social-icon" src={`/socials/${index.type}.webp`}></img>
+                    </Link>
+                })}
             </div>
         </div>
 
@@ -57,18 +57,17 @@ export default function Footer(props) {
             <h3 className="heading-tertiary"><strong>Additional Links</strong></h3>
             {additional.length === 0 ? <h3 className="heading-tertiary">-</h3> : ""}
             {additional.map((index) => {
-                return <a key={index.label} className="heading-tertiary" href={index.link} target="_blank" rel="noopener noreferrer" style={{textDecoration: "none"}}>{index.label}</a>;
+                return <a key={index.label} className="heading-tertiary" href={index.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>{index.label}</a>;
             })}
         </div>
         <div className="footer-column">
-        {about.footerImg === "" ? <h3 className="heading-tertiary">-</h3> : <img src={about.footerImg} className={about.borderless ? "footer-img" : "footer-img round-borderer"}></img>}
+            {about.footerImg === "" ? <h3 className="heading-tertiary">-</h3> : <img src={about.footerImg} className={about.borderless ? "footer-img" : "footer-img round-borderer"}></img>}
 
             <br></br>
 
-        {about.footerMessage === "" ? <h3 className="heading-tertiary">-</h3> : <h3 className="heading-tertiary">{about.footerMessage}</h3>}
+            {about.footerMessage === "" ? <h3 className="heading-tertiary">-</h3> : <h3 className="heading-tertiary">{about.footerMessage}</h3>}
 
         </div>
-        <h3 className="heading-tertiary" style={{gridColumn:"1/-1", justifySelf:"center"}}><strong>Copyright &copy; YEAR Company Name</strong></h3>
+        <h3 className="heading-tertiary" style={{ gridColumn: "1/-1", justifySelf: "center" }}><strong>Copyright &copy; YEAR Company Name</strong></h3>
     </footer>
 }
-

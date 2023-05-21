@@ -102,23 +102,23 @@ function AddCategory(props) {
     let nameValid = true
     let nameExist = false
 
-    if (!props.list){
+    if (!props.list) {
       nameValid = true;
       nameExist = false;
-    } else{
+    } else {
       nameValid = nameValue.trim() !== "" && !props.list.includes(nameValue.toUpperCase())
       nameExist = props.list.includes(nameValue.toUpperCase())
 
-      if (nameValue.toUpperCase() === setDefaultName.toUpperCase()){
+      if (nameValue.toUpperCase() === setDefaultName.toUpperCase()) {
         nameValid = true
         nameExist = false
-      } 
+      }
 
-      if (nameValue.trim() === ""){
+      if (nameValue.trim() === "") {
         nameValid = false
       }
     }
-    
+
     const imgValid = startsImgur(imgValue) && !isEmpty(imgValue)
     const descValid = descValue !== ""
 

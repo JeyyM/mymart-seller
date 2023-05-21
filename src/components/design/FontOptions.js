@@ -60,7 +60,7 @@ function FontOptions(props) {
     { family: 'Rockwell Condensed, serif' },
     { family: 'Trajan Pro, serif' },
   ];
-  
+
   const [selectFont, setSelectFont] = useState(props.defaultFont)
   const handleSelectFont = (event) => {
     setSelectFont(event.target.value);
@@ -68,57 +68,20 @@ function FontOptions(props) {
   };
 
   const fontList = fonts.map(font => (font.family))
-  
+
 
   return (
     <Fragment>
-    <select value={selectFont} className={`text-options text-span ${props.type}`} style={{width: "100%", fontFamily: `${selectFont}`}} onChange={(event) => handleSelectFont(event)}>
-    {fonts.map(font => (font.family !== "Material Icons" &&
-        <option key={font.family} value={font.family} style={{fontFamily: `${font.family}`}}>{font.family}</option>
-      ))}
-      {webSafeFonts.map(font => (
-        <option key={font.family} value={font.family} style={{fontFamily: `${font.family}`}}>{font.family}</option>
-      ))}
-    </select>
+      <select value={selectFont} className={`text-options text-span ${props.type}`} style={{ width: "100%", fontFamily: `${selectFont}` }} onChange={(event) => handleSelectFont(event)}>
+        {fonts.map(font => (font.family !== "Material Icons" &&
+          <option key={font.family} value={font.family} style={{ fontFamily: `${font.family}` }}>{font.family}</option>
+        ))}
+        {webSafeFonts.map(font => (
+          <option key={font.family} value={font.family} style={{ fontFamily: `${font.family}` }}>{font.family}</option>
+        ))}
+      </select>
     </Fragment>
-
-    // <Fragment>
-    // <select className='text-options text-span' style={{width: "100%"}}>
-    //   {fonts.map(font => (
-    //     <option key={font.family} value={font.family}>{font.family}</option>
-    //   ))}
-    // </select>
-    // </Fragment>
   );
 }
 
 export default FontOptions;
-
-// color: $text-primary-color;
-// font-size: 3.5rem;
-// font-family: 'Roboto';
-// font-weight: 900;
-// margin-left: 2rem;
-// word-wrap: break-word;
-// overflow-wrap: break-word;
-// max-width: 85vw;
-
-// {font-family: ${props.color["text-secondary-font"]} !important;
-//     color: ${props.color["text-secondary-color"]} !important;
-//     font-weight: 700 !important;}
-
-// {
-//     box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]}, 0 0 0 2px ${props.color["color-primary-dark"]},
-//     0 0 0 4px ${props.color["bg-item"]} !important;
-// }
-
-// {
-//     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
-//     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
-//     filter: brightness(120%) !important
-//     }
-
-// {
-//     filter: brightness(150%) !important;
-//   outline-color: ${props.color["color-primary-dark"]} !important;
-// }

@@ -84,19 +84,19 @@ const ModalCarousel = ({ images, text, title, disable, modalStatus }) => {
                 ></div>
               </button>
             </div>
-              <Slider ref={sliderRef} {...settings}>
-                {images.map((image, index) => (
-                  <div key={index} className="glider-item">
-                    <h2 className="heading-secondary">{title[index]}</h2>
-                    <h3 className="heading-tertiary carousel-text">{text[index]}</h3>
-                    <img
-                      src={image}
-                      alt={`Image ${index}`}
-                      className="carousel-img round-borderer"
-                    />
-                  </div>
-                ))}
-              </Slider>
+            <Slider ref={sliderRef} {...settings}>
+              {images.map((image, index) => (
+                <div key={index} className="glider-item">
+                  <h2 className="heading-secondary">{title[index]}</h2>
+                  <h3 className="heading-tertiary carousel-text">{text[index]}</h3>
+                  <img
+                    src={image}
+                    alt={`Image ${index}`}
+                    className="carousel-img round-borderer"
+                  />
+                </div>
+              ))}
+            </Slider>
           </motion.div>
         </Backdrop>
       )}

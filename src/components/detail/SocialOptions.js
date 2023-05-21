@@ -4,9 +4,9 @@ function SocialOptions(props) {
   const socialOptions = [
     "None", "Facebook", "Instagram", "Linkedin", "Pinterest", "Tiktok", "Twitter", "Youtube"
   ];
-  
+
   const [selectSocial, setSelectSocial] = useState(props.defaultSocials);
-  
+
   const handleSelectSocial = (event, index) => {
     setSelectSocial(event.target.value);
     props.effect(index, event.target.value);
@@ -17,7 +17,7 @@ function SocialOptions(props) {
       <select
         value={selectSocial}
         className={`text-options text-span ${props.type}`}
-        style={{width: "40%"}}
+        style={{ width: "40%" }}
         onChange={(event) => handleSelectSocial(event, props.index)}
       >
         {socialOptions.map(social => (

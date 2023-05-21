@@ -19,12 +19,12 @@ function Payment(martID) {
 
     const checkmark = (
         <svg viewBox="0 0 100 100" width="7rem" height="7rem">
-          <path id="checkmark" d="M25,50 L40,65 L75,30" stroke="#FFFFFF" strokeWidth="8" fill="none"
-            strokeDasharray="200" strokeDashoffset="200">
-            <animate attributeName="stroke-dashoffset" from="200" to="0" dur="0.5s" begin="indefinite" />
-          </path>
+            <path id="checkmark" d="M25,50 L40,65 L75,30" stroke="#FFFFFF" strokeWidth="8" fill="none"
+                strokeDasharray="200" strokeDashoffset="200">
+                <animate attributeName="stroke-dashoffset" from="200" to="0" dur="0.5s" begin="indefinite" />
+            </path>
         </svg>
-      )
+    )
 
     const slide = {
         hidden: {
@@ -191,45 +191,45 @@ function Payment(martID) {
 
     function waitSeconds() {
         return new Promise(resolve => setTimeout(resolve, 2000));
-      }
+    }
 
     const [loading, setLoading] = useState(false)
     const [completion, setCompletion] = useState(false)
 
     async function editPayment(formdata, key) {
 
-      const response = await fetch(
+        const response = await fetch(
 
-        `../../api/edit-payment?martid=${router.query.shopid}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formdata)
-        }
-      );
-      const data = await response.json();
+            `../../api/edit-payment?martid=${router.query.shopid}`,
+            {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formdata)
+            }
+        );
+        const data = await response.json();
     }
-  
+
     async function submitChanges() {
         let newCFee = 0
         let newRFee = 0
 
-        if (cancelFee !== "" || cancelFee < 0){
+        if (cancelFee !== "" || cancelFee < 0) {
             setCancelFee(0)
             newCFee = cancelFee
         }
-        if (refundFee !== "" || refundFee < 0){
+        if (refundFee !== "" || refundFee < 0) {
             setRefundFee(0)
             newRFee = refundFee
         }
 
         const filteredDel = DelFee.filter((item) => {
             return item.name.trim() !== "" && item.cost.trim() !== "";
-          });
+        });
 
-          const filteredPick = PickFee.filter((item) => {
+        const filteredPick = PickFee.filter((item) => {
             return item.name.trim() !== "" && item.cost.trim() !== "";
-          });
+        });
 
         const nameValid = cardName.trim() !== ""
         const numValid = cardNumber.trim() !== ""
@@ -246,36 +246,36 @@ function Payment(martID) {
             currency: true,
             desc: true
         });
-        
+
         const submissionValid = nameValid && numValid && monthValid && yearValid && cvvValid
 
-        if (submissionValid){
-        setLoading(true)
-  
-        const cardInfo = {cardName: cardName, cardNumber: cardNumber, expiryMonth: expiryMonth, expiryYear: expiryYear, cvv: cvv}
-        const checkoutInfo = {message: message, currency:currency, showMap: showMap}
-        const Adds = {DelFee: filteredDel, PickFee:filteredPick}
-        const Takebacks = {allowRefunds: allowRefunds, refundDuration: refundDuration, refundCount: refundCount, refundFee: newRFee, allowCancel: allowCancel, cancelDuration: cancelDuration, cancelCount: cancelCount, cancelFee: newCFee}
+        if (submissionValid) {
+            setLoading(true)
 
-        const payload = {
-            cardInfo,
-            checkoutInfo,
-            Adds,
-            Takebacks
-        };
-  
-      editPayment(payload)
-  
-      await waitSeconds()
+            const cardInfo = { cardName: cardName, cardNumber: cardNumber, expiryMonth: expiryMonth, expiryYear: expiryYear, cvv: cvv }
+            const checkoutInfo = { message: message, currency: currency, showMap: showMap }
+            const Adds = { DelFee: filteredDel, PickFee: filteredPick }
+            const Takebacks = { allowRefunds: allowRefunds, refundDuration: refundDuration, refundCount: refundCount, refundFee: newRFee, allowCancel: allowCancel, cancelDuration: cancelDuration, cancelCount: cancelCount, cancelFee: newCFee }
 
-      setLoading(false)
-      setCompletion(true)
-  
-      router.reload()
+            const payload = {
+                cardInfo,
+                checkoutInfo,
+                Adds,
+                Takebacks
+            };
+
+            editPayment(payload)
+
+            await waitSeconds()
+
+            setLoading(false)
+            setCompletion(true)
+
+            router.reload()
+        }
     }
-    }
 
-    function resetChanges(){
+    function resetChanges() {
         setCardName(cardData.cardName)
         setCardNumber(cardData.cardNumber)
         setExpiryMonth(cardData.expiryMonth)
@@ -316,7 +316,7 @@ function Payment(martID) {
 
             <div className="pay-segment round-borderer round-borderer-extra">
                 <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
-                        <div className="heading-icon-credit svg-color">&nbsp;</div>
+                    <div className="heading-icon-credit svg-color">&nbsp;</div>
                     <h1 className="heading-secondary no-margin">Credit Card Details</h1>
                 </span>
 
@@ -411,7 +411,7 @@ function Payment(martID) {
                 </label>
 
                 <span className="page-heading flex-row-align" style={{ margin: "1rem 0" }}>
-                        <div className="heading-icon-fee svg-color">&nbsp;</div>
+                    <div className="heading-icon-fee svg-color">&nbsp;</div>
                     <h1 className="heading-secondary no-margin">Set Fees</h1>
                 </span>
                 <div className="fee-cols">
@@ -459,7 +459,7 @@ function Payment(martID) {
                     </div>
                 </div>
                 <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
-                <div className="heading-icon-refund svg-color">&nbsp;</div>
+                    <div className="heading-icon-refund svg-color">&nbsp;</div>
                     <h1 className="heading-secondary no-margin">Allow Refunds?</h1>
                     <div className="checkbox-container">
                         {allowRefunds ? <div className="checkbox-fill svg-color"></div> : <div className="checkbox-blank svg-color"></div>}
@@ -502,7 +502,7 @@ function Payment(martID) {
                 )}
 
                 <span className="page-heading flex-row-align" style={{ margin: "1rem 0" }}>
-                <div className="heading-icon-cancel svg-color">&nbsp;</div>
+                    <div className="heading-icon-cancel svg-color">&nbsp;</div>
                     <h1 className="heading-secondary no-margin" style={{ marginTop: "0rem" }}>Allow Cancellation?</h1>
                     <div className="checkbox-container">
                         {allowCancel ? <div className="checkbox-fill svg-color"></div> : <div className="checkbox-blank svg-color"></div>}
@@ -545,7 +545,7 @@ function Payment(martID) {
                 )}
 
                 <span className="page-heading flex-row-align" style={{ margin: "2rem 0" }}>
-                <div className="heading-icon-pin svg-color">&nbsp;</div>
+                    <div className="heading-icon-pin svg-color">&nbsp;</div>
                     <h1 className="heading-secondary no-margin" style={{ marginTop: "0rem" }} title="A Google Map along with directions will be at checkout so the users know where to pick up their items, etc.">Show Google Map Location at Checkout?</h1>
                     <div className="checkbox-container">
                         {showMap ? <div className="checkbox-fill svg-color"></div> : <div className="checkbox-blank svg-color"></div>}
@@ -561,8 +561,8 @@ function Payment(martID) {
 
 
             <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
-                <button className="product-action-2 heading-secondary" onClick={submitChanges} disabled={loading} style={{width:"25rem"}}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
-                <button className="product-action-3 heading-secondary white" onClick={resetChanges} disabled={loading} style={{width:"25rem"}}>Reset to Default</button>
+                <button className="product-action-2 heading-secondary" onClick={submitChanges} disabled={loading} style={{ width: "25rem" }}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
+                <button className="product-action-3 heading-secondary white" onClick={resetChanges} disabled={loading} style={{ width: "25rem" }}>Reset to Default</button>
             </div>
         </div>
     </Fragment>

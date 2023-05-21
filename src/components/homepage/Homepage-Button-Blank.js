@@ -14,9 +14,9 @@ function HomepageButtonBlank(props) {
 `
   return (
     <Fragment>
-    <Head>
-    <style> 
-    { `
+      <Head>
+        <style>
+          {`
   .bg-gradient-${props.direction} {${buttonClasses}}
 
   .${props.item}__logo {
@@ -27,8 +27,8 @@ function HomepageButtonBlank(props) {
   ) !important;
   }
   ` }
-</style>
-    </Head>
+        </style>
+      </Head>
 
       <Link
         className={`homepage-button ${props.item} bg-gradient-${props.direction} x`}

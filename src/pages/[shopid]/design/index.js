@@ -5,7 +5,7 @@ import { getServerSideProps } from '../categories';
 function DesignPage(shopID) {
   const router = useRouter();
 
-  const {shopData} = shopID
+  const { shopData } = shopID
 
   useEffect(() => {
     router.push(`/${router.query.shopid}/design/dark`);
@@ -16,4 +16,4 @@ function DesignPage(shopID) {
 
 export default DesignPage;
 
-export {getServerSideProps}
+export { getServerSideProps }

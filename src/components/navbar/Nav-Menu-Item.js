@@ -11,7 +11,7 @@ function NavMenuItem(props) {
         <div className={`menu-${props.logo} svg-color`}>&nbsp;</div>
         <h2 className="heading-secondary">{props.label}</h2>
       </button>
-      </Link>
+    </Link>
   );
 }
 

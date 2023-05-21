@@ -13,23 +13,25 @@ export default function App({ Component, pageProps }) {
   let colormode = ""
   let details = {}
 
-  if (pageProps.shopID){
-  database = pageProps.shopID.shopData.shopDesigns
-  details = pageProps.shopID.shopData.shopDetails.footerData
-  if (database.defaultMode){
-    data = database.lightDesign
-  } else {data = database.darkDesign}
+  if (pageProps.shopID) {
+    database = pageProps.shopID.shopData.shopDesigns
+    details = pageProps.shopID.shopData.shopDetails.footerData
+    if (database.defaultMode) {
+      data = database.lightDesign
+    } else { data = database.darkDesign }
 
-  if (router.asPath === `/${router.query.shopid}/design/light`){
-        data = database.lightDesign
-        colormode = true}
+    if (router.asPath === `/${router.query.shopid}/design/light`) {
+      data = database.lightDesign
+      colormode = true
+    }
 
-  if (router.asPath === `/${router.query.shopid}/design/dark`){
-    data = database.darkDesign
-    colormode = false}
-}
+    if (router.asPath === `/${router.query.shopid}/design/dark`) {
+      data = database.darkDesign
+      colormode = false
+    }
+  }
 
   return <NavbarLayout color={data} mode={colormode} contents={details}><Component {...pageProps} /></NavbarLayout>;
 }
 
-export {getServerSideProps}
+export { getServerSideProps }
