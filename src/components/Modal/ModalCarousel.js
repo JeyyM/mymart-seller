@@ -68,7 +68,6 @@ const ModalCarousel = ({ images, text, title, disable, modalStatus }) => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            style={{ height: '80%' }}
           >
             <div className="carousel-buttons">
               <button className="carousel-button prev-button add-img prev-item" onClick={handlePrevClick}>

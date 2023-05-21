@@ -232,7 +232,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     box-shadow: 0 0 0 2px ${props.color["bg-item"]}, 0 0 0 4px ${props.color["button-solid-dark"]} !important;
 }
 
-.checkbox-container:hover{
+.checkbox-container:hover {
     filter: brightness(120%) !important;
 }
 
@@ -265,7 +265,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
   filter: brightness(120%) !important;
 }
 
-.item-setup, .images-column{
+.item-setup, .images-column, .pop-up-prev, .pop-up-img{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
     box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;

@@ -314,6 +314,7 @@ function Payment(martID) {
 
         <div className="payment-grid">
 
+            <div className="payment-column">
             <div className="pay-segment round-borderer round-borderer-extra">
                 <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
                     <div className="heading-icon-credit svg-color">&nbsp;</div>
@@ -382,6 +383,13 @@ function Payment(martID) {
                 </div>
             </div>
 
+            <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
+                <button className="product-action-2 heading-secondary" onClick={submitChanges} disabled={loading} style={{ width: "25rem" }}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
+                <button className="product-action-3 heading-secondary white" onClick={resetChanges} disabled={loading} style={{ width: "25rem" }}>Reset to Default</button>
+            </div>
+            </div>
+
+            <div className="payment-column">
             <div className="pay-segment-2 round-borderer round-borderer-extra">
                 <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
                     <div className="heading-icon-dropshadow">
@@ -558,11 +566,6 @@ function Payment(martID) {
                     </div>
                 </span>
             </div>
-
-
-            <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
-                <button className="product-action-2 heading-secondary" onClick={submitChanges} disabled={loading} style={{ width: "25rem" }}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
-                <button className="product-action-3 heading-secondary white" onClick={resetChanges} disabled={loading} style={{ width: "25rem" }}>Reset to Default</button>
             </div>
         </div>
     </Fragment>
