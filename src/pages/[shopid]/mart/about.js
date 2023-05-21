@@ -1103,7 +1103,7 @@ function About({ shopID }) {
 
                         </div>
                         <button className="add-img" type="button" onClick={() => handleDeleteImg(index)}>
-                          {confirmDelete1 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
+                          {confirmDelete2 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
                         </button>
                       </motion.div>
                     )}
@@ -1429,7 +1429,7 @@ function About({ shopID }) {
         <div className="heading-icon-preview svg-color">&nbsp;</div>
       </div>
       <h1 className="heading-primary no-margin">About Page Preview</h1>
-      <div className="heading-icon-warning svg-color" title="Warning, the preview is an approximation for different screen sizes and may not be perfectly accurate depending on which screen size you are on.">&nbsp;</div>
+      {/* <div className="heading-icon-warning svg-color" title="Warning, the preview is an approximation for different screen sizes and may not be perfectly accurate depending on which screen size you are on.">&nbsp;</div> */}
     </span>
     <section className={gridClass}>
 

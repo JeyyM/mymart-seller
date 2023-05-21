@@ -106,8 +106,13 @@
   height: 100vh;
   z-index: 20;
   background-color: rgba($color-primary-dark, 0.7);
-  // display: none;
 }
+
+body.no-scroll,
+html.no-scroll {
+  overflow: hidden;
+}
+
 
 .empty-contents {
   display: flex;

@@ -57,7 +57,7 @@ export default function Footer(props) {
             <h3 className="heading-tertiary"><strong>Additional Links</strong></h3>
             {additional.length === 0 ? <h3 className="heading-tertiary">-</h3> : ""}
             {additional.map((index) => {
-                return <a key={index.label} className="heading-tertiary" href={index.link} style={{textDecoration: "none"}}>{index.label}</a>;
+                return <a key={index.label} className="heading-tertiary" href={index.link} target="_blank" rel="noopener noreferrer" style={{textDecoration: "none"}}>{index.label}</a>;
             })}
         </div>
         <div className="footer-column">

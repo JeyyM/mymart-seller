@@ -53,12 +53,18 @@ body{background-color: ${props.color["bg-body"]} !important;}
 .heading-primary {font-family: ${props.color["text-primary-font"]} !important;
     color: ${props.color["text-primary-color"]} !important;}
 
+.heading-primary-notif {font-family: ${props.color["text-primary-font"]} !important;}
+
 .heading-secondary, input[type="text"].text-full, input[type="number"].text-full, input[type="text"].invalid-form, input[type="number"].text-small, input[type="text"].text-small, input[type="number"].invalid-form-2, input[type="text"].invalid-form-2 {font-family: ${props.color["text-secondary-font"]} !important;
     color: ${props.color["text-secondary-color"]} !important;
     font-weight: 700 !important;}
 
-.heading-tertiary, .desc-text-area, .invalid-form-box {font-family: ${props.color["text-tertiary-font"]} !important;
+.heading-secondary-notif {font-family: ${props.color["text-secondary-font"]} !important;}
+
+.heading-tertiary, .desc-text-area, .invalid-form-box, .form-label {font-family: ${props.color["text-tertiary-font"]} !important;
     color: ${props.color["text-tertiary-color"]} !important;}
+
+.heading-tertiary-notif {font-family: ${props.color["text-tertiary-font"]} !important;}
 
 .empty-text {color: ${props.color["color-primary-dark"]} !important;}
 
@@ -71,7 +77,7 @@ border-image: linear-gradient(
     1 !important;}
 
 
-.homepage-button, .add-categ-init, .add-prod-init, .category, .product-image, .side-img, .varItem, .detail-slot, .detail-slot-carousel, .detail-slot-about{border-radius: ${props.color["border-tl"]} ${props.color["border-tr"]} ${props.color["border-br"]} ${props.color["border-bl"]} !important;}
+.homepage-button, .add-categ-init, .add-prod-init, .category, .product-image, .side-img, .varItem, .detail-slot, .detail-slot-carousel, .detail-slot-about, .top-notif{border-radius: ${props.color["border-tl"]} ${props.color["border-tr"]} ${props.color["border-br"]} ${props.color["border-bl"]} !important;}
 
 .homepage-button:hover.x, .category:hover {
     filter: drop-shadow(-6px 6px 0px ${props.color["color-primary-dark"]}) !important}
@@ -182,10 +188,6 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 
 ::placeholder ${placeholder}
 
-
-.form-label {font-family: ${props.color["text-tertiary-font"]} !important;
-    color: ${props.color["text-tertiary-color"]} !important;}
-
 .invalid-form, .invalid-form-box, .invalid-form-2{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, red, darkred ) !important;
@@ -286,8 +288,6 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     ` }
                 </style>
             </Head>
-{/* {router.asPath !== `/${id}/mart/images` &&
-<NavbarItems shopid={router.query.shopid} colormode={colormode} />} */}
 
             <NavbarItems shopid={router.query.shopid} colormode={colormode} />
             <div>{props.children}</div>
