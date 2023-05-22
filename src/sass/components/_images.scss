@@ -31,6 +31,11 @@
   margin-left: 1rem;
 }
 
+.heading-icon-banner {
+  @include heading-logo(banner, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
 .heading-icon-play {
   @include heading-logo(play, 3rem, 3rem);
 }

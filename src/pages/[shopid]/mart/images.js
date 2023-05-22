@@ -33,30 +33,20 @@ function Images(martID) {
         },
     };
 
+    const imageInfo = martID.shopID.shopData.shopDetails.imageData
+
     const id = martID.shopID._id;
-    const [favicon, setFavicon] = useState("https://i.imgur.com/qlmYdJO.jpeg");
+    const [favicon, setFavicon] = useState(imageInfo.icons.icon);
     const handleFaviconChange = (event) => {
         setFavicon(event.target.value);
     };
 
-    const [logo, setLogo] = useState("https://i.imgur.com/qlmYdJO.jpeg");
+    const [logo, setLogo] = useState(imageInfo.icons.logo);
     const handleLogoChange = (event) => {
         setLogo(event.target.value);
     };
 
-    const NotifItems = [
-        {
-            type: "heading-tertiary-notif",
-            textcol: "#000000",
-            col1: "#ffffff",
-            col2: "#b5b5b5",
-            content: "Item [link]",
-            link: "",
-            active: true,
-        },
-    ];
-
-    const [Notifs, setNotifs] = useState(NotifItems);
+    const [Notifs, setNotifs] = useState(imageInfo.notifications);
     function handleAddNotifs() {
         const newNotifs = [
             ...Notifs,
@@ -154,9 +144,9 @@ function Images(martID) {
     }
 
     const [confirmDelete1, setConfirmDelete1] = useState(null);
+    const [confirmDelete2, setConfirmDelete2] = useState(null);
 
     function handleDeleteNotif(index) {
-        console.log(index)
         if (confirmDelete1 === index) {
             let newNotifs = Notifs.filter((item, i) => i !== index);
             setNotifs(newNotifs);
@@ -171,26 +161,26 @@ function Images(martID) {
 
     const [activeNotifs, setActiveNotifs] = useState([]);
     function handleActive() {
-        setActiveNotifs(Notifs)
+        const activeNotifs = Notifs.filter((notif) => notif.active);
+        setActiveNotifs(activeNotifs);
     }
+
     function handleDeleteActive(index) {
         let newNotifs = activeNotifs.filter((item, i) => i !== index);
         setActiveNotifs(newNotifs);
-        console.log(newNotifs)
-        console.log(index)
     }
 
-    const [PopupStatus, setPopupStatus] = useState(true)
+    const [PopupStatus, setPopupStatus] = useState(imageInfo.popups.active)
     function handlePopupStatus() {
         setPopupStatus(!PopupStatus)
     }
 
-    const [Popup, setPopup] = useState("https://i.imgur.com/qlmYdJO.jpeg");
+    const [Popup, setPopup] = useState(imageInfo.popups.image);
     const handlePopupChange = (event) => {
         setPopup(event.target.value);
     };
 
-    const [PopupLink, setPopupLink] = useState("https://www.youtube.com/");
+    const [PopupLink, setPopupLink] = useState(imageInfo.popups.link);
     const handlePopupLinkChange = (event) => {
         setPopupLink(event.target.value);
     };
@@ -200,8 +190,71 @@ function Images(martID) {
         setStartPop(!startPop)
     }
 
-    const bannerImages = ["https://i.imgur.com/7CD6jAa.png", "https://i.imgur.com/dHZ5VQx.png", "https://i.imgur.com/v6ktiiJ.jpeg", "https://i.imgur.com/dHZ5VQx.png", "https://i.imgur.com/qlmYdJO.jpeg", "https://i.imgur.com/qlmYdJO.jpeg"]
+    const bannerItemsSample = [{ image: "https://i.imgur.com/7CD6jAa.png", link: "https://www.youtube.com/", active: true }, { image: "https://i.imgur.com/dHZ5VQx.png", link: "https://www.youtube.com/", active: true }, { image: "https://i.imgur.com/v6ktiiJ.jpeg", link: "https://www.youtube.com/", active: true }, { image: "https://i.imgur.com/dHZ5VQx.png", link: "https://www.youtube.com/", active: true }, { image: "https://i.imgur.com/qlmYdJO.jpeg", link: "https://www.youtube.com/", active: true }, { image: "https://i.imgur.com/qlmYdJO.jpeg", link: "https://www.youtube.com/", active: true }]
+    const [bannerItems, setBannerItems] = useState(imageInfo.banners)
 
+    function handleBannerImage(event, index) {
+        const newBanners = [...bannerItems];
+        newBanners[index].image = event.target.value;
+        setBannerItems(newBanners);
+    }
+
+    function handleBannerLink(event, index) {
+        const newBanners = [...bannerItems];
+        newBanners[index].link = event.target.value;
+        setBannerItems(newBanners);
+    }
+
+    function handleAddBanner() {
+        const newBanners = [
+            ...bannerItems,
+            {
+                image: "",
+                link: "",
+                active: true,
+            },
+        ];
+        setBannerItems(newBanners);
+    }
+
+    function handleBannerToggle(index) {
+        const newBanners = [...bannerItems];
+        newBanners[index].active = !newBanners[index].active;
+        setBannerItems(newBanners);
+    }
+
+    function handleDeleteBanner(index) {
+        if (confirmDelete2 === index) {
+            let newBanners = bannerItems.filter((item, i) => i !== index);
+            setBannerItems(newBanners);
+            setConfirmDelete2(null);
+        } else {
+            setConfirmDelete2(index);
+            setTimeout(() => {
+                setConfirmDelete2(null);
+            }, 2000);
+        }
+    }
+
+    function waitSeconds() {
+        return new Promise(resolve => setTimeout(resolve, 2000));
+      }
+
+    async function submitChanges(data){
+        const response = await fetch(
+            `../../api/set-images?martid=${router.query.shopid}`,
+            {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data)
+            }
+          );
+          const result = await response.json();
+
+          await waitSeconds()
+
+          router.reload()
+    }
 
     return (
         <Fragment>
@@ -224,7 +277,11 @@ function Images(martID) {
                     className="heading-tertiary add-categ-init"
                     style={{ width: "max-content" }}
                     onClick={() => {
-                        console.log(Notifs);
+                        const popupData = {active: PopupStatus, image: Popup, link: PopupLink}
+                        const iconInfo = {icon: favicon, logo: logo}
+
+                        const payload = {icons: iconInfo, notifications: Notifs, popups: popupData, banners: bannerItems}
+                        submitChanges(payload)
                     }}
                 >
                     <div className="heading-icon-check svg-color">&nbsp;</div>
@@ -283,10 +340,10 @@ function Images(martID) {
                                     checked={PopupStatus}
                                     onChange={() => handlePopupStatus()}
                                     type="checkbox"
-                                    id="switch"
+                                    id="pop"
                                     className="toggle-switch"
                                 />
-                                <label htmlFor="switch" className="toggle-label">
+                                <label htmlFor={`pop`} className="toggle-label">
                                     Toggle
                                 </label>
                             </div>
@@ -343,7 +400,7 @@ function Images(martID) {
                         </div>
 
                         <div className="pop-up-container">
-                                   <img src={Popup} className="pop-up-prev"></img>
+                            <img src={Popup} className="pop-up-prev"></img>
                         </div>
 
                     </div>
@@ -517,10 +574,10 @@ function Images(martID) {
                                                             checked={item.active}
                                                             onChange={() => handleToggle(index)}
                                                             type="checkbox"
-                                                            id="switch"
+                                                            id={`notif${index}`}
                                                             className="toggle-switch"
                                                         />
-                                                        <label htmlFor="switch" className="toggle-label">
+                                                        <label htmlFor={`notif${index}`} className="toggle-label">
                                                             Toggle
                                                         </label>
                                                     </div>
@@ -594,7 +651,116 @@ function Images(martID) {
                     ))}
                 </AnimatePresence>
             </div>
-                <BannerCarousel images={bannerImages}></BannerCarousel>
+            <span className="page-heading flex-row-align" style={{marginBottom:"1rem"}}>
+                <div className="heading-icon-dropshadow">
+                    <div className="heading-icon-banner svg-color">&nbsp;</div>
+                </div>
+                <h1 className="heading-secondary no-margin">Create Banners</h1>
+                <button className="add-img" type="button" onClick={handleAddBanner}>
+                    <div className="heading-icon-plus-marginless svg-color">
+                        &nbsp;
+                    </div>
+                </button>
+            </span>
+            <BannerCarousel data={bannerItems}></BannerCarousel>
+            <AnimatePresence>
+                {bannerItems.map((item, index) => (
+                    <div className="detail-row-about" key={index} style={{ width: "95%", margin: "1rem auto" }}>
+                        <motion.div
+                            className="detail-row-about"
+                            key={index}
+                            variants={slide}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                        >
+                            <div
+                                className="flex-col set-container"
+                                style={{ gap: "1rem", marginBottom: "1rem" }}
+                            >
+                                <div className="flex-row">
+                                    <div className="flex-col">
+                                        <label
+                                            className="heading-tertiary"
+                                            style={{ marginBottom: "1rem" }}
+                                        >
+                                            Banner Image: &nbsp;
+                                        </label>
+                                        <div className="flex-row-align">
+                                            <input
+                                                type="text"
+                                                placeholder="Content"
+                                                className="text-small input-number"
+                                                autoComplete="off"
+                                                style={{ width: "100%", margin: "0" }}
+                                                value={item.image}
+                                                onChange={(event) => handleBannerImage(event, index)}
+                                            ></input>
+                                        </div>
+                                    </div>
+                                    <div className="flex-col">
+                                        <label
+                                            className="heading-tertiary"
+                                            style={{ marginBottom: "1rem" }}
+                                        >
+                                            Banner Link: &nbsp;
+                                        </label>
+                                        <div className="flex-row-align">
+                                            <input
+                                                type="text"
+                                                placeholder="Content"
+                                                className="text-small input-number"
+                                                autoComplete="off"
+                                                style={{ width: "100%", margin: "0" }}
+                                                value={item.link}
+                                                onChange={(event) => handleBannerLink(event, index)}
+                                            ></input>
+                                        </div>
+                                    </div>
+                                    <div className="flex-col">
+                                        <label
+                                            className="heading-tertiary"
+                                            style={{ marginBottom: "1rem" }}
+                                        >
+                                            Toggle Banner: &nbsp;
+                                        </label>
+                                        <div className="flex-row-align">
+                                            <input
+                                                checked={item.active}
+                                                onChange={() => handleBannerToggle(index)}
+                                                type="checkbox"
+                                                id={`banner ${index}`}
+                                                className="toggle-switch"
+                                            />
+                                            <label htmlFor={`banner ${index}`} className="toggle-label">
+                                                Toggle
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button
+                                className="add-img"
+                                type="button"
+                                onClick={() => handleDeleteBanner(index)}
+                            >
+                                {confirmDelete1 === index ? (
+                                    <div className="heading-icon-check-marginless svg-color">
+                                        &nbsp;
+                                    </div>
+                                ) : (
+                                    <div className="heading-icon-minus-marginless svg-color">
+                                        &nbsp;
+                                    </div>
+                                )}
+                            </button>
+
+                        </motion.div>
+                    </div>
+                ))}
+            </AnimatePresence>
+
         </Fragment>
     );
 }

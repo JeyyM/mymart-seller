@@ -22,6 +22,7 @@ import tinycolor from 'tinycolor2';
 function Designing({ shopID }) {
   const router = useRouter()
   const designs = shopID.shopData.shopDesigns
+  const favicon = shopID.shopData.shopDetails.imageData.icons.icon
 
   const [loading, setLoading] = useState(false)
   const [completion, setCompletion] = useState(false)
@@ -517,6 +518,7 @@ function Designing({ shopID }) {
       <style>
         {`::placeholder {color: ${activeMode["bg-item"]}; opacity: 0.8; filter: brightness(50%)};`}
       </style>
+      <link rel="icon" type="image/jpeg" href={favicon} />
     </Head>
 
 

@@ -12,7 +12,7 @@ function ProductPage({ shopID }) {
   const router = useRouter()
 
   const shopCurrency = shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
-
+  const favicon = shopID.shopData.shopDetails.imageData.icons.icon
 
   function waitSeconds() {
     return new Promise(resolve => setTimeout(resolve, 2500));
@@ -464,6 +464,7 @@ function ProductPage({ shopID }) {
   return <Fragment>
     <Head>
       <title>{varArray[0][`var${1}`].productName}</title>
+      <link rel="icon" type="image/jpeg" href={favicon} />
     </Head>
     <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
     <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation} currency={shopCurrency}></AddVariation>

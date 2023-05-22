@@ -12,8 +12,10 @@ export default function App({ Component, pageProps }) {
   let database = {}
   let colormode = ""
   let details = {}
+  let iconInfo = {}
 
   if (pageProps.shopID) {
+    iconInfo = pageProps.shopID.shopData.shopDetails.imageData.icons
     database = pageProps.shopID.shopData.shopDesigns
     details = pageProps.shopID.shopData.shopDetails.footerData
     if (database.defaultMode) {
@@ -31,7 +33,7 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-  return <NavbarLayout color={data} mode={colormode} contents={details}><Component {...pageProps} /></NavbarLayout>;
+  return <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo}><Component {...pageProps} /></NavbarLayout>;
 }
 
 export { getServerSideProps }

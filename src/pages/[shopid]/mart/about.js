@@ -10,6 +10,7 @@ import ModalCarousel from "../../../components/Modal/ModalCarousel";
 function About({ shopID }) {
   const startingInfo = shopID.shopData.shopDetails.aboutData
   const rowInfo = shopID.shopData.shopDetails.aboutData.rows
+  const favicon = shopID.shopData.shopDetails.imageData.icons.icon
 
   const router = useRouter()
   const slide = {
@@ -552,6 +553,7 @@ function About({ shopID }) {
   return <Fragment>
     <Head>
       <title>Create About Page</title>
+      <link rel="icon" type="image/jpeg" href={favicon} />
     </Head>
     <span className="page-heading">
       <div className="heading-icon-dropshadow">
@@ -595,7 +597,9 @@ function About({ shopID }) {
 
         </div>
         <span className="page-heading" style={{ margin: "1rem" }}>
-          <div className="heading-icon-typography svg-color">&nbsp;</div>
+        <div className="heading-icon-dropshadow">
+            <div className="heading-icon-typography svg-color">&nbsp;</div>
+          </div>
           <h1 className="heading-secondary no-margin" title="Fees that customers will pay if they choose for their items to be delivered.">&nbsp;Text Items &nbsp;</h1>
           <button className="add-img" type="button" onClick={handleAddTextArray} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
         </span>
@@ -860,7 +864,9 @@ function About({ shopID }) {
 
         <div className="flex-col">
           <span className="page-heading" style={{ margin: "1rem 0" }}>
+          <div className="heading-icon-dropshadow">
             <div className="heading-icon-add-img svg-color">&nbsp;</div>
+          </div>
             <h1 className="heading-secondary no-margin">&nbsp;Image Items &nbsp;</h1>
             <button className="add-img" type="button" onClick={handleAddImgArray} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
           </span>
@@ -1115,7 +1121,9 @@ function About({ shopID }) {
 
 
           <span className="page-heading" style={{ margin: "1rem 0" }}>
+          <div className="heading-icon-dropshadow">
             <div className="heading-icon-cube svg-color">&nbsp;</div>
+          </div>
             <h1 className="heading-secondary no-margin">&nbsp;Container Items &nbsp;</h1>
             <button className="add-img" type="button" onClick={handleAddContArray} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
           </span>

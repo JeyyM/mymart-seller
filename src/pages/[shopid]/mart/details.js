@@ -17,6 +17,7 @@ const libraries = ['places'];
 
 export default function Details(martID) {
   const footerItems = martID.shopID.shopData.shopDetails.footerData
+  const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
 
   const router = useRouter()
 
@@ -332,6 +333,7 @@ export default function Details(martID) {
   return <Fragment>
     <Head>
       <title>Contact Details & Footer</title>
+      <link rel="icon" type="image/jpeg" href={favicon} />
     </Head>
 
     <span className="page-heading">
@@ -526,7 +528,9 @@ export default function Details(martID) {
       </div>
 
       <span className="page-heading">
-        <div className="heading-icon-preview svg-color">&nbsp;</div>
+      <div className="heading-icon-dropshadow">
+            <div className="heading-icon-preview svg-color">&nbsp;</div>
+          </div>
         <h1 className="heading-secondary no-margin">Footer Preview&nbsp;</h1>
       </span>
 

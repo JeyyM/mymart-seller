@@ -7,7 +7,7 @@ function NavLogo(props) {
     const router = useRouter()
 
     return <Link href={`/${router.query.shopid}`}>
-        <Image src={mainlogo} alt="company logo" className="company-logo-med"></Image>
+        <img src={props.navicon} alt="company logo" className="company-logo-med"></img>
     </Link>
 }
 

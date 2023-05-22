@@ -12,6 +12,8 @@ function ProductsPage({ shopID }) {
 
   const { shopData } = shopID;
 
+  const favicon = shopData.shopDetails.imageData.icons.icon
+
   const shopCurrency = shopData.shopDetails.paymentData.checkoutInfo.currency
 
   const contents = shopData.shopCategories;
@@ -82,7 +84,9 @@ function ProductsPage({ shopID }) {
     return <Fragment>
       <Head>
         <title>{queryCategoryName}</title>
+        <link rel="icon" type="image/jpeg" href={favicon} />
       </Head>
+
       <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} categKey={chosenKey} length={products.length} names={upperProductNames} currency={shopCurrency}></AddProduct>
       <span className="page-heading">
         <h1 className="heading-primary">{router.query.categoryname}</h1>
@@ -103,6 +107,7 @@ function ProductsPage({ shopID }) {
     return <Fragment>
       <Head>
         <title>{queryCategoryName}</title>
+        <link rel="icon" type="image/jpeg" href={favicon} />
       </Head>
       <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} categKey={chosenKey} length={products.length}></AddProduct>
       <span className="page-heading">

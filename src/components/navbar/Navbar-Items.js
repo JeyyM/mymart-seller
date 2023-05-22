@@ -57,7 +57,7 @@ function NavbarItems(props) {
 
     <header className={`navbar ${isNavbarVisible ? 'nav-visible' : 'nav-hidden'}`}>
       <NavButton menuHandler={showMenuToggler} status={menuIsOn}></NavButton>
-      <NavLogo></NavLogo>
+      <NavLogo navicon={props.navicon}></NavLogo>
       <div className="navcontainer">
         <NavItem svg={<Category className="menu-category svg-color"></Category>} title={"Add and edit categories, products, and variations"} link={"categories"} label="Categories & Products" ></NavItem>
         <NavItem svg={<Insights className="menu-insights svg-color"></Insights>} link={"analytics"} label="My Analytics"></NavItem>

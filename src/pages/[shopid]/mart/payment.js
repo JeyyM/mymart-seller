@@ -12,6 +12,7 @@ function Payment(martID) {
     const router = useRouter()
 
     const paymentDetails = martID.shopID.shopData.shopDetails.paymentData
+    const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
     const cardData = paymentDetails.cardInfo
     const checkoutData = paymentDetails.checkoutInfo
     const addsData = paymentDetails.Adds
@@ -303,6 +304,7 @@ function Payment(martID) {
     return <Fragment>
         <Head>
             <title>Payment Details</title>
+            <link rel="icon" type="image/jpeg" href={favicon} />
         </Head>
 
         <span className="page-heading">
@@ -392,9 +394,7 @@ function Payment(martID) {
             <div className="payment-column">
             <div className="pay-segment-2 round-borderer round-borderer-extra">
                 <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
-                    <div className="heading-icon-dropshadow">
                         <div className="heading-icon-payment svg-color">&nbsp;</div>
-                    </div>
                     <h1 className="heading-secondary no-margin">Payments and Fees</h1>
                 </span>
 

@@ -11,6 +11,8 @@ function CategoryPage({ shopID }) {
   const { shopData } = shopID;
   const contents = shopData.shopCategories;
 
+  const favicon = shopData.shopDetails.imageData.icons.icon
+
   const result = Object.keys(contents).map((key, index) => {
     return {
       key: key,
@@ -87,6 +89,7 @@ function CategoryPage({ shopID }) {
       <Fragment>
         <Head>
           <title>Categories</title>
+          <link rel="icon" type="image/jpeg" href={favicon} />
         </Head>
         <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={upperCategNames}></AddCategory>
         <span className="page-heading">
