@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import PopModal from "@/components/Mart/PopModal";
+import BannerCarousel from "@/components/Mart/BannerCarousel";
 
 function Images(martID) {
     const router = useRouter();
@@ -198,6 +199,8 @@ function Images(martID) {
     const handleStart = () => {
         setStartPop(!startPop)
     }
+
+    const bannerImages = ["https://i.imgur.com/7CD6jAa.png", "https://i.imgur.com/dHZ5VQx.png", "https://i.imgur.com/v6ktiiJ.jpeg", "https://i.imgur.com/dHZ5VQx.png",]
 
 
     return (
@@ -591,6 +594,7 @@ function Images(martID) {
                     ))}
                 </AnimatePresence>
             </div>
+                <BannerCarousel images={bannerImages}></BannerCarousel>
         </Fragment>
     );
 }

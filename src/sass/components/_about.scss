@@ -222,4 +222,20 @@
     transform: translateY(-50%) translateX((50%));
     z-index: 5;
   }
+
+  .prev-item-2{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX((100%));
+    z-index: 5;
+  }
+
+  .next-item-2{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX((-100%));
+    z-index: 5;
+  }
   

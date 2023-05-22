@@ -100,3 +100,31 @@
   object-fit: cover;
   object-position: center;
 }
+
+.banner-carousel{
+  height: 40vh;
+  width: 100%;
+  background-color: red;
+}
+
+.banner-item {
+  height: 40vh;
+  width: 33vw;
+  object-fit: cover;
+  object-position: center;
+  margin: 0 auto;
+  transition: transform 0.2s, opacity 0.2s; /* Add transition properties */
+  opacity: 0.8; /* Adjust the opacity for adjacent slides */
+}
+
+.active-slide {
+  transform: scale(1);
+  z-index: 2;
+  opacity: 1; /* Adjust the opacity for the active slide */
+}
+
+.adjacent-slide {
+  transform: scale(0.8);
+  z-index: 1;
+  opacity: 0.8; /* Adjust the opacity for adjacent slides */
+}
