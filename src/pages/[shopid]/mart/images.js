@@ -200,7 +200,7 @@ function Images(martID) {
         setStartPop(!startPop)
     }
 
-    const bannerImages = ["https://i.imgur.com/7CD6jAa.png", "https://i.imgur.com/dHZ5VQx.png", "https://i.imgur.com/v6ktiiJ.jpeg", "https://i.imgur.com/dHZ5VQx.png",]
+    const bannerImages = ["https://i.imgur.com/7CD6jAa.png", "https://i.imgur.com/dHZ5VQx.png", "https://i.imgur.com/v6ktiiJ.jpeg", "https://i.imgur.com/dHZ5VQx.png", "https://i.imgur.com/qlmYdJO.jpeg", "https://i.imgur.com/qlmYdJO.jpeg"]
 
 
     return (

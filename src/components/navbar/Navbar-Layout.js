@@ -281,6 +281,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
   .slick-dots li.slick-active button:before, .slick-dots li button:before {
     opacity: 1;
     color: ${props.color["color-primary-light"]} !important;
+    transform: scale(2) translateY(-2rem);
 }
 
 

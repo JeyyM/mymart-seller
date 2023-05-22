@@ -104,27 +104,27 @@
 .banner-carousel{
   height: 40vh;
   width: 100%;
-  background-color: red;
+  margin: 0 auto;
+  margin-bottom: 2rem;
+  transition: all 0.2s;
 }
 
-.banner-item {
+.banner-item{
   height: 40vh;
-  width: 33vw;
+  width: 50rem;
   object-fit: cover;
   object-position: center;
   margin: 0 auto;
-  transition: transform 0.2s, opacity 0.2s; /* Add transition properties */
-  opacity: 0.8; /* Adjust the opacity for adjacent slides */
-}
-
-.active-slide {
-  transform: scale(1);
-  z-index: 2;
-  opacity: 1; /* Adjust the opacity for the active slide */
-}
-
-.adjacent-slide {
-  transform: scale(0.8);
+  position: relative;
   z-index: 1;
-  opacity: 0.8; /* Adjust the opacity for adjacent slides */
+  transform: scale(0.8);
+  transition: all 0.2s;
+  filter: brightness(50%);
+}
+
+.banner-item.active{
+  transform: scale(1);
+  width: 50rem;
+  filter: brightness(100%);
+  z-index: 3;
 }
