@@ -464,6 +464,7 @@ function ProductPage({ shopID }) {
   }
 
   return <Fragment>
+  
     <Head>
       <title>{varArray[0][`var${1}`].productName}</title>
       <link rel="icon" type="image/jpeg" href={favicon} />
