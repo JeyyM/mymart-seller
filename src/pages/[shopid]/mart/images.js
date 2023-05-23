@@ -190,7 +190,6 @@ function Images(martID) {
         setStartPop(!startPop)
     }
 
-    const bannerItemsSample = [{ image: "https://i.imgur.com/7CD6jAa.png", link: "https://www.youtube.com/", active: true }, { image: "https://i.imgur.com/dHZ5VQx.png", link: "https://www.youtube.com/", active: true }, { image: "https://i.imgur.com/v6ktiiJ.jpeg", link: "https://www.youtube.com/", active: true }, { image: "https://i.imgur.com/dHZ5VQx.png", link: "https://www.youtube.com/", active: true }, { image: "https://i.imgur.com/qlmYdJO.jpeg", link: "https://www.youtube.com/", active: true }, { image: "https://i.imgur.com/qlmYdJO.jpeg", link: "https://www.youtube.com/", active: true }]
     const [bannerItems, setBannerItems] = useState(imageInfo.banners)
 
     function handleBannerImage(event, index) {

@@ -4,7 +4,7 @@ import { Fragment } from "react";
 import { useRouter } from "next/router";
 
 
-function AddProduct(props) {
+function PopModal(props) {
     const router = useRouter();
 
     const appear = {
@@ -86,4 +86,4 @@ function AddProduct(props) {
     );
 }
 
-export default AddProduct;
+export default PopModal;
