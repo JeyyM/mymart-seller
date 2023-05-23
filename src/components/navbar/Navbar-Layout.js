@@ -176,6 +176,13 @@ border-image: linear-gradient(
     filter: brightness(120%) !important
     }
 
+.invalid-form, .invalid-form-2, .invalid-form-box{
+    background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
+    linear-gradient(to right, red, darkred) !important;
+    filter: brightness(120%) !important
+    }
+
+
 .text-options {background-image: linear-gradient(white, white),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
     filter: brightness(120%) !important

@@ -424,7 +424,9 @@ function ProductPage({ shopID }) {
     }
   }
 
-  const tags = varKeysList[0][0][0]
+  const tagKey = Object.keys(categoryContents3)
+  const workingKey = tagKey[0]
+  const tags = categoryContents3[workingKey].productTags
 
   const [tagsValue, setTagsValue] = useState(tags);
   const handleTagsChange = (event) => {
@@ -466,7 +468,7 @@ function ProductPage({ shopID }) {
       <title>{varArray[0][`var${1}`].productName}</title>
       <link rel="icon" type="image/jpeg" href={favicon} />
     </Head>
-    <ProdImg disable={handleShowImg} msg="hello there" modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
+    <ProdImg disable={handleShowImg} modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
     <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation} currency={shopCurrency}></AddVariation>
     <Confirmer2 modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${varArray[varState][`var${varNum}`].productName}?`} load={() => { setLoading(true) }} default={varNum} finish={delVariation} names={upcoming} routing={routerData} productFix={productFixer}></Confirmer2>
     <AddTags modalStatus={tagStatus} disable={handleTags} list={tagsValue} submit={submitTags}></AddTags>

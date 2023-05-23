@@ -15,13 +15,12 @@ async function handler(req, res) {
 
     item._id = item._id.toString();
 
-
     const result = await db.collection("shops").updateOne(
       { _id: id },
       {
         $set: {
           [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.var1`]: data,
-          [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.productTags`]: []
+          [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.productTags`]: data.productName
         }
       },
       (err, result) => {

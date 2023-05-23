@@ -10,6 +10,7 @@ function HomePage({ shopID }){
     const router = useRouter();
     const { shopid } = router.query;
     const shopData = shopID.shopData;
+    const favicon = shopID.shopData.shopDetails.imageData.icons.icon
 
 
     let mode = ""
@@ -28,6 +29,8 @@ function HomePage({ shopID }){
     return <Fragment>
 <Head>
   <title>Dashboard</title>
+  <link rel="icon" type="image/jpeg" href={favicon} />
+
 </Head>
         <h1 className="heading-primary">Dashboard</h1>
         <main className="maincontainer">

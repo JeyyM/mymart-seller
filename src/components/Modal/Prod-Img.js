@@ -151,6 +151,10 @@ function ProdImg(props) {
         setNewLength(props.imgnumber);
         resetLines(props.imgnumber)
         setFormInputValidity({ img: true })
+        setImgValue1(props.imgs[0])
+        setImgValue2(props.imgs[1])
+        setImgValue3(props.imgs[2])
+        setImgValue4(props.imgs[3])
     }
 
     return (
@@ -191,7 +195,7 @@ function ProdImg(props) {
                                             autoComplete="off"
                                         ></input>
 
-                                        {formInputValidity.img ? <label className="form-label">Product Image 1 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
+                                        {formInputValidity.img ? <label className="form-label">Product Image 1 (Imgur Links Only)</label> : <label className="form-label inv" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
                                     </div>}
 
                                     {newLength >= 2 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
@@ -205,7 +209,7 @@ function ProdImg(props) {
                                             id="image2"
                                             autoComplete="off"
                                         ></input>
-                                        {formInputValidity.img ? <label className="form-label">Product Image 2 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
+                                        {formInputValidity.img ? <label className="form-label">Product Image 2 (Imgur Links Only)</label> : <label className="form-label inv" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
                                     </motion.div>}
 
                                     {newLength >= 3 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
@@ -218,7 +222,7 @@ function ProdImg(props) {
                                             id="image3"
                                             autoComplete="off"
                                         ></input>
-                                        {formInputValidity.img ? <label className="form-label">Product Image 3 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
+                                        {formInputValidity.img ? <label className="form-label">Product Image 3 (Imgur Links Only)</label> : <label className="form-label inv" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
                                     </motion.div>}
 
                                     {newLength >= 4 && <motion.div className="form-group" variants={slide} initial="hidden" animate="visible">
@@ -231,7 +235,7 @@ function ProdImg(props) {
                                             id="image4"
                                             autoComplete="off"
                                         ></input>
-                                        {formInputValidity.img ? <label className="form-label">Product Image 4 (Imgur Links Only)</label> : <label className="form-label" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
+                                        {formInputValidity.img ? <label className="form-label">Product Image 4 (Imgur Links Only)</label> : <label className="form-label inv" style={{ color: "red" }}>Enter at least 1 valid Imgur link</label>}
                                     </motion.div>}
                                 </div>
 
