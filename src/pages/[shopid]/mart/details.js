@@ -341,7 +341,7 @@ export default function Details(martID) {
         <div className="heading-icon-pin svg-color">&nbsp;</div>
       </div>
       <h1 className="heading-primary no-margin">Contact Details and Footer&nbsp;</h1>
-      <button className="heading-tertiary add-categ-init" style={{ width: "max-content" }} onClick={submitChanges}>
+      <button className="heading-tertiary add-categ-init" style={{ width: "max-content" }} onClick={submitChanges} disabled={loading}>
         <div className="heading-icon-check svg-color">&nbsp;</div>{loading ? "Submitting..." : "Submit Changes"} &nbsp;</button>
     </span>
     <section className="contact-container">

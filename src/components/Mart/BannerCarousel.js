@@ -92,42 +92,46 @@ const BannerCarousel = ({ data }) => {
     }
 
     return (
-        <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
-            <motion.div
+        <div>
+          {filteredData.length > 0 && (
+            <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
+              <motion.div
                 onClick={(e) => e.stopPropagation()}
                 variants={appear}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
                 className="banner-carousel"
-            >
-                {filteredData.length >= 4 && (<div className="carousel-buttons">
+              >
+                {filteredData.length >= 4 && (
+                  <div className="carousel-buttons">
                     <button className="carousel-button prev-button add-img prev-item-2" onClick={handlePrevClick}>
-                        <div
-                            className="heading-icon-chevron svg-color"
-                            style={{ transform: 'rotate(90deg)', marginRight: '10rem' }}
-                        ></div>
+                      <div className="heading-icon-chevron svg-color" style={{ transform: 'rotate(90deg)', marginRight: '10rem' }}></div>
                     </button>
                     <button className="carousel-button next-button add-img next-item-2" onClick={handleNextClick}>
-                        <div className="heading-icon-chevron svg-color" style={{ transform: 'rotate(270deg)' }}></div>
+                      <div className="heading-icon-chevron svg-color" style={{ transform: 'rotate(270deg)' }}></div>
                     </button>
-                </div>)}
-
+                  </div>
+                )}
+      
                 <Slider ref={sliderRef} {...settings} className="center">
-                    {filteredData.map((item, index) => (
-                        <div key={index}>
-                            <img
-                                onClick={() => handleLinkClick(index, item.link)}
-                                src={item.image}
-                                alt={`Image ${index}`}
-                                className={`round-borderer banner-item ${activeSlide === index ? 'active' : bannerClass}`}
-                            />
-                        </div>
-                    ))}
+                  {filteredData.map((item, index) => (
+                    <div key={index}>
+                      <img
+                        onClick={() => handleLinkClick(index, item.link)}
+                        src={item.image}
+                        alt={`Image ${index}`}
+                        className={`round-borderer banner-item ${activeSlide === index ? 'active' : bannerClass}`}
+                      />
+                    </div>
+                  ))}
                 </Slider>
-            </motion.div>
-        </AnimatePresence>
-    );
+              </motion.div>
+            </AnimatePresence>
+          )}
+        </div>
+      );
+      
 };
 
 export default BannerCarousel;
