@@ -207,12 +207,13 @@ function AddProduct(props) {
       productPrice: priceValue,
       productStock: { stockAmount: stockAmount, stockUnit: stockUnit },
       productImages: givenImages.map((imageObject) => imageObject.image),
+      active: true,
     }
 
     if (submissionValid) {
       setLoading(true)
 
-      props.finish(incomingData, props.categKey, props.length)
+      props.finish(incomingData)
 
       await waitSeconds();
       emptyContents(event)

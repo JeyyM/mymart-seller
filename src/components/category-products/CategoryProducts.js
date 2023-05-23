@@ -4,17 +4,19 @@ import Image from "next/image";
 
 function CategoryProducts(props) {
 
-    const { productDescription, productName, productPrice, productStock, productImages } = props.items
+    const { productDescription, productName, productPrice, productStock, productImages } = props.items[0]
+    const id = props.id
     const MotionLink = motion(Link);
 
-    return <MotionLink className="category" href={{ pathname: `/${props.id}/categories/${props.categName}/${productName}`, query: { shopid: props.id }, }}
+
+    return <MotionLink className="category" href={{ pathname: `/${props.id}/categories/${props.categName}/${productName}` }}
         key={props.index}
         initial={!props.state ? { opacity: 0, x: -100 } : false}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.2 }}>
 
         <div className="image-container">
-            <Image src={productImages[0]} className="category-img" layout="fill" unoptimized={false} alt={productName} priority={true}></Image>
+            <img src={productImages[0]} className="category-img" alt={productName}></img>
         </div>
 
         {/* <img src={productImages[0]} className="category-img"></img> */}

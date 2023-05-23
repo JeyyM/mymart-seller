@@ -3,6 +3,7 @@ import { MongoClient, ObjectId } from "mongodb"
 async function handler(req, res) {
   if (req.method === "POST") {
     const data = req.body
+    const payload = {variations: [data], productTags: data.productName}
 
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
@@ -18,10 +19,12 @@ async function handler(req, res) {
     const result = await db.collection("shops").updateOne(
       { _id: id },
       {
-        $set: {
-          [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.var1`]: data,
-          [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.productTags`]: data.productName
-        }
+        $push: {
+          [`shopData.shopCategories.${req.query.categorykey}.categoryProducts`]: payload
+        },
+        // $set: {
+        //   [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.1.productTags`]: data.productName
+        // }
       },
       (err, result) => {
         if (err) {
