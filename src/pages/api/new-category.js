@@ -16,11 +16,9 @@ async function handler(req, res) {
 
     item._id = item._id.toString();
 
-    const categoryAmount = Object.keys(item.shopData.shopCategories).length
-
     const result = await db.collection("shops").updateOne(
       { _id: id },
-      { $set: { [`shopData.shopCategories.category${categoryAmount + 1}`]: data } },
+      { $push: { [`shopData.shopCategories`]: data } },
       (err, result) => {
         if (err) {
           console.log(err);
@@ -38,7 +36,7 @@ async function handler(req, res) {
 
   if (req.method === "PATCH") {
     const data = req.body;
-    const categoryName = req.query.categoryname;
+    // const categoryName = req.query.categoryname;
 
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
@@ -51,9 +49,9 @@ async function handler(req, res) {
       { _id: martId },
       {
         $set: {
-          [`shopData.shopCategories.${categoryName}.categoryDescription`]: data.categoryDescription,
-          [`shopData.shopCategories.${categoryName}.categoryImage`]: data.categoryImage,
-          [`shopData.shopCategories.${categoryName}.categoryName`]: data.categoryName
+          [`shopData.shopCategories.${data.itemIndex}.categoryDescription`]: data.categoryDescription,
+          [`shopData.shopCategories.${data.itemIndex}.categoryImage`]: data.categoryImage,
+          [`shopData.shopCategories.${data.itemIndex}.categoryName`]: data.categoryName
         }
       }
     );
@@ -64,7 +62,7 @@ async function handler(req, res) {
   }
 
   if (req.method === "DELETE") {
-    const categoryName = req.query.categoryname;
+    const categoryIndex = req.query.categoryindex;
 
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
@@ -75,31 +73,35 @@ async function handler(req, res) {
 
     const result = await db.collection("shops").updateOne(
       { _id: martId },
-      { $unset: { [`shopData.shopCategories.${categoryName}`]: "" } }
+      { $unset: { [`shopData.shopCategories.${categoryIndex}`]: "" } }
     );
-
-    const updatedShop = await db.collection("shops").findOne({ _id: martId });
-
-    const categories = updatedShop.shopData.shopCategories;
-    const categoryKeys = Object.keys(categories);
-    const sortedCategoryKeys = categoryKeys.sort((a, b) => {
-      const aIndex = parseInt(a.replace("category", ""));
-      const bIndex = parseInt(b.replace("category", ""));
-      return aIndex - bIndex;
-    });
-
-    const newCategories = {};
-    for (let i = 0; i < sortedCategoryKeys.length; i++) {
-      const key = sortedCategoryKeys[i];
-      const index = i;
-      const newKey = `category${index}`;
-      newCategories[newKey] = categories[key];
-    }
-
-    const updateResult = await db.collection("shops").updateOne(
+    const pullResult = await db.collection("shops").updateOne(
       { _id: martId },
-      { $set: { "shopData.shopCategories": newCategories } }
+      { $pull: { "shopData.shopCategories": null } }
     );
+
+    // const updatedShop = await db.collection("shops").findOne({ _id: martId });
+
+    // const categories = updatedShop.shopData.shopCategories;
+    // const categoryKeys = Object.keys(categories);
+    // const sortedCategoryKeys = categoryKeys.sort((a, b) => {
+    //   const aIndex = parseInt(a.replace("category", ""));
+    //   const bIndex = parseInt(b.replace("category", ""));
+    //   return aIndex - bIndex;
+    // });
+
+    // const newCategories = {};
+    // for (let i = 0; i < sortedCategoryKeys.length; i++) {
+    //   const key = sortedCategoryKeys[i];
+    //   const index = i;
+    //   const newKey = `category${index}`;
+    //   newCategories[newKey] = categories[key];
+    // }
+
+    // const updateResult = await db.collection("shops").updateOne(
+    //   { _id: martId },
+    //   { $set: { "shopData.shopCategories": newCategories } }
+    // );
 
     client.close();
   }

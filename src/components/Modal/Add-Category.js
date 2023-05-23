@@ -135,8 +135,8 @@ function AddCategory(props) {
       categoryName: nameValue,
       categoryImage: imgValue,
       categoryDescription: descValue,
-      categoryId: "id" + (props.total + 1),
       categoryProducts: {},
+      itemIndex: props.defs[3]
     }
 
     if (submissionValid) {
@@ -156,15 +156,16 @@ function AddCategory(props) {
       }
 
       if (setting === "Edit Category") {
-        const categoryContents = Object.entries(props.categIndexes)
+        // console.log(incomingData)
+        // const categoryContents = Object.entries(props.categIndexes)
 
-        const chosenKeyFind = categoryContents.find(([key, value]) => {
-          return value.categoryName === setDefaultName
-        })
+        // const chosenKeyFind = categoryContents.find(([key, value]) => {
+        //   return value.categoryName === setDefaultName
+        // })
 
-        const chosenKey = chosenKeyFind[0]
+        // const chosenKey = chosenKeyFind[0]
 
-        props.edit(incomingData, chosenKey)
+        props.edit(incomingData)
 
         await waitSeconds();
 
@@ -181,15 +182,15 @@ function AddCategory(props) {
 
   const handleDelete = async (title) => {
 
-    const categoryContents = Object.entries(props.categIndexes)
+    // const categoryContents = Object.entries(props.categIndexes)
 
-    const chosenKeyFind = categoryContents.find(([key, value]) => {
-      return value.categoryName === setDefaultName
-    })
+    // const chosenKeyFind = categoryContents.find(([key, value]) => {
+    //   return value.categoryName === setDefaultName
+    // })
 
-    const chosenKey = chosenKeyFind[0]
+    // const chosenKey = chosenKeyFind[0]
 
-    props.deletion(chosenKey)
+    props.deletion(props.defs[3])
 
   }
 
@@ -277,7 +278,7 @@ function AddCategory(props) {
       >
         {props.modalStatus && (
           <Backdrop onClick={loading ? null : emptyContents} className="categ-modals">
-            <Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} action="Delete Category?" delete={delCategHandler} default={setDefaultName} finish={handleDelete} chosenItem={props.defs[0]} msg="Are you sure you want to delete the category? This cannot be undone. However, the data from this category's statistics will remain." label={`Will you delete ${setDefaultName}?`} load={() => { setLoading(true) }}></Confirmer>
+            <Confirmer modalStatus={delCateg} disable={delCategHandler} clear={props.clear} action="Delete Category?" delete={delCategHandler} default={setDefaultName} finish={handleDelete} chosenItem={props.defs[0]} id={props.defs[3]} msg="Are you sure you want to delete the category? This cannot be undone. However, the data from this category's statistics will remain." label={`Will you delete ${setDefaultName}?`} load={() => { setLoading(true) }}></Confirmer>
             <motion.div
               onClick={(e) => e.stopPropagation()}
               className="categ-modal"
