@@ -179,6 +179,7 @@ function ProductPage({ shopID }) {
     setDescLength(event.length)
   }
 
+
   const nameLengthClasses = `${nameLength > 40 ? "overlength" : ""}`;
   const descLengthClasses = `${descLength > 150 ? "overlength" : ""}`;
 
@@ -458,8 +459,8 @@ function ProductPage({ shopID }) {
     }
   }
 
-  console.log(varState)
-  console.log(varRange)
+  console.log(varArray)
+  console.log(varNum)
 
   return <Fragment>
     <Head>
