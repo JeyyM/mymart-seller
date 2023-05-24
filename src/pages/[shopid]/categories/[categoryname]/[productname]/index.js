@@ -25,7 +25,13 @@ function ProductPage({ shopID }) {
   const queryProduct = router.query.productname
   const queryCategory = router.query.categoryname
 
-  // const categoryContents1 = shopID.shopData.shopCategories
+  const categoryContents1 = shopID.shopData.shopCategories
+  const categoryContents2 = categoryContents1.filter((value) => value.categoryName === queryCategory);
+  const categoryIndex = categoryContents1.findIndex((value) => value.categoryName === queryCategory);
+
+
+  console.log(categoryContents2)
+  console.log(categoryIndex)
 
   // const categoryContents2 = Object.entries(categoryContents1).find(([key, value]) => {
   //   return value.categoryName === queryCategory

@@ -22,9 +22,6 @@ async function handler(req, res) {
         $push: {
           [`shopData.shopCategories.${req.query.categorykey}.categoryProducts`]: payload
         },
-        // $set: {
-        //   [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.1.productTags`]: data.productName
-        // }
       },
       (err, result) => {
         if (err) {

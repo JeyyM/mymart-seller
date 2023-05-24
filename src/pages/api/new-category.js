@@ -36,6 +36,7 @@ async function handler(req, res) {
 
   if (req.method === "PATCH") {
     const data = req.body;
+    const catKey = req.query.categoryindex
     // const categoryName = req.query.categoryname;
 
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
@@ -49,9 +50,9 @@ async function handler(req, res) {
       { _id: martId },
       {
         $set: {
-          [`shopData.shopCategories.${data.itemIndex}.categoryDescription`]: data.categoryDescription,
-          [`shopData.shopCategories.${data.itemIndex}.categoryImage`]: data.categoryImage,
-          [`shopData.shopCategories.${data.itemIndex}.categoryName`]: data.categoryName
+          [`shopData.shopCategories.${catKey}.categoryDescription`]: data.categoryDescription,
+          [`shopData.shopCategories.${catKey}.categoryImage`]: data.categoryImage,
+          [`shopData.shopCategories.${catKey}.categoryName`]: data.categoryName
         }
       }
     );

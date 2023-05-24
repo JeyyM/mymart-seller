@@ -55,12 +55,12 @@ function CategoryPage({ shopID }) {
     const data = await response.json();
   }
 
-  async function editForm(formdata) {
+  async function editForm(formdata,key) {
 
     // const chosenCateg = formdata.categoryName
 
     const response = await fetch(
-      `../../api/new-category?martid=${router.query.shopid}`,
+      `../../api/new-category?martid=${router.query.shopid}&categoryindex=${key}`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },

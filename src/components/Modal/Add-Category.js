@@ -135,8 +135,7 @@ function AddCategory(props) {
       categoryName: nameValue,
       categoryImage: imgValue,
       categoryDescription: descValue,
-      categoryProducts: {},
-      itemIndex: props.defs[3]
+      categoryProducts: [],
     }
 
     if (submissionValid) {
@@ -165,7 +164,7 @@ function AddCategory(props) {
 
         // const chosenKey = chosenKeyFind[0]
 
-        props.edit(incomingData)
+        props.edit(incomingData, props.defs[3])
 
         await waitSeconds();
 
@@ -181,14 +180,6 @@ function AddCategory(props) {
   };
 
   const handleDelete = async (title) => {
-
-    // const categoryContents = Object.entries(props.categIndexes)
-
-    // const chosenKeyFind = categoryContents.find(([key, value]) => {
-    //   return value.categoryName === setDefaultName
-    // })
-
-    // const chosenKey = chosenKeyFind[0]
 
     props.deletion(props.defs[3])
 
