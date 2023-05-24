@@ -56,7 +56,7 @@ async function handler(req, res) {
 
     const result = await db.collection("shops").updateOne(
       { _id: id },
-      { $set: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}.var${req.query.varnum}`]: data } },
+      { $set: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}.variations.${req.query.varnum}`]: data } },
       (err, result) => {
         if (err) {
           console.log(err);
@@ -87,6 +87,11 @@ async function handler(req, res) {
     const result = await db.collection("shops").updateOne(
       { _id: id },
       { $unset: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`]: "" } }
+    );
+
+    const pullResult = await db.collection("shops").updateOne(
+      { _id: id },
+      { $pull: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts`]: null } }
     );
 
     client.close();

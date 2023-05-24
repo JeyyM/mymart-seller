@@ -56,7 +56,7 @@ function Confirmer2(props) {
 
     props.finish()
 
-    if (props.names === null && props.default === 1) {
+    if (props.names === null && props.default === 0) {
       props.productFix()
 
       await waitSeconds()
@@ -67,7 +67,7 @@ function Confirmer2(props) {
     }
 
 
-    if (props.names !== null && props.default === 1) {
+    if (props.names !== null && props.default === 0) {
       await waitSeconds()
       await waitSecondsShort()
       setLoading(false)

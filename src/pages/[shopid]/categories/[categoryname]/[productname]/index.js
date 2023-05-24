@@ -280,7 +280,7 @@ function ProductPage({ shopID }) {
 
     const deleteProduct = async () => {
       const response = await fetch(
-        `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}`,
+        `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}&currentvar=${varState}`,
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
@@ -313,7 +313,7 @@ function ProductPage({ shopID }) {
 
     let nameValid = nameValue.trim() !== "" && !upperProductNames.includes(nameValue.toUpperCase())
     let nameExist = upperProductNames.includes(nameValue.toUpperCase())
-    if (nameValue.toUpperCase() === varArray[varState][`var${varNum}`].productName.toUpperCase()) { nameExist = false; nameValid = true }
+    if (nameValue.toUpperCase() === variationsList[varState].productName.toUpperCase()) { nameExist = false; nameValid = true }
     const descValid = descValue !== ""
     const priceValid = priceValue !== "" && priceValue >= 0
     const amountValid = stockAmount !== "" && stockAmount >= 0
@@ -342,10 +342,11 @@ function ProductPage({ shopID }) {
     }
 
     if (submissionValid) {
+      console.log(incomingData)
       setLoading(true)
 
       const response = await fetch(
-        `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varNum}`,
+        `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}&varnum=${varState}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -358,12 +359,12 @@ function ProductPage({ shopID }) {
       setLoading(false)
       setCompletion(true)
 
-      if (varNum === 1) {
+      if (varState === 0) {
         router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(nameValue)}`)
         await waitSecondsShort()
         setCompletion(false)
       } else {
-        router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(varArray[0][`var${1}`].productName)}`)
+        router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(variationsList[0].productName)}`)
         await waitSecondsShort()
         setCompletion(false)
       }
@@ -372,8 +373,9 @@ function ProductPage({ shopID }) {
   /////////////////////////////////////
 
   const addVariation = async (payload) => {
+    console.log(payload)
     const response = await fetch(
-      `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varArray.length + 1}`,
+      `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -384,7 +386,7 @@ function ProductPage({ shopID }) {
 
   const delVariation = async (payload) => {
     const response = await fetch(
-      `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varNum}`,
+      `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}&varnum=${varState}`,
       {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
@@ -395,7 +397,7 @@ function ProductPage({ shopID }) {
 
   const changeTags = async (payload) => {
     const response = await fetch(
-      `../../../../api/new-tag?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}`,
+      `../../../../api/new-tag?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -411,8 +413,10 @@ function ProductPage({ shopID }) {
 
   //////////
 
-  console.log(varState)
-  console.log(variationRange)
+  useEffect(() => {
+    setAll(varState);
+  }, [varState]);
+
 
   return <Fragment>
 
@@ -421,9 +425,9 @@ function ProductPage({ shopID }) {
       <link rel="icon" type="image/jpeg" href={favicon} />
     </Head>
     <ProdImg disable={handleShowImg} modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
-    {/* <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation} currency={shopCurrency}></AddVariation> */}
-    {/* <Confirmer2 modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${varArray[varState][`var${varNum}`].productName}?`} load={() => { setLoading(true) }} default={varNum} finish={delVariation} names={upcoming} routing={routerData} productFix={productFixer}></Confirmer2> */}
-    {/* <AddTags modalStatus={tagStatus} disable={handleTags} list={tagsValue} submit={submitTags}></AddTags> */}
+    <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation} currency={shopCurrency}></AddVariation>
+    <Confirmer2 modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${variationsList[varState].productName}?`} load={() => { setLoading(true) }} default={varState} finish={delVariation} names={upcoming} routing={routerData} productFix={productFixer}></Confirmer2>
+    <AddTags modalStatus={tagStatus} disable={handleTags} list={tagsValue} submit={submitTags}></AddTags>
 
     <div className="product-container">
       <div className="main-img-container">
@@ -512,18 +516,18 @@ function ProductPage({ shopID }) {
         <motion.div className="varContainer" initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2 }}>
-          {variationRange.map((v, index) => (
-            <motion.img key={index} onClick={() => { varStateHandler(index); setAll(index); }} className={`varItem ${index === varState ? "active-var" : ""}`} src={imageGetter(index)} alt={index} initial={{ opacity: 0, x: 50 }}
+          {variationsList.map((v, index) => (
+            <motion.img key={index} onClick={() => { varStateHandler(index);}} className={`varItem ${index === varState ? "active-var" : ""}`} src={imageGetter(index)} alt={index} initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 * index, duration: 0.2 }}></motion.img>
           ))}
         </motion.div>
 
-        {/* <div className="product-action-buttons">
+        <div className="product-action-buttons">
           <button className="product-action-3 heading-secondary white" disabled={loading} onClick={handleDelete} type="button">Delete Variation</button>
           <button className="product-action-1 heading-secondary" disabled={loading} onClick={handleTags} type="button">Edit Search Tags</button>
           <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading} type="button">{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
-        </div> */}
+        </div>
       </div>
     </div>
 
