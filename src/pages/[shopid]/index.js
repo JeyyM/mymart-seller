@@ -8,6 +8,7 @@ import { getServerSideProps } from "@/utilities/serversideProps"
 import BannerCarousel from "@/components/Mart/BannerCarousel"
 import { AnimatePresence, motion } from "framer-motion"
 import ActiveNotifs from "@/components/Mart/ActiveNotifs"
+import PopModal from "@/components/Mart/PopModal"
 
 function HomePage({ shopID }){
     const router = useRouter();
@@ -42,6 +43,14 @@ function HomePage({ shopID }){
 
     const activeNotifs = imageData.notifications.filter((notif) => notif.active)
 
+    const popupInfo = imageData.popups
+    const [startPop, setStartPop] = useState(popupInfo.active)
+    const handleStart = () => {
+        setStartPop(!startPop)
+    }
+
+    console.log(shopData.shopCategories)
+
     return <Fragment>
 <Head>
   <title>{shopID.name}</title>
@@ -50,6 +59,7 @@ function HomePage({ shopID }){
 </Head>
             <ActiveNotifs notifs={activeNotifs}></ActiveNotifs>
             <BannerCarousel data={imageData.banners}></BannerCarousel>
+            <PopModal modalStatus={startPop} disable={handleStart} image={popupInfo.image} link={popupInfo.link}></PopModal>
 
         <h1 className="heading-primary">Dashboard</h1>
         <main className="maincontainer">

@@ -32,14 +32,11 @@ function ProductPage({ shopID }) {
 
   const categoryContents3 = categoryContents2[1].categoryProducts
 
-  // console.log(categoryContents3)
-
   const productKey = Object.keys(categoryContents3).find(key => {
     const varData = categoryContents3[key].var1;
     return varData
   });
 
-  // console.log("PROD KEy", productKey)
 
   const varKeysList = Object.values(categoryContents3)
     .map((product) => {
@@ -72,8 +69,6 @@ function ProductPage({ shopID }) {
   }, {});
 
   const resultingProduct = Object.keys(resulting)[0];
-
-  // console.log("RESULINT PRODUNFF", resultingProduct)
 
   const productFixer = (test) => {
 
@@ -462,6 +457,9 @@ function ProductPage({ shopID }) {
       setStockAmount(parseInt(stockAmount) - 1)
     }
   }
+
+  console.log(varState)
+  console.log(varRange)
 
   return <Fragment>
     <Head>
