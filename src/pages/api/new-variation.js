@@ -18,7 +18,7 @@ async function handler(req, res) {
 
     const result = await db.collection("shops").updateOne(
       { _id: id },
-      { $set: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}.var${req.query.varnum}`]: data } },
+      { $push: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}.variations`]: data } },
       (err, result) => {
         if (err) {
           console.log(err);
@@ -50,7 +50,7 @@ async function handler(req, res) {
       { _id: id },
       {
         $unset: {
-          [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}.var${req.query.varnum}`]: "",
+          [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}.variations.${req.query.varnum}`]: "",
         },
       },
       (err, result) => {
@@ -61,48 +61,9 @@ async function handler(req, res) {
         }
       }
     );
-
-    const categKey = req.query.categorykey
-
-    const updatedShop = await db.collection("shops").findOne({ _id: id });
-
-    const product = updatedShop.shopData.shopCategories[req.query.categorykey].categoryProducts[req.query.productkey];
-
-    const filteredData = Object.keys(product)
-      .filter(key => key !== 'productTags')
-      .reduce((obj, key) => {
-        obj[key] = product[key];
-        return obj;
-      }, {});
-
-    const varKeys = Object.keys(filteredData)
-
-    const setTags = product.productTags
-
-    const sortedVarKeys = varKeys.sort((a, b) => {
-      const aIndex = parseInt(a.replace("var", ""));
-      const bIndex = parseInt(b.replace("var", ""));
-      return aIndex - bIndex;
-    });
-
-    const newVars = {};
-    for (let i = 0; i < sortedVarKeys.length; i++) {
-      const key = sortedVarKeys[i];
-      const index = i;
-      const newKey = `var${index + 1}`;
-      newVars[newKey] = product[key];
-    }
-
-    const categoryProductKey = `shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`;
-
-    const updateResult1 = await db.collection("shops").updateOne(
+    const pullResult = await db.collection("shops").updateOne(
       { _id: id },
-      { $set: { [categoryProductKey]: newVars } }
-    );
-
-    const updateResult2 = await db.collection("shops").updateOne(
-      { _id: id },
-      { $set: { [`${categoryProductKey}.productTags`]: setTags } }
+      { $pull: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}.variations`]: null } }
     );
 
     client.close();

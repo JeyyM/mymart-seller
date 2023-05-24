@@ -13,12 +13,12 @@ function CategoryPage({ shopID }) {
 
   const favicon = shopData.shopDetails.imageData.icons.icon
 
-  const result = Object.keys(contents).map((key, index) => {
-    return {
-      key: key,
-      value: contents[key],
-    };
-  });
+  // const result = Object.keys(contents).map((key, index) => {
+  //   return {
+  //     key: key,
+  //     value: contents[key],
+  //   };
+  // });
 
   const categNamesList = Object.keys(contents).map(key => (contents[key].categoryName))
   const upperCategNames = categNamesList.map(name => name.toUpperCase());
@@ -26,7 +26,7 @@ function CategoryPage({ shopID }) {
   const categoryAmount = Object.keys(shopID.shopData.shopCategories).length
 
   const [addCateg, setAddCateg] = useState(false)
-  const [defaultValues, setDefaultValues] = useState(["", "", ""])
+  const [defaultValues, setDefaultValues] = useState(["", "", "", 0])
 
   function addCategHandler(event) {
     event.preventDefault()
@@ -35,11 +35,11 @@ function CategoryPage({ shopID }) {
   }
 
   function editCategHandler(data) {
-    setDefaultValues([data[0], data[1], data[2]])
+    setDefaultValues([data[0], data[1], data[2], data[3]])
   }
 
   function defClearer() {
-    setDefaultValues(["", "", ""])
+    setDefaultValues(["", "", "", 0])
   }
 
   async function completeForm(formdata) {
@@ -55,12 +55,12 @@ function CategoryPage({ shopID }) {
     const data = await response.json();
   }
 
-  async function editForm(formdata, key) {
+  async function editForm(formdata,key) {
 
-    const chosenCateg = formdata.categoryName
+    // const chosenCateg = formdata.categoryName
 
     const response = await fetch(
-      `../../api/new-category?martid=${router.query.shopid}&categoryname=${key}`,
+      `../../api/new-category?martid=${router.query.shopid}&categoryindex=${key}`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -73,7 +73,7 @@ function CategoryPage({ shopID }) {
   async function deleteForm(key) {
 
     const response = await fetch(
-      `../../api/new-category?martid=${router.query.shopid}&categoryname=${key}`,
+      `../../api/new-category?martid=${router.query.shopid}&categoryindex=${key}`,
       {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
@@ -102,17 +102,16 @@ function CategoryPage({ shopID }) {
         </span>
 
         <section className="category-container">
-          {result.map((categ, index) => {
+          {contents.map((categ, index) => {
             return (
               <Category
-                items={categ.value}
+                index= {index}
+                items={categ}
                 id={router.query.shopid}
                 key={index}
                 state={addCateg}
-                length={result.length}
                 edit={addCategHandler}
                 edit2={editCategHandler}
-                categIndex={index}
               ></Category>
             );
           })}

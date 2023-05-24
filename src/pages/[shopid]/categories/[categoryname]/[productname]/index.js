@@ -24,85 +24,27 @@ function ProductPage({ shopID }) {
 
   const queryProduct = router.query.productname
   const queryCategory = router.query.categoryname
-  const categoryContents1 = shopID.shopData.shopCategories
 
-  const categoryContents2 = Object.entries(categoryContents1).find(([key, value]) => {
-    return value.categoryName === queryCategory
-  })
+  const allCategories = shopID.shopData.shopCategories
+  const chosenCategory = allCategories.filter((value) => value.categoryName === queryCategory);
+  const categoryIndex = allCategories.findIndex((value) => value.categoryName === queryCategory);
 
-  const categoryContents3 = categoryContents2[1].categoryProducts
+  const chosenProduct = chosenCategory[0].categoryProducts.filter(product => product.variations[0].productName === queryProduct);
+  const productIndex = chosenCategory[0].categoryProducts.findIndex(product => product.variations[0].productName === queryProduct);
 
-  const productKey = Object.keys(categoryContents3).find(key => {
-    const varData = categoryContents3[key].var1;
-    return varData
-  });
+  const variationsList = chosenProduct[0].variations
 
+  const variationRange = Array.from({ length: variationsList.length }, (_, index) => index);
 
-  const varKeysList = Object.values(categoryContents3)
-    .map((product) => {
-      const varObjs = Object.values(product)
-        .filter((item) => typeof item === 'object');
-      return varObjs;
-    });
-
-  const productNames = Object.values(varKeysList)
-    .flatMap((product) => {
-      const name = Object.values(product)
-        .filter((prop) => prop.productName);
-      return name;
-    })
-    .map((name) => name.productName);
+  const productNames = allCategories[0].categoryProducts.flatMap(product => product.variations.map(variation => variation.productName));
+  const upperProductNames = productNames.map(name => name.toUpperCase());
 
   const routerData = [shopID._id, queryCategory]
 
-  const upperProductNames = productNames.map(name => name.toUpperCase());
-
-  const resulting = Object.keys(categoryContents3).reduce((acc, curr) => {
-    const foundProduct = Object.keys(categoryContents3[curr].var1).find(
-      (key) => categoryContents3[curr].var1.productName === queryProduct
-    );
-
-    if (foundProduct) {
-      acc[curr] = categoryContents3[curr].var1[foundProduct];
-    }
-    return acc;
-  }, {});
-
-  const resultingProduct = Object.keys(resulting)[0];
-
-  const productFixer = (test) => {
-
-    const deleteProduct = async () => {
-      const response = await fetch(
-        `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}`,
-        {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-    }
-
-    deleteProduct()
-  }
-
-  const varArray = Object.entries(categoryContents3[resultingProduct])
-    .filter(([key, value]) => !key.startsWith("productTags"))
-    .map(([key, value]) => ({
-      [key]: value
-    }));
-
   const [varState, setVarState] = useState(0)
   const [imgState, setImgState] = useState(0)
-  const varNum = varState + 1
 
-  function ArrRange(min, max) {
-    let arr = []
-    for (let i = min; i <= max; i++)
-      arr.push(i);
-    return arr
-  }
-
-  const varRange = (ArrRange(0, varArray.length - 1))
+  const chosenTags = chosenCategory[0].categoryProducts[productIndex].productTags
 
   function varStateHandler(ind) {
     setVarState(ind)
@@ -114,67 +56,86 @@ function ProductPage({ shopID }) {
   }
 
   function imageGetter(n) {
-    return varArray[n][`var${n + 1}`].productImages[0];
+    return variationsList[n].productImages[0];
   }
 
-  const [nameValue, setNameValue] = useState(varArray[varState][`var${varNum}`].productName);
+  const [nameValue, setNameValue] = useState(variationsList[varState].productName);
   const handleNameChange = (event) => {
     setNameValue(event.target.value);
     handleNameLength(event.target.value)
   };
 
-  const [descValue, setDescValue] = useState(varArray[varState][`var${varNum}`].productDescription);
+  const [descValue, setDescValue] = useState(variationsList[varState].productDescription);
   const handleDescChange = (event) => {
     setDescValue(event.target.value);
     handleDescLength(event.target.value)
   };
 
-  const [imgValue1, setImgValue1] = useState(varArray[varState][`var${varNum}`].productImages[0]);
+  const [imgValue1, setImgValue1] = useState(variationsList[varState].productImages[0]);
   const handleImgChange1 = (event) => {
     setImgValue1(event.target.value);
   };
 
-  const [imgValue2, setImgValue2] = useState(varArray[varState][`var${varNum}`].productImages[1]);
+  const [imgValue2, setImgValue2] = useState(variationsList[varState].productImages[1]);
   const handleImgChange2 = (event) => {
     setImgValue2(event.target.value);
   };
 
-  const [imgValue3, setImgValue3] = useState(varArray[varState][`var${varNum}`].productImages[2]);
+  const [imgValue3, setImgValue3] = useState(variationsList[varState].productImages[2]);
   const handleImgChange3 = (event) => {
     setImgValue3(event.target.value);
   };
 
-  const [imgValue4, setImgValue4] = useState(varArray[varState][`var${varNum}`].productImages[3]);
+  const [imgValue4, setImgValue4] = useState(variationsList[varState].productImages[3]);
   const handleImgChange4 = (event) => {
     setImgValue4(event.target.value);
   };
 
-  const [priceValue, setPriceValue] = useState(varArray[varState][`var${varNum}`].productPrice);
+  const [priceValue, setPriceValue] = useState(variationsList[varState].productPrice);
   const handlePriceChange = (event) => {
     if (event.target.value.length < 9) {
       setPriceValue(event.target.value);
     }
   };
 
-
-  const [stockAmount, setStockAmount] = useState(varArray[varState][`var${varNum}`].productStock.stockAmount);
+  const [stockAmount, setStockAmount] = useState(variationsList[varState].productStock.stockAmount);
   const handleStockAmount = (event) => {
     if (event.target.value.length < 9) {
       setStockAmount(event.target.value);
     }
   };
 
-  const [stockUnit, setStockUnit] = useState(varArray[varState][`var${varNum}`].productStock.stockUnit);
+  const [stockUnit, setStockUnit] = useState(variationsList[varState].productStock.stockUnit);
   const handleStockUnit = (event) => {
     setStockUnit(event.target.value);
   };
 
-  const [nameLength, setNameLength] = useState(varArray[varState][`var${varNum}`].productName.length)
+  function addPrice() {
+    setPriceValue(parseInt(priceValue) + 1)
+  }
+
+  function minusPrice() {
+    if (priceValue > 0) {
+      setPriceValue(parseInt(priceValue) - 1)
+    }
+  }
+
+  function addStock() {
+    setStockAmount(parseInt(stockAmount) + 1)
+  }
+
+  function minusStock() {
+    if (stockAmount > 0) {
+      setStockAmount(parseInt(stockAmount) - 1)
+    }
+  }
+
+  const [nameLength, setNameLength] = useState(variationsList[varState].productName.length)
   const handleNameLength = (event) => {
     setNameLength(event.length)
   }
 
-  const [descLength, setDescLength] = useState(varArray[varState][`var${varNum}`].productDescription.length)
+  const [descLength, setDescLength] = useState(variationsList[varState].productDescription.length)
   const handleDescLength = (event) => {
     setDescLength(event.length)
   }
@@ -182,6 +143,14 @@ function ProductPage({ shopID }) {
 
   const nameLengthClasses = `${nameLength > 40 ? "overlength" : ""}`;
   const descLengthClasses = `${descLength > 150 ? "overlength" : ""}`;
+
+  function isEmpty(word) {
+    word.trim() === ""
+  }
+
+  function startsImgur(word) {
+    if (word) { return word.slice(0, 20) === "https://i.imgur.com/"; }
+  }
 
   const [imgSet, setImgSet] = useState([imgValue1, imgValue2, imgValue3, imgValue4])
   const [validImgSet, setValidImgSet] = useState([])
@@ -194,14 +163,6 @@ function ProductPage({ shopID }) {
     const validImgSet = [img1Valid && { image: imgValue1 }, img2Valid && { image: imgValue2 }, img3Valid && { image: imgValue3 }, img4Valid && { image: imgValue4 },].filter(Boolean)
     setValidImgSet(validImgSet)
   }, [imgValue1, imgValue2, imgValue3, imgValue4])
-
-  function isEmpty(word) {
-    word.trim() === ""
-  }
-
-  function startsImgur(word) {
-    if (word) { return word.slice(0, 20) === "https://i.imgur.com/"; }
-  }
 
   const [loading, setLoading] = useState(false)
   const [completion, setCompletion] = useState(false)
@@ -226,19 +187,37 @@ function ProductPage({ shopID }) {
     exist: false,
   });
 
-  function setAll(index) {
-    setNameValue(varArray[index][`var${index + 1}`].productName)
-    setDescValue(varArray[index][`var${index + 1}`].productDescription)
-    setImgValue1(varArray[index][`var${index + 1}`].productImages[0])
-    setImgValue2(varArray[index][`var${index + 1}`].productImages[1])
-    setImgValue3(varArray[index][`var${index + 1}`].productImages[2])
-    setImgValue4(varArray[index][`var${index + 1}`].productImages[3])
-    setPriceValue(varArray[index][`var${index + 1}`].productPrice)
-    setStockAmount(varArray[index][`var${index + 1}`].productStock.stockAmount)
-    setStockUnit(varArray[index][`var${index + 1}`].productStock.stockUnit)
+  const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"
+    }`;
 
-    setNameLength(varArray[index][`var${index + 1}`].productName.length)
-    setDescLength(varArray[index][`var${index + 1}`].productDescription.length)
+  const imgClasses = `${formInputValidity.images ? "text-full" : "invalid-form"
+    }`;
+
+  const descClasses = `${formInputValidity.desc ? "desc-text-area" : "invalid-form-box"
+    }`;
+
+  const priceClasses = `${formInputValidity.price ? "text-small input-number shortener-25" : "invalid-form-2 shortener-25"
+    }`;
+
+  const amountClasses = `${formInputValidity.amount ? "text-small input-number" : "invalid-form-2"
+    }`;
+
+  const unitClasses = `${formInputValidity.unit ? "text-small input-number" : "invalid-form-2"
+    }`;
+
+  function setAll(index) {
+    setNameValue(variationsList[varState].productName)
+    setDescValue(variationsList[varState].productDescription)
+    setImgValue1(variationsList[varState].productImages[0])
+    setImgValue2(variationsList[varState].productImages[1])
+    setImgValue3(variationsList[varState].productImages[2])
+    setImgValue4(variationsList[varState].productImages[3])
+    setPriceValue(variationsList[varState].productPrice)
+    setStockAmount(variationsList[varState].productStock.stockAmount)
+    setStockUnit(variationsList[varState].productStock.stockUnit)
+
+    setNameLength(variationsList[varState].productName.length)
+    setDescLength(variationsList[varState].productDescription.length)
 
     setFormInputValidity({
       name: true,
@@ -256,15 +235,67 @@ function ProductPage({ shopID }) {
   }, [imgValue1, imgValue2, imgValue3, imgValue4])
 
   const [showImg, setShowImg] = useState(false)
-
   function handleShowImg() {
     setShowImg(!showImg)
   }
 
+  const [addVar, setAddVar] = useState()
+  function handleAddVar() {
+    setAddVar(!addVar)
+  }
+
+  const [deletion, setDeletion] = useState(false)
+  function handleDelete() {
+    setDeletion(!deletion)
+  }
+
+  const imagePayload = (payload) => {
+    if (payload[0]) { setImgValue1(payload[0].image) } else { setImgValue1(undefined) }
+    if (payload[1]) { setImgValue2(payload[1].image) } else { setImgValue2(undefined) }
+    if (payload[2]) { setImgValue3(payload[2].image) } else { setImgValue3(undefined) }
+    if (payload[3]) { setImgValue4(payload[3].image) } else { setImgValue4(undefined) }
+  }
+
+  let upcoming = null
+
+  if (variationsList.length > 1) {
+    const next = variationsList[1].productName
+    if (next) {
+      upcoming = next
+    }
+  }
+
+  const [tagsValue, setTagsValue] = useState(chosenTags);
+  const handleTagsChange = (event) => {
+    setTagsValue(event)
+  };
+
+    const [tagStatus, setTagStatus] = useState(false)
+  function handleTags() {
+    setTagStatus(!tagStatus)
+  }
+
+
+  /////////////////////
+  const productFixer = (test) => {
+
+    const deleteProduct = async () => {
+      const response = await fetch(
+        `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}&currentvar=${varState}`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    deleteProduct()
+  }
+  //////////
+
   const handleClick = async (event) => {
     await handleSubmit(event);
   }
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -283,7 +314,7 @@ function ProductPage({ shopID }) {
 
     let nameValid = nameValue.trim() !== "" && !upperProductNames.includes(nameValue.toUpperCase())
     let nameExist = upperProductNames.includes(nameValue.toUpperCase())
-    if (nameValue.toUpperCase() === varArray[varState][`var${varNum}`].productName.toUpperCase()) { nameExist = false; nameValid = true }
+    if (nameValue.toUpperCase() === variationsList[varState].productName.toUpperCase()) { nameExist = false; nameValid = true }
     const descValid = descValue !== ""
     const priceValid = priceValue !== "" && priceValue >= 0
     const amountValid = stockAmount !== "" && stockAmount >= 0
@@ -312,10 +343,11 @@ function ProductPage({ shopID }) {
     }
 
     if (submissionValid) {
+      console.log(incomingData)
       setLoading(true)
 
       const response = await fetch(
-        `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varNum}`,
+        `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}&varnum=${varState}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -328,21 +360,23 @@ function ProductPage({ shopID }) {
       setLoading(false)
       setCompletion(true)
 
-      if (varNum === 1) {
+      if (varState === 0) {
         router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(nameValue)}`)
         await waitSecondsShort()
         setCompletion(false)
       } else {
-        router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(varArray[0][`var${1}`].productName)}`)
+        router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(variationsList[0].productName)}`)
         await waitSecondsShort()
         setCompletion(false)
       }
     }
   }
+  /////////////////////////////////////
 
   const addVariation = async (payload) => {
+    console.log(payload)
     const response = await fetch(
-      `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varArray.length + 1}`,
+      `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -353,7 +387,7 @@ function ProductPage({ shopID }) {
 
   const delVariation = async (payload) => {
     const response = await fetch(
-      `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}&varnum=${varNum}`,
+      `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}&varnum=${varState}`,
       {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
@@ -364,7 +398,7 @@ function ProductPage({ shopID }) {
 
   const changeTags = async (payload) => {
     const response = await fetch(
-      `../../../../api/new-tag?martid=${router.query.shopid}&categorykey=${categoryContents2[0]}&productkey=${resultingProduct}`,
+      `../../../../api/new-tag?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}`,
       {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
@@ -372,104 +406,30 @@ function ProductPage({ shopID }) {
       }
     );
   }
-
-  const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"
-    }`;
-
-  const imgClasses = `${formInputValidity.images ? "text-full" : "invalid-form"
-    }`;
-
-  const descClasses = `${formInputValidity.desc ? "desc-text-area" : "invalid-form-box"
-    }`;
-
-  const priceClasses = `${formInputValidity.price ? "text-small input-number shortener-25" : "invalid-form-2 shortener-25"
-    }`;
-
-  const amountClasses = `${formInputValidity.amount ? "text-small input-number" : "invalid-form-2"
-    }`;
-
-  const unitClasses = `${formInputValidity.unit ? "text-small input-number" : "invalid-form-2"
-    }`;
-
-  const imagePayload = (payload) => {
-    if (payload[0]) { setImgValue1(payload[0].image) } else { setImgValue1(undefined) }
-    if (payload[1]) { setImgValue2(payload[1].image) } else { setImgValue2(undefined) }
-    if (payload[2]) { setImgValue3(payload[2].image) } else { setImgValue3(undefined) }
-    if (payload[3]) { setImgValue4(payload[3].image) } else { setImgValue4(undefined) }
-  }
-
-
-  const [addVar, setAddVar] = useState()
-  function handleAddVar() {
-    setAddVar(!addVar)
-  }
-
-
-  const [deletion, setDeletion] = useState(false)
-  function handleDelete() {
-    setDeletion(!deletion)
-  }
-
-  let upcoming = null
-
-  if (varArray.length > 1) {
-    const next = varArray[1][`var2`].productName
-
-    if (next) {
-      upcoming = next
-    }
-  }
-
-  const tagKey = Object.keys(categoryContents3)
-  const workingKey = tagKey[0]
-  const tags = categoryContents3[workingKey].productTags
-
-  const [tagsValue, setTagsValue] = useState(tags);
-  const handleTagsChange = (event) => {
-    setTagsValue(event)
-  };
-
-  const [tagStatus, setTagStatus] = useState(false)
-  function handleTags() {
-    setTagStatus(!tagStatus)
-  }
-
+  
   function submitTags(data) {
     handleTagsChange(data)
     changeTags(data)
   }
 
-  function addPrice() {
-    setPriceValue(parseInt(priceValue) + 1)
-  }
+  //////////
 
-  function minusPrice() {
-    if (priceValue > 0) {
-      setPriceValue(parseInt(priceValue) - 1)
-    }
-  }
+  useEffect(() => {
+    setAll(varState);
+  }, [varState]);
+  
 
-  function addStock() {
-    setStockAmount(parseInt(stockAmount) + 1)
-  }
 
-  function minusStock() {
-    if (stockAmount > 0) {
-      setStockAmount(parseInt(stockAmount) - 1)
-    }
-  }
-
-  console.log(varArray)
-  console.log(varNum)
 
   return <Fragment>
+
     <Head>
-      <title>{varArray[0][`var${1}`].productName}</title>
+      <title>{variationsList[0].productName}</title>
       <link rel="icon" type="image/jpeg" href={favicon} />
     </Head>
     <ProdImg disable={handleShowImg} modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
     <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation} currency={shopCurrency}></AddVariation>
-    <Confirmer2 modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${varArray[varState][`var${varNum}`].productName}?`} load={() => { setLoading(true) }} default={varNum} finish={delVariation} names={upcoming} routing={routerData} productFix={productFixer}></Confirmer2>
+    <Confirmer2 modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${variationsList[varState].productName}?`} load={() => { setLoading(true) }} default={varState} finish={delVariation} names={upcoming} routing={routerData} productFix={productFixer}></Confirmer2>
     <AddTags modalStatus={tagStatus} disable={handleTags} list={tagsValue} submit={submitTags}></AddTags>
 
     <div className="product-container">
@@ -477,7 +437,7 @@ function ProductPage({ shopID }) {
 
         <div className="sample">
           <button className="product-edit-button" onClick={() => { handleShowImg() }} type="button" disabled={loading}><div className="heading-icon-edit svg-color">&nbsp;</div></button>
-          <img src={imgSet[imgState]} alt={varArray[varState][`var${varNum}`].productName} className="product-image">
+          <img src={imgSet[imgState]} alt={variationsList[varState].productName} className="product-image">
           </img>
         </div>
 
@@ -559,8 +519,8 @@ function ProductPage({ shopID }) {
         <motion.div className="varContainer" initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2 }}>
-          {varRange.map((v, index) => (
-            <motion.img key={index} onClick={() => { varStateHandler(index); setAll(index); }} className={`varItem ${index === varState ? "active-var" : ""}`} src={imageGetter(index)} alt={index} initial={{ opacity: 0, x: 50 }}
+          {variationsList.map((v, index) => (
+            <motion.img key={index} onClick={() => { varStateHandler(index);}} className={`varItem ${index === varState ? "active-var" : ""}`} src={imageGetter(index)} alt={index} initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 * index, duration: 0.2 }}></motion.img>
           ))}

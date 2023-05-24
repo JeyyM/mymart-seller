@@ -240,6 +240,7 @@ function Images(martID) {
       }
 
     async function submitChanges(data){
+        setLoading(true)
         const response = await fetch(
             `../../api/set-images?martid=${router.query.shopid}`,
             {
@@ -255,11 +256,12 @@ function Images(martID) {
           router.reload()
     }
 
+    const [loading, setLoading] = useState(false)
+
     return (
         <Fragment>
             <Head>
                 <title>Images & Pop-ups</title>
-
                 <link rel="icon" type="image/jpeg" href={favicon} />
             </Head>
 
@@ -273,6 +275,7 @@ function Images(martID) {
                     &nbsp;Images & Pop-ups&nbsp;
                 </h1>
                 <button
+                    disabled={loading}
                     className="heading-tertiary add-categ-init"
                     style={{ width: "max-content" }}
                     onClick={() => {
@@ -284,7 +287,7 @@ function Images(martID) {
                     }}
                 >
                     <div className="heading-icon-check svg-color">&nbsp;</div>
-                    Submit Changes &nbsp;
+                    {loading ? "Submitting..." : "Submit Changes"} &nbsp;
                 </button>
             </span>
 
@@ -646,7 +649,6 @@ function Images(martID) {
                             </h2>
                             <button className="notif-close-button"><div className="notif-close" style={{ backgroundImage: `linear-gradient(to top right, ${item.textcol}, ${item.textcol})` }} onClick={() => handleDeleteActive(index)}>&nbsp;</div></button>
                         </motion.div>
-
                     ))}
                 </AnimatePresence>
             </div>

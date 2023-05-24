@@ -3,6 +3,7 @@ import { MongoClient, ObjectId } from "mongodb"
 async function handler(req, res) {
   if (req.method === "POST") {
     const data = req.body
+    const payload = {variations: [data], productTags: data.productName}
 
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
@@ -18,10 +19,9 @@ async function handler(req, res) {
     const result = await db.collection("shops").updateOne(
       { _id: id },
       {
-        $set: {
-          [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.var1`]: data,
-          [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.prodlength}.productTags`]: data.productName
-        }
+        $push: {
+          [`shopData.shopCategories.${req.query.categorykey}.categoryProducts`]: payload
+        },
       },
       (err, result) => {
         if (err) {
@@ -56,7 +56,7 @@ async function handler(req, res) {
 
     const result = await db.collection("shops").updateOne(
       { _id: id },
-      { $set: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}.var${req.query.varnum}`]: data } },
+      { $set: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}.variations.${req.query.varnum}`]: data } },
       (err, result) => {
         if (err) {
           console.log(err);
@@ -87,6 +87,11 @@ async function handler(req, res) {
     const result = await db.collection("shops").updateOne(
       { _id: id },
       { $unset: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts.${req.query.productkey}`]: "" } }
+    );
+
+    const pullResult = await db.collection("shops").updateOne(
+      { _id: id },
+      { $pull: { [`shopData.shopCategories.${req.query.categorykey}.categoryProducts`]: null } }
     );
 
     client.close();

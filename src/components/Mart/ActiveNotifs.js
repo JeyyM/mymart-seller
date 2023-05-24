@@ -1,6 +1,6 @@
 import Backdrop from "../Modal/Backdrop";
 import { motion, AnimatePresence } from "framer-motion";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { useRouter } from "next/router";
 
 
@@ -67,12 +67,8 @@ function ActiveNotifs(props) {
         return elements;
     }
 
-    const [activeNotifs, setActiveNotifs] = useState(props.notifs);
 
-    function handleDeleteActive(index) {
-        let newNotifs = activeNotifs.filter((item, i) => i !== index);
-        setActiveNotifs(newNotifs);
-    }
+
 
     return (
         <Fragment>
