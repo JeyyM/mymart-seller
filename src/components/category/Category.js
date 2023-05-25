@@ -1,76 +1,91 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/router";
+
 
 function Category(props) {
+    const router = useRouter()
     const MotionLink = motion(Link);
     const { categoryName, categoryImage, categoryDescription, categoryProducts, active } = props.items;
     const [isDragging, setIsDragging] = useState(false);
-
-    const handleSwipeStart = (event) => {
-        if (event.touches) {
-            setIsDragging(true);
-        }
-    };
-
-    const handleSwipeEnd = (event) => {
-        if (event.touches) {
+    const holdTimeoutRef = useRef(null);
+  
+    const handleMouseDown = () => {
+        holdTimeoutRef.current = setTimeout(() => {
+          setIsDragging(true);
+        }, 200);
+      
+        setTimeout(() => {
+          if (holdTimeoutRef.current) {
             setIsDragging(false);
-        }
+            clearTimeout(holdTimeoutRef.current);
+            router.push(`/${props.id}/categories/${categoryName}`);
+          }
+        }, 1000);
+      };
+      
+    const handleMouseUp = () => {
+      clearTimeout(holdTimeoutRef.current);
+      setIsDragging(false);
     };
-
-    const handleMouseDragStart = (event) => {
-        if (event.movementX !== 0 || event.movementY !== 0) {
-            setIsDragging(true);
-            event.preventDefault();
-        }
+  
+    const handleMouseLeave = () => {
+      setIsDragging(false);
     };
-
-
-    const handleMouseDragEnd = () => {
+  
+    useEffect(() => {
+      const handleWindowMouseUp = () => {
         setIsDragging(false);
-    };
-
+      };
+  
+      window.addEventListener("mouseup", handleWindowMouseUp);
+  
+      return () => {
+        window.removeEventListener("mouseup", handleWindowMouseUp);
+      };
+    }, []);
+  
     return (
-        <>
-            <MotionLink
-                className="category"
-                href={{ pathname: `/${props.id}/categories/${categoryName}` }}
-                initial={!props.state && !isDragging ? { opacity: 0, x: -100 } : false}
-                animate={!isDragging ? { opacity: 1, x: 0 } : false}
-                transition={{ duration: 0.2 }}
-                style={{ display: "relative" }}
-                draggable={false}
-                onTouchStart={handleSwipeStart}
-                onTouchEnd={handleSwipeEnd}
-                onMouseDown={handleMouseDragStart}
-                onMouseUp={handleMouseDragEnd}
-            >
-                <button
-                    className="categ-edit-button"
-                    onClick={(event) => {
-                        props.edit2([categoryName, categoryImage, categoryDescription, props.index, active]);
-                        props.edit(event);
-                    }}
-                >
-                    <div className="heading-icon-edit svg-color">&nbsp;</div>
-                </button>
-                <div className="image-container">
-                    <img src={categoryImage} className="category-img" alt={categoryName}></img>
-                </div>
-                <div className="category-content">
-                    <div>
-                        <h2 className="heading-secondary category-name">
-                            {categoryName.length > 40 ? categoryName.substring(0, 37) + "..." : categoryName}
-                        </h2>
-                        <h3 className="heading-tertiary">
-                            {categoryDescription.length > 150 ? categoryDescription.substring(0, 147) + "..." : categoryDescription}
-                        </h3>
-                    </div>
-                </div>
-            </MotionLink>
-        </>
-    );
+      <>
+        <MotionLink
+          className="category"
+          href={{ pathname: `/${props.id}/categories/${categoryName}` }}
+          initial={!isDragging ? { opacity: 0, x: -100 } : false}
+          animate={!isDragging ? { opacity: 1, x: 0 } : false}
+          transition={{ duration: 0.2 }}
+          style={{ display: "relative" }}
+          draggable={false}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+        >
+        <button
+          className="categ-edit-button"
+          onClick={(event) => {
+            props.edit2([categoryName, categoryImage, categoryDescription, props.index, active]);
+            props.edit(event);
+          }}
+        >
+          <div className="heading-icon-edit svg-color">&nbsp;</div>
+        </button>
+        <div className="image-container">
+          <img src={categoryImage} className="category-img" alt={categoryName}></img>
+        </div>
+        <div className="category-content">
+          <h1 className="heading-primary">{isDragging ? "Drag" : "Not"}</h1>
+          <div>
+            <h2 className="heading-secondary category-name">
+              {categoryName.length > 40 ? categoryName.substring(0, 37) + "..." : categoryName}
+            </h2>
+            <h3 className="heading-tertiary">
+              {categoryDescription.length > 150 ? categoryDescription.substring(0, 147) + "..." : categoryDescription}
+            </h3>
+          </div>
+        </div>
+      </MotionLink>
+    </>
+  );
 }
 
 export default Category;

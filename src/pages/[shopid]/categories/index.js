@@ -93,23 +93,24 @@ function CategoryPage({ shopID }) {
   });
 
   const totalItems = contents.length;
+  const itemsPerSlide = 12;
+  const itemsPerLine = 4;
+  const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
+  const totalSlides = Math.ceil(totalItems / itemsPerSlide);
+  const slideIndexes = Array.from(Array(totalSlides).keys());
+  const lastSlideItems = totalItems % itemsPerSlide || itemsPerSlide;
 
-const itemsPerSlide = 12;
-const itemsPerLine = 4;
-const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
-const totalSlides = Math.ceil(totalItems / itemsPerSlide);
-const slideIndexes = Array.from(Array(totalSlides).keys());
-const lastSlideItems = totalItems % itemsPerSlide || itemsPerSlide;
+  const sliderSettings = {
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    dots: true,
+    arrows: false,
+    draggable: true,
+    infinite: false,
+    speed: 500,
+  };
 
-const sliderSettings = {
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  dots: true,
-  arrows: false,
-  draggable: true,
-  infinite: false,
-  speed: 500,
-};
+  console.log("test")
 
   if (categoryAmount > 0) {
     return (
@@ -131,68 +132,45 @@ const sliderSettings = {
 
 
         <Slider {...sliderSettings}>
-  {slideIndexes.map((slideIndex) => {
-    const startIndex = slideIndex * itemsPerSlide;
-    const endIndex = startIndex + (slideIndex === totalSlides - 1 ? lastSlideItems : itemsPerSlide);
+      {slideIndexes.map((slideIndex) => {
+        const startIndex = slideIndex * itemsPerSlide;
+        const endIndex = startIndex + (slideIndex === totalSlides - 1 ? lastSlideItems : itemsPerSlide);
 
-    const slideItems = contents.slice(startIndex, endIndex);
+        const slideItems = contents.slice(startIndex, endIndex);
 
-    return (
-      <div className="slide" key={slideIndex}>
-        <div className="category-container">
-          {slideItems.map((categ, index) => (
-            <div className="warning-container" key={startIndex + index}>
-              {soldCateg.includes(index) && (
-                <motion.div
-                  className="sold-out-warning svg-sold"
-                  key={categ}
-                  initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.2, type: "spring", damping: 0 }}
-                >
-                  &nbsp;
-                </motion.div>
-              )}
-              <Category
-                index={index}
-                items={categ}
-                id={router.query.shopid}
-                key={index}
-                state={addCateg}
-                edit={addCategHandler}
-                edit2={editCategHandler}
-              ></Category>
+        return (
+          <div className="slide" key={slideIndex}>
+            <div className="category-container">
+              {slideItems.map((categ, index) => (
+                <div className="warning-container" key={startIndex + index}>
+                  {soldCateg.includes(index) && (
+                    <motion.div
+                      className="sold-out-warning svg-sold"
+                      key={categ}
+                      initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.2, type: "spring", damping: 0 }}
+                    >
+                      &nbsp;
+                    </motion.div>
+                  )}
+                  <Category
+                    index={index}
+                    items={categ}
+                    id={router.query.shopid}
+                    key={index}
+                    state={addCateg}
+                    edit={addCategHandler}
+                    edit2={editCategHandler}
+                  ></Category>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-    );
-  })}
-</Slider>
+          </div>
+        );
+      })}
+    </Slider>
 
-        {/* <section className="category-container">
-          {contents.map((categ, index) => {
-            return (
-              <div className="warning-container" key={index}>
-                {soldCateg.includes(index) &&
-                  <motion.div className="sold-out-warning svg-sold"
-                    key={categ}
-                    initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.2, type: "spring", damping: 0 }}>&nbsp;</motion.div>}
-                <Category
-                  index={index}
-                  items={categ}
-                  id={router.query.shopid}
-                  key={index}
-                  state={addCateg}
-                  edit={addCategHandler}
-                  edit2={editCategHandler}
-                ></Category>
-              </div>
-            );
-          })}
-        </section> */}
       </Fragment>
     );
   } else {
