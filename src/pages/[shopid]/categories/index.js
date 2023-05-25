@@ -92,51 +92,24 @@ function CategoryPage({ shopID }) {
     });
   });
 
-  const [isDragging, setIsDragging] = useState(false);
-
-  const handleSwipeStart = (event) => {
-    if (event.touches) {
-      setIsDragging(true);
-    }
-  };
-
-  const handleSwipeEnd = (event) => {
-    if (event.touches) {
-      setIsDragging(false);
-    }
-  };
-
-  const handleMouseDragStart = () => {
-    setIsDragging(true);
-  };
-
-  const handleMouseDragEnd = () => {
-    setIsDragging(false);
-  };
-
   const totalItems = contents.length;
-  const itemsPerSlide = 12;
-  const itemsPerLine = 4;
-  const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
-  const totalSlides = Math.ceil(totalItems / itemsPerSlide);
-  const slideIndexes = Array.from(Array(totalSlides).keys());
-  const lastSlideItems = totalItems % itemsPerSlide || itemsPerSlide;
 
-  const sliderSettings = {
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    dots: true,
-    arrows: false,
-    draggable: true,
-    infinite: false,
-    speed: 500,
-    beforeChange: handleMouseDragStart,
-    afterChange: handleMouseDragEnd,
-  };
+const itemsPerSlide = 12;
+const itemsPerLine = 4;
+const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
+const totalSlides = Math.ceil(totalItems / itemsPerSlide);
+const slideIndexes = Array.from(Array(totalSlides).keys());
+const lastSlideItems = totalItems % itemsPerSlide || itemsPerSlide;
 
-  
-
-  console.log("test")
+const sliderSettings = {
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  dots: true,
+  arrows: false,
+  draggable: true,
+  infinite: false,
+  speed: 500,
+};
 
   if (categoryAmount > 0) {
     return (
@@ -151,53 +124,75 @@ function CategoryPage({ shopID }) {
           <div className="heading-icon-dropshadow">
             <div className="heading-icon-category svg-color">&nbsp;</div>
           </div>
-          <h1 className="heading-primary no-margin">Categories {isDragging ? "dragging" : "not dragging"}</h1>
+          <h1 className="heading-primary no-margin">Categories</h1>
           <button onClick={addCategHandler} className="add-categ-init heading-tertiary">
             <div className="heading-icon-plus svg-color">&nbsp;</div>Add Category</button>
         </span>
 
 
         <Slider {...sliderSettings}>
-      {slideIndexes.map((slideIndex) => {
-        const startIndex = slideIndex * itemsPerSlide;
-        const endIndex = startIndex + (slideIndex === totalSlides - 1 ? lastSlideItems : itemsPerSlide);
+  {slideIndexes.map((slideIndex) => {
+    const startIndex = slideIndex * itemsPerSlide;
+    const endIndex = startIndex + (slideIndex === totalSlides - 1 ? lastSlideItems : itemsPerSlide);
 
-        const slideItems = contents.slice(startIndex, endIndex);
+    const slideItems = contents.slice(startIndex, endIndex);
 
-        return (
-          <div className="slide" key={slideIndex}>
-            <div className="category-container">
-              {slideItems.map((categ, index) => (
-                <div className="warning-container" key={startIndex + index}>
-                  {soldCateg.includes(index) && (
-                    <motion.div
-                      className="sold-out-warning svg-sold"
-                      key={categ}
-                      initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.2, type: "spring", damping: 0 }}
-                    >
-                      &nbsp;
-                    </motion.div>
-                  )}
-                  <Category
-                    index={index}
-                    items={categ}
-                    id={router.query.shopid}
-                    key={index}
-                    state={addCateg}
-                    edit={addCategHandler}
-                    edit2={editCategHandler}
-                    disabled={isDragging}
-                  ></Category>
-                </div>
-              ))}
+    return (
+      <div className="slide" key={slideIndex}>
+        <div className="category-container">
+          {slideItems.map((categ, index) => (
+            <div className="warning-container" key={startIndex + index}>
+              {soldCateg.includes(index) && (
+                <motion.div
+                  className="sold-out-warning svg-sold"
+                  key={categ}
+                  initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.2, type: "spring", damping: 0 }}
+                >
+                  &nbsp;
+                </motion.div>
+              )}
+              <Category
+                index={index}
+                items={categ}
+                id={router.query.shopid}
+                key={index}
+                state={addCateg}
+                edit={addCategHandler}
+                edit2={editCategHandler}
+              ></Category>
             </div>
-          </div>
-        );
-      })}
-    </Slider>
+          ))}
+        </div>
+      </div>
+    );
+  })}
+</Slider>
 
+        {/* <section className="category-container">
+          {contents.map((categ, index) => {
+            return (
+              <div className="warning-container" key={index}>
+                {soldCateg.includes(index) &&
+                  <motion.div className="sold-out-warning svg-sold"
+                    key={categ}
+                    initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.2, type: "spring", damping: 0 }}>&nbsp;</motion.div>}
+                <Category
+                  index={index}
+                  items={categ}
+                  id={router.query.shopid}
+                  key={index}
+                  state={addCateg}
+                  edit={addCategHandler}
+                  edit2={editCategHandler}
+                ></Category>
+              </div>
+            );
+          })}
+        </section> */}
       </Fragment>
     );
   } else {
