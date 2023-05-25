@@ -5,15 +5,19 @@ import Image from "next/image";
 
 function Category(props) {
     const MotionLink = motion(Link);
-    const { categoryName, categoryImage, categoryDescription, categoryProducts } = props.items
+    const { categoryName, categoryImage, categoryDescription, categoryProducts, active } = props.items
+
+    console.log(categoryProducts)
 
     return <>
         <MotionLink className="category marginer" href={{ pathname: `/${props.id}/categories/${categoryName}`}}
             initial={!props.state ? { opacity: 0, x: -100 } : false}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.2 }}>
+            transition={{ duration: 0.2 }}
+            style={{display:"relative"}}>
+            <div className="sold-out-warning">&nbsp;</div>
 
-            <button className="categ-edit-button" onClick={(event) => { props.edit2([categoryName, categoryImage, categoryDescription, props.index]); props.edit(event); }}><div className="heading-icon-edit svg-color">&nbsp;</div></button>
+            <button className="categ-edit-button" onClick={(event) => { props.edit2([categoryName, categoryImage, categoryDescription, props.index, active]); props.edit(event); }}><div className="heading-icon-edit svg-color">&nbsp;</div></button>
             <div className="image-container">
                 <img src={categoryImage} className="category-img" alt={categoryName}></img>
             </div>

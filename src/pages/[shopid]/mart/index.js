@@ -5,10 +5,13 @@ import Link from "next/link"
 
 function Mart(martID) {
     const id = martID.shopID._id
+    const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
+
 
     return <Fragment>
         <Head>
             <title>Mart Details</title>
+            <link rel="icon" type="image/jpeg" href={favicon} />
         </Head>
 
         <span className="page-heading">

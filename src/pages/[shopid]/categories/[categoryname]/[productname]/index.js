@@ -110,8 +110,14 @@ function ProductPage({ shopID }) {
     setStockUnit(event.target.value);
   };
 
+  const [activeValue, setActiveValue] = useState(variationsList[varState].active);
+  const handleActive = () => {
+    setActiveValue(!activeValue)
+  };
+
   function addPrice() {
     setPriceValue(parseInt(priceValue) + 1)
+    console.log(activeValue)
   }
 
   function minusPrice() {
@@ -217,6 +223,7 @@ function ProductPage({ shopID }) {
 
     setNameLength(variationsList[varState].productName.length)
     setDescLength(variationsList[varState].productDescription.length)
+    setActiveValue(variationsList[varState].active)
 
     setFormInputValidity({
       name: true,
@@ -338,11 +345,11 @@ function ProductPage({ shopID }) {
       productDescription: descValue,
       productPrice: priceValue,
       productStock: { stockAmount: stockAmount, stockUnit: stockUnit },
-      productImages: givenImages.map((imageObject) => imageObject.image)
+      productImages: givenImages.map((imageObject) => imageObject.image),
+      active: activeValue
     }
 
     if (submissionValid) {
-      console.log(incomingData)
       setLoading(true)
 
       const response = await fetch(
@@ -373,7 +380,6 @@ function ProductPage({ shopID }) {
   /////////////////////////////////////
 
   const addVariation = async (payload) => {
-    console.log(payload)
     const response = await fetch(
       `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}`,
       {
@@ -474,6 +480,9 @@ function ProductPage({ shopID }) {
                 <button type="button" className="minus-button" onClick={minusPrice}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
                 <input type="number" value={priceValue} className={priceClasses} placeholder="Price" required id='price' onChange={handlePriceChange} style={{ borderRadius: "0", margin: "0" }}></input>
                 <button type="button" onClick={addPrice} className="add-button svg-color"><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
+                <div className="flex-row-align">
+                <h1 className="heading-secondary" style={{marginLeft:"2rem"}}>Active:</h1> <div style={{transform:"translateY(-1rem) "}}><input checked={activeValue} onChange={handleActive} type="checkbox" id="switch" className="toggle-switch" /><label htmlFor="switch" className="toggle-label">Toggle</label></div>
+                </div>
               </div>
               {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}
             </div>

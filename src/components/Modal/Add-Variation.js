@@ -194,7 +194,8 @@ function AddProduct(props) {
       productDescription: descValue,
       productPrice: priceValue,
       productStock: { stockAmount: stockAmount, stockUnit: stockUnit },
-      productImages: givenImages.map((imageObject) => imageObject.image)
+      productImages: givenImages.map((imageObject) => imageObject.image),
+      active: true
     }
 
     if (submissionValid) {

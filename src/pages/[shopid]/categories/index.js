@@ -26,7 +26,7 @@ function CategoryPage({ shopID }) {
   const categoryAmount = Object.keys(shopID.shopData.shopCategories).length
 
   const [addCateg, setAddCateg] = useState(false)
-  const [defaultValues, setDefaultValues] = useState(["", "", "", 0])
+  const [defaultValues, setDefaultValues] = useState(["", "", "", 0, true])
 
   function addCategHandler(event) {
     event.preventDefault()
@@ -35,11 +35,11 @@ function CategoryPage({ shopID }) {
   }
 
   function editCategHandler(data) {
-    setDefaultValues([data[0], data[1], data[2], data[3]])
+    setDefaultValues([data[0], data[1], data[2], data[3], data[4]])
   }
 
   function defClearer() {
-    setDefaultValues(["", "", "", 0])
+    setDefaultValues(["", "", "", 0, true])
   }
 
   async function completeForm(formdata) {
@@ -121,6 +121,10 @@ function CategoryPage({ shopID }) {
     );
   } else {
     return <Fragment>
+            <Head>
+          <title>Categories</title>
+          <link rel="icon" type="image/jpeg" href={favicon} />
+        </Head>
       <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={upperCategNames}></AddCategory>
       <span className="page-heading">
         <div className="heading-icon-dropshadow">

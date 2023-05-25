@@ -14,6 +14,8 @@ function AddCategory(props) {
   const setDefaultDesc = props.defs[2]
   const defaultDescLength = setDefaultDesc.length
 
+  const setDefaultActive = props.defs[4]
+
   const router = useRouter()
 
   const appear = {
@@ -69,6 +71,11 @@ function AddCategory(props) {
   const handleDescChange = (event) => {
     setDescValue(event.target.value);
     handleDescLength(event.target.value)
+  };
+
+  const [activeValue, setActiveValue] = useState(true);
+  const handleActive = () => {
+    setActiveValue(!activeValue)
   };
 
   const [formInputValidity, setFormInputValidity] = useState({
@@ -136,6 +143,7 @@ function AddCategory(props) {
       categoryImage: imgValue,
       categoryDescription: descValue,
       categoryProducts: [],
+      active: activeValue,
     }
 
     if (submissionValid) {
@@ -228,6 +236,9 @@ function AddCategory(props) {
     if (props.defs[2] !== "") {
       setDescValue(props.defs[2])
     }
+    if (props.defs[4] !== "") {
+      setActiveValue(props.defs[4])
+    }
   }, props.defs)
 
   const [setting, setSetting] = useState("Add Category")
@@ -279,11 +290,12 @@ function AddCategory(props) {
               exit="exit"
             >
               <form onSubmit={handleClick}>
-                <span className="page-heading">
+                <span className="page-heading" style={{marginBottom:"1rem"}}>
                   <h2 className="heading-primary no-margin">{setting}</h2>
                   <div className="heading-icon-dropshadow">
                     <div className="heading-icon-category svg-color">&nbsp;</div>
                   </div>
+                  {setting === "Edit Category" && (<div style={{marginLeft:"1rem"}}><input checked={activeValue} onChange={handleActive} type="checkbox" id="switch" className="toggle-switch" /><label htmlFor="switch" className="toggle-label">Toggle</label></div>)}
                 </span>
 
                 <div className="form-group">
