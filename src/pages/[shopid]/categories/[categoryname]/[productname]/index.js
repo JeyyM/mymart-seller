@@ -46,6 +46,15 @@ function ProductPage({ shopID }) {
 
   const chosenTags = chosenCategory[0].categoryProducts[productIndex].productTags
 
+  const soldVar = []
+
+  variationsList.forEach((variant, index) => {
+
+      if (variant.productStock.stockAmount === "0"){
+        soldVar.push(index);
+      }
+  })
+
   function varStateHandler(ind) {
     setVarState(ind)
     setImgState(0)
@@ -117,7 +126,6 @@ function ProductPage({ shopID }) {
 
   function addPrice() {
     setPriceValue(parseInt(priceValue) + 1)
-    console.log(activeValue)
   }
 
   function minusPrice() {
@@ -526,9 +534,17 @@ function ProductPage({ shopID }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2 }}>
           {variationsList.map((v, index) => (
+            <div className="warning-container" key={index}>
+            {soldVar.includes(index) && 
+                <motion.div className="sold-out-warning svg-sold"
+                  key={v}
+                  initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.2, type: "spring", damping: 0 }}>&nbsp;</motion.div>}
             <motion.img key={index} onClick={() => { varStateHandler(index);}} className={`varItem ${index === varState ? "active-var" : ""}`} src={imageGetter(index)} alt={index} initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 * index, duration: 0.2 }}></motion.img>
+              </div>
           ))}
         </motion.div>
 

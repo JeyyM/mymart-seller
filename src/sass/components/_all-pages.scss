@@ -232,13 +232,17 @@ input[type=number].shortener-25{
   @include border-round;
 }
 
-.sold-out-warning{
-  @include warning-logo(warning, 6rem, 6rem);
-  position: absolute;
-  transform: translateX(-50%);
-  // top: 0;
-  // right: 0;
-  // background-color: red;
-  // z-index: 20;
+.warning-container{
+  height: min-content;
+  width: min-content;
 }
 
+.sold-out-warning{
+  @include warning-logo(sold, 6rem, 6rem);
+
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 2;
+}

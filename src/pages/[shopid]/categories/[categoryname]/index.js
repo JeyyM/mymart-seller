@@ -5,6 +5,8 @@ import { useState } from "react";
 import AddProduct from "@/components/Modal/Add-Product";
 import { getServerSideProps } from "..";
 import Head from "next/head";
+import { AnimatePresence, motion } from "framer-motion";
+
 
 function ProductsPage({ shopID }) {
   const router = useRouter()
@@ -61,6 +63,15 @@ function ProductsPage({ shopID }) {
 
   }
 
+  const soldProds = []
+
+  chosenCategory.categoryProducts.forEach((product, index) => {
+      const vars = product.variations;
+      if (vars.some((variant) => variant.productStock.stockAmount === "0")) {
+        soldProds.push(index);
+      }
+  });
+
   if (products.length > 0) {
 
     return <Fragment>
@@ -80,7 +91,15 @@ function ProductsPage({ shopID }) {
       <section className="category-container">
         {products.map((prod, index) => (
           <Fragment key={index}>
+          <div className="warning-container" key={index}>
+          {soldProds.includes(index) && 
+                <motion.div className="sold-out-warning svg-sold"
+                  key={prod}
+                  initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.2, type: "spring", damping: 0 }}>&nbsp;</motion.div>}
             <CategoryProducts items={prod.variations} categName={queryCategoryName} id={router.query.shopid} index={index} state={addProduct} currency={shopCurrency} ></CategoryProducts>
+            </div>
           </Fragment>
         ))}
       </section>
