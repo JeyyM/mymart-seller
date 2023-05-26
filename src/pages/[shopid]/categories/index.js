@@ -119,7 +119,7 @@ function CategoryPage({ shopID }) {
           <link rel="icon" type="image/jpeg" href={favicon} />
         </Head>
         <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={upperCategNames}></AddCategory>
-        <span className="page-heading">
+        <span className="page-heading" style={{ width: "min-content" }}>
           <div className="heading-icon-dropshadow">
             <div className="heading-icon-category svg-color">&nbsp;</div>
           </div>
@@ -130,48 +130,48 @@ function CategoryPage({ shopID }) {
 
 
         <Slider {...sliderSettings}>
-      {slideIndexes.map((slideIndex) => {
-        const startIndex = slideIndex * itemsPerSlide;
-        const endIndex = startIndex + (slideIndex === totalSlides - 1 ? lastSlideItems : itemsPerSlide);
+          {slideIndexes.map((slideIndex) => {
+            const startIndex = slideIndex * itemsPerSlide;
+            const endIndex = startIndex + (slideIndex === totalSlides - 1 ? lastSlideItems : itemsPerSlide);
 
-        const slideItems = contents.slice(startIndex, endIndex);
+            const slideItems = contents.slice(startIndex, endIndex);
 
-        return (
-          <div className="slide" key={slideIndex}>
-            <div className="category-container">
-            {slideItems.map((categ, index) => {
-  const relativeIndex = startIndex + index;
-  
-  return (
-    <div className="warning-container" key={relativeIndex}>
-      {soldCateg.includes(relativeIndex) && (
-        <motion.div
-          className="sold-out-warning svg-sold"
-          key={categ}
-          initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.2, type: "spring", damping: 0 }}
-        >
-          &nbsp;
-        </motion.div>
-      )}
-      <Category
-        index={index}
-        items={categ}
-        id={router.query.shopid}
-        key={index}
-        state={addCateg}
-        edit={addCategHandler}
-        edit2={editCategHandler}
-      ></Category>
-    </div>
-  );
-})}
-            </div>
-          </div>
-        );
-      })}
-    </Slider>
+            return (
+              <div className="slide" key={slideIndex}>
+                <div className="category-container">
+                  {slideItems.map((categ, index) => {
+                    const relativeIndex = startIndex + index;
+
+                    return (
+                      <div className="warning-container" key={relativeIndex}>
+                        {soldCateg.includes(relativeIndex) && (
+                          <motion.div
+                            className="sold-out-warning svg-sold"
+                            key={categ}
+                            initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.2, type: "spring", damping: 0 }}
+                          >
+                            &nbsp;
+                          </motion.div>
+                        )}
+                        <Category
+                          index={index}
+                          items={categ}
+                          id={router.query.shopid}
+                          key={index}
+                          state={addCateg}
+                          edit={addCategHandler}
+                          edit2={editCategHandler}
+                        ></Category>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </Slider>
 
       </Fragment>
     );

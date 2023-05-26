@@ -39,8 +39,6 @@ function ProductPage({ shopID }) {
   const productNames = allCategories[categoryIndex].categoryProducts.flatMap(product => product.variations.map(variation => encodeURIComponent(variation.productName)));
   const upperProductNames = productNames.map(name => name.toUpperCase());
 
-  console.log(upperProductNames)
-
   const routerData = [shopID._id, queryCategory]
 
   const [varState, setVarState] = useState(0)
@@ -337,9 +335,6 @@ function ProductPage({ shopID }) {
     const unitValid = stockUnit !== ""
     const imgValid = givenImages.length > 0
 
-    console.log(nameValid, nameExist)
-    console.log("here", upperProductNames)
-
     const submissionValid = nameValid && imgValid && descValid && priceValid && unitValid && amountValid && imgValid && !nameExist
 
     setFormInputValidity({
@@ -390,6 +385,7 @@ function ProductPage({ shopID }) {
       }
     }
   }
+
   /////////////////////////////////////
 
   const addVariation = async (payload) => {

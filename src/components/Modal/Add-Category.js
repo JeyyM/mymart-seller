@@ -163,7 +163,6 @@ function AddCategory(props) {
       }
 
       if (setting === "Edit Category") {
-        // console.log(incomingData)
         // const categoryContents = Object.entries(props.categIndexes)
 
         // const chosenKeyFind = categoryContents.find(([key, value]) => {

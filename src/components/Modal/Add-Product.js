@@ -9,8 +9,6 @@ import Image from "next/image";
 function AddProduct(props) {
   const router = useRouter()
 
-  console.log("thing her", props.names)
-
   const appear = {
     hidden: {
       transform: "scale(0)",
@@ -181,8 +179,6 @@ function AddProduct(props) {
       nameValid = nameValue.trim() !== "" && !props.names.includes(encodeURIComponent(nameValue.toUpperCase()))
       nameExist = props.names.includes(encodeURIComponent(nameValue.toUpperCase()))
     }
-
-    console.log(nameValid, nameExist)
 
     // if (nameValue === setDefaultName) { nameExist = false; nameValid = true }
     // nameValid = nameValue.trim() !== ""

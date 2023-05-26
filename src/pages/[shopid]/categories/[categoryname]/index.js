@@ -6,6 +6,9 @@ import AddProduct from "@/components/Modal/Add-Product";
 import { getServerSideProps } from "..";
 import Head from "next/head";
 import { AnimatePresence, motion } from "framer-motion";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 
 function ProductsPage({ shopID }) {
@@ -27,15 +30,15 @@ function ProductsPage({ shopID }) {
 
   let productNames = []
 
-  if (products.length > 0 ){
-  productNames = products.flatMap((product) => {
-    const { variations } = product;
-    if (variations && Array.isArray(variations)) {
-      return variations.map((variation) => variation.productName).filter(Boolean);
-    }
-    return [];
-  });
-}
+  if (products.length > 0) {
+    productNames = products.flatMap((product) => {
+      const { variations } = product;
+      if (variations && Array.isArray(variations)) {
+        return variations.map((variation) => variation.productName).filter(Boolean);
+      }
+      return [];
+    });
+  }
 
   const upperProductNames = productNames.map((name) => encodeURIComponent(name.toUpperCase()));
 
@@ -66,11 +69,29 @@ function ProductsPage({ shopID }) {
   const soldProds = []
 
   chosenCategory.categoryProducts.forEach((product, index) => {
-      const vars = product.variations;
-      if (vars.some((variant) => variant.productStock.stockAmount === "0")) {
-        soldProds.push(index);
-      }
+    const vars = product.variations;
+    if (vars.some((variant) => variant.productStock.stockAmount === "0")) {
+      soldProds.push(index);
+    }
   });
+
+  const totalItems = products.length;
+  const itemsPerSlide = 12;
+  const itemsPerLine = 4;
+  const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
+  const totalSlides = Math.ceil(totalItems / itemsPerSlide);
+  const slideIndexes = Array.from(Array(totalSlides).keys());
+  const lastSlideItems = totalItems % itemsPerSlide || itemsPerSlide;
+
+  const sliderSettings = {
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    dots: true,
+    arrows: false,
+    draggable: true,
+    infinite: false,
+    speed: 500,
+  };
 
   if (products.length > 0) {
 
@@ -88,7 +109,7 @@ function ProductsPage({ shopID }) {
       </span>
       <h2 className="category-description heading-tertiary">{chosenCategory.categoryDescription}</h2>
 
-      <section className="category-container">
+      {/* <section className="category-container">
         {products.map((prod, index) => (
           <Fragment key={index}>
           <div className="warning-container" key={index}>
@@ -102,7 +123,51 @@ function ProductsPage({ shopID }) {
             </div>
           </Fragment>
         ))}
-      </section>
+      </section> */}
+
+      <Slider {...sliderSettings}>
+        {slideIndexes.map((slideIndex) => {
+          const startIndex = slideIndex * itemsPerSlide;
+          const endIndex = startIndex + (slideIndex === totalSlides - 1 ? lastSlideItems : itemsPerSlide);
+
+          const slideItems = products.slice(startIndex, endIndex);
+
+          return (
+            <div className="slide" key={slideIndex}>
+              <div className="category-container">
+                {slideItems.map((prod, index) => {
+                  const relativeIndex = startIndex + index;
+
+                  return (
+                    <div className="warning-container" key={relativeIndex}>
+                      {soldProds.includes(relativeIndex) && (
+                        <motion.div
+                          className="sold-out-warning svg-sold"
+                          key={prod}
+                          initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.2, type: "spring", damping: 0 }}
+                        >
+                          &nbsp;
+                        </motion.div>
+                      )}
+                      <CategoryProducts 
+                      items={prod.variations} 
+                      categName={encodeURIComponent(queryCategoryName)} 
+                      id={router.query.shopid} 
+                      index={index} 
+                      state={addProduct} 
+                      currency={shopCurrency}>
+                      </CategoryProducts>
+
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </Slider>
     </Fragment>
   } else {
     return <Fragment>
