@@ -215,7 +215,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     color: red !important;
 }
 
-.categ-edit-button:active, .product-edit-button:active, .add-img:active, .help-button:active, .side-img.active-var, .varItem.active-var{
+.categ-edit-button:active, .product-edit-button:active, .add-img:active, .help-button:active, .side-img.active-var, .varItem.active-var, .car-button:active{
     filter: brightness(120%) !important;
   box-shadow: inset 0 0 0 10px ${props.color["bg-item"]}, 0 0 0 2px ${props.color["color-primary-dark"]},
     0 0 0 4px ${props.color["bg-item"]} !important;

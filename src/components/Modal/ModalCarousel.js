@@ -70,16 +70,16 @@ const ModalCarousel = ({ images, text, title, disable, modalStatus }) => {
             exit="exit"
           >
             <div className="carousel-buttons">
-              <button className="carousel-button prev-button add-img prev-item" onClick={handlePrevClick}>
+              <button className="carousel-button prev-button car-button prev-item round-borderer" onClick={handlePrevClick}>
                 <div
                   className="heading-icon-chevron svg-color"
-                  style={{ transform: 'rotate(90deg)', marginRight: '10rem' }}
+                  style={{ transform: 'rotate(90deg) scaleX(7)', marginLeft:"-1rem" }}
                 ></div>
               </button>
-              <button className="carousel-button next-button add-img next-item" onClick={handleNextClick}>
+              <button className="carousel-button next-button car-button next-item round-borderer" onClick={handleNextClick}>
                 <div
                   className="heading-icon-chevron svg-color"
-                  style={{ transform: 'rotate(270deg)' }}
+                  style={{ transform: 'rotate(270deg) scaleX(7)', marginLeft:"-1rem" }}
                 ></div>
               </button>
             </div>

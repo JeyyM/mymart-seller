@@ -174,8 +174,8 @@
 
   .heading-icon-chevron {
     @include heading-logo(chevron, 5rem, 5rem);
-    width: 100%;
-    height: 100%;
+    // width: 100%;
+    // height: 100%;
   }
 
   .rotater {
@@ -211,7 +211,7 @@
     position: absolute;
     left: 0;
     top: 50%;
-    transform: translateY(-50%) translateX((-50%));
+    transform: translateY(-50%);
     z-index: 5;
   }
 
@@ -219,7 +219,7 @@
     position: absolute;
     right: 0;
     top: 50%;
-    transform: translateY(-50%) translateX((50%));
+    transform: translateY(-50%);
     z-index: 5;
   }
 
