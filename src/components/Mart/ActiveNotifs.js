@@ -74,7 +74,7 @@ function ActiveNotifs(props) {
         <Fragment>
                         <div className="active-notifs">
                 <AnimatePresence>
-                    {activeNotifs.map((item, index) => (
+                    {props.notifs.map((item, index) => (
                         <motion.div
                             key={index}
                             variants={slide}

@@ -49,15 +49,13 @@ function HomePage({ shopID }){
         setStartPop(!startPop)
     }
 
-    console.log(shopData.shopCategories)
-
     return <Fragment>
 <Head>
   <title>{shopID.name}</title>
   <link rel="icon" type="image/jpeg" href={favicon} />
 
 </Head>
-            <ActiveNotifs notifs={activeNotifs}></ActiveNotifs>
+            {activeNotifs.length > 0 && <ActiveNotifs notifs={activeNotifs}></ActiveNotifs>}
             <BannerCarousel data={imageData.banners}></BannerCarousel>
             <PopModal modalStatus={startPop} disable={handleStart} image={popupInfo.image} link={popupInfo.link}></PopModal>
 
