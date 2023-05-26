@@ -141,30 +141,34 @@ function CategoryPage({ shopID }) {
         return (
           <div className="slide" key={slideIndex}>
             <div className="category-container">
-              {slideItems.map((categ, index) => (
-                <div className="warning-container" key={startIndex + index}>
-                  {soldCateg.includes(index) && (
-                    <motion.div
-                      className="sold-out-warning svg-sold"
-                      key={categ}
-                      initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.2, type: "spring", damping: 0 }}
-                    >
-                      &nbsp;
-                    </motion.div>
-                  )}
-                  <Category
-                    index={index}
-                    items={categ}
-                    id={router.query.shopid}
-                    key={index}
-                    state={addCateg}
-                    edit={addCategHandler}
-                    edit2={editCategHandler}
-                  ></Category>
-                </div>
-              ))}
+            {slideItems.map((categ, index) => {
+  const relativeIndex = startIndex + index;
+  
+  return (
+    <div className="warning-container" key={relativeIndex}>
+      {soldCateg.includes(relativeIndex) && (
+        <motion.div
+          className="sold-out-warning svg-sold"
+          key={categ}
+          initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.2, type: "spring", damping: 0 }}
+        >
+          &nbsp;
+        </motion.div>
+      )}
+      <Category
+        index={index}
+        items={categ}
+        id={router.query.shopid}
+        key={index}
+        state={addCateg}
+        edit={addCategHandler}
+        edit2={editCategHandler}
+      ></Category>
+    </div>
+  );
+})}
             </div>
           </div>
         );

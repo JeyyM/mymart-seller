@@ -16,13 +16,13 @@ function Category(props) {
           setIsDragging(true);
         }, 200);
       
-        setTimeout(() => {
-          if (holdTimeoutRef.current) {
-            setIsDragging(false);
-            clearTimeout(holdTimeoutRef.current);
-            router.push(`/${props.id}/categories/${categoryName}`);
-          }
-        }, 1000);
+        // setTimeout(() => {
+        //   if (holdTimeoutRef.current) {
+        //     setIsDragging(false);
+        //     clearTimeout(holdTimeoutRef.current);
+        //     router.push(`/${props.id}/categories/${categoryName}`);
+        //   }
+        // }, 1000);
       };
       
     const handleMouseUp = () => {
