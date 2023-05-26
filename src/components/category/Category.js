@@ -52,7 +52,7 @@ function Category(props) {
         <MotionLink
           className="category"
           href={{ pathname: `/${props.id}/categories/${encodedName}` }}
-          initial={!isDragging ? { opacity: 0, x: -100 } : false}
+          initial={!isDragging && !props.state ? { opacity: 0, x: -100 } : false}
           animate={!isDragging ? { opacity: 1, x: 0 } : false}
           transition={{ duration: 0.2 }}
           style={{ display: "relative" }}
