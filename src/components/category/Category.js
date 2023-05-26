@@ -64,7 +64,7 @@ function Category(props) {
         <button
           className="categ-edit-button"
           onClick={(event) => {
-            props.edit2([encodedName, categoryImage, categoryDescription, props.index, active]);
+            props.edit2([categoryName, categoryImage, categoryDescription, props.index, active]);
             props.edit(event);
           }}
         >

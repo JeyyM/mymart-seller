@@ -39,7 +39,7 @@ function ProductPage({ shopID }) {
   const productNames = allCategories[categoryIndex].categoryProducts.flatMap(product => product.variations.map(variation => encodeURIComponent(variation.productName)));
   const upperProductNames = productNames.map(name => name.toUpperCase());
 
-  console.log(productNames)
+  console.log(upperProductNames)
 
   const routerData = [shopID._id, queryCategory]
 
@@ -328,14 +328,17 @@ function ProductPage({ shopID }) {
       img4Valid && { image: imgValue4 },
     ].filter(Boolean)
 
-    let nameValid = nameValue.trim() !== "" && !upperProductNames.includes(nameValue.toUpperCase())
+    let nameValid = nameValue.trim() !== "" && !upperProductNames.includes(encodeURIComponent(nameValue.toUpperCase()))
     let nameExist = upperProductNames.includes(encodeURIComponent(nameValue.toUpperCase()))
-    if (nameValue.toUpperCase() === variationsList[varState].productName.toUpperCase()) { nameExist = false; nameValid = true }
+    if (encodeURIComponent(nameValue.toUpperCase()) === encodeURIComponent(variationsList[varState].productName.toUpperCase())) { nameExist = false; nameValid = true }
     const descValid = descValue !== ""
     const priceValid = priceValue !== "" && priceValue >= 0
     const amountValid = stockAmount !== "" && stockAmount >= 0
     const unitValid = stockUnit !== ""
     const imgValid = givenImages.length > 0
+
+    console.log(nameValid, nameExist)
+    console.log("here", upperProductNames)
 
     const submissionValid = nameValid && imgValid && descValid && priceValid && unitValid && amountValid && imgValid && !nameExist
 

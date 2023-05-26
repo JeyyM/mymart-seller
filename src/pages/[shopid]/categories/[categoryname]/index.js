@@ -37,7 +37,7 @@ function ProductsPage({ shopID }) {
   });
 }
 
-  const upperProductNames = productNames.map((name) => name.toUpperCase());
+  const upperProductNames = productNames.map((name) => encodeURIComponent(name.toUpperCase()));
 
   const [addProduct, setAddProduct] = useState(false)
   const [defaultValues, setDefaultValues] = useState(["", "", ""])
