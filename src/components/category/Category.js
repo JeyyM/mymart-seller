@@ -8,6 +8,7 @@ function Category(props) {
     const router = useRouter()
     const MotionLink = motion(Link);
     const { categoryName, categoryImage, categoryDescription, categoryProducts, active } = props.items;
+    const encodedName = encodeURIComponent(categoryName)
     const [isDragging, setIsDragging] = useState(false);
     const holdTimeoutRef = useRef(null);
   
@@ -20,7 +21,7 @@ function Category(props) {
         //   if (holdTimeoutRef.current) {
         //     setIsDragging(false);
         //     clearTimeout(holdTimeoutRef.current);
-        //     router.push(`/${props.id}/categories/${categoryName}`);
+        //     router.push(`/${props.id}/categories/${encodedName}`);
         //   }
         // }, 1000);
       };
@@ -50,7 +51,7 @@ function Category(props) {
       <>
         <MotionLink
           className="category"
-          href={{ pathname: `/${props.id}/categories/${categoryName}` }}
+          href={{ pathname: `/${props.id}/categories/${encodedName}` }}
           initial={!isDragging ? { opacity: 0, x: -100 } : false}
           animate={!isDragging ? { opacity: 1, x: 0 } : false}
           transition={{ duration: 0.2 }}
@@ -63,7 +64,7 @@ function Category(props) {
         <button
           className="categ-edit-button"
           onClick={(event) => {
-            props.edit2([categoryName, categoryImage, categoryDescription, props.index, active]);
+            props.edit2([encodedName, categoryImage, categoryDescription, props.index, active]);
             props.edit(event);
           }}
         >
@@ -73,7 +74,6 @@ function Category(props) {
           <img src={categoryImage} className="category-img" alt={categoryName}></img>
         </div>
         <div className="category-content">
-          <h1 className="heading-primary">{isDragging ? "Drag" : "Not"}</h1>
           <div>
             <h2 className="heading-secondary category-name">
               {categoryName.length > 40 ? categoryName.substring(0, 37) + "..." : categoryName}

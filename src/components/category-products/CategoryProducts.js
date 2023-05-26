@@ -8,8 +8,9 @@ function CategoryProducts(props) {
     const id = props.id
     const MotionLink = motion(Link);
 
+    const encodedName = encodeURIComponent(productName)
 
-    return <MotionLink className="category" href={{ pathname: `/${props.id}/categories/${props.categName}/${productName}` }}
+    return <MotionLink className="category" href={{ pathname: `/${props.id}/categories/${props.categName}/${encodedName}` }}
         key={props.index}
         initial={!props.state ? { opacity: 0, x: -100 } : false}
         animate={{ opacity: 1, x: 0 }}

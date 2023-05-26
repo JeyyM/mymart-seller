@@ -36,8 +36,10 @@ function ProductPage({ shopID }) {
 
   const variationRange = Array.from({ length: variationsList.length }, (_, index) => index);
 
-  const productNames = allCategories[0].categoryProducts.flatMap(product => product.variations.map(variation => variation.productName));
+  const productNames = allCategories[categoryIndex].categoryProducts.flatMap(product => product.variations.map(variation => encodeURIComponent(variation.productName)));
   const upperProductNames = productNames.map(name => name.toUpperCase());
+
+  console.log(productNames)
 
   const routerData = [shopID._id, queryCategory]
 
@@ -327,7 +329,7 @@ function ProductPage({ shopID }) {
     ].filter(Boolean)
 
     let nameValid = nameValue.trim() !== "" && !upperProductNames.includes(nameValue.toUpperCase())
-    let nameExist = upperProductNames.includes(nameValue.toUpperCase())
+    let nameExist = upperProductNames.includes(encodeURIComponent(nameValue.toUpperCase()))
     if (nameValue.toUpperCase() === variationsList[varState].productName.toUpperCase()) { nameExist = false; nameValid = true }
     const descValid = descValue !== ""
     const priceValid = priceValue !== "" && priceValue >= 0

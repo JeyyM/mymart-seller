@@ -17,7 +17,7 @@ function CategoryPage({ shopID }) {
 
   const favicon = shopData.shopDetails.imageData.icons.icon
 
-  const categNamesList = Object.keys(contents).map(key => (contents[key].categoryName))
+  const categNamesList = Object.keys(contents).map(key => (encodeURIComponent(contents[key].categoryName)))
   const upperCategNames = categNamesList.map(name => name.toUpperCase());
 
   const categoryAmount = Object.keys(shopID.shopData.shopCategories).length
@@ -109,8 +109,6 @@ function CategoryPage({ shopID }) {
     infinite: false,
     speed: 500,
   };
-
-  console.log("test")
 
   if (categoryAmount > 0) {
     return (
