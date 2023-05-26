@@ -1,6 +1,6 @@
 import Backdrop from "../Modal/Backdrop";
 import { motion, AnimatePresence } from "framer-motion";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { useRouter } from "next/router";
 
 
@@ -8,23 +8,24 @@ function ActiveNotifs(props) {
     const router = useRouter();
     const slide = {
         hidden: {
-            x: "-100vw",
-            opacity: 1,
+            x: "-10rem",
+            opacity: 0,
         },
-        visible: {
+        visible: (index) => ({
             x: "0px",
             opacity: 1,
             transition: {
                 type: "spring",
                 duration: 0.3,
                 bounce: 0.2,
+                delay: index * 0.2,
             },
-        },
+        }),
         exit: {
-            x: "-100vw",
-            opacity: 1,
+            x: "-10rem",
+            opacity: 0,
             transition: {
-                duration: 0.2,
+                duration: 0.1,
             },
         },
     };
@@ -67,14 +68,18 @@ function ActiveNotifs(props) {
         return elements;
     }
 
+    const [currentNotifs, setCurrent] = useState(props.notifs)
 
-
+    function handleDeleteActive(index) {
+        let newNotifs = currentNotifs.filter((item, i) => i !== index);
+        setCurrent(newNotifs);
+    }
 
     return (
         <Fragment>
                         <div className="active-notifs">
                 <AnimatePresence>
-                    {props.notifs.map((item, index) => (
+                    {currentNotifs.map((item, index) => (
                         <motion.div
                             key={index}
                             variants={slide}
