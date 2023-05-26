@@ -52,7 +52,8 @@ async function handler(req, res) {
         $set: {
           [`shopData.shopCategories.${catKey}.categoryDescription`]: data.categoryDescription,
           [`shopData.shopCategories.${catKey}.categoryImage`]: data.categoryImage,
-          [`shopData.shopCategories.${catKey}.categoryName`]: data.categoryName
+          [`shopData.shopCategories.${catKey}.categoryName`]: data.categoryName,
+          [`shopData.shopCategories.${catKey}.active`]: data.active
         }
       }
     );

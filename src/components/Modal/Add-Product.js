@@ -176,12 +176,12 @@ function AddProduct(props) {
       nameValid = false;
       nameExist = false;
     } else {
-      nameValid = nameValue.trim() !== "" && !props.names.includes(nameValue.toUpperCase())
-      nameExist = props.names.includes(nameValue.toUpperCase())
+      nameValid = nameValue.trim() !== "" && !props.names.includes(encodeURIComponent(nameValue.toUpperCase()))
+      nameExist = props.names.includes(encodeURIComponent(nameValue.toUpperCase()))
     }
 
     // if (nameValue === setDefaultName) { nameExist = false; nameValid = true }
-    nameValid = nameValue.trim() !== ""
+    // nameValid = nameValue.trim() !== ""
     const descValid = descValue !== ""
     const priceValid = priceValue !== "" && priceValue >= 0
     const amountValid = stockAmount !== "" && stockAmount >= 0

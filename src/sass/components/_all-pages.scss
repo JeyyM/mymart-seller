@@ -232,3 +232,17 @@ input[type=number].shortener-25{
   @include border-round;
 }
 
+.warning-container{
+  height: min-content;
+  width: min-content;
+}
+
+.sold-out-warning{
+  @include warning-logo(sold, 6rem, 6rem);
+
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 2;
+}

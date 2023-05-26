@@ -168,8 +168,8 @@ function AddProduct(props) {
       img4Valid && { image: imgValue4 },
     ].filter(Boolean)
 
-    let nameValid = nameValue.trim() !== "" && !props.names.includes(nameValue.toUpperCase())
-    let nameExist = props.names.includes(nameValue.toUpperCase())
+    let nameValid = nameValue.trim() !== "" && !props.names.includes(encodeURIComponent(nameValue.toUpperCase()))
+    let nameExist = props.names.includes(encodeURIComponent(nameValue.toUpperCase()))
     const descValid = descValue !== ""
     const priceValid = priceValue !== "" && priceValue >= 0
     const amountValid = stockAmount !== "" && stockAmount >= 0
@@ -194,7 +194,8 @@ function AddProduct(props) {
       productDescription: descValue,
       productPrice: priceValue,
       productStock: { stockAmount: stockAmount, stockUnit: stockUnit },
-      productImages: givenImages.map((imageObject) => imageObject.image)
+      productImages: givenImages.map((imageObject) => imageObject.image),
+      active: true
     }
 
     if (submissionValid) {

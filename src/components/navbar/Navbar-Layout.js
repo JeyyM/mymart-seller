@@ -101,6 +101,13 @@ border-image: linear-gradient(
     ${props.color["color-primary-light"]}
   ) !important;}
 
+  .svg-sold{
+    background-image: linear-gradient(
+    to right,
+    #16ff00,
+    #ffde00
+  ) !important;}
+
 .svg-decolor, .slick-dot{
     background-image: linear-gradient(
     to right,

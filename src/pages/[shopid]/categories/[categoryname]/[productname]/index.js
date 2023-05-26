@@ -36,7 +36,7 @@ function ProductPage({ shopID }) {
 
   const variationRange = Array.from({ length: variationsList.length }, (_, index) => index);
 
-  const productNames = allCategories[0].categoryProducts.flatMap(product => product.variations.map(variation => variation.productName));
+  const productNames = allCategories[categoryIndex].categoryProducts.flatMap(product => product.variations.map(variation => encodeURIComponent(variation.productName)));
   const upperProductNames = productNames.map(name => name.toUpperCase());
 
   const routerData = [shopID._id, queryCategory]
@@ -45,6 +45,15 @@ function ProductPage({ shopID }) {
   const [imgState, setImgState] = useState(0)
 
   const chosenTags = chosenCategory[0].categoryProducts[productIndex].productTags
+
+  const soldVar = []
+
+  variationsList.forEach((variant, index) => {
+
+      if (variant.productStock.stockAmount === "0"){
+        soldVar.push(index);
+      }
+  })
 
   function varStateHandler(ind) {
     setVarState(ind)
@@ -108,6 +117,11 @@ function ProductPage({ shopID }) {
   const [stockUnit, setStockUnit] = useState(variationsList[varState].productStock.stockUnit);
   const handleStockUnit = (event) => {
     setStockUnit(event.target.value);
+  };
+
+  const [activeValue, setActiveValue] = useState(variationsList[varState].active);
+  const handleActive = () => {
+    setActiveValue(!activeValue)
   };
 
   function addPrice() {
@@ -218,6 +232,7 @@ function ProductPage({ shopID }) {
 
     setNameLength(variationsList[varState].productName.length)
     setDescLength(variationsList[varState].productDescription.length)
+    setActiveValue(variationsList[varState].active)
 
     setFormInputValidity({
       name: true,
@@ -312,9 +327,9 @@ function ProductPage({ shopID }) {
       img4Valid && { image: imgValue4 },
     ].filter(Boolean)
 
-    let nameValid = nameValue.trim() !== "" && !upperProductNames.includes(nameValue.toUpperCase())
-    let nameExist = upperProductNames.includes(nameValue.toUpperCase())
-    if (nameValue.toUpperCase() === variationsList[varState].productName.toUpperCase()) { nameExist = false; nameValid = true }
+    let nameValid = nameValue.trim() !== "" && !upperProductNames.includes(encodeURIComponent(nameValue.toUpperCase()))
+    let nameExist = upperProductNames.includes(encodeURIComponent(nameValue.toUpperCase()))
+    if (encodeURIComponent(nameValue.toUpperCase()) === encodeURIComponent(variationsList[varState].productName.toUpperCase())) { nameExist = false; nameValid = true }
     const descValid = descValue !== ""
     const priceValid = priceValue !== "" && priceValue >= 0
     const amountValid = stockAmount !== "" && stockAmount >= 0
@@ -339,11 +354,11 @@ function ProductPage({ shopID }) {
       productDescription: descValue,
       productPrice: priceValue,
       productStock: { stockAmount: stockAmount, stockUnit: stockUnit },
-      productImages: givenImages.map((imageObject) => imageObject.image)
+      productImages: givenImages.map((imageObject) => imageObject.image),
+      active: activeValue
     }
 
     if (submissionValid) {
-      console.log(incomingData)
       setLoading(true)
 
       const response = await fetch(
@@ -371,10 +386,10 @@ function ProductPage({ shopID }) {
       }
     }
   }
+
   /////////////////////////////////////
 
   const addVariation = async (payload) => {
-    console.log(payload)
     const response = await fetch(
       `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}`,
       {
@@ -477,6 +492,9 @@ function ProductPage({ shopID }) {
                 <button type="button" className="minus-button" onClick={minusPrice}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
                 <input type="number" value={priceValue} className={priceClasses} placeholder="Price" required id='price' onChange={handlePriceChange} style={{ borderRadius: "0", margin: "0" }}></input>
                 <button type="button" onClick={addPrice} className="add-button svg-color"><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
+                <div className="flex-row-align">
+                <h1 className="heading-secondary" style={{marginLeft:"2rem"}}>Active:</h1> <div style={{transform:"translateY(-1rem) "}}><input checked={activeValue} onChange={handleActive} type="checkbox" id="switch" className="toggle-switch" /><label htmlFor="switch" className="toggle-label">Toggle</label></div>
+                </div>
               </div>
               {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}
             </div>
@@ -520,9 +538,17 @@ function ProductPage({ shopID }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2 }}>
           {variationsList.map((v, index) => (
+            <div className="warning-container" key={index}>
+            {soldVar.includes(index) && 
+                <motion.div className="sold-out-warning svg-sold"
+                  key={v}
+                  initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.2, type: "spring", damping: 0 }}>&nbsp;</motion.div>}
             <motion.img key={index} onClick={() => { varStateHandler(index);}} className={`varItem ${index === varState ? "active-var" : ""}`} src={imageGetter(index)} alt={index} initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 * index, duration: 0.2 }}></motion.img>
+              </div>
           ))}
         </motion.div>
 
