@@ -53,6 +53,7 @@ function CategoryPage({ shopID }) {
   }
 
   async function editForm(formdata, key) {
+    console.log(key)
 
     // const chosenCateg = formdata.categoryName
 

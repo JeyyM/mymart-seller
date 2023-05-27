@@ -116,7 +116,7 @@ function AddCategory(props) {
       nameValid = nameValue.trim() !== "" && !props.list.includes(encodeURIComponent(nameValue.toUpperCase()))
       nameExist = props.list.includes(encodeURIComponent(nameValue.toUpperCase()))
 
-      if (nameValue.toUpperCase() === setDefaultName.toUpperCase()) {
+      if (encodeURIComponent(nameValue.toUpperCase()) === encodeURIComponent(setDefaultName.toUpperCase())) {
         nameValid = true
         nameExist = false
       }
@@ -163,13 +163,6 @@ function AddCategory(props) {
       }
 
       if (setting === "Edit Category") {
-        // const categoryContents = Object.entries(props.categIndexes)
-
-        // const chosenKeyFind = categoryContents.find(([key, value]) => {
-        //   return value.categoryName === setDefaultName
-        // })
-
-        // const chosenKey = chosenKeyFind[0]
 
         props.edit(incomingData, props.defs[3])
 
