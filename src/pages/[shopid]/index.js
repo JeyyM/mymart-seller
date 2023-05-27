@@ -81,53 +81,69 @@ function HomePage({ shopID }) {
     <PopModal modalStatus={startPop} disable={handleStart} image={popupInfo.image} link={popupInfo.link}></PopModal>
 
     {categoryData
-      .filter((categ) => categ.categoryProducts.some((prod) => prod.variations.some((variation) => variation.active)))
-      .map((categ, index) => {
-        const totalItems = categ.categoryProducts.length;
-        const itemsPerSlide = 4;
-        const itemsPerLine = 4;
-        const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
-        const totalSlides = Math.ceil(totalItems / itemsPerSlide);
-        const slideIndexes = Array.from(Array(totalSlides).keys());
-        const lastSlideItems = totalItems % itemsPerSlide || itemsPerSlide;
+  .filter((categ) =>
+    categ.categoryProducts.some((prod) =>
+      prod.variations.some((variation) => variation.active)
+    )
+  )
+  .map((categ, index) => {
+    const activeItems = categ.categoryProducts.filter((prod) =>
+      prod.variations.some((variation) => variation.active)
+    );
+    const totalItems = activeItems.length;
+    const itemsPerSlide = 4;
+    const itemsPerLine = 4;
+    const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
+    const totalSlides = Math.ceil(totalItems / itemsPerSlide);
+    const slideIndexes = Array.from(Array(totalSlides).keys());
+    const lastSlideItems = totalItems % itemsPerSlide || itemsPerSlide;
 
-        return (
-          <>
-            <Link className="heading-primary" href={{ pathname: `/${shopid}/categories/${encodeURIComponent(categ.categoryName)}` }} style={{textDecoration:"none"}}>{categ.categoryName}</Link>
+    return (
+      <>
+        <Link
+          className="heading-primary"
+          href={{
+            pathname: `/${shopid}/categories/${encodeURIComponent(
+              categ.categoryName
+            )}`,
+          }}
+          style={{ textDecoration: "none" }}
+        >
+          {categ.categoryName}
+        </Link>
 
-            <Slider {...sliderSettings}>
-              {slideIndexes.map((slideIndex) => {
-                const startIndex = slideIndex * itemsPerSlide;
-                const endIndex = startIndex + itemsPerSlide;
-                const slideItems = categ.categoryProducts.slice(startIndex, endIndex);
+        <Slider {...sliderSettings}>
+          {slideIndexes.map((slideIndex) => {
+            const startIndex = slideIndex * itemsPerSlide;
+            const endIndex = startIndex + itemsPerSlide;
+            const slideItems = activeItems.slice(startIndex, endIndex);
 
-                return (
-                  <div className="slide" key={slideIndex}>
-                    <div className="category-container" style={{ minHeight: "min-content" }}>
-                      {slideItems.map((prod, index) => {
-                        const relativeIndex = startIndex + index;
+            if (slideItems.length === 0) {
+              return null;
+            }
 
-                        const shouldShowItem = prod.variations.some((variation) => variation.active);
-                        if (!shouldShowItem) {
-                          return null;
-                        }
+            return (
+              <div className="slide" key={slideIndex}>
+                <div className="category-container" style={{ minHeight: "min-content" }}>
+                  {slideItems.map((prod, index) => {
+                    const relativeIndex = startIndex + index;
 
-                        return (
-                          <CategoryProductsBuyer
-                            items={prod.variations}
-                            categName={encodeURIComponent(categ.categoryName)}
-                            id={router.query.shopid}
-                            index={index}
-                            currency={shopCurrency}
-                            key={relativeIndex}
-                          ></CategoryProductsBuyer>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
-            </Slider>
+                    return (
+                      <CategoryProductsBuyer
+                        items={prod.variations}
+                        categName={encodeURIComponent(categ.categoryName)}
+                        id={router.query.shopid}
+                        index={index}
+                        currency={shopCurrency}
+                        key={relativeIndex}
+                      ></CategoryProductsBuyer>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </Slider>
           </>
         );
       })}

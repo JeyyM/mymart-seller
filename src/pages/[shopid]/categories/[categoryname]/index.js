@@ -9,6 +9,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import CategoryProductsBuyer from "@/components/category-products/CategoryProductsBuyer";
 
 
 function ProductsPage({ shopID }) {
@@ -28,10 +29,12 @@ function ProductsPage({ shopID }) {
 
   const products = chosenCategory.categoryProducts
 
+  const filteredProducts = products.filter((prod) => prod.variations.some((variant) => variant.active === true))
+
   let productNames = []
 
-  if (products.length > 0) {
-    productNames = products.flatMap((product) => {
+  if (filteredProducts.length > 0) {
+    productNames = filteredProducts.flatMap((product) => {
       const { variations } = product;
       if (variations && Array.isArray(variations)) {
         return variations.map((variation) => variation.productName).filter(Boolean);
@@ -75,7 +78,7 @@ function ProductsPage({ shopID }) {
     }
   });
 
-  const totalItems = products.length;
+  const totalItems = filteredProducts.length;
   const itemsPerSlide = 12;
   const itemsPerLine = 4;
   const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
@@ -93,7 +96,7 @@ function ProductsPage({ shopID }) {
     speed: 500,
   };
 
-  if (products.length > 0) {
+  if (filteredProducts.length > 0) {
 
     return <Fragment>
       <Head>
@@ -101,11 +104,8 @@ function ProductsPage({ shopID }) {
         <link rel="icon" type="image/jpeg" href={favicon} />
       </Head>
 
-      <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} names={upperProductNames} currency={shopCurrency}></AddProduct>
       <span className="page-heading">
         <h1 className="heading-primary">{router.query.categoryname} &nbsp;</h1>
-        <button onClick={addProdHandler} className="add-prod-init heading-tertiary">
-          <div className="heading-icon-plus svg-color">&nbsp;</div>Add Product</button>
       </span>
       <h2 className="category-description heading-tertiary">{chosenCategory.categoryDescription}</h2>
 
@@ -114,7 +114,7 @@ function ProductsPage({ shopID }) {
           const startIndex = slideIndex * itemsPerSlide;
           const endIndex = startIndex + (slideIndex === totalSlides - 1 ? lastSlideItems : itemsPerSlide);
 
-          const slideItems = products.slice(startIndex, endIndex);
+          const slideItems = filteredProducts.slice(startIndex, endIndex);
 
           return (
             <div className="slide" key={slideIndex}>
@@ -135,14 +135,23 @@ function ProductsPage({ shopID }) {
                           &nbsp;
                         </motion.div>
                       )}
-                      <CategoryProducts 
+                      {/* <CategoryProducts 
                       items={prod.variations} 
                       categName={encodeURIComponent(queryCategoryName)} 
                       id={router.query.shopid} 
                       index={index} 
                       state={addProduct} 
                       currency={shopCurrency}>
-                      </CategoryProducts>
+                      </CategoryProducts> */}
+
+                      <CategoryProductsBuyer
+                        items={prod.variations}
+                        categName={encodeURIComponent(chosenCategory.categoryName)}
+                        id={router.query.shopid}
+                        index={relativeIndex}
+                        currency={shopCurrency}
+                        key={relativeIndex}
+                      ></CategoryProductsBuyer>
 
                     </div>
                   );

@@ -15,9 +15,17 @@ function CategoryPage({ shopID }) {
   const { shopData } = shopID;
   const contents = shopData.shopCategories;
 
+  const activeContents = contents.filter((categ) => categ.active === true)
+
+  const filteredContents = activeContents.filter((categ) =>
+  categ.categoryProducts.some((prod) =>
+    prod.variations.some((variation) => variation.active)
+  )
+)
+
   const favicon = shopData.shopDetails.imageData.icons.icon
 
-  const categNamesList = Object.keys(contents).map(key => (encodeURIComponent(contents[key].categoryName)))
+  const categNamesList = Object.keys(filteredContents).map(key => (encodeURIComponent(filteredContents[key].categoryName)))
   const upperCategNames = categNamesList.map(name => name.toUpperCase());
 
   const categoryAmount = Object.keys(shopID.shopData.shopCategories).length
@@ -81,24 +89,15 @@ function CategoryPage({ shopID }) {
   }
 
 
-  const soldCateg = []
 
-  contents.forEach((categ, index) => {
-    const prods = categ.categoryProducts;
-    prods.forEach((prod) => {
-      const vars = prod.variations;
-      if (vars.some((variant) => variant.productStock.stockAmount === "0")) {
-        soldCateg.push(index);
-      }
-    });
-  });
 
-  const totalItems = contents.length;
+  const totalItems = filteredContents.length;
   const itemsPerSlide = 12;
   const itemsPerLine = 4;
   const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
   const totalSlides = Math.ceil(totalItems / itemsPerSlide);
   const slideIndexes = Array.from(Array(totalSlides).keys());
+  
   const lastSlideItems = totalItems % itemsPerSlide || itemsPerSlide;
 
   const sliderSettings = {
@@ -111,6 +110,7 @@ function CategoryPage({ shopID }) {
     speed: 500,
   };
 
+
   if (categoryAmount > 0) {
     return (
 
@@ -119,14 +119,11 @@ function CategoryPage({ shopID }) {
           <title>Categories</title>
           <link rel="icon" type="image/jpeg" href={favicon} />
         </Head>
-        <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={upperCategNames}></AddCategory>
         <span className="page-heading" style={{ width: "min-content" }}>
           <div className="heading-icon-dropshadow">
             <div className="heading-icon-category svg-color">&nbsp;</div>
           </div>
           <h1 className="heading-primary no-margin">Categories</h1>
-          {/* <button onClick={addCategHandler} className="add-categ-init heading-tertiary">
-            <div className="heading-icon-plus svg-color">&nbsp;</div>Add Category</button> */}
         </span>
 
 
@@ -135,7 +132,7 @@ function CategoryPage({ shopID }) {
             const startIndex = slideIndex * itemsPerSlide;
             const endIndex = startIndex + (slideIndex === totalSlides - 1 ? lastSlideItems : itemsPerSlide);
 
-            const slideItems = contents.slice(startIndex, endIndex);
+            const slideItems = filteredContents.slice(startIndex, endIndex);
 
             return (
               <div className="slide" key={slideIndex}>
@@ -162,6 +159,8 @@ function CategoryPage({ shopID }) {
             );
           })}
         </Slider>
+
+        
 
       </Fragment>
     );
