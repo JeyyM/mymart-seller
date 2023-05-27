@@ -157,10 +157,10 @@ function CategoryPage({ shopID }) {
                           </motion.div>
                         )}
                         <Category
-                          index={index}
+                          index={relativeIndex}
                           items={categ}
                           id={router.query.shopid}
-                          key={index}
+                          key={relativeIndex}
                           state={addCateg}
                           edit={addCategHandler}
                           edit2={editCategHandler}

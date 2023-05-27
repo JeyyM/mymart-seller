@@ -155,7 +155,7 @@ function ProductsPage({ shopID }) {
                       items={prod.variations} 
                       categName={encodeURIComponent(queryCategoryName)} 
                       id={router.query.shopid} 
-                      index={index} 
+                      index={relativeIndex} 
                       state={addProduct} 
                       currency={shopCurrency}>
                       </CategoryProducts>
