@@ -80,6 +80,7 @@ function CategoryPage({ shopID }) {
     const data = await response.json();
   }
 
+
   const soldCateg = []
 
   contents.forEach((categ, index) => {
@@ -124,8 +125,8 @@ function CategoryPage({ shopID }) {
             <div className="heading-icon-category svg-color">&nbsp;</div>
           </div>
           <h1 className="heading-primary no-margin">Categories</h1>
-          <button onClick={addCategHandler} className="add-categ-init heading-tertiary">
-            <div className="heading-icon-plus svg-color">&nbsp;</div>Add Category</button>
+          {/* <button onClick={addCategHandler} className="add-categ-init heading-tertiary">
+            <div className="heading-icon-plus svg-color">&nbsp;</div>Add Category</button> */}
         </span>
 
 
@@ -144,17 +145,6 @@ function CategoryPage({ shopID }) {
 
                     return (
                       <div className="warning-container" key={relativeIndex}>
-                        {soldCateg.includes(relativeIndex) && (
-                          <motion.div
-                            className="sold-out-warning svg-sold"
-                            key={categ}
-                            initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.2, type: "spring", damping: 0 }}
-                          >
-                            &nbsp;
-                          </motion.div>
-                        )}
                         <Category
                           index={index}
                           items={categ}
@@ -181,14 +171,11 @@ function CategoryPage({ shopID }) {
         <title>Categories</title>
         <link rel="icon" type="image/jpeg" href={favicon} />
       </Head>
-      <AddCategory modalStatus={addCateg} disable={addCategHandler} finish={completeForm} edit={editForm} deletion={deleteForm} total={categoryAmount} defs={defaultValues} clear={defClearer} categIndexes={contents} list={upperCategNames}></AddCategory>
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-category svg-color">&nbsp;</div>
         </div>
         <h1 className="heading-primary no-margin">Categories</h1>
-        <button onClick={addCategHandler} className="heading-tertiary add-categ-init">
-          <div className="heading-icon-plus svg-color">&nbsp;</div>Add Category</button>
       </span>
       <div className="empty-contents">
         <div className="empty-logo svg-color">&nbsp;</div>

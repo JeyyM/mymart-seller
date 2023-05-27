@@ -105,13 +105,13 @@ const BannerCarousel = ({ data }) => {
               >
                 {filteredData.length >= 4 && (
                   <div className="carousel-buttons">
-                    <button className="carousel-button prev-button car-button prev-item round-borderer" onClick={handlePrevClick}>
+                    <button className="carousel-button prev-button car-button prev-item round-borderer" onClick={handlePrevClick} style={{marginLeft:"1rem"}}>
                     <div
                   className="heading-icon-chevron svg-color"
                   style={{ transform: 'rotate(90deg) scaleX(7)', marginLeft:"-1rem" }}
                 ></div>
                     </button>
-                    <button className="carousel-button prev-button car-button next-item round-borderer" onClick={handleNextClick}>
+                    <button className="carousel-button prev-button car-button next-item round-borderer" onClick={handleNextClick} style={{marginRight:"1rem"}}>
                     <div
                   className="heading-icon-chevron svg-color"
                   style={{ transform: 'rotate(270deg) scaleX(7)', marginLeft:"-1rem" }}

@@ -9,64 +9,133 @@ import BannerCarousel from "@/components/Mart/BannerCarousel"
 import { AnimatePresence, motion } from "framer-motion"
 import ActiveNotifs from "@/components/Mart/ActiveNotifs"
 import PopModal from "@/components/Mart/PopModal"
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
-function HomePage({ shopID }){
-    const router = useRouter();
-    const slide = {
-        hidden: {
-            x: "-10rem",
-            opacity: 0,
-        },
-        visible: (index) => ({
-            x: "0px",
-            opacity: 1,
-            transition: {
-                type: "spring",
-                duration: 0.3,
-                bounce: 0.2,
-                delay: index * 0.2,
-            },
-        }),
-        exit: {
-            x: "-10rem",
-            opacity: 0,
-            transition: {
-                duration: 0.1,
-            },
-        },
-    };
+import CategoryBuyer from "@/components/category/CategoryBuyer"
+import CategoryProductsBuyer from "@/components/category-products/CategoryProductsBuyer"
 
-    const { shopid } = router.query;
-    const shopData = shopID.shopData;
-    const imageData = shopID.shopData.shopDetails.imageData
-    const favicon = shopID.shopData.shopDetails.imageData.icons.icon
+function HomePage({ shopID }) {
+  const router = useRouter();
+  const slide = {
+    hidden: {
+      x: "-10rem",
+      opacity: 0,
+    },
+    visible: (index) => ({
+      x: "0px",
+      opacity: 1,
+      transition: {
+        type: "spring",
+        duration: 0.3,
+        bounce: 0.2,
+        delay: index * 0.2,
+      },
+    }),
+    exit: {
+      x: "-10rem",
+      opacity: 0,
+      transition: {
+        duration: 0.1,
+      },
+    },
+  };
 
-    const activeNotifs = imageData.notifications.filter((notif) => notif.active)
+  const { shopid } = router.query;
+  const shopData = shopID.shopData;
+  const imageData = shopID.shopData.shopDetails.imageData
+  const favicon = shopID.shopData.shopDetails.imageData.icons.icon
 
-    const popupInfo = imageData.popups
-    const [startPop, setStartPop] = useState(popupInfo.active)
-    const handleStart = () => {
-        setStartPop(!startPop)
-    }
+  const categoryData = shopData.shopCategories
+  const shopCurrency = shopData.shopDetails.paymentData.checkoutInfo.currency
 
-    return <Fragment>
-<Head>
-  <title>{shopID.name}</title>
-  <link rel="icon" type="image/jpeg" href={favicon} />
+  const activeNotifs = imageData.notifications.filter((notif) => notif.active)
 
-</Head>
-            {activeNotifs.length > 0 && <ActiveNotifs notifs={activeNotifs}></ActiveNotifs>}
-            <BannerCarousel data={imageData.banners}></BannerCarousel>
-            <PopModal modalStatus={startPop} disable={handleStart} image={popupInfo.image} link={popupInfo.link}></PopModal>
+  const popupInfo = imageData.popups
+  const [startPop, setStartPop] = useState(popupInfo.active)
+  const handleStart = () => {
+    setStartPop(!startPop)
+  }
 
-        <h1 className="heading-primary">Dashboard</h1>
-        <main className="maincontainer">
+  const sliderSettings = {
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    dots: true,
+    arrows: false,
+    draggable: true,
+    infinite: false,
+    speed: 500,
+  };
 
-        </main>
-    </Fragment>
+  const addCateg = false
+
+  return <Fragment>
+    <Head>
+      <title>{shopID.name}</title>
+      <link rel="icon" type="image/jpeg" href={favicon} />
+
+    </Head>
+    {activeNotifs.length > 0 && <ActiveNotifs notifs={activeNotifs}></ActiveNotifs>}
+    <BannerCarousel data={imageData.banners}></BannerCarousel>
+    <PopModal modalStatus={startPop} disable={handleStart} image={popupInfo.image} link={popupInfo.link}></PopModal>
+
+    {categoryData
+      .filter((categ) => categ.categoryProducts.some((prod) => prod.variations.some((variation) => variation.active)))
+      .map((categ, index) => {
+        const totalItems = categ.categoryProducts.length;
+        const itemsPerSlide = 4;
+        const itemsPerLine = 4;
+        const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
+        const totalSlides = Math.ceil(totalItems / itemsPerSlide);
+        const slideIndexes = Array.from(Array(totalSlides).keys());
+        const lastSlideItems = totalItems % itemsPerSlide || itemsPerSlide;
+
+        return (
+          <>
+            <Link className="heading-primary" href={{ pathname: `/${shopid}/categories/${encodeURIComponent(categ.categoryName)}` }} style={{textDecoration:"none"}}>{categ.categoryName}</Link>
+
+            <Slider {...sliderSettings}>
+              {slideIndexes.map((slideIndex) => {
+                const startIndex = slideIndex * itemsPerSlide;
+                const endIndex = startIndex + itemsPerSlide;
+                const slideItems = categ.categoryProducts.slice(startIndex, endIndex);
+
+                return (
+                  <div className="slide" key={slideIndex}>
+                    <div className="category-container" style={{ minHeight: "min-content" }}>
+                      {slideItems.map((prod, index) => {
+                        const relativeIndex = startIndex + index;
+
+                        const shouldShowItem = prod.variations.some((variation) => variation.active);
+                        if (!shouldShowItem) {
+                          return null;
+                        }
+
+                        return (
+                          <CategoryProductsBuyer
+                            items={prod.variations}
+                            categName={encodeURIComponent(categ.categoryName)}
+                            id={router.query.shopid}
+                            index={index}
+                            currency={shopCurrency}
+                            key={relativeIndex}
+                          ></CategoryProductsBuyer>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </Slider>
+          </>
+        );
+      })}
+
+  </Fragment>
 }
 
 export default HomePage
 
-export {getServerSideProps}
+export { getServerSideProps }
 

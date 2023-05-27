@@ -109,22 +109,6 @@ function ProductsPage({ shopID }) {
       </span>
       <h2 className="category-description heading-tertiary">{chosenCategory.categoryDescription}</h2>
 
-      {/* <section className="category-container">
-        {products.map((prod, index) => (
-          <Fragment key={index}>
-          <div className="warning-container" key={index}>
-          {soldProds.includes(index) && 
-                <motion.div className="sold-out-warning svg-sold"
-                  key={prod}
-                  initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.2, type: "spring", damping: 0 }}>&nbsp;</motion.div>}
-            <CategoryProducts items={prod.variations} categName={queryCategoryName} id={router.query.shopid} index={index} state={addProduct} currency={shopCurrency} ></CategoryProducts>
-            </div>
-          </Fragment>
-        ))}
-      </section> */}
-
       <Slider {...sliderSettings}>
         {slideIndexes.map((slideIndex) => {
           const startIndex = slideIndex * itemsPerSlide;
@@ -175,11 +159,8 @@ function ProductsPage({ shopID }) {
         <title>{queryCategoryName}</title>
         <link rel="icon" type="image/jpeg" href={favicon} />
       </Head>
-      <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} names={upperProductNames} currency={shopCurrency}></AddProduct>
       <span className="page-heading">
         <h1 className="heading-primary">{router.query.categoryname}&nbsp;</h1>
-        <button onClick={addProdHandler} className="add-prod-init heading-tertiary">
-          <div className="heading-icon-plus svg-color">&nbsp;</div>Add Product</button>
       </span>
       <h2 className="category-description heading-tertiary">{chosenCategory.categoryDescription}</h2>
       <div className="empty-contents">

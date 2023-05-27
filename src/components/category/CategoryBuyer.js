@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/router";
 
 
-function Category(props) {
+function CategoryBuyer(props) {
     const router = useRouter()
     const MotionLink = motion(Link);
     const { categoryName, categoryImage, categoryDescription, categoryProducts, active } = props.items;
@@ -71,4 +71,4 @@ function Category(props) {
   );
 }
 
-export default Category;
+export default CategoryBuyer;
