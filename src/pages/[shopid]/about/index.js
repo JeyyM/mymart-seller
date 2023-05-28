@@ -1,13 +1,11 @@
 import { Fragment, useState, useEffect } from "react";
 import { getServerSideProps } from "../categories";
 import Head from "next/head";
-import 'glider-js/glider.min.css';
 
 function About({ shopID }) {
     const startingInfo = shopID.shopData.shopDetails.aboutData
     const favicon = shopID.shopData.shopDetails.imageData.icons.icon
 
-    // 1920  1366 360
     const [device, setDevice] = useState("desktop")
     const [screenPx, setScreenPx] = useState(1920)
 
@@ -46,13 +44,17 @@ function About({ shopID }) {
     const [ImgArray, setImgArray] = useState(AllImg[device]);
     const [ContainerArray, setContainerArray] = useState(AllContainer[device]);
 
+    async function waitSeconds() {
+        return new Promise(resolve => setTimeout(resolve, 1500));
+    }
+
     const [screenWidth, setScreenWidth] = useState(0);
     const [screenScale, setScreenScale] = useState(1)
 
     useEffect(() => {
         const handleResize = () => {
-            const newScreenWidth = window.innerWidth;
-            const newScale = (newScreenWidth / screenPx).toFixed(2);
+            let newScreenWidth = window.innerWidth;
+            let newScale = (newScreenWidth / screenPx).toFixed(2);
             setScreenWidth(newScreenWidth);
             setScreenScale(newScale);
         };
@@ -69,8 +71,7 @@ function About({ shopID }) {
                 window.removeEventListener('resize', handleResize);
             }
         };
-    }, []);
-
+    }, [screenPx, device]);
 
     const textElements = TextArray.map((item, index) => (
         <h3
@@ -135,18 +136,32 @@ function About({ shopID }) {
         setContainerArray(AllContainer[device]);
     }, [device]);
 
-    const gridClass = `${device === "desktop" ? "about-grid-1" : device === "tablet" ? "about-grid-2" : "about-grid-3"}`;
+    let gridClass = `${device === "desktop" ? "about-grid-1" : device === "tablet" ? "about-grid-2" : "about-grid-3"}`;
 
-    const [modal, showModal] = useState(false)
-    function handleModal() {
-        showModal(!modal)
-    }
+    useEffect(() => {
+
+        if (screenWidth > 1024) {
+            setDevice("desktop");
+            setScreenPx(1920)
+        } else if (screenWidth >= 480 && screenWidth <= 1024) {
+            setDevice("tablet");
+            setScreenPx(1200)
+        } else if (screenWidth < 480) {
+            setDevice("phone");
+            setScreenPx(480)
+        }
+
+        gridClass = device === "desktop" ? "about-grid-1" : device === "tablet" ? "about-grid-2" : "about-grid-3";
+        console.log(gridClass)
+        console.log("screenpx", screenPx)
+
+    }, [screenWidth, screenPx, device])
+
     return <Fragment>
         <Head>
-            <title>Create About Page</title>
+            <title>About Us</title>
             <link rel="icon" type="image/jpeg" href={favicon} />
         </Head>
-
 
         <h1>{screenWidth}</h1>
         <h1>{screenScale}</h1>
@@ -159,6 +174,7 @@ function About({ shopID }) {
 
 
         </section>
+
     </Fragment>
 }
 
