@@ -41,17 +41,21 @@
     overflow-x: hidden;
   }
 
-  @media (min-width: 361px) and (max-width: 1366px) {
+  @media (min-width: 481px) and (max-width: 1024px) {
     .about-grid-2{
       width: 100vw;
-      height: 100vw;
+      height: 100vh;
       grid-template-columns: repeat(8, calc((100vw /8) - 1.2px));
     }
 
+  }
+
+  @media (min-width: 0px) and (max-width: 480px) {
+
     .about-grid-3{
-      width: 38vw;
-      height: 38vw;
-      grid-template-columns: repeat(8, calc((38vw/4) - 1.2px));
+      width: 100vw;
+      height: 100vh;
+      grid-template-columns: repeat(4, calc((100vw/4) - 1.2px));
     }
   }
 

@@ -77,7 +77,7 @@ border-image: linear-gradient(
     1 !important;}
 
 
-.homepage-button, .add-categ-init, .add-prod-init, .category, .product-image, .side-img, .varItem, .detail-slot, .detail-slot-carousel, .detail-slot-about, .top-notif{border-radius: ${props.color["border-tl"]} ${props.color["border-tr"]} ${props.color["border-br"]} ${props.color["border-bl"]} !important;}
+.homepage-button, .add-categ-init, .add-prod-init, .category, .product-image, .side-img, .varItem-sub, .detail-slot, .detail-slot-carousel, .detail-slot-about, .top-notif{border-radius: ${props.color["border-tl"]} ${props.color["border-tr"]} ${props.color["border-br"]} ${props.color["border-bl"]} !important;}
 
 .homepage-button:hover.x, .category:hover {
     filter: drop-shadow(-6px 6px 0px ${props.color["color-primary-dark"]}) !important}
@@ -139,7 +139,7 @@ border-image: linear-gradient(
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
 }
 
-.categ-modal, .confirm-modal, .set-container, .category, .categ-edit-button, .product-edit-button, .add-img, .help-button, .side-img, .add-prod-img, .product-image, .varItem, .footer, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer{
+.categ-modal, .confirm-modal, .set-container, .category, .categ-edit-button, .product-edit-button, .add-img, .help-button, .side-img, .add-prod-img, .product-image, .varItem-sub, .footer, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;}
 
@@ -215,7 +215,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     color: red !important;
 }
 
-.categ-edit-button:active, .product-edit-button:active, .add-img:active, .help-button:active, .side-img.active-var, .varItem.active-var, .car-button:active{
+.categ-edit-button:active, .product-edit-button:active, .add-img:active, .help-button:active, .side-img.active-var, .varItem-sub.active-var, .car-button:active{
     filter: brightness(120%) !important;
   box-shadow: inset 0 0 0 10px ${props.color["bg-item"]}, 0 0 0 2px ${props.color["color-primary-dark"]},
     0 0 0 4px ${props.color["bg-item"]} !important;

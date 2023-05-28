@@ -231,12 +231,22 @@ input[type="text"].input-number:focus {
 }
 
 .varItem {
-  @include border-round;
   object-fit: cover;
+  height: 100%;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.varItem-sub {
+  @include border-round;
   height: 15rem;
   width: 20rem;
   transition: all 0.2s;
   cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .varItem.active-var {
@@ -343,3 +353,4 @@ input[type="text"].input-number:focus {
   padding: 1rem;
   transform: translateY(1rem);
 }
+

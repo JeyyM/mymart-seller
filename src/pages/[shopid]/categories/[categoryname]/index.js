@@ -124,26 +124,6 @@ function ProductsPage({ shopID }) {
 
                   return (
                     <div className="warning-container" key={relativeIndex}>
-                      {soldProds.includes(relativeIndex) && (
-                        <motion.div
-                          className="sold-out-warning svg-sold"
-                          key={prod}
-                          initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.2, type: "spring", damping: 0 }}
-                        >
-                          &nbsp;
-                        </motion.div>
-                      )}
-                      {/* <CategoryProducts 
-                      items={prod.variations} 
-                      categName={encodeURIComponent(queryCategoryName)} 
-                      id={router.query.shopid} 
-                      index={index} 
-                      state={addProduct} 
-                      currency={shopCurrency}>
-                      </CategoryProducts> */}
-
                       <CategoryProductsBuyer
                         items={prod.variations}
                         categName={encodeURIComponent(chosenCategory.categoryName)}
@@ -152,7 +132,6 @@ function ProductsPage({ shopID }) {
                         currency={shopCurrency}
                         key={relativeIndex}
                       ></CategoryProductsBuyer>
-
                     </div>
                   );
                 })}

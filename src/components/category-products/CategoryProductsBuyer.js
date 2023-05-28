@@ -8,7 +8,11 @@ function CategoryProductsBuyer(props) {
   const id = props.id;
   const MotionLink = motion(Link);
 
-  console.log(props.items);
+  const activeItems = props.items.filter((item) => item.active)
+
+  const stocked = activeItems.some((item) => item.productStock.stockAmount > 0)
+
+  const imgClass = stocked ? "category-img" : "category-img sold-img"
 
   const encodedName = encodeURIComponent(props.items[0].productName);
 
@@ -56,7 +60,8 @@ function CategoryProductsBuyer(props) {
       onMouseLeave={handleMouseLeave}
     >
       <div className="image-container">
-        <img src={productImages[0]} className="category-img" alt={productName}></img>
+        {!stocked && <h2 className="heading-secondary white sold-msg">Sold Out</h2>}
+        <img src={productImages[0]} className={imgClass} alt={productName}></img>
       </div>
 
       <div className="category-content">
@@ -65,8 +70,8 @@ function CategoryProductsBuyer(props) {
           <h3 className="heading-tertiary">{productDescription.length > 150 ? productDescription.substring(0, 147) + "..." : productDescription}</h3>
         </div>
         <div className="product-number-container">
-          <h2 className="heading-secondary product-numbers product-price">{props.currency} {productPrice}</h2>
-          <h2 className="heading-secondary product-numbers">{productStock.stockAmount} {productStock.stockUnit}</h2>
+          <h2 className="heading-secondary product-numbers product-price">{props.currency} {productPrice} / {productStock.stockUnit}</h2>
+          <h2 className="heading-secondary product-numbers">Stock: {productStock.stockAmount}</h2>
         </div>
       </div>
     </MotionLink>

@@ -60,8 +60,6 @@ function NavbarItems(props) {
       <NavLogo navicon={props.navicon}></NavLogo>
       <div className="navcontainer">
         <NavItem svg={<Category className="menu-category svg-color"></Category>} link={"categories"} label="Categories & Products" ></NavItem>
-        <NavItem svg={<Brush className="menu-brush svg-color"></Brush>} link={"design"} title={"Edit mart's colors and fonts"} label="Mart Design" extension={props.colormode}></NavItem>
-        <NavItem svg={<Manage className="menu-manage svg-color"></Manage>} title={"Set about page, descriptions, footers, and details of your mart"} link={"mart"} label="My Mart"></NavItem>
         <NavItem svg={<Manage className="menu-manage svg-color"></Manage>} link={"mart"} label="About Us"></NavItem>
         <NavItem svg={<Manage className="menu-manage svg-color"></Manage>} link={"mart"} label="Cart"></NavItem>
         <NavItem svg={<Manage className="menu-manage svg-color"></Manage>} link={"mart"} label="Sign/Log-up"></NavItem>
