@@ -7,9 +7,12 @@ import Confirmer2 from "@/components/Modal/Confirmer2";
 import AddTags from "@/components/Modal/Add-Tags";
 import { getServerSideProps } from "..";
 import Head from "next/head";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/components/store/cartactions";
 
 function ProductPage({ shopID }) {
   const router = useRouter()
+  const dispatch = useDispatch();
 
   const shopCurrency = shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
   const favicon = shopID.shopData.shopDetails.imageData.icons.icon
@@ -43,8 +46,6 @@ function ProductPage({ shopID }) {
 
   const [varState, setVarState] = useState(0)
   const [imgState, setImgState] = useState(0)
-
-  const chosenTags = chosenCategory[0].categoryProducts[productIndex].productTags
 
   const soldVar = []
 
@@ -124,39 +125,16 @@ function ProductPage({ shopID }) {
     setActiveValue(!activeValue)
   };
 
-  function addPrice() {
-    setPriceValue(parseInt(priceValue) + 1)
-  }
-
-  function minusPrice() {
-    if (priceValue > 0) {
-      setPriceValue(parseInt(priceValue) - 1)
-    }
-  }
-
+  const [cartValue, setCartValue] = useState(0)
   function addStock() {
-    setStockAmount(parseInt(stockAmount) + 1)
-  }
+    if (cartValue < stockAmount)
+    {setCartValue(parseInt(cartValue) + 1)}}
 
   function minusStock() {
-    if (stockAmount > 0) {
-      setStockAmount(parseInt(stockAmount) - 1)
+    if (cartValue > 0) {
+      setCartValue(parseInt(cartValue) - 1)
     }
   }
-
-  const [nameLength, setNameLength] = useState(variationsList[varState].productName.length)
-  const handleNameLength = (event) => {
-    setNameLength(event.length)
-  }
-
-  const [descLength, setDescLength] = useState(variationsList[varState].productDescription.length)
-  const handleDescLength = (event) => {
-    setDescLength(event.length)
-  }
-
-
-  const nameLengthClasses = `${nameLength > 40 ? "overlength" : ""}`;
-  const descLengthClasses = `${descLength > 150 ? "overlength" : ""}`;
 
   function isEmpty(word) {
     word.trim() === ""
@@ -178,46 +156,6 @@ function ProductPage({ shopID }) {
     setValidImgSet(validImgSet)
   }, [imgValue1, imgValue2, imgValue3, imgValue4])
 
-  const [loading, setLoading] = useState(false)
-  const [completion, setCompletion] = useState(false)
-
-  const checkmark = (
-    <svg viewBox="0 0 100 100" width="7rem" height="7rem">
-      <path id="checkmark" d="M25,50 L40,65 L75,30" stroke="#FFFFFF" strokeWidth="8" fill="none"
-        strokeDasharray="200" strokeDashoffset="200">
-        <animate attributeName="stroke-dashoffset" from="200" to="0" dur="0.5s" begin="indefinite" />
-      </path>
-    </svg>
-  )
-
-  const [formInputValidity, setFormInputValidity] = useState({
-    name: true,
-    img: true,
-    desc: true,
-    price: true,
-    amount: true,
-    unit: true,
-    images: true,
-    exist: false,
-  });
-
-  const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"
-    }`;
-
-  const imgClasses = `${formInputValidity.images ? "text-full" : "invalid-form"
-    }`;
-
-  const descClasses = `${formInputValidity.desc ? "desc-text-area" : "invalid-form-box"
-    }`;
-
-  const priceClasses = `${formInputValidity.price ? "text-small input-number shortener-25" : "invalid-form-2 shortener-25"
-    }`;
-
-  const amountClasses = `${formInputValidity.amount ? "text-small input-number" : "invalid-form-2"
-    }`;
-
-  const unitClasses = `${formInputValidity.unit ? "text-small input-number" : "invalid-form-2"
-    }`;
 
   function setAll(index) {
     setNameValue(variationsList[varState].productName)
@@ -230,208 +168,28 @@ function ProductPage({ shopID }) {
     setStockAmount(variationsList[varState].productStock.stockAmount)
     setStockUnit(variationsList[varState].productStock.stockUnit)
 
-    setNameLength(variationsList[varState].productName.length)
-    setDescLength(variationsList[varState].productDescription.length)
     setActiveValue(variationsList[varState].active)
-
-    setFormInputValidity({
-      name: true,
-      img: true,
-      desc: true,
-      price: true,
-      amount: true,
-      unit: true,
-      images: true,
-    });
   }
 
   useEffect(() => {
     setImgSet([imgValue1, imgValue2, imgValue3, imgValue4])
   }, [imgValue1, imgValue2, imgValue3, imgValue4])
 
-  const [showImg, setShowImg] = useState(false)
-  function handleShowImg() {
-    setShowImg(!showImg)
-  }
-
-  const [addVar, setAddVar] = useState()
-  function handleAddVar() {
-    setAddVar(!addVar)
-  }
-
-  const [deletion, setDeletion] = useState(false)
-  function handleDelete() {
-    setDeletion(!deletion)
-  }
-
-  const imagePayload = (payload) => {
-    if (payload[0]) { setImgValue1(payload[0].image) } else { setImgValue1(undefined) }
-    if (payload[1]) { setImgValue2(payload[1].image) } else { setImgValue2(undefined) }
-    if (payload[2]) { setImgValue3(payload[2].image) } else { setImgValue3(undefined) }
-    if (payload[3]) { setImgValue4(payload[3].image) } else { setImgValue4(undefined) }
-  }
-
-  let upcoming = null
-
-  if (variationsList.length > 1) {
-    const next = variationsList[1].productName
-    if (next) {
-      upcoming = next
-    }
-  }
-
-  const [tagsValue, setTagsValue] = useState(chosenTags);
-  const handleTagsChange = (event) => {
-    setTagsValue(event)
-  };
-
-  const [tagStatus, setTagStatus] = useState(false)
-  function handleTags() {
-    setTagStatus(!tagStatus)
-  }
-
-
-  /////////////////////
-  const productFixer = (test) => {
-
-    const deleteProduct = async () => {
-      const response = await fetch(
-        `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}&currentvar=${varState}`,
-        {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-    }
-
-    deleteProduct()
-  }
-  //////////
-
-  const handleClick = async (event) => {
-    await handleSubmit(event);
-  }
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const img1Valid = startsImgur(imgValue1) && !isEmpty(imgValue1)
-    const img2Valid = startsImgur(imgValue2) && !isEmpty(imgValue2)
-    const img3Valid = startsImgur(imgValue3) && !isEmpty(imgValue3)
-    const img4Valid = startsImgur(imgValue4) && !isEmpty(imgValue4)
-
-    const givenImages = [
-      img1Valid && { image: imgValue1 },
-      img2Valid && { image: imgValue2 },
-      img3Valid && { image: imgValue3 },
-      img4Valid && { image: imgValue4 },
-    ].filter(Boolean)
-
-    let nameValid = nameValue.trim() !== "" && !upperProductNames.includes(encodeURIComponent(nameValue.toUpperCase()))
-    let nameExist = upperProductNames.includes(encodeURIComponent(nameValue.toUpperCase()))
-    if (encodeURIComponent(nameValue.toUpperCase()) === encodeURIComponent(variationsList[varState].productName.toUpperCase())) { nameExist = false; nameValid = true }
-    const descValid = descValue !== ""
-    const priceValid = priceValue !== "" && priceValue >= 0
-    const amountValid = stockAmount !== "" && stockAmount >= 0
-    const unitValid = stockUnit !== ""
-    const imgValid = givenImages.length > 0
-
-    const submissionValid = nameValid && imgValid && descValid && priceValid && unitValid && amountValid && imgValid && !nameExist
-
-    setFormInputValidity({
-      name: nameValid,
-      img: imgValid,
-      desc: descValid,
-      price: priceValid,
-      amount: amountValid,
-      unit: unitValid,
-      images: imgValid,
-      exist: nameExist,
-    });
-
-    const incomingData = {
-      productName: nameValue,
-      productDescription: descValue,
-      productPrice: priceValue,
-      productStock: { stockAmount: stockAmount, stockUnit: stockUnit },
-      productImages: givenImages.map((imageObject) => imageObject.image),
-      active: activeValue
-    }
-
-    if (submissionValid) {
-      setLoading(true)
-
-      const response = await fetch(
-        `../../../../api/new-product?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}&varnum=${varState}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(incomingData)
-        }
-      );
-
-      await waitSeconds();
-
-      setLoading(false)
-      setCompletion(true)
-
-      if (varState === 0) {
-        router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(nameValue)}`)
-        await waitSecondsShort()
-        setCompletion(false)
-      } else {
-        router.push(`/${shopID._id}/categories/${encodeURIComponent(queryCategory)}/${encodeURIComponent(variationsList[0].productName)}`)
-        await waitSecondsShort()
-        setCompletion(false)
-      }
-    }
-  }
-
-  /////////////////////////////////////
-
-  const addVariation = async (payload) => {
-    const response = await fetch(
-      `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }
-    );
-  }
-
-  const delVariation = async (payload) => {
-    const response = await fetch(
-      `../../../../api/new-variation?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}&varnum=${varState}`,
-      {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }
-    );
-  }
-
-  const changeTags = async (payload) => {
-    const response = await fetch(
-      `../../../../api/new-tag?martid=${router.query.shopid}&categorykey=${categoryIndex}&productkey=${productIndex}`,
-      {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      }
-    );
-  }
-
-  function submitTags(data) {
-    handleTagsChange(data)
-    changeTags(data)
-  }
-
-  //////////
-
   useEffect(() => {
     setAll(varState);
   }, [varState]);
+
+  const submitCart = () => {
+    const item = {
+      name: nameValue,
+      description: descValue,
+      image: imgValue1,
+      price: priceValue,
+      stockUnit: stockUnit,
+      cartValue: cartValue,
+    };
+    dispatch(addToCart(item));
+  };
 
   return <Fragment>
 
@@ -506,14 +264,14 @@ function ProductPage({ shopID }) {
 
           <div className="add-buttons flex-row-spaceless" style={{ margin: "2rem 0", width: "30rem" }}>
             <button type="button" className="minus-button" onClick={minusStock}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
-            <input type="number" value={stockAmount} className={amountClasses} placeholder="Amount" required id='amount' onChange={handleStockAmount} style={{ borderRadius: "0", margin: "0" }}></input>
+            <input type="number" value={cartValue} className="text-small input-number" placeholder="Amount" required id='amount' onChange={handleStockAmount} style={{ borderRadius: "0", margin: "0" }}></input>
             <button type="button" onClick={addStock} className="add-button svg-color" style={{ marginRight: "2rem" }}><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
           </div>
         </form>
 
         <div className="product-action-buttons">
-          <button className="product-action-1 heading-secondary" disabled={loading} type="button" style={{width:"20rem"}}>Add to Cart</button>
-          <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading} type="button">{loading ? <div className="spinner"></div> : (completion ? checkmark : "To Checkout")}</button>
+          <button className="product-action-1 heading-secondary" type="button" style={{width:"20rem"}} onClick={submitCart} >Add to Cart</button>
+          <button className="product-action-2 heading-secondary" type="button">To Checkout</button>
         </div>
       </div>
     </div>

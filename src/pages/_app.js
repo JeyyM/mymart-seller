@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { getServerSideProps } from "../utilities/serversideProps";
 import { useEffect } from "react";
 import { useState } from "react";
+import store from "@/components/store/store";
+import { Provider } from "react-redux";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter()
@@ -33,7 +35,9 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-  return <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo}><Component {...pageProps} /></NavbarLayout>;
+  return <Provider store={store}>
+  <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo}><Component {...pageProps} /></NavbarLayout>;
+  </Provider>
 }
 
 export { getServerSideProps }
