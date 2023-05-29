@@ -512,8 +512,8 @@ function ProductPage({ shopID }) {
         </form>
 
         <div className="product-action-buttons">
-          <button className="product-action-1 heading-secondary" disabled={loading} onClick={handleTags} type="button">Edit Search Tags</button>
-          <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading} type="button">{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
+          <button className="product-action-1 heading-secondary" disabled={loading} type="button" style={{width:"20rem"}}>Add to Cart</button>
+          <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading} type="button">{loading ? <div className="spinner"></div> : (completion ? checkmark : "To Checkout")}</button>
         </div>
       </div>
     </div>

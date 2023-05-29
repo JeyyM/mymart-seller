@@ -3,6 +3,7 @@ import NavButton from "./Nav-Button"
 import NavLogo from "./Nav-Logo"
 import NavItem from "./NavItem"
 import Head from "next/head"
+import CartNav from "./Cart-Nav"
 
 import { Category } from "../svgs"
 import { Insights } from "../svgs"
@@ -14,6 +15,8 @@ import { Power } from "../svgs"
 import { useState } from "react"
 import NavMenu from "./Nav-Menu"
 import { useEffect } from "react"
+import { Info } from "../svgs"
+import { Cart } from "../svgs"
 
 let previousScrollPos = 0;
 function NavbarItems(props) {
@@ -59,11 +62,14 @@ function NavbarItems(props) {
       <NavButton menuHandler={showMenuToggler} status={menuIsOn}></NavButton>
       <NavLogo navicon={props.navicon}></NavLogo>
       <div className="navcontainer">
+        <CartNav svg={<Cart className="menu-cart svg-color"></Cart>} link={"mart"} label="Cart"></CartNav>
         <NavItem svg={<Category className="menu-category svg-color"></Category>} link={"categories"} label="Categories & Products" ></NavItem>
-        <NavItem svg={<Manage className="menu-manage svg-color"></Manage>} link={"mart"} label="About Us"></NavItem>
-        <NavItem svg={<Manage className="menu-manage svg-color"></Manage>} link={"mart"} label="Cart"></NavItem>
-        <NavItem svg={<Manage className="menu-manage svg-color"></Manage>} link={"mart"} label="Sign/Log-up"></NavItem>
+        <NavItem svg={<Info className="menu-info svg-color"></Info>} link={"about"} label="About Us"></NavItem>
         <NavItem svg={<Manage className="menu-manage svg-color"></Manage>} link={"mart"} label="Sign-Up to MyMart"></NavItem>
+        <div className="nav-sign">
+          <button className="product-action-1 log-button"><h2 className="heading-tertiary">Log-In</h2></button>
+          <button className="product-action-2 sign-button"><h2 className="heading-tertiary body-color">Sign-Up</h2></button>
+        </div>
       </div>
     </header>
   </Fragment>

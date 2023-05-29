@@ -163,9 +163,6 @@ function About({ shopID }) {
             <link rel="icon" type="image/jpeg" href={favicon} />
         </Head>
 
-        <h1>{screenWidth}</h1>
-        <h1>{screenScale}</h1>
-
         <section className={gridClass}>
 
             {textElements}

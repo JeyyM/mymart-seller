@@ -214,6 +214,32 @@
   filter: brightness(120%);
 }
 
+.nav-sign {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 15rem;
+  height: 9.1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.log-button{
+  height: 4rem !important;
+  width: 90%;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.sign-button{
+  height: 4rem !important;
+  width: 90% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
 .nav-category {@include navlogo-gradient(category, 4.2rem, 4.2rem);}
 .nav-insights {@include navlogo-gradient(insights, 4.2rem, 4.2rem)}
 .nav-ongoing {@include navlogo-gradient(ongoing, 4.2rem, 4.2rem)}

@@ -82,5 +82,11 @@
 .menu-home {
   @include menu-logo(home, 4rem, 4rem)
 }
+.menu-info {
+  @include menu-logo(info, 4rem, 4rem)
+}
+.menu-cart {
+  @include menu-logo(cart, 4rem, 4rem)
+}
 
 .menu-animation{position: relative; z-index: 25;}

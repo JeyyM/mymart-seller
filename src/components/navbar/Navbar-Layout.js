@@ -256,6 +256,8 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 
 .white{color: white !important;}
 
+.body-color{color:${props.color["bg-item"]} !important;}
+
 .green{color: #285430 !important;}
 
 .yellow{color: #3b2f01 !important;}
