@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Footer from "../Mart/Footer";
 
+
 function NavbarLayout(props) {
     const router = useRouter()
 

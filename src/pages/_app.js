@@ -2,11 +2,13 @@ import "./main.scss";
 import NavbarLayout from "@/components/navbar/Navbar-Layout";
 import { useRouter } from "next/router";
 import { getServerSideProps } from "../utilities/serversideProps";
-import { useEffect } from "react";
+import { createContext, useEffect, useContext } from "react";
 import { useState } from "react";
 import store from "@/components/defunctstore/store";
 import { Provider } from "react-redux";
 import Cart from "@/components/cart/Cart";
+
+export const MyContext = createContext();
 
 export default function App({ Component, pageProps }) {
   const router = useRouter()
@@ -65,13 +67,30 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-  
+  const [change, setChange] = useState(true);
 
-    return <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo}>
-    <Cart>
+  const handleChange = () => {
+    setChange(!change);
+  };
+  const MyProvider = ({ children }) => {
+    const sharedData = {
+      change,
+      handleChange,
+    };  
+    
+    return (
+      <MyContext.Provider value={sharedData}>
+        {children}
+      </MyContext.Provider>
+    );
+  };
+
+    return <MyProvider>
+    <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo}>
     <Component {...pageProps} />
-    </Cart>
-    </NavbarLayout>;
+    </NavbarLayout>
+    </MyProvider>;
   }
+
 
 export { getServerSideProps }

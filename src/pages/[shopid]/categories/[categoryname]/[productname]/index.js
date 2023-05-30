@@ -7,6 +7,8 @@ import Confirmer2 from "@/components/Modal/Confirmer2";
 import AddTags from "@/components/Modal/Add-Tags";
 import { getServerSideProps } from "..";
 import Head from "next/head";
+import { MyContext } from "@/pages/_app";
+import { useContext } from "react";
 
 function ProductPage({ shopID }) {
   const router = useRouter()
@@ -208,10 +210,10 @@ function ProductPage({ shopID }) {
     } else if (existingItem) {
       const updatedCartContents = cartContents.map((product) => {
         if (product.name === items.name) {
-          const newCartValue = product.cartValue + items.cartValue;
+          const newCartValue = parseInt(product.cartValue) + parseInt(items.cartValue);
           const chosenCartValue = newCartValue <= items.amount ? newCartValue : items.amount;
   
-          return { ...product, cartValue: chosenCartValue };
+          return { ...product, cartValue: parseInt(chosenCartValue) };
         }
         return product;
       });
@@ -222,6 +224,12 @@ function ProductPage({ shopID }) {
       setCartContents([...cartContents, items]);
       localStorage.setItem(localStorageKey, JSON.stringify([...cartContents, items]));
     }
+  };
+
+  const { handleChange } = useContext(MyContext);
+
+  const handleButtonClick = () => {
+    setClicked(clicked + 1);
   };
 
   const submitCart = () => {
