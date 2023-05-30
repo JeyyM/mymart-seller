@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { getServerSideProps } from "../utilities/serversideProps";
 import { useEffect } from "react";
 import { useState } from "react";
-import store from "@/components/store/store";
+import store from "@/components/defunctstore/store";
 import { Provider } from "react-redux";
 import Cart from "@/components/cart/Cart";
 
@@ -18,6 +18,8 @@ export default function App({ Component, pageProps }) {
     const localStorageKey = `mart_${shopId}`;
     let existingCartItems;
   
+    if (localStorageKey !== "mart_undefined"){
+
     if (typeof window !== 'undefined') {
       existingCartItems = localStorage.getItem(localStorageKey);
     }
@@ -36,6 +38,7 @@ export default function App({ Component, pageProps }) {
     const existingCartItems = JSON.parse(localStorage.getItem(localStorageKey)) || [];
     setCartItems(existingCartItems);
   }, [router.query.shopid]);
+}
 
   let data = {}
   let database = {}
@@ -62,13 +65,13 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-    return <Provider store={store}>
-    <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo}>
+  
+
+    return <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo}>
     <Cart>
     <Component {...pageProps} />
     </Cart>
     </NavbarLayout>;
-    </Provider>
   }
 
 export { getServerSideProps }

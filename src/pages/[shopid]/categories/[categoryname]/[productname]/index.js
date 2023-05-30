@@ -7,12 +7,9 @@ import Confirmer2 from "@/components/Modal/Confirmer2";
 import AddTags from "@/components/Modal/Add-Tags";
 import { getServerSideProps } from "..";
 import Head from "next/head";
-// import { useDispatch } from "react-redux";
-import { addToCart } from "@/components/store/cartActions";
 
 function ProductPage({ shopID }) {
   const router = useRouter()
-  // const dispatch = useDispatch();
 
   const shopCurrency = shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
   const favicon = shopID.shopData.shopDetails.imageData.icons.icon
@@ -207,10 +204,8 @@ function ProductPage({ shopID }) {
     const existingItem = cartContents.find((item) => item.name === items.name);
   
     if (items.cartValue === 0 || isNaN(items.cartValue)) {
-      console.log("empty");
       return;
     } else if (existingItem) {
-      console.log("exists")
       const updatedCartContents = cartContents.map((product) => {
         if (product.name === items.name) {
           const newCartValue = product.cartValue + items.cartValue;
@@ -226,12 +221,8 @@ function ProductPage({ shopID }) {
     } else {
       setCartContents([...cartContents, items]);
       localStorage.setItem(localStorageKey, JSON.stringify([...cartContents, items]));
-      console.log("new");
     }
   };
-  
-  useEffect(() => {console.log("updated", cartContents)}, [cartContents])
-
 
   const submitCart = () => {
     const item = {
@@ -247,7 +238,6 @@ function ProductPage({ shopID }) {
     };
 
     changeCart(item)
-    // dispatch(addToCart(item));
   };
 
   return <Fragment>
