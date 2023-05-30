@@ -43,6 +43,7 @@ function HomePage({ shopID }) {
   };
 
   const { shopid } = router.query;
+
   const shopData = shopID.shopData;
   const imageData = shopID.shopData.shopDetails.imageData
   const favicon = shopID.shopData.shopDetails.imageData.icons.icon
@@ -154,4 +155,3 @@ function HomePage({ shopID }) {
 export default HomePage
 
 export { getServerSideProps }
-

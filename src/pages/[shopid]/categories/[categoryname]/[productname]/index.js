@@ -7,12 +7,12 @@ import Confirmer2 from "@/components/Modal/Confirmer2";
 import AddTags from "@/components/Modal/Add-Tags";
 import { getServerSideProps } from "..";
 import Head from "next/head";
-import { useDispatch } from "react-redux";
-import { addToCart } from "@/components/store/cartactions";
+// import { useDispatch } from "react-redux";
+import { addToCart } from "@/components/store/cartActions";
 
 function ProductPage({ shopID }) {
   const router = useRouter()
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const shopCurrency = shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
   const favicon = shopID.shopData.shopDetails.imageData.icons.icon
@@ -32,8 +32,12 @@ function ProductPage({ shopID }) {
   const chosenCategory = allCategories.filter((value) => value.categoryName === queryCategory);
   const categoryIndex = allCategories.findIndex((value) => value.categoryName === queryCategory);
 
+  const urlCateg = encodeURIComponent(chosenCategory[0].categoryName)
+
   const chosenProduct = chosenCategory[0].categoryProducts.filter(product => product.variations[0].productName === queryProduct);
   const productIndex = chosenCategory[0].categoryProducts.findIndex(product => product.variations[0].productName === queryProduct);
+
+  const urlProduct = encodeURIComponent(chosenProduct[0].variations[0].productName)
 
   const variationsList = chosenProduct[0].variations
 
@@ -43,6 +47,13 @@ function ProductPage({ shopID }) {
   const upperProductNames = productNames.map(name => name.toUpperCase());
 
   const routerData = [shopID._id, queryCategory]
+
+  const localStorageKey = `mart_${shopID._id}`
+
+  const storedCartItems = typeof window !== 'undefined' ? localStorage.getItem(localStorageKey) : null;
+  const parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];  
+
+  const [cartContents, setCartContents] = useState(parsedCartItems)
 
   const [varState, setVarState] = useState(0)
   const [imgState, setImgState] = useState(0)
@@ -126,6 +137,18 @@ function ProductPage({ shopID }) {
   };
 
   const [cartValue, setCartValue] = useState(0)
+  const handleCartAmount = (event) => {
+    const enteredValue = event.target.value.trim();
+    const numericEnteredValue = parseFloat(enteredValue);
+  
+    if (isNaN(numericEnteredValue) || numericEnteredValue <= stockAmount) {
+      setCartValue(numericEnteredValue);
+    } else {
+      setCartValue(stockAmount);
+    }
+  };
+  
+  
   function addStock() {
     if (cartValue < stockAmount)
     {setCartValue(parseInt(cartValue) + 1)}}
@@ -167,6 +190,7 @@ function ProductPage({ shopID }) {
     setPriceValue(variationsList[varState].productPrice)
     setStockAmount(variationsList[varState].productStock.stockAmount)
     setStockUnit(variationsList[varState].productStock.stockUnit)
+    setCartValue(0)
 
     setActiveValue(variationsList[varState].active)
   }
@@ -179,16 +203,51 @@ function ProductPage({ shopID }) {
     setAll(varState);
   }, [varState]);
 
+  const changeCart = (items) => {
+    const existingItem = cartContents.find((item) => item.name === items.name);
+  
+    if (items.cartValue === 0 || isNaN(items.cartValue)) {
+      console.log("empty");
+      return;
+    } else if (existingItem) {
+      console.log("exists")
+      const updatedCartContents = cartContents.map((product) => {
+        if (product.name === items.name) {
+          const newCartValue = product.cartValue + items.cartValue;
+          const chosenCartValue = newCartValue <= items.amount ? newCartValue : items.amount;
+  
+          return { ...product, cartValue: chosenCartValue };
+        }
+        return product;
+      });
+  
+      setCartContents(updatedCartContents);
+      localStorage.setItem(localStorageKey, JSON.stringify(updatedCartContents));
+    } else {
+      setCartContents([...cartContents, items]);
+      localStorage.setItem(localStorageKey, JSON.stringify([...cartContents, items]));
+      console.log("new");
+    }
+  };
+  
+  useEffect(() => {console.log("updated", cartContents)}, [cartContents])
+
+
   const submitCart = () => {
     const item = {
       name: nameValue,
       description: descValue,
       image: imgValue1,
       price: priceValue,
-      stockUnit: stockUnit,
+      unit: stockUnit,
+      amount: stockAmount,
       cartValue: cartValue,
+      url: `${shopID._id}/categories/${urlCateg}/${urlProduct}`,
+      router: `${shopID._id}`
     };
-    dispatch(addToCart(item));
+
+    changeCart(item)
+    // dispatch(addToCart(item));
   };
 
   return <Fragment>
@@ -264,7 +323,7 @@ function ProductPage({ shopID }) {
 
           <div className="add-buttons flex-row-spaceless" style={{ margin: "2rem 0", width: "30rem" }}>
             <button type="button" className="minus-button" onClick={minusStock}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
-            <input type="number" value={cartValue} className="text-small input-number" placeholder="Amount" required id='amount' onChange={handleStockAmount} style={{ borderRadius: "0", margin: "0" }}></input>
+            <input type="number" value={cartValue} className="text-small input-number" placeholder="Amount" required id='amount' onChange={handleCartAmount} style={{ borderRadius: "0", margin: "0" }}></input>
             <button type="button" onClick={addStock} className="add-button svg-color" style={{ marginRight: "2rem" }}><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
           </div>
         </form>

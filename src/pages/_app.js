@@ -6,9 +6,36 @@ import { useEffect } from "react";
 import { useState } from "react";
 import store from "@/components/store/store";
 import { Provider } from "react-redux";
+import Cart from "@/components/cart/Cart";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter()
+  const shopid = router.query.shopid
+
+  const [cartItems, setCartItems] = useState([]);
+
+    const initializeLocalStorage = (shopId) => {
+    const localStorageKey = `mart_${shopId}`;
+    let existingCartItems;
+  
+    if (typeof window !== 'undefined') {
+      existingCartItems = localStorage.getItem(localStorageKey);
+    }
+  
+    if (!existingCartItems) {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(localStorageKey, JSON.stringify([]));
+      }
+    }
+  };
+  
+  initializeLocalStorage(shopid);
+
+  useEffect(() => {
+    const localStorageKey = `mart_${shopid}`;
+    const existingCartItems = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+    setCartItems(existingCartItems);
+  }, [router.query.shopid]);
 
   let data = {}
   let database = {}
@@ -35,9 +62,13 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-  return <Provider store={store}>
-  <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo}><Component {...pageProps} /></NavbarLayout>;
-  </Provider>
-}
+    return <Provider store={store}>
+    <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo}>
+    <Cart>
+    <Component {...pageProps} />
+    </Cart>
+    </NavbarLayout>;
+    </Provider>
+  }
 
 export { getServerSideProps }
