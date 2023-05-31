@@ -16,6 +16,8 @@ function ProductPage({ shopID }) {
   const shopCurrency = shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
   const favicon = shopID.shopData.shopDetails.imageData.icons.icon
 
+  const { state, handleIncrement } = useContext(MyContext);
+
   function waitSeconds() {
     return new Promise(resolve => setTimeout(resolve, 2500));
   }
@@ -49,8 +51,8 @@ function ProductPage({ shopID }) {
 
   const localStorageKey = `mart_${shopID._id}`
 
-  const storedCartItems = typeof window !== 'undefined' ? localStorage.getItem(localStorageKey) : null;
-  const parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];  
+  let storedCartItems = typeof window !== 'undefined' ? localStorage.getItem(localStorageKey) : null;
+  let parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];  
 
   const [cartContents, setCartContents] = useState(parsedCartItems)
 
@@ -202,7 +204,26 @@ function ProductPage({ shopID }) {
     setAll(varState);
   }, [varState]);
 
+
+  function fuckingCheck(){
+    console.log(storedCartItems, parsedCartItems, cartContents)
+  }
+
+
+  useEffect(() => {
+    const storedCartItems = localStorage.getItem(localStorageKey);
+    const parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];
+    setCartContents(parsedCartItems);
+
+    console.log(cartContents)
+  }, [state.count]);
+
+
   const changeCart = (items) => {
+    storedCartItems = typeof window !== 'undefined' ? localStorage.getItem(localStorageKey) : null;
+    parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];  
+    setCartContents(parsedCartItems)
+
     const existingItem = cartContents.find((item) => item.name === items.name);
   
     if (items.cartValue === 0 || isNaN(items.cartValue)) {
@@ -221,14 +242,15 @@ function ProductPage({ shopID }) {
   
       setCartContents(updatedCartContents);
       localStorage.setItem(localStorageKey, JSON.stringify(updatedCartContents));
+      // console.log(updatedCartContents)
+
     } else {
       handleIncrement()
       setCartContents([...cartContents, items]);
       localStorage.setItem(localStorageKey, JSON.stringify([...cartContents, items]));
+      // console.log(updatedCartContents)
     }
   };
-
-  const { handleIncrement } = useContext(MyContext);
 
   const submitCart = () => {
     const item = {
@@ -244,6 +266,7 @@ function ProductPage({ shopID }) {
     };
 
     changeCart(item)
+
   };
 
   return <Fragment>
@@ -326,7 +349,7 @@ function ProductPage({ shopID }) {
 
         <div className="product-action-buttons">
           <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{width:"24rem"}} onClick={submitCart}><div className="menu-tocart svg-color">&nbsp;</div><h2 className="heading-secondary">Add to Cart</h2></button>
-          <button className="product-action-2 heading-secondary flex-row-align" type="button" style={{width:"24rem"}}><div className="menu-checkout svg-decolor">&nbsp;</div><h2 className="heading-secondary">To Checkout</h2></button>
+          <button className="product-action-2 heading-secondary flex-row-align" type="button" style={{width:"24rem"}}><div className="menu-checkout svg-decolor">&nbsp;</div><h2 className="heading-secondary" onClick={fuckingCheck}>To Checkout</h2></button>
         </div>
       </div>
     </div>
