@@ -1,9 +1,9 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import NavbarItems from "./Navbar-Items";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Footer from "../Mart/Footer";
-
+import CartModal from "../cart/CartModal";
 
 function NavbarLayout(props) {
     const router = useRouter()
@@ -39,6 +39,11 @@ filter: brightness(50%);}`
     }
 
     const id = router.query.shopid
+
+    const [CartStatus, setCartStatus] = useState(false)
+    const CartHandler = () => {
+        setCartStatus(!CartStatus)
+    }
 
     return (
         <Fragment>
@@ -94,6 +99,11 @@ border-image: linear-gradient(
     )
     1 !important;
     background-color:${props.color["bg-item"]} !important;}
+
+.navitem:active{
+    filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["color-primary-light"]}) !important;
+    transform: scale(0.95)
+}
 
 .svg-color, input:checked + .toggle-label{
     background-image: linear-gradient(
@@ -303,13 +313,23 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 
 .slick-dots{bottom: 10px !important;}
 
+.cartbob {
+    filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["color-primary-light"]}) !important;}
 
+.cart-row{
+    border-bottom: 5px solid ${props.color["color-primary-dark"]};
+}
+
+.dark-underline{
+    border-bottom: 5px solid ${props.color["color-primary-dark"]};
+}
 
     ` }
                 </style>
             </Head>
 
-            <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo}/>
+            <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} cartOpen={CartHandler}/>
+            <CartModal modalStatus={CartStatus} cartOpen={CartHandler} currency={props.curr}></CartModal>
             <div>{props.children}</div>
             {router.asPath !== `/${id}/mart/details` && router.asPath !== "/" ? <Footer details={props.contents} address={props.address}></Footer> : <Fragment></Fragment>}
 

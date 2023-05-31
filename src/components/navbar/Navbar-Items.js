@@ -62,7 +62,7 @@ function NavbarItems(props) {
       <NavButton menuHandler={showMenuToggler} status={menuIsOn}></NavButton>
       <NavLogo navicon={props.navicon}></NavLogo>
       <div className="navcontainer">
-        <CartNav svg={<Cart className="menu-cart svg-color"></Cart>} link={"mart"} label="Cart"></CartNav>
+        <CartNav svg={<Cart className="menu-cart svg-color"></Cart>} link={"mart"} label="Cart" handleCart={props.cartOpen}></CartNav>
         <NavItem svg={<Category className="menu-category svg-color"></Category>} link={"categories"} label="Categories & Products" ></NavItem>
         <NavItem svg={<Info className="menu-info svg-color"></Info>} link={"about"} label="About Us"></NavItem>
         <NavItem svg={<Manage className="menu-manage svg-color"></Manage>} link={"mart"} label="Sign-Up to MyMart"></NavItem>

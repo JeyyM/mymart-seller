@@ -88,5 +88,11 @@
 .menu-cart {
   @include menu-logo(cart, 4rem, 4rem)
 }
+.menu-tocart {
+  @include menu-logo(tocart, 4rem, 4rem)
+}
+.menu-checkout {
+  @include menu-logo(checkout, 4rem, 4rem)
+}
 
 .menu-animation{position: relative; z-index: 25;}

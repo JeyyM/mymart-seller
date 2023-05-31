@@ -7,8 +7,8 @@ import Confirmer2 from "@/components/Modal/Confirmer2";
 import AddTags from "@/components/Modal/Add-Tags";
 import { getServerSideProps } from "..";
 import Head from "next/head";
-import { MyContext } from "@/pages/_app";
 import { useContext } from "react";
+import { MyContext } from "@/components/store/MyProvider";
 
 function ProductPage({ shopID }) {
   const router = useRouter()
@@ -138,7 +138,7 @@ function ProductPage({ shopID }) {
   const [cartValue, setCartValue] = useState(0)
   const handleCartAmount = (event) => {
     const enteredValue = event.target.value.trim();
-    const numericEnteredValue = parseFloat(enteredValue);
+    const numericEnteredValue = parseInt(enteredValue);
   
     if (isNaN(numericEnteredValue) || numericEnteredValue <= stockAmount) {
       setCartValue(numericEnteredValue);
@@ -209,6 +209,7 @@ function ProductPage({ shopID }) {
       return;
     } else if (existingItem) {
       const updatedCartContents = cartContents.map((product) => {
+        handleIncrement()
         if (product.name === items.name) {
           const newCartValue = parseInt(product.cartValue) + parseInt(items.cartValue);
           const chosenCartValue = newCartValue <= items.amount ? newCartValue : items.amount;
@@ -221,16 +222,13 @@ function ProductPage({ shopID }) {
       setCartContents(updatedCartContents);
       localStorage.setItem(localStorageKey, JSON.stringify(updatedCartContents));
     } else {
+      handleIncrement()
       setCartContents([...cartContents, items]);
       localStorage.setItem(localStorageKey, JSON.stringify([...cartContents, items]));
     }
   };
 
-  const { handleChange } = useContext(MyContext);
-
-  const handleButtonClick = () => {
-    setClicked(clicked + 1);
-  };
+  const { handleIncrement } = useContext(MyContext);
 
   const submitCart = () => {
     const item = {
@@ -327,8 +325,8 @@ function ProductPage({ shopID }) {
         </form>
 
         <div className="product-action-buttons">
-          <button className="product-action-1 heading-secondary" type="button" style={{width:"20rem"}} onClick={submitCart} >Add to Cart</button>
-          <button className="product-action-2 heading-secondary" type="button">To Checkout</button>
+          <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{width:"24rem"}} onClick={submitCart}><div className="menu-tocart svg-color">&nbsp;</div><h2 className="heading-secondary">Add to Cart</h2></button>
+          <button className="product-action-2 heading-secondary flex-row-align" type="button" style={{width:"24rem"}}><div className="menu-checkout svg-decolor">&nbsp;</div><h2 className="heading-secondary">To Checkout</h2></button>
         </div>
       </div>
     </div>
