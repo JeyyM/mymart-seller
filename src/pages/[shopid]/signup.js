@@ -3,10 +3,9 @@ import Head from "next/head"
 import { getServerSideProps } from "../_app"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import CustomizedPicker from "@/components/Mart/CustomizedPicker"
 
-import { LocalizationProvider, DatePicker } from '@mui/lab';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
 function SignUp(martID) {
     const id = martID.shopID._id
@@ -14,6 +13,10 @@ function SignUp(martID) {
     const [currentStep, setCurrentStep] = useState(1);
     const shopName = martID.shopID.name
     const navlogo = martID.shopID.shopData.shopDetails.imageData.icons.logo
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }, []);
 
     const appear = {
         hidden: {
@@ -35,11 +38,6 @@ function SignUp(martID) {
             },
         },
     };
-
-    const [selectedDate, setSelectedDate] = useState(null);
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-      };
 
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1);
@@ -133,23 +131,23 @@ function SignUp(martID) {
                         <label className="form-label">BirthDay</label>
                     </div>
                     <div className="form-group" style={{ marginTop: "1rem" }}>
-                        <input
+                        {/* <input
                             type="text"
                             className="text-small input-number"
                             placeholder="Last Name"
                             autoComplete="off"
                             style={{ width: "15rem", margin: "0" }}
                         ></input>
-                        <label className="form-label">Last Name</label>
+                        <label className="form-label">Last Name</label> */}
+                        {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker />
+                        </LocalizationProvider> */}
+
+                        <CustomizedPicker colormode={true}></CustomizedPicker>
                     </div>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
-  <DatePicker
-    label="Select Date"
-    value={selectedDate}
-    onChange={(newDate) => setSelectedDate(newDate)}
-    renderInput={(params) => <TextField {...params} />}
-  />
-</LocalizationProvider>
+
+
+
                 </div>
 
 

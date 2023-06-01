@@ -9,6 +9,10 @@ import { Provider } from "react-redux";
 import Cart from "@/components/cart/Cart";
 import { MyProvider } from "@/components/store/MyProvider";
 
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+
+
 export default function App({ Component, pageProps }) {
   const router = useRouter()
   const shopid = router.query.shopid
@@ -69,11 +73,13 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-    return <MyProvider>
+    return<LocalizationProvider dateAdapter={AdapterDayjs}>
+    <MyProvider>
     <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo} curr={martCurrency}>
     <Component {...pageProps} />
     </NavbarLayout>
-    </MyProvider>;
+    </MyProvider>
+    </LocalizationProvider>
   }
 
 
