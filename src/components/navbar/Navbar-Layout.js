@@ -74,7 +74,7 @@ body{background-color: ${props.color["bg-body"]} !important;}
 
 .empty-text {color: ${props.color["color-primary-dark"]} !important;}
 
-.navbar, .navmenu, .navmenu-item, .menu-decoy, .footer, .footer-column {background-color: ${props.color["bg-item"]} !important;
+.navbar, .navmenu, .navmenu-item, .menu-decoy, .footer, .footer-column, .cart-bottom, .dark-underline {background-color: ${props.color["bg-item"]} !important;
 border-image: linear-gradient(
       45deg,
       ${props.color["color-primary-dark"]},
@@ -108,6 +108,13 @@ border-image: linear-gradient(
 .svg-color, input:checked + .toggle-label{
     background-image: linear-gradient(
     to right,
+    ${props.color["color-primary-dark"]},
+    ${props.color["color-primary-light"]}
+  ) !important;}
+
+  .sign-color {
+    background-image: linear-gradient(
+    270deg,
     ${props.color["color-primary-dark"]},
     ${props.color["color-primary-light"]}
   ) !important;}
@@ -322,6 +329,10 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 
 .dark-underline{
     border-bottom: 5px solid ${props.color["color-primary-dark"]};
+}
+
+.dark-underline-upper{
+    border-top: 5px solid ${props.color["color-primary-dark"]};
 }
 
     ` }

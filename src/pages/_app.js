@@ -13,8 +13,6 @@ export default function App({ Component, pageProps }) {
   const router = useRouter()
   const shopid = router.query.shopid
 
-  const martCurrency = pageProps.shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
-
   const [cartItems, setCartItems] = useState([]);
 
     const initializeLocalStorage = (shopId) => {
@@ -48,11 +46,14 @@ export default function App({ Component, pageProps }) {
   let colormode = ""
   let details = {}
   let iconInfo = {}
+  let martCurrency = ""
 
   if (pageProps.shopID) {
     iconInfo = pageProps.shopID.shopData.shopDetails.imageData.icons
     database = pageProps.shopID.shopData.shopDesigns
     details = pageProps.shopID.shopData.shopDetails.footerData
+    martCurrency = pageProps.shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
+
     if (database.defaultMode) {
       data = database.lightDesign
     } else { data = database.darkDesign }

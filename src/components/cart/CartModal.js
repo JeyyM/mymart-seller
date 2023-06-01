@@ -113,6 +113,18 @@ function CartModal(props) {
   };
 
 
+  const calculateTotal = () => {
+    let total = 0;
+  
+    parsedData.forEach((item) => {
+      const totalCost = item.cartValue * parseFloat(item.price);
+      total += totalCost;
+    });
+  
+    return total;
+  };
+  
+  const total = calculateTotal();
 
   return (
     <Fragment>
@@ -161,7 +173,10 @@ function CartModal(props) {
 
               <div className="empty-cart-row"></div>
 
-              <div className="cart-bottom"></div>
+              <div className="cart-bottom dark-underline-upper">
+                <h2 className="heading-secondary">Total: {props.currency} {total}</h2>
+                <button className="product-action-2 heading-secondary flex-row-align" type="button" style={{width:"24rem", margin:"0"}}><div className="menu-checkout svg-decolor">&nbsp;</div><h2 className="heading-secondary">To Checkout</h2></button>
+              </div>
 
             </motion.div>
           </Backdrop>

@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mui/lab": "^5.0.0-alpha.132",
     "@next/font": "13.2.3",
     "@react-google-maps/api": "^2.18.1",
     "@react-spring/web": "^9.7.1",
     "@svgr/webpack": "^6.5.1",
     "chroma-js": "^2.4.2",
+    "date-fns": "^2.30.0",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
     "framer-motion": "^10.2.3",
@@ -25,6 +27,7 @@
     "next": "^13.2.3",
     "react": "18.2.0",
     "react-color": "^2.19.3",
+    "react-datepicker": "^4.12.0",
     "react-dom": "18.2.0",
     "react-glider": "^4.0.2",
     "react-icons": "^4.8.0",

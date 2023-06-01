@@ -31,20 +31,20 @@
 }
 
 .empty-cart-row{
- height: 11rem;
+ height: 13rem;
  width: 100%;   
 }
 
 .cart-bottom{
     height: 10rem;
     width: 100%;
-    background-color: blue;
     display: flex;
     align-items: center;
     margin-top: auto;
     position: absolute;
     bottom: 0;
     z-index: 10;
+    justify-content: space-around;
 }
 
 .cart-img{

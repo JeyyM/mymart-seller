@@ -204,18 +204,10 @@ function ProductPage({ shopID }) {
     setAll(varState);
   }, [varState]);
 
-
-  function fuckingCheck(){
-    console.log(storedCartItems, parsedCartItems, cartContents)
-  }
-
-
   useEffect(() => {
     const storedCartItems = localStorage.getItem(localStorageKey);
     const parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];
     setCartContents(parsedCartItems);
-
-    console.log(cartContents)
   }, [state.count]);
 
 
@@ -242,13 +234,11 @@ function ProductPage({ shopID }) {
   
       setCartContents(updatedCartContents);
       localStorage.setItem(localStorageKey, JSON.stringify(updatedCartContents));
-      // console.log(updatedCartContents)
 
     } else {
       handleIncrement()
       setCartContents([...cartContents, items]);
       localStorage.setItem(localStorageKey, JSON.stringify([...cartContents, items]));
-      // console.log(updatedCartContents)
     }
   };
 
@@ -349,7 +339,7 @@ function ProductPage({ shopID }) {
 
         <div className="product-action-buttons">
           <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{width:"24rem"}} onClick={submitCart}><div className="menu-tocart svg-color">&nbsp;</div><h2 className="heading-secondary">Add to Cart</h2></button>
-          <button className="product-action-2 heading-secondary flex-row-align" type="button" style={{width:"24rem"}}><div className="menu-checkout svg-decolor">&nbsp;</div><h2 className="heading-secondary" onClick={fuckingCheck}>To Checkout</h2></button>
+          <button className="product-action-2 heading-secondary flex-row-align" type="button" style={{width:"24rem"}}><div className="menu-checkout svg-decolor">&nbsp;</div><h2 className="heading-secondary">To Checkout</h2></button>
         </div>
       </div>
     </div>
