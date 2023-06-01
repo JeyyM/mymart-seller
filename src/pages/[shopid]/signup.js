@@ -14,6 +14,17 @@ function SignUp(martID) {
     const shopName = martID.shopID.name
     const navlogo = martID.shopID.shopData.shopDetails.imageData.icons.logo
 
+    const design = martID.shopID.shopData.shopDesigns
+    const colormode = martID.shopID.shopData.shopDesigns.defaultMode
+
+    let chosenMode = {}
+
+    if (colormode === true) {
+        chosenMode = design.lightDesign
+    } else if (colormode === false) {
+        chosenMode = design.darkDesign
+    }
+
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }, []);
@@ -114,36 +125,25 @@ function SignUp(martID) {
                         <input
                             type="text"
                             className="text-small input-number"
-                            placeholder="Phone #"
+                            placeholder="Phone Number"
                             autoComplete="off"
-                            style={{ width: "15rem", margin: "0" }}
+                            style={{ width: "17rem", margin: "0" }}
                         ></input>
-                        <label className="form-label">Phone #</label>
+                        <label className="form-label">Phone Number</label>
+                    </div>
+
+                    <div className="form-group" style={{ marginTop: "1rem" }}>
+                        <CustomizedPicker colormode={chosenMode}></CustomizedPicker>
                     </div>
                     <div className="form-group" style={{ marginTop: "1rem" }}>
                         <input
                             type="text"
                             className="text-small input-number"
-                            placeholder="MM/DD/YYYY"
+                            placeholder="Gender"
                             autoComplete="off"
-                            style={{ width: "15rem", margin: "0" }}
+                            style={{ width: "13rem", margin: "0" }}
                         ></input>
-                        <label className="form-label">BirthDay</label>
-                    </div>
-                    <div className="form-group" style={{ marginTop: "1rem" }}>
-                        {/* <input
-                            type="text"
-                            className="text-small input-number"
-                            placeholder="Last Name"
-                            autoComplete="off"
-                            style={{ width: "15rem", margin: "0" }}
-                        ></input>
-                        <label className="form-label">Last Name</label> */}
-                        {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DatePicker />
-                        </LocalizationProvider> */}
-
-                        <CustomizedPicker colormode={true}></CustomizedPicker>
+                        <label className="form-label">Gender</label>
                     </div>
 
 
