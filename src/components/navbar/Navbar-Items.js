@@ -68,7 +68,7 @@ function NavbarItems(props) {
         <NavItem svg={<Manage className="menu-manage svg-color"></Manage>} link={"mart"} label="Sign-Up to MyMart"></NavItem>
         <div className="nav-sign">
           <button className="product-action-1 log-button"><h2 className="heading-tertiary">Log-In</h2></button>
-          <button className="product-action-2 sign-button"><h2 className="heading-tertiary body-color">Sign-Up</h2></button>
+          <button className="product-action-2 sign-button"><h2 className="heading-tertiary button-solid-text">Sign-Up</h2></button>
         </div>
       </div>
     </header>

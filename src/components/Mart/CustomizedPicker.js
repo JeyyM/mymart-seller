@@ -12,8 +12,6 @@ function CustomizedPicker(props) {
         setSelectedDate(date);
     };
 
-    console.log(props.colormode)
-
     const useStyles = makeStyles((theme) => ({
         datePicker: {
             border: "solid 5px transparent !important",
