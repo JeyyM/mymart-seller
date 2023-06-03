@@ -213,6 +213,11 @@ border-image: linear-gradient(
     filter: brightness(120%) !important
     }
 
+    .text-options.invalid-dropdown {background-image: linear-gradient(white, white),
+    linear-gradient(to right, red, darkred) !important;
+    filter: brightness(120%) !important
+    }
+
 input[type="text"].text-full:focus, input[type="number"].text-small:focus, input[type="text"].text-small:focus, .text-options:focus, .desc-text-area:focus, .add-button:active, .minus-button:active {
     filter: brightness(150%) !important;
   outline-color: ${props.color["color-primary-dark"]} !important;

@@ -7,10 +7,12 @@ import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 
 function CustomizedPicker(props) {
-    const [selectedDate, setSelectedDate] = useState(null);
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };
+    // const [selectedDate, setSelectedDate] = useState(null);
+    // const handleDateChange = (date) => {
+    //     setSelectedDate(date);
+    // };
+
+    const {selectedDate, handleDateChange} = props
 
     const useStyles = makeStyles((theme) => ({
         datePicker: {

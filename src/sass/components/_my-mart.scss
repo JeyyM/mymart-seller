@@ -43,6 +43,11 @@
   margin-left: 1rem;
 }
 
+.heading-icon-profile {
+  @include heading-logo(profile, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
 .about-button-flag {
   @include empty-logo(flag, 10rem, 10rem);
 }
