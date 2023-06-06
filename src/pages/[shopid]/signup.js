@@ -27,7 +27,7 @@ function SignUp(martID) {
         "Select", "Male", "Female", "Other"
     ];
 
-    const [selectGender, setSelectGender] = useState("Male");
+    const [selectGender, setSelectGender] = useState("Select");
 
     const handleSelectGender = (event, index) => {
         setSelectGender(event.target.value);
@@ -117,11 +117,6 @@ function SignUp(martID) {
         setbday(date);
     };
 
-    const [gender, setGender] = useState("Male");
-    const handleGenderChange = (event) => {
-        setGender(event.target.value);
-    };
-
     const [company, setCompany] = useState("");
     const handleCompanyChange = (event) => {
         setCompany(event.target.value);
@@ -161,7 +156,7 @@ function SignUp(martID) {
     ];
 
     const [isOtherSelected, setIsOtherSelected] = useState(false);
-    const [selectedOccupation, setSelectedOccupation] = useState('');
+    const [selectedOccupation, setSelectedOccupation] = useState("Select Occupation");
     const [customOccupation, setCustomOccupation] = useState('');
     const inputRef = useRef(null);
 
@@ -277,6 +272,7 @@ function SignUp(martID) {
     }
 
     useEffect(() => { setCenter(footerItems.shopCoords) }, [])
+    const [bdayValid, setbdayValid] = useState(true)
 
 
     const handleMapClick = (event) => {
@@ -322,13 +318,13 @@ function SignUp(martID) {
 
 
     function printAll() {
-        console.log(email, password, repeat)
-        // console.log(fname, lname, phone, bday, gender, selectedOccupation, customOccupation, company)
-        console.log(fname, lname, phone, bday, gender, selectedOccupation, customOccupation, company)
+        // console.log(email, password, repeat)
+        // // console.log(fname, lname, phone, bday, gender, selectedOccupation, customOccupation, company)
+        // console.log(fname, lname, phone, bday, selectGender, selectedOccupation, customOccupation, company)
 
-        console.log(locationName)
+        // console.log(locationName)
 
-        console.log(cardname, cardnum, cardmonth, cardyear, cvv)
+        // console.log(cardname, cardnum, cardmonth, cardyear, cvv)
 
         // accountValidate()
         detailValidate()
@@ -343,8 +339,6 @@ function SignUp(martID) {
         emailValid = email.trim() !== ""
         passValid = password.trim() !== ""
         repeatValid = repeat === password
-
-        console.log(emailValid, passValid, repeatValid)
 
         setSignValidity({
             email: emailValid,
@@ -365,7 +359,7 @@ function SignUp(martID) {
         let fnameValid = true
         let lnameValid = true
         let phoneValid = true
-        let bdayValid = true
+        setbdayValid(true)
         let genderValid = true
         let occupationValid = true
         let otherValid = true
@@ -374,17 +368,40 @@ function SignUp(martID) {
         fnameValid = fname.trim() !== ""
         lnameValid = lname.trim() !== ""
         phoneValid = phone.trim() !== ""
-        bdayValid = bday !== ""
-        genderValid = gender !== "Select"
-        occupationValid = selectedOccupation !== "Select Occupation"
-        otherValid = customOccupation.trim() !== ""
-        companyValid = company.trim() !== ""
 
-        if (isOtherSelected) {
-            occupationValid = true
-        } else if (!isOtherSelected) {
-            otherValid = true
+        if (bday === ""){
+            setbdayValid(false)
+        } else {setbdayValid(true)}
+
+        if (bdayValid === true){
+            if (isNaN(bday.$D)){
+                setbdayValid(false)
+            }
         }
+
+        if (bdayValid === false){
+            if (isNaN(bday.$D)){
+                setbdayValid(false)
+            }
+        }
+
+        genderValid = selectGender !== "Select"
+
+        if (!isOtherSelected){
+            occupationValid = selectedOccupation !== "Select Occupation"
+        } 
+        // otherValid = customOccupation.trim() !== ""
+        // companyValid = company.trim() !== ""
+
+        // if (isOtherSelected) {
+        //     occupationValid = true
+        // } else if (!isOtherSelected) {
+        //     otherValid = true
+        // }
+
+        console.log("bazinga", selectedOccupation)
+        console.log(occupationValid)
+
 
         console.log(fnameValid, lnameValid, phoneValid, bdayValid, genderValid, occupationValid, otherValid, companyValid)
 
@@ -414,8 +431,8 @@ function SignUp(martID) {
       const fnameClasses = `${detailValidity.fname ? "text-small input-number" : "invalid-form-2 z"}`;
       const lnameClasses = `${detailValidity.lname ? "text-small input-number" : "invalid-form-2 z"}`;
       const phoneClasses = `${detailValidity.phone ? "text-small input-number" : "invalid-form-2 z"}`;
-
-      
+      const genderClasses = `${detailValidity.gender ? "text-options text-span" : "text-options text-span invalid-dropdown"}`
+      const occupationDropdownClasses = `${detailValidity.occupation ? "text-options text-span" : "text-options text-span invalid-dropdown"}`
 
 
     return (
@@ -506,7 +523,7 @@ function SignUp(martID) {
                                 <div className="form-group" style={{ marginTop: "1rem" }}>
                                     <input
                                         type="text"
-                                        className="text-small input-number"
+                                        className={lnameClasses}
                                         placeholder="Last Name"
                                         autoComplete="off"
                                         style={{ width: "25rem", margin: "0" }}
@@ -521,7 +538,7 @@ function SignUp(martID) {
                                 <div className="form-group" style={{ marginTop: "1rem" }}>
                                     <input
                                         type="text"
-                                        className="text-small input-number"
+                                        className={phoneClasses}
                                         placeholder="Phone Number"
                                         autoComplete="off"
                                         style={{ width: "17rem", margin: "0" }}
@@ -532,12 +549,12 @@ function SignUp(martID) {
                                 </div>
 
                                 <div className="form-group" style={{ marginTop: "1rem" }}>
-                                    <CustomizedPicker colormode={chosenMode} selectedDate={bday} handleDateChange={handlebdayChange}></CustomizedPicker>
+                                    <CustomizedPicker colormode={chosenMode} selectedDate={bday} handleDateChange={handlebdayChange} valid={bdayValid}></CustomizedPicker>
                                 </div>
                                 <div className="form-group" style={{ marginTop: "1rem" }}>
                                     <select
                                         value={selectGender}
-                                        className={`text-options invalid-dropdown text-span`}
+                                        className={genderClasses}
                                         style={{ width: "14rem" }}
                                         onChange={(event) => handleSelectGender(event)}
                                     >
@@ -563,7 +580,7 @@ function SignUp(martID) {
                                         />
                                     ) : (
                                         <select
-                                            className={`text-options text-span`}
+                                            className={occupationDropdownClasses}
                                             style={{ width: '22rem' }}
                                             value={selectedOccupation}
                                             onChange={handleOccupationChange}
@@ -605,7 +622,8 @@ function SignUp(martID) {
                                 <span className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
                                     <div className="heading-icon-pin svg-color">&nbsp;</div>
                                     <h1 className="heading-secondary no-margin">&nbsp;Location Details</h1>
-                                </span>                                <h2 className="heading-tertiary">{locationName}</h2>
+                                </span>
+                                <h2 className="heading-tertiary">{locationName}</h2>
                             </div>
 
                             <div style={{ height: "24rem", margin: "1rem" }}>

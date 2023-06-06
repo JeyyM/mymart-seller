@@ -7,16 +7,12 @@ import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 
 function CustomizedPicker(props) {
-    // const [selectedDate, setSelectedDate] = useState(null);
-    // const handleDateChange = (date) => {
-    //     setSelectedDate(date);
-    // };
 
     const {selectedDate, handleDateChange} = props
 
     const useStyles = makeStyles((theme) => ({
         datePicker: {
-            border: "solid 5px transparent !important",
+            border: `${props.valid ? "solid 5px transparent !important" : "solid 5px red !important"}`,
             borderRadius: "4px",
             width: "19rem",
             height: "7rem",
@@ -72,6 +68,10 @@ function CustomizedPicker(props) {
                   '& .MuiPickersDay-day': {
                     fontSize: '2rem',
                   },
+                  '& .MuiFormLabel-root-MuiInputLabel-root.Mui-error': {
+                    color: 'yellow !important',
+                  }
+
             },
         },
     }));

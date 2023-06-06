@@ -342,6 +342,10 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     border-top: 5px solid ${props.color["color-primary-dark"]};
 }
 
+.Mui-error{
+    color: ${props.color["text-tertiary-color"]} !important;
+}
+
     ` }
                 </style>
             </Head>
