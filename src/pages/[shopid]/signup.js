@@ -17,6 +17,7 @@ function SignUp(martID) {
     const id = martID.shopID._id
     const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
     const [currentStep, setCurrentStep] = useState(1);
+    
     const shopName = martID.shopID.name
     const navlogo = martID.shopID.shopData.shopDetails.imageData.icons.logo
 
@@ -67,8 +68,6 @@ function SignUp(martID) {
             },
         },
     };
-
-    // const darkClasses = `${formInputValidity.mainDark ? "text-small input-number" : "invalid-form-2 z"}`;
 
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1);
