@@ -2495,6 +2495,21 @@ input[type=text].invalid-form-2:focus {
   outline-color: red;
 }
 
+input[type=password].invalid-form-2 {
+  color: #0A2647;
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 700;
+  padding: 1rem;
+  box-shadow: inset 0 0 0 1rem white;
+  transition: all 0.2s;
+}
+
+input[type=password].invalid-form-2:focus {
+  filter: brightness(120%);
+  outline-color: red;
+}
+
 .price-pair {
   display: flex;
   margin-top: 0.5rem;
@@ -2537,6 +2552,23 @@ input[type=text].text-small {
 }
 
 input[type=text].text-small:focus {
+  filter: brightness(120%);
+  outline-color: #0057FF;
+}
+
+input[type=password].text-small {
+  color: #0A2647;
+  line-height: 1;
+  margin-top: 0px;
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 700;
+  padding: 1rem;
+  box-shadow: inset 0 0 0 1rem white;
+  transition: all 0.2s;
+}
+
+input[type=password].text-small:focus {
   filter: brightness(120%);
   outline-color: #0057FF;
 }
@@ -2637,6 +2669,25 @@ input[type=text].input-number {
 }
 
 input[type=text].input-number:focus {
+  filter: brightness(120%);
+  outline-color: #0057FF;
+}
+
+input[type=password].input-number {
+  color: #0A2647;
+  line-height: 1;
+  margin-top: 0px;
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 700;
+  padding: 1rem;
+  box-shadow: inset 0 0 0 1rem white;
+  margin-right: 2rem;
+  transition: all 0.2s;
+  width: 95%;
+}
+
+input[type=password].input-number:focus {
   filter: brightness(120%);
   outline-color: #0057FF;
 }

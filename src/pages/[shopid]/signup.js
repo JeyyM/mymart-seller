@@ -337,7 +337,6 @@ function SignUp(martID) {
 
         // accountValidate()
         cardValidate()
-        console.log("coom")
     }
 
     const accountValidate = async (event) => {
@@ -467,7 +466,8 @@ function SignUp(martID) {
         const submissionValid = nameValid && numValid && mmvalid && yyvalid && cvvalid
 
         if (submissionValid) {
-            handleNextStep()
+            // handleNextStep()
+            console.log("finished")
         }
 
     };
@@ -517,8 +517,8 @@ function SignUp(martID) {
 
             </div>
             <div className="sign-up-container" style={{ transform: "translateY(-10%)" }}>
-                <AnimatePresence>
-                    <motion.div
+
+                        {currentStep === 1 && <AnimatePresence> <motion.div
                         key={currentStep}
                         className="sign-up-box round-borderer round-borderer-extra"
                         initial="hidden"
@@ -530,8 +530,7 @@ function SignUp(martID) {
                             exit: { scale: 0 },
                         }}
                         transition={{ duration: 0.2 }}
-                    >
-                        {currentStep === 1 && <div className="sign-step">
+                    ><div className="sign-step">
                             <img className="company-logo-med" src={navlogo} style={{ margin: "0", marginBottom: "1rem", display: "inline" }}></img>
                             <h2 className="heading-secondary">Sign up to {shopName}</h2>
 
@@ -550,7 +549,7 @@ function SignUp(martID) {
                             </div>
                             <div className="form-group" style={{ marginTop: "0.5rem" }}>
                                 <input
-                                    type="text"
+                                    type="password"
                                     className={passClasses}
                                     placeholder="Password"
                                     autoComplete="off"
@@ -563,7 +562,7 @@ function SignUp(martID) {
 
                             <div className="form-group" style={{ marginTop: "0.5rem" }}>
                                 <input
-                                    type="text"
+                                    type="password"
                                     className={repeatClasses}
                                     placeholder="Repeat Password"
                                     autoComplete="off"
@@ -576,8 +575,23 @@ function SignUp(martID) {
                             </div>
                             <a className="heading-tertiary" style={{ margin: "1rem auto" }} href="#">Log-in instead?</a>
 
-                        </div>}
-                        {currentStep === 2 && <div className="sign-step">
+                        </div>
+                        </motion.div> </AnimatePresence>}
+
+                        {currentStep === 2 && <AnimatePresence> <motion.div
+                        key={currentStep}
+                        className="sign-up-box round-borderer round-borderer-extra"
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        variants={{
+                            hidden: { scale: 0 },
+                            visible: { scale: 1 },
+                            exit: { scale: 0 },
+                        }}
+                        transition={{ duration: 0.2 }}
+                    >
+                    <div className="sign-step">
                             <span className="page-heading" style={{ width: "100%" }}>
                                 <div className="heading-icon-profile svg-color">&nbsp;</div>
                                 <h1 className="heading-secondary no-margin">&nbsp;Register Details</h1>
@@ -690,9 +704,22 @@ function SignUp(martID) {
                                 <button className="product-action-2 flex-row-align sign-page-button" onClick={detailValidate}><h2 className="heading-secondary button-solid-text">Next</h2></button>
                             </div>
 
-                        </div>}
+                        </div>
+                        </motion.div> </AnimatePresence>}
 
-                        {currentStep === 3 && <div>
+                        {currentStep === 3 && <AnimatePresence> <motion.div
+                        key={currentStep}
+                        className="sign-up-box round-borderer round-borderer-extra"
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        variants={{
+                            hidden: { scale: 0 },
+                            visible: { scale: 1 },
+                            exit: { scale: 0 },
+                        }}
+                        transition={{ duration: 0.2 }}
+                    > <div>
                             <div style={{ width: "50rem" }}>
                                 <span className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
                                     <div className="heading-icon-pin svg-color">&nbsp;</div>
@@ -725,8 +752,22 @@ function SignUp(martID) {
                             </div>
 
                         </div>
+                        </motion.div> </AnimatePresence>
                         }
-                        {currentStep === 4 && <div className="sign-step">
+                        {currentStep === 4 && <AnimatePresence> <motion.div
+                        key={currentStep}
+                        className="sign-up-box round-borderer round-borderer-extra"
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        variants={{
+                            hidden: { scale: 0 },
+                            visible: { scale: 1 },
+                            exit: { scale: 0 },
+                        }}
+                        transition={{ duration: 0.2 }}
+                    >
+                     <div className="sign-step">
                             <span className="page-heading" style={{ width: "100%" }}>
                                 <div className="heading-icon-credit svg-color">&nbsp;</div>
                                 <h1 className="heading-secondary no-margin">&nbsp;Credit Card Details</h1>
@@ -781,13 +822,13 @@ function SignUp(martID) {
 
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
                                 <button className="product-action-1 flex-row-align sign-page-button" onClick={handlePreviousStep} style={{ width: "22rem" }}><h2 className="heading-secondary button-solid-text">Previous</h2></button>
-                                <button className="product-action-2 flex-row-align sign-page-button" onClick={finishSignup}><h2 className="heading-secondary button-solid-text">Finish</h2></button>
+                                <button className="product-action-2 flex-row-align sign-page-button" onClick={cardValidate}><h2 className="heading-secondary button-solid-text">Finish</h2></button>
                             </div>
 
-                        </div>}
-                    </motion.div>
+                        </div>
+                        </motion.div> </AnimatePresence>}
 
-                </AnimatePresence>
+                
             </div>
 
         </>
