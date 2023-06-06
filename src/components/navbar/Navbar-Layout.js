@@ -346,6 +346,14 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     color: ${props.color["text-tertiary-color"]} !important;
 }
 
+.signup-progress{
+    background-color: ${props.color["bg-body"]} !important;
+}
+
+.total-progress{
+    background-image: linear-gradient(to left, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]});
+}
+
     ` }
                 </style>
             </Head>

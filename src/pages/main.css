@@ -5141,7 +5141,6 @@ input[type=checkbox].checkbox-style {
   height: min-content;
   width: -moz-min-content;
   width: min-content;
-  transform: translateY(-10%);
   transition: all 0.2s;
   padding: 1.9rem;
   display: flex;
@@ -5192,4 +5191,45 @@ input[type=checkbox].checkbox-style {
 .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium.MuiPickersCalendarHeader-switchViewIcon {
   width: 3rem;
   height: 3rem;
+}
+
+.signup-progress {
+  height: 2rem;
+  width: 80%;
+  border-radius: 20px;
+  margin: 0 auto;
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.darken-progress {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 80%;
+  height: 2rem;
+  position: absolute;
+  z-index: 2;
+  border-radius: 20px;
+  transition: all 0.5s;
+}
+
+.total-progress {
+  height: 2rem;
+  z-index: 3;
+  border-radius: 20px;
+  position: absolute;
+  transition: all 0.5s;
+}
+
+.progress-button {
+  height: 4rem;
+  width: 4rem;
+  background-color: white;
+  border-radius: 50%;
+  transform: translateY(-25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 3;
 }/*# sourceMappingURL=main.css.map */

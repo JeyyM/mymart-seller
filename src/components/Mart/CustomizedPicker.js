@@ -97,7 +97,7 @@ function CustomizedPicker(props) {
             <ThemeProvider theme={customTheme}>
                 <DatePicker
                     className={classes.datePicker}
-                    label="Birthday"
+                    label={props.valid ? "Birthday" : "Invalid Date"}
                     value={selectedDate}
                     onChange={handleDateChange}
                     renderInput={(params) => (
