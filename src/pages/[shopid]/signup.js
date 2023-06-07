@@ -10,13 +10,63 @@ import { GoogleMap, useLoadScript } from '@react-google-maps/api';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { Marker } from '@react-google-maps/api';
 import { Autocomplete } from '@react-google-maps/api';
+import { useRouter } from "next/router"
 
 const libraries = ['places'];
 
 function SignUp(martID) {
+    const router = useRouter()
     const id = martID.shopID._id
+    const localStorageKey = `mart_${martID.shopID._id}`;
+
+    const [parsedData, setParsedData] = useState([]);
+    const [isVisible, setIsVisible] = useState(true);
+
+    useEffect(() => {
+        const updateParsedData = () => {
+          const storedCartItems =
+            typeof window !== "undefined"
+              ? localStorage.getItem(localStorageKey)
+              : null;
+          const parsedData = storedCartItems ? JSON.parse(storedCartItems) : [];
+    
+          setParsedData(parsedData);
+        };
+    
+        const handleStorageChange = (event) => {
+          if (event.key === localStorageKey) {
+            updateParsedData();
+          }
+        };
+    
+        const handleVisibilityChange = () => {
+          setIsVisible(!document.hidden);
+        };
+    
+        handleVisibilityChange();
+    
+        updateParsedData();
+    
+        window.addEventListener("storage", handleStorageChange);
+        document.addEventListener("visibilitychange", handleVisibilityChange);
+    
+        return () => {
+          window.removeEventListener("storage", handleStorageChange);
+          document.removeEventListener("visibilitychange", handleVisibilityChange);
+        };
+      }, [localStorageKey]);
+
+
     const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
     const [currentStep, setCurrentStep] = useState(1);
+
+    const accounts = martID.shopID.shopData.shopAccounts
+
+    let emailList = []
+
+    if (emailList.length > 0){
+    emailList = accounts.map(item => item.email.toUpperCase().trim());
+    }
     
     const shopName = martID.shopID.name
     const navlogo = martID.shopID.shopData.shopDetails.imageData.icons.logo
@@ -25,6 +75,65 @@ function SignUp(martID) {
     const colormode = martID.shopID.shopData.shopDesigns.defaultMode
 
     const [total, setTotal] = useState(0)
+    const [loading, setLoading] = useState(false)
+    const [completion, setCompletion] = useState(false)
+
+    const checkmark = (
+        <svg viewBox="0 0 100 100" width="7rem" height="7rem">
+          <path id="checkmark" d="M25,50 L40,65 L75,30" stroke="#FFFFFF" strokeWidth="8" fill="none"
+            strokeDasharray="200" strokeDashoffset="200">
+            <animate attributeName="stroke-dashoffset" from="200" to="0" dur="0.5s" begin="indefinite" />
+          </path>
+        </svg>
+      )
+
+    function waitSeconds() {
+        return new Promise(resolve => setTimeout(resolve, 2000));
+      }
+
+    const progress1Class = `${total >= 0 ? "progress-button round-borderer round-borderer-extra progress-animation" : "progress-button round-borderer"}`
+    const progress2Class = `${total >= 1 ? "progress-button round-borderer round-borderer-extra" : "progress-button round-borderer"}`
+    const progress3Class = `${total >= 2 ? "progress-button round-borderer round-borderer-extra" : "progress-button round-borderer"}`
+    const progress4Class = `${total >= 3 ? "progress-button round-borderer round-borderer-extra" : "progress-button round-borderer"}`
+
+    async function hashString(data) {
+        const encoder = new TextEncoder();
+        const dataBuffer = encoder.encode(data);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+        return hashHex;
+      }
+
+    useEffect(() => {
+        const progress2Element = document.getElementById("prog2");
+        if (progress2Element) {
+            if (total >= 1) {
+              progress2Element.classList.add("progress-animation");
+            } else {
+              progress2Element.classList.remove("progress-animation");
+            }
+          }
+
+          const progress3Element = document.getElementById("prog3");
+          if (progress3Element) {
+              if (total >= 2) {
+                progress3Element.classList.add("progress-animation");
+              } else {
+                progress3Element.classList.remove("progress-animation");
+              }
+            }
+
+            const progress4Element = document.getElementById("prog4");
+            if (progress4Element) {
+                if (total >= 3) {
+                  progress4Element.classList.add("progress-animation");
+                } else {
+                  progress4Element.classList.remove("progress-animation");
+                }
+              }
+
+      }, [total]);
 
     const genderOptions = [
         "Select", "Male", "Female", "Other"
@@ -75,6 +184,7 @@ function SignUp(martID) {
 
     const handlePreviousStep = () => {
         setCurrentStep(currentStep - 1);
+        setTotal(total - 1);
     };
 
     const [email, setEmail] = useState("");
@@ -94,6 +204,7 @@ function SignUp(martID) {
 
     const [signValidity, setSignValidity] = useState({
         email: true,
+        existing: false,
         pass: true,
         repeat: true
     });
@@ -325,37 +436,30 @@ function SignUp(martID) {
         }
     };
 
-
-    function printAll() {
-        // console.log(email, password, repeat)
-        // // console.log(fname, lname, phone, bday, gender, selectedOccupation, customOccupation, company)
-        // console.log(fname, lname, phone, bday, selectGender, selectedOccupation, customOccupation, company)
-
-        // console.log(locationName)
-
-        // console.log(cardname, cardnum, cardmonth, cardyear, cvv)
-
-        // accountValidate()
-        cardValidate()
-    }
-
     const accountValidate = async (event) => {
 
         let emailValid = true
         let passValid = true
         let repeatValid = true
+        let emailExist = false
 
         emailValid = email.trim() !== ""
         passValid = password.trim() !== ""
         repeatValid = repeat === password
+        emailExist = emailList.includes(email.toUpperCase());
+
+        if (emailExist) {
+            emailValid = false
+        }
 
         setSignValidity({
             email: emailValid,
             pass: passValid,
-            repeat: repeatValid
+            repeat: repeatValid,
+            existing: emailExist
         })
 
-        const submissionValid = emailValid && passValid && repeatValid
+        const submissionValid = emailValid && passValid && repeatValid && !emailExist
 
         if (submissionValid) {
             if (total <= 1) { setTotal(1) }
@@ -466,8 +570,12 @@ function SignUp(martID) {
         const submissionValid = nameValid && numValid && mmvalid && yyvalid && cvvalid
 
         if (submissionValid) {
-            // handleNextStep()
-            console.log("finished")
+            setLoading(true)
+            finishSignup()
+            await waitSeconds();
+            setLoading(false)
+            setCompletion(true)
+            router.push(`/${id}`).then(() => window.location.reload())
         }
 
     };
@@ -490,15 +598,57 @@ function SignUp(martID) {
     const cardyearClasses = `${cardValidity.yy ? "text-small input-number" : "invalid-form-2 z"}`;
     const cvvClasses = `${cardValidity.cvv ? "text-small input-number" : "invalid-form-2 z"}`;
 
-    function finishSignup() {
-        console.log("done")
+    async function completeForm(formdata) {
+        const response = await fetch(
+          `../../../api/set-profiles?martid=${router.query.shopid}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formdata)
+          }
+        );
+        const data = await response.json();
+    
+      }
+
+    async function finishSignup() {
+        const currentDate = new Date();
+        const hashedPassword = await hashString(password);
+        const hashedCard = await hashString(cardnum)
+        const hashedMonth = await hashString(cardmonth)
+        const hashedYear = await hashString(cardyear)
+        const hashedCVV = await hashString(cvv)
+
+        const incomingData = {
+                email: email,
+                password: hashedPassword,
+                creationDate: currentDate,
+                profile: {first: fname, last: lname, pnum: phone, birth: bday, gender: selectGender, job: selectedOccupation, company: company},
+                location: locationName,
+                card: {name: cardname, number: hashedCard, month: hashedMonth, year: hashedYear, cvv: hashedCVV},
+                currentCart:[...parsedData],
+                pastOrders:[],
+                currentOrders:[],
+                totalBuys:0,
+                totalSpent:0,
+                ignore: false
+            }
+
+            const authKey = `auth_${martID.shopID._id}`;
+            const authData = {email: email, password: hashedPassword}
+            localStorage.setItem(authKey, JSON.stringify(authData));
+            
+        completeForm(incomingData)
     }
 
     function backtrack(needed) {
         if (total >= needed) {
             setCurrentStep(needed + 1);
+            setTotal(needed);
         }
     }
+
+    console.log(total)
 
     return (
         <>
@@ -510,10 +660,10 @@ function SignUp(martID) {
                 <div className="darken-progress">
                     <div className="total-progress" style={{ width: `${33.3 * total}%`, transition: "all 0.5s" }}></div>
                 </div>
-                <button className="progress-button round-borderer" onClick={() => { backtrack(0) }}><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>1</h2></button>
-                <button className="progress-button round-borderer" onClick={() => { backtrack(1) }}><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>2</h2></button>
-                <button className="progress-button round-borderer" onClick={() => { backtrack(2) }}><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>3</h2></button>
-                <button className="progress-button round-borderer" onClick={() => { backtrack(3) }}><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>4</h2></button>
+                <button className={progress1Class} onClick={() => { backtrack(0) }} id="prog1"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>1</h2></button>
+                <button className={progress2Class} onClick={() => { backtrack(1) }} id="prog2"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>2</h2></button>
+                <button className={progress3Class} onClick={() => { backtrack(2) }} id="prog3"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>3</h2></button>
+                <button className={progress4Class} onClick={() => { backtrack(3) }} id="prog4"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>4</h2></button>
 
             </div>
             <div className="sign-up-container" style={{ transform: "translateY(-10%)" }}>
@@ -544,7 +694,7 @@ function SignUp(martID) {
                                     value={email}
                                     onChange={handleEmailChange}
                                 ></input>
-                                {signValidity.email ? <h3 className="form-label">Email</h3> : <h3 className="form-label inv z">Input a valid email</h3>}
+                                {signValidity.email && !signValidity.existing ? <h3 className="form-label">Email</h3> : signValidity.existing ? <h3 className="form-label inv z">Email is in use</h3> : <h3 className="form-label inv z">Input a valid email</h3>}
 
                             </div>
                             <div className="form-group" style={{ marginTop: "0.5rem" }}>
@@ -723,7 +873,7 @@ function SignUp(martID) {
                             <div style={{ width: "50rem" }}>
                                 <span className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
                                     <div className="heading-icon-pin svg-color">&nbsp;</div>
-                                    <h1 className="heading-secondary no-margin">&nbsp;Location Details</h1>
+                                    <h1 className="heading-secondary no-margin">&nbsp;Delivery Location Details</h1>
                                 </span>
                                 <h2 className="heading-tertiary">{locationName}</h2>
                             </div>
@@ -822,7 +972,7 @@ function SignUp(martID) {
 
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
                                 <button className="product-action-1 flex-row-align sign-page-button" onClick={handlePreviousStep} style={{ width: "22rem" }}><h2 className="heading-secondary button-solid-text">Previous</h2></button>
-                                <button className="product-action-2 flex-row-align sign-page-button" onClick={cardValidate}><h2 className="heading-secondary button-solid-text">Finish</h2></button>
+                                <button className="product-action-2 flex-row-align sign-page-button" onClick={cardValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div style={{transform:"translateY(20%)"}}>{checkmark}</div> : <h2 className="heading-secondary button-solid-text">Finish</h2>)}</button>
                             </div>
 
                         </div>

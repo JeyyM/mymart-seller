@@ -4,6 +4,7 @@ import NavLogo from "./Nav-Logo"
 import NavItem from "./NavItem"
 import Head from "next/head"
 import CartNav from "./Cart-Nav"
+import Link from "next/link"
 
 import { Category } from "../svgs"
 import { Insights } from "../svgs"
@@ -68,7 +69,7 @@ function NavbarItems(props) {
         <NavItem svg={<Manage className="menu-manage svg-color"></Manage>} link={"mart"} label="Sign-Up to MyMart"></NavItem>
         <div className="nav-sign">
           <button className="product-action-1 log-button"><h2 className="heading-tertiary">Log-In</h2></button>
-          <button className="product-action-2 sign-button"><h2 className="heading-tertiary button-solid-text">Sign-Up</h2></button>
+          <Link className="product-action-2 sign-button flex-row-align" href={`/${props.shopid}/signup`} style={{justifyContent:"center", textDecoration:"none"}}><h2 className="heading-tertiary button-solid-text">Sign-Up</h2></Link>
         </div>
       </div>
     </header>
