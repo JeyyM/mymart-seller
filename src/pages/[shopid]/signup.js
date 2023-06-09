@@ -60,13 +60,19 @@ function SignUp(martID) {
     const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
     const [currentStep, setCurrentStep] = useState(1);
 
-    const accounts = martID.shopID.shopData.shopAccounts
+        const accounts = martID.shopID.shopData.shopAccounts
 
-    let emailList = []
+        console.log(accounts)
 
-    if (emailList.length > 0){
+        let emailList = []
+
+
     emailList = accounts.map(item => item.email.toUpperCase().trim());
-    }
+
+
+console.log(emailList)
+
+
     
     const shopName = martID.shopID.name
     const navlogo = martID.shopID.shopData.shopDetails.imageData.icons.logo
@@ -614,9 +620,9 @@ function SignUp(martID) {
     async function finishSignup() {
         const currentDate = new Date();
         const hashedPassword = await hashString(password);
-        const hashedCard = await hashString(cardnum)
-        const hashedMonth = await hashString(cardmonth)
-        const hashedYear = await hashString(cardyear)
+        // const hashedCard = await hashString(cardnum)
+        // const hashedMonth = await hashString(cardmonth)
+        // const hashedYear = await hashString(cardyear)
         const hashedCVV = await hashString(cvv)
 
         const incomingData = {
@@ -625,7 +631,7 @@ function SignUp(martID) {
                 creationDate: currentDate,
                 profile: {first: fname, last: lname, pnum: phone, birth: bday, gender: selectGender, job: selectedOccupation, company: company},
                 location: locationName,
-                card: {name: cardname, number: hashedCard, month: hashedMonth, year: hashedYear, cvv: hashedCVV},
+                card: {name: cardname, number: cardnum, month: cardmonth, year: cardyear, cvv: hashedCVV},
                 currentCart:[...parsedData],
                 pastOrders:[],
                 currentOrders:[],
