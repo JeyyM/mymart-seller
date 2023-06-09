@@ -1,24 +1,48 @@
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useContext } from "react";
-import { updateWith } from "lodash";
-import { useRef, useReducer } from "react";
 import { MyContext } from "../store/MyProvider";
+import Guide from "../../pages/api/Guide"
 
 function CartNav(props) {
   const router = useRouter();
   const localStorageKey = `mart_${router.query.shopid}`;
+  const authStorageKey = `auth_${router.query.shopid}`;
+
   const [parsedData, setParsedData] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
+
+  let [total, setTotal] = useState(0)
 
   const sharedData = useContext(MyContext);
 
   const { state } = useContext(MyContext);
     const [buttonClass, setButtonClass] = useState('navitem');
 
+    async function getData() {
+      if ( typeof window !== 'undefined'){
+      const response = await fetch(
+        `api/read-cart?martid=${router.query.shopid}&email=${props.user.email}&password=${props.user.password}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const data = await response.json();
+      return data.shopAccount.currentCart
+      }
+    }
+  
+    async function changeData(){
+        let cartDb = await getData()
+        parsedCartItems = cartDb
+        setParsedData(parsedCartItems)
+      }
+
   useEffect(() => {
+    if (props.user === undefined) {
     const updateParsedData = () => {
+
       const storedCartItems =
         typeof window !== "undefined"
           ? localStorage.getItem(localStorageKey)
@@ -53,12 +77,36 @@ function CartNav(props) {
       window.removeEventListener("storage", handleStorageChange);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
+  }
+
+  if (props.user !== undefined){
+    changeData()
+    setButtonClass('navitem cartbob');
+    setTimeout(() => {
+      setButtonClass('navitem');
+    }, 300);
+  }
+
   }, [localStorageKey, state.count]);
 
 
-  var total = parsedData.reduce(function (sum, item) {
-    return sum + item.cartValue;
-  }, 0);
+  // let item = getData()
+  // console.log("in nav", item)
+
+  // if (props.user !== undefined){
+  //   useEffect(() => {
+  //     setParsedData(props.user.currentCart)
+  //     setButtonClass('navitem cartbob');
+  //     setTimeout(() => {
+  //       setButtonClass('navitem');
+  //     }, 300);
+  //   }, [authStorageKey, state.count])
+  // }
+
+
+  // var total = parsedData.reduce(function (sum, item) {
+  //   return sum + item.cartValue;
+  // }, 0);
 
   return (
     <>

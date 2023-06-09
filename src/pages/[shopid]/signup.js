@@ -18,6 +18,7 @@ function SignUp(martID) {
     const router = useRouter()
     const id = martID.shopID._id
     const localStorageKey = `mart_${martID.shopID._id}`;
+    const defaultColor = martID.shopID.shopData.shopDesigns.defaultMode
 
     const [parsedData, setParsedData] = useState([]);
     const [isVisible, setIsVisible] = useState(true);
@@ -62,17 +63,9 @@ function SignUp(martID) {
 
         const accounts = martID.shopID.shopData.shopAccounts
 
-        console.log(accounts)
-
         let emailList = []
 
-
     emailList = accounts.map(item => item.email.toUpperCase().trim());
-
-
-console.log(emailList)
-
-
     
     const shopName = martID.shopID.name
     const navlogo = martID.shopID.shopData.shopDetails.imageData.icons.logo
@@ -629,6 +622,8 @@ console.log(emailList)
                 email: email,
                 password: hashedPassword,
                 creationDate: currentDate,
+                preferredColor: defaultColor,
+                ignore: false,
                 profile: {first: fname, last: lname, pnum: phone, birth: bday, gender: selectGender, job: selectedOccupation, company: company},
                 location: locationName,
                 card: {name: cardname, number: cardnum, month: cardmonth, year: cardyear, cvv: hashedCVV},
@@ -637,12 +632,12 @@ console.log(emailList)
                 currentOrders:[],
                 totalBuys:0,
                 totalSpent:0,
-                ignore: false
             }
 
             const authKey = `auth_${martID.shopID._id}`;
             const authData = {email: email, password: hashedPassword}
             localStorage.setItem(authKey, JSON.stringify(authData));
+            localStorage.removeItem(localStorageKey);            
             
         completeForm(incomingData)
     }
@@ -653,8 +648,6 @@ console.log(emailList)
             setTotal(needed);
         }
     }
-
-    console.log(total)
 
     return (
         <>

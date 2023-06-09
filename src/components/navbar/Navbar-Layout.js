@@ -358,8 +358,8 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
                 </style>
             </Head>
 
-            <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} cartOpen={CartHandler}/>
-            <CartModal modalStatus={CartStatus} cartOpen={CartHandler} currency={props.curr}></CartModal>
+            <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} cartOpen={CartHandler} user={props.user}/>
+            <CartModal modalStatus={CartStatus} cartOpen={CartHandler} currency={props.curr} user={props.user}></CartModal>
             <div>{props.children}</div>
             {router.asPath !== `/${id}/mart/details` && router.asPath !== "/" ? <Footer details={props.contents} address={props.address}></Footer> : <Fragment></Fragment>}
 

@@ -10,7 +10,7 @@ import Head from "next/head";
 import { useContext } from "react";
 import { MyContext } from "@/components/store/MyProvider";
 
-function ProductPage({ shopID }) {
+function ProductPage({ shopID, user }) {
   const router = useRouter()
 
   const shopCurrency = shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
@@ -50,11 +50,45 @@ function ProductPage({ shopID }) {
   const routerData = [shopID._id, queryCategory]
 
   const localStorageKey = `mart_${shopID._id}`
+  const authStorageKey = `auth_${router.query.shopid}`;
 
-  let storedCartItems = typeof window !== 'undefined' ? localStorage.getItem(localStorageKey) : null;
-  let parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];  
+  let storedCartItems
+  let parsedCartItems
 
-  const [cartContents, setCartContents] = useState(parsedCartItems)
+  const [cartContents, setCartContents] = useState([])
+
+  async function getData() {
+    if ( typeof window !== 'undefined'){
+    const response = await fetch(
+      `../../../api/read-cart?martid=${router.query.shopid}&email=${user.email}&password=${user.password}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    const data = await response.json();
+    return data.shopAccount.currentCart
+    // return data
+    }
+  }
+  
+  async function initialGet(){
+  if (user !== undefined){
+    let cartDb = await getData()
+    parsedCartItems = cartDb
+    setCartContents(parsedCartItems)
+  }}
+
+  useEffect(() => {
+    if (user === undefined){
+      storedCartItems = typeof window !== 'undefined' ? localStorage.getItem(localStorageKey) : null;
+      parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];  
+    
+      setCartContents(parsedCartItems)
+      }
+
+    initialGet()
+  }, [])
 
   const [varState, setVarState] = useState(0)
   const [imgState, setImgState] = useState(0)
@@ -204,14 +238,28 @@ function ProductPage({ shopID }) {
     setAll(varState);
   }, [varState]);
 
+  if (user === undefined){
   useEffect(() => {
     const storedCartItems = localStorage.getItem(localStorageKey);
     const parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];
     setCartContents(parsedCartItems);
   }, [state.count]);
+}
 
+async function finishForm(formdata) {
+  const response = await fetch(
+    `../../../api/read-cart?martid=${router.query.shopid}`,
+    {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formdata)
+    }
+  );
+  const data = await response.json();
+}
 
-  const changeCart = (items) => {
+  const changeCart = async (items) => {
+    if (user === undefined){
     storedCartItems = typeof window !== 'undefined' ? localStorage.getItem(localStorageKey) : null;
     parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];  
     setCartContents(parsedCartItems)
@@ -239,6 +287,35 @@ function ProductPage({ shopID }) {
       handleIncrement()
       setCartContents([...cartContents, items]);
       localStorage.setItem(localStorageKey, JSON.stringify([...cartContents, items]));
+    }}
+
+    if (user !== undefined){
+      const existingItem = cartContents.find((item) => item.name === items.name);
+
+  
+    if (items.cartValue === 0 || isNaN(items.cartValue)) {
+      return;
+    } else if (existingItem) {
+      const updatedCartContents = cartContents.map((product) => {
+        if (product.name === items.name) {
+          const newCartValue = parseInt(product.cartValue) + parseInt(items.cartValue);
+          const chosenCartValue = newCartValue <= items.amount ? newCartValue : items.amount;
+  
+          return { ...product, cartValue: parseInt(chosenCartValue) };
+        }
+        return product;
+      });
+  
+      setCartContents(updatedCartContents);
+      finishForm({updatedCartContents, email: user.email, password: user.password})
+      // handleIncrement()
+    } else {
+      setCartContents([...cartContents, items]);
+      const updatedCartContents = [...cartContents, items];
+      finishForm({updatedCartContents, email: user.email, password: user.password})
+      // handleIncrement()
+    }
+
     }
   };
 
@@ -256,7 +333,6 @@ function ProductPage({ shopID }) {
     };
 
     changeCart(item)
-
   };
 
   return <Fragment>
