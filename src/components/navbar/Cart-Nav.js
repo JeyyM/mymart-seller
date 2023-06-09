@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { MyContext } from "../store/MyProvider";
-import Guide from "../../pages/api/Guide"
 
 function CartNav(props) {
   const router = useRouter();
@@ -12,34 +11,39 @@ function CartNav(props) {
   const [parsedData, setParsedData] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
 
-  let [total, setTotal] = useState(0)
-
-  const sharedData = useContext(MyContext);
-
   const { state } = useContext(MyContext);
     const [buttonClass, setButtonClass] = useState('navitem');
 
     async function getData() {
       if ( typeof window !== 'undefined'){
       const response = await fetch(
-        `api/read-cart?martid=${router.query.shopid}&email=${props.user.email}&password=${props.user.password}`,
+        `/api/read-cart?martid=${router.query.shopid}&email=${props.user.email}&password=${props.user.password}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         }
       );
       const data = await response.json();
-      return data.shopAccount.currentCart
+      return data
       }
     }
   
-    async function changeData(){
+    async function initialGet(){
+      if (props.user !== undefined){
+        console.log("initialGet")
         let cartDb = await getData()
-        parsedCartItems = cartDb
-        setParsedData(parsedCartItems)
-      }
+        let result = cartDb.shopAccount.currentCart
+
+        setParsedData(result)
+
+        setButtonClass('navitem cartbob');
+        setTimeout(() => {
+          setButtonClass('navitem');
+        }, 300);
+      }}
 
   useEffect(() => {
+    console.log("in use effect")
     if (props.user === undefined) {
     const updateParsedData = () => {
 
@@ -79,34 +83,17 @@ function CartNav(props) {
     };
   }
 
-  if (props.user !== undefined){
-    changeData()
-    setButtonClass('navitem cartbob');
-    setTimeout(() => {
-      setButtonClass('navitem');
-    }, 300);
-  }
+    initialGet();
 
-  }, [localStorageKey, state.count]);
+  }, [localStorageKey, authStorageKey, state.count]);
 
+  console.log("cart nav", parsedData)
+  console.log(props.user)
+  
 
-  // let item = getData()
-  // console.log("in nav", item)
-
-  // if (props.user !== undefined){
-  //   useEffect(() => {
-  //     setParsedData(props.user.currentCart)
-  //     setButtonClass('navitem cartbob');
-  //     setTimeout(() => {
-  //       setButtonClass('navitem');
-  //     }, 300);
-  //   }, [authStorageKey, state.count])
-  // }
-
-
-  // var total = parsedData.reduce(function (sum, item) {
-  //   return sum + item.cartValue;
-  // }, 0);
+  var total = parsedData.reduce(function (sum, item) {
+    return sum + item.cartValue;
+  }, 0);
 
   return (
     <>

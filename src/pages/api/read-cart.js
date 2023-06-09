@@ -33,7 +33,6 @@ async function handler(req, res) {
 
 if (req.method === "PATCH") {
     const data = req.body;
-    console.log(data.updatedCartContents, data.email, data.password);
   
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,

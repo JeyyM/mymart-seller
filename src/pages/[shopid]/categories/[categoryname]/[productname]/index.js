@@ -308,16 +308,18 @@ async function finishForm(formdata) {
   
       setCartContents(updatedCartContents);
       finishForm({updatedCartContents, email: user.email, password: user.password})
-      // handleIncrement()
+      handleIncrement()
     } else {
       setCartContents([...cartContents, items]);
       const updatedCartContents = [...cartContents, items];
       finishForm({updatedCartContents, email: user.email, password: user.password})
-      // handleIncrement()
+      handleIncrement()
     }
 
     }
   };
+
+  console.log("in index", cartContents)
 
   const submitCart = () => {
     const item = {
