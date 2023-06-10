@@ -680,7 +680,7 @@ function SignUp(martID) {
                         transition={{ duration: 0.2 }}
                     ><div className="sign-step">
                             <img className="company-logo-med" src={navlogo} style={{ margin: "0", marginBottom: "1rem", display: "inline" }}></img>
-                            <h2 className="heading-secondary">Sign up to {shopName}</h2>
+                            <h2 className="heading-secondary">Sign-up to {shopName}</h2>
 
                             <div className="form-group" style={{ marginTop: "1rem" }}>
                                 <input
@@ -721,7 +721,7 @@ function SignUp(martID) {
                                 {signValidity.repeat ? <h3 className="form-label">Repeat password</h3> : <h3 className="form-label inv z">Password doesn't match</h3>}
                                 <button className="product-action-2 flex-row-align sign-page-button" onClick={accountValidate}><h2 className="heading-secondary button-solid-text">Next</h2></button>
                             </div>
-                            <a className="heading-tertiary" style={{ margin: "1rem auto" }} href="#">Log-in instead?</a>
+                            <a className="heading-tertiary" style={{ margin: "1rem auto" }} href={`/${id}/login`}>Log-in instead?</a>
 
                         </div>
                         </motion.div> </AnimatePresence>}
