@@ -79,6 +79,7 @@ function ProductPage({ shopID, user }) {
     setCartContents(parsedCartItems)
   }}
 
+  // fjfklkf
   useEffect(() => {
     if (user === undefined){
       storedCartItems = typeof window !== 'undefined' ? localStorage.getItem(localStorageKey) : null;
