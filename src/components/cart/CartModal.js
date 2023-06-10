@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { MyContext } from "../store/MyProvider";
+import dynamic from "next/dynamic";
 
 function CartModal(props) {
   const router = useRouter()
@@ -34,6 +35,22 @@ function CartModal(props) {
 
   const [parsedData, setParsedData] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
+
+  async function updateData() {
+    if ( typeof window !== 'undefined'){
+      let storedItems = typeof window !== 'undefined' ? localStorage.getItem(localStorageKey) : null;
+
+    const response = await fetch(
+      `/api/read-cart?martid=${router.query.shopid}&email=${props.user.email}&password=${props.user.password}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(JSON.parse(storedItems))
+      }
+    );
+    const data = await response.json();
+    }
+  }
 
   useEffect(() => {
     const updateParsedData = () => {
@@ -91,6 +108,10 @@ function CartModal(props) {
     localStorage.setItem(localStorageKey, JSON.stringify(updatedData));
     setParsedData(updatedData);
     handleIncrement();
+
+    if (props.user !== undefined){
+    updateData()
+    }
   };
 
 
@@ -125,6 +146,14 @@ function CartModal(props) {
   };
   
   const total = calculateTotal();
+
+  const DynamicComponent1 = dynamic(() => import("./CheckoutButton1"), {
+    ssr: false,
+  });
+
+  const DynamicComponent2 = dynamic(() => import("./CheckoutButton2"), {
+    ssr: false,
+  });
 
   return (
     <Fragment>
@@ -175,8 +204,11 @@ function CartModal(props) {
 
               <div className="cart-bottom dark-underline-upper">
                 <h2 className="heading-secondary">Total: {props.currency} {total}</h2>
-                <button className="product-action-2 heading-secondary flex-row-align" type="button" style={{width:"24rem", margin:"0"}}><div className="menu-checkout svg-decolor">&nbsp;</div><h2 className="heading-secondary">To Checkout</h2></button>
-              </div>
+                {typeof window !== 'undefined' && (<>
+                {props.user === undefined && <DynamicComponent2 route={router.query.shopid}/> }
+              {props.user !== undefined && <DynamicComponent1 route={router.query.shopid}/>}
+              </>            
+          )}              </div>
 
             </motion.div>
           </Backdrop>

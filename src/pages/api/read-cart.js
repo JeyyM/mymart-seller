@@ -31,41 +31,45 @@ async function handler(req, res) {
         client.close();
       }
 
-if (req.method === "PATCH") {
-    const data = req.body;
-  
-    const client = await MongoClient.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    const db = client.db();
-  
-    const id = new ObjectId(req.query.martid);
-    const item = await db.collection("shops").findOne({ _id: id });
-  
-    item._id = item._id.toString();
-  
-    const shopAccountIndex = item.shopData.shopAccounts.findIndex(
-      (account) => account.email === data.email && account.password === data.password
-    );
-  
-    if (shopAccountIndex !== -1) {
-      item.shopData.shopAccounts[shopAccountIndex].currentCart = data.updatedCartContents;
-  
-      const result = await db.collection("shops").updateOne(
-        { _id: id },
-        { $set: { "shopData.shopAccounts": item.shopData.shopAccounts } }
-      );
-  
-      console.log(`Updated document with _id: ${id}`);
-    } else {
-      console.log("No matching shopAccount found.");
-    }
-  
-    client.close();
-  
-    res.status(201).json({ message: "Category Inserted" });
-  }
+      if (req.method === "PATCH") {
+        const data = req.body;
+        const email = req.query.email;
+        const password = req.query.password;
+
+        console.log("in read cart", data)
+      
+        const client = await MongoClient.connect(process.env.MONGODB_URI, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+        });
+        const db = client.db();
+      
+        const id = new ObjectId(req.query.martid);
+        const item = await db.collection("shops").findOne({ _id: id });
+      
+        item._id = item._id.toString();
+      
+        const shopAccountIndex = item.shopData.shopAccounts.findIndex(
+          (account) => account.email === email && account.password === password
+        );
+      
+        if (shopAccountIndex !== -1) {
+          item.shopData.shopAccounts[shopAccountIndex].currentCart = data;
+      
+          const result = await db.collection("shops").updateOne(
+            { _id: id },
+            { $set: { "shopData.shopAccounts": item.shopData.shopAccounts } }
+          );
+      
+          console.log(`Updated document with _id: ${id}`);
+        } else {
+          console.log("No matching shopAccount found.");
+        }
+      
+        client.close();
+      
+        res.status(201).json({ message: "Category Inserted" });
+      }
 
 }
 

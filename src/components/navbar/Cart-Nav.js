@@ -14,37 +14,35 @@ function CartNav(props) {
   const { state } = useContext(MyContext);
     const [buttonClass, setButtonClass] = useState('navitem');
 
-    async function getData() {
-      if ( typeof window !== 'undefined'){
-      const response = await fetch(
-        `/api/read-cart?martid=${router.query.shopid}&email=${props.user.email}&password=${props.user.password}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      const data = await response.json();
-      return data
-      }
-    }
+    // async function getData() {
+    //   if ( typeof window !== 'undefined'){
+    //   const response = await fetch(
+    //     `/api/read-cart?martid=${router.query.shopid}&email=${props.user.email}&password=${props.user.password}`,
+    //     {
+    //       method: "GET",
+    //       headers: { "Content-Type": "application/json" },
+    //     }
+    //   );
+    //   const data = await response.json();
+    //   return data
+    //   }
+    // }
   
-    async function initialGet(){
-      if (props.user !== undefined){
-        console.log("initialGet")
-        let cartDb = await getData()
-        let result = cartDb.shopAccount.currentCart
+    // async function initialGet(){
+    //   if (props.user !== undefined){
+    //     console.log("initialGet")
+    //     let cartDb = await getData()
+    //     let result = cartDb.shopAccount.currentCart
 
-        setParsedData(result)
+    //     setParsedData(result)
 
-        setButtonClass('navitem cartbob');
-        setTimeout(() => {
-          setButtonClass('navitem');
-        }, 300);
-      }}
+    //     setButtonClass('navitem cartbob');
+    //     setTimeout(() => {
+    //       setButtonClass('navitem');
+    //     }, 300);
+    //   }}
 
   useEffect(() => {
-    console.log("in use effect")
-    if (props.user === undefined) {
     const updateParsedData = () => {
 
       const storedCartItems =
@@ -81,15 +79,11 @@ function CartNav(props) {
       window.removeEventListener("storage", handleStorageChange);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }
-
-    initialGet();
-
-  }, [localStorageKey, authStorageKey, state.count]);
-
-  console.log("cart nav", parsedData)
-  console.log(props.user)
   
+
+    // initialGet();
+
+  }, [localStorageKey, authStorageKey, state.count]);  
 
   var total = parsedData.reduce(function (sum, item) {
     return sum + item.cartValue;
