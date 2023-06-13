@@ -11,28 +11,16 @@ import { Autocomplete } from '@react-google-maps/api';
 
 const libraries = ['places'];
 
-export default function Details({ shopID, user }) {
-  const footerItems = shopID.shopData.shopDetails.footerData
-  const favicon = shopID.shopData.shopDetails.imageData.icons.icon
-
-  let userCard = {}
-  let userLocation = ""
-  let userCoords = {}
-
-  console.log(user)
-
-  if (user !== undefined) {
-      userCard = user.card
-      userLocation = user.location
-      userCoords = user.locationCoords
-  }
+export default function Details(martID) {
+  const footerItems = martID.shopID.shopData.shopDetails.footerData
+  const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
 
   const router = useRouter()
 
   const mapContainerStyle = { width: '100%', height: '100%' };
 
   const [center, setCenter] = useState(null);
-  const [locationName, setLocationName] = useState(userLocation);
+  const [locationName, setLocationName] = useState(footerItems.shopLocation);
   const [autocomplete, setAutocomplete] = useState(null);
 
   const { isLoaded, loadError } = useLoadScript({
@@ -70,10 +58,10 @@ export default function Details({ shopID, user }) {
   }
 
   function resetLoc() {
-    setCenter(userLocation)
+    setCenter(footerItems.shopCoords)
   }
 
-  useEffect(() => { setCenter(userCoords) }, [])
+  useEffect(() => { setCenter(footerItems.shopCoords) }, [])
 
   const handleMapClick = (event) => {
     const newCenter = {
