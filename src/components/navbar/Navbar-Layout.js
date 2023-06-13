@@ -306,7 +306,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
   filter: brightness(120%) !important;
 }
 
-.item-setup, .images-column, .pop-up-prev, .pop-up-img{
+.item-setup, .images-column, .pop-up-prev, .pop-up-img, .checkout-column{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
     box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;

@@ -9,6 +9,7 @@ import { getServerSideProps } from "..";
 import Head from "next/head";
 import { useContext } from "react";
 import { MyContext } from "@/components/store/MyProvider";
+import Link from "next/link";
 
 function ProductPage({ shopID, user }) {
   const router = useRouter()
@@ -431,7 +432,7 @@ function ProductPage({ shopID, user }) {
 
         <div className="product-action-buttons">
           <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{width:"24rem"}} onClick={submitCart}><div className="menu-tocart svg-color">&nbsp;</div><h2 className="heading-secondary">Add to Cart</h2></button>
-          <button className="product-action-2 heading-secondary flex-row-align" type="button" style={{width:"24rem"}}><div className="menu-checkout svg-decolor">&nbsp;</div><h2 className="heading-secondary">To Checkout</h2></button>
+          <Link href={`/${shopID._id}/checkout`} className="product-action-2 heading-secondary flex-row-align" style={{width:"24rem", textDecoration:"none"}}><div className="menu-checkout svg-decolor">&nbsp;</div><h2 className="heading-secondary">To Checkout</h2></Link>
         </div>
       </div>
     </div>
