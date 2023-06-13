@@ -390,7 +390,7 @@ function SignUp(martID) {
         setCenter(footerItems.shopCoords)
     }
 
-    useEffect(() => { setCenter(footerItems.shopCoords) }, [])
+    useEffect(() => { setCenter() }, [])
     const [bdayValid, setbdayValid] = useState(true)
 
 
@@ -626,6 +626,7 @@ function SignUp(martID) {
                 ignore: false,
                 profile: {first: fname, last: lname, pnum: phone, birth: bday, gender: selectGender, job: selectedOccupation, company: company},
                 location: locationName,
+                locationCoords: center,
                 card: {name: cardname, number: cardnum, month: cardmonth, year: cardyear, cvv: hashedCVV},
                 currentCart:[...parsedData],
                 pastOrders:[],
