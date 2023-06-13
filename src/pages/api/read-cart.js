@@ -35,8 +35,6 @@ async function handler(req, res) {
         const data = req.body;
         const email = req.query.email;
         const password = req.query.password;
-
-        console.log("in read cart", data)
       
         const client = await MongoClient.connect(process.env.MONGODB_URI, {
           useNewUrlParser: true,

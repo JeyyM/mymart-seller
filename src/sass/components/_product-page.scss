@@ -161,11 +161,24 @@ input[type=password].invalid-form-2:focus {
   z-index: 5;
 }
 
+.text-small-white {
+  @include text-input-small;
+  z-index: 5;
+}
+
 input[type="text"].text-small {
   @include text-input-small-style;
 }
 
 input[type="text"].text-small:focus {
+  @include text-input-small-focus;
+}
+
+input[type="number"].text-small-white {
+  @include text-input-small-style;
+}
+
+input[type="number"].text-small-white:focus {
   @include text-input-small-focus;
 }
 

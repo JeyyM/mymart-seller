@@ -4,9 +4,6 @@ async function handler(req, res) {
   if (req.method === "PATCH") {
     const data = req.body;
 
-    console.log(req.query.state)
-    console.log(data)
-
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -15,7 +12,6 @@ async function handler(req, res) {
     const martId = new ObjectId(req.query.martid);
 
     if (req.query.state === "true") {
-      console.log("updating light mode")
       const result = await db.collection("shops").updateOne(
         { _id: martId },
         {
@@ -25,7 +21,6 @@ async function handler(req, res) {
         }
       );
     } else {
-      console.log("updating dark mode")
       const result = await db.collection("shops").updateOne(
         { _id: martId },
         {

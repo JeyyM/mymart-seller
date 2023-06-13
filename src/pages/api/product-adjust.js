@@ -32,7 +32,6 @@ async function handler(req, res) {
         client.close();
 
         res.status(201).json({ message: "Product Added" })
-        console.log(result)
     }
 }
 

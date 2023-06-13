@@ -10,8 +10,6 @@ async function handler(req, res) {
     const db = client.db();
     const martId = new ObjectId(req.query.martid);
 
-    console.log(martId)
-
     const result = await db.collection("shops").updateOne(
       { _id: martId },
       {
@@ -20,8 +18,6 @@ async function handler(req, res) {
         }
       }
     );
-
-    console.log(result)
 
     client.close();
 
