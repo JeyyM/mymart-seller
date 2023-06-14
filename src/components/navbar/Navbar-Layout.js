@@ -137,6 +137,28 @@ border-image: linear-gradient(
     ${props.color["bg-item"]}
   ) !important;}
 
+.svg-outline-button {
+    background-image: linear-gradient(
+    to right,
+    ${props.color["button-outline-text"]},
+    ${props.color["button-outline-text"]}
+  ) !important;}
+}
+
+.heading-secondary.solid-button, .heading-tertiary.solid-button {}
+
+.heading-secondary.solid-button, .heading-tertiary.solid-button {
+    color: ${props.color["button-solid-text"]} !important;
+}
+
+.heading-secondary.outline-button {
+
+}
+
+.heading-secondary.outline-button, .heading-tertiary.outline-button {
+color: ${props.color["button-outline-text"]} !important;
+}
+
 .company-logo-med {
     border-image: linear-gradient(
       45deg,
@@ -350,7 +372,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 .cartbob {
     filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["color-primary-light"]}) !important;}
 
-.cart-row{
+.cart-row, .checkout-row{
     border-bottom: 5px solid ${props.color["color-primary-dark"]};
 }
 
@@ -374,11 +396,19 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     background-image: linear-gradient(to left, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]});
 }
 
+.svg-solid-button {
+    background-image: linear-gradient(
+    to right,
+    ${props.color["button-solid-text"]},
+    ${props.color["button-solid-text"]}
+  ) !important;}
+}
+
     ` }
                 </style>
             </Head>
 
-            <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} cartOpen={CartHandler} user={props.user}/>
+            <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} cartOpen={CartHandler} user={props.user} />
             <CartModal modalStatus={CartStatus} cartOpen={CartHandler} currency={props.curr} user={props.user}></CartModal>
             <div>{props.children}</div>
             {router.asPath !== `/${id}/mart/details` && router.asPath !== "/" ? <Footer details={props.contents} address={props.address}></Footer> : <Fragment></Fragment>}

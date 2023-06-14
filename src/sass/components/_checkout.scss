@@ -24,3 +24,38 @@
     @include heading-logo(receipt, 4rem, 4rem);
     margin-left: 1rem;
   }
+
+  .checkout-img{
+    height:7rem;
+    width: 7rem;
+}
+
+.checkout-row{
+  height: min-content;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.checkout-fees{
+  height: min-content;
+  width: 100%;
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.checkout-total{
+  align-self: flex-end;
+}
+
+.heading-icon-shipping {
+  @include heading-logo(shipping, 4rem, 4rem);
+}
+
+.heading-icon-cashregister {
+  @include heading-logo(cashregister, 4rem, 4rem);
+  margin-left: 1rem;
+}

@@ -10,12 +10,14 @@ import { Marker } from '@react-google-maps/api';
 import { Autocomplete } from '@react-google-maps/api';
 
 import { MyContext } from "@/components/store/MyProvider"
+import { Link } from "@mui/material"
 
 const libraries = ['places'];
 
 export default function Checkout({ shopID, user }) {
     const footerItems = shopID.shopData.shopDetails.footerData
     const favicon = shopID.shopData.shopDetails.imageData.icons.icon
+    const { handleIncrement, state } = useContext(MyContext);
 
     const router = useRouter()
     const localStorageKey = `mart_${router.query.shopid}`;
@@ -24,11 +26,9 @@ export default function Checkout({ shopID, user }) {
     const cardData = paymentDetails.cardInfo
     const checkoutData = paymentDetails.checkoutInfo
 
-    const paymentData = shopID.shopData.shopDetails.paymentData
-
-    const currency = paymentData.checkoutInfo.currency
-
-    console.log(paymentData)
+    const currency = paymentDetails.checkoutInfo.currency
+    const fees = paymentDetails.Adds
+    const takebacks = paymentDetails.Takebacks
 
     let userCard = {}
     let userLocation = ""
@@ -69,13 +69,7 @@ export default function Checkout({ shopID, user }) {
     const id = shopID._id;
 
     const [formInputValidity, setFormInputValidity] = useState({
-        name: true,
-        number: true,
-        month: true,
-        year: true,
-        cvv: true,
-        currency: true,
-        desc: true
+        cvv: true
     });
 
     const [cardName, setCardName] = useState(userCard.name);
@@ -83,7 +77,11 @@ export default function Checkout({ shopID, user }) {
     const [expiryMonth, setExpiryMonth] = useState(userCard.month);
     const [expiryYear, setExpiryYear] = useState(userCard.year);
     const [cvv, setCvv] = useState();
-    const [message, setMessage] = useState(checkoutData.message);
+    const [message, setMessage] = useState("");
+
+    const [Mode, setMode] = useState("delivery")
+    const modeButton = "product-action-1 heading-secondary"
+    const modeButtonActive = "product-action-2 heading-secondary"
 
     const [parsedData, setParsedData] = useState([]);
     const [isVisible, setIsVisible] = useState(true);
@@ -132,7 +130,7 @@ export default function Checkout({ shopID, user }) {
         setCenter(userCoords)
     }
 
-    useEffect(() => { setCenter(footerItems.shopCoords) }, [])
+    useEffect(() => { setCenter(userCoords) }, [])
 
     useEffect(() => {
         const updateParsedData = () => {
@@ -166,7 +164,7 @@ export default function Checkout({ shopID, user }) {
             window.removeEventListener("storage", handleStorageChange);
             document.removeEventListener("visibilitychange", handleVisibilityChange);
         };
-    }, [localStorageKey]);
+    }, [localStorageKey, state.count]);
 
     const handleMapClick = (event) => {
         const newCenter = {
@@ -209,14 +207,12 @@ export default function Checkout({ shopID, user }) {
         }
     };
 
-    const nameClasses = `${formInputValidity.name ? "text-small input-number" : "invalid-form"}`;
-    const cardClasses = `${formInputValidity.number ? "text-small input-number" : "invalid-form"}`;
-    const monthClasses = `${formInputValidity.month ? "text-small input-number" : "invalid-form-2"}`;
-    const yearClasses = `${formInputValidity.year ? "text-small input-number" : "invalid-form-2"}`;
+    const nameClasses = "text-small input-number"
+    const cardClasses = "text-small input-number"
+    const monthClasses = "text-small input-number"
+    const yearClasses = "text-small input-number"
     const cvvClasses = `${formInputValidity.cvv ? "text-small-white input-number" : "invalid-form-2"}`;
-    const descClasses = `${formInputValidity.desc ? "desc-text-area" : "invalid-form-box"}`;
-
-    const { handleIncrement } = useContext(MyContext);
+    const descClasses = "desc-text-area"
 
     async function updateData() {
         if (typeof window !== 'undefined') {
@@ -291,6 +287,13 @@ export default function Checkout({ shopID, user }) {
 
     const total = calculateTotal();
 
+    const delivTotal = fees.DelFee.reduce((sum, item) => sum + parseInt(item.cost), 0);
+    const pickTotal = fees.PickFee.reduce((sum, item) => sum + parseInt(item.cost), 0);
+
+    const absoluteTotal = total + delivTotal + pickTotal
+
+    console.log(takebacks)
+
     return <Fragment>
         <Head>
             <title>Checkout</title>
@@ -321,7 +324,7 @@ export default function Checkout({ shopID, user }) {
                         value={cardName}
                         autoComplete="off"
                     ></input>
-                    {formInputValidity.name ? <label className="form-label">Name on Credit Card </label> : <label className="form-label inv">Enter a valid card name</label>}
+                    <label className="form-label">Name on Credit Card </label>
                 </div>
 
                 <div className="form-group">
@@ -332,21 +335,21 @@ export default function Checkout({ shopID, user }) {
                         value={cardNumber}
                         autoComplete="off"
                     ></input>
-                    {formInputValidity.number ? <label className="form-label">Credit Card Number </label> : <label className="form-label inv">Enter a valid card number</label>}
+                    <label className="form-label">Credit Card Number </label>
                 </div>
 
                 <div className="flex-row-spaceless" style={{ alignItems: "center", gap: "2rem" }}>
                     <label className="heading-secondary product-currency">Expiry Date:</label>
                     <div className="flex-col-none">
                         <input style={{ width: "8rem", margin: "0" }} type="number" className={monthClasses} placeholder="MM" autoComplete="off" value={expiryMonth}></input>
-                        {formInputValidity.month ? <label className="form-label">Month</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid month</label>}
+                        <label className="form-label">Month</label>
                     </div>
 
                     <label className="heading-secondary product-currency">/</label>
 
                     <div className="flex-col-none">
                         <input style={{ width: "8rem", margin: "0" }} type="number" className={yearClasses} placeholder="YY" autoComplete="off" value={expiryYear}></input>
-                        {formInputValidity.year ? <label className="form-label">Year</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid year</label>}
+                        <label className="form-label">Year</label>
                     </div>
 
                     <label className="heading-secondary product-currency">CVV:</label>
@@ -355,6 +358,19 @@ export default function Checkout({ shopID, user }) {
                         <input style={{ width: "12rem", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setCvv(newValue); } }}></input>
                         {formInputValidity.cvv ? <label className="form-label">&nbsp;</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid CVV</label>}
                     </div>
+                </div>
+
+                <div className="form-group">
+                    <textarea
+                        id="description"
+                        rows="5"
+                        className={descClasses}
+                        placeholder="Additional Message (optional)"
+                        onChange={(event) => setMessage(event.target.value)}
+                        value={message}
+                        autoComplete="off"
+                    ></textarea>
+                    <label className="form-label">Checkout Message (optional)</label>
                 </div>
 
                 <span className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
@@ -386,7 +402,7 @@ export default function Checkout({ shopID, user }) {
                 </div>
             </div>
 
-            <div className="checkout-column" style={{ padding: "0", gap: "0", position:"relative" }}>
+            <div className="checkout-column" style={{ padding: "0", gap: "0", position: "relative" }}>
                 {/* <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
                     <div className="heading-icon-receipt svg-color">&nbsp;</div>
                     <h1 className="heading-secondary no-margin">Order Details</h1>
@@ -398,28 +414,104 @@ export default function Checkout({ shopID, user }) {
                 </span>
 
                 {parsedData.map((item, index) => (
-                    <div className="cart-row" key={index}>
-                        <img className="cart-img round-borderer" src={item.image}></img>
+                    <div className="checkout-row" key={index}>
+                        <div className="add-buttons flex-row-spaceless" style={{ width: "16rem" }}>
+                            <button type="button" className="minus-button"><div className="heading-icon-minus-act svg-color" onClick={() => updateCartItem(index, -1, item)}>&nbsp;</div></button>
+                            <input type="number" className="text-small input-number" placeholder="Amount" style={{ borderRadius: "0", margin: "0", width: "8rem" }} value={item.cartValue} onChange={(e) => updateCartInput(index, parseInt(e.target.value) - item.cartValue, item)}></input>
+                            <button type="button" className="add-button svg-color"><div className="heading-icon-plus-act svg-decolor" onClick={() => updateCartItem(index, 1, item)}>&nbsp;</div></button>
+                        </div>
+                        <img className="checkout-img round-borderer" src={item.image}></img>
                         <div className="flex-col-2" style={{ width: "auto" }}>
                             <a href={`/${item.url}`} className="heading-secondary" style={{ whiteSpace: "pre-wrap", display: "inline", textDecoration: "none" }}>{item.name}</a>
-                            <h3 className="heading-tertiary" style={{ display: "inline" }}>{item.description}</h3>
                         </div>
 
                         <div className="cart-pay">
                             <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Price: {currency} {item.price} / {item.unit}</h2>
-
-                            <div className="add-buttons flex-row-spaceless" style={{ width: "20rem" }}>
-                                <button type="button" className="minus-button"><div className="heading-icon-minus-act svg-color" onClick={() => updateCartItem(index, -1, item)}>&nbsp;</div></button>
-                                <input type="number" className="text-small input-number" placeholder="Amount" style={{ borderRadius: "0", margin: "0" }} value={item.cartValue} onChange={(e) => updateCartInput(index, parseInt(e.target.value) - item.cartValue, item)}></input>
-                                <button type="button" className="add-button svg-color"><div className="heading-icon-plus-act svg-decolor" onClick={() => updateCartItem(index, 1, item)}>&nbsp;</div></button>
-                            </div>
+                            <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900" }}>Total: {currency} {item.price * item.cartValue}</h2>
                         </div>
                     </div>
                 ))}
 
-                <div>
-                    <h1>sup</h1>
+
+                <div className="checkout-fees dark-underline">
+
+                    <div className="flex-col-none">
+
+                        <span className="page-heading">
+                            <div className="heading-icon-shipping svg-color" style={{ margin: "0" }}>&nbsp;</div>
+                            <h1 className="heading-secondary no-margin">&nbsp; Order Mode</h1>
+                        </span>
+                        <div className="flex-row" style={{ marginTop: "2rem", justifyContent: "space-around" }}>
+                            <button className={Mode === "delivery" ? modeButtonActive : modeButton} style={{ height: "5rem", width: "15rem", margin: "0rem" }} onClick={() => { setMode("delivery") }}>Delivery</button>
+                            <button className={Mode === "pickup" ? modeButtonActive : modeButton} style={{ height: "5rem", width: "15rem", margin: "0rem" }} onClick={() => { setMode("pickup") }}>Pick-Up</button>
+                        </div>
+                        <h3 className="heading-tertiary" style={{ marginTop: "1rem" }}>{checkoutData.message}</h3>
+                    </div>
+
+                    <div className="cart-pay">
+                        {Mode === "delivery" && <>
+                            <h2 className="heading-secondary" style={{ marginBottom: "1rem" }}>Delivery Fees:</h2>
+
+                            {fees.DelFee.length === 0 && <div>
+                                <h2 className="heading-tertiary checkout-total">There are no delivery fees</h2>
+                            </div>}
+
+                            {fees.DelFee.length > 0 && <>
+                                {fees.DelFee.map((fee) => (
+                                    <h2 className="heading-tertiary checkout-total">{fee.name}: {currency} {fee.cost}</h2>
+                                ))}
+
+                                <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", marginTop: "1rem" }}>Total: {currency} {delivTotal}</h2>
+
+                            </>}
+                        </>
+                        }
+
+                        {Mode === "pickup" && <>
+                            <h2 className="heading-secondary" style={{ marginBottom: "1rem" }}>Pick-Up Fees:</h2>
+
+                            {fees.PickFee.length === 0 && <div>
+                                <h2 className="heading-tertiary checkout-total">There are no pick-up fees</h2>
+                            </div>}
+
+                            {fees.PickFee.length > 0 && <>
+                                {fees.PickFee.map((fee) => (
+                                    <h2 className="heading-tertiary checkout-total">{fee.name}: {currency} {fee.cost}</h2>
+                                ))}
+
+                                <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", marginTop: "1rem" }}>Total: {currency} {delivTotal}</h2>
+
+                            </>}
+                        </>
+                        }
+                    </div>
                 </div>
+
+                <div className="checkout-fees">
+
+                    <div className="flex-col-none">
+                        <h2 className="heading-secondary" style={{ marginBottom: "1rem" }}>Total: {currency} {absoluteTotal}</h2>
+                        {takebacks.allowRefunds === false ? <div>
+                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Refunds are not allowed.</h2>
+                        </div> : <div>
+                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Refunds are allowed within {takebacks.refundCount} {takebacks.refundDuration}/s of receiving with a penalty of {takebacks.refundFee}% of the order's total, fees not included.</h2>
+                        </div>}
+
+                        {takebacks.allowCancel === false ? <div>
+                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Cancellations are not allowed.</h2>
+                        </div> : <div>
+                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Cancellations are allowed within {takebacks.cancelCount} {takebacks.cancelDuration}/s of ordering with a penalty of {takebacks.cancelFee}% of the order's total, fees not included.</h2>
+                        </div>}
+
+                        <Link href={`/${router.query.shopid}/terms`}><h2 className="heading-tertiary">By completing this order, I agree with the mart's terms and conditions as well as the privacy policy.</h2></Link>
+
+                        <button className="product-action-2 heading-secondary flex-row-align" type="button" style={{ width: "98%", margin: "1rem", textDecoration: "none" }}>
+                            <div className="flex-row-align margin-side"><div className="heading-icon-cashregister svg-solid-button">&nbsp;</div><h2 className="heading-secondary solid-button">Finish Order</h2></div>
+                        </button>
+                    </div>
+                </div>
+
+
             </div>
 
         </div>

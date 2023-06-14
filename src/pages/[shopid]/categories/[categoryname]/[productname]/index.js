@@ -431,8 +431,8 @@ function ProductPage({ shopID, user }) {
         </form>
 
         <div className="product-action-buttons">
-          <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{width:"24rem"}} onClick={submitCart}><div className="menu-tocart svg-color">&nbsp;</div><h2 className="heading-secondary">Add to Cart</h2></button>
-          <Link href={`/${shopID._id}/checkout`} className="product-action-2 heading-secondary flex-row-align" style={{width:"24rem", textDecoration:"none"}}><div className="menu-checkout svg-decolor">&nbsp;</div><h2 className="heading-secondary">To Checkout</h2></Link>
+          <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{width:"24rem"}} onClick={submitCart}><div className="menu-checkout svg-outline-button">&nbsp;</div><h2 className="heading-secondary outline-button">Add to Cart</h2></button>
+          <Link href={`/${shopID._id}/checkout`} className="product-action-2 heading-secondary flex-row-align" style={{width:"24rem", textDecoration:"none"}}><div className="menu-checkout svg-solid-button">&nbsp;</div><h2 className="heading-secondary solid-button">To Checkout</h2></Link>
         </div>
       </div>
     </div>
