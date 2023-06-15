@@ -340,6 +340,7 @@ function ProductPage({ shopID, user }) {
     const item = {
       name: nameValue,
       description: descValue,
+      category: queryCategory,
       image: imgValue1,
       price: priceValue,
       unit: stockUnit,

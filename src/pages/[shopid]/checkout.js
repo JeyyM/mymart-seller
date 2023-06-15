@@ -81,6 +81,17 @@ export default function Checkout({ shopID, user }) {
     const [expiryYear, setExpiryYear] = useState(userCard.year);
     const [cvv, setCvv] = useState();
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false)
+    const [completion, setCompletion] = useState(false)
+
+    const checkmark = (
+        <svg viewBox="0 0 100 100" width="7rem" height="7rem">
+          <path id="checkmark" d="M25,50 L40,65 L75,30" stroke="#FFFFFF" strokeWidth="8" fill="none"
+            strokeDasharray="200" strokeDashoffset="200">
+            <animate attributeName="stroke-dashoffset" from="200" to="0" dur="0.5s" begin="indefinite" />
+          </path>
+        </svg>
+      )
 
     const [finishModal, setFinishModal] = useState(false)
     const finishModalHandler = () => {
@@ -97,7 +108,7 @@ export default function Checkout({ shopID, user }) {
     const mapContainerStyle = { width: '50rem', height: '30rem', margin: "0 auto" };
 
     const [center, setCenter] = useState(null);
-    const [locationName, setLocationName] = useState(footerItems.shopLocation);
+    const [locationName, setLocationName] = useState(userLocation);
     const [autocomplete, setAutocomplete] = useState(null);
 
     const { isLoaded, loadError } = useLoadScript({
@@ -219,7 +230,7 @@ export default function Checkout({ shopID, user }) {
     const cardClasses = "text-small input-number"
     const monthClasses = "text-small input-number"
     const yearClasses = "text-small input-number"
-    const cvvClasses = `${formInputValidity.cvv ? "text-small-white input-number" : "invalid-form-2"}`;
+    const cvvClasses = `${formInputValidity.cvv ? "text-small input-number white-input" : "invalid-form-2 white-input"}`;
     const descClasses = "desc-text-area"
 
     async function updateData() {
@@ -298,9 +309,12 @@ export default function Checkout({ shopID, user }) {
     const delivTotal = fees.DelFee.reduce((sum, item) => sum + parseInt(item.cost), 0);
     const pickTotal = fees.PickFee.reduce((sum, item) => sum + parseInt(item.cost), 0);
 
-    const absoluteTotal = total + delivTotal + pickTotal
+    let feeTotal = Mode === "delivery" ? delivTotal : pickTotal
+    const absoluteTotal = total + feeTotal
 
-    console.log(takebacks)
+    function waitSeconds() {
+        return new Promise(resolve => setTimeout(resolve, 2000));
+    }
 
     async function hashString(data) {
         const encoder = new TextEncoder();
@@ -311,43 +325,66 @@ export default function Checkout({ shopID, user }) {
         return hashHex;
     }
 
+    async function completeForm(formdata) {
+        const response = await fetch(
+          `../../../api/set-order?martid=${router.query.shopid}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formdata)
+          }
+        );
+        const data = await response.json();
+    
+      }
+
     async function finishSubmission() {
-        const cvvValid = cvv.length === 3
+        let cvvValid
+        const hashedCVV = await hashString(cvv)
+        const hashedOriginal = user.card.cvv
+        const currentDate = new Date();
 
-        setFormInputValidity({
-            cvv: cvvValid,
-            cvvEmpty: true
-        });
+        const updatedUser = { ...user, location: locationName };
 
-        // const submissionValid = nameValid && numValid && monthValid && yearValid && cvvValid
+        let chosenFee = Mode === "delivery" ? delivTotal : pickTotal
 
-        // if (submissionValid) {
-        //     setLoading(true)
+        if (cvv === undefined || cvv === "") {
+            setFormInputValidity({cvv: false, cvvEmpty: true})
+            return
+        }
+        
+        if (hashedCVV !== hashedOriginal) {
+            setFormInputValidity({cvv: false, cvvEmpty: true})
+            return
+        }
+            
+        if (hashedCVV === hashedOriginal && parsedData.length > 0){
+            console.log(hashedCVV !== hashedOriginal)
+            setFormInputValidity({cvv: true, cvvEmpty: false})
 
-        //     const cardInfo = { cardName: cardName, cardNumber: cardNumber, expiryMonth: expiryMonth, expiryYear: expiryYear, cvv: cvv }
-        //     const checkoutInfo = { message: message, currency: currency, showMap: showMap }
-        //     const Adds = { DelFee: filteredDel, PickFee: filteredPick }
-        //     const Takebacks = { allowRefunds: allowRefunds, refundDuration: refundDuration, refundCount: refundCount, refundFee: newRFee, allowCancel: allowCancel, cancelDuration: cancelDuration, cancelCount: cancelCount, cancelFee: newCFee }
+            const payload = {
+                order: parsedData,
+                totals: {order: total, fees: chosenFee},
+                currentTime: currentDate,
+                message: message,
+                user: updatedUser,
+                status: "ongoing",
+            }
+            completeForm(payload)
 
-        //     const payload = {
-        //         cardInfo,
-        //         checkoutInfo,
-        //         Adds,
-        //         Takebacks
-        //     };
+            setLoading(true)
+            await waitSeconds()
+            setLoading(false)
+            setCompletion(true)
 
-        //     editPayment(payload)
-
-        //     await waitSeconds()
-
-        //     setLoading(false)
-        //     setCompletion(true)
-
-        //     router.reload()
-        // }
+            // finishModalHandler()
+            
+        }
     }
 
-
+    function toHome (){
+        router.push(`/${router.query.shopid}`)
+    }
 
     return <Fragment>
         <Head>
@@ -355,7 +392,7 @@ export default function Checkout({ shopID, user }) {
             <link rel="icon" type="image/jpeg" href={favicon} />
         </Head>
 
-        <FinishCheckout modalStatus={finishModal} disable={finishModalHandler}></FinishCheckout>
+        <FinishCheckout modalStatus={finishModal} disable={toHome} toHome={toHome}></FinishCheckout>
 
         <span className="page-heading" style={{ marginLeft: "1rem" }}>
             <div className="heading-icon-dropshadow">
@@ -412,10 +449,9 @@ export default function Checkout({ shopID, user }) {
                     <label className="heading-secondary product-currency">CVV:</label>
 
                     <div className="flex-col-none">
-                        <input style={{ width: "12rem", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" id='year' value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setCvv(newValue); } }}></input>
+                        <input style={{ width: "12rem", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setCvv(newValue); } }}></input>
                         {formInputValidity.cvv ? <label className="form-label">&nbsp;</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid CVV</label>}
                     </div>
-
                 </div>
 
                 <div className="form-group">
@@ -486,7 +522,6 @@ export default function Checkout({ shopID, user }) {
                     </div>
                 ))}
 
-
                 <div className="checkout-fees dark-underline">
 
                     <div className="flex-col-none">
@@ -504,15 +539,15 @@ export default function Checkout({ shopID, user }) {
 
                     <div className="cart-pay">
                         {Mode === "delivery" && <>
+                        <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", margin:"0" }}>Total: {currency} {total}</h2>
                             <h2 className="heading-secondary" style={{ marginBottom: "1rem" }}>Delivery Fees:</h2>
-
                             {fees.DelFee.length === 0 && <div>
                                 <h2 className="heading-tertiary checkout-total">There are no delivery fees</h2>
                             </div>}
 
                             {fees.DelFee.length > 0 && <>
                                 {fees.DelFee.map((fee) => (
-                                    <h2 className="heading-tertiary checkout-total">{fee.name}: {currency} {fee.cost}</h2>
+                                    <h2 className="heading-tertiary checkout-total" key={fee.name}>{fee.name}: {currency} {fee.cost}</h2>
                                 ))}
 
                                 <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", marginTop: "1rem" }}>Total: {currency} {delivTotal}</h2>
@@ -522,18 +557,18 @@ export default function Checkout({ shopID, user }) {
                         }
 
                         {Mode === "pickup" && <>
+                        <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", margin:"0" }}>Total: {currency} {total}</h2>
                             <h2 className="heading-secondary" style={{ marginBottom: "1rem" }}>Pick-Up Fees:</h2>
-
                             {fees.PickFee.length === 0 && <div>
                                 <h2 className="heading-tertiary checkout-total">There are no pick-up fees</h2>
                             </div>}
 
                             {fees.PickFee.length > 0 && <>
                                 {fees.PickFee.map((fee) => (
-                                    <h2 className="heading-tertiary checkout-total">{fee.name}: {currency} {fee.cost}</h2>
+                                    <h2 className="heading-tertiary checkout-total" key={fee.name}>{fee.name}: {currency} {fee.cost}</h2>
                                 ))}
 
-                                <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", marginTop: "1rem" }}>Total: {currency} {delivTotal}</h2>
+                                <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", marginTop: "1rem" }}>Total: {currency} {pickTotal}</h2>
 
                             </>}
                         </>
@@ -557,10 +592,11 @@ export default function Checkout({ shopID, user }) {
                             <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Cancellations are allowed within {takebacks.cancelCount} {takebacks.cancelDuration}/s of ordering with a penalty of {takebacks.cancelFee}% of the order's total, fees not included.</h2>
                         </div>}
 
-                        <Link href={`/${router.query.shopid}/terms`}><h2 className="heading-tertiary">By completing this order, I agree with the mart's terms and conditions as well as the privacy policy.</h2></Link>
+                        <Link href={`/${router.query.shopid}/terms`}><h2 className="heading-tertiary" style={{ fontWeight: "900" }}>By completing this order, I agree with the mart's terms and conditions as well as the privacy policy.</h2></Link>
 
-                        <button className="product-action-2 heading-secondary flex-row-align" type="button" style={{ width: "98%", margin: "1rem", textDecoration: "none" }} onClick={finishSubmission}>
-                            <div className="flex-row-align margin-side"><div className="heading-icon-cashregister svg-solid-button">&nbsp;</div><h2 className="heading-secondary solid-button">Finish Order</h2></div>
+                        <button className="product-action-2 heading-secondary flex-row-align" type="button" style={{ width: "98%", margin: "1rem", textDecoration: "none" }} onClick={finishSubmission} disabled={loading}>
+                        {loading ? <div className="spinner"></div> : (completion ? <div className="margin-side" style={{transform:"translateY(20%)"}}>{checkmark}</div> : <div className="flex-row-align margin-side"><div className="heading-icon-cashregister svg-solid-button">&nbsp;</div><h2 className="heading-secondary solid-button">Finish Order</h2></div>
+                        )}
                         </button>
                     </div>
                 </div>

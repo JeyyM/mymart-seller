@@ -47,6 +47,8 @@ function FinishCheckout(props) {
               exit="exit"
             >
 
+            <button onClick={props.toHome}>Hey</button>
+
             </motion.div>
           </Backdrop>
         )}

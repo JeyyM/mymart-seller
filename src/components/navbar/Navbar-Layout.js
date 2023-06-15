@@ -65,7 +65,7 @@ body{background-color: ${props.color["bg-body"]} !important;}
     color: ${props.color["text-secondary-color"]} !important;
     font-weight: 700 !important;}
 
-    input[type="number"].text-small-white {font-family: ${props.color["text-secondary-font"]} !important;
+    input[type="number"].white-input {font-family: ${props.color["text-secondary-font"]} !important;
     color: black !important;
     font-weight: 700 !important;}
 
@@ -212,9 +212,16 @@ color: ${props.color["button-outline-text"]} !important;
     0 0 0 4px ${props.color["bg-item"]} !important;
 }
 
-.text-small-white{
+.white-input, .white-input.text-small{
 box-shadow: inset 0 0 0 2rem white, 0 0 0 2px ${props.color["color-primary-dark"]},
     0 0 0 4px ${props.color["bg-item"]} !important;
+    background-image: linear-gradient(white, white),
+    linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
+}
+
+.invalid-form-2.white-input{
+    background-image: linear-gradient(white, white),
+    linear-gradient(to right, red, darkred) !important;
 }
 
 .text-options {box-shadow: inset 0 0 0 2rem white, 0 0 0 2px ${props.color["color-primary-dark"]},
@@ -228,12 +235,6 @@ box-shadow: inset 0 0 0 2rem white, 0 0 0 2px ${props.color["color-primary-dark"
 
 .text-full, .desc-text-area, .add-categ-img, .text-small, .minus-button{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
-    linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
-    filter: brightness(120%) !important
-    }
-
-.text-small-white{
-    background-image: linear-gradient(white, white),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
     filter: brightness(120%) !important
     }
@@ -256,11 +257,6 @@ box-shadow: inset 0 0 0 2rem white, 0 0 0 2px ${props.color["color-primary-dark"
     }
 
 input[type="text"].text-full:focus, input[type="number"].text-small:focus, input[type="text"].text-small:focus, input[type="password"].text-small:focus, .text-options:focus, .desc-text-area:focus, .add-button:active, .minus-button:active {
-    filter: brightness(150%) !important;
-  outline-color: ${props.color["color-primary-dark"]} !important;
-}
-
-.text-small-white{
     filter: brightness(150%) !important;
   outline-color: ${props.color["color-primary-dark"]} !important;
 }
