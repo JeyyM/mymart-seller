@@ -9,6 +9,8 @@ import { FaMapMarkerAlt } from 'react-icons/fa';
 import { Marker } from '@react-google-maps/api';
 import { Autocomplete } from '@react-google-maps/api';
 
+import FinishCheckout from "@/components/cart/FinishCheckout"
+
 import { MyContext } from "@/components/store/MyProvider"
 import { Link } from "@mui/material"
 
@@ -69,7 +71,8 @@ export default function Checkout({ shopID, user }) {
     const id = shopID._id;
 
     const [formInputValidity, setFormInputValidity] = useState({
-        cvv: true
+        cvv: true,
+        cvvEmpty: false
     });
 
     const [cardName, setCardName] = useState(userCard.name);
@@ -78,6 +81,11 @@ export default function Checkout({ shopID, user }) {
     const [expiryYear, setExpiryYear] = useState(userCard.year);
     const [cvv, setCvv] = useState();
     const [message, setMessage] = useState("");
+
+    const [finishModal, setFinishModal] = useState(false)
+    const finishModalHandler = () => {
+        setFinishModal(!finishModal)
+    }
 
     const [Mode, setMode] = useState("delivery")
     const modeButton = "product-action-1 heading-secondary"
@@ -294,11 +302,60 @@ export default function Checkout({ shopID, user }) {
 
     console.log(takebacks)
 
+    async function hashString(data) {
+        const encoder = new TextEncoder();
+        const dataBuffer = encoder.encode(data);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+        return hashHex;
+    }
+
+    async function finishSubmission() {
+        const cvvValid = cvv.length === 3
+
+        setFormInputValidity({
+            cvv: cvvValid,
+            cvvEmpty: true
+        });
+
+        // const submissionValid = nameValid && numValid && monthValid && yearValid && cvvValid
+
+        // if (submissionValid) {
+        //     setLoading(true)
+
+        //     const cardInfo = { cardName: cardName, cardNumber: cardNumber, expiryMonth: expiryMonth, expiryYear: expiryYear, cvv: cvv }
+        //     const checkoutInfo = { message: message, currency: currency, showMap: showMap }
+        //     const Adds = { DelFee: filteredDel, PickFee: filteredPick }
+        //     const Takebacks = { allowRefunds: allowRefunds, refundDuration: refundDuration, refundCount: refundCount, refundFee: newRFee, allowCancel: allowCancel, cancelDuration: cancelDuration, cancelCount: cancelCount, cancelFee: newCFee }
+
+        //     const payload = {
+        //         cardInfo,
+        //         checkoutInfo,
+        //         Adds,
+        //         Takebacks
+        //     };
+
+        //     editPayment(payload)
+
+        //     await waitSeconds()
+
+        //     setLoading(false)
+        //     setCompletion(true)
+
+        //     router.reload()
+        // }
+    }
+
+
+
     return <Fragment>
         <Head>
             <title>Checkout</title>
             <link rel="icon" type="image/jpeg" href={favicon} />
         </Head>
+
+        <FinishCheckout modalStatus={finishModal} disable={finishModalHandler}></FinishCheckout>
 
         <span className="page-heading" style={{ marginLeft: "1rem" }}>
             <div className="heading-icon-dropshadow">
@@ -355,9 +412,10 @@ export default function Checkout({ shopID, user }) {
                     <label className="heading-secondary product-currency">CVV:</label>
 
                     <div className="flex-col-none">
-                        <input style={{ width: "12rem", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setCvv(newValue); } }}></input>
+                        <input style={{ width: "12rem", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" id='year' value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setCvv(newValue); } }}></input>
                         {formInputValidity.cvv ? <label className="form-label">&nbsp;</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid CVV</label>}
                     </div>
+
                 </div>
 
                 <div className="form-group">
@@ -403,10 +461,6 @@ export default function Checkout({ shopID, user }) {
             </div>
 
             <div className="checkout-column" style={{ padding: "0", gap: "0", position: "relative" }}>
-                {/* <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
-                    <div className="heading-icon-receipt svg-color">&nbsp;</div>
-                    <h1 className="heading-secondary no-margin">Order Details</h1>
-                </span>             */}
 
                 <span className="page-heading dark-underline">
                     <div className="heading-icon-receipt svg-color" style={{ margin: "1rem" }}>&nbsp;</div>
@@ -505,7 +559,7 @@ export default function Checkout({ shopID, user }) {
 
                         <Link href={`/${router.query.shopid}/terms`}><h2 className="heading-tertiary">By completing this order, I agree with the mart's terms and conditions as well as the privacy policy.</h2></Link>
 
-                        <button className="product-action-2 heading-secondary flex-row-align" type="button" style={{ width: "98%", margin: "1rem", textDecoration: "none" }}>
+                        <button className="product-action-2 heading-secondary flex-row-align" type="button" style={{ width: "98%", margin: "1rem", textDecoration: "none" }} onClick={finishSubmission}>
                             <div className="flex-row-align margin-side"><div className="heading-icon-cashregister svg-solid-button">&nbsp;</div><h2 className="heading-secondary solid-button">Finish Order</h2></div>
                         </button>
                     </div>
