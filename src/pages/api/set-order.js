@@ -46,8 +46,8 @@ async function handler(req, res) {
             { _id: martId },
             {
                 $set: {
-                    // [`shopData.shopSales.activeOrders`]: updatedActiveOrders
-                    [`shopData.shopSales.activeOrders`]: []
+                    [`shopData.shopSales.activeOrders`]: updatedActiveOrders
+                    // [`shopData.shopSales.activeOrders`]: []
                 }
             }
         );
@@ -56,8 +56,8 @@ async function handler(req, res) {
             { _id: martId },
             {
                 $set: {
-                    // [`shopData.shopAccounts.${shopAccountIndex}.currentOrders`]: newOrders,
-                    [`shopData.shopAccounts.${shopAccountIndex}.currentOrders`]: [],
+                    [`shopData.shopAccounts.${shopAccountIndex}.currentOrders`]: newOrders,
+                    // [`shopData.shopAccounts.${shopAccountIndex}.currentOrders`]: [],
                     [`shopData.shopAccounts.${shopAccountIndex}.currentCart`]: []
                 }
             }

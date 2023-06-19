@@ -20,6 +20,8 @@ export default function Checkout({ shopID, user }) {
     const footerItems = shopID.shopData.shopDetails.footerData
     const favicon = shopID.shopData.shopDetails.imageData.icons.icon
     const { handleIncrement, state } = useContext(MyContext);
+    
+    const shopName = shopID.name
 
     const router = useRouter()
     const localStorageKey = `mart_${router.query.shopid}`;
@@ -377,7 +379,7 @@ export default function Checkout({ shopID, user }) {
             setLoading(false)
             setCompletion(true)
 
-            // finishModalHandler()
+            finishModalHandler()
             
         }
     }
@@ -392,7 +394,7 @@ export default function Checkout({ shopID, user }) {
             <link rel="icon" type="image/jpeg" href={favicon} />
         </Head>
 
-        <FinishCheckout modalStatus={finishModal} disable={toHome} toHome={toHome}></FinishCheckout>
+        <FinishCheckout modalStatus={finishModal} disable={toHome} toHome={toHome}name={shopName}></FinishCheckout>
 
         <span className="page-heading" style={{ marginLeft: "1rem" }}>
             <div className="heading-icon-dropshadow">

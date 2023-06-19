@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   z-index: 100;
-  overflow: hidden;
+  // overflow: hidden;
   width: 100%;
   transition: all 0.2s;
   position: sticky;
@@ -208,6 +208,7 @@
   background-image: $theme-bg,
     linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   background-color: $theme-bg;
+  position: relative;
 }
 
 .navitem:hover{
@@ -250,3 +251,30 @@
 
 .cartbob{transform: scale(0.9);
 filter: brightness(120%);}
+
+.hover-box {
+  position: absolute;
+  right: 0;
+  width: 200px;
+  display: block;
+  z-index: -10;
+  height: min-content;
+  @include border
+}
+
+.profile-item {
+  height: 6rem;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  overflow: hidden;
+}
+
+.profile-item:hover{
+  filter: brightness(120%) !important;
+}
+
+.heading-icon-manage-account {
+  @include heading-logo(manage-account, 4rem, 4rem);
+  margin-left: 1rem;
+}

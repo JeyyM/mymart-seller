@@ -78,7 +78,7 @@ body{background-color: ${props.color["bg-body"]} !important;}
 
 .empty-text {color: ${props.color["color-primary-dark"]} !important;}
 
-.navbar, .navmenu, .navmenu-item, .menu-decoy, .footer, .footer-column, .cart-bottom, .dark-underline {background-color: ${props.color["bg-item"]} !important;
+.navbar, .navmenu, .navmenu-item, .menu-decoy, .footer, .footer-column, .cart-bottom, .dark-underline, .hover-box {background-color: ${props.color["bg-item"]} !important;
 border-image: linear-gradient(
       45deg,
       ${props.color["color-primary-dark"]},
@@ -96,7 +96,7 @@ border-image: linear-gradient(
     transform: translateY(0rem) translateX(0rem) !important;
     filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["color-primary-light"]}) !important;}
 
-.navitem, .image-container{border-image: linear-gradient(
+.navitem, .image-container {border-image: linear-gradient(
       45deg,
       ${props.color["color-primary-dark"]},
       ${props.color["color-primary-light"]}
@@ -159,7 +159,7 @@ border-image: linear-gradient(
 color: ${props.color["button-outline-text"]} !important;
 }
 
-.company-logo-med {
+.company-logo-med{
     border-image: linear-gradient(
       45deg,
       ${props.color["color-primary-dark"]},
@@ -183,7 +183,7 @@ color: ${props.color["button-outline-text"]} !important;
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
 }
 
-.categ-modal, .confirm-modal, .set-container, .category, .categ-edit-button, .product-edit-button, .add-img, .help-button, .side-img, .add-prod-img, .product-image, .varItem-sub, .footer, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer{
+    .categ-modal, .confirm-modal, .set-container, .category, .categ-edit-button, .product-edit-button, .add-img, .help-button, .side-img, .add-prod-img, .product-image, .varItem-sub, .footer, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;}
 

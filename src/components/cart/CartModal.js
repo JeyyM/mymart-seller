@@ -37,18 +37,18 @@ function CartModal(props) {
   const [isVisible, setIsVisible] = useState(true);
 
   async function updateData() {
-    if ( typeof window !== 'undefined'){
+    if (typeof window !== 'undefined') {
       let storedItems = typeof window !== 'undefined' ? localStorage.getItem(localStorageKey) : null;
 
-    const response = await fetch(
-      `/api/read-cart?martid=${router.query.shopid}&email=${props.user.email}&password=${props.user.password}`,
-      {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(JSON.parse(storedItems))
-      }
-    );
-    const data = await response.json();
+      const response = await fetch(
+        `/api/read-cart?martid=${router.query.shopid}&email=${props.user.email}&password=${props.user.password}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(JSON.parse(storedItems))
+        }
+      );
+      const data = await response.json();
     }
   }
 
@@ -109,8 +109,8 @@ function CartModal(props) {
     setParsedData(updatedData);
     handleIncrement();
 
-    if (props.user !== undefined){
-    updateData()
+    if (props.user !== undefined) {
+      updateData()
     }
   };
 
@@ -136,15 +136,15 @@ function CartModal(props) {
 
   const calculateTotal = () => {
     let total = 0;
-  
+
     parsedData.forEach((item) => {
       const totalCost = item.cartValue * parseFloat(item.price);
       total += totalCost;
     });
-  
+
     return total;
   };
-  
+
   const total = calculateTotal();
 
   const DynamicComponent1 = dynamic(() => import("./CheckoutButton1"), {
@@ -178,7 +178,14 @@ function CartModal(props) {
                 </div>
                 <h1 className="heading-primary no-margin">Current Cart</h1>
               </span>
-              <div className="cart-rows">
+              {parsedData.length === 0 && <div className="cart-empty-cont">
+                <div className="empty-contents">
+                  <div className="empty-cart svg-color">&nbsp;</div>
+                  <h2 className="empty-text">There seems to be no products yet</h2>
+                </div>
+              </div>}
+
+              {parsedData.length > 0 && <div className="cart-rows">
                 {parsedData.map((item, index) => (
                   <div className="cart-row" key={index}>
                     <img className="cart-img round-borderer" src={item.image}></img>
@@ -198,17 +205,17 @@ function CartModal(props) {
                     </div>
                   </div>
                 ))}
-              </div>
+              </div>}
 
-              <div className="empty-cart-row"></div>
+              {parsedData.length > 0 && <div className="empty-cart-row"></div>}
 
               <div className="cart-bottom dark-underline-upper">
                 <h2 className="heading-secondary">Total: {props.currency} {total}</h2>
                 {typeof window !== 'undefined' && (<>
-                {props.user === undefined && <DynamicComponent2 route={router.query.shopid}/> }
-              {props.user !== undefined && <DynamicComponent1 route={router.query.shopid}/>}
-              </>            
-          )}              </div>
+                  {props.user === undefined && <DynamicComponent2 route={router.query.shopid} click={props.cartOpen} />}
+                  {props.user !== undefined && <DynamicComponent1 route={router.query.shopid} click={props.cartOpen} />}
+                </>
+                )}              </div>
 
             </motion.div>
           </Backdrop>

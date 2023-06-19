@@ -60,3 +60,24 @@
     margin-left: auto;
     align-items: center;
 }
+
+.cart-empty-cont {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-grow: 1;
+    align-content: center;
+    justify-content: center;
+}
+
+.finish-coin{
+    height: 20rem;
+    width: 20rem;
+    margin: -4rem auto 1rem;
+    z-index: -1;
+}
+
+.heading-icon-celebration {
+    @include heading-logo(celebration, 4rem, 4rem);
+    margin-left: 1rem;
+  }

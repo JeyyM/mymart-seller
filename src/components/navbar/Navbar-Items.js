@@ -71,7 +71,6 @@
             <NavItem svg={<Info className="menu-info svg-color"></Info>} link={"about"} label="About Us"></NavItem>
             <NavItem svg={<Manage className="menu-manage svg-color"></Manage>} link={"mart"} label="Sign-Up to MyMart"></NavItem>
             <div className="nav-sign">
-              
               {typeof window !== 'undefined' && (<>
                 {props.user === undefined && <DynamicComponent2 /> }
               {props.user !== undefined && <DynamicComponent1 />}

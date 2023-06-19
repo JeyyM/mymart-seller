@@ -4,14 +4,18 @@ import { useRouter } from "next/router"
 
 function NavMenuItem(props) {
   const router = useRouter()
+  const handleClick = () => {
+    props.exit()
+    router.push(`/${router.query.shopid}/${props.link}`);
+  };
 
   return (
-    <Link href={`/${router.query.shopid}/${props.link}`} style={{ textDecoration: 'none' }} title={props.title}>
+    <div title={props.title} style={{ textDecoration: 'none' }} onClick={handleClick}>
       <button className="navmenu-item" onClick={props.function}>
         <div className={`menu-${props.logo} svg-color`}>&nbsp;</div>
         <h2 className="heading-secondary">{props.label}</h2>
       </button>
-    </Link>
+    </div>
   );
 }
 

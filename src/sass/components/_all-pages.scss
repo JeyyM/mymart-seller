@@ -255,3 +255,8 @@ input[type=number].shortener-25{
 .margin-side{
   margin: 0 auto;
 }
+
+.empty-cart{
+  @include empty-logo(cart, 10rem, 10rem);
+    transform: translateY(-10rem);
+}

@@ -37,9 +37,9 @@ function FinishCheckout(props) {
         onExitComplete={() => null}
       >
         {props.modalStatus && (
-          <Backdrop onClick={props.disable} className="categ-modals">
+          <Backdrop className="categ-modals" onClick={props.disable}>
             <motion.div
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e) => {e.stopPropagation(); props.disable()}}
               className="categ-modal"
               variants={appear}
               initial="hidden"
@@ -47,7 +47,14 @@ function FinishCheckout(props) {
               exit="exit"
             >
 
-            <button onClick={props.toHome}>Hey</button>
+            <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
+                    <div className="heading-icon-celebration svg-color">&nbsp;</div>
+                    <h1 className="heading-secondary no-margin">Order Successful</h1>
+                </span>
+
+            <img src={"/coin.gif"} className="finish-coin"></img>
+
+            <h3 className="heading-tertiary" style={{margin: "0 5rem"}}>More information can be found in your current orders such as the shop's location and the duration for cancellation and refunds as well as your past and current orders. The order is now pending for approval. Thank you for shopping at {props.name}!</h3>
 
             </motion.div>
           </Backdrop>
