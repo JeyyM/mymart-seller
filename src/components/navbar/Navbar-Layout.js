@@ -305,6 +305,10 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     transform: scale(2) translateY(-2rem);
 }
 
+.dark-underline{
+    border-bottom: 5px solid ${props.color["color-primary-dark"]};
+}
+
 
 
     ` }

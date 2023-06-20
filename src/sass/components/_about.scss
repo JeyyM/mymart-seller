@@ -154,7 +154,7 @@
     @include border-round;
     box-shadow: inset 0 0 0 2rem $theme-bg,
     0 0 0 2px $color-primary-dark, 0 0 0 4px white;
-    transition: height 0.2s ease; /* Added transition property for height */
+    transition: all 0.2s;
   }
 
   .min-button {

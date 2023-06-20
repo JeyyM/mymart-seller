@@ -26,6 +26,15 @@ function Orders({ shopID }) {
     let col1 = []
     let col2 = []
 
+    const [ExpandedOrders, setExpandedOrders] = useState([]);
+    const toggleExpand = (index) => {
+        if (ExpandedOrders.includes(index)) {
+          setExpandedOrders(ExpandedOrders.filter((expIndex) => expIndex !== index));
+        } else {
+          setExpandedOrders([...ExpandedOrders, index]);
+        }
+      };
+
     function sorter() {
         contents.map((order, index) => {
             if (index % 2 === 0) {
@@ -88,6 +97,17 @@ function Orders({ shopID }) {
         }
     }
 
+    const [isVisible, setIsVisible] = useState(true);
+
+    const toggleVisibility = () => {
+        setIsVisible(!isVisible);
+    };
+
+    const contentVariants = {
+        hidden: { opacity: 1, height: 0 },
+        visible: { opacity: 1, height: 'auto' }
+    };
+
     if (orderAmount) {
         return (
 
@@ -110,8 +130,8 @@ function Orders({ shopID }) {
                                 <div className="round-borderer round-borderer-extra order-item" key={order.id}>
                                     <div className="flex-row flex-centered" style={{ justifyContent: "space-between", marginBottom: "1rem" }} >
                                         <div className="flex-row-spaceless flex-centered">
-                                            <button className="order-toggle">
-                                                <div className="heading-icon-chevron svg-color">&nbsp;</div>
+                                            <button className="order-toggle" onClick={() => toggleExpand(order.id)}>
+                                                <div className={ExpandedOrders.includes(order.id) ? "heading-icon-chevron svg-color rotater transitionAll" : "heading-icon-chevron svg-color transitionAll"}>&nbsp;</div>
                                             </button>
                                             <div className="text-sec-profile svg-tertiary">&nbsp;</div>
                                             <h2 className="heading-secondary">&nbsp;{order.user.profile.last}, {order.user.profile.first} -&nbsp;</h2> <div className="text-sec-mail svg-tertiary">&nbsp;</div> <h2 className="heading-secondary">&nbsp;{order.user.email}</h2>
@@ -135,29 +155,59 @@ function Orders({ shopID }) {
                                         placeholder="Description"
                                     ></textarea>
 
-                                    <div className="flex-row flex-align" style={{ justifyContent: "space-around", margin: "1rem" }}>
-                                        <button className="product-action-1 heading-secondary" style={{ width: "20rem", margin: "0" }}>User Data</button>
-                                        <button className="product-action-3 white heading-secondary" style={{ width: "20rem", margin: "0" }}>Refuse Order</button>
-                                        <button className="product-action-2 heading-secondary" style={{ width: "20rem", margin: "0" }}>Approve Order</button>
-                                    </div>
-
-                                    {order.order.map((item, index) => {
-                                        let foundProduct = findItem(item.category, item.name)
-                                        return <div className="flex-row flex-centered" style={{ justifyContent: "space-between", marginBottom: "1rem" }} >
-                                        <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
-                                        <img className="order-img round-borderer" src={item.image}></img>
-                                        <Link href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{item.name} - {item.category}&nbsp;
-                                        </Link>                              
-                                        </div>
-                                        <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
-                                        <h2 className="heading-tertiary whiteSpace">{typeof foundProduct !== "object" ? foundProduct : foundProduct.active ? "Active" : "Inactive"}&nbsp;</h2> {typeof foundProduct !== "object" ? <div className="order-missing">&nbsp;</div> : foundProduct.active ? <div className="order-active">&nbsp;</div> : <div className="order-inactive">&nbsp;</div>}     
-                                        </div>   
-                                         
+                                    <motion.div
+                                        style={{ overflow: 'hidden' }}
+                                        initial={ExpandedOrders.includes(order.id) ? 'visible' : 'hidden'}
+                                        animate={ExpandedOrders.includes(order.id) ? 'visible' : 'hidden'}
+                                        variants={contentVariants}>
                                         
+                                        <div className="flex-row flex-align" style={{ justifyContent: "space-around", margin: "1rem" }}>
+                                            <button className="product-action-1 heading-secondary" style={{ width: "20rem", margin: "0" }}>User Data</button>
+                                            <button className="product-action-3 white heading-secondary" style={{ width: "20rem", margin: "0" }}>Refuse Order</button>
+                                            <button className="product-action-2 heading-secondary" style={{ width: "20rem", margin: "0" }}>Approve Order</button>
                                         </div>
-                                    
 
-                                    })}
+                                        {order.order.map((item, index) => {
+                                            let foundProduct = findItem(item.category, item.name)
+                                            return <div className="flex-row flex-centered" style={{ marginBottom: "1rem" }} >
+
+                                                <div className="flex-row-spaceless" style={{ alignItems: "center", width: "100%" }}>
+                                                    <img className="order-img round-borderer" src={item.image}></img>
+
+                                                    <div className="flex-col">
+
+                                                        <div className="flex-row">
+                                                            <Link style={{ marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{item.name} - {item.category}&nbsp;</Link>
+
+                                                            <div className="flex-row" style={{ margin: "1rem" }}>
+                                                                <h2 className="heading-tertiary whiteSpace">{typeof foundProduct !== "object" ? foundProduct : foundProduct.active ? "Active" : "Inactive"}&nbsp;</h2> {typeof foundProduct !== "object" ? <div className="order-missing">&nbsp;</div> : foundProduct.active ? <div className="order-active">&nbsp;</div> : <div className="order-inactive">&nbsp;</div>}
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="flex-row-align" style={{ justifyContent: "space-between" }}>
+                                                            <h2 className="heading-tertiary">&nbsp;Current Stock: {typeof foundProduct !== "object" ? foundProduct : foundProduct.productStock.stockAmount}</h2>
+
+                                                            <div className="flex-row">
+                                                                <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Cart Amount: {item.cartValue} {item.unit}/s</h2>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className="flex-row-align" style={{ justifyContent: "space-between" }}>
+                                                            <h2 className="heading-tertiary">&nbsp;Price: {typeof foundProduct !== "object" ? foundProduct : `${currency} ${foundProduct.productPrice} / ${foundProduct.productStock.stockUnit}`}</h2>
+
+                                                            <div className="flex-row">
+                                                                <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total Cost: {currency} {item.cartValue * item.price}</h2>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                        })}
+                                    </motion.div>
                                 </div>
                             ))
                         }
@@ -205,6 +255,26 @@ function Orders({ shopID }) {
                     </div>
 
                 </div>
+
+                <div style={{ backgroundColor: 'gray', width: '100%' }}>
+                    <button onClick={toggleVisibility}>Toggle</button>
+                    <motion.div
+                        style={{ overflow: 'hidden' }}
+                        initial={isVisible ? 'visible' : 'hidden'}
+                        animate={isVisible ? 'visible' : 'hidden'}
+                        variants={contentVariants}
+                    >
+                        <h1>Content</h1>
+                        <h1>Content</h1>
+                        <h1>Content</h1>
+                        <h1>Content</h1>
+                        <h1>Content</h1>
+                        <h1>Content</h1>
+                        <h1>Content</h1>
+                    </motion.div>
+                    <h1>Stuffz</h1>
+                </div>
+
 
             </Fragment>
         );
