@@ -115,6 +115,13 @@ border-image: linear-gradient(
     ${props.color["bg-item"]}
   ) !important;}
 
+ .svg-tertiary {
+    background-image: linear-gradient(
+    to right,
+    ${props.color["text-tertiary-color"]},
+    ${props.color["text-tertiary-color"]}
+  ) !important;}
+
 .company-logo-med {
     border-image: linear-gradient(
       45deg,

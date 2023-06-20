@@ -3,9 +3,29 @@
     margin-left: 1rem;
   }
 
+  .text-sec-profile {
+    @include heading-logo(profile, 3rem, 3rem);
+  }
+
+  .text-sec-mail {
+    @include heading-logo(mail, 3rem, 3rem);
+  }
+
   .empty-ongoing{
     @include empty-logo(ongoing, 8rem, 8rem);
       transform: translateY(-10rem);
+  }
+
+  .text-ter-calendar {
+    @include heading-logo(calendar, 2rem, 2rem);
+  }
+
+  .text-ter-shipping {
+    @include heading-logo(shipping, 2rem, 2rem);
+  }
+
+  .text-ter-basket {
+    @include heading-logo(basket, 2rem, 2rem);
   }
 
   .order-container {
@@ -42,4 +62,33 @@
     z-index: 5;
     border: transparent;
     background-color: transparent
+  }
+
+  .order-img{
+    width: 8rem;
+    height: 8rem;
+  }
+
+  .order-active{
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    background-color: lime;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+  }
+
+  .order-inactive{
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    background-color: red;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+  }
+
+  .order-missing{
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    background-color: gray;
+    border: 2px solid rgba(0, 0, 0);
   }

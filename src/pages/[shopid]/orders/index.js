@@ -8,14 +8,16 @@ import { AnimatePresence, motion } from "framer-motion";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import Link from "next/link";
 
 function Orders({ shopID }) {
     const router = useRouter();
 
     const { shopData } = shopID;
+    const currency = shopData.shopDetails.paymentData.checkoutInfo.currency
     const contents = shopData.shopSales.activeOrders;
 
-    console.log(contents)
+    const shopCategories = shopData.shopCategories
 
     const favicon = shopData.shopDetails.imageData.icons.icon
 
@@ -58,10 +60,33 @@ function Orders({ shopID }) {
         return formattedDateTime;
     }
 
-    const handleButtonClick = (e) => {
-        e.stopPropagation();
-        console.log('Button clicked');
-      };
+    const calculateTotal = (data) => {
+        let total = 0;
+
+        data.forEach((item) => {
+            const totalCost = item.cartValue * parseFloat(item.price);
+            total += totalCost;
+        });
+
+        return total;
+    };
+
+    console.log(shopCategories)
+
+    function findItem(category, varName) {
+        let chosenCateg = shopCategories.find((categ) => categ.categoryName === category)
+
+        if (chosenCateg) {
+            let chosenVariation = chosenCateg.categoryProducts.flatMap((prod) => prod.variations).find((variation) => variation.productName === varName);
+            if (chosenVariation) {
+                return chosenVariation
+            } else {
+                return "Missing Product"
+            }
+        } else {
+            return "Category Missing"
+        }
+    }
 
     if (orderAmount) {
         return (
@@ -84,17 +109,22 @@ function Orders({ shopID }) {
                             col1.map((order) => (
                                 <div className="round-borderer round-borderer-extra order-item" key={order.id}>
                                     <div className="flex-row flex-centered" style={{ justifyContent: "space-between", marginBottom: "1rem" }} >
-                                    <div className="flex-row flex-centered">
-                                    <button className="order-toggle">
-                                    <div className="heading-icon-chevron svg-color">&nbsp;</div>                          
-                                    </button>
-                                        <h2 className="heading-secondary">{order.user.profile.last}, {order.user.profile.first} - {order.user.email}</h2>
-                                    </div>
+                                        <div className="flex-row-spaceless flex-centered">
+                                            <button className="order-toggle">
+                                                <div className="heading-icon-chevron svg-color">&nbsp;</div>
+                                            </button>
+                                            <div className="text-sec-profile svg-tertiary">&nbsp;</div>
+                                            <h2 className="heading-secondary">&nbsp;{order.user.profile.last}, {order.user.profile.first} -&nbsp;</h2> <div className="text-sec-mail svg-tertiary">&nbsp;</div> <h2 className="heading-secondary">&nbsp;{order.user.email}</h2>
+                                        </div>
 
                                         <h2 className="heading-secondary">{order.id}</h2>
                                     </div>
-                                    <div className="flex-align flex-row" style={{ justifyContent: "space-between" }}>
-                                        <h2 className="heading-tertiary">On: {formatDateTime(order.currentTime)} for <span style={{ fontWeight: "900" }}>{order.mode}</span></h2>
+
+                                    <div className="flex-row flex-centered" style={{ justifyContent: "space-between" }} >
+                                        <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
+                                            <div className="text-ter-calendar svg-tertiary">&nbsp;</div> <h2 className="heading-tertiary">&nbsp;On: {formatDateTime(order.currentTime)} for&nbsp;</h2> {order.mode === "delivery" ? <div className="text-ter-shipping svg-tertiary">&nbsp;</div> : <div className="text-ter-basket svg-tertiary">&nbsp;</div>} <h2 className="heading-tertiary">&nbsp;<span style={{ fontWeight: "900" }}>{order.mode}</span></h2>
+                                        </div>
+                                        <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total: {currency} {order.totals.order + order.totals.fees}</h2>
                                     </div>
                                     <textarea
                                         id='description'
@@ -105,12 +135,29 @@ function Orders({ shopID }) {
                                         placeholder="Description"
                                     ></textarea>
 
-                                <div className="flex-row flex-align" style={{justifyContent:"space-around", margin:"1rem"}}>
-                                <button className="product-action-1 heading-secondary" style={{width:"20rem", margin:"0"}}>User Data</button>
-                                <button className="product-action-3 white heading-secondary" style={{width:"20rem", margin:"0"}}>Refuse Order</button>
-                                <button className="product-action-2 heading-secondary" style={{width:"20rem", margin:"0"}}>Approve Order</button>
+                                    <div className="flex-row flex-align" style={{ justifyContent: "space-around", margin: "1rem" }}>
+                                        <button className="product-action-1 heading-secondary" style={{ width: "20rem", margin: "0" }}>User Data</button>
+                                        <button className="product-action-3 white heading-secondary" style={{ width: "20rem", margin: "0" }}>Refuse Order</button>
+                                        <button className="product-action-2 heading-secondary" style={{ width: "20rem", margin: "0" }}>Approve Order</button>
+                                    </div>
 
-                                </div>
+                                    {order.order.map((item, index) => {
+                                        let foundProduct = findItem(item.category, item.name)
+                                        return <div className="flex-row flex-centered" style={{ justifyContent: "space-between", marginBottom: "1rem" }} >
+                                        <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
+                                        <img className="order-img round-borderer" src={item.image}></img>
+                                        <Link href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{item.name} - {item.category}&nbsp;
+                                        </Link>                              
+                                        </div>
+                                        <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
+                                        <h2 className="heading-tertiary whiteSpace">{typeof foundProduct !== "object" ? foundProduct : foundProduct.active ? "Active" : "Inactive"}&nbsp;</h2> {typeof foundProduct !== "object" ? <div className="order-missing">&nbsp;</div> : foundProduct.active ? <div className="order-active">&nbsp;</div> : <div className="order-inactive">&nbsp;</div>}     
+                                        </div>   
+                                         
+                                        
+                                        </div>
+                                    
+
+                                    })}
                                 </div>
                             ))
                         }
@@ -118,21 +165,23 @@ function Orders({ shopID }) {
                     </div>
 
                     <div className="order-column">
-                    {
+                        {
                             col2.map((order) => (
                                 <div className="round-borderer round-borderer-extra order-item" key={order.id}>
                                     <div className="flex-row flex-centered" style={{ justifyContent: "space-between", marginBottom: "1rem" }} >
-                                    <div className="flex-row flex-centered">
-                                    <button className="order-toggle">
-                                    <div className="heading-icon-chevron svg-color">&nbsp;</div>                          
-                                    </button>
-                                        <h2 className="heading-secondary">{order.user.profile.last}, {order.user.profile.first} - {order.user.email}</h2>
-                                    </div>
+                                        <div className="flex-row-spaceless flex-centered">
+                                            <button className="order-toggle">
+                                                <div className="heading-icon-chevron svg-color">&nbsp;</div>
+                                            </button>
+                                            <div className="text-sec-profile svg-tertiary">&nbsp;</div>
+                                            <h2 className="heading-secondary">&nbsp;{order.user.profile.last}, {order.user.profile.first} -&nbsp;</h2> <div className="text-sec-mail svg-tertiary">&nbsp;</div> <h2 className="heading-secondary">&nbsp;{order.user.email}</h2>
+                                        </div>
 
                                         <h2 className="heading-secondary">{order.id}</h2>
                                     </div>
-                                    <div className="flex-align flex-row" style={{ justifyContent: "space-between" }}>
-                                        <h2 className="heading-tertiary">On: {formatDateTime(order.currentTime)} for <span style={{ fontWeight: "900" }}>{order.mode}</span></h2>
+
+                                    <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
+                                        <div className="text-ter-calendar svg-tertiary">&nbsp;</div> <h2 className="heading-tertiary">&nbsp;On: {formatDateTime(order.currentTime)} for&nbsp;</h2> {order.mode === "delivery" ? <div className="text-ter-shipping svg-tertiary">&nbsp;</div> : <div className="text-ter-basket svg-tertiary">&nbsp;</div>} <h2 className="heading-tertiary">&nbsp;<span style={{ fontWeight: "900" }}>{order.mode}</span></h2>
                                     </div>
                                     <textarea
                                         id='description'
@@ -143,12 +192,13 @@ function Orders({ shopID }) {
                                         placeholder="Description"
                                     ></textarea>
 
-                                <div className="flex-row flex-align" style={{justifyContent:"space-around", margin:"1rem"}}>
-                                <button className="product-action-1 heading-secondary" style={{width:"20rem", margin:"0"}}>User Data</button>
-                                <button className="product-action-3 white heading-secondary" style={{width:"20rem", margin:"0"}}>Refuse Order</button>
-                                <button className="product-action-2 heading-secondary" style={{width:"20rem", margin:"0"}}>Approve Order</button>
+                                    <div className="flex-row flex-align" style={{ justifyContent: "space-around", margin: "1rem" }}>
+                                        <button className="product-action-1 heading-secondary" style={{ width: "20rem", margin: "0" }}>User Data</button>
+                                        <button className="product-action-3 white heading-secondary" style={{ width: "20rem", margin: "0" }}>Refuse Order</button>
+                                        <button className="product-action-2 heading-secondary" style={{ width: "20rem", margin: "0" }}>Approve Order</button>
 
-                                </div>
+
+                                    </div>
                                 </div>
                             ))
                         }
