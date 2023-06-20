@@ -212,6 +212,17 @@ input[type=number].shortener-25{
   align-items: center;
 }
 
+.flex-centered{
+  align-items: center;
+}
+
+.full-centered{
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  transition: all 0.2s;
+}
+
 .minus-button{
   background-color: white;
   border-radius: 50% 0 0 50%;

@@ -61,7 +61,7 @@ function NavbarItems(props) {
       <div className="navcontainer">
         <NavItem svg={<Category className="menu-category svg-color"></Category>} title={"Add and edit categories, products, and variations"} link={"categories"} label="Categories & Products" ></NavItem>
         <NavItem svg={<Insights className="menu-insights svg-color"></Insights>} link={"analytics"} label="My Analytics"></NavItem>
-        <NavItem svg={<Ongoing className="menu-ongoing svg-color"></Ongoing>} link="#" label="Ongoing Sales"></NavItem>
+        <NavItem svg={<Ongoing className="menu-ongoing svg-color"></Ongoing>} link="orders" label="Ongoing Sales"></NavItem>
         <NavItem svg={<Brush className="menu-brush svg-color"></Brush>} link={"design"} title={"Edit mart's colors and fonts"} label="Mart Design" extension={props.colormode}></NavItem>
         <NavItem svg={<Manage className="menu-manage svg-color"></Manage>} title={"Set about page, descriptions, footers, and details of your mart"} link={"mart"} label="My Mart"></NavItem>
         <NavItem svg={<Receipt className="menu-receipt svg-color"></Receipt>} link="#" label="Customer Records"></NavItem>

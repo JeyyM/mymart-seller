@@ -130,7 +130,7 @@ border-image: linear-gradient(
 .navbutton:hover.x, .theme-button:hover {
     filter: drop-shadow(-6px 6px 0px ${props.color["color-primary-dark"]}) !important}
 
-.navbutton:active.x, .theme-button:active {
+.navbutton:active.x, .theme-button:active{
     transform: translateY(0rem) translateX(0rem) !important;
     filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) !important}
 

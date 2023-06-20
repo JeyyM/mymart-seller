@@ -66,8 +66,8 @@ function CategoryProducts(props) {
                 <h3 className="heading-tertiary">{productDescription.length > 150 ? productDescription.substring(0, 147) + "..." : productDescription}</h3>
             </div>
             <div className="product-number-container">
-                <h2 className="heading-secondary product-numbers product-price">{props.currency} {productPrice}</h2>
-                <h2 className="heading-secondary product-numbers">{productStock.stockAmount} {productStock.stockUnit}</h2>
+                <h2 className="heading-secondary product-numbers product-price">{props.currency} {productPrice} / {productStock.stockUnit}</h2>
+                <h2 className="heading-secondary product-numbers">Stock: {productStock.stockAmount}</h2>
             </div>
         </div>
     </MotionLink>

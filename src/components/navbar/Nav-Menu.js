@@ -33,17 +33,17 @@ function NavMenu(props) {
     return <Fragment>
       <div className="navmenu">
         <div className="menu-decoy"></div>
-        <NavMenuItem logo={"category"} label={"Categories & Products"} link={"categories"} function={props.function} title={"Add and edit categories, products, and variations"}></NavMenuItem>
-        <NavMenuItem logo={"insights"} label={"My Analytics"}></NavMenuItem>
-        <NavMenuItem logo={"ongoing"} label={"Ongoing Sales"}></NavMenuItem>
-        <NavMenuItem logo={"manage"} label={"My Mart"} link={"mart"} title={"Set about page, descriptions, footers, and details of your mart"}></NavMenuItem>
-        <NavMenuItem logo={"receipt"} label={"Customer Records"}></NavMenuItem>
-        <NavMenuItem logo={"brush"} label={"Mart Design"} link={"design/dark"} title={"Edit mart's colors and fonts"}></NavMenuItem>
-        <NavMenuItem logo={"quiz"} label={"Frequently Asked Questions"}></NavMenuItem>
-        <NavMenuItem logo={"policy"} label={"Terms & Policies"}></NavMenuItem>
-        <NavMenuItem logo={"support"} label={"Customer Service"}></NavMenuItem>
-        <NavMenuItem logo={"power"} label={"Close or Open Mart"}></NavMenuItem>
-        <NavMenuItem logo={"settings"} label={"Settings"}></NavMenuItem>
+        <NavMenuItem logo={"category"} label={"Categories & Products"} link={"categories"} exit={props.onClick} function={props.function} title={"Add and edit categories, products, and variations"}></NavMenuItem>
+        <NavMenuItem logo={"insights"} label={"My Analytics"} exit={props.onClick}></NavMenuItem>
+        <NavMenuItem logo={"ongoing"} label={"Ongoing Sales"} link={"orders"} exit={props.onClick}></NavMenuItem>
+        <NavMenuItem logo={"manage"} label={"My Mart"} link={"mart"} exit={props.onClick} title={"Set about page, descriptions, footers, and details of your mart"}></NavMenuItem>
+        <NavMenuItem logo={"receipt"} label={"Customer Records"} exit={props.onClick}></NavMenuItem>
+        <NavMenuItem logo={"brush"} label={"Mart Design"} link={"design/dark"} exit={props.onClick} title={"Edit mart's colors and fonts"}></NavMenuItem>
+        <NavMenuItem logo={"quiz"} label={"Frequently Asked Questions"} exit={props.onClick}></NavMenuItem>
+        <NavMenuItem logo={"policy"} label={"Terms & Policies"} exit={props.onClick}></NavMenuItem>
+        <NavMenuItem logo={"support"} label={"Customer Service"} exit={props.onClick}></NavMenuItem>
+        <NavMenuItem logo={"power"} label={"Close or Open Mart"} exit={props.onClick}></NavMenuItem>
+        <NavMenuItem logo={"settings"} label={"Settings"} exit={props.onClick}></NavMenuItem>
       </div>
     </Fragment>
   }
