@@ -34,55 +34,62 @@ function EditOrder(props) {
         newOrder = cloneDeep(props.order.order);
     }
 
+    let variationList = []
+    let categoryFinder = ""
+    let categoryProducts = {}
+
     const [currentOrder, setCurrentOrder] = useState([])
+    useEffect(() => {
+        setCurrentOrder(newOrder);
+    }, [props.modalStatus]);
+
     const [ownerMessage, setOwnerMessage] = useState("")
     const handleMessageChange = (event) => {
         setOwnerMessage(event.target.value);
     };
 
     const categoryOptions = props.categories.map((item) => item.categoryName)
-
     const [categories, setCategories] = useState([...categoryOptions])
+
     const [selectedCateg, setSelectedCateg] = useState(props.categories[0].categoryName)
+
+    const [selectedProducts, setSelectedProducts] = useState(props.categories[0].categoryProducts[0].variations[0].productName)
+
     const selectCateg = (event) => {
         setSelectedCateg(event.target.value);
         changeProducts(event.target.value)
     };
-    let variationList = []
-    const [varOptions, setVarOptions] = useState([variationList])
 
-    let chosenCateg = ""
-    let categoryProducts = {}
+        const changeProducts = (category) => {
+    }
 
     useEffect(() => {
-        chosenCateg = props.categories.filter((categ) => categ.categoryName === selectedCateg)
-        categoryProducts = chosenCateg[0].categoryProducts
+        categoryFinder = props.categories.filter((categ) => categ.categoryName === selectedCateg)
+        categoryProducts = categoryFinder[0].categoryProducts
 
         variationList = categoryProducts.flatMap((prod) => prod.variations.flatMap((prod) => prod.productName))
         setVarOptions([...variationList])
-    }, [])
+        console.log(variationList)
+        setSelectedProducts(variationList[0])
+    }, [selectedCateg])
 
-    const changeProducts = (category) => {
-        chosenCateg = props.categories.filter((categ) => categ.categoryName === category)
-        categoryProducts = chosenCateg[0].categoryProducts
+    const [varOptions, setVarOptions] = useState([variationList])
 
-        variationList = categoryProducts.flatMap((prod) => prod.variations.flatMap((prod) => prod.productName))
-        setVarOptions([...variationList])
-        fixVariation()
-    }
+    useEffect(() => {
+        console.log("everyrging",
+        selectedCateg,
+        selectedProducts,
+        varOptions,
+        )
+    }, [selectedCateg, selectedProducts, props.modalStatus])
 
-    function fixVariation(){
-        console.log(varOptions)
-    }
-
-    const [selectedProducts, setSelectedProducts] = useState(props.categories[0].categoryProducts[0].variations[0].productName)
     const selectProd = (event) => {
         setSelectedProducts(event.target.value)
     };
 
-    useEffect(() => {
-        setCurrentOrder(newOrder);
-    }, [props.modalStatus]);
+
+
+
 
     function exit() {
         props.disable()
@@ -171,14 +178,7 @@ function EditOrder(props) {
 
     function addItem(categ, prod){
         findOrder(categ, prod)
-    }
-
-    // useEffect(() => {
-    //     // setSelectedProducts(varOptions[0])
-    //     console.log(varOptions[0])
-    //     console.log("start up", selectedCateg, selectedProducts)
-    // }, [selectedCateg, selectedProducts, varOptions, props.modalStatus])
-    
+    }    
 
     if (currentOrder !== null) {
         return (
