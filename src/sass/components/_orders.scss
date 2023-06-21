@@ -43,6 +43,24 @@
     width: 100%;
     transition: all 0.2s;
   }
+
+  .order-button-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .order-button-grid-2{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+  }
   
   .order-item {
     position: relative;
@@ -61,7 +79,8 @@
     transition: all 0.2s;
     z-index: 5;
     border: transparent;
-    background-color: transparent
+    background-color: transparent;
+    cursor: pointer;
   }
 
   .order-img{
@@ -91,4 +110,37 @@
     border-radius: 50%;
     background-color: gray;
     border: 2px solid rgba(0, 0, 0);
+  }
+
+  .edit-order-modal {
+    width: clamp(50%, 700px, 90%);
+    height: auto;
+    min-height: 50%;
+    max-height: 80%;
+    margin: auto;
+    margin-top: calc($navbar-height + 1.5rem);
+    padding: 2rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    @include border-round;
+    box-shadow: inset 0 0 0 2rem $theme-bg,
+    0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+    transition: all 0.2s;
+    overflow-y: scroll;
+    z-index: -1;
+  }
+
+  .checkout-img{
+    height:7rem;
+    width: 7rem;
+}
+
+  .checkout-row{
+    height: min-content;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
   }

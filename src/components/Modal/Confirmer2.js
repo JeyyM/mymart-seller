@@ -62,17 +62,16 @@ function Confirmer2(props) {
       await waitSeconds()
       setLoading(false)
       setCompletion(true)
-      router.push(`/${props.routing[0]}/categories/${props.routing[1]}`).then(() => window.location.reload())
+      router.push(`/${props.routing[0]}/categories/${encodeURIComponent(props.routing[1])}`).then(() => window.location.reload())
       return
     }
-
 
     if (props.names !== null && props.default === 0) {
       await waitSeconds()
       await waitSecondsShort()
       setLoading(false)
       setCompletion(true)
-      router.push(`/${props.routing[0]}/categories/${props.routing[1]}/${props.names}`).then(() => window.location.reload())
+      router.push(`/${props.routing[0]}/categories/${encodeURIComponent(props.routing[1])}/${encodeURIComponent(props.names)}`).then(() => window.location.reload())
       return
     } else {
       await waitSeconds()

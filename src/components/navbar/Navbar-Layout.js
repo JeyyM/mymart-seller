@@ -146,7 +146,7 @@ border-image: linear-gradient(
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
 }
 
-.categ-modal, .confirm-modal, .set-container, .category, .categ-edit-button, .product-edit-button, .add-img, .help-button, .side-img, .add-prod-img, .product-image, .varItem, .footer, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer{
+.categ-modal, .edit-order-modal, .confirm-modal, .set-container, .category, .categ-edit-button, .product-edit-button, .add-img, .help-button, .side-img, .add-prod-img, .product-image, .varItem, .footer, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;}
 
@@ -170,7 +170,7 @@ border-image: linear-gradient(
   filter: brightness(120%) !important;
 }
 
-.add-categ-init:focus, .add-prod-init:focus, .categ-modal, .confirm-modal, .set-container, .text-full, input[type="text"].text-full:focus, .desc-text-area, input[type="text"].desc-text-area:focus, .text-small, .invalid-form, .invalid-form-2, .invalid-form-box, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer-extra{
+.add-categ-init:focus, .add-prod-init:focus, .edit-order-modal, .categ-modal, .confirm-modal, .set-container, .text-full, input[type="text"].text-full:focus, .desc-text-area, input[type="text"].desc-text-area:focus, .text-small, .invalid-form, .invalid-form-2, .invalid-form-box, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer-extra{
     box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]}, 0 0 0 2px ${props.color["color-primary-dark"]},
     0 0 0 4px ${props.color["bg-item"]} !important;
 }
@@ -268,6 +268,9 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 .yellow{color: #3b2f01 !important;}
 
 .red{color: #540804 !important;}
+
+.red-text{color: red !important;}
+
 
 .home-label{text-align: center}
 
