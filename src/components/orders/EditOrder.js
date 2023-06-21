@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import Backdrop from "../Modal/Backdrop";
 import Link from "next/link";
 import { cloneDeep } from "lodash";
+import { useRouter } from "next/router";
 
 function EditOrder(props) {
+    const router = useRouter()
     const appear = {
         hidden: {
             transform: "scale(0)",
@@ -27,30 +29,72 @@ function EditOrder(props) {
         },
     };
     let newOrder = {}
-    
-    if (props.order !== null){
+
+    if (props.order !== null) {
         newOrder = cloneDeep(props.order.order);
     }
 
     const [currentOrder, setCurrentOrder] = useState([])
+    const [ownerMessage, setOwnerMessage] = useState("")
+    const handleMessageChange = (event) => {
+        setOwnerMessage(event.target.value);
+    };
+
+    const categoryOptions = props.categories.map((item) => item.categoryName)
+
+    const [categories, setCategories] = useState([...categoryOptions])
+    const [selectedCateg, setSelectedCateg] = useState(props.categories[0].categoryName)
+    const selectCateg = (event) => {
+        setSelectedCateg(event.target.value);
+        changeProducts(event.target.value)
+    };
+    let variationList = []
+    const [varOptions, setVarOptions] = useState([variationList])
+
+    let chosenCateg = ""
+    let categoryProducts = {}
+
+    useEffect(() => {
+        chosenCateg = props.categories.filter((categ) => categ.categoryName === selectedCateg)
+        categoryProducts = chosenCateg[0].categoryProducts
+
+        variationList = categoryProducts.flatMap((prod) => prod.variations.flatMap((prod) => prod.productName))
+        setVarOptions([...variationList])
+    }, [])
+
+    const changeProducts = (category) => {
+        chosenCateg = props.categories.filter((categ) => categ.categoryName === category)
+        categoryProducts = chosenCateg[0].categoryProducts
+
+        variationList = categoryProducts.flatMap((prod) => prod.variations.flatMap((prod) => prod.productName))
+        setVarOptions([...variationList])
+        fixVariation()
+    }
+
+    function fixVariation(){
+        console.log(varOptions)
+    }
+
+    const [selectedProducts, setSelectedProducts] = useState(props.categories[0].categoryProducts[0].variations[0].productName)
+    const selectProd = (event) => {
+        setSelectedProducts(event.target.value)
+    };
 
     useEffect(() => {
         setCurrentOrder(newOrder);
-    }, [props.modalStatus]);    
+    }, [props.modalStatus]);
 
-    function exit(){
+    function exit() {
         props.disable()
     }
 
-    function confirm(){
-        props.change(currentOrder, props.order.id)
+    function confirm() {
+        props.change(currentOrder, props.order.id, ownerMessage)
         props.disable()
     }
 
     const updateCartItem = (index, amount, select) => {
         const updatedData = [...currentOrder];
-        const chosenProduct = findItem(select.category, select.name)
-
         if (amount === 1) {
             if (parseInt(updatedData[index].cartValue)) {
                 updatedData[index].cartValue = parseInt(updatedData[index].cartValue) + parseInt(amount);
@@ -62,7 +106,6 @@ function EditOrder(props) {
             if (updatedData[index].cartValue === 0 || updatedData[index].cartValue < 0) {
                 updatedData.splice(index, 1);
             }
-
         }
 
         setCurrentOrder(updatedData);
@@ -99,6 +142,44 @@ function EditOrder(props) {
         }
     }
 
+    function findOrder(category, varName) {
+        let chosenCateg = currentOrder.filter((categ) => categ.category === category)
+        let chosenVar = chosenCateg.filter((variation) => variation.name === varName)
+        let categLink = props.categories.find((categ) => categ.categoryName === category)
+        let varLink = categLink.categoryProducts.flatMap((prod) => prod.variations);
+
+        if (chosenVar.length > 0){
+            return
+        } else {
+            let newItem = findItem(category, varName)
+            console.log(newItem)
+            let schema = {
+                name: newItem.productName,
+                description: newItem.productDescription,
+                category: category,
+                image: newItem.productImages[0],
+                price: newItem.productPrice,
+                unit: newItem.productStock.stockUnit,
+                amount: 1,
+                cartValue: 1,
+                url: `${router.query.shopid}/categories/${encodeURIComponent(category)}/${encodeURIComponent(varLink[0].productName)}`,
+                router: router.query.shopid
+            }
+            setCurrentOrder([...currentOrder, schema])
+        }
+    }
+
+    function addItem(categ, prod){
+        findOrder(categ, prod)
+    }
+
+    // useEffect(() => {
+    //     // setSelectedProducts(varOptions[0])
+    //     console.log(varOptions[0])
+    //     console.log("start up", selectedCateg, selectedProducts)
+    // }, [selectedCateg, selectedProducts, varOptions, props.modalStatus])
+    
+
     if (currentOrder !== null) {
         return (
             <Fragment>
@@ -124,6 +205,38 @@ function EditOrder(props) {
                                         <div className="heading-icon-edit svg-color">&nbsp;</div>
                                     </div>
                                 </span>
+
+                                <div className="dark-underline" style={{ marginBottom: "1rem", paddingBottom: "1rem" }}>
+                                    <h2 className="heading-secondary">Add Products</h2>
+                                    <div className="flex-row flex-centered" style={{ margin: "1rem 0", justifyContent: "center", gap: "2rem" }}>
+                                        <select
+                                            value={selectedCateg}
+                                            className={`text-options text-span`}
+                                            style={{ width: "30%" }}
+                                            onChange={(event) => selectCateg(event)}
+                                        >
+                                            {categories.map(categ => (
+                                                <option key={categ} value={categ}>{categ}</option>
+                                            ))}
+                                        </select>
+
+                                        <select
+                                            value={selectedProducts}
+                                            className={`text-options text-span`}
+                                            style={{ width: "40%" }}
+                                            onChange={(event) => selectProd(event)}
+                                        >
+                                            {varOptions.map(prod => (
+                                                <option key={prod} value={prod}>{prod}</option>
+                                            ))}
+                                        </select>
+
+                                        <button className="add-img" type="button" onClick={() => {addItem(selectedCateg, selectedProducts)}}>
+                                            <div className="heading-icon-plus-marginless svg-color">&nbsp;</div>
+                                        </button>
+
+                                    </div>
+                                </div>
 
                                 {currentOrder.length > 0 && currentOrder.map((item, index) => {
                                     let foundProduct = findItem(item.category, item.name);
@@ -174,6 +287,19 @@ function EditOrder(props) {
                                         </div>
                                     );
                                 })}
+
+                                <div className="dark-underline" style={{ margin: "1rem 0", paddingBottom: "1rem" }}>
+                                    <h2 className="heading-secondary">Edit Message</h2>
+
+                                    <textarea
+                                        required
+                                        rows='3'
+                                        value={ownerMessage}
+                                        className={"desc-text-area"}
+                                        placeholder="Description"
+                                        onChange={handleMessageChange}
+                                    ></textarea>
+                                </div>
 
                                 <div className="order-button-grid-2">
                                     <button className="product-action-1 heading-secondary" onClick={exit} style={{ width: "18rem", margin: "0" }}>Cancel</button>

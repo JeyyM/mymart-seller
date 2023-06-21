@@ -29,8 +29,6 @@ function Orders({ shopID }) {
 
     const favicon = shopData.shopDetails.imageData.icons.icon
 
-    let orderAmount = true
-
     let col1 = []
     let col2 = []
 
@@ -126,17 +124,17 @@ function Orders({ shopID }) {
         setActiveOrders(newOrders)
     }
 
-    function changeOrder(changedOrder, id){
+    function changeOrder(changedOrder, id, message){
         let updatedOrder = activeOrders.filter((item) => item.id === id)
         updatedOrder[0].order = changedOrder;
         updatedOrder[0].status = "edited";
+        updatedOrder[0].ownerMessage = message
 
         console.log(updatedOrder)
     }
 
-    if (orderAmount) {
+    if (contents.length > 0) {
         return (
-
             <Fragment>
                 <Head>
                     <title>Ongoing Sales</title>
