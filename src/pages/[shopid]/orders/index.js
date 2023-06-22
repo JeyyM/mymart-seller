@@ -10,10 +10,10 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Link from "next/link";
 import EditOrder from "@/components/orders/EditOrder";
+import UserProfile from "@/components/orders/UserProfile";
 
 function Orders({ shopID }) {
     const router = useRouter();
-
     const SlideHeight = {
         hidden: { opacity: 1, height: 0 },
         visible: { opacity: 1, height: 'auto' }
@@ -22,6 +22,9 @@ function Orders({ shopID }) {
     const { shopData } = shopID;
     const currency = shopData.shopDetails.paymentData.checkoutInfo.currency
     const contents = shopData.shopSales.activeOrders;
+    const usersList = shopData.shopAccounts
+
+    function findUser(email){return usersList.find((user) => user.email === email)}
 
     const [activeOrders, setActiveOrders] = useState(contents)
 
@@ -53,6 +56,18 @@ function Orders({ shopID }) {
         setSetEdit(!SetEdit);
     }
 
+    const [SetUser, setUser] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
+    const handleSetUser = (user) => {
+        let chosenUser = findUser(user.email)
+        setSelectedUser(chosenUser);
+        setUser(!SetUser);
+      };
+
+    const userClose = () => {
+        setUser(!SetUser);
+    }
+
     function sorter() {
         activeOrders.map((order, index) => {
             if (index % 2 === 0) {
@@ -64,8 +79,6 @@ function Orders({ shopID }) {
     }
 
     sorter()
-
-    // console.log(col1, col2)
 
     function formatDateTime(dateTimeString) {
         const dateTime = new Date(dateTimeString);
@@ -129,8 +142,6 @@ function Orders({ shopID }) {
         updatedOrder[0].order = changedOrder;
         updatedOrder[0].status = "edited";
         updatedOrder[0].ownerMessage = message
-
-        console.log(updatedOrder)
     }
 
     if (contents.length > 0) {
@@ -141,6 +152,7 @@ function Orders({ shopID }) {
                     <link rel="icon" type="image/jpeg" href={favicon} />
                 </Head>
                 <EditOrder modalStatus={SetEdit} order={selectedOrder} disable={editClose} change={changeOrder} categories={shopCategories} currency = {currency}></EditOrder>
+                <UserProfile modalStatus={SetUser} user={selectedUser} disable={userClose} currency = {currency} martCoords={shopData.shopDetails.footerData.shopCoords}></UserProfile>
                 <span className="page-heading">
                     <div className="heading-icon-dropshadow">
                         <div className="heading-icon-ongoing svg-color">&nbsp;</div>
@@ -159,7 +171,7 @@ function Orders({ shopID }) {
                                                 <div className={ExpandedOrders.includes(order.id) ? "heading-icon-chevron svg-color rotater transitionAll" : "heading-icon-chevron svg-color transitionAll"}>&nbsp;</div>
                                             </button>
                                             <div className="text-sec-profile svg-tertiary" >&nbsp;</div>
-                                            <h2 className="heading-secondary">&nbsp;{order.user.profile.last}, {order.user.profile.first} -&nbsp;</h2> <div className="text-sec-mail svg-tertiary">&nbsp;</div> <h2 className="heading-secondary">&nbsp;{order.user.email}</h2>
+                                            <h2 className="heading-secondary">&nbsp;{order.user.profile.last}, {order.user.profile.first}</h2>
                                         </div>
 
                                         <h2 className="heading-secondary">{order.id}</h2>
@@ -186,7 +198,7 @@ function Orders({ shopID }) {
                                         variants={SlideHeight}>
                                         
                                         <div className="order-button-grid dark-underline" style={{ margin: "1rem 0", paddingBottom:"1rem" }}>
-                                            <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }}>User Data</button>
+                                            <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetUser(order.user)}>User Data</button>
                                             <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetEdit(order)}>Edit Order</button>
 
                                             <button className="product-action-3 white heading-secondary" style={{ width: "18rem", margin: "0" }}>Refuse Order</button>
@@ -246,11 +258,11 @@ function Orders({ shopID }) {
                                 <div className="round-borderer round-borderer-extra order-item" key={order.id}>
                                     <div className="flex-row flex-centered" style={{ justifyContent: "space-between", marginBottom: "1rem" }} >
                                         <div className="flex-row-spaceless flex-centered" onClick={() => toggleExpand(order.id)}>
-                                            <button className="order-toggle" onClick={() => toggleExpand(order.id)}>
+                                            <button className="order-toggle">
                                                 <div className={ExpandedOrders.includes(order.id) ? "heading-icon-chevron svg-color rotater transitionAll" : "heading-icon-chevron svg-color transitionAll"}>&nbsp;</div>
                                             </button>
-                                            <div className="text-sec-profile svg-tertiary">&nbsp;</div>
-                                            <h2 className="heading-secondary">&nbsp;{order.user.profile.last}, {order.user.profile.first} -&nbsp;</h2> <div className="text-sec-mail svg-tertiary">&nbsp;</div> <h2 className="heading-secondary">&nbsp;{order.user.email}</h2>
+                                            <div className="text-sec-profile svg-tertiary" >&nbsp;</div>
+                                            <h2 className="heading-secondary">&nbsp;{order.user.profile.last}, {order.user.profile.first}</h2>
                                         </div>
 
                                         <h2 className="heading-secondary">{order.id}</h2>
@@ -277,7 +289,7 @@ function Orders({ shopID }) {
                                         variants={SlideHeight}>
                                         
                                         <div className="order-button-grid dark-underline" style={{ margin: "1rem 0", paddingBottom:"1rem" }}>
-                                            <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }}>User Data</button>
+                                            <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetUser(order.user)}>User Data</button>
                                             <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetEdit(order)}>Edit Order</button>
 
                                             <button className="product-action-3 white heading-secondary" style={{ width: "18rem", margin: "0" }}>Refuse Order</button>

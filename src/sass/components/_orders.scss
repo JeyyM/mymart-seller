@@ -3,6 +3,11 @@
     margin-left: 1rem;
   }
 
+  .heading-icon-profile {
+    @include heading-logo(profile, 4rem, 4rem);
+    margin-left: 1rem;
+  }
+
   .text-sec-profile {
     @include heading-logo(profile, 3rem, 3rem);
   }
@@ -143,4 +148,46 @@
     align-items: center;
     padding: 1rem;
     gap: 1rem;
+  }
+
+  .user-data-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    transition: all 0.2s;
+  }
+
+  .text-sec-name {
+    @include heading-logo(name, 3rem, 3rem);
+  }
+
+  .text-sec-phone {
+    @include heading-logo(phone, 3rem, 3rem);
+  }
+
+  .text-ter-cake {
+    @include heading-logo(cake, 2rem, 2rem);
+  }
+
+  .text-ter-gender1 {
+    @include heading-logo(gender1, 2rem, 2rem);
+  }
+  .text-ter-gender2 {
+    @include heading-logo(gender2, 2rem, 2rem);
+  }
+  .text-ter-gender3 {
+    @include heading-logo(gender3, 2rem, 2rem);
+  }
+
+  .text-ter-occupation {
+    @include heading-logo(occupation, 2rem, 2rem);
+  }
+
+  .text-ter-company {
+    @include heading-logo(company, 2rem, 2rem);
+  }
+
+  .text-ter-pin {
+    @include heading-logo(pin, 2rem, 2rem);
   }

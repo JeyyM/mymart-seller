@@ -107,6 +107,11 @@ function ProductPage({ shopID }) {
     }
   };
 
+  const [profitValue, setProfitValue] = useState(variationsList[varState].productProfit);
+  const handleProfitChange = (event) => {
+      setProfitValue(event.target.value);
+  };
+
   const [stockAmount, setStockAmount] = useState(variationsList[varState].productStock.stockAmount);
   const handleStockAmount = (event) => {
     if (event.target.value.length < 9) {
@@ -131,6 +136,16 @@ function ProductPage({ shopID }) {
   function minusPrice() {
     if (priceValue > 0) {
       setPriceValue(parseInt(priceValue) - 1)
+    }
+  }
+
+  function addProfit() {
+    setPriceValue(parseInt(profitValue) + 1)
+  }
+
+  function minusProfit() {
+    if (profitValue > 0) {
+      setProfitValue(parseInt(profitValue) - 1)
     }
   }
 
@@ -194,6 +209,7 @@ function ProductPage({ shopID }) {
     img: true,
     desc: true,
     price: true,
+    profit: true,
     amount: true,
     unit: true,
     images: true,
@@ -209,8 +225,11 @@ function ProductPage({ shopID }) {
   const descClasses = `${formInputValidity.desc ? "desc-text-area" : "invalid-form-box"
     }`;
 
-  const priceClasses = `${formInputValidity.price ? "text-small input-number shortener-25" : "invalid-form-2 shortener-25"
+  const priceClasses = `${formInputValidity.price ? "text-small input-number" : "invalid-form-2"
     }`;
+
+  const profitClasses = `${formInputValidity.profit ? "text-small input-number" : "invalid-form-2"
+  }`;
 
   const amountClasses = `${formInputValidity.amount ? "text-small input-number" : "invalid-form-2"
     }`;
@@ -226,6 +245,7 @@ function ProductPage({ shopID }) {
     setImgValue3(variationsList[varState].productImages[2])
     setImgValue4(variationsList[varState].productImages[3])
     setPriceValue(variationsList[varState].productPrice)
+    setPriceValue(variationsList[varState].productProfit)
     setStockAmount(variationsList[varState].productStock.stockAmount)
     setStockUnit(variationsList[varState].productStock.stockUnit)
 
@@ -238,6 +258,7 @@ function ProductPage({ shopID }) {
       img: true,
       desc: true,
       price: true,
+      profit: true,
       amount: true,
       unit: true,
       images: true,
@@ -331,17 +352,19 @@ function ProductPage({ shopID }) {
     if (encodeURIComponent(nameValue.toUpperCase()) === encodeURIComponent(variationsList[varState].productName.toUpperCase())) { nameExist = false; nameValid = true }
     const descValid = descValue !== ""
     const priceValid = priceValue !== "" && priceValue >= 0
+    const profitValid = profitValue !== ""
     const amountValid = stockAmount !== "" && stockAmount >= 0
     const unitValid = stockUnit !== ""
     const imgValid = givenImages.length > 0
 
-    const submissionValid = nameValid && imgValid && descValid && priceValid && unitValid && amountValid && imgValid && !nameExist
+    const submissionValid = nameValid && imgValid && descValid && priceValid && profitValid && unitValid && amountValid && imgValid && !nameExist
 
     setFormInputValidity({
       name: nameValid,
       img: imgValid,
       desc: descValid,
       price: priceValid,
+      profit: profitValid,
       amount: amountValid,
       unit: unitValid,
       images: imgValid,
@@ -352,6 +375,7 @@ function ProductPage({ shopID }) {
       productName: nameValue,
       productDescription: descValue,
       productPrice: priceValue,
+      productProfit: profitValue,
       productStock: { stockAmount: stockAmount, stockUnit: stockUnit },
       productImages: givenImages.map((imageObject) => imageObject.image),
       active: activeValue
@@ -486,14 +510,29 @@ function ProductPage({ shopID }) {
             <label className="heading-secondary product-currency">{shopCurrency}</label>
             <div className="flex-col">
               <div className="add-buttons flex-row-spaceless">
-                <button type="button" className="minus-button" onClick={minusPrice}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
+
+              <div className="flex-col">
+              <div className="add-buttons flex-row-spaceless">
+              <button type="button" className="minus-button" onClick={minusPrice}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
                 <input type="number" value={priceValue} className={priceClasses} placeholder="Price" required id='price' onChange={handlePriceChange} style={{ borderRadius: "0", margin: "0" }}></input>
-                <button type="button" onClick={addPrice} className="add-button svg-color"><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
+                <button type="button" onClick={addPrice} className="add-button svg-color" style={{marginRight:"1rem"}}><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
+              </div>
+              {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}
+            </div>
+
+            <div className="flex-col">
+              <div className="add-buttons flex-row-spaceless">
+              <button type="button" className="minus-button" onClick={minusProfit}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
+                <input type="number" value={profitValue} className={profitClasses} placeholder="Profit" required id='profit' onChange={handleProfitChange} style={{ borderRadius: "0", margin: "0" }}></input>
+                <button type="button" onClick={addProfit} className="add-button svg-color"><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
+              </div>
+              {formInputValidity.profit ? <label className="form-label">Profit</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid profit</label>}
+            </div>
+
                 <div className="flex-row-align">
                 <h1 className="heading-secondary" style={{marginLeft:"2rem"}}>Active:</h1> <div style={{transform:"translateY(-1rem) "}}><input checked={activeValue} onChange={handleActive} type="checkbox" id="switch" className="toggle-switch" /><label htmlFor="switch" className="toggle-label">Toggle</label></div>
                 </div>
               </div>
-              {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}
             </div>
           </div>
 

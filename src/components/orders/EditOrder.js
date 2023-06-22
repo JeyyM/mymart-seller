@@ -69,19 +69,10 @@ function EditOrder(props) {
 
         variationList = categoryProducts.flatMap((prod) => prod.variations.flatMap((prod) => prod.productName))
         setVarOptions([...variationList])
-        console.log(variationList)
         setSelectedProducts(variationList[0])
     }, [selectedCateg])
 
     const [varOptions, setVarOptions] = useState([variationList])
-
-    useEffect(() => {
-        console.log("everyrging",
-        selectedCateg,
-        selectedProducts,
-        varOptions,
-        )
-    }, [selectedCateg, selectedProducts, props.modalStatus])
 
     const selectProd = (event) => {
         setSelectedProducts(event.target.value)
@@ -159,7 +150,6 @@ function EditOrder(props) {
             return
         } else {
             let newItem = findItem(category, varName)
-            console.log(newItem)
             let schema = {
                 name: newItem.productName,
                 description: newItem.productDescription,

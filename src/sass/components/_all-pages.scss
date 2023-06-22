@@ -269,3 +269,12 @@ input[type=number].shortener-25{
 .transitionAll{
   transition: all 0.2s;
 }
+
+.grid-col-2{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.margin-side{
+  margin: 0 auto;
+}

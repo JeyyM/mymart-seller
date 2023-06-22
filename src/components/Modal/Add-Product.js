@@ -105,6 +105,11 @@ function AddProduct(props) {
     }
   };
 
+  const [profitValue, setProfitValue] = useState("");
+  const handleProfitChange = (event) => {
+      setProfitValue(event.target.value);
+  };
+
   const [stockAmount, setStockAmount] = useState("");
   const handleStockAmount = (event) => {
     if (event.target.value.length < 9) {
@@ -136,6 +141,7 @@ function AddProduct(props) {
     img: true,
     desc: true,
     price: true,
+    profit: true,
     amount: true,
     unit: true,
     images: true,
@@ -184,17 +190,19 @@ function AddProduct(props) {
     // nameValid = nameValue.trim() !== ""
     const descValid = descValue !== ""
     const priceValid = priceValue !== "" && priceValue >= 0
+    const profitValid = profitValue !== ""
     const amountValid = stockAmount !== "" && stockAmount >= 0
     const unitValid = stockUnit !== ""
     const imgValid = givenImages.length > 0
 
-    const submissionValid = nameValid && imgValid && descValid && priceValid && unitValid && amountValid && imgValid && !nameExist
+    const submissionValid = nameValid && imgValid && descValid && priceValid && profitValid && unitValid && amountValid && imgValid && !nameExist
 
     setFormInputValidity({
       name: nameValid,
       img: imgValid,
       desc: descValid,
       price: priceValid,
+      profit: profitValid,
       amount: amountValid,
       unit: unitValid,
       images: imgValid,
@@ -205,6 +213,7 @@ function AddProduct(props) {
       productName: nameValue,
       productDescription: descValue,
       productPrice: priceValue,
+      productProfit: profitValue,
       productStock: { stockAmount: stockAmount, stockUnit: stockUnit },
       productImages: givenImages.map((imageObject) => imageObject.image),
       active: true,
@@ -236,6 +245,9 @@ function AddProduct(props) {
 
   const priceClasses = `${formInputValidity.price ? "text-small input-number" : "invalid-form-2"
     }`;
+
+  const profitClasses = `${formInputValidity.profit ? "text-small input-number" : "invalid-form-2"
+  }`;
 
   const amountClasses = `${formInputValidity.amount ? "text-small input-number" : "invalid-form-2"
     }`;
@@ -275,6 +287,7 @@ function AddProduct(props) {
         img: true,
         desc: true,
         price: true,
+        profit: true,
         amount: true,
         unit: true,
         images: true,
@@ -412,15 +425,19 @@ function AddProduct(props) {
                   <label className="heading-secondary product-currency">{props.currency}</label>
                   <div>
                     <input type="number" className={priceClasses} placeholder="Price" autoComplete="off" id='price' value={priceValue} onChange={handlePriceChange}></input>
-                    {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}
+                    {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid price</label>}
+                  </div>
+                  <div>
+                    <input type="number" className={profitClasses} placeholder="Profit" autoComplete="off" id='profit' value={profitValue} onChange={handleProfitChange}></input>
+                    {formInputValidity.profit ? <label className="form-label">Profit</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid profit</label>}
                   </div>
                   <div>
                     <input type="number" className={amountClasses} placeholder="Stock Amount" autoComplete="off" id='amount' value={stockAmount} onChange={handleStockAmount}></input>
-                    {formInputValidity.amount ? <label className="form-label">Stock Amount</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid stock amount</label>}
+                    {formInputValidity.amount ? <label className="form-label">Stock Amount</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid stock</label>}
                   </div>
                   <div>
                     <input type="text" className={unitClasses} placeholder="Stock Unit" autoComplete="off" id='unit' value={stockUnit} onChange={handleStockUnit}></input>
-                    {formInputValidity.unit ? <label className="form-label">Stock Unit</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid stock unit</label>}
+                    {formInputValidity.unit ? <label className="form-label">Stock Unit</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid unit</label>}
                   </div>
                 </div>
 
