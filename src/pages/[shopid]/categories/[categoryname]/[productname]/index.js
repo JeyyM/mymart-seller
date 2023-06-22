@@ -245,7 +245,7 @@ function ProductPage({ shopID }) {
     setImgValue3(variationsList[varState].productImages[2])
     setImgValue4(variationsList[varState].productImages[3])
     setPriceValue(variationsList[varState].productPrice)
-    setPriceValue(variationsList[varState].productProfit)
+    setProfitValue(variationsList[varState].productProfit)
     setStockAmount(variationsList[varState].productStock.stockAmount)
     setStockUnit(variationsList[varState].productStock.stockUnit)
 
