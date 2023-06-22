@@ -7,7 +7,7 @@ import { GoogleMap, useLoadScript, DirectionsService, DirectionsRenderer, Marker
 
 const libraries = ['places'];
 
-function UserProfile(props) {
+function RefuseOrder(props) {
     const router = useRouter()
     const appear = {
         hidden: {
@@ -160,7 +160,7 @@ function UserProfile(props) {
 
                                     <div className="user-data-col">
                                         <div className="flex-row">
-                                            <div className="text-ter-pin svg-tertiary">&nbsp;</div><h2 className="heading-tertiary">{props.user.location} ({getTravelTime()}) away</h2>
+                                            <div className="text-ter-pin svg-tertiary">&nbsp;</div><h2 className="heading-tertiary">{props.user.location} <span style={{fontWeight:"900"}}>({getTravelTime()}) away.</span></h2>
                                         </div>
 
                                         <GoogleMap
@@ -201,4 +201,4 @@ function UserProfile(props) {
     }
 }
 
-export default UserProfile;
+export default RefuseOrder;

@@ -11,6 +11,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Link from "next/link";
 import EditOrder from "@/components/orders/EditOrder";
 import UserProfile from "@/components/orders/UserProfile";
+import RefuseOrder from "@/components/orders/RefuseOrder";
 
 function Orders({ shopID }) {
     const router = useRouter();
@@ -56,16 +57,28 @@ function Orders({ shopID }) {
         setSetEdit(!SetEdit);
     }
 
-    const [SetUser, setUser] = useState(false);
+    const [SetUser, setUserModal] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const handleSetUser = (user) => {
         let chosenUser = findUser(user.email)
         setSelectedUser(chosenUser);
-        setUser(!SetUser);
+        setUserModal(!SetUser);
       };
 
     const userClose = () => {
-        setUser(!SetUser);
+        setUserModal(!SetUser);
+    }
+
+    const [refuse, setRefuseModal] = useState(false);
+    const handleSetRefuse = (order) => {
+        setSelectedOrder(order);
+        let chosenUser = findUser(order.user.email)
+        setSelectedUser(chosenUser);
+        setRefuseModal(!refuse);
+      };
+
+    const refuseClose = () => {
+        setRefuseModal(!refuse);
     }
 
     function sorter() {
@@ -144,6 +157,17 @@ function Orders({ shopID }) {
         updatedOrder[0].ownerMessage = message
     }
 
+    function refuseOrder(id, message){
+        let updatedOrder = activeOrders.filter((item) => item.id === id)
+        updatedOrder[0].status = "refused";
+        updatedOrder[0].ownerMessage = message
+
+        let filteredCurrentOrder = activeOrders.filter((order) => order.id !== id)
+        setActiveOrders(filteredCurrentOrder)
+    }
+
+    console.log(activeOrders)
+
     if (contents.length > 0) {
         return (
             <Fragment>
@@ -153,6 +177,7 @@ function Orders({ shopID }) {
                 </Head>
                 <EditOrder modalStatus={SetEdit} order={selectedOrder} disable={editClose} change={changeOrder} categories={shopCategories} currency = {currency}></EditOrder>
                 <UserProfile modalStatus={SetUser} user={selectedUser} disable={userClose} currency = {currency} martCoords={shopData.shopDetails.footerData.shopCoords}></UserProfile>
+                <RefuseOrder modalStatus={refuse} user={selectedUser} disable={refuseClose} change={refuseOrder} currency = {currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder}></RefuseOrder>
                 <span className="page-heading">
                     <div className="heading-icon-dropshadow">
                         <div className="heading-icon-ongoing svg-color">&nbsp;</div>
@@ -165,8 +190,8 @@ function Orders({ shopID }) {
                         {
                             col1.map((order) => (
                                 <div className="round-borderer round-borderer-extra order-item" key={order.id}>
-                                    <div className="flex-row flex-centered" style={{ justifyContent: "space-between", marginBottom: "1rem" }} >
-                                        <div className="flex-row-spaceless flex-centered" onClick={() => toggleExpand(order.id)}>
+                                    <div className="flex-row flex-centered" style={{ justifyContent: "space-between", marginBottom: "1rem", cursor:"pointer" }} onClick={() => toggleExpand(order.id)}>
+                                        <div className="flex-row-spaceless flex-centered">
                                             <button className="order-toggle">
                                                 <div className={ExpandedOrders.includes(order.id) ? "heading-icon-chevron svg-color rotater transitionAll" : "heading-icon-chevron svg-color transitionAll"}>&nbsp;</div>
                                             </button>
@@ -201,7 +226,7 @@ function Orders({ shopID }) {
                                             <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetUser(order.user)}>User Data</button>
                                             <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetEdit(order)}>Edit Order</button>
 
-                                            <button className="product-action-3 white heading-secondary" style={{ width: "18rem", margin: "0" }}>Refuse Order</button>
+                                            <button className="product-action-3 white heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetRefuse(order)}>Refuse Order</button>
                                             <button className="product-action-2 heading-secondary" style={{ width: "18.5rem", margin: "0" }}>Approve Order</button>
                                         </div>
 
