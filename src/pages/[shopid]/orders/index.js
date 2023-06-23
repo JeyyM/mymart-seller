@@ -29,7 +29,7 @@ function Orders({ shopID }) {
 
     const [activeOrders, setActiveOrders] = useState(contents)
 
-    const shopCategories = shopData.shopCategories
+    const [shopCategories, setShopCategories] = useState(shopData.shopCategories)
 
     const favicon = shopData.shopDetails.imageData.icons.icon
 
@@ -150,11 +150,43 @@ function Orders({ shopID }) {
         setActiveOrders(newOrders)
     }
 
-    function changeOrder(changedOrder, id, message){
+    function changeOrder(changedOrder, id, message, final){
         let updatedOrder = activeOrders.filter((item) => item.id === id)
         updatedOrder[0].order = changedOrder;
         updatedOrder[0].status = "edited";
         updatedOrder[0].ownerMessage = message
+
+        const newStocks = final.map((prod) => {
+            const originalStocks = findItem(prod.category, prod.name)
+            const newData = {
+                ...originalStocks,
+                productStock: {
+                  ...originalStocks.productStock,
+                  stockAmount: originalStocks.productStock.stockAmount - prod.cartValue
+                }
+              };
+
+            const categId = shopCategories.findIndex(category => category.categoryName === prod.category);
+
+            const productId = shopCategories[categId].categoryProducts.findIndex(
+                (product) => product.variations.some((variation) => variation.productName === prod.name)
+              );
+
+            const variationId = shopCategories[categId].categoryProducts[productId].variations.findIndex(
+                (variation) => variation.productName === prod.name
+              );
+
+              const updatedShopCategoryAmount = [...shopCategories]
+              updatedShopCategoryAmount[categId].categoryProducts[productId].variations[variationId].productStock.stockAmount = newData.productStock.stockAmount;
+              setShopCategories(updatedShopCategoryAmount)
+
+            return newData
+        })
+
+        console.log (newStocks)
+        console.log(shopCategories)
+
+
     }
 
     function refuseOrder(id, message){
@@ -165,8 +197,6 @@ function Orders({ shopID }) {
         let filteredCurrentOrder = activeOrders.filter((order) => order.id !== id)
         setActiveOrders(filteredCurrentOrder)
     }
-
-    console.log(activeOrders)
 
     if (contents.length > 0) {
         return (

@@ -29,9 +29,11 @@ function EditOrder(props) {
         },
     };
     let newOrder = {}
+    let originalOrder = {}
 
     if (props.order !== null) {
         newOrder = cloneDeep(props.order.order);
+        originalOrder = cloneDeep(props.order.order);
     }
 
     let variationList = []
@@ -87,7 +89,44 @@ function EditOrder(props) {
     }
 
     function confirm() {
-        props.change(currentOrder, props.order.id, ownerMessage)
+        const newArrivals = currentOrder.filter((item) => {
+            const found = originalOrder.find((originalItem) => originalItem.name === item.name && originalItem.category === item.category);
+            return !found;
+          });
+
+          const removedItems = originalOrder.filter((item) => {
+            return !currentOrder.some((remove) => remove.name === item.name && remove.category === item.category);
+          });
+
+          const modifiedRemove = removedItems.map((item) => {
+            return {
+              ...item,
+              cartValue: item.cartValue * -1
+            };
+          });
+
+          const remainingItems = originalOrder.filter((item) => {
+            return currentOrder.some((remaining) => remaining.name === item.name && remaining.category === item.category);
+          });
+
+          const modifiedRemaining = remainingItems.map((item) => {
+            const newItem = currentOrder.find((newItem) => newItem.name === item.name);
+            return {
+              ...item,
+              cartValue:  newItem.cartValue - item.cartValue
+            };
+          });
+
+
+
+        // console.log("new arrivals", newArrivals)
+        // console.log("-remove", modifiedRemove)
+        // console.log("+remainig", modifiedRemaining)
+
+        const finalSetup = [...newArrivals, ...modifiedRemove, ...modifiedRemaining];
+
+        props.change(currentOrder, props.order.id, ownerMessage, finalSetup)
+
         props.disable()
     }
 
@@ -196,6 +235,8 @@ function EditOrder(props) {
                                     </div>
                                 </span>
 
+                                <h3 className="heading-tertiary" style={{margin:"1rem 0"}}>Edits will be applied upon confirming. It cannot be undone. Customers will be notified of edits.</h3>
+
                                 <div className="dark-underline" style={{ marginBottom: "1rem", paddingBottom: "1rem" }}>
                                     <h2 className="heading-secondary">Add Products</h2>
                                     <div className="flex-row flex-centered" style={{ margin: "1rem 0", justifyContent: "center", gap: "2rem" }}>
@@ -238,9 +279,9 @@ function EditOrder(props) {
                                             <div className="flex-row-spaceless" style={{ alignItems: "center", width: "100%" }}>
 
                                                 <div className="add-buttons flex-row-spaceless" style={{ width: "16rem", marginRight: "1rem" }}>
-                                                    <button type="button" className="minus-button"><div className="heading-icon-minus-act svg-color" onClick={() => updateCartItem(index, -1, item)}>&nbsp;</div></button>
+                                                    <button type="button" className="minus-button" onClick={() => updateCartItem(index, -1, item)}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
                                                     <input type="number" className="text-small input-number" placeholder="Amount" style={{ borderRadius: "0", margin: "0", width: "8rem" }} value={item.cartValue} onChange={(e) => updateCartInput(index, parseInt(e.target.value) - item.cartValue, item)}></input>
-                                                    <button type="button" className="add-button svg-color"><div className="heading-icon-plus-act svg-decolor" onClick={() => updateCartItem(index, 1, item)}>&nbsp;</div></button>
+                                                    <button type="button" className="add-button svg-color" onClick={() => updateCartItem(index, 1, item)}><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
                                                 </div>
 
                                                 <img className="order-img round-borderer" src={item.image}></img>
