@@ -57,6 +57,8 @@ export default function App({ Component, pageProps }) {
   let accountsList = []
   let currentAcc;
   let chosenAccount;
+  let martCategories = {}
+
 
   if (pageProps.shopID) {
     const authStorageKey = `auth_${shopid}`;
@@ -66,6 +68,7 @@ export default function App({ Component, pageProps }) {
     details = pageProps.shopID.shopData.shopDetails.footerData
     martCurrency = pageProps.shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
     accountsList = pageProps.shopID.shopData.shopAccounts
+    martCategories = pageProps.shopID.shopData.shopCategories
     
     if (typeof window !== 'undefined') {
       currentAcc = JSON.parse(localStorage.getItem(authStorageKey) || null);
@@ -102,7 +105,7 @@ export default function App({ Component, pageProps }) {
   
     return<LocalizationProvider dateAdapter={AdapterDayjs}>
     <MyProvider>
-    <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo} curr={martCurrency} user={chosenAccount}>
+    <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo} curr={martCurrency} user={chosenAccount} martCateg={martCategories}>
     <Component {...pageProps} user={chosenAccount}/>
     </NavbarLayout>
     </MyProvider>

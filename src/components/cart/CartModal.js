@@ -12,6 +12,23 @@ function CartModal(props) {
   const localStorageKey = `mart_${router.query.shopid}`;
   const { handleIncrement } = useContext(MyContext);
 
+  const shopCategories = props.categs
+  
+  function findItem(category, varName) {
+    let chosenCateg = shopCategories.find((categ) => categ.categoryName === category)
+
+    if (chosenCateg) {
+        let chosenVariation = chosenCateg.categoryProducts.flatMap((prod) => prod.variations).find((variation) => variation.productName === varName);
+        if (chosenVariation) {
+            return chosenVariation
+        } else {
+            return 
+        }
+    } else {
+        return
+    }
+}
+
   const appear = {
     hidden: {
       transform: "scale(0)",
@@ -90,18 +107,19 @@ function CartModal(props) {
 
   const updateCartItem = (index, amount, select) => {
     const updatedData = [...parsedData];
+    const chosenProduct = findItem(select.category, select.name)
 
     if (amount === 1) {
-      if (parseInt(updatedData[index].cartValue) < parseInt(select.amount)) {
-        updatedData[index].cartValue = parseInt(updatedData[index].cartValue) + parseInt(amount);
-      } else {
-        updatedData[index].cartValue = parseInt(select.amount);
-      }
+        if (parseInt(updatedData[index].cartValue) < parseInt(typeof chosenProduct === "object" ? chosenProduct.productStock.stockAmount : 0)) {
+            updatedData[index].cartValue = parseInt(updatedData[index].cartValue) + parseInt(amount);
+        } else {
+            updatedData[index].cartValue = parseInt(typeof chosenProduct === "object" ? chosenProduct.productStock.stockAmount : 0);
+        }
     } else if (amount === -1) {
-      updatedData[index].cartValue = parseInt(updatedData[index].cartValue) + parseInt(amount);
-      if (updatedData[index].cartValue === 0 || updatedData[index].cartValue < 0) {
-        updatedData.splice(index, 1);
-      }
+        updatedData[index].cartValue = parseInt(updatedData[index].cartValue) + parseInt(amount);
+        if (updatedData[index].cartValue === 0 || updatedData[index].cartValue < 0) {
+            updatedData.splice(index, 1);
+        }
 
     }
 
@@ -110,28 +128,33 @@ function CartModal(props) {
     handleIncrement();
 
     if (props.user !== undefined) {
-      updateData()
+        updateData()
     }
-  };
+};
 
 
-  const updateCartInput = (index, amount, select) => {
-    const updatedData = [...parsedData];
-    const item = updatedData[index];
-    const newCartValue = parseInt(select.cartValue) + parseInt(amount);
+const updateCartInput = (index, amount, select) => {
+  const updatedData = [...parsedData];
+  const item = updatedData[index];
+  const newCartValue = parseInt(select.cartValue) + parseInt(amount);
+  const chosenProduct = findItem(select.category, select.name)
 
-    let chosenCartValue = newCartValue <= select.amount ? newCartValue : select.amount;
+  let stockInput = 0
 
-    if (isNaN(amount)) {
+  if (typeof chosenProduct === "object"){stockInput = chosenProduct.productStock.stockAmount}
+
+  let chosenCartValue = newCartValue <= stockInput ? newCartValue : stockInput;
+
+  if (isNaN(amount)) {
       chosenCartValue = "0";
-    }
+  }
 
-    item.cartValue = parseInt(chosenCartValue);
+  item.cartValue = parseInt(chosenCartValue);
 
-    localStorage.setItem(localStorageKey, JSON.stringify(updatedData));
-    setParsedData(updatedData);
-    handleIncrement()
-  };
+  localStorage.setItem(localStorageKey, JSON.stringify(updatedData));
+  setParsedData(updatedData);
+  handleIncrement()
+};
 
 
   const calculateTotal = () => {
@@ -198,9 +221,9 @@ function CartModal(props) {
                       <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Price: {props.currency} {item.price} / {item.unit}</h2>
 
                       <div className="add-buttons flex-row-spaceless" style={{ width: "20rem" }}>
-                        <button type="button" className="minus-button"><div className="heading-icon-minus-act svg-color" onClick={() => updateCartItem(index, -1, item)}>&nbsp;</div></button>
+                        <button type="button" className="minus-button" onClick={() => updateCartItem(index, -1, item)}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
                         <input type="number" className="text-small input-number" placeholder="Amount" style={{ borderRadius: "0", margin: "0" }} value={item.cartValue} onChange={(e) => updateCartInput(index, parseInt(e.target.value) - item.cartValue, item)}></input>
-                        <button type="button" className="add-button svg-color"><div className="heading-icon-plus-act svg-decolor" onClick={() => updateCartItem(index, 1, item)}>&nbsp;</div></button>
+                        <button type="button" className="add-button svg-color" onClick={() => updateCartItem(index, 1, item)}><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
                       </div>
                     </div>
                   </div>

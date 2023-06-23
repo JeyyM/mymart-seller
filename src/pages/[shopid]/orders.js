@@ -1,18 +1,19 @@
 import { Fragment, useState } from "react";
 import { useRouter } from "next/router";
-import AddCategory from "@/components/Modal/Add-Category";
 import Head from "next/head";
 import { AnimatePresence, motion } from "framer-motion";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Category from "@/components/category/Category";
 import { getServerSideProps } from "../_app";
+import Ongoing from "@/components/orders/OrderOngoing";
 
 function Orders({ shopID }) {
   const router = useRouter();
 
   const { shopData } = shopID;
+  const activeOrders = shopData.shopSales.activeOrders
+
   const contents = shopData.shopCategories;
 
   const activeContents = contents.filter((categ) => categ.active === true)
@@ -26,22 +27,8 @@ function Orders({ shopID }) {
   const favicon = shopData.shopDetails.imageData.icons.icon
 
   const categNamesList = Object.keys(filteredContents).map(key => (encodeURIComponent(filteredContents[key].categoryName)))
-  const upperCategNames = categNamesList.map(name => name.toUpperCase());
 
   const categoryAmount = Object.keys(shopID.shopData.shopCategories).length
-
-  const [addCateg, setAddCateg] = useState(false)
-  const [defaultValues, setDefaultValues] = useState(["", "", "", 0, true])
-
-  function addCategHandler(event) {
-    event.preventDefault()
-    event.stopPropagation()
-    setAddCateg(!addCateg)
-  }
-
-  function editCategHandler(data) {
-    setDefaultValues([data[0], data[1], data[2], data[3], data[4]])
-  }
 
   const totalItems = filteredContents.length;
   const itemsPerSlide = 12;
@@ -94,7 +81,7 @@ function Orders({ shopID }) {
 
                     return (
                       <div className="warning-container" key={relativeIndex}>
-                        <Category
+                        {/* <Ongoing
                           index={index}
                           items={categ}
                           id={router.query.shopid}
@@ -102,7 +89,7 @@ function Orders({ shopID }) {
                           state={addCateg}
                           edit={addCategHandler}
                           edit2={editCategHandler}
-                        ></Category>
+                        ></Ongoing> */}
                       </div>
                     );
                   })}

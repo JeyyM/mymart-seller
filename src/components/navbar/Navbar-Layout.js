@@ -208,12 +208,12 @@ color: ${props.color["button-outline-text"]} !important;
 }
 
 .add-categ-init:focus, .add-prod-init:focus, .categ-modal, .confirm-modal, .set-container, .text-full, input[type="text"].text-full:focus, .desc-text-area, input[type="text"].desc-text-area:focus, .text-small, .invalid-form, .invalid-form-2, .invalid-form-box, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer-extra{
-    box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]}, 0 0 0 2px ${props.color["color-primary-dark"]},
+    box-shadow: inset 0 0 0 2.2rem ${props.color["bg-item"]}, 0 0 0 2px ${props.color["color-primary-dark"]},
     0 0 0 4px ${props.color["bg-item"]} !important;
 }
 
 .white-input, .white-input.text-small{
-box-shadow: inset 0 0 0 2rem white, 0 0 0 2px ${props.color["color-primary-dark"]},
+box-shadow: inset 0 0 0 2.2rem white, 0 0 0 2px ${props.color["color-primary-dark"]},
     0 0 0 4px ${props.color["bg-item"]} !important;
     background-image: linear-gradient(white, white),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
@@ -224,7 +224,7 @@ box-shadow: inset 0 0 0 2rem white, 0 0 0 2px ${props.color["color-primary-dark"
     linear-gradient(to right, red, darkred) !important;
 }
 
-.text-options {box-shadow: inset 0 0 0 2rem white, 0 0 0 2px ${props.color["color-primary-dark"]},
+.text-options {box-shadow: inset 0 0 0 2.2rem white, 0 0 0 2px ${props.color["color-primary-dark"]},
     0 0 0 4px ${props.color["bg-item"]} !important;
 }
 
@@ -286,7 +286,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 .product-action-1{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["button-outline-dark"]}, ${props.color["button-outline-light"]} ) !important;
-    box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;
+    box-shadow: inset 0 0 0 2.2rem ${props.color["bg-item"]} !important;
     color: ${props.color["button-outline-text"]} !important;
 }
 
@@ -347,7 +347,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 .item-setup, .images-column, .pop-up-prev, .pop-up-img, .checkout-column{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
-    box-shadow: inset 0 0 0 2rem ${props.color["bg-item"]} !important;
+    box-shadow: inset 0 0 0 2.2rem ${props.color["bg-item"]} !important;
 }
 
 .svg-down, .slick-dot.active {background-image: linear-gradient(
@@ -405,7 +405,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
             </Head>
 
             <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} cartOpen={CartHandler} user={props.user} />
-            <CartModal modalStatus={CartStatus} cartOpen={CartHandler} currency={props.curr} user={props.user}></CartModal>
+            <CartModal modalStatus={CartStatus} cartOpen={CartHandler} currency={props.curr} user={props.user} categs={props.martCateg}></CartModal>
             <div>{props.children}</div>
             {router.asPath !== `/${id}/mart/details` && router.asPath !== "/" ? <Footer details={props.contents} address={props.address}></Footer> : <Fragment></Fragment>}
 

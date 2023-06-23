@@ -34,7 +34,6 @@ function HomepageButtonBlank(props) {
         className={`homepage-button ${props.item} bg-gradient-${props.direction} x`}
         href={{
           pathname: `/${shopId}/${props.direction}`,
-          query: { shopid: shopId },
         }}
         aria-label={props.label}
       >

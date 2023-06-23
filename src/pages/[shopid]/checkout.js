@@ -23,6 +23,23 @@ export default function Checkout({ shopID, user }) {
     
     const shopName = shopID.name
 
+    const shopCategories = shopID.shopData.shopCategories
+
+    function findItem(category, varName) {
+        let chosenCateg = shopCategories.find((categ) => categ.categoryName === category)
+
+        if (chosenCateg) {
+            let chosenVariation = chosenCateg.categoryProducts.flatMap((prod) => prod.variations).find((variation) => variation.productName === varName);
+            if (chosenVariation) {
+                return chosenVariation
+            } else {
+                return 
+            }
+        } else {
+            return
+        }
+    }
+
     const router = useRouter()
     const localStorageKey = `mart_${router.query.shopid}`;
 
@@ -253,12 +270,13 @@ export default function Checkout({ shopID, user }) {
 
     const updateCartItem = (index, amount, select) => {
         const updatedData = [...parsedData];
+        const chosenProduct = findItem(select.category, select.name)
 
         if (amount === 1) {
-            if (parseInt(updatedData[index].cartValue) < parseInt(select.amount)) {
+            if (parseInt(updatedData[index].cartValue) < parseInt(typeof chosenProduct === "object" ? chosenProduct.productStock.stockAmount : 0)) {
                 updatedData[index].cartValue = parseInt(updatedData[index].cartValue) + parseInt(amount);
             } else {
-                updatedData[index].cartValue = parseInt(select.amount);
+                updatedData[index].cartValue = parseInt(typeof chosenProduct === "object" ? chosenProduct.productStock.stockAmount : 0);
             }
         } else if (amount === -1) {
             updatedData[index].cartValue = parseInt(updatedData[index].cartValue) + parseInt(amount);
@@ -281,8 +299,13 @@ export default function Checkout({ shopID, user }) {
         const updatedData = [...parsedData];
         const item = updatedData[index];
         const newCartValue = parseInt(select.cartValue) + parseInt(amount);
+        const chosenProduct = findItem(select.category, select.name)
 
-        let chosenCartValue = newCartValue <= select.amount ? newCartValue : select.amount;
+        let stockInput = 0
+
+        if (typeof chosenProduct === "object"){stockInput = chosenProduct.productStock.stockAmount}
+
+        let chosenCartValue = newCartValue <= stockInput ? newCartValue : stockInput;
 
         if (isNaN(amount)) {
             chosenCartValue = "0";
@@ -346,7 +369,7 @@ export default function Checkout({ shopID, user }) {
         const hashedOriginal = user.card.cvv
         const currentDate = new Date();
 
-        const updatedUser = { ...user, location: locationName };
+        const updatedUser = { ...user, location: locationName, locationCoords: center,  currentCart: [] };
 
         let chosenFee = Mode === "delivery" ? delivTotal : pickTotal
 
@@ -361,7 +384,6 @@ export default function Checkout({ shopID, user }) {
         }
             
         if (hashedCVV === hashedOriginal && parsedData.length > 0){
-            console.log(hashedCVV !== hashedOriginal)
             setFormInputValidity({cvv: true, cvvEmpty: false})
 
             const payload = {
@@ -371,6 +393,8 @@ export default function Checkout({ shopID, user }) {
                 message: message,
                 user: updatedUser,
                 status: "ongoing",
+                ownerMessage: "",
+                mode: Mode
             }
             completeForm(payload)
 
@@ -378,6 +402,8 @@ export default function Checkout({ shopID, user }) {
             await waitSeconds()
             setLoading(false)
             setCompletion(true)
+            localStorage.removeItem(localStorageKey);
+            handleIncrement()
 
             finishModalHandler()
             
@@ -508,9 +534,9 @@ export default function Checkout({ shopID, user }) {
                 {parsedData.map((item, index) => (
                     <div className="checkout-row" key={index}>
                         <div className="add-buttons flex-row-spaceless" style={{ width: "16rem" }}>
-                            <button type="button" className="minus-button"><div className="heading-icon-minus-act svg-color" onClick={() => updateCartItem(index, -1, item)}>&nbsp;</div></button>
+                            <button type="button" className="minus-button" onClick={() => updateCartItem(index, -1, item)}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
                             <input type="number" className="text-small input-number" placeholder="Amount" style={{ borderRadius: "0", margin: "0", width: "8rem" }} value={item.cartValue} onChange={(e) => updateCartInput(index, parseInt(e.target.value) - item.cartValue, item)}></input>
-                            <button type="button" className="add-button svg-color"><div className="heading-icon-plus-act svg-decolor" onClick={() => updateCartItem(index, 1, item)}>&nbsp;</div></button>
+                            <button type="button" className="add-button svg-color" onClick={() => updateCartItem(index, 1, item)}><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
                         </div>
                         <img className="checkout-img round-borderer" src={item.image}></img>
                         <div className="flex-col-2" style={{ width: "auto" }}>
@@ -600,6 +626,7 @@ export default function Checkout({ shopID, user }) {
                         {loading ? <div className="spinner"></div> : (completion ? <div className="margin-side" style={{transform:"translateY(20%)"}}>{checkmark}</div> : <div className="flex-row-align margin-side"><div className="heading-icon-cashregister svg-solid-button">&nbsp;</div><h2 className="heading-secondary solid-button">Finish Order</h2></div>
                         )}
                         </button>
+                        {formInputValidity.cvv ? <label className="form-label">&nbsp;</label> : <label className="form-label inv margin-side" style={{ color: "red" }}>Invalid CVV</label>}
                     </div>
                 </div>
 

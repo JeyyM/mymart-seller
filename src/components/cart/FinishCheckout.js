@@ -56,6 +56,7 @@ function FinishCheckout(props) {
 
             <h3 className="heading-tertiary" style={{margin: "0 5rem"}}>More information can be found in your current orders such as the shop's location and the duration for cancellation and refunds as well as your past and current orders. The order is now pending for approval. Thank you for shopping at {props.name}!</h3>
 
+            <button onClick={props.disable} className="product-action-2 heading-secondary margin-side">Finish</button>
             </motion.div>
           </Backdrop>
         )}

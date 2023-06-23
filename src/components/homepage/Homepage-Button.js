@@ -65,8 +65,7 @@ function HomepageButton(props) {
       <Link
         className={`homepage-button ${props.item} bg-gradient-${props.direction} x`}
         href={{
-          pathname: `/${shopId}/${props.direction}${extension}`,
-          query: { shopid: shopId },
+          pathname: `/${shopId}/${props.direction}${extension}`
         }}
         aria-label={props.label}
         title={props.title}

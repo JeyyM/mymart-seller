@@ -41,7 +41,10 @@ function ProductPage({ shopID, user }) {
 
   const urlProduct = encodeURIComponent(chosenProduct[0].variations[0].productName)
 
-  const variationsList = chosenProduct[0].variations
+  const productContents = chosenProduct[0].variations
+
+  const variationsList = productContents.filter((product) => product.active === true);
+
 
   const variationRange = Array.from({ length: variationsList.length }, (_, index) => index);
 
@@ -113,7 +116,7 @@ function ProductPage({ shopID, user }) {
 
   variationsList.forEach((variant, index) => {
 
-    if (variant.productStock.stockAmount === "0") {
+    if (variant.productStock.stockAmount <= 0) {
       soldVar.push(index);
     }
   })
@@ -343,6 +346,7 @@ function ProductPage({ shopID, user }) {
       category: queryCategory,
       image: imgValue1,
       price: priceValue,
+      profit: variationsList[varState].productProfit,
       unit: stockUnit,
       amount: stockAmount,
       cartValue: cartValue,
