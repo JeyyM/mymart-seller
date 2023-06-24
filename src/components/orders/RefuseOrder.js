@@ -155,7 +155,6 @@ function RefuseOrder(props) {
                                     <h2 className="heading-secondary">Refusal Message</h2>
 
                                     <textarea
-                                        required
                                         rows='3'
                                         value={ownerMessage}
                                         className={"desc-text-area"}
