@@ -502,6 +502,7 @@ function Payment(martID) {
                             <option value="day">Days</option>
                             <option value="week">Weeks</option>
                             <option value="month">Months</option>
+                            <option value="year">Years</option>
                         </select>
 
                         <h2 className="heading-secondary" title="Will charge the customer by a % of their refunded total.">%Fee:</h2>

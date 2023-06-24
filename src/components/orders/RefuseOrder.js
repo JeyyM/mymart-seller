@@ -159,7 +159,7 @@ function RefuseOrder(props) {
                                         rows='3'
                                         value={ownerMessage}
                                         className={"desc-text-area"}
-                                        placeholder="Description"
+                                        placeholder="Refusal Message"
                                         onChange={handleMessageChange}
                                     ></textarea>
                                 </div>

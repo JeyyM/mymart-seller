@@ -1,5 +1,5 @@
 import Category from "../../../components/category/Category";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import AddCategory from "@/components/Modal/Add-Category";
 import Head from "next/head";
@@ -25,7 +25,7 @@ function Orders({ shopID }) {
     const contents = shopData.shopSales.activeOrders;
     const usersList = shopData.shopAccounts
 
-    function findUser(email){return usersList.find((user) => user.email === email)}
+    function findUser(email) { return usersList.find((user) => user.email === email) }
 
     const [activeOrders, setActiveOrders] = useState(contents)
 
@@ -39,19 +39,19 @@ function Orders({ shopID }) {
     const [ExpandedOrders, setExpandedOrders] = useState([]);
     const toggleExpand = (index) => {
         if (ExpandedOrders.includes(index)) {
-          setExpandedOrders(ExpandedOrders.filter((expIndex) => expIndex !== index));
+            setExpandedOrders(ExpandedOrders.filter((expIndex) => expIndex !== index));
         } else {
-          setExpandedOrders([...ExpandedOrders, index]);
+            setExpandedOrders([...ExpandedOrders, index]);
         }
-      };
+    };
 
-      const [SetEdit, setSetEdit] = useState(false);
+    const [SetEdit, setSetEdit] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState(null);
 
     const handleSetEdit = (order) => {
         setSelectedOrder(order);
         setSetEdit(!SetEdit);
-      };
+    };
 
     const editClose = () => {
         setSetEdit(!SetEdit);
@@ -63,7 +63,7 @@ function Orders({ shopID }) {
         let chosenUser = findUser(user.email)
         setSelectedUser(chosenUser);
         setUserModal(!SetUser);
-      };
+    };
 
     const userClose = () => {
         setUserModal(!SetUser);
@@ -75,7 +75,7 @@ function Orders({ shopID }) {
         let chosenUser = findUser(order.user.email)
         setSelectedUser(chosenUser);
         setRefuseModal(!refuse);
-      };
+    };
 
     const refuseClose = () => {
         setRefuseModal(!refuse);
@@ -145,51 +145,57 @@ function Orders({ shopID }) {
         setIsVisible(!isVisible);
     };
 
-    function deleteItem(order){
+    function deleteItem(order) {
         const newOrders = activeOrders.filter((item) => item.id !== order.id)
         setActiveOrders(newOrders)
     }
 
-    function changeOrder(changedOrder, id, message, final){
+    function changeOrder(changedOrder, id, message, final) {
         let updatedOrder = activeOrders.filter((item) => item.id === id)
         updatedOrder[0].order = changedOrder;
         updatedOrder[0].status = "edited";
         updatedOrder[0].ownerMessage = message
+
+        let orderIds = []
 
         const newStocks = final.map((prod) => {
             const originalStocks = findItem(prod.category, prod.name)
             const newData = {
                 ...originalStocks,
                 productStock: {
-                  ...originalStocks.productStock,
-                  stockAmount: originalStocks.productStock.stockAmount - prod.cartValue
+                    ...originalStocks.productStock,
+                    stockAmount: originalStocks.productStock.stockAmount - prod.cartValue
                 }
-              };
+            };
 
             const categId = shopCategories.findIndex(category => category.categoryName === prod.category);
 
             const productId = shopCategories[categId].categoryProducts.findIndex(
                 (product) => product.variations.some((variation) => variation.productName === prod.name)
-              );
+            );
 
             const variationId = shopCategories[categId].categoryProducts[productId].variations.findIndex(
                 (variation) => variation.productName === prod.name
-              );
+            );
 
-              const updatedShopCategoryAmount = [...shopCategories]
-              updatedShopCategoryAmount[categId].categoryProducts[productId].variations[variationId].productStock.stockAmount = newData.productStock.stockAmount;
-              setShopCategories(updatedShopCategoryAmount)
+            const updatedShopCategoryAmount = [...shopCategories]
+            updatedShopCategoryAmount[categId].categoryProducts[productId].variations[variationId].productStock.stockAmount = newData.productStock.stockAmount;
+            setShopCategories(updatedShopCategoryAmount)
+
+            let newOrderIds = [categId, productId, variationId, newData.productStock.stockAmount]
+            orderIds.push(newOrderIds)
 
             return newData
         })
 
-        console.log (newStocks)
-        console.log(shopCategories)
+        console.log(orderIds)
+        console.log(id)
+        console.log(final)
 
 
     }
 
-    function refuseOrder(id, message){
+    function refuseOrder(id, message) {
         let updatedOrder = activeOrders.filter((item) => item.id === id)
         updatedOrder[0].status = "refused";
         updatedOrder[0].ownerMessage = message
@@ -198,6 +204,8 @@ function Orders({ shopID }) {
         setActiveOrders(filteredCurrentOrder)
     }
 
+    console.log(col1)
+
     if (contents.length > 0) {
         return (
             <Fragment>
@@ -205,9 +213,9 @@ function Orders({ shopID }) {
                     <title>Ongoing Sales</title>
                     <link rel="icon" type="image/jpeg" href={favicon} />
                 </Head>
-                <EditOrder modalStatus={SetEdit} order={selectedOrder} disable={editClose} change={changeOrder} categories={shopCategories} currency = {currency}></EditOrder>
-                <UserProfile modalStatus={SetUser} user={selectedUser} disable={userClose} currency = {currency} martCoords={shopData.shopDetails.footerData.shopCoords}></UserProfile>
-                <RefuseOrder modalStatus={refuse} user={selectedUser} disable={refuseClose} change={refuseOrder} currency = {currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder}></RefuseOrder>
+                <EditOrder modalStatus={SetEdit} order={selectedOrder} disable={editClose} change={changeOrder} categories={shopCategories} currency={currency}></EditOrder>
+                <UserProfile modalStatus={SetUser} user={selectedUser} disable={userClose} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords}></UserProfile>
+                <RefuseOrder modalStatus={refuse} user={selectedUser} disable={refuseClose} change={refuseOrder} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder}></RefuseOrder>
                 <span className="page-heading">
                     <div className="heading-icon-dropshadow">
                         <div className="heading-icon-ongoing svg-color">&nbsp;</div>
@@ -218,9 +226,29 @@ function Orders({ shopID }) {
 
                     <div className="order-column">
                         {
-                            col1.map((order) => (
-                                <div className="round-borderer round-borderer-extra order-item" key={order.id}>
-                                    <div className="flex-row flex-centered" style={{ justifyContent: "space-between", marginBottom: "1rem", cursor:"pointer" }} onClick={() => toggleExpand(order.id)}>
+                            col1.map((order) => {
+                                const [timeDifference, setTimeDifference] = useState('');
+
+                                useEffect(() => {
+                                    const interval = setInterval(() => {
+                                        const currentTime = new Date();
+                                        const cancelTime = new Date(order.cancelDuration);
+                                        const timeDifferenceMs = cancelTime - currentTime;
+
+                                        const days = Math.floor(timeDifferenceMs / (1000 * 60 * 60 * 24));
+                                        const hours = Math.floor((timeDifferenceMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                        const minutes = Math.floor((timeDifferenceMs % (1000 * 60 * 60)) / (1000 * 60));
+                                        const seconds = Math.floor((timeDifferenceMs % (1000 * 60)) / 1000);
+
+                                        const timeDifferenceStr = `${days} days, ${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+                                        setTimeDifference(timeDifferenceStr);
+                                    }, 1000);
+
+                                    return () => clearInterval(interval);
+                                }, [order.cancelDuration]);
+
+                                return <div className="round-borderer round-borderer-extra order-item" key={order.id}>
+                                    <div className="flex-row flex-centered" style={{ justifyContent: "space-between", marginBottom: "1rem", cursor: "pointer" }} onClick={() => toggleExpand(order.id)}>
                                         <div className="flex-row-spaceless flex-centered">
                                             <button className="order-toggle">
                                                 <div className={ExpandedOrders.includes(order.id) ? "heading-icon-chevron svg-color rotater transitionAll" : "heading-icon-chevron svg-color transitionAll"}>&nbsp;</div>
@@ -251,8 +279,8 @@ function Orders({ shopID }) {
                                         initial={ExpandedOrders.includes(order.id) ? 'visible' : 'hidden'}
                                         animate={ExpandedOrders.includes(order.id) ? 'visible' : 'hidden'}
                                         variants={SlideHeight}>
-                                        
-                                        <div className="order-button-grid dark-underline" style={{ margin: "1rem 0", paddingBottom:"1rem" }}>
+
+                                        <div className="order-button-grid dark-underline" style={{ margin: "1rem 0", paddingBottom: "1rem" }}>
                                             <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetUser(order.user)}>User Data</button>
                                             <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetEdit(order)}>Edit Order</button>
 
@@ -262,7 +290,9 @@ function Orders({ shopID }) {
 
                                         {order.order.map((item, index) => {
                                             let foundProduct = findItem(item.category, item.name)
-                                            return <div className="flex-row flex-centered dark-underline" style={{ marginBottom: "1rem", paddingBottom:"1rem" }} key={index}>
+
+
+                                            return <div className="flex-row flex-centered dark-underline" style={{ marginBottom: "1rem", paddingBottom: "1rem" }} key={index}>
 
                                                 <div className="flex-row-spaceless" style={{ alignItems: "center", width: "100%" }}>
                                                     <img className="order-img round-borderer" src={item.image}></img>
@@ -300,15 +330,16 @@ function Orders({ shopID }) {
 
 
                                         })}
+                                        <h2 className="heading-tertiary">{timeDifferenceStr}</h2>
                                     </motion.div>
                                 </div>
-                            ))
+                            })
                         }
 
                     </div>
 
                     <div className="order-column">
-                    {
+                        {
                             col2.map((order) => (
                                 <div className="round-borderer round-borderer-extra order-item" key={order.id}>
                                     <div className="flex-row flex-centered" style={{ justifyContent: "space-between", marginBottom: "1rem" }} >
@@ -342,8 +373,8 @@ function Orders({ shopID }) {
                                         initial={ExpandedOrders.includes(order.id) ? 'visible' : 'hidden'}
                                         animate={ExpandedOrders.includes(order.id) ? 'visible' : 'hidden'}
                                         variants={SlideHeight}>
-                                        
-                                        <div className="order-button-grid dark-underline" style={{ margin: "1rem 0", paddingBottom:"1rem" }}>
+
+                                        <div className="order-button-grid dark-underline" style={{ margin: "1rem 0", paddingBottom: "1rem" }}>
                                             <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetUser(order.user)}>User Data</button>
                                             <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetEdit(order)}>Edit Order</button>
 
@@ -353,7 +384,7 @@ function Orders({ shopID }) {
 
                                         {order.order.map((item, index) => {
                                             let foundProduct = findItem(item.category, item.name)
-                                            return <div className="flex-row flex-centered dark-underline" style={{ marginBottom: "1rem", paddingBottom:"1rem" }} key={index}>
+                                            return <div className="flex-row flex-centered dark-underline" style={{ marginBottom: "1rem", paddingBottom: "1rem" }} key={index}>
 
                                                 <div className="flex-row-spaceless" style={{ alignItems: "center", width: "100%" }}>
                                                     <img className="order-img round-borderer" src={item.image}></img>

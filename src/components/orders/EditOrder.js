@@ -117,8 +117,6 @@ function EditOrder(props) {
             };
           });
 
-
-
         // console.log("new arrivals", newArrivals)
         // console.log("-remove", modifiedRemove)
         // console.log("+remainig", modifiedRemaining)
@@ -235,7 +233,7 @@ function EditOrder(props) {
                                     </div>
                                 </span>
 
-                                <h3 className="heading-tertiary" style={{margin:"1rem 0"}}>Edits will be applied upon confirming. It cannot be undone. Customers will be notified of edits.</h3>
+                                <h3 className="heading-tertiary" style={{margin:"1rem 0"}}>Edits will be applied upon confirming. It cannot be undone. Customers will be notified of edits. The cancellation period will reset.</h3>
 
                                 <div className="dark-underline" style={{ marginBottom: "1rem", paddingBottom: "1rem" }}>
                                     <h2 className="heading-secondary">Add Products</h2>
