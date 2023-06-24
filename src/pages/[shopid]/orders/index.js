@@ -24,6 +24,7 @@ function Orders({ shopID }) {
     const currency = shopData.shopDetails.paymentData.checkoutInfo.currency
     const contents = shopData.shopSales.activeOrders;
     const usersList = shopData.shopAccounts
+    const takebacks = shopData.shopDetails.paymentData.Takebacks
 
     function findUser(email) { return usersList.find((user) => user.email === email) }
 
@@ -150,13 +151,53 @@ function Orders({ shopID }) {
         setActiveOrders(newOrders)
     }
 
-    function changeOrder(changedOrder, id, message, final) {
+    async function editApi(newOrder, productIds){
+        const requestBody = {
+            selectedOrder: selectedOrder,
+            productIds: productIds
+          };
+        
+        const response = await fetch(
+            `../../api/order-edit?martid=${router.query.shopid}`,
+            {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(requestBody)
+            }
+          );
+          const data = await response.json();
+    }
+
+    async function changeOrder(changedOrder, id, message, final) {
         let updatedOrder = activeOrders.filter((item) => item.id === id)
         updatedOrder[0].order = changedOrder;
         updatedOrder[0].status = "edited";
         updatedOrder[0].ownerMessage = message
 
-        let orderIds = []
+        const currentDate = new Date();
+        const today = new Date();
+
+        let { cancelCount, cancelDuration } = takebacks; 
+        cancelCount = parseInt(cancelCount, 10);
+
+        if (cancelDuration === 'minute') {
+            currentDate.setMinutes(currentDate.getMinutes() + cancelCount);
+          } else if (cancelDuration === 'hour') {
+            currentDate.setHours(currentDate.getHours() + cancelCount);
+          } else if (cancelDuration === 'day') {
+            currentDate.setDate(currentDate.getDate() + cancelCount);
+          } else if (cancelDuration === 'week') {
+            currentDate.setDate(currentDate.getDate() + (cancelCount * 7));
+          } else if (cancelDuration === 'month') {
+            currentDate.setMonth(currentDate.getMonth() + cancelCount);
+          } else if (cancelDuration === 'year') {
+            currentDate.setFullYear(currentDate.getFullYear() + cancelCount);
+          }
+
+          updatedOrder[0].currentTime = today;
+          updatedOrder[0].cancelDuration = currentDate
+
+        let ProductIdentifiers = []
 
         const newStocks = final.map((prod) => {
             const originalStocks = findItem(prod.category, prod.name)
@@ -182,23 +223,23 @@ function Orders({ shopID }) {
             updatedShopCategoryAmount[categId].categoryProducts[productId].variations[variationId].productStock.stockAmount = newData.productStock.stockAmount;
             setShopCategories(updatedShopCategoryAmount)
 
-            let newOrderIds = [categId, productId, variationId, newData.productStock.stockAmount]
-            orderIds.push(newOrderIds)
+            let newProductIdentifiers = [categId, productId, variationId, newData.productStock.stockAmount]
+            ProductIdentifiers.push(newProductIdentifiers)
 
             return newData
         })
+
+        await editApi(selectedOrder, ProductIdentifiers)
     }
 
-    function refuseOrder(id, message) {
+    function finishRefusal(id, message) {
         let updatedOrder = activeOrders.filter((item) => item.id === id)
         updatedOrder[0].status = "refused";
         updatedOrder[0].ownerMessage = message
 
         let filteredCurrentOrder = activeOrders.filter((order) => order.id !== id)
-        setActiveOrders(filteredCurrentOrder)
     }
 
-    console.log(selectedOrder)
 
     if (contents.length > 0) {
         return (
@@ -207,9 +248,9 @@ function Orders({ shopID }) {
                     <title>Ongoing Sales</title>
                     <link rel="icon" type="image/jpeg" href={favicon} />
                 </Head>
-                <EditOrder modalStatus={SetEdit} order={selectedOrder} disable={editClose} change={changeOrder} categories={shopCategories} currency={currency}></EditOrder>
+                <EditOrder modalStatus={SetEdit} order={selectedOrder} disable={editClose} change={changeOrder} categories={shopCategories} currency={currency} takebacks={takebacks}></EditOrder>
                 <UserProfile modalStatus={SetUser} user={selectedUser} disable={userClose} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords}></UserProfile>
-                <RefuseOrder modalStatus={refuse} user={selectedUser} disable={refuseClose} change={refuseOrder} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder}></RefuseOrder>
+                <RefuseOrder modalStatus={refuse} user={selectedUser} disable={refuseClose} change={finishRefusal} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder}></RefuseOrder>
                 <span className="page-heading">
                     <div className="heading-icon-dropshadow">
                         <div className="heading-icon-ongoing svg-color">&nbsp;</div>
@@ -246,7 +287,9 @@ function Orders({ shopID }) {
                                     return () => clearInterval(interval);
                                 }, [order.cancelDuration]);
 
-                                return <div className="round-borderer round-borderer-extra order-item" key={order.id}>
+                                const itemClass = `${order.status !== "refused" ? "round-borderer round-borderer-extra order-item" : "round-borderer round-borderer-extra order-item hidden-order-item"}`
+
+                                return <div className={itemClass} key={order.id}>
                                     <div className="flex-row flex-centered" style={{ justifyContent: "space-between", marginBottom: "1rem", cursor: "pointer" }} onClick={() => toggleExpand(order.id)}>
                                         <div className="flex-row-spaceless flex-centered">
                                             <button className="order-toggle">
@@ -341,30 +384,37 @@ function Orders({ shopID }) {
                             col2.map((order) => {
                                 const [timeDifference, setTimeDifference] = useState('');
 
-                                useEffect(() => {
-                                    const interval = setInterval(() => {
-                                        const currentTime = new Date();
-                                        const cancelTime = new Date(order.cancelDuration);
-                                        const timeDifferenceMs = cancelTime - currentTime;
-
-                                        if (timeDifferenceMs <= 0) {
-                                            clearInterval(interval);
-                                            setTimeDifference("Cancellation period has passed");
-                                        } else {
-                                            const days = Math.floor(timeDifferenceMs / (1000 * 60 * 60 * 24));
-                                            const hours = Math.floor((timeDifferenceMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                            const minutes = Math.floor((timeDifferenceMs % (1000 * 60 * 60)) / (1000 * 60));
-                                            const seconds = Math.floor((timeDifferenceMs % (1000 * 60)) / 1000);
-
-                                            const timeDifferenceStr = `${days > 0 ? days + ' days, ' : ''}${hours > 0 ? hours + ' hours, ' : ''}${minutes > 0 ? minutes + ' minutes, ' : ''}${seconds} seconds`;
-                                            setTimeDifference(timeDifferenceStr);
+                                    useEffect(() => {
+                                        if (!order || !order.cancelDuration) {
+                                            setTimeDifference('Invalid order');
+                                            return;
                                         }
-                                    }, 1000);
 
-                                    return () => clearInterval(interval);
-                                }, [order.cancelDuration]);
+                                        const interval = setInterval(() => {
+                                            const currentTime = new Date();
+                                            const cancelTime = new Date(order.cancelDuration);
+                                            const timeDifferenceMs = cancelTime - currentTime;
 
-                                return <div className="round-borderer round-borderer-extra order-item" key={order.id}>
+                                            if (timeDifferenceMs <= 0) {
+                                                clearInterval(interval);
+                                                setTimeDifference('Cancellation period has passed');
+                                            } else {
+                                                const days = Math.floor(timeDifferenceMs / (1000 * 60 * 60 * 24));
+                                                const hours = Math.floor((timeDifferenceMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                const minutes = Math.floor((timeDifferenceMs % (1000 * 60 * 60)) / (1000 * 60));
+                                                const seconds = Math.floor((timeDifferenceMs % (1000 * 60)) / 1000);
+
+                                                const timeDifferenceStr = `${days > 0 ? days + ' days, ' : ''}${hours > 0 ? hours + ' hours, ' : ''}${minutes > 0 ? minutes + ' minutes, ' : ''}${seconds} seconds`;
+                                                setTimeDifference(timeDifferenceStr);
+                                            }
+                                        }, 1000);
+
+                                        return () => clearInterval(interval);
+                                    }, [order]);
+
+                                    const itemClass = `${order.status !== "refused" ? "round-borderer round-borderer-extra order-item" : "round-borderer round-borderer-extra order-item hidden-order-item"}`
+
+                                return <div className={itemClass} key={order.id}>
                                     <div className="flex-row flex-centered" style={{ justifyContent: "space-between", marginBottom: "1rem", cursor: "pointer" }} onClick={() => toggleExpand(order.id)}>
                                         <div className="flex-row-spaceless flex-centered">
                                             <button className="order-toggle">
