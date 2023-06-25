@@ -21,19 +21,27 @@ async function handler(req, res) {
         const result1 = await db.collection("shops").updateOne(
             { _id: martId },
             {
-                $unset: {
-                  [`shopData.shopSales.activeOrders.${orderId}`]: ""
-                },
                 $push: {
-                  [`shopData.shopSales.finishedOrders.${orderId}`]: req.body.selectedOrder
+                  [`shopData.shopSales.finishedOrders`]: req.body.selectedOrder
                 }
               }
         );
-
-        const pullResult1 = await db.collection("shops").updateOne(
-            { _id: id },
-            { $pull: { [`shopData.shopSales.activeOrders.${orderId}`]: null } }
+        
+        const result1a = await db.collection("shops").updateOne(
+            { _id: martId },
+            {
+              $unset: {
+                [`shopData.shopSales.activeOrders.${orderId}`]: ""
+              }
+            }
           );
+
+          const pullResult1 = await db.collection("shops").updateOne(
+            { _id: martId },
+            { $pull: { [`shopData.shopSales.activeOrders`]: null } },
+            { $pull: { [`shopData.shopSales.finishedOrders`]: null } }
+          );
+          
 
         const shopAccounts = shop.shopData.shopAccounts
         const accIndex = shopAccounts.findIndex((account) => account.email ===  req.body.selectedOrder.user.email)
@@ -47,16 +55,23 @@ async function handler(req, res) {
                 $unset: {
                     [`shopData.shopAccounts.${accIndex}.currentOrders.${orderIndex}`]: "",
                 },
+            }
+        );
+
+        const result2a = await db.collection("shops").updateOne(
+            { _id: martId },
+            {
                 $push: {
-                    [`shopData.shopAccounts.${accIndex}.pastOrders.${orderIndex}`]: req.body.selectedOrder,
+                    [`shopData.shopAccounts.${accIndex}.pastOrders`]: req.body.selectedOrder,
                 },
                 
             }
         );
 
         const pullResult2 = await db.collection("shops").updateOne(
-            { _id: id },
-            { $pull: { [`shopData.shopAccounts.${accIndex}.currentOrders.${orderIndex}`]: null } }
+            { _id: martId },
+            { $pull: { [`shopData.shopAccounts.${accIndex}.currentOrders`]: null } },
+            { $pull: { [`shopData.shopAccounts.${accIndex}.pastOrders`]: null } },
           );
 
         const updateQuery = {

@@ -9,11 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.13.6",
+    "@mui/styles": "^5.13.2",
+    "@mui/x-date-pickers": "^6.9.0",
     "@next/font": "13.2.3",
     "@react-google-maps/api": "^2.18.1",
     "@react-spring/web": "^9.7.1",
     "@svgr/webpack": "^6.5.1",
     "chroma-js": "^2.4.2",
+    "dayjs": "^1.11.8",
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
     "framer-motion": "^10.2.3",

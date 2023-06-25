@@ -12,6 +12,7 @@ import Link from "next/link";
 import EditOrder from "@/components/orders/EditOrder";
 import UserProfile from "@/components/orders/UserProfile";
 import RefuseOrder from "@/components/orders/RefuseOrder";
+import AcceptOrder from "@/components/orders/AcceptOrder";
 
 function Orders({ shopID }) {
     const router = useRouter();
@@ -80,6 +81,18 @@ function Orders({ shopID }) {
 
     const refuseClose = () => {
         setRefuseModal(!refuse);
+    }
+
+    const [accept, setAcceptModal] = useState(false);
+    const handleSetAccept = (order) => {
+        setSelectedOrder(order);
+        let chosenUser = findUser(order.user.email)
+        setSelectedUser(chosenUser);
+        setAcceptModal(!refuse);
+    };
+
+    const acceptClose = () => {
+        setAcceptModal(!accept);
     }
 
     function sorter() {
@@ -297,6 +310,47 @@ function Orders({ shopID }) {
         await refuseApi(selectedOrder, ProductIdentifiers)
     }
 
+    async function finishAccept(changedOrder, message) {
+        let updatedOrder = activeOrders.filter((item) => item.id === changedOrder.id)
+        updatedOrder[0].order = changedOrder.order;
+        updatedOrder[0].status = "refused";
+        updatedOrder[0].ownerMessage = message
+
+        // let ProductIdentifiers = []
+
+        // const newStocks = updatedOrder[0].order.map((prod) => {
+        //     const originalStocks = findItem(prod.category, prod.name)
+        //     const newData = {
+        //         ...originalStocks,
+        //         productStock: {
+        //             ...originalStocks.productStock,
+        //             stockAmount: originalStocks.productStock.stockAmount + prod.cartValue
+        //         }
+        //     };
+
+        //     const categId = shopCategories.findIndex(category => category.categoryName === prod.category);
+
+        //     const productId = shopCategories[categId].categoryProducts.findIndex(
+        //         (product) => product.variations.some((variation) => variation.productName === prod.name)
+        //     );
+
+        //     const variationId = shopCategories[categId].categoryProducts[productId].variations.findIndex(
+        //         (variation) => variation.productName === prod.name
+        //     );
+
+        //     const updatedShopCategoryAmount = [...shopCategories]
+        //     updatedShopCategoryAmount[categId].categoryProducts[productId].variations[variationId].productStock.stockAmount = newData.productStock.stockAmount;
+        //     setShopCategories(updatedShopCategoryAmount)
+
+        //     let newProductIdentifiers = [categId, productId, variationId, newData.productStock.stockAmount]
+        //     ProductIdentifiers.push(newProductIdentifiers)
+
+        //     return newData
+        // })
+
+        // await refuseApi(selectedOrder, ProductIdentifiers)
+    }
+
 
     if (contents.length > 0) {
         return (
@@ -308,6 +362,8 @@ function Orders({ shopID }) {
                 <EditOrder modalStatus={SetEdit} order={selectedOrder} disable={editClose} change={changeOrder} categories={shopCategories} currency={currency} takebacks={takebacks}></EditOrder>
                 <UserProfile modalStatus={SetUser} user={selectedUser} disable={userClose} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords}></UserProfile>
                 <RefuseOrder modalStatus={refuse} user={selectedUser} disable={refuseClose} change={finishRefusal} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder}></RefuseOrder>
+                <AcceptOrder modalStatus={accept} user={selectedUser} disable={acceptClose} change={finishAccept} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder}></AcceptOrder>
+
                 <span className="page-heading">
                     <div className="heading-icon-dropshadow">
                         <div className="heading-icon-ongoing svg-color">&nbsp;</div>
@@ -388,7 +444,7 @@ function Orders({ shopID }) {
                                             <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetEdit(order)}>Edit Order</button>
 
                                             <button className="product-action-3 white heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetRefuse(order)}>Refuse Order</button>
-                                            <button className="product-action-2 heading-secondary" style={{ width: "18.5rem", margin: "0" }}>Approve Order</button>
+                                            <button className="product-action-2 heading-secondary" style={{ width: "18.5rem", margin: "0" }} onClick={() => handleSetAccept(order)}>Approve Order</button>
                                         </div>
 
                                         {order.order.map((item, index) => {
