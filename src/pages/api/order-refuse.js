@@ -21,24 +21,43 @@ async function handler(req, res) {
         const result1 = await db.collection("shops").updateOne(
             { _id: martId },
             {
-                $set: {
-                    [`shopData.shopSales.activeOrders.${orderId}`]: req.body.selectedOrder
+                $unset: {
+                  [`shopData.shopSales.activeOrders.${orderId}`]: ""
+                },
+                $push: {
+                  [`shopData.shopSales.finishedOrders.${orderId}`]: req.body.selectedOrder
                 }
-            }
+              }
         );
+
+        const pullResult1 = await db.collection("shops").updateOne(
+            { _id: id },
+            { $pull: { [`shopData.shopSales.activeOrders.${orderId}`]: null } }
+          );
 
         const shopAccounts = shop.shopData.shopAccounts
         const accIndex = shopAccounts.findIndex((account) => account.email ===  req.body.selectedOrder.user.email)
         const orderIndex = shopAccounts[accIndex].currentOrders.findIndex((order) => order.id ===  req.body.selectedOrder.id)
 
+        // console.log("accs", orderIndex)
+
         const result2 = await db.collection("shops").updateOne(
             { _id: martId },
             {
-                $set: {
-                    [`shopData.shopAccounts.${accIndex}.currentOrders.${orderIndex}`]: req.body.selectedOrder,
-                }
+                $unset: {
+                    [`shopData.shopAccounts.${accIndex}.currentOrders.${orderIndex}`]: "",
+                },
+                $push: {
+                    [`shopData.shopAccounts.${accIndex}.pastOrders.${orderIndex}`]: req.body.selectedOrder,
+                },
+                
             }
         );
+
+        const pullResult2 = await db.collection("shops").updateOne(
+            { _id: id },
+            { $pull: { [`shopData.shopAccounts.${accIndex}.currentOrders.${orderIndex}`]: null } }
+          );
 
         const updateQuery = {
             $set: {},

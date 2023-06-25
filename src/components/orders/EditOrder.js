@@ -46,7 +46,7 @@ function EditOrder(props) {
         setCurrentOrder(newOrder);
     }, [props.modalStatus]);
 
-    const [ownerMessage, setOwnerMessage] = useState(props.order.ownerMessage)
+    const [ownerMessage, setOwnerMessage] = useState("")
     const handleMessageChange = (event) => {
         setOwnerMessage(event.target.value);
     };
@@ -85,6 +85,12 @@ function EditOrder(props) {
         props.disable()
     }
 
+    useEffect(() => {
+        if (props.order) {
+            setOwnerMessage(props.order.ownerMessage)
+        }
+    }, [props.modalStatus])
+
     async function confirm() {
         const newArrivals = currentOrder.filter((item) => {
             const found = originalOrder.find((originalItem) => originalItem.name === item.name && originalItem.category === item.category);
@@ -97,14 +103,14 @@ function EditOrder(props) {
 
         const notBroken = removedItems.filter(item => {
             return !brokenItems.some(brokenItem => {
-              return (
-                brokenItem.name === item.name &&
-                brokenItem.category === item.category
-              );
+                return (
+                    brokenItem.name === item.name &&
+                    brokenItem.category === item.category
+                );
             });
-          });
+        });
 
-                const modifiedRemove = notBroken.map((item) => {
+        const modifiedRemove = notBroken.map((item) => {
             return {
                 ...item,
                 cartValue: item.cartValue * -1

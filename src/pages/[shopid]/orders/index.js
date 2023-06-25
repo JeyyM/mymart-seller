@@ -114,17 +114,6 @@ function Orders({ shopID }) {
         return formattedDateTime;
     }
 
-    const calculateTotal = (data) => {
-        let total = 0;
-
-        data.forEach((item) => {
-            const totalCost = item.cartValue * parseFloat(item.price);
-            total += totalCost;
-        });
-
-        return total;
-    };
-
     function findItem(category, varName) {
         let chosenCateg = shopCategories.find((categ) => categ.categoryName === category)
 
@@ -156,9 +145,29 @@ function Orders({ shopID }) {
             selectedOrder: selectedOrder,
             productIds: productIds
           };
+
+          console.log("editt", requestBody)
+
         
         const response = await fetch(
             `../../api/order-edit?martid=${router.query.shopid}`,
+            {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(requestBody)
+            }
+          );
+          const data = await response.json();
+    }
+
+    async function refuseApi(newOrder, productIds){
+        const requestBody = {
+            selectedOrder: selectedOrder,
+            productIds: productIds
+          };
+        
+        const response = await fetch(
+            `../../api/order-refuse?martid=${router.query.shopid}`,
             {
               method: "PATCH",
               headers: { "Content-Type": "application/json" },
@@ -197,6 +206,21 @@ function Orders({ shopID }) {
           updatedOrder[0].currentTime = today;
           updatedOrder[0].cancelDuration = currentDate
 
+          const calculateTotal = () => {
+            let total = 0;
+    
+            updatedOrder[0].order.forEach((item) => {
+                const totalCost = item.cartValue * parseFloat(item.price);
+                total += totalCost;
+            });
+    
+            return total;
+        };
+
+        let orderTotal = calculateTotal()
+
+          updatedOrder[0].totals.order = orderTotal
+
         let ProductIdentifiers = []
 
         const newStocks = final.map((prod) => {
@@ -232,12 +256,45 @@ function Orders({ shopID }) {
         await editApi(selectedOrder, ProductIdentifiers)
     }
 
-    function finishRefusal(id, message) {
-        let updatedOrder = activeOrders.filter((item) => item.id === id)
+    async function finishRefusal(changedOrder, message) {
+        let updatedOrder = activeOrders.filter((item) => item.id === changedOrder.id)
+        updatedOrder[0].order = changedOrder.order;
         updatedOrder[0].status = "refused";
         updatedOrder[0].ownerMessage = message
 
-        let filteredCurrentOrder = activeOrders.filter((order) => order.id !== id)
+        let ProductIdentifiers = []
+
+        const newStocks = updatedOrder[0].order.map((prod) => {
+            const originalStocks = findItem(prod.category, prod.name)
+            const newData = {
+                ...originalStocks,
+                productStock: {
+                    ...originalStocks.productStock,
+                    stockAmount: originalStocks.productStock.stockAmount + prod.cartValue
+                }
+            };
+
+            const categId = shopCategories.findIndex(category => category.categoryName === prod.category);
+
+            const productId = shopCategories[categId].categoryProducts.findIndex(
+                (product) => product.variations.some((variation) => variation.productName === prod.name)
+            );
+
+            const variationId = shopCategories[categId].categoryProducts[productId].variations.findIndex(
+                (variation) => variation.productName === prod.name
+            );
+
+            const updatedShopCategoryAmount = [...shopCategories]
+            updatedShopCategoryAmount[categId].categoryProducts[productId].variations[variationId].productStock.stockAmount = newData.productStock.stockAmount;
+            setShopCategories(updatedShopCategoryAmount)
+
+            let newProductIdentifiers = [categId, productId, variationId, newData.productStock.stockAmount]
+            ProductIdentifiers.push(newProductIdentifiers)
+
+            return newData
+        })
+
+        await refuseApi(selectedOrder, ProductIdentifiers)
     }
 
 
@@ -260,34 +317,39 @@ function Orders({ shopID }) {
                 <div className="order-container">
 
                     <div className="order-column">
-                        {
+                    {
                             col1.map((order) => {
                                 const [timeDifference, setTimeDifference] = useState('');
 
-                                useEffect(() => {
-                                    const interval = setInterval(() => {
-                                        const currentTime = new Date();
-                                        const cancelTime = new Date(order.cancelDuration);
-                                        const timeDifferenceMs = cancelTime - currentTime;
-
-                                        if (timeDifferenceMs <= 0) {
-                                            clearInterval(interval);
-                                            setTimeDifference("Cancellation period has passed");
-                                        } else {
-                                            const days = Math.floor(timeDifferenceMs / (1000 * 60 * 60 * 24));
-                                            const hours = Math.floor((timeDifferenceMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                            const minutes = Math.floor((timeDifferenceMs % (1000 * 60 * 60)) / (1000 * 60));
-                                            const seconds = Math.floor((timeDifferenceMs % (1000 * 60)) / 1000);
-
-                                            const timeDifferenceStr = `${days > 0 ? days + ' days, ' : ''}${hours > 0 ? hours + ' hours, ' : ''}${minutes > 0 ? minutes + ' minutes, ' : ''}${seconds} seconds`;
-                                            setTimeDifference(timeDifferenceStr);
+                                    useEffect(() => {
+                                        if (!order || !order.cancelDuration) {
+                                            setTimeDifference('Invalid order');
+                                            return;
                                         }
-                                    }, 1000);
 
-                                    return () => clearInterval(interval);
-                                }, [order.cancelDuration]);
+                                        const interval = setInterval(() => {
+                                            const currentTime = new Date();
+                                            const cancelTime = new Date(order.cancelDuration);
+                                            const timeDifferenceMs = cancelTime - currentTime;
 
-                                const itemClass = `${order.status !== "refused" ? "round-borderer round-borderer-extra order-item" : "round-borderer round-borderer-extra order-item hidden-order-item"}`
+                                            if (timeDifferenceMs <= 0) {
+                                                clearInterval(interval);
+                                                setTimeDifference('Cancellation period has passed');
+                                            } else {
+                                                const days = Math.floor(timeDifferenceMs / (1000 * 60 * 60 * 24));
+                                                const hours = Math.floor((timeDifferenceMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                const minutes = Math.floor((timeDifferenceMs % (1000 * 60 * 60)) / (1000 * 60));
+                                                const seconds = Math.floor((timeDifferenceMs % (1000 * 60)) / 1000);
+
+                                                const timeDifferenceStr = `${days > 0 ? days + ' days, ' : ''}${hours > 0 ? hours + ' hours, ' : ''}${minutes > 0 ? minutes + ' minutes, ' : ''}${seconds} seconds`;
+                                                setTimeDifference(timeDifferenceStr);
+                                            }
+                                        }, 1000);
+
+                                        return () => clearInterval(interval);
+                                    }, [order]);
+
+                                    const itemClass = `${order.status !== "refused" ? "round-borderer round-borderer-extra order-item" : "round-borderer round-borderer-extra order-item hidden-order-item"}`
 
                                 return <div className={itemClass} key={order.id}>
                                     <div className="flex-row flex-centered" style={{ justifyContent: "space-between", marginBottom: "1rem", cursor: "pointer" }} onClick={() => toggleExpand(order.id)}>
@@ -341,7 +403,7 @@ function Orders({ shopID }) {
                                                     <div className="flex-col">
 
                                                         <div className="flex-row">
-                                                            <Link style={{ marginRight: "auto" }} href={typeof foundProduct !== "object" ? `#` : `/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{item.name} - {item.category}&nbsp;</Link>
+                                                            <Link style={{ marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{item.name} - {item.category}&nbsp;</Link>
 
                                                             <div className="flex-row" style={{ margin: "1rem" }}>
                                                                 <h2 className="heading-tertiary whiteSpace">{typeof foundProduct !== "object" ? foundProduct : foundProduct.active ? "Active" : "Inactive"}&nbsp;</h2> {typeof foundProduct !== "object" ? <div className="order-missing">&nbsp;</div> : foundProduct.active ? <div className="order-active">&nbsp;</div> : <div className="order-inactive">&nbsp;</div>}

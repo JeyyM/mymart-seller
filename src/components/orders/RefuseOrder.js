@@ -86,8 +86,8 @@ function RefuseOrder(props) {
             return '';
         };
 
-        function confirm() {
-            props.change(props.order.id, ownerMessage)
+        async function confirm() {
+            await props.change(props.order, ownerMessage)
             props.disable()
         }
 
