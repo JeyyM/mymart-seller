@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField';
 
 function CustomizedPicker(props) {
 
-    const {selectedDate, handleDateChange} = props
+    const { selectedDate, handleDateChange } = props
 
     const useStyles = makeStyles((theme) => ({
         datePicker: {
@@ -61,16 +61,16 @@ function CustomizedPicker(props) {
                     width: '3rem',
                     height: '3rem',
                     color: `${props.colormode["text-tertiary-color"]}`
-                  },
-                  '& .MuiPickersDay-root': {
+                },
+                '& .MuiPickersDay-root': {
                     fontSize: '4rem',
-                  },
-                  '& .MuiPickersDay-day': {
+                },
+                '& .MuiPickersDay-day': {
                     fontSize: '2rem',
-                  },
-                  '& .MuiFormLabel-root-MuiInputLabel-root.Mui-error': {
+                },
+                '& .MuiFormLabel-root-MuiInputLabel-root.Mui-error': {
                     color: 'yellow !important',
-                  }
+                }
 
             },
         },
@@ -97,7 +97,7 @@ function CustomizedPicker(props) {
             <ThemeProvider theme={customTheme}>
                 <DatePicker
                     className={classes.datePicker}
-                    label={props.valid ? "Birthday" : "Invalid Date"}
+                    label={props.valid ? "" : "Invalid Date"}
                     value={selectedDate}
                     onChange={handleDateChange}
                     renderInput={(params) => (

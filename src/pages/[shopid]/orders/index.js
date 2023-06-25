@@ -26,6 +26,8 @@ function Orders({ shopID }) {
     const contents = shopData.shopSales.activeOrders;
     const usersList = shopData.shopAccounts
     const takebacks = shopData.shopDetails.paymentData.Takebacks
+    const defaultColor = shopData.shopDesigns.defaultMode
+    const design = shopData.shopDesigns
 
     function findUser(email) { return usersList.find((user) => user.email === email) }
 
@@ -190,6 +192,22 @@ function Orders({ shopID }) {
           const data = await response.json();
     }
 
+    async function acceptApi(newOrder){
+        const requestBody = {
+            selectedOrder: selectedOrder
+          };
+        
+        const response = await fetch(
+            `../../api/order-accept?martid=${router.query.shopid}`,
+            {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(requestBody)
+            }
+          );
+          const data = await response.json();
+    }
+
     async function changeOrder(changedOrder, id, message, final) {
         let updatedOrder = activeOrders.filter((item) => item.id === id)
         updatedOrder[0].order = changedOrder;
@@ -310,46 +328,44 @@ function Orders({ shopID }) {
         await refuseApi(selectedOrder, ProductIdentifiers)
     }
 
-    async function finishAccept(changedOrder, message) {
+    async function finishAccept(changedOrder, message, expectDate) {
         let updatedOrder = activeOrders.filter((item) => item.id === changedOrder.id)
         updatedOrder[0].order = changedOrder.order;
-        updatedOrder[0].status = "refused";
+        updatedOrder[0].status = "accepted";
         updatedOrder[0].ownerMessage = message
+        updatedOrder[0].expectBy = expectDate
 
-        // let ProductIdentifiers = []
+        console.log(updatedOrder)
 
-        // const newStocks = updatedOrder[0].order.map((prod) => {
-        //     const originalStocks = findItem(prod.category, prod.name)
-        //     const newData = {
-        //         ...originalStocks,
-        //         productStock: {
-        //             ...originalStocks.productStock,
-        //             stockAmount: originalStocks.productStock.stockAmount + prod.cartValue
-        //         }
-        //     };
+        const currentDate = new Date();
+        const today = new Date();
 
-        //     const categId = shopCategories.findIndex(category => category.categoryName === prod.category);
+        let { refundCount, refundDuration } = takebacks; 
+        refundCount = parseInt(refundCount, 10);
 
-        //     const productId = shopCategories[categId].categoryProducts.findIndex(
-        //         (product) => product.variations.some((variation) => variation.productName === prod.name)
-        //     );
+        if (refundDuration === 'minute') {
+            currentDate.setMinutes(currentDate.getMinutes() + refundCount);
+          } else if (refundDuration === 'hour') {
+            currentDate.setHours(currentDate.getHours() + refundCount);
+          } else if (refundDuration === 'day') {
+            currentDate.setDate(currentDate.getDate() + refundCount);
+          } else if (refundDuration === 'week') {
+            currentDate.setDate(currentDate.getDate() + (refundCount * 7));
+          } else if (refundDuration === 'month') {
+            currentDate.setMonth(currentDate.getMonth() + refundCount);
+          } else if (refundDuration === 'year') {
+            currentDate.setFullYear(currentDate.getFullYear() + refundCount);
+          }
 
-        //     const variationId = shopCategories[categId].categoryProducts[productId].variations.findIndex(
-        //         (variation) => variation.productName === prod.name
-        //     );
+          updatedOrder[0].currentTime = today;
+          updatedOrder[0].refundDuration = currentDate
 
-        //     const updatedShopCategoryAmount = [...shopCategories]
-        //     updatedShopCategoryAmount[categId].categoryProducts[productId].variations[variationId].productStock.stockAmount = newData.productStock.stockAmount;
-        //     setShopCategories(updatedShopCategoryAmount)
-
-        //     let newProductIdentifiers = [categId, productId, variationId, newData.productStock.stockAmount]
-        //     ProductIdentifiers.push(newProductIdentifiers)
-
-        //     return newData
-        // })
-
-        // await refuseApi(selectedOrder, ProductIdentifiers)
+        await acceptApi(selectedOrder)
     }
+
+    const [buttonMode, setButtonMode] = useState(true)
+    const ongoingClass = `${buttonMode ? "product-action-2 flex-row-align" : "product-action-1 flex-row-align"}`
+    const acceptClass = `${buttonMode ? "product-action-1 flex-row-align" : "product-action-2 flex-row-align"}`
 
 
     if (contents.length > 0) {
@@ -362,13 +378,19 @@ function Orders({ shopID }) {
                 <EditOrder modalStatus={SetEdit} order={selectedOrder} disable={editClose} change={changeOrder} categories={shopCategories} currency={currency} takebacks={takebacks}></EditOrder>
                 <UserProfile modalStatus={SetUser} user={selectedUser} disable={userClose} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords}></UserProfile>
                 <RefuseOrder modalStatus={refuse} user={selectedUser} disable={refuseClose} change={finishRefusal} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder}></RefuseOrder>
-                <AcceptOrder modalStatus={accept} user={selectedUser} disable={acceptClose} change={finishAccept} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder}></AcceptOrder>
+                <AcceptOrder modalStatus={accept} user={selectedUser} disable={acceptClose} change={finishAccept} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder} colormode={defaultColor} design={design}></AcceptOrder>
 
                 <span className="page-heading">
                     <div className="heading-icon-dropshadow">
                         <div className="heading-icon-ongoing svg-color">&nbsp;</div>
                     </div>
                     <h1 className="heading-primary no-margin">Ongoing Sales</h1>
+
+                    <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className="heading-tertiary margin-side" style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
+                    <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className="heading-tertiary margin-side" style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
+
+                    {/* <button className="heading-tertiary add-categ-init" style={{ width: "max-content" }}>
+        <div className="heading-icon-check svg-color">&nbsp;</div>Submit &nbsp;</button> */}
                 </span>
                 <div className="order-container">
 
@@ -405,7 +427,7 @@ function Orders({ shopID }) {
                                         return () => clearInterval(interval);
                                     }, [order]);
 
-                                    const itemClass = `${order.status !== "refused" ? "round-borderer round-borderer-extra order-item" : "round-borderer round-borderer-extra order-item hidden-order-item"}`
+                                    const itemClass = `${order.status !== "refused" && order.status !== "accepted" ? "round-borderer round-borderer-extra order-item" : "round-borderer round-borderer-extra order-item hidden-order-item"}`
 
                                 return <div className={itemClass} key={order.id}>
                                     <div className="flex-row flex-centered" style={{ justifyContent: "space-between", marginBottom: "1rem", cursor: "pointer" }} onClick={() => toggleExpand(order.id)}>
@@ -498,7 +520,7 @@ function Orders({ shopID }) {
                     </div>
 
                     <div className="order-column">
-                        {
+                    {
                             col2.map((order) => {
                                 const [timeDifference, setTimeDifference] = useState('');
 
@@ -530,7 +552,7 @@ function Orders({ shopID }) {
                                         return () => clearInterval(interval);
                                     }, [order]);
 
-                                    const itemClass = `${order.status !== "refused" ? "round-borderer round-borderer-extra order-item" : "round-borderer round-borderer-extra order-item hidden-order-item"}`
+                                    const itemClass = `${order.status !== "refused" && order.status !== "accepted" ? "round-borderer round-borderer-extra order-item" : "round-borderer round-borderer-extra order-item hidden-order-item"}`
 
                                 return <div className={itemClass} key={order.id}>
                                     <div className="flex-row flex-centered" style={{ justifyContent: "space-between", marginBottom: "1rem", cursor: "pointer" }} onClick={() => toggleExpand(order.id)}>
@@ -569,7 +591,7 @@ function Orders({ shopID }) {
                                             <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetEdit(order)}>Edit Order</button>
 
                                             <button className="product-action-3 white heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetRefuse(order)}>Refuse Order</button>
-                                            <button className="product-action-2 heading-secondary" style={{ width: "18.5rem", margin: "0" }}>Approve Order</button>
+                                            <button className="product-action-2 heading-secondary" style={{ width: "18.5rem", margin: "0" }} onClick={() => handleSetAccept(order)}>Approve Order</button>
                                         </div>
 
                                         {order.order.map((item, index) => {

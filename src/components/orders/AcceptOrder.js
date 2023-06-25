@@ -1,5 +1,5 @@
 import { motion, AnimatePresence, } from "framer-motion";
-import { Fragment } from "react";
+import { Fragment, use } from "react";
 import { useState, useEffect } from "react";
 import Backdrop from "../Modal/Backdrop";
 import { useRouter } from "next/router";
@@ -10,6 +10,7 @@ const libraries = ['places'];
 
 function AcceptOrder(props) {
     const router = useRouter()
+    const colormode = props.colormode
     let totals = 0
     if (props.modalStatus){
         totals = props.order.totals.order + props.order.totals.fees
@@ -36,6 +37,11 @@ function AcceptOrder(props) {
         },
     };
 
+    const [Expect, setExpect] = useState("");
+    const handleExpectChange = (date) => {
+        setExpect(date);
+    };
+
     const [ownerMessage, setOwnerMessage] = useState("")
     const handleMessageChange = (event) => {
         setOwnerMessage(event.target.value);
@@ -48,8 +54,22 @@ function AcceptOrder(props) {
     });
     const martCoords = props.martCoords
 
-
     let userCoords = {}
+    let chosenMode = {}
+
+    if (colormode === true) {
+        chosenMode = props.design.lightDesign
+    } else if (colormode === false) {
+        chosenMode = props.design.darkDesign
+    }
+    
+    const [dateValid, setDateValid] = useState(true)
+
+    useEffect(() => {
+        setExpect("")
+        setDateValid(true)
+}, [props.modalStatus])
+
 
     useEffect(() => {
         if (isLoaded) {
@@ -88,8 +108,19 @@ function AcceptOrder(props) {
         };
 
         async function confirm() {
-            await props.change(props.order, ownerMessage)
+            const currentTime = new Date();
+            const timeDifferenceMs = Expect.$d - currentTime;
+
+            if (timeDifferenceMs > 0 && !isNaN(timeDifferenceMs)){
+                setDateValid(true)
+
+            await props.change(props.order, ownerMessage, Expect)
             props.disable()
+         
+        } else {
+            setDateValid(false)
+        }
+        
         }
 
         return (
@@ -149,6 +180,11 @@ function AcceptOrder(props) {
                                     </GoogleMap>
                                 </div>
 
+                                <div className="flex-row flex-row-align" style={{marginTop:"1rem"}}>
+                                <h2 className="heading-secondary">Expect By: </h2>
+                                <CustomizedPicker colormode={chosenMode} selectedDate={Expect} handleDateChange={handleExpectChange} valid={dateValid}></CustomizedPicker>
+                                </div>
+
                                 <div className="dark-underline" style={{ margin: "1rem 0", paddingBottom: "1rem" }}>
                                     <h2 className="heading-secondary">Approval Message</h2>
 
@@ -165,10 +201,9 @@ function AcceptOrder(props) {
                                     <button className="product-action-1 heading-secondary" onClick={props.disable} style={{ width: "18rem", margin: "0" }}>Cancel</button>
                                     <button className="product-action-2 heading-secondary" onClick={confirm} style={{ width: "18.5rem", margin: "0" }}>Approve</button>
                                 </div>
-
 {/* 
                                 <div className="form-group" style={{ marginTop: "1rem" }}>
-                                    <CustomizedPicker colormode={chosenMode} selectedDate={bday} handleDateChange={handlebdayChange} valid={bdayValid}></CustomizedPicker>
+                                    <CustomizedPicker colormode={chosenMode} selectedDate={Expect} handleDateChange={handleExpectChange} valid={true}></CustomizedPicker>
                                 </div> */}
 
 

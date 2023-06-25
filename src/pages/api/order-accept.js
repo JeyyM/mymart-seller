@@ -3,6 +3,7 @@ import { MongoClient, ObjectId } from "mongodb"
 async function handler(req, res) {
     if (req.method === "PATCH") {
         const data = req.body;
+        console.log("apiffnb", data)
 
         const client = await MongoClient.connect(process.env.MONGODB_URI, {
             useNewUrlParser: true,
@@ -46,6 +47,8 @@ async function handler(req, res) {
         const accIndex = shopAccounts.findIndex((account) => account.email ===  req.body.selectedOrder.user.email)
         const orderIndex = shopAccounts[accIndex].currentOrders.findIndex((order) => order.id ===  req.body.selectedOrder.id)
 
+        // console.log("accs", orderIndex)
+
         const result2 = await db.collection("shops").updateOne(
             { _id: martId },
             {
@@ -70,17 +73,6 @@ async function handler(req, res) {
             { $pull: { [`shopData.shopAccounts.${accIndex}.currentOrders`]: null } },
             { $pull: { [`shopData.shopAccounts.${accIndex}.pastOrders`]: null } },
           );
-
-        const updateQuery = {
-            $set: {},
-          };
-          
-          for (const order of req.body.productIds) {
-            const stockAmountKey = `shopData.shopCategories.${order[0]}.categoryProducts.${order[1]}.variations.${order[2]}.productStock.stockAmount`;
-            updateQuery.$set[stockAmountKey] = order[3];
-          }
-
-          const result3 = await db.collection("shops").updateOne({ _id: martId }, updateQuery);
 
         client.close();
 
