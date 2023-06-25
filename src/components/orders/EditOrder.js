@@ -345,7 +345,7 @@ function EditOrder(props) {
                                         rows='3'
                                         value={ownerMessage}
                                         className={"desc-text-area"}
-                                        placeholder="Description"
+                                        placeholder="Edit Message"
                                         onChange={handleMessageChange}
                                     ></textarea>
                                 </div>

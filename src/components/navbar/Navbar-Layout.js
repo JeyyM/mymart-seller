@@ -319,7 +319,9 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     border-bottom: 5px solid ${props.color["color-primary-dark"]};
 }
 
-
+.solid-text-color{
+    color: ${props.color["button-solid-text"]} !important;
+}
 
     ` }
                 </style>

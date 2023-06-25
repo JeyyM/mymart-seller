@@ -1,11 +1,9 @@
-import Category from "../../../components/category/Category";
 import { Fragment, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import AddCategory from "@/components/Modal/Add-Category";
 import Head from "next/head";
 import { getServerSideProps } from "..";
 import { AnimatePresence, motion } from "framer-motion";
-import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Link from "next/link";
@@ -367,6 +365,8 @@ function Orders({ shopID }) {
     const ongoingClass = `${buttonMode ? "product-action-2 flex-row-align" : "product-action-1 flex-row-align"}`
     const acceptClass = `${buttonMode ? "product-action-1 flex-row-align" : "product-action-2 flex-row-align"}`
 
+    const ongoingText = `${buttonMode ? "heading-tertiary margin-side solid-text-color" : "heading-tertiary margin-side"}`
+    const acceptText = `${buttonMode ? "heading-tertiary margin-side" : "heading-tertiary margin-side solid-text-color"}`
 
     if (contents.length > 0) {
         return (
@@ -382,12 +382,12 @@ function Orders({ shopID }) {
 
                 <span className="page-heading">
                     <div className="heading-icon-dropshadow">
-                        <div className="heading-icon-ongoing svg-color">&nbsp;</div>
+                        <div className="heading-icon-ongoing-1 svg-color">&nbsp;</div>
                     </div>
                     <h1 className="heading-primary no-margin">Ongoing Sales</h1>
 
-                    <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className="heading-tertiary margin-side" style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
-                    <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className="heading-tertiary margin-side" style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
+                    <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
+                    <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
 
                     {/* <button className="heading-tertiary add-categ-init" style={{ width: "max-content" }}>
         <div className="heading-icon-check svg-color">&nbsp;</div>Submit &nbsp;</button> */}

@@ -3,6 +3,11 @@
     margin-left: 1rem;
   }
 
+  .heading-icon-ongoing-1 {
+    @include heading-logo(ongoing-1, 4rem, 4rem);
+    margin-left: 1rem;
+  }
+
   .heading-icon-profile {
     @include heading-logo(profile, 4rem, 4rem);
     margin-left: 1rem;
@@ -52,6 +57,15 @@
   .order-button-grid{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .order-button-grid-3{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
     justify-items: center;
     align-items: center;
@@ -190,4 +204,8 @@
 
   .text-ter-pin {
     @include heading-logo(pin, 2rem, 2rem);
+  }
+
+  .text-ter-alarm {
+    @include heading-logo(alarm, 2rem, 2rem);
   }
