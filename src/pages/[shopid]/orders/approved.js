@@ -11,6 +11,7 @@ import UserProfile from "@/components/orders/UserProfile";
 import RefuseOrder from "@/components/orders/RefuseOrder";
 import AcceptOrder from "@/components/orders/AcceptOrder";  
 import FinishOrder from "@/components/orders/FinishOrder";
+import Celebration from "@/components/orders/Celebration";
 
 function Orders({ shopID }) {
     const router = useRouter();
@@ -21,7 +22,7 @@ function Orders({ shopID }) {
 
     const { shopData } = shopID;
     const currency = shopData.shopDetails.paymentData.checkoutInfo.currency
-    const contents = shopData.shopSales.activeOrders;
+    let contents = shopData.shopSales.activeOrders.filter((order) => order.status === "accepted")
     const usersList = shopData.shopAccounts
     const takebacks = shopData.shopDetails.paymentData.Takebacks
     const defaultColor = shopData.shopDesigns.defaultMode
@@ -81,6 +82,12 @@ function Orders({ shopID }) {
 
     const refuseClose = () => {
         setRefuseModal(!refuse);
+    }
+
+    
+    const [celebration, setCelebration] = useState(false)
+    const celebrationClose = () => {
+        setCelebration(!celebration);
     }
 
     const [accept, setAcceptModal] = useState(false);
@@ -172,9 +179,6 @@ function Orders({ shopID }) {
             selectedOrder: selectedOrder,
             productIds: productIds
           };
-
-          console.log("editt", requestBody)
-
         
         const response = await fetch(
             `../../api/order-edit?martid=${router.query.shopid}`,
@@ -320,53 +324,9 @@ function Orders({ shopID }) {
         updatedOrder[0].order = changedOrder.order;
         updatedOrder[0].status = "finished";
         updatedOrder[0].ownerMessage = message
-
-        // let ProductIdentifiers = []
-
-        // const newStocks = updatedOrder[0].order.map((prod) => {
-        //     const originalStocks = findItem(prod.category, prod.name)
-        //     const newData = {
-        //         ...originalStocks,
-        //         productStock: {
-        //             ...originalStocks.productStock,
-        //             stockAmount: originalStocks.productStock.stockAmount + prod.cartValue
-        //         }
-        //     };
-
-        //     const categId = shopCategories.findIndex(category => category.categoryName === prod.category);
-
-        //     const productId = shopCategories[categId].categoryProducts.findIndex(
-        //         (product) => product.variations.some((variation) => variation.productName === prod.name)
-        //     );
-
-        //     const variationId = shopCategories[categId].categoryProducts[productId].variations.findIndex(
-        //         (variation) => variation.productName === prod.name
-        //     );
-
-        //     const updatedShopCategoryAmount = [...shopCategories]
-        //     updatedShopCategoryAmount[categId].categoryProducts[productId].variations[variationId].productStock.stockAmount = newData.productStock.stockAmount;
-        //     setShopCategories(updatedShopCategoryAmount)
-
-        //     let newProductIdentifiers = [categId, productId, variationId, newData.productStock.stockAmount]
-        //     ProductIdentifiers.push(newProductIdentifiers)
-
-        //     return newData
-        // })
-
-        await finishApi(selectedOrder)
-    }
-
-    async function finishAccept(changedOrder, message, expectDate) {
-        let updatedOrder = activeOrders.filter((item) => item.id === changedOrder.id)
-        updatedOrder[0].order = changedOrder.order;
-        updatedOrder[0].status = "accepted";
-        updatedOrder[0].ownerMessage = message
-        updatedOrder[0].expectBy = expectDate
-
-        console.log(updatedOrder)
-
-        const currentDate = new Date();
         const today = new Date();
+        const currentDate = new Date();
+        updatedOrder[0].finishedOn = today
 
         let { refundCount, refundDuration } = takebacks; 
         refundCount = parseInt(refundCount, 10);
@@ -388,7 +348,8 @@ function Orders({ shopID }) {
           updatedOrder[0].currentTime = today;
           updatedOrder[0].refundDuration = currentDate
 
-        await acceptApi(selectedOrder)
+        await finishApi(selectedOrder)
+        celebrationClose()
     }
 
     const [buttonMode, setButtonMode] = useState(false)
@@ -402,19 +363,20 @@ function Orders({ shopID }) {
         return (
             <Fragment>
                 <Head>
-                    <title>Ongoing Sales</title>
+                    <title>Approved Sales</title>
                     <link rel="icon" type="image/jpeg" href={favicon} />
                 </Head>
                 <RevertOrder modalStatus={SetEdit} order={selectedOrder} disable={editClose} change={changeOrder} categories={shopCategories} currency={currency} takebacks={takebacks}></RevertOrder>
                 <UserProfile modalStatus={SetUser} user={selectedUser} disable={userClose} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords}></UserProfile>
                 <FinishOrder modalStatus={refuse} user={selectedUser} disable={refuseClose} change={finishRefusal} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder}></FinishOrder>
-                <AcceptOrder modalStatus={accept} user={selectedUser} disable={acceptClose} change={finishAccept} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder} colormode={defaultColor} design={design}></AcceptOrder>
+                <Celebration modalStatus={celebration} disable={celebrationClose}></Celebration>
+
 
                 <span className="page-heading">
                     <div className="heading-icon-dropshadow">
                         <div className="heading-icon-ongoing svg-color">&nbsp;</div>
                     </div>
-                    <h1 className="heading-primary no-margin">Ongoing Sales</h1>
+                    <h1 className="heading-primary no-margin">Approved Sales</h1>
 
                     <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
                     <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
@@ -628,15 +590,19 @@ function Orders({ shopID }) {
                 <title>Approved Sales</title>
                 <link rel="icon" type="image/jpeg" href={favicon} />
             </Head>
+            <Celebration modalStatus={celebration} disable={celebrationClose}></Celebration>
             <span className="page-heading">
                 <div className="heading-icon-dropshadow">
-                    <div className="heading-icon-category svg-color">&nbsp;</div>
+                    <div className="heading-icon-ongoing svg-color">&nbsp;</div>
                 </div>
-                <h1 className="heading-primary no-margin">Ongoing Sales</h1>
+                <h1 className="heading-primary no-margin">Approved Sales</h1>
+                <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
+                    <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
+
             </span>
             <div className="empty-contents">
                 <div className="empty-ongoing svg-color">&nbsp;</div>
-                <h2 className="empty-text">There seems to be no ongoing sales</h2>
+                <h2 className="empty-text">There seems to be no approved sales</h2>
             </div>
         </Fragment>
     }

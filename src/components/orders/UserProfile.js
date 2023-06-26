@@ -58,7 +58,6 @@ function RefuseOrder(props) {
 
     useEffect(() => {
         if (isLoaded) {
-            console.log(userCoords)
             const directionsServiceOptions = {
                 destination: userCoords,
                 origin: martCoords,
@@ -73,7 +72,6 @@ function RefuseOrder(props) {
                     console.log('Directions request failed due to: ' + status);
                 }
             });
-            console.log(directions)
         }
     }, [isLoaded, props.modalStatus]);
 

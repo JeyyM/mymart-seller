@@ -349,7 +349,7 @@ export default function Details(martID) {
       <div className="detail-slot">
         <span className="page-heading">
           <div className="heading-icon-home svg-color">&nbsp;</div>
-          <h1 className="heading-secondary no-margin">&nbsp;Location &nbsp;</h1>
+          <h1 className="heading-secondary no-margin">&nbsp;Profile Details &nbsp;</h1>
         </span>
 
         <h2 className="heading-tertiary">{locationName}</h2>

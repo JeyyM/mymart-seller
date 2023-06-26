@@ -153,9 +153,14 @@ border-image: linear-gradient(
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
 }
 
-.categ-modal, .edit-order-modal, .confirm-modal, .set-container, .category, .categ-edit-button, .product-edit-button, .add-img, .help-button, .side-img, .add-prod-img, .product-image, .varItem, .footer, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer{
+.categ-modal, .edit-order-modal, .confirm-modal, .set-container, .category, .categ-edit-button, .product-edit-button, .add-img, .help-button, .side-img, .add-prod-img, .product-image, .varItem, .footer, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer, .celeb-modal{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;}
+
+.round-borderer-red{
+    background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
+    linear-gradient(to right, red, darkred) !important;}
+}
 
 .navbutton__hr-2, .navbutton__hr-2::before, .navbutton__hr-2::after {
     background-image: linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
@@ -177,8 +182,13 @@ border-image: linear-gradient(
   filter: brightness(120%) !important;
 }
 
-.add-categ-init:focus, .add-prod-init:focus, .edit-order-modal, .categ-modal, .confirm-modal, .set-container, .text-full, input[type="text"].text-full:focus, .desc-text-area, input[type="text"].desc-text-area:focus, .text-small, .invalid-form, .invalid-form-2, .invalid-form-box, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer-extra{
+.add-categ-init:focus, .add-prod-init:focus, .edit-order-modal, .categ-modal, .confirm-modal, .set-container, .text-full, input[type="text"].text-full:focus, .desc-text-area, input[type="text"].desc-text-area:focus, .text-small, .invalid-form, .invalid-form-2, .invalid-form-box, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer-extra, .celeb-modal{
     box-shadow: inset 0 0 0 2.2rem ${props.color["bg-item"]}, 0 0 0 2px ${props.color["color-primary-dark"]},
+    0 0 0 4px ${props.color["bg-item"]} !important;
+}
+
+.round-borderer-red{
+    box-shadow: inset 0 0 0 2.2rem ${props.color["bg-item"]}, 0 0 0 2px white,
     0 0 0 4px ${props.color["bg-item"]} !important;
 }
 
