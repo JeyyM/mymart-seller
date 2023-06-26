@@ -48,8 +48,8 @@ function NavUser(props) {
             exit="exit"
             variants={slideDown}
           >
-            <Link
-              href={`${router.query.shopid}/account`}
+            <button
+              onClick={props.userHandler}
               style={{ textDecoration: "none" }}
               className="profile-item dark-underline"
             >
@@ -60,7 +60,7 @@ function NavUser(props) {
                 &nbsp;
               </div>
               <h3 className="heading-tertiary">Profile Details</h3>
-            </Link>
+            </button>
 
             <Link
               href={`${router.query.shopid}/orders`}

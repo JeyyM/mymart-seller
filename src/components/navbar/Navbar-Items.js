@@ -73,7 +73,7 @@
             <div className="nav-sign">
               {typeof window !== 'undefined' && (<>
                 {props.user === undefined && <DynamicComponent2 /> }
-              {props.user !== undefined && <DynamicComponent1 />}
+              {props.user !== undefined && <DynamicComponent1 userHandler={props.userHandler}/>}
               </>            
           )}
 
