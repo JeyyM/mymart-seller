@@ -44,6 +44,7 @@ export default function Checkout({ shopID, user }) {
     const localStorageKey = `mart_${router.query.shopid}`;
 
     const paymentDetails = shopID.shopData.shopDetails.paymentData
+
     const cardData = paymentDetails.cardInfo
     const checkoutData = paymentDetails.checkoutInfo
 
@@ -363,11 +364,37 @@ export default function Checkout({ shopID, user }) {
     
       }
 
+    //   let now = new Date()
+    //   console.log("date", now)
+
+    //   console.log(takebacks.cancelCount, takebacks.cancelDuration)
+    //   console.log(takebacks.refundCount, takebacks.refundDuration)
+    console.log("takebcks", takebacks)
+
     async function finishSubmission() {
         let cvvValid
         const hashedCVV = await hashString(cvv)
         const hashedOriginal = user.card.cvv
         const currentDate = new Date();
+        const today = new Date();
+
+        let { cancelCount, cancelDuration } = takebacks; 
+        cancelCount = parseInt(cancelCount, 10);
+
+        if (cancelDuration === 'minute') {
+            currentDate.setMinutes(currentDate.getMinutes() + cancelCount);
+          } else if (cancelDuration === 'hour') {
+            currentDate.setHours(currentDate.getHours() + cancelCount);
+          } else if (cancelDuration === 'day') {
+            currentDate.setDate(currentDate.getDate() + cancelCount);
+          } else if (cancelDuration === 'week') {
+            currentDate.setDate(currentDate.getDate() + (cancelCount * 7));
+          } else if (cancelDuration === 'month') {
+            currentDate.setMonth(currentDate.getMonth() + cancelCount);
+          } else if (cancelDuration === 'year') {
+            currentDate.setFullYear(currentDate.getFullYear() + cancelCount);
+          }
+
 
         const updatedUser = { ...user, location: locationName, locationCoords: center,  currentCart: [] };
 
@@ -389,12 +416,20 @@ export default function Checkout({ shopID, user }) {
             const payload = {
                 order: parsedData,
                 totals: {order: total, fees: chosenFee},
-                currentTime: currentDate,
+                currentTime: today,
                 message: message,
+                ownerMessage: "",
                 user: updatedUser,
                 status: "ongoing",
                 ownerMessage: "",
-                mode: Mode
+                mode: Mode,
+                allowCancel: takebacks.allowCancel,
+                cancelDuration: currentDate,
+                allowRefund: takebacks.allowRefunds,
+                refundDuration: null,
+                cancelFee: takebacks.cancelFee,
+                refundFee: takebacks.refundFee,
+                expectBy: null
             }
             completeForm(payload)
 
@@ -506,7 +541,7 @@ export default function Checkout({ shopID, user }) {
                         mapContainerStyle={mapContainerStyle}
                         center={center}
                         zoom={15}
-                        onClick={handleMapClick}
+                        // onClick={handleMapClick}
                         onLoad={() => console.log("Map loaded")}
                     >
                         <Marker position={center} icon={{ url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' }} />
@@ -518,10 +553,10 @@ export default function Checkout({ shopID, user }) {
                         </div>
                     </GoogleMap>
                 </div>
-                <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
+                {/* <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
                     <button onClick={currentLoc} className="product-action-2 heading-secondary">Current Location</button>
                     <button onClick={resetLoc} className="product-action-3 heading-secondary white">Reset to Default</button>
-                </div>
+                </div> */}
             </div>
 
             <div className="checkout-column" style={{ padding: "0", gap: "0", position: "relative" }}>
@@ -617,7 +652,7 @@ export default function Checkout({ shopID, user }) {
                         {takebacks.allowCancel === false ? <div>
                             <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Cancellations are not allowed.</h2>
                         </div> : <div>
-                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Cancellations are allowed within {takebacks.cancelCount} {takebacks.cancelDuration}/s of ordering with a penalty of {takebacks.cancelFee}% of the order's total, fees not included.</h2>
+                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Cancellations are allowed within {takebacks.cancelCount} {takebacks.cancelDuration}/s of ordering with a penalty of {takebacks.cancelFee}% of the order's total, fees not included. You cannot cancel approved orders.</h2>
                         </div>}
 
                         <Link href={`/${router.query.shopid}/terms`}><h2 className="heading-tertiary" style={{ fontWeight: "900" }}>By completing this order, I agree with the mart's terms and conditions as well as the privacy policy.</h2></Link>

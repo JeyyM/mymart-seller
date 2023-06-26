@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import UserProfile from "./UserProfile";
 
 function NavUser(props) {
   const router = useRouter();

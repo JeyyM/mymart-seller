@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Footer from "../Mart/Footer";
 import CartModal from "../cart/CartModal";
+import UserProfile from "./UserProfile";
 
 function NavbarLayout(props) {
     const router = useRouter()
@@ -43,6 +44,11 @@ filter: brightness(50%);}`
     const [CartStatus, setCartStatus] = useState(false)
     const CartHandler = () => {
         setCartStatus(!CartStatus)
+    }
+
+    const [userStatus, setUserStatus] = useState(false)
+    const userHandler = () => {
+        setUserStatus(!userStatus)
     }
 
     return (
@@ -361,6 +367,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
     opacity: 1;
     color: ${props.color["color-primary-light"]} !important;
     transform: scale(2);
+    filter: brightness(150%)
 }
 
 .slick-dots{bottom: 10px !important;}
@@ -405,6 +412,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
             </Head>
 
             <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} cartOpen={CartHandler} user={props.user} />
+            <UserProfile modalStatus={userStatus}></UserProfile>
             <CartModal modalStatus={CartStatus} cartOpen={CartHandler} currency={props.curr} user={props.user} categs={props.martCateg}></CartModal>
             <div>{props.children}</div>
             {router.asPath !== `/${id}/mart/details` && router.asPath !== "/" ? <Footer details={props.contents} address={props.address}></Footer> : <Fragment></Fragment>}
