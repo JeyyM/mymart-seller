@@ -36,8 +36,6 @@ function UserProfile(props) {
     },
   };
 
-  console.log("fucking", props.user.profile)
-
   async function hashString(data) {
     const encoder = new TextEncoder();
     const dataBuffer = encoder.encode(data);
@@ -128,11 +126,12 @@ const [selectGender, setSelectGender] = useState("Select");
       setPhone(event.target.value);
   };
 
-  const presetBirth = new Date(props.user.profile.birth)
-
-  const [bday, setbday] = useState(presetBirth);
-  const handlebdayChange = (date) => {
-      setbday(date);
+  const momentObject = moment(props.user.profile.birth);
+  const dateObject = momentObject.toDate();
+  
+  const [bday, setBday] = useState(momentObject);
+  const handleBdayChange = (date) => {
+    setBday(moment(date)); 
   };
 
   const [company, setCompany] = useState("");
@@ -205,6 +204,8 @@ const [cvv, setcvv] = useState("");
 const handlecvvChange = (event) => {
     setcvv(event.target.value);
 };
+
+console.log("ballz", props.user.profile.birth)
 
 useEffect(() => {
     if (window.google && window.google.maps && center) {
@@ -300,8 +301,6 @@ const cardmonthClasses = `${signValidity.mm ? "text-small input-number" : "inval
 const cardyearClasses = `${signValidity.yy ? "text-small input-number" : "invalid-form-2 z"}`;
 const cvvClasses = `${signValidity.cvv ? "text-small input-number" : "invalid-form-2 z"}`;
 
-console.log("right", props.colormode)
-
   return (
     <Fragment>
       <AnimatePresence
@@ -379,7 +378,7 @@ console.log("right", props.colormode)
                             <div className="flex-row">
 
                                 <div className="form-group" style={{ marginTop: "1rem" }}>
-                                    <CustomizedPicker colormode={props.colormode} selectedDate={bday} handleDateChange={handlebdayChange} valid={bdayValid}></CustomizedPicker>
+                                    <CustomizedPicker colormode={props.colormode} selectedDate={bday} handleDateChange={handleBdayChange} valid={bdayValid}></CustomizedPicker>
                                 </div>
                                 <div className="form-group" style={{ marginTop: "1rem" }}>
                                     <select
