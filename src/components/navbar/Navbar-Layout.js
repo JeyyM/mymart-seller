@@ -4,10 +4,15 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import Footer from "../Mart/Footer";
 import CartModal from "../cart/CartModal";
-import UserProfile from "./UserProfile";
+// import UserProfile from "./UserProfile";
+import dynamic from "next/dynamic";
 
 function NavbarLayout(props) {
     const router = useRouter()
+
+    const DynamicComponent1 = dynamic(() => import("./UserProfile"), {
+        ssr: false,
+      });
 
     function hexToRgb(hex) {
         hex = hex.replace('#', '');
@@ -50,6 +55,27 @@ filter: brightness(50%);}`
     const userHandler = () => {
         setUserStatus(!userStatus)
     }
+
+    const appear = {
+        hidden: {
+          transform: "scale(0)",
+          opacity: 0,
+        },
+        visible: {
+          transform: " scale(1)",
+          opacity: 1,
+          transition: {
+            duration: 0.2,
+          },
+        },
+        exit: {
+          transform: "scale(0)",
+          opacity: 0,
+          transition: {
+            duration: 0.2,
+          },
+        },
+      };
 
     return (
         <Fragment>
@@ -412,8 +438,10 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
             </Head>
 
             <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} cartOpen={CartHandler} user={props.user} userHandler={userHandler}/>
-            <UserProfile modalStatus={userStatus} disable={userHandler} user={props.user}></UserProfile>
-            <CartModal modalStatus={CartStatus} cartOpen={CartHandler} currency={props.curr} user={props.user} categs={props.martCateg}></CartModal>
+            {typeof window !== 'undefined' && (<>
+              {props.user !== undefined &&  <DynamicComponent1 modalStatus={userStatus} disable={userHandler} user={props.user} colormode={props.color}></DynamicComponent1>}
+              </>)}
+            <CartModal modalStatus={CartStatus} cartOpen={CartHandler} currency={props.curr} user={props.user} categs={props.martCateg} ></CartModal>
             <div>{props.children}</div>
             {router.asPath !== `/${id}/mart/details` && router.asPath !== "/" ? <Footer details={props.contents} address={props.address}></Footer> : <Fragment></Fragment>}
 

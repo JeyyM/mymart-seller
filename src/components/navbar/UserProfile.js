@@ -9,6 +9,7 @@ import { GoogleMap, useLoadScript } from '@react-google-maps/api';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { Marker } from '@react-google-maps/api';
 import { Autocomplete } from '@react-google-maps/api';
+import moment from 'moment'
 
 const libraries = ['places'];
 function UserProfile(props) {
@@ -34,6 +35,8 @@ function UserProfile(props) {
       },
     },
   };
+
+  console.log("fucking", props.user.profile)
 
   async function hashString(data) {
     const encoder = new TextEncoder();
@@ -99,36 +102,35 @@ const [signValidity, setSignValidity] = useState({
     location: true,
 });
 
-
 const handleSelectGender = (event, index) => {
     setSelectGender(event.target.value);
 };
 
 const [selectGender, setSelectGender] = useState("Select");
 
-  console.log("fucking", props.user)
-
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(props.user.email);
   const handleEmailChange = (event) => {
       setEmail(event.target.value);
   };
 
-  const [fname, setfname] = useState("");
+  const [fname, setfname] = useState(props.user.profile.first);
   const handlefnameChange = (event) => {
       setfname(event.target.value);
   };
 
-  const [lname, setlname] = useState("");
+  const [lname, setlname] = useState(props.user.profile.last);
   const handlelnameChange = (event) => {
       setlname(event.target.value);
   };
 
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState(props.user.profile.pnum);
   const handlePhoneChange = (event) => {
       setPhone(event.target.value);
   };
 
-  const [bday, setbday] = useState("");
+  const presetBirth = new Date(props.user.profile.birth)
+
+  const [bday, setbday] = useState(presetBirth);
   const handlebdayChange = (date) => {
       setbday(date);
   };
@@ -298,6 +300,7 @@ const cardmonthClasses = `${signValidity.mm ? "text-small input-number" : "inval
 const cardyearClasses = `${signValidity.yy ? "text-small input-number" : "invalid-form-2 z"}`;
 const cvvClasses = `${signValidity.cvv ? "text-small input-number" : "invalid-form-2 z"}`;
 
+console.log("right", props.colormode)
 
   return (
     <Fragment>
@@ -341,7 +344,7 @@ const cvvClasses = `${signValidity.cvv ? "text-small input-number" : "invalid-fo
                                         className={fnameClasses}
                                         placeholder="First Name"
                                         autoComplete="off"
-                                        style={{ width: "25rem", margin: "0" }}
+                                        style={{ width: "100%", margin: "0" }}
                                         value={fname}
                                         onChange={handlefnameChange}
                                     ></input>
@@ -353,13 +356,87 @@ const cvvClasses = `${signValidity.cvv ? "text-small input-number" : "invalid-fo
                                         className={lnameClasses}
                                         placeholder="Last Name"
                                         autoComplete="off"
-                                        style={{ width: "25rem", margin: "0" }}
+                                        style={{ width: "100%", margin: "0" }}
                                         value={lname}
                                         onChange={handlelnameChange}
                                     ></input>
                                     {signValidity.lname ? <h3 className="form-label">Last Name</h3> : <h3 className="form-label inv z">Invalid last name</h3>}
                                 </div>
+                                <div className="form-group" style={{ marginTop: "1rem" }}>
+                                    <input
+                                        type="text"
+                                        className={phoneClasses}
+                                        placeholder="Phone Number"
+                                        autoComplete="off"
+                                        style={{ width: "100%", margin: "0" }}
+                                        value={phone}
+                                        onChange={handlePhoneChange}
+                                    ></input>
+                                    {signValidity.phone ? <h3 className="form-label">Phone Number</h3> : <h3 className="form-label inv z">Invalid number</h3>}
+                                </div>
                             </div>
+                            <div>
+                            <div className="flex-row">
+
+                                <div className="form-group" style={{ marginTop: "1rem" }}>
+                                    <CustomizedPicker colormode={props.colormode} selectedDate={bday} handleDateChange={handlebdayChange} valid={bdayValid}></CustomizedPicker>
+                                </div>
+                                <div className="form-group" style={{ marginTop: "1rem" }}>
+                                    <select
+                                        value={selectGender}
+                                        className={genderClasses}
+                                        style={{ width: "10rem" }}
+                                        onChange={(event) => handleSelectGender(event)}
+                                    >
+                                        {genderOptions.map(gender => (
+                                            <option key={gender} value={gender}>{gender}</option>
+                                        ))}
+                                    </select>
+                                    {signValidity.gender ? <h3 className="form-label">Gender</h3> : <h3 className="form-label inv z">Invalid gender</h3>}
+                                </div>
+                                <div className="form-group" style={{ marginTop: '1rem' }}>
+                                    {isOtherSelected ? (
+                                        <input
+                                            className={otherClasses}
+                                            type="text"
+                                            value={customOccupation}
+                                            onChange={handleCustomOccupationChange}
+                                            autoFocus
+                                            placeholder="Enter your occupation"
+                                            style={{ width: '22rem', margin: '0' }}
+                                        />
+                                    ) : (
+                                        <select
+                                            className={occupationDropdownClasses}
+                                            style={{ width: '22rem' }}
+                                            value={selectedOccupation}
+                                            onChange={handleOccupationChange}
+                                        >
+                                            {occupationOptions.map((occupation) => (
+                                                <option key={occupation} value={occupation}>
+                                                    {occupation}
+                                                </option>
+                                            ))}
+                                            <option value="other">Other</option>
+                                        </select>
+                                    )}
+                                    {signValidity.occupation ? <h3 className="form-label">Occupation</h3> : <h3 className="form-label inv z">Invalid Occupation</h3>}
+                                </div>
+
+                                <div className="form-group" style={{ marginTop: '1rem' }}>
+                                    <input
+                                        type="text"
+                                        className={companyClasses}
+                                        placeholder="Company Name"
+                                        autoComplete="off"
+                                        style={{ width: '100%', margin: '0' }}
+                                        value={company}
+                                        onChange={handleCompanyChange}
+                                    ></input>
+                                    {signValidity.company ? <h3 className="form-label">Company Name</h3> : <h3 className="form-label inv z">Invalid company name</h3>}
+                                </div>
+                            </div>
+                        </div>
 
 
             </motion.div>
@@ -368,6 +445,7 @@ const cvvClasses = `${signValidity.cvv ? "text-small input-number" : "invalid-fo
       </AnimatePresence>
     </Fragment>
   );
+                                            
 }
 
 export default UserProfile;

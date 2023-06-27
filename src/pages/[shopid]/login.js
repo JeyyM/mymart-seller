@@ -222,7 +222,7 @@ function SignUp(martID) {
                         transition={{ duration: 0.2 }}
                     ><div className="sign-step">
                             <img className="company-logo-med" src={navlogo} style={{ margin: "0", marginBottom: "1rem", display: "inline" }}></img>
-                            <h2 className="heading-secondary">Log-in {shopName}</h2>
+                            <h2 className="heading-secondary">Log-in to {shopName}</h2>
 
                             <div className="form-group" style={{ marginTop: "1rem" }}>
                                 <input
