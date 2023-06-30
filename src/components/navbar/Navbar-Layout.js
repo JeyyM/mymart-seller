@@ -166,6 +166,10 @@ border-image: linear-gradient(
     background-image: linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
 }
 
+.navbutton__hr-2, .navbutton__hr-2::before, .navbutton__hr-2::after {
+    background-image: linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
+}
+
 .navmenu {
     box-shadow: 0 0 0 2px ${props.color["color-primary-dark"]}, 0 0 0 4px ${props.color["bg-item"]} !important;
 }
