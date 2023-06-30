@@ -102,7 +102,7 @@ function Confirmer2(props) {
               animate="visible"
               exit="exit"
             >
-              <h2 className="heading-primary no-margin">{props.action}</h2>
+              <h2 className="heading-secondary no-margin">{props.action}</h2>
               <div className="confirm-contents">
                 <div className="warning-logo">&nbsp;</div>
                 <h2 className="confirm-text heading-tertiary">{props.msg}</h2>

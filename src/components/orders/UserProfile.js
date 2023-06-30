@@ -186,7 +186,7 @@ function RefuseOrder(props) {
                                 </div>
 
                                 <div className="margin-side" style={{ marginTop: "1rem" }}>
-                                    <button className="product-action-1 heading-secondary" onClick={props.disable} style={{ width: "18rem", margin: "0" }}>Cancel</button>
+                                    <button className="product-action-1 heading-secondary" onClick={props.disable} style={{ width: "18rem", margin: "0" }}>Close</button>
                                 </div>
 
 

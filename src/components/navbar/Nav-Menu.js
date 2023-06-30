@@ -42,8 +42,8 @@ function NavMenu(props) {
         <NavMenuItem logo={"quiz"} label={"Frequently Asked Questions"} exit={props.onClick}></NavMenuItem>
         <NavMenuItem logo={"policy"} label={"Terms & Policies"} exit={props.onClick}></NavMenuItem>
         <NavMenuItem logo={"support"} label={"Customer Service"} exit={props.onClick}></NavMenuItem>
-        <NavMenuItem logo={"power"} label={"Close or Open Mart"} exit={props.onClick}></NavMenuItem>
-        <NavMenuItem logo={"settings"} label={"Settings"} exit={props.onClick}></NavMenuItem>
+        {/* <NavMenuItem logo={"power"} label={"Close or Open Mart"} exit={props.onClick}></NavMenuItem>
+        <NavMenuItem logo={"settings"} label={"Settings"} exit={props.onClick}></NavMenuItem> */}
       </div>
     </Fragment>
   }
