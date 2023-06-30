@@ -42,6 +42,10 @@ function HomePage({ shopID }) {
     },
   };
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}, []);
+
   const { shopid } = router.query;
 
   const shopData = shopID.shopData;

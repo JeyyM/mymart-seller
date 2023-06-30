@@ -364,13 +364,6 @@ export default function Checkout({ shopID, user }) {
     
       }
 
-    //   let now = new Date()
-    //   console.log("date", now)
-
-    //   console.log(takebacks.cancelCount, takebacks.cancelDuration)
-    //   console.log(takebacks.refundCount, takebacks.refundDuration)
-    console.log("takebcks", takebacks)
-
     async function finishSubmission() {
         let cvvValid
         const hashedCVV = await hashString(cvv)
@@ -643,16 +636,17 @@ export default function Checkout({ shopID, user }) {
 
                     <div className="flex-col-none">
                         <h2 className="heading-secondary" style={{ marginBottom: "1rem" }}>Total: {currency} {absoluteTotal}</h2>
+                        <h2 className="heading-tertiary" style={{ marginBottom: "1rem", fontWeight:"900" }}>The owner may edit your orders such as reducing ordered amounts and adding new products. Edited items will be marked as such.</h2>
                         {takebacks.allowRefunds === false ? <div>
                             <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Refunds are not allowed.</h2>
                         </div> : <div>
-                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Refunds are allowed within {takebacks.refundCount} {takebacks.refundDuration}/s of receiving with a penalty of {takebacks.refundFee}% of the order's total, fees not included.</h2>
+                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Refunds are allowed within {takebacks.refundCount} {takebacks.refundDuration}/s of receiving with a penalty of {takebacks.refundFee}% of the order's total, fees not included. Items must be returned on-site in good condition within the refund period.</h2>
                         </div>}
 
                         {takebacks.allowCancel === false ? <div>
                             <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Cancellations are not allowed.</h2>
                         </div> : <div>
-                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Cancellations are allowed within {takebacks.cancelCount} {takebacks.cancelDuration}/s of ordering with a penalty of {takebacks.cancelFee}% of the order's total, fees not included. You cannot cancel approved orders.</h2>
+                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Cancellations are allowed within {takebacks.cancelCount} {takebacks.cancelDuration}/s of ordering with a penalty of {takebacks.cancelFee}% of the order's total, fees not included. Approved orders cannot be cancelled.</h2>
                         </div>}
 
                         <Link href={`/${router.query.shopid}/terms`}><h2 className="heading-tertiary" style={{ fontWeight: "900" }}>By completing this order, I agree with the mart's terms and conditions as well as the privacy policy.</h2></Link>

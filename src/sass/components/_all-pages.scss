@@ -252,6 +252,26 @@ input[type=number].shortener-25{
   z-index: 2;
 }
 
+.approved-warning{
+  @include warning-logo(approved, 6rem, 6rem);
+
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 2;
+}
+
+.edited-warning{
+  @include warning-logo(edited, 6rem, 6rem);
+
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 2;
+}
+
 .margin-side{
   margin: 0 auto;
 }
@@ -259,4 +279,19 @@ input[type=number].shortener-25{
 .empty-cart{
   @include empty-logo(cart, 10rem, 10rem);
     transform: translateY(-10rem);
+}
+
+.empty-receipt{
+  @include empty-logo(receipt, 10rem, 10rem);
+    transform: translateY(-10rem);
+}
+
+.grid-col-2{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid-col-3{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }

@@ -7,6 +7,7 @@ function NavUser(props) {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
   const [isActive, setIsActive] = useState(false);
+
     function setActive(){
         setIsActive(!isActive)
     }
@@ -62,7 +63,7 @@ function NavUser(props) {
             </button>
 
             <Link
-              href={`${router.query.shopid}/orders`}
+              href={`/${router.query.shopid}/orders`}
               style={{ textDecoration: "none" }}
               className="profile-item svg-decolor"
             >

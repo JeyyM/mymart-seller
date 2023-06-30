@@ -34,57 +34,63 @@ async function handler(req, res) {
     res.status(201).json({ message: "Profile Inserted" })
   }
 
-  // if (req.method === "PATCH") {
-  //   const data = req.body;
-  //   const catKey = req.query.categoryindex
-  //   // const categoryName = req.query.categoryname;
+  if (req.method === "PATCH") {
+    const data = req.body
+    console.log("new data here", data)
 
-  //   const client = await MongoClient.connect(process.env.MONGODB_URI, {
-  //     useNewUrlParser: true,
-  //     useUnifiedTopology: true,
-  //   });
-  //   const db = client.db();
-  //   const martId = new ObjectId(req.query.martid);
+    const client = await MongoClient.connect(process.env.MONGODB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    const db = client.db()
 
-  //   const result = await db.collection("shops").updateOne(
-  //     { _id: martId },
-  //     {
-  //       $set: {
-  //         [`shopData.shopCategories.${catKey}.categoryDescription`]: data.categoryDescription,
-  //         [`shopData.shopCategories.${catKey}.categoryImage`]: data.categoryImage,
-  //         [`shopData.shopCategories.${catKey}.categoryName`]: data.categoryName,
-  //         [`shopData.shopCategories.${catKey}.active`]: data.active
-  //       }
-  //     }
-  //   );
+    const id = new ObjectId(req.query.martid);
+    const item = await db.collection("shops").findOne({ _id: id });
 
-  //   client.close();
+    item._id = item._id.toString();
 
-  //   res.status(200).json({ message: "Category updated" });
-  // }
+    const shopAccounts = item.shopData.shopAccounts
 
-  // if (req.method === "DELETE") {
-  //   const categoryIndex = req.query.categoryindex;
+    console.log(shopAccounts)
 
-  //   const client = await MongoClient.connect(process.env.MONGODB_URI, {
-  //     useNewUrlParser: true,
-  //     useUnifiedTopology: true,
-  //   });
-  //   const db = client.db();
-  //   const martId = new ObjectId(req.query.martid);
+    const accIndex = shopAccounts.findIndex((account) => account.email ===  data.email)
+    console.log(accIndex)
 
-  //   const result = await db.collection("shops").updateOne(
-  //     { _id: martId },
-  //     { $unset: { [`shopData.shopCategories.${categoryIndex}`]: "" } }
-  //   );
-  //   const pullResult = await db.collection("shops").updateOne(
-  //     { _id: martId },
-  //     { $pull: { "shopData.shopCategories": null } }
-  //   );
+    const result = await db.collection("shops").updateOne(
+      { _id: id },
+      {
+          $set: {
+              [`shopData.shopAccounts.${accIndex}.card`]: data.newCard,
+          },
+          $set: {
+            [`shopData.shopAccounts.${accIndex}.profile`]: data.newProfile,
+        },
+        $set: {
+          [`shopData.shopAccounts.${accIndex}.location`]: data.newLocationName,
+      },
+      $set: {
+        [`shopData.shopAccounts.${accIndex}.locationCoords`]: data.newCoords,
+    },
+      }
+  );
 
-  //   client.close();
-  // }
+    // const result = await db.collection("shops").updateOne(
+    //   { _id: id },
+    //   { $push: { [`shopData.shopAccounts`]: data } },
+    //   (err, result) => {
+    //     if (err) {
+    //       console.log(err);
+    //     } else {
+    //       console.log(`Updated document with _id: ${id}`);
+    //     }
+    //     client.close();
+    //   }
+    // );
 
+    client.close();
+
+    res.status(201).json({ message: "Profile Inserted" })
+  }
 
 }
 

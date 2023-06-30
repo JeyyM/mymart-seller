@@ -252,7 +252,9 @@ function SignUp(martID) {
                             </div>
 
                             <div className="form-group" style={{ marginTop: "0.5rem" }}>
-                                      <button className="product-action-2 flex-row-align sign-page-button" onClick={accountValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div style={{transform:"translateY(20%)"}}>{checkmark}</div> : <h2 className="heading-secondary button-solid-text">Log-in</h2>)}</button>
+                                      {/* <button className="product-action-2 flex-row-align sign-page-button" onClick={accountValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div style={{transform:"translateY(20%)"}}>{checkmark}</div> : <h2 className="heading-secondary button-solid-text">Log-in</h2>)}</button> */}
+                                      <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: "22rem", height:"6rem", display:"block" }} disabled={loading} onClick={accountValidate}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Log-in")}</button>
+
 
                             </div>
                             <a className="heading-tertiary" style={{ margin: "1rem auto" }} href={`/${id}/signup`}>Sign-up?</a>

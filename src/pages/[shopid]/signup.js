@@ -722,7 +722,8 @@ function SignUp(martID) {
                                     onChange={handleRepeatChange}
                                 ></input>
                                 {signValidity.repeat ? <h3 className="form-label">Repeat password</h3> : <h3 className="form-label inv z">Password doesn't match</h3>}
-                                <button className="product-action-2 flex-row-align sign-page-button" onClick={accountValidate}><h2 className="heading-secondary button-solid-text">Next</h2></button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: "22rem", height:"6rem", display:"block" }} onClick={accountValidate}>Next</button>
+
                             </div>
                             <a className="heading-tertiary" style={{ margin: "1rem auto" }} href={`/${id}/login`}>Log-in instead?</a>
 
@@ -851,8 +852,10 @@ function SignUp(martID) {
                             </div>
 
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
-                                <button className="product-action-1 flex-row-align sign-page-button" onClick={handlePreviousStep} style={{ width: "22rem" }}><h2 className="heading-secondary button-solid-text">Previous</h2></button>
-                                <button className="product-action-2 flex-row-align sign-page-button" onClick={detailValidate}><h2 className="heading-secondary button-solid-text">Next</h2></button>
+                                <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: "22rem", height:"6rem", margin:"0" }}  onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: "22rem", height:"6rem", display:"block" }} onClick={detailValidate}>Next</button>
+                                
+
                             </div>
 
                         </div>
@@ -896,10 +899,12 @@ function SignUp(martID) {
                                     </div>
                                 </GoogleMap>
                             </div>
-                            <button className="product-action-2 flex-row-align sign-page-button" onClick={currentLoc} style={{ width: "95%" }}><h2 className="heading-secondary button-solid-text">Get Current Location</h2></button>
+                            <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: "100%", height:"6rem", margin:"0" }}  onClick={currentLoc}><h2 className="heading-secondary outline-button margin-side">Get Current Location</h2></button>
+                            
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
-                                <button className="product-action-1 flex-row-align sign-page-button" onClick={handlePreviousStep} style={{ width: "22rem" }}><h2 className="heading-secondary button-solid-text">Previous</h2></button>
-                                <button className="product-action-2 flex-row-align sign-page-button" onClick={locationValidate}><h2 className="heading-secondary button-solid-text">Next</h2></button>
+                            <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: "22rem", height:"6rem", margin:"0" }}  onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: "22rem", height:"6rem", display:"block" }} onClick={locationValidate}>Next</button>
+
                             </div>
 
                         </div>
@@ -972,8 +977,10 @@ function SignUp(martID) {
                             </div>
 
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
-                                <button className="product-action-1 flex-row-align sign-page-button" onClick={handlePreviousStep} style={{ width: "22rem" }}><h2 className="heading-secondary button-solid-text">Previous</h2></button>
-                                <button className="product-action-2 flex-row-align sign-page-button" onClick={cardValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div style={{transform:"translateY(20%)"}}>{checkmark}</div> : <h2 className="heading-secondary button-solid-text">Finish</h2>)}</button>
+
+                            <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: "22rem", height:"6rem", margin:"0" }}  onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: "22rem", height:"6rem", display:"block" }} onClick={cardValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div style={{transform:"translateY(20%)"}}>{checkmark}</div> : "Finish")}</button>
+
                             </div>
 
                         </div>

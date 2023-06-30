@@ -230,6 +230,7 @@ const updateCartInput = (index, amount, select) => {
                 ))}
               </div>}
 
+              {parsedData.length > 0 && <>
               {parsedData.length > 0 && <div className="empty-cart-row"></div>}
 
               <div className="cart-bottom dark-underline-upper">
@@ -238,7 +239,9 @@ const updateCartInput = (index, amount, select) => {
                   {props.user === undefined && <DynamicComponent2 route={router.query.shopid} click={props.cartOpen} />}
                   {props.user !== undefined && <DynamicComponent1 route={router.query.shopid} click={props.cartOpen} />}
                 </>
-                )}              </div>
+                )}              
+                </div>
+                </>}
 
             </motion.div>
           </Backdrop>
