@@ -54,8 +54,6 @@ function OrderDetails(props) {
 
     const { order, shopCategories, currency } = props
 
-    console.log("the order", order)
-
     function formatDateTime(dateTimeString) {
         const dateTime = new Date(dateTimeString);
 

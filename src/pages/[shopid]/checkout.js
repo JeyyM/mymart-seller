@@ -20,7 +20,7 @@ export default function Checkout({ shopID, user }) {
     const footerItems = shopID.shopData.shopDetails.footerData
     const favicon = shopID.shopData.shopDetails.imageData.icons.icon
     const { handleIncrement, state } = useContext(MyContext);
-    
+
     const shopName = shopID.name
 
     const shopCategories = shopID.shopData.shopCategories
@@ -42,6 +42,13 @@ export default function Checkout({ shopID, user }) {
 
     const router = useRouter()
     const localStorageKey = `mart_${router.query.shopid}`;
+
+    if (typeof window !== 'undefined') {
+        if (user === undefined) {
+          window.location.href = `/${router.query.shopid}`;
+        }
+      }
+      
 
     const paymentDetails = shopID.shopData.shopDetails.paymentData
 

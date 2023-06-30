@@ -979,7 +979,7 @@ function SignUp(martID) {
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
 
                             <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: "22rem", height:"6rem", margin:"0" }}  onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
-                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: "22rem", height:"6rem", display:"block" }} onClick={cardValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div style={{transform:"translateY(20%)"}}>{checkmark}</div> : "Finish")}</button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: "22rem", height:"6rem", display:"block" }} onClick={cardValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Finish")}</button>
 
                             </div>
 

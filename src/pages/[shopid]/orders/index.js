@@ -39,6 +39,12 @@ function MyOrders({ shopID, user, currency }) {
     setInfo(!Info)
   }
 
+  if (typeof window !== 'undefined') {
+    if (user === undefined) {
+      window.location.href = `/${router.query.shopid}`;
+    }
+  }
+
   return (
     <>
       {shouldRender && (
@@ -104,8 +110,6 @@ function MyOrders({ shopID, user, currency }) {
       }
     })
 
-    console.log("usere here", user)
-
     function findItem(category, varName) {
       let chosenCateg = shopCategories.find((categ) => categ.categoryName === category)
 
@@ -122,9 +126,7 @@ function MyOrders({ shopID, user, currency }) {
   }
 
     async function submitCancel(given){
-      console.log("in submit", given)
       let updatedItem = given
-      console.log("updated ver", updatedItem)
       updatedItem.status = "cancelled"
 
       const today = new Date();
@@ -165,8 +167,6 @@ function MyOrders({ shopID, user, currency }) {
             selectedOrder: selectedOrder,
             productIds: productIds
           };
-
-          console.log("request body", requestBody)
         
         const response = await fetch(
             `../../api/order-refuse?martid=${router.query.shopid}`,
@@ -178,6 +178,8 @@ function MyOrders({ shopID, user, currency }) {
           );
           const data = await response.json();
     }
+
+    console.log(pastOrders)
     
     if (orderAmount + ongoingOrders.length > 0) {
       return (
@@ -262,20 +264,22 @@ function MyOrders({ shopID, user, currency }) {
                 const endIndex = startIndex + (slideIndex === totalSlides2 - 1 ? lastSlideItems2 : itemsPerSlide2);
 
                 const slideItems = pastOrders.slice(startIndex, endIndex);
+                console.log("fjri", slideItems)
 
                 return (
                   <div className="slide" key={slideIndex}>
                     <div className="category-container">
                       {slideItems.map((order, index) => {
                         const relativeIndex = startIndex + index;
-                        if (order.order.length > 0) {
+                        if (slideItems.length > 0) {
                           return (
                             <div className="warning-container" key={relativeIndex} onClick={() => changeOrder(order)}>
                               <OrderOngoing item={order} index={index} key={index} currency={shopCurrency}></OrderOngoing>
                             </div>
                           );
                         }
-                      })}
+                      }
+                      )}
                     </div>
                   </div>
                 );

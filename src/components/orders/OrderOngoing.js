@@ -63,6 +63,11 @@ const calculateTotal = () => {
   return total;
 };
 
+// const categoryClass = `${}`
+console.log(props.order)
+// const emailClasses = `${signValidity.email ? "text-small input-number" : "invalid-form-2 z"}`;
+
+
   return (
     <>
       <div
