@@ -228,8 +228,6 @@ function SignUp(martID) {
         setbday(date);
     };
 
-    useEffect(() => {console.log(bday)}, [bday])
-
     const [company, setCompany] = useState("");
     const handleCompanyChange = (event) => {
         setCompany(event.target.value);

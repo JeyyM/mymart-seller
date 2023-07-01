@@ -265,6 +265,15 @@ color: ${props.color["button-outline-text"]} !important;
     0 0 0 4px ${props.color["bg-item"]} !important;
 }
 
+.round-borderer-extra-red{
+    box-shadow: inset 0 0 0 2.2rem ${props.color["bg-item"]}, 0 0 0 2px red,
+    0 0 0 4px white !important;
+}
+
+.solid-text-color{
+    color: ${props.color["button-solid-text"]} !important;
+}
+
 .white-input, .white-input.text-small{
 box-shadow: inset 0 0 0 2.2rem white, 0 0 0 2px ${props.color["color-primary-dark"]},
     0 0 0 4px ${props.color["bg-item"]} !important;

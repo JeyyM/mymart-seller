@@ -199,6 +199,10 @@ function OrderDetails(props) {
                                 <div className="text-sec-calendar svg-secondary">&nbsp;</div> <h2 className="heading-secondary">&nbsp;On: {formatDateTime(order.currentTime)}</h2>
                             </div>
 
+                            {order.finishedOn !== undefined && <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
+              {order.status === "finished" ? <div className="text-sec-finished svg-secondary">&nbsp;</div> : <div className="text-sec-refused svg-secondary">&nbsp;</div>} <h2 className="heading-secondary">&nbsp;<span style={{ fontWeight: "900" }}>{order.status === "finished" ? "Finished" : order.status === "refused" ? "Refused" : "Cancelled"} On: {formatDateTime(order.finishedOn)}</span></h2>
+            </div>}
+
                             {order.status === "accepted" && <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
                                 <div className="text-sec-alarm svg-secondary">&nbsp;</div> <h2 className="heading-secondary">&nbsp;Expect By: {formatDateTime2(order.expectBy)}</h2>
                             </div>}

@@ -74,13 +74,21 @@
     @include heading-logo(pin, 3rem, 3rem);
   }
 
-//   .text-ter-finished {
-//     @include heading-logo(finished, 2rem, 2rem);
-//   }
+  .text-ter-finished {
+    @include heading-logo(finished, 2rem, 2rem);
+  }
 
-//   .text-ter-refused {
-//     @include heading-logo(refused, 2rem, 2rem);
-//   }
+  .text-ter-refused {
+    @include heading-logo(refused, 2rem, 2rem);
+  }
+
+  .text-sec-finished {
+    @include heading-logo(finished, 3rem, 3rem);
+  }
+
+  .text-sec-refused {
+    @include heading-logo(refused, 3rem, 3rem);
+  }
 
 .text-ter-calendar {
     @include heading-logo(calendar, 2rem, 2rem);

@@ -95,7 +95,7 @@ function MyOrders({ shopID, user, currency }) {
     };
 
     const totalItems2 = pastOrders.length;
-    const totalSlides2 = Math.ceil(totalItems / itemsPerSlide2);
+    const totalSlides2 = Math.ceil(totalItems2 / itemsPerSlide2);
     const lastSlideItems2 = totalItems2 % itemsPerSlide2 || itemsPerSlide2;
     const slideIndexes2 = Array.from(Array(totalSlides2).keys());
 
@@ -178,8 +178,6 @@ function MyOrders({ shopID, user, currency }) {
           );
           const data = await response.json();
     }
-
-    console.log(pastOrders)
     
     if (orderAmount + ongoingOrders.length > 0) {
       return (
@@ -259,18 +257,17 @@ function MyOrders({ shopID, user, currency }) {
             </span>
 
             <Slider {...sliderSettings}>
-              {slideIndexes.map((slideIndex) => {
+              {slideIndexes2.map((slideIndex) => {
                 const startIndex = slideIndex * itemsPerSlide2;
                 const endIndex = startIndex + (slideIndex === totalSlides2 - 1 ? lastSlideItems2 : itemsPerSlide2);
 
                 const slideItems = pastOrders.slice(startIndex, endIndex);
-                console.log("fjri", slideItems)
 
                 return (
                   <div className="slide" key={slideIndex}>
                     <div className="category-container">
                       {slideItems.map((order, index) => {
-                        const relativeIndex = startIndex + index;
+                        const relativeIndex = startIndex + index;    
                         if (slideItems.length > 0) {
                           return (
                             <div className="warning-container" key={relativeIndex} onClick={() => changeOrder(order)}>
@@ -278,8 +275,7 @@ function MyOrders({ shopID, user, currency }) {
                             </div>
                           );
                         }
-                      }
-                      )}
+                      })}
                     </div>
                   </div>
                 );
