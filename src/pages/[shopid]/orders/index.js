@@ -589,6 +589,7 @@ function Orders({ shopID }) {
                                             <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetEdit(order)}>Edit Order</button>
 
                                             <button className="product-action-3 white heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetRefuse(order)}>
+                                            Refuse Order
                                             </button>
                                             <button className="product-action-2 heading-secondary" style={{ width: "18.5rem", margin: "0" }} onClick={() => handleSetAccept(order)}>Approve Order</button>
                                         </div>

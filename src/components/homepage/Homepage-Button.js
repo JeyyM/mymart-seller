@@ -66,7 +66,6 @@ function HomepageButton(props) {
         className={`homepage-button ${props.item} bg-gradient-${props.direction} x`}
         href={{
           pathname: `/${shopId}/${props.direction}${extension}`,
-          query: { shopid: shopId },
         }}
         aria-label={props.label}
         title={props.title}

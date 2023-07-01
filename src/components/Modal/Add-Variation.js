@@ -314,7 +314,7 @@ function AddProduct(props) {
             >
               <form onSubmit={handleClick}>
                 <span className="page-heading">
-                  <h2 className="heading-primary no-margin">Add Variation</h2>
+                  <h2 className="heading-secondary no-margin">Add Variation</h2>
                   <div className="heading-icon-dropshadow">
                     <div className="heading-icon-cube svg-color">&nbsp;</div>
                   </div>

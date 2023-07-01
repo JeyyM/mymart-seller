@@ -283,7 +283,7 @@ function AddCategory(props) {
             >
               <form onSubmit={handleClick}>
                 <span className="page-heading" style={{marginBottom:"1rem"}}>
-                  <h2 className="heading-primary no-margin">{setting}</h2>
+                  <h2 className="heading-secondary no-margin">{setting}</h2>
                   <div className="heading-icon-dropshadow">
                     <div className="heading-icon-category svg-color">&nbsp;</div>
                   </div>

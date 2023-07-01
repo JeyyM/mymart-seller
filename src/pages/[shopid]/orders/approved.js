@@ -84,7 +84,6 @@ function Orders({ shopID }) {
         setRefuseModal(!refuse);
     }
 
-    
     const [celebration, setCelebration] = useState(false)
     const celebrationClose = () => {
         setCelebration(!celebration);

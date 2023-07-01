@@ -1,6 +1,7 @@
 import { Fragment, useState, useEffect } from "react"
 import HomepageButton from "../../components/homepage/Homepage-Button"
 import HomepageButtonBlank from "@/components/homepage/Homepage-Button-Blank"
+import HomepageLater from "@/components/homepage/HomapageLater"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import Head from "next/head"
@@ -43,7 +44,7 @@ function HomePage({ shopID }){
             <HomepageButtonBlank color={defaultColors} item="home-policy" label="Terms & Policies" direction="policies"></HomepageButtonBlank>
             <HomepageButtonBlank color={defaultColors} item="home-support" label="Customer Service" direction="customer-service"></HomepageButtonBlank>
             <HomepageButtonBlank color={defaultColors} item="home-quiz" label="Frequently Asked Questions" direction="faq"></HomepageButtonBlank>
-            <HomepageButtonBlank color={defaultColors} item="home-power" label="Close or Open Mart" direction="toggle"></HomepageButtonBlank>
+            <HomepageLater color={defaultColors} item="home-power" label="Close or Open Mart" direction="toggle"></HomepageLater>
         </main>
     </Fragment>
 }
