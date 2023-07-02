@@ -40,6 +40,7 @@
     "react-dom": "18.2.0",
     "react-glider": "^4.0.2",
     "react-icons": "^4.8.0",
+    "react-markdown": "^8.0.7",
     "react-morph": "^0.4.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.8.2",

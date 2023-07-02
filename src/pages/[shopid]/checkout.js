@@ -45,7 +45,7 @@ export default function Checkout({ shopID, user }) {
 
     if (typeof window !== 'undefined') {
         if (user === undefined) {
-          window.location.href = `/${router.query.shopid}`;
+          window.location.href = `/${router.query.shopid}/signup`;
         }
       }
       

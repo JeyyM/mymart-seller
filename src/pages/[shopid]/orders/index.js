@@ -41,7 +41,7 @@ function MyOrders({ shopID, user, currency }) {
 
   if (typeof window !== 'undefined') {
     if (user === undefined) {
-      window.location.href = `/${router.query.shopid}`;
+      window.location.href = `/${router.query.shopid}/signup`;
     }
   }
 
