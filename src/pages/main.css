@@ -19,6 +19,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap");
+@import "../sass/base/github-markdown.css";
 *,
 *::after,
 *::before {
@@ -5842,4 +5843,50 @@ input[type=checkbox].checkbox-style {
   height: auto;
   padding: 1rem;
   position: relative;
+}
+
+.heading-icon-policy {
+  -webkit-mask-size: 4rem;
+          mask-size: 4rem;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-image: url("../../components/svgs/policy.svg");
+          mask-image: url("../../components/svgs/policy.svg");
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, #0057FF, #7FC9FF);
+  transform: translateY(0.3rem);
+  height: 4rem;
+  fill: transparent;
+  width: 110%;
+  height: 4rem;
+  width: 4rem;
+  transform: translateY(0rem);
+  margin-left: 1rem;
+}
+
+.policy-container {
+  height: calc(100vh - 10rem - 4rem);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  gap: 1.5rem;
+}
+
+.markdown-half {
+  height: 100%;
+  width: 45vw;
+}
+
+.markdown-preview {
+  background-color: white;
+  padding: 1rem;
+  overflow-y: scroll;
+  font-size: 2rem;
+}
+
+.markdown-textarea {
+  padding: 1rem;
 }/*# sourceMappingURL=main.css.map */

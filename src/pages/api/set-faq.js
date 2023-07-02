@@ -3,7 +3,6 @@ import { MongoClient, ObjectId } from "mongodb"
 async function handler(req, res) {
     if (req.method === "PATCH") {
         const data = req.body;
-        console.log(data)
 
         const client = await MongoClient.connect(process.env.MONGODB_URI, {
             useNewUrlParser: true,
@@ -29,8 +28,6 @@ async function handler(req, res) {
         client.close();
 
         res.status(200).json({ message: "Category updated" });
-
-        console.log("final", data.a, data.q)
     }
 }
 
