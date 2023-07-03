@@ -28,8 +28,6 @@ function Orders({ shopID }) {
     const defaultColor = shopData.shopDesigns.defaultMode
     const design = shopData.shopDesigns
 
-    console.log("fucking", contents)
-
     function findUser(email) { return usersList.find((user) => user.email === email) }
 
     const [activeOrders, setActiveOrders] = useState(contents)
