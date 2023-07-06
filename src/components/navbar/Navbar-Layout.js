@@ -129,13 +129,6 @@ border-image: linear-gradient(
     ${props.color["text-secondary-color"]}
   ) !important;}
 
-  .svg-outline {
-    background-image: linear-gradient(
-    to right,
-    ${props.color["button-outline-text"]},
-    ${props.color["button-outline-text"]}
-  ) !important;}
-
 .company-logo-med {
     border-image: linear-gradient(
       45deg,

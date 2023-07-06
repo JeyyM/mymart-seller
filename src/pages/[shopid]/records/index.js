@@ -336,8 +336,6 @@ function Orders({ shopID }) {
     const ongoingText = `${buttonMode ? "heading-tertiary margin-side solid-text-color" : "heading-tertiary margin-side"}`
     const acceptText = `${buttonMode ? "heading-tertiary margin-side" : "heading-tertiary margin-side solid-text-color"}`
 
-    console.log(contents)
-
     if (contents.length > 0) {
         return (
             <Fragment>

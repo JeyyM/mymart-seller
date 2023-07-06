@@ -5,62 +5,116 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
-import MdSample from "@/components/terms/MdSample";
-import Link from "next/link";
 
 function Policies(martID) {
     const router = useRouter();
     const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
-    const terms = martID.shopID.shopData.shopTerms.terms
 
-    const [markdownContent, setMarkdownContent] = useState(terms);
+    const markdownData = `# Heading 1
+## Heading 2
+#### Heading 4
+### Heading 3
+##### Heading 5
+###### Heading 6
+    
+## Horizontal Rules
+    
+#
+
+---
+
+## Emphasis
+__This is bold text__
+*This is italic text*
+~~Strikethrough~~
+
+## Blockquotes
+
+> Blockquotes can also be nested...
+>> ...by using additional greater-than signs right next to each other...
+> > > ...or with spaces between arrows.
+
+## Lists
+
+Bullet Lists
+
++ Create a list by starting a line with \`+\`, \`-\`, or \`*\`
++ Sub-lists are made by indenting 2 spaces:
+  - Marker character change forces a new list start:
+    * Ac tristique libero volutpat at
+    + Facilisis in pretium nisl aliquet
+    - Nulla volutpat aliquam velit
+
+Ordered Lists
+
+1. Just put ordered numbers as usual
+2. It will work as it normally should
+1. Each new item can be put with 1. to automatically number
+
+You may also start with advanced numbers
+
+57. foo
+1. bar
+
+## Text Boxes
+
+Highlight \`Put Text within backticks\`
+
+Indented content gets put in text boxes
+
+    line 1
+    line 2
+    line 3
+
+Block code within \`\`\` backticks
+
+\`\`\`
+Sample text here...
+\`\`\`
+
+## Tables
+
+Put content within this formatting to make tables
+
+| Option  | Description |
+| ------- | ----------- |
+| Item 1  | Content 1   |
+| Item 2  | Content 2   |
+| Item 3  | Content 3   |
+
+To right align, just put : on the lines
+
+| Option    | Description |
+| ---------: | -----------: |
+| Item 1    | Content 1   |
+| Item 2    | Content 2   |
+| Item 3    | Content 3   |
+
+## Links
+
+[link text](http://youtube.com)
+
+[link with title when you hover put within ""](http://youtube.com "hover text!")
+
+## Images
+
+![Name](https://octodex.github.com/images/minion.png "Hover Text")`;
+    
+
+    const [markdownContent, setMarkdownContent] = useState(markdownData);
     const [hidden, setHidden] = useState(false);
-    function handleHidden(){
-        setHidden(!hidden)
-    }
 
     const handleInputChange = (event) => {
         setMarkdownContent(event.target.value);
     };
 
-    const [help, setHelp] = useState(false)
-    function handleHelp(){
-        setHelp(!help)
-    }
-
-    const [loading, setLoading] = useState(false)
-
-    const acceptClass = "product-action-2 flex-row-align"
-    const acceptText = "heading-tertiary margin-side solid-text-color"
-
-    function waitSeconds() {
-        return new Promise(resolve => setTimeout(resolve, 2000));
-    }
-
-    async function submitChanges() {
-        setLoading(true)
-
-        const response = await fetch(
-            `../../api/set-terms?martid=${router.query.shopid}&key=terms`,
-            {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(markdownContent)
-            }
-        );
-        const data = await response.json();
-
-        await waitSeconds()
-        router.reload()
-    }
 
     return (
         <Fragment>
             <Head>
-                <title>Terms & Conditions</title>
+                <title>Terms and Conditions</title>
                 <link rel="icon" type="image/jpeg" href={favicon} />
             </Head>
-            <MdSample modalStatus={help} disable={handleHelp}></MdSample>
 
             <style jsx global>{`
         /* Use GitHub Markdown CSS globally */
@@ -83,32 +137,21 @@ function Policies(martID) {
                 <div className="heading-icon-dropshadow">
                     <div className="heading-icon-policy svg-color">&nbsp;</div>
                 </div>
-                <h1 className="heading-primary no-margin">&nbsp;Terms & Conditions&nbsp;</h1>
-                <Link href={`/${router.query.shopid}/policies/privacy`} className="heading-tertiary add-categ-init" style={{ width: "max-content", textDecoration:"none" }} disabled={loading}>
-                &nbsp; Privacy Policy &nbsp;</Link>
-                <button onClick={submitChanges} className={acceptClass} style={{ width: "18rem", margin: "1rem 1rem", height: "3.5rem" }} disabled={loading}><h3 className={acceptText} style={{ transform: "translateY(0rem)" }}>{loading ? "Submitting..." : "Submit Changes"}</h3></button>
-
-                <button className="help-button" onClick={setHelp}><div className="heading-icon-question svg-color">&nbsp;</div></button>
+                <h1 className="heading-primary no-margin">&nbsp;Terms and Conditions&nbsp;</h1>
             </span>
 
             <div className="policy-container">
-            <div style={{position:"relative"}}>
-            <button className="product-action-1 hide-button" onClick={handleHidden}>
-                        <div className="heading-icon-eye svg-outline margin-side">&nbsp;</div>
-            </button>
-                {!hidden && <textarea
+                <textarea
                     value={markdownContent}
                     onChange={handleInputChange}
                     placeholder="Enter Markdown Content"
                     className="markdown-half markdown-textarea"
-                >
-                </textarea>}
-                </div>
-                <div className="markdown-half markdown-preview" style={{width:`${hidden ? "90vw" : "45vw"}`}}>
+                ></textarea>
+                <div className="markdown-half markdown-preview">
                     <ReactMarkdown
                         className="markdown-body"
                         children={markdownContent}
-                        skipHtml={false}
+                        skipHtml={false} // Render raw HTML within Markdown
                         remarkPlugins={[gfm]}
                     />
 
