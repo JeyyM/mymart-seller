@@ -11,9 +11,9 @@ import Link from "next/link";
 function Policies(martID) {
     const router = useRouter();
     const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
-    const terms = martID.shopID.shopData.shopTerms.terms
+    const privacy = martID.shopID.shopData.shopTerms.privacy
 
-    const [markdownContent, setMarkdownContent] = useState(terms);
+    const [markdownContent, setMarkdownContent] = useState(privacy);
     const [hidden, setHidden] = useState(false);
     function handleHidden(){
         setHidden(!hidden)
@@ -41,7 +41,7 @@ function Policies(martID) {
         setLoading(true)
 
         const response = await fetch(
-            `../../api/set-terms?martid=${router.query.shopid}&key=terms`,
+            `../../api/set-terms?martid=${router.query.shopid}&key=privacy`,
             {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
@@ -57,7 +57,7 @@ function Policies(martID) {
     return (
         <Fragment>
             <Head>
-                <title>Terms & Conditions</title>
+                <title>Privacy Policy</title>
                 <link rel="icon" type="image/jpeg" href={favicon} />
             </Head>
             <MdSample modalStatus={help} disable={handleHelp}></MdSample>
@@ -83,9 +83,9 @@ function Policies(martID) {
                 <div className="heading-icon-dropshadow">
                     <div className="heading-icon-policy svg-color">&nbsp;</div>
                 </div>
-                <h1 className="heading-primary no-margin">&nbsp;Terms & Conditions&nbsp;</h1>
-                <Link href={`/${router.query.shopid}/policies/privacy`} className="heading-tertiary add-categ-init" style={{ width: "max-content", textDecoration:"none" }} disabled={loading}>
-                &nbsp; Privacy Policy &nbsp;</Link>
+                <h1 className="heading-primary no-margin">&nbsp;Privacy Policy&nbsp;</h1>
+                <Link href={`/${router.query.shopid}/policies`} className="heading-tertiary add-categ-init" style={{ width: "max-content", textDecoration:"none" }} disabled={loading}>
+                &nbsp; Terms & Conditions &nbsp;</Link>
                 <button onClick={submitChanges} className={acceptClass} style={{ width: "18rem", margin: "1rem 1rem", height: "3.5rem" }} disabled={loading}><h3 className={acceptText} style={{ transform: "translateY(0rem)" }}>{loading ? "Submitting..." : "Submit Changes"}</h3></button>
 
                 <button className="help-button" onClick={setHelp}><div className="heading-icon-question svg-color">&nbsp;</div></button>
