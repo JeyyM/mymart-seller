@@ -32,7 +32,9 @@ function Analytics(martID) {
           </div>
           <h1 className="heading-primary no-margin">&nbsp;Mart Analytics</h1>
         </span>
+        <div style={{height:"20rem", width:"40rem"}}>
         <DynamicLineChart finishedOrders={finishedOrders} />
+        </div>
       </div>
     </Fragment>
   );
