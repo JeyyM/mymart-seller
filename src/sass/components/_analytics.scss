@@ -1,0 +1,9 @@
+.analytics-container{
+    height: calc(100vh - $navbar-height);
+    width: 100%;
+}
+
+.heading-icon-insights {
+    @include heading-logo(insights, 4rem, 4rem);
+    margin-left: 1rem;
+  }

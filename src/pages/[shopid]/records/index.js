@@ -13,7 +13,7 @@ import AcceptOrder from "@/components/orders/AcceptOrder";
 import FinishOrder from "@/components/orders/FinishOrder";
 import Celebration from "@/components/orders/Celebration";
 
-function Orders({ shopID }) {
+function Records({ shopID }) {
     const router = useRouter();
     const SlideHeight = {
         hidden: { opacity: 1, height: 0 },
@@ -627,6 +627,6 @@ function Orders({ shopID }) {
     }
 }
 
-export default Orders;
+export default Records;
 
 export { getServerSideProps }
