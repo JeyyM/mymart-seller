@@ -18,6 +18,7 @@ const DynamicLineChart = dynamic(() => import("../../../components/Analytics/Lin
 
 function Analytics(martID) {
   const finishedOrders = martID.shopID.shopData.shopSales.finishedOrders;
+  console.log(finishedOrders)
 
   return (
     <Fragment>

@@ -1,66 +1,47 @@
-import React, { useEffect, useRef } from "react";
-import { Line } from "react-chartjs-2";
-import { Chart, registerables } from "chart.js";
-import { adapterFactory } from "chartjs-adapter-date-fns";
-
-Chart.register(...registerables);
-// Chart.register(adapterFactory);
-// useEffect(() => {
-//     Chart.register(adapterFactory);
-//   }, []);
-
-console.log(adapterFactory)
+import React from 'react';
+import { Line } from 'react-chartjs-2';
+import moment from 'moment';
+import 'chartjs-adapter-moment';
 
 function LineChart({ finishedOrders }) {
-//   const chartRef = useRef(null);
+  const chartData = {
+    labels: finishedOrders.map((order) => moment(order.finishedOn)),
+    datasets: [
+      {
+        label: 'Cumulative Profit',
+        data: finishedOrders.map((order) => ({
+          x: moment(order.finishedOn),
+          y: parseInt(order.totals.order),
+        })),
+        fill: false,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 1,
+      },
+    ],
+  };
 
-//   useEffect(() => {
-//     const chartData = {
-//       labels: finishedOrders.map((order) => order.finishedOn),
-//       datasets: [
-//         {
-//           label: "Cumulative Profit",
-//           data: calculateCumulativeProfit(finishedOrders),
-//           fill: false,
-//           borderColor: "rgba(75, 192, 192, 1)",
-//           borderWidth: 1,
-//         },
-//       ],
-//     };
+  const chartOptions = {
+    responsive: true,
+    scales: {
+      x: {
+        type: 'time',
+        adapters: {
+          date: {
+            locale: moment.locale('en'),
+          },
+        },
+        time: {
+          unit: 'day',
+          tooltipFormat: 'DD MMM YYYY',
+        },
+      },
+      y: {
+        beginAtZero: true,
+      },
+    },
+  };
 
-//     const chartOptions = {
-//       responsive: true,
-//       scales: {
-//         x: {
-//           type: "time",
-//           time: {
-//             unit: "day",
-//           },
-//         },
-//         y: {
-//           beginAtZero: true,
-//         },
-//       },
-//     };
-
-//     const ctx = chartRef.current.getContext("2d");
-//     new Chart(ctx, {
-//       type: "line",
-//       data: chartData,
-//       options: chartOptions,
-//     });
-//   }, [finishedOrders]);
-
-//   const calculateCumulativeProfit = (orders) => {
-//     let cumulativeProfit = 0;
-//     return orders.map((order) => {
-//       cumulativeProfit += parseInt(order.totals.order);
-//       return cumulativeProfit;
-//     });
-//   };
-
-//   return <canvas ref={chartRef} />;
-return <h1>TEst</h1>
+  return <Line data={chartData} options={chartOptions} />;
 }
 
 export default LineChart;
