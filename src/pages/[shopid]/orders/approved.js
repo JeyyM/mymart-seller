@@ -446,7 +446,7 @@ function Orders({ shopID }) {
                                                     <div className="flex-col">
 
                                                         <div className="flex-row">
-                                                            <Link style={{ marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{item.name} - {item.category}&nbsp;</Link>
+                                                        <Link style={{ marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{item.name.length > 20 ? item.name.substring(0, 17) + "..." : item.name} - {item.category.length > 20 ? item.category.substring(0, 17) + "..." : item.category}&nbsp;</Link>
 
                                                             <div className="flex-row" style={{ margin: "1rem" }}>
                                                                 <h2 className="heading-tertiary whiteSpace">{typeof foundProduct !== "object" ? foundProduct : foundProduct.active ? "Active" : "Inactive"}&nbsp;</h2> {typeof foundProduct !== "object" ? <div className="order-missing">&nbsp;</div> : foundProduct.active ? <div className="order-active">&nbsp;</div> : <div className="order-inactive">&nbsp;</div>}
@@ -544,7 +544,7 @@ function Orders({ shopID }) {
                                                     <div className="flex-col">
 
                                                         <div className="flex-row">
-                                                            <Link style={{ marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{item.name} - {item.category}&nbsp;</Link>
+                                                        <Link style={{ marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{item.name.length > 20 ? item.name.substring(0, 17) + "..." : item.name} - {item.category.length > 20 ? item.category.substring(0, 17) + "..." : item.category}&nbsp;</Link>
 
                                                             <div className="flex-row" style={{ margin: "1rem" }}>
                                                                 <h2 className="heading-tertiary whiteSpace">{typeof foundProduct !== "object" ? foundProduct : foundProduct.active ? "Active" : "Inactive"}&nbsp;</h2> {typeof foundProduct !== "object" ? <div className="order-missing">&nbsp;</div> : foundProduct.active ? <div className="order-active">&nbsp;</div> : <div className="order-inactive">&nbsp;</div>}

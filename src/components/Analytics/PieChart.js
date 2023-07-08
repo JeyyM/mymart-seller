@@ -1,0 +1,23 @@
+import React, { useMemo } from 'react';
+import { Pie } from 'react-chartjs-2';
+
+function PieChart({ data, colors }) {
+  const chartData = {
+    labels: data.map(category => category.name.substring(0, 10)),
+    datasets: [
+      {
+        data: data.map(category => category.profitTotal),
+        backgroundColor: colors,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+  };
+
+  return <Pie data={chartData} options={chartOptions} />;
+}
+
+export default PieChart;

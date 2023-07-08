@@ -301,7 +301,7 @@
 @mixin text-input-style(){
   color: $text-primary-color;
   font-size: 2.5rem;
-  font-family: 'Roboto';
+  // font-family: 'Roboto';
   font-weight: 900;
   padding: 1rem;
   box-shadow: inset 0 0 0 1rem $theme-bg;
@@ -324,7 +324,7 @@
     line-height: 1;
     margin-top: 0px;
     font-size: 2rem;
-    font-family: "Roboto";
+    // font-family: "Roboto";
     font-weight: 700;
     padding: 1rem;
   box-shadow: inset 0 0 0 1rem $theme-bg;

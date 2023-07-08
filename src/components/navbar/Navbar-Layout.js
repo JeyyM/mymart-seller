@@ -198,6 +198,7 @@ border-image: linear-gradient(
 
 .text-options {box-shadow: inset 0 0 0 2.2rem white, 0 0 0 2px ${props.color["color-primary-dark"]},
     0 0 0 4px ${props.color["bg-item"]} !important;
+    font-family: ${props.color["text-secondary-font"]} !important;
 }
 
 .add-button, .minus-button{
@@ -335,6 +336,10 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 
 .solid-text-color{
     color: ${props.color["button-solid-text"]} !important;
+}
+
+.text-black{
+    color: black !important;
 }
 
     ` }

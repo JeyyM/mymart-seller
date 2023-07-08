@@ -263,14 +263,8 @@
   @include text-input-small;
   z-index: 5;
   appearance: none;
-}
-
-.text-options {
   @include text-input-small-style;
   color: black;
-}
-
-.text-options {
   @include text-input-small-focus;
 }
 
@@ -391,3 +385,36 @@
 //   transform: translateY(0rem) translateX(0rem) !important;
 //   filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["bg-item"]}) !important;}
 
+
+.design-modal-button{
+  height:5.5rem;
+  width: 5.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  z-index: 10;
+}
+.design-modal-button:hover{
+  filter: brightness(120%);
+}
+
+.design-modal-button:active{
+  filter: brightness(120%);
+  box-shadow: inset 0 0 0 10px white, 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+}
+
+.design-prev-modal {
+  width: clamp(50%, 700px, 90%);
+  height: auto;
+  min-height: 50%;
+  max-height: 80%;
+  margin: auto;
+  margin-top: calc($navbar-height + 1.5rem);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s;
+  overflow-y: scroll;
+  z-index: -1;
+}
