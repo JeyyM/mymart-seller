@@ -39,7 +39,7 @@ function NavMenu(props) {
         <NavMenuItem logo={"manage"} label={"My Mart"} link={"mart"} exit={props.onClick} title={"Set about page, descriptions, footers, and details of your mart"}></NavMenuItem>
         <NavMenuItem logo={"brush"} label={"Mart Design"} link={"design/dark"} exit={props.onClick} title={"Edit mart's colors and fonts"}></NavMenuItem>
         <NavMenuItem logo={"quiz"} label={"Frequently Asked Questions"} link={"faq"} exit={props.onClick}></NavMenuItem>
-        <NavMenuItem logo={"policy"} label={"Terms & Policies"} exit={props.onClick}></NavMenuItem>
+        <NavMenuItem logo={"policy"} label={"Terms & Policies"} link={"policies"} exit={props.onClick}></NavMenuItem>
         <NavMenuItem logo={"settings"} label={"Settings"} exit={props.onClick}></NavMenuItem>
       </div>
     </Fragment>

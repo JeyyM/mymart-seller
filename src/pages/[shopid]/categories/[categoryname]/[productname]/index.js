@@ -393,7 +393,7 @@ function ProductPage({ shopID, user }) {
         </motion.div>
       </div>
 
-      <div className="details-section">
+      <div className="details-section" style={{maxWidth:"50vw"}}>
         <form>
           <div>
             <h1 className="heading-primary" style={{ marginBottom: "2rem", whiteSpace: "pre-wrap" }}>{nameValue}</h1>
@@ -401,7 +401,7 @@ function ProductPage({ shopID, user }) {
           </div>
 
           <div className="item-setup" style={{ margin: "1rem 0" }}>
-            <h2 className="heading-tertiary" style={{ whiteSpace: "pre-wrap" }}>{descValue}</h2>
+            <h2 className="heading-tertiary" style={{ whiteSpace: "pre-wrap", overflowWrap:"break-word" }}>{descValue}</h2>
           </div>
 
           <label className="heading-secondary variations-label">Variations</label>

@@ -46,6 +46,7 @@
     "react-router-dom": "^6.8.2",
     "react-slick": "^0.29.0",
     "redux": "^4.2.1",
+    "remark-gfm": "^3.0.1",
     "sass": "^1.58.3",
     "slick-carousel": "^1.8.1",
     "spectrum-colorpicker2": "^2.0.10",

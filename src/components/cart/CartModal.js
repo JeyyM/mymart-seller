@@ -213,8 +213,8 @@ const updateCartInput = (index, amount, select) => {
                   <div className="cart-row" key={index}>
                     <img className="cart-img round-borderer" src={item.image}></img>
                     <div className="flex-col-2" style={{ width: "auto" }}>
-                      <a href={`/${item.url}`} className="heading-secondary" style={{ whiteSpace: "pre-wrap", display: "inline", textDecoration: "none" }}>{item.name}</a>
-                      <h3 className="heading-tertiary" style={{ display: "inline" }}>{item.description}</h3>
+                      <a href={`/${item.url}`} className="heading-secondary" style={{ whiteSpace: "pre-wrap", display: "inline", textDecoration: "none" }}>{item.name.length > 32 ? item.name.substring(0, 20) + "..." : item.name}</a>
+                      <h3 className="heading-tertiary" style={{ display: "inline" }}>{item.description.length > 150 ? item.description.substring(0, 150) + "..." : item.description}</h3>
                     </div>
 
                     <div className="cart-pay">

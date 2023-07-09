@@ -1,4 +1,4 @@
-import { Fragment, useState, useEffect } from "react"
+import { Fragment, useState, useEffect, useMemo } from "react"
 import HomepageButton from "../../components/homepage/Homepage-Button"
 import HomepageButtonBlank from "@/components/homepage/Homepage-Button-Blank"
 import Link from "next/link"
@@ -17,6 +17,7 @@ import CategoryBuyer from "@/components/category/CategoryBuyer"
 import CategoryProductsBuyer from "@/components/category-products/CategoryProductsBuyer"
 
 function HomePage({ shopID }) {
+  console.log(shopID.shopData)
   const router = useRouter();
   const slide = {
     hidden: {
@@ -102,6 +103,36 @@ function HomePage({ shopID }) {
     const totalSlides = Math.ceil(totalItems / itemsPerSlide);
     const slideIndexes = Array.from(Array(totalSlides).keys());
     const lastSlideItems = totalItems % itemsPerSlide || itemsPerSlide;
+
+   async function addView(){
+    const response = await fetch(
+      `../../api/add-view?martid=${router.query.shopid}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify()
+      }
+    );
+    const data = await response.json();
+   }
+
+    const viewMart = useMemo(() => {
+  if (typeof window !== "undefined") {
+    const currentTime = new Date();
+    const storedTime = localStorage.getItem(`${router.query.shopid}_view`);
+
+    const hourDifference = ((currentTime.getTime() - new Date(storedTime).getTime()) / (1000 * 60 * 60) >= 1)
+
+    if (!hourDifference) {
+      localStorage.setItem(`${router.query.shopid}_view`, currentTime);
+    } else {
+      localStorage.setItem(`${router.query.shopid}_view`, currentTime);
+      addView()
+    }
+  }
+}, []);
+
+
 
     return (
       <>
