@@ -3,15 +3,15 @@ import moment from 'moment';
 import 'chartjs-adapter-moment';
 
 function DayLine({ finishedOrders, profitColor, cartValueColor, dateBy }) {
-  const thirtyDaysAgo = moment().subtract(dateBy, 'days');
-  const filteredOrders = finishedOrders.filter((order) => moment(order.finishedOn).isAfter(thirtyDaysAgo));
+  const daysAgo = moment().subtract(dateBy, 'days');
+  const filteredOrders = finishedOrders.filter((order) => moment(order.finishedOn).isAfter(daysAgo));
 
   const profitData = filteredOrders.map((order) => ({
     x: moment(order.finishedOn),
     y: parseInt(order.totals.order),
   }));
 
-  const cartValueData = filteredOrders.map((order) => ({
+  const boughtTotal = filteredOrders.map((order) => ({
     x: moment(order.finishedOn),
     y: order.order.reduce((total, item) => total + item.cartValue, 0),
   }));
@@ -28,8 +28,8 @@ function DayLine({ finishedOrders, profitColor, cartValueColor, dateBy }) {
         yAxisID: 'profits',
       },
       {
-        label: 'Orders per day',
-        data: cartValueData,
+        label: 'Units sold',
+        data: boughtTotal,
         fill: false,
         borderColor: cartValueColor,
         borderWidth: 5,
@@ -67,7 +67,7 @@ function DayLine({ finishedOrders, profitColor, cartValueColor, dateBy }) {
         beginAtZero: true,
         title: {
           display: true,
-          text: 'Ordered Items',
+          text: 'Units Sold',
         },
       },
     },

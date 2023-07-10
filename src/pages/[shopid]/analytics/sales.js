@@ -8,6 +8,7 @@ import CategoryPerformance from '@/components/Analytics/CategoryPerformance';
 import PieChart from '@/components/Analytics/PieChart';
 import seedrandom from 'seedrandom';
 import ShowUser from '@/components/Analytics/ShowUser';
+import RankPie from '@/components/Analytics/RankPie';
 
 const DynamicLineChart = dynamic(() => import('../../../components/Analytics/DayLine'), {
   ssr: false,
@@ -143,6 +144,7 @@ function Analytics(martID) {
         orders: item.orders,
         profit: item.profit
       });
+      
       existingCategory.orderTotal += item.orders;
       existingCategory.profitTotal += item.profit;
     } else {
@@ -154,7 +156,8 @@ function Analytics(martID) {
           profit: item.profit
         }],
         orderTotal: item.orders,
-        profitTotal: item.profit
+        profitTotal: item.profit,
+        performanceTotal: (item.orders + item.profit)/2
       });
     }
 
@@ -303,15 +306,90 @@ const coordColors = useMemo(() => {
 function showProfile(data){
 handleSetUser(data)
 }
+  const profitArray = filteredOrders.map((order) => order.order.reduce((total, item) => total + (item.profit * item.cartValue), 0));
+  const boughtArray = filteredOrders.map((order) => order.order.reduce((total, item) => total + item.cartValue, 0));
+
+  const totalProfit = profitArray.reduce((acc, curr) => acc + curr, 0);
+  const totalUnits = boughtArray.reduce((acc, curr) => acc + curr, 0);
+
+const [rank, setRank] = useState(1)
+const handleRank = () => {
+    if (rank < 3) {
+      setRank(rank + 1);
+    } else {
+      setRank(1);
+    }
+  };
 
   return (
     <Fragment>
       <Head>
-        <title>Mart Analytics</title>
+        <title>Sales & Profits</title>
         <link rel="icon" type="image/jpeg" href={favicon} />
       </Head>
 
-      <ShowUser modalStatus={SetUser} user={selectedUser} disable={() => {setUserModal(false)}} currency={shopCurrency} martCoords={shopCenter}></ShowUser>
+      <span className="page-heading">
+        <div className="heading-icon-dropshadow">
+          <div className="heading-icon-sales svg-color">&nbsp;</div>
+        </div>
+        <h1 className="heading-primary no-margin">&nbsp;Sales & Profits</h1>
+        <select
+              value={SelectDate}
+              className="text-options text-black"
+              style={{ width: "20rem", marginLeft: "1rem" }}
+              onChange={(event) => handleSelectDate(event)}
+            >
+              <option value="1">Today</option>
+              <option value="30">Past 30 Days</option>
+              <option value="9999">All Time</option>
+              <option value="-5">Neg</option>
+            </select>
+      </span>
+
+      <div className='analytics-sales-container'>
+      <div>
+      <div className='flex-row' style={{gap:"5rem"}}>
+      <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+                <div className="text-ter-cube svg-tertiary">&nbsp;</div>
+                <h2 className="heading-tertiary">Total Popularity: {totalUnits} unit/s</h2>
+              </div>
+              <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+                <div className="text-ter-profit svg-tertiary">&nbsp;</div>
+                <h2 className="heading-tertiary">Total Profits: {shopCurrency} {totalProfit}</h2>
+              </div>
+      </div>
+        <div className='analytics-sales-cell'>
+        <DynamicLineChart finishedOrders={finishedOrders} profitColor={profitColor} cartValueColor={cartValueColor} dateBy={SelectDate} />
+        </div>
+    </div>
+
+    <div>
+      <div className='flex-row' style={{justifyContent:"space-between"}}>
+      <div className="flex-row" style={{ paddingBottom: '0rem' }}>
+                <div className="text-sec-rank svg-tertiary">&nbsp;</div>
+                <h2 className="heading-secondary">Categories by {rank === 1 ? "Profits" : rank === 2 ? "Popularity" : "Both"}</h2>
+              </div>
+
+              <div className="heading-icon-tune svg-secondary" onClick={handleRank}>&nbsp;</div>    
+      </div>
+        <div className='analytics-sales-cell'>
+        <RankPie data={categories} colors={categoryColors} chosen={rank}/>
+        </div>
+    </div>
+
+        <div className='analytics-sales-cell'>
+        </div>
+
+        <div className='analytics-sales-cell'>
+        </div>
+        <div className='analytics-sales-cell'>
+        </div>
+        <div className='analytics-sales-cell'>
+        </div>
+        
+      </div>
+
+      {/* <ShowUser modalStatus={SetUser} user={selectedUser} disable={() => {setUserModal(false)}} currency={shopCurrency} martCoords={shopCenter}></ShowUser>
 
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
@@ -322,7 +400,7 @@ handleSetUser(data)
       <div className="analytics-container">
         <div className="analytics-row round-borderer round-borderer-extra">
           <span className="page-heading">
-            <div className="heading-icon-sales svg-color">&nbsp;</div>
+            <div className="heading-icon-profit svg-color">&nbsp;</div>
             <h1 className="heading-secondary no-margin">&nbsp;Sales & Profits</h1>
             <select
               value={SelectDate}
@@ -388,13 +466,8 @@ handleSetUser(data)
               })}
             </div>
 
-            <div className='flex-col analytics-prev-small'>
-            <div className="flex-row-spaceless" style={{margin:"1rem"}}>
-                <div className="text-ter-rank svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Categories by profits</h2>
-              </div>
-            <div className="analytics-age-prev">
-            <CategoryPerformance data={categories} colors={categoryColors} />
-            </div>
+            <div className="analytics-categ-prev">
+              <CategoryPerformance data={categories} colors={categoryColors} />
             </div>
           </div>
         </div>
@@ -443,7 +516,7 @@ handleSetUser(data)
                 <div className="text-ter-repeat-user svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Repeat Users: {repeatTotal.length} user/s</h2>
               </div>
               <div className="flex-row-spaceless">
-                <div className="text-ter-receipt svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Orders: {orderSum / userPerformance.length} order/s</h2>
+                <div className="text-ter-cube svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Orders: {orderSum / userPerformance.length} order/s</h2>
               </div>
               <div className="flex-row-spaceless">
                 <div className="text-ter-profit svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Profit: {shopCurrency} {profitSum / userPerformance.length}</h2>
@@ -477,7 +550,7 @@ handleSetUser(data)
           </div>
 
         </div>
-      </div>
+      </div> */}
 
     </Fragment>
   );

@@ -15,8 +15,8 @@ $graph-height-2: 27vh;
   margin-left: 1rem;
 }
 
-.heading-icon-profit {
-  @include heading-logo(profit, 4rem, 4rem);
+.heading-icon-sales {
+  @include heading-logo(sales, 4rem, 4rem);
   margin-left: 1rem;
 }
 
@@ -56,6 +56,10 @@ $graph-height-2: 27vh;
 
 .text-sec-profitable {
   @include heading-logo(profitable, 3rem, 3rem);
+}
+
+.text-sec-rank {
+  @include heading-logo(rank, 3rem, 3rem);
 }
 
 .text-sec-popular {
@@ -115,8 +119,16 @@ $graph-height-2: 27vh;
   @include heading-logo(repeat-user, 2rem, 2rem);
 }
 
+.text-ter-rank {
+  @include heading-logo(rank, 2rem, 2rem);
+}
+
 .text-ter-gender4 {
   @include heading-logo(gender4, 2rem, 2rem);
+}
+
+.text-ter-cube {
+  @include heading-logo(cube, 2rem, 2rem);
 }
 
 .analytics-age-prev {
@@ -138,4 +150,22 @@ $graph-height-2: 27vh;
 
 .analytics-prev-small{
   grid-column: span 3;
+}
+
+.analytics-sales-container{
+  min-height: calc(100vh - $navbar-height);
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.analytics-sales-cell{
+  height: 30rem;
+  width: 100%;
+  background-color: white;
+  filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+  border-radius: 15px;
+  position: relative;
 }
