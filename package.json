@@ -33,6 +33,7 @@
     "glider-js": "^1.7.8",
     "google-map-react": "^2.2.0",
     "jquery": "^3.6.4",
+    "leaflet": "^1.9.4",
     "lodash": "^4.17.21",
     "luxon": "^3.3.0",
     "moment": "^2.29.4",

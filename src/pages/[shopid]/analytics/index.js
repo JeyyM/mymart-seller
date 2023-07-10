@@ -4,7 +4,9 @@ import dynamic from 'next/dynamic';
 import { getServerSideProps } from '../categories';
 import Link from 'next/link';
 import { Fragment, useState, useMemo, useEffect } from 'react';
+import CategoryPerformance from '@/components/Analytics/CategoryPerformance';
 import PieChart from '@/components/Analytics/PieChart';
+import GenderChart from '@/components/Analytics/GenderChart';
 
 const DynamicLineChart = dynamic(() => import('../../../components/Analytics/DayLine'), {
   ssr: false,
@@ -12,9 +14,13 @@ const DynamicLineChart = dynamic(() => import('../../../components/Analytics/Day
 
 function Analytics(martID) {
   const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
+  const shopCurrency = martID.shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
+  const shopAccounts = martID.shopID.shopData.shopAccounts
 
-  const filteredItems = martID.shopID.shopData.shopSales.finishedOrders.filter((order) => order.status === 'finished');
-  
+  const shopViews = martID.shopID.shopData.shopViews
+
+  const filteredOrders = martID.shopID.shopData.shopSales.finishedOrders.filter((order) => order.status === 'finished');
+
   const [SelectDate, setSelectDate] = useState("30");
   const handleSelectDate = (event, index) => {
     setSelectDate(event.target.value);
@@ -25,12 +31,20 @@ function Analytics(martID) {
     setSelectDate2(event.target.value);
   };
 
-  const finishedOrders = filteredItems.filter(item => {
+  const finishedOrders = filteredOrders.filter(item => {
     const finishedOnDate = new Date(item.finishedOn);
     const currentDate = new Date()
     const timeDifference = currentDate.getTime() - finishedOnDate.getTime();
     const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
     return daysDifference <= SelectDate
+  });
+
+  const finishedOrders2 = filteredOrders.filter(item => {
+    const finishedOnDate = new Date(item.finishedOn);
+    const currentDate = new Date()
+    const timeDifference = currentDate.getTime() - finishedOnDate.getTime();
+    const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
+    return daysDifference <= SelectDate2
   });
 
   const products = [];
@@ -39,7 +53,7 @@ function Analytics(martID) {
     finishedOrders.forEach((order) => {
       order.order.forEach((item) => {
         const existingProduct = products.find((product) => product.name === item.name && product.category === item.category);
-  
+
         if (existingProduct) {
           existingProduct.orders += parseFloat(item.cartValue);
           existingProduct.profit += parseFloat(item.profit * item.cartValue);
@@ -55,7 +69,6 @@ function Analytics(martID) {
       });
     });
 
-    console.log("test")
   }, [SelectDate])
 
   finishedOrders.forEach((order) => {
@@ -76,8 +89,6 @@ function Analytics(martID) {
       }
     });
   });
-
-  console.log(products)
 
   const [profitSymbol, setProfitSymbol] = useState(true);
   function handleProfit() {
@@ -103,6 +114,9 @@ function Analytics(martID) {
       return a.orders - b.orders;
     }
   });
+
+  const startIndex1 = boughtSymbol ? 0 : mostBought.length - 10;
+  const startIndex2 = profitSymbol ? 0 : mostProfit.length - 10;
 
   const [profitColor, cartValueColor] = useMemo(() => {
     const generateColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16);
@@ -136,10 +150,129 @@ function Analytics(martID) {
     return result;
   }, []);
 
-  const pieColors = useMemo(() => {
+  const categoryColors = useMemo(() => {
     return categories.map(() => '#' + Math.floor(Math.random() * 16777215).toString(16));
   }, []);
+
+  const currentTime = new Date("2023-07-09T10:39:40.050Z");
+  const withinView = new Date();
+  withinView.setDate(withinView.getDate() - SelectDate2);
+
+  const filteredCount = shopViews.filter(item => {
+    const keyDate = new Date(item.key);
+    return keyDate >= withinView && keyDate <= currentTime;
+  });
+
+  const timeCount = filteredCount.reduce((total, item) => total + parseInt(item.count), 0);
+  const totalCount = shopViews.reduce((total, item) => total + parseInt(item.count), 0);
+
+  const filteredNewAccounts = shopAccounts.filter((account) => {
+    const creationDate = new Date(account.creationDate);
+    const timeDifference = currentTime.getTime() - creationDate.getTime();
+    const daysDifference = timeDifference / (1000 * 3600 * 24);
+
+    return daysDifference <= SelectDate2;
+  });
   
+  const ageList = [];
+  const genderList = [];
+  
+  for (const user of filteredNewAccounts) {
+    const birthDate = new Date(user.profile.birth);
+    const age = Math.floor((currentTime - birthDate) / (1000 * 3600 * 24 * 365.25));
+  
+    const ageEntry = ageList.find(entry => entry.age === age);
+  
+    if (ageEntry) {
+      ageEntry.count++;
+    } else {
+      ageList.push({ age: age, count: 1 });
+    }
+
+    const gender = user.profile.gender;
+
+    const genderEntry = genderList.find(entry => entry.gender === gender);
+  
+    if (genderEntry) {
+      genderEntry.count++;
+    } else {
+      genderList.push({ gender: gender, count: 1 });
+    }
+  }
+  
+  const repeatTotal = shopAccounts.filter((acc) => acc.pastOrders.length > 1)
+  const userPerformance = {};
+
+  for (const order of finishedOrders2) {
+    const userEmail = order.user.email;
+  
+    if (userPerformance[userEmail]) {
+      userPerformance[userEmail].orderCount++;
+      userPerformance[userEmail].totalSpent += order.totals.order + order.totals.fees;
+      const orderTotal = order.order.reduce(
+        (total, item) => total + item.cartValue * item.profit,
+        0
+      );
+      userPerformance[userEmail].totalProfit += orderTotal;
+    } else {
+      userPerformance[userEmail] = {
+        username: `${order.user.profile.last}, ${order.user.profile.first}`,
+        orderCount: 1,
+        totalSpent: order.totals.order + order.totals.fees,
+        totalProfit: order.order.reduce(
+          (total, item) => total + item.cartValue * item.profit,
+          0
+        ),
+        coords: order.user.locationCoords
+      };
+    }
+  }
+    
+let repeaterCount = 0;
+
+for (const key in userPerformance) {
+  if (userPerformance[key].orderCount > 1) {
+    repeaterCount++;
+  }
+}
+
+let orderSum = 0;
+
+for (const key in userPerformance) {
+    orderSum += userPerformance[key].orderCount;
+}
+
+let spentSum = 0;
+
+for (const key in userPerformance) {
+    spentSum += userPerformance[key].totalSpent;
+}
+
+let profitSum = 0;
+
+for (const key in userPerformance) {
+    profitSum += userPerformance[key].totalProfit;
+}
+
+const ageColors = useMemo(() => {
+  return ageList.map(() => '#' + Math.floor(Math.random() * 16777215).toString(16));
+}, []);
+
+const genderColors = useMemo(() => {
+  return genderList.map(() => '#' + Math.floor(Math.random() * 16777215).toString(16));
+}, []);
+
+let weightedSum = 0;
+let ageCountTotal = 0;
+
+for (const entry of ageList) {
+  weightedSum += entry.age * entry.count;
+  ageCountTotal += entry.count;
+}
+
+const averageAge = ageCountTotal > 0 ? weightedSum / ageCountTotal : 0;
+
+console.log(genderList)
   return (
     <Fragment>
       <Head>
@@ -161,7 +294,7 @@ function Analytics(martID) {
             <select
               value={SelectDate}
               className="text-options text-black"
-              style={{ width: "20rem", marginLeft:"1rem", transform:"translateY(-0.4rem)"}}
+              style={{ width: "20rem", marginLeft: "1rem", transform: "translateY(-0.4rem)" }}
               onChange={(event) => handleSelectDate(event)}
             >
               <option value="1">Today</option>
@@ -170,12 +303,12 @@ function Analytics(martID) {
               <option value="-5">Neg</option>
             </select>
 
-            <Link href={`#`} className="product-action-2 flex-row-align" style={{ width: "18rem", margin: "0rem 1rem", marginLeft:"auto", height:"3.5rem", textDecoration:"none"}}><h3 className="heading-tertiary margin-side solid-text-color" style={{transform:"translateY(0rem)"}}>See More</h3></Link>
+            <Link href={`#`} className="product-action-2 flex-row-align" style={{ width: "18rem", margin: "0rem 1rem", marginLeft: "auto", height: "3.5rem", textDecoration: "none" }}><h3 className="heading-tertiary margin-side solid-text-color" style={{ transform: "translateY(0rem)" }}>See More</h3></Link>
           </span>
-          
+
           <div className="analytics-grid">
             <div className="analytics-preview">
-              <DynamicLineChart finishedOrders={finishedOrders} profitColor={profitColor} cartValueColor={cartValueColor} dateBy={SelectDate}/>
+              <DynamicLineChart finishedOrders={finishedOrders} profitColor={profitColor} cartValueColor={cartValueColor} dateBy={SelectDate} />
             </div>
 
             <div className="analytics-rank-prev round-borderer round-borderer-extra">
@@ -186,11 +319,13 @@ function Analytics(martID) {
                   &nbsp;
                 </div>
               </div>
-              {mostBought.slice(0, 10).map((item, index) => {
+              {mostBought.slice(startIndex1, startIndex1 + 10).map((item, index) => {
+                const position = boughtSymbol ? index + 1 : mostBought.length - index;
+
                 return (
                   <div className="flex-row" key={index}>
                     <Link href={`/${item.url}`} className="heading-tertiary" style={{ textDecoration: 'none' }}>
-                      {index + 1}. {item.name.length > 10 ? item.name.substring(0, 7) + '...' : item.name} -{' '}
+                      {position}. {item.name.length > 10 ? item.name.substring(0, 7) + '...' : item.name} -{' '}
                       {item.category.length > 8 ? item.category.substring(0, 5) + '...' : item.category}
                     </Link>
                   </div>
@@ -206,11 +341,13 @@ function Analytics(martID) {
                   &nbsp;
                 </div>
               </div>
-              {mostProfit.slice(0, 10).map((item, index) => {
+              {mostProfit.slice(startIndex2, startIndex2 + 10).map((item, index) => {
+                const position = profitSymbol ? index + 1 : mostProfit.length - index;
+
                 return (
                   <div className="flex-row" key={index}>
                     <Link href={`/${item.url}`} className="heading-tertiary" style={{ textDecoration: 'none' }}>
-                      {index + 1}. {item.name.length > 10 ? item.name.substring(0, 7) + '...' : item.name} -{' '}
+                      {position}. {item.name.length > 10 ? item.name.substring(0, 7) + '...' : item.name} -{' '}
                       {item.category.length > 8 ? item.category.substring(0, 5) + '...' : item.category}
                     </Link>
                   </div>
@@ -219,34 +356,90 @@ function Analytics(martID) {
             </div>
 
             <div className="analytics-categ-prev">
-              <PieChart data={categories} colors={pieColors} />
+              <CategoryPerformance data={categories} colors={categoryColors} />
             </div>
           </div>
         </div>
 
         <div className="analytics-row round-borderer round-borderer-extra">
-        <span className="page-heading">
+          <span className="page-heading">
             <div className="heading-icon-profile svg-color">&nbsp;</div>
             <h1 className="heading-secondary no-margin">&nbsp;User Data</h1>
             <select
               value={SelectDate2}
               className="text-options text-black"
-              style={{ width: "20rem", marginLeft:"1rem", transform:"translateY(-0.4rem)"}}
+              style={{ width: "20rem", marginLeft: "1rem", transform: "translateY(-0.4rem)" }}
               onChange={(event) => handleSelectDate2(event)}
             >
               <option value="1">Today</option>
               <option value="30">Past 30 Days</option>
               <option value="9999">All Time</option>
-              <option value="-5">Neg</option>
+              <option value="-10">Neg</option>
             </select>
 
-            <Link href={`#`} className="product-action-2 flex-row-align" style={{ width: "18rem", margin: "0rem 1rem", marginLeft:"auto", height:"3.5rem", textDecoration:"none"}}><h3 className="heading-tertiary margin-side solid-text-color" style={{transform:"translateY(0rem)"}}>See More</h3></Link>
+            <Link href={`#`} className="product-action-2 flex-row-align" style={{ width: "18rem", margin: "0rem 1rem", marginLeft: "auto", height: "3.5rem", textDecoration: "none" }}><h3 className="heading-tertiary margin-side solid-text-color" style={{ transform: "translateY(0rem)" }}>See More</h3></Link>
           </span>
+
+          <div className="analytics-grid">
+            <div className="analytics-rank-prev round-borderer round-borderer-extra" style={{ justifyContent: "space-around" }}>
+              <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+                <div className="text-sec-user-perform svg-secondary">&nbsp;</div>
+                <h2 className="heading-secondary">User Performance</h2>
+              </div>
+              <div className="flex-row-spaceless">
+                <div className="text-ter-eye svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Mart Views: {timeCount} view/s</h2>
+              </div>
+              <div className="flex-row-spaceless">
+                <div className="text-ter-views-total svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Views: {totalCount} view/s</h2>
+              </div>
+              <div className="flex-row-spaceless">
+                <div className="text-ter-new-users svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;New Users: {filteredNewAccounts.length} user/s</h2>
+              </div>
+              <div className="flex-row-spaceless">
+                <div className="text-ter-user svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Users: {shopAccounts.length} user/s</h2>
+              </div>
+              <div className="flex-row-spaceless">
+                <div className="text-ter-repeat svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Repeat Users: {repeaterCount} user/s</h2>
+              </div>
+              <div className="flex-row-spaceless">
+                <div className="text-ter-repeat-user svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Repeat Users: {repeatTotal.length} user/s</h2>
+              </div>
+              <div className="flex-row-spaceless">
+                <div className="text-ter-receipt svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Orders: {!isNaN(orderSum / Object.keys(userPerformance).length)? orderSum / Object.keys(userPerformance).length : 0} order/s</h2>
+              </div>
+              <div className="flex-row-spaceless">
+                <div className="text-ter-profit svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Profit: {shopCurrency} {!isNaN(profitSum / Object.keys(userPerformance).length)? profitSum / Object.keys(userPerformance).length : 0}</h2>
+              </div>
+              <div className="flex-row-spaceless">
+                <div className="text-ter-tags svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Spent: {shopCurrency} {!isNaN(spentSum / Object.keys(userPerformance).length)? spentSum / Object.keys(userPerformance).length : 0}</h2>
+              </div>
+            </div>
+
+            <div className='flex-col analytics-prev-small'>
+            <div className="flex-row-spaceless" style={{margin:"1rem"}}>
+                <div className="text-ter-cake svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Age: {averageAge} years old</h2>
+              </div>
+            <div className="analytics-age-prev">
+              <PieChart data={ageList} colors={ageColors} type="age"/>
+            </div>
+            </div>
+
+            <div className='flex-col analytics-prev-small'>
+            <div className="flex-row-spaceless" style={{margin:"1rem"}}>
+                <div className="text-ter-gender4 svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Gender Distribution</h2>
+              </div>
+            <div className="analytics-age-prev">
+            <PieChart data={genderList} colors={genderColors} type="gender"/>
+            </div>
+            </div>
+
+            <div className="analytics-location-prev">
+            </div>
+          </div>
+
         </div>
       </div>
-      <button className="design-modal-button round-borderer">
-          <div className="heading-icon-preview svg-color" style={{margin:"0"}}>&nbsp;</div>
-        </button>
+
     </Fragment>
   );
 }

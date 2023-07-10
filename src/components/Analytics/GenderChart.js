@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import { Pie } from 'react-chartjs-2';
 
-function PieChart({ data, colors, type }) {
+function GenderChart({ data, colors }) {
   const chartData = {
-    labels: data.map(data => data[type]),
+    labels: data.map(data => data.gender),
     datasets: [
       {
         data: data.map(data => data.count),
@@ -22,4 +22,4 @@ function PieChart({ data, colors, type }) {
   </>
 }
 
-export default PieChart;
+export default GenderChart;

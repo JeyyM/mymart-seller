@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 import { Pie } from 'react-chartjs-2';
 
-function PieChart({ data, colors, type }) {
+function CategoryPerformance({ data, colors }) {
   const chartData = {
-    labels: data.map(data => data[type]),
+    labels: data.map(category => category.name.substring(0, 10)),
     datasets: [
       {
-        data: data.map(data => data.count),
+        data: data.map(category => category.profitTotal),
         backgroundColor: colors,
       },
     ],
@@ -22,4 +22,4 @@ function PieChart({ data, colors, type }) {
   </>
 }
 
-export default PieChart;
+export default CategoryPerformance;
