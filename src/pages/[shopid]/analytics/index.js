@@ -6,9 +6,14 @@ import Link from 'next/link';
 import { Fragment, useState, useMemo, useEffect } from 'react';
 import CategoryPerformance from '@/components/Analytics/CategoryPerformance';
 import PieChart from '@/components/Analytics/PieChart';
-import GenderChart from '@/components/Analytics/GenderChart';
+import seedrandom from 'seedrandom';
+import ShowUser from '@/components/Analytics/ShowUser';
 
 const DynamicLineChart = dynamic(() => import('../../../components/Analytics/DayLine'), {
+  ssr: false,
+});
+
+const DynamicUserMap = dynamic(() => import('../../../components/Analytics/UserMap'), {
   ssr: false,
 });
 
@@ -16,10 +21,17 @@ function Analytics(martID) {
   const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
   const shopCurrency = martID.shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
   const shopAccounts = martID.shopID.shopData.shopAccounts
-
+  const shopCenter = martID.shopID.shopData.shopDetails.footerData.shopCoords
   const shopViews = martID.shopID.shopData.shopViews
 
   const filteredOrders = martID.shopID.shopData.shopSales.finishedOrders.filter((order) => order.status === 'finished');
+
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [SetUser, setUserModal] = useState(false);
+  const handleSetUser = (user) => {
+    setSelectedUser(user);
+    setUserModal(!SetUser)
+};
 
   const [SelectDate, setSelectDate] = useState("30");
   const handleSelectDate = (event, index) => {
@@ -118,10 +130,8 @@ function Analytics(martID) {
   const startIndex1 = boughtSymbol ? 0 : mostBought.length - 10;
   const startIndex2 = profitSymbol ? 0 : mostProfit.length - 10;
 
-  const [profitColor, cartValueColor] = useMemo(() => {
-    const generateColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16);
-    return [generateColor(), generateColor()];
-  }, []);
+  const profitColor = "red"
+  const cartValueColor = "blue"
 
   const categories = products.reduce((result, item) => {
     const existingCategory = result.find(category => category.name === item.category);
@@ -151,7 +161,10 @@ function Analytics(martID) {
   }, []);
 
   const categoryColors = useMemo(() => {
-    return categories.map(() => '#' + Math.floor(Math.random() * 16777215).toString(16));
+    return categories.map(({ name }) => {
+      const rng = seedrandom(name.toString());
+      return '#' + Math.floor(rng() * 16777215).toString(16);
+    });
   }, []);
 
   const currentTime = new Date("2023-07-09T10:39:40.050Z");
@@ -201,66 +214,73 @@ function Analytics(martID) {
   }
   
   const repeatTotal = shopAccounts.filter((acc) => acc.pastOrders.length > 1)
-  const userPerformance = {};
-
-  for (const order of finishedOrders2) {
-    const userEmail = order.user.email;
-  
-    if (userPerformance[userEmail]) {
-      userPerformance[userEmail].orderCount++;
-      userPerformance[userEmail].totalSpent += order.totals.order + order.totals.fees;
-      const orderTotal = order.order.reduce(
-        (total, item) => total + item.cartValue * item.profit,
-        0
-      );
-      userPerformance[userEmail].totalProfit += orderTotal;
-    } else {
-      userPerformance[userEmail] = {
-        username: `${order.user.profile.last}, ${order.user.profile.first}`,
-        orderCount: 1,
-        totalSpent: order.totals.order + order.totals.fees,
-        totalProfit: order.order.reduce(
-          (total, item) => total + item.cartValue * item.profit,
-          0
-        ),
-        coords: order.user.locationCoords
-      };
-    }
+const userPerformance = [];
+for (const order of finishedOrders2) {
+  const userEmail = order.user.email;
+  const existingUser = userPerformance.find((user) => user.email === userEmail);
+  if (existingUser) {
+    existingUser.orderCount++;
+    existingUser.totalSpent += order.totals.order + order.totals.fees;
+    const orderTotal = order.order.reduce((total, item) => total + item.cartValue * item.profit, 0);
+    existingUser.totalProfit += orderTotal;
+  } else {
+    const newUser = {
+      email: userEmail,
+      username: `${order.user.profile.last}, ${order.user.profile.first}`,
+      orderCount: order.order.length,
+      totalSpent: order.totals.order + order.totals.fees,
+      totalProfit: order.order.reduce((total, item) => total + item.cartValue * item.profit, 0),
+      coords: order.user.locationCoords,
+      location: order.user.location,
+      gender: order.user.profile.gender,
+      phone: order.user.profile.pnum,
+      birth: order.user.profile.birth,
+      other: order.user.profile.other,
+      job: order.user.profile.job,
+      customjob: order.user.profile.customjob,
+      company: order.user.profile.company,
+    };
+    userPerformance.push(newUser);
   }
+}
+
     
 let repeaterCount = 0;
 
-for (const key in userPerformance) {
-  if (userPerformance[key].orderCount > 1) {
+userPerformance.forEach((user) => {
+  if (user.orderCount > 1) {
     repeaterCount++;
   }
-}
+});
 
 let orderSum = 0;
-
-for (const key in userPerformance) {
-    orderSum += userPerformance[key].orderCount;
-}
+userPerformance.forEach((user) => {
+    orderSum += user.orderCount;
+})
 
 let spentSum = 0;
-
-for (const key in userPerformance) {
-    spentSum += userPerformance[key].totalSpent;
-}
+userPerformance.forEach((user) => {
+    spentSum += user.totalSpent;
+})
 
 let profitSum = 0;
-
-for (const key in userPerformance) {
-    profitSum += userPerformance[key].totalProfit;
-}
+userPerformance.forEach((user) => {
+    profitSum += user.totalProfit;
+})
 
 const ageColors = useMemo(() => {
-  return ageList.map(() => '#' + Math.floor(Math.random() * 16777215).toString(16));
+  return ageList.map(({ age }) => {
+    const rng = seedrandom(age.toString());
+    return '#' + Math.floor(rng() * 16777215).toString(16);
+  });
 }, []);
 
-const genderColors = useMemo(() => {
-  return genderList.map(() => '#' + Math.floor(Math.random() * 16777215).toString(16));
-}, []);
+  const genderColors = useMemo(() => {
+    return genderList.map(({ gender }) => {
+      const rng = seedrandom(gender.toString());
+      return '#' + Math.floor(rng() * 16777215).toString(16);
+    });
+  }, []);
 
 let weightedSum = 0;
 let ageCountTotal = 0;
@@ -272,13 +292,28 @@ for (const entry of ageList) {
 
 const averageAge = ageCountTotal > 0 ? weightedSum / ageCountTotal : 0;
 
-console.log(genderList)
+const coordColors = useMemo(() => {
+  return userPerformance.map(({ email }) => {
+    const rng = seedrandom(email.toString());
+    return '#' + Math.floor(rng() * 16777215).toString(16);
+  });
+}, []);
+
+function showProfile(data){
+handleSetUser(data)
+}
+
+console.log(selectedUser)
+
   return (
     <Fragment>
       <Head>
         <title>Mart Analytics</title>
         <link rel="icon" type="image/jpeg" href={favicon} />
       </Head>
+
+      <ShowUser modalStatus={SetUser} user={selectedUser} disable={() => {setUserModal(false)}} currency={shopCurrency} martCoords={shopCenter}></ShowUser>
+
 
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
@@ -405,13 +440,13 @@ console.log(genderList)
                 <div className="text-ter-repeat-user svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Repeat Users: {repeatTotal.length} user/s</h2>
               </div>
               <div className="flex-row-spaceless">
-                <div className="text-ter-receipt svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Orders: {!isNaN(orderSum / Object.keys(userPerformance).length)? orderSum / Object.keys(userPerformance).length : 0} order/s</h2>
+                <div className="text-ter-receipt svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Orders: {orderSum / userPerformance.length} order/s</h2>
               </div>
               <div className="flex-row-spaceless">
-                <div className="text-ter-profit svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Profit: {shopCurrency} {!isNaN(profitSum / Object.keys(userPerformance).length)? profitSum / Object.keys(userPerformance).length : 0}</h2>
+                <div className="text-ter-profit svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Profit: {shopCurrency} {profitSum / userPerformance.length}</h2>
               </div>
               <div className="flex-row-spaceless">
-                <div className="text-ter-tags svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Spent: {shopCurrency} {!isNaN(spentSum / Object.keys(userPerformance).length)? spentSum / Object.keys(userPerformance).length : 0}</h2>
+                <div className="text-ter-tags svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Spent: {shopCurrency} {spentSum / userPerformance.length}</h2>
               </div>
             </div>
 
@@ -434,6 +469,7 @@ console.log(genderList)
             </div>
 
             <div className="analytics-location-prev">
+            {typeof window !== "undefined" && <DynamicUserMap data={userPerformance} center={shopCenter} colors={coordColors} showuser={showProfile}></DynamicUserMap>}
             </div>
           </div>
 

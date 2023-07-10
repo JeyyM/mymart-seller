@@ -59,6 +59,7 @@
     "remark-parse": "^10.0.2",
     "remark-react": "^9.0.1",
     "sass": "^1.58.3",
+    "seedrandom": "^3.0.5",
     "slick-carousel": "^1.8.1",
     "spectrum-colorpicker2": "^2.0.10",
     "styled-components": "^5.3.11",
