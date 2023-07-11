@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
 
 function RankPie({ data, colors, chosen }) {
-  const chartData1 = {
+    const chartData1 = {
     labels: data.map(category => category.name.substring(0, 10)),
     datasets: [
       {
@@ -31,7 +31,7 @@ function RankPie({ data, colors, chosen }) {
       },
     ],
   };
-
+  
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -42,16 +42,14 @@ function RankPie({ data, colors, chosen }) {
     }
   };
 
-  const [Used, setUsed] = useState(chartData1)
+    const [Used, setUsed] = useState(chartData1)
   useEffect(() => {
     chosen === 1 ? setUsed(chartData1) : chosen === 2 ? setUsed(chartData2) : setUsed(chartData3)
-  }, [chosen])
+  }, [chosen, data])
 
-  return (
-    <>
-      <Pie data={Used} options={chartOptions} />
-    </>
-  );
+  return <>
+    <Pie data={Used} options={chartOptions} />
+  </>
 }
 
 export default RankPie;

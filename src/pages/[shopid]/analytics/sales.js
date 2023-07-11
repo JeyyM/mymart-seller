@@ -9,8 +9,13 @@ import PieChart from '@/components/Analytics/PieChart';
 import seedrandom from 'seedrandom';
 import ShowUser from '@/components/Analytics/ShowUser';
 import RankPie from '@/components/Analytics/RankPie';
+import ProductBar from '@/components/Analytics/ProductBar';
 
 const DynamicLineChart = dynamic(() => import('../../../components/Analytics/DayLine'), {
+  ssr: false,
+});
+
+const DynamicCategoriesLine = dynamic(() => import('../../../components/Analytics/CategoriesLine'), {
   ssr: false,
 });
 
@@ -33,7 +38,7 @@ function Analytics(martID) {
   const handleSetUser = (user) => {
     setSelectedUser(user);
     setUserModal(!SetUser)
-};
+  };
 
   const [SelectDate, setSelectDate] = useState("30");
   const handleSelectDate = (event, index) => {
@@ -144,7 +149,7 @@ function Analytics(martID) {
         orders: item.orders,
         profit: item.profit
       });
-      
+
       existingCategory.orderTotal += item.orders;
       existingCategory.profitTotal += item.profit;
     } else {
@@ -157,19 +162,21 @@ function Analytics(martID) {
         }],
         orderTotal: item.orders,
         profitTotal: item.profit,
-        performanceTotal: (item.orders + item.profit)/2
+        performanceTotal: (item.orders + item.profit) / 2
       });
     }
 
     return result;
   }, []);
 
-  const categoryColors = useMemo(() => {
+  const categoryColors = () => {
     return categories.map(({ name }) => {
       const rng = seedrandom(name.toString());
       return '#' + Math.floor(rng() * 16777215).toString(16);
     });
-  }, []);
+  }
+
+  const categoryColorsArray = categoryColors()
 
   const currentTime = new Date("2023-07-09T10:39:40.050Z");
   const withinView = new Date();
@@ -190,16 +197,16 @@ function Analytics(martID) {
 
     return daysDifference <= SelectDate2;
   });
-  
+
   const ageList = [];
   const genderList = [];
-  
+
   for (const user of filteredNewAccounts) {
     const birthDate = new Date(user.profile.birth);
     const age = Math.floor((currentTime - birthDate) / (1000 * 3600 * 24 * 365.25));
-  
+
     const ageEntry = ageList.find(entry => entry.age === age);
-  
+
     if (ageEntry) {
       ageEntry.count++;
     } else {
@@ -209,75 +216,75 @@ function Analytics(martID) {
     const gender = user.profile.gender;
 
     const genderEntry = genderList.find(entry => entry.gender === gender);
-  
+
     if (genderEntry) {
       genderEntry.count++;
     } else {
       genderList.push({ gender: gender, count: 1 });
     }
   }
-  
+
   const repeatTotal = shopAccounts.filter((acc) => acc.pastOrders.length > 1)
-const userPerformance = [];
-for (const order of finishedOrders2) {
-  const userEmail = order.user.email;
-  const existingUser = userPerformance.find((user) => user.email === userEmail);
-  if (existingUser) {
-    existingUser.orderCount++;
-    existingUser.totalSpent += order.totals.order + order.totals.fees;
-    const orderTotal = order.order.reduce((total, item) => total + item.cartValue * item.profit, 0);
-    existingUser.totalProfit += orderTotal;
-  } else {
-    const newUser = {
-      email: userEmail,
-      username: `${order.user.profile.last}, ${order.user.profile.first}`,
-      orderCount: order.order.length,
-      totalSpent: order.totals.order + order.totals.fees,
-      totalProfit: order.order.reduce((total, item) => total + item.cartValue * item.profit, 0),
-      coords: order.user.locationCoords,
-      location: order.user.location,
-      gender: order.user.profile.gender,
-      phone: order.user.profile.pnum,
-      birth: order.user.profile.birth,
-      other: order.user.profile.other,
-      job: order.user.profile.job,
-      customjob: order.user.profile.customjob,
-      company: order.user.profile.company,
-    };
-    userPerformance.push(newUser);
+  const userPerformance = [];
+  for (const order of finishedOrders2) {
+    const userEmail = order.user.email;
+    const existingUser = userPerformance.find((user) => user.email === userEmail);
+    if (existingUser) {
+      existingUser.orderCount++;
+      existingUser.totalSpent += order.totals.order + order.totals.fees;
+      const orderTotal = order.order.reduce((total, item) => total + item.cartValue * item.profit, 0);
+      existingUser.totalProfit += orderTotal;
+    } else {
+      const newUser = {
+        email: userEmail,
+        username: `${order.user.profile.last}, ${order.user.profile.first}`,
+        orderCount: order.order.length,
+        totalSpent: order.totals.order + order.totals.fees,
+        totalProfit: order.order.reduce((total, item) => total + item.cartValue * item.profit, 0),
+        coords: order.user.locationCoords,
+        location: order.user.location,
+        gender: order.user.profile.gender,
+        phone: order.user.profile.pnum,
+        birth: order.user.profile.birth,
+        other: order.user.profile.other,
+        job: order.user.profile.job,
+        customjob: order.user.profile.customjob,
+        company: order.user.profile.company,
+      };
+      userPerformance.push(newUser);
+    }
   }
-}
 
-    
-let repeaterCount = 0;
 
-userPerformance.forEach((user) => {
-  if (user.orderCount > 1) {
-    repeaterCount++;
-  }
-});
+  let repeaterCount = 0;
 
-let orderSum = 0;
-userPerformance.forEach((user) => {
-    orderSum += user.orderCount;
-})
-
-let spentSum = 0;
-userPerformance.forEach((user) => {
-    spentSum += user.totalSpent;
-})
-
-let profitSum = 0;
-userPerformance.forEach((user) => {
-    profitSum += user.totalProfit;
-})
-
-const ageColors = useMemo(() => {
-  return ageList.map(({ age }) => {
-    const rng = seedrandom(age.toString());
-    return '#' + Math.floor(rng() * 16777215).toString(16);
+  userPerformance.forEach((user) => {
+    if (user.orderCount > 1) {
+      repeaterCount++;
+    }
   });
-}, []);
+
+  let orderSum = 0;
+  userPerformance.forEach((user) => {
+    orderSum += user.orderCount;
+  })
+
+  let spentSum = 0;
+  userPerformance.forEach((user) => {
+    spentSum += user.totalSpent;
+  })
+
+  let profitSum = 0;
+  userPerformance.forEach((user) => {
+    profitSum += user.totalProfit;
+  })
+
+  const ageColors = useMemo(() => {
+    return ageList.map(({ age }) => {
+      const rng = seedrandom(age.toString());
+      return '#' + Math.floor(rng() * 16777215).toString(16);
+    });
+  }, []);
 
   const genderColors = useMemo(() => {
     return genderList.map(({ gender }) => {
@@ -286,40 +293,99 @@ const ageColors = useMemo(() => {
     });
   }, []);
 
-let weightedSum = 0;
-let ageCountTotal = 0;
+  let weightedSum = 0;
+  let ageCountTotal = 0;
 
-for (const entry of ageList) {
-  weightedSum += entry.age * entry.count;
-  ageCountTotal += entry.count;
-}
+  for (const entry of ageList) {
+    weightedSum += entry.age * entry.count;
+    ageCountTotal += entry.count;
+  }
 
-const averageAge = ageCountTotal > 0 ? weightedSum / ageCountTotal : 0;
+  const averageAge = ageCountTotal > 0 ? weightedSum / ageCountTotal : 0;
 
-const coordColors = useMemo(() => {
-  return userPerformance.map(({ email }) => {
-    const rng = seedrandom(email.toString());
-    return '#' + Math.floor(rng() * 16777215).toString(16);
-  });
-}, []);
+  const coordColors = useMemo(() => {
+    return userPerformance.map(({ email }) => {
+      const rng = seedrandom(email.toString());
+      return '#' + Math.floor(rng() * 16777215).toString(16);
+    });
+  }, []);
 
-function showProfile(data){
-handleSetUser(data)
-}
+  function showProfile(data) {
+    handleSetUser(data)
+  }
   const profitArray = filteredOrders.map((order) => order.order.reduce((total, item) => total + (item.profit * item.cartValue), 0));
   const boughtArray = filteredOrders.map((order) => order.order.reduce((total, item) => total + item.cartValue, 0));
 
   const totalProfit = profitArray.reduce((acc, curr) => acc + curr, 0);
   const totalUnits = boughtArray.reduce((acc, curr) => acc + curr, 0);
 
-const [rank, setRank] = useState(1)
-const handleRank = () => {
+  const [rank, setRank] = useState(1)
+  const handleRank = () => {
     if (rank < 3) {
       setRank(rank + 1);
     } else {
       setRank(1);
     }
   };
+
+  const [rank2, setRank2] = useState(1)
+  const handleRank2 = () => {
+    if (rank2 < 3) {
+      setRank2(rank2 + 1);
+    } else {
+      setRank2(1);
+    }
+  };
+
+  const categorizedData = finishedOrders.flatMap((order) => {
+    return order.order.map((item) => ({
+      name: item.name,
+      category: item.category,
+      profit: parseFloat(item.profit) * parseFloat(item.cartValue),
+      cartValue: parseFloat(item.cartValue),
+      time: order.finishedOn
+    }));
+  });
+
+  const categoriesList = Array.from(
+    new Set(categorizedData.map((item) => item.category))
+  );
+  
+  const [selectedCategory, setSelectedCategory] = useState(categoriesList[0])
+  useEffect(() => {
+    setSelectedCategory(categoriesList[0])
+  },[SelectDate])
+
+  const [categoryBar, setCategoryBar] = useState(categorizedData.filter((item) => item.category === selectedCategory))
+  useEffect(() => {
+    setCategoryBar(categorizedData.filter((item) => item.category === selectedCategory))
+  }, [selectedCategory, SelectDate]) 
+
+  const combinedProducts = Object.values(categoryBar).reduce((accumulator, item) => {
+    const existingProduct = accumulator.find((product) => product.name === item.name);
+  
+    if (existingProduct) {
+      existingProduct.profit += item.profit;
+      existingProduct.orders += item.cartValue;
+    } else {
+      accumulator.push({
+        name: item.name,
+        profit: item.profit,
+        orders: item.cartValue,
+      });
+    }
+  
+    return accumulator;
+  }, []);
+
+    let productColorsFn = () => {
+    return combinedProducts.map(({ name }) => {
+      const rng = seedrandom(name.toString());
+      return '#' + Math.floor(rng() * 16777215).toString(16);
+    });
+  };  
+
+  const productColors = productColorsFn()
 
   return (
     <Fragment>
@@ -334,224 +400,93 @@ const handleRank = () => {
         </div>
         <h1 className="heading-primary no-margin">&nbsp;Sales & Profits</h1>
         <select
-              value={SelectDate}
-              className="text-options text-black"
-              style={{ width: "20rem", marginLeft: "1rem" }}
-              onChange={(event) => handleSelectDate(event)}
-            >
-              <option value="1">Today</option>
-              <option value="30">Past 30 Days</option>
-              <option value="9999">All Time</option>
-              <option value="-5">Neg</option>
-            </select>
+          value={SelectDate}
+          className="text-options text-black"
+          style={{ width: "20rem", marginLeft: "1rem" }}
+          onChange={(event) => handleSelectDate(event)}
+        >
+          <option value="1">Today</option>
+          <option value="30">Past 30 Days</option>
+          <option value="9999">All Time</option>
+          <option value="-6">Neg</option>
+        </select>
       </span>
 
       <div className='analytics-sales-container'>
-      <div>
-      <div className='flex-row' style={{gap:"5rem"}}>
-      <div className="flex-row" style={{ paddingBottom: '1rem' }}>
-                <div className="text-ter-cube svg-tertiary">&nbsp;</div>
-                <h2 className="heading-tertiary">Total Popularity: {totalUnits} unit/s</h2>
-              </div>
-              <div className="flex-row" style={{ paddingBottom: '1rem' }}>
-                <div className="text-ter-profit svg-tertiary">&nbsp;</div>
-                <h2 className="heading-tertiary">Total Profits: {shopCurrency} {totalProfit}</h2>
-              </div>
-      </div>
-        <div className='analytics-sales-cell'>
-        <DynamicLineChart finishedOrders={finishedOrders} profitColor={profitColor} cartValueColor={cartValueColor} dateBy={SelectDate} />
-        </div>
-    </div>
-
-    <div>
-      <div className='flex-row' style={{justifyContent:"space-between"}}>
-      <div className="flex-row" style={{ paddingBottom: '0rem' }}>
-                <div className="text-sec-rank svg-tertiary">&nbsp;</div>
-                <h2 className="heading-secondary">Categories by {rank === 1 ? "Profits" : rank === 2 ? "Popularity" : "Both"}</h2>
-              </div>
-
-              <div className="heading-icon-tune svg-secondary" onClick={handleRank}>&nbsp;</div>    
-      </div>
-        <div className='analytics-sales-cell'>
-        <RankPie data={categories} colors={categoryColors} chosen={rank}/>
-        </div>
-    </div>
-
-        <div className='analytics-sales-cell'>
-        </div>
-
-        <div className='analytics-sales-cell'>
-        </div>
-        <div className='analytics-sales-cell'>
-        </div>
-        <div className='analytics-sales-cell'>
-        </div>
-        
-      </div>
-
-      {/* <ShowUser modalStatus={SetUser} user={selectedUser} disable={() => {setUserModal(false)}} currency={shopCurrency} martCoords={shopCenter}></ShowUser>
-
-      <span className="page-heading">
-        <div className="heading-icon-dropshadow">
-          <div className="heading-icon-insights svg-color">&nbsp;</div>
-        </div>
-        <h1 className="heading-primary no-margin">&nbsp;Mart Analytics</h1>
-      </span>
-      <div className="analytics-container">
-        <div className="analytics-row round-borderer round-borderer-extra">
-          <span className="page-heading">
-            <div className="heading-icon-profit svg-color">&nbsp;</div>
-            <h1 className="heading-secondary no-margin">&nbsp;Sales & Profits</h1>
-            <select
-              value={SelectDate}
-              className="text-options text-black"
-              style={{ width: "20rem", marginLeft: "1rem", transform: "translateY(-0.4rem)" }}
-              onChange={(event) => handleSelectDate(event)}
-            >
-              <option value="1">Today</option>
-              <option value="30">Past 30 Days</option>
-              <option value="9999">All Time</option>
-              <option value="-5">Neg</option>
-            </select>
-
-            <Link href={`/${router.query.shopid}/analytics/sales`} className="product-action-2 flex-row-align" style={{ width: "18rem", margin: "0rem 1rem", marginLeft: "auto", height: "3.5rem", textDecoration: "none" }}><h3 className="heading-tertiary margin-side solid-text-color" style={{ transform: "translateY(0rem)" }}>See More</h3></Link>
-          </span>
-
-          <div className="analytics-grid">
-            <div className="analytics-preview">
-              <DynamicLineChart finishedOrders={finishedOrders} profitColor={profitColor} cartValueColor={cartValueColor} dateBy={SelectDate} />
+        <div>
+          <div className='flex-row' style={{ gap: "5rem", margin: "0.5rem" }}>
+            <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+              <div className="text-ter-cube svg-tertiary">&nbsp;</div>
+              <h2 className="heading-tertiary">Total Buys: {totalUnits} unit/s</h2>
             </div>
-
-            <div className="analytics-rank-prev round-borderer round-borderer-extra">
-              <div className="flex-row" style={{ paddingBottom: '1rem' }}>
-                <div className="text-sec-popular svg-secondary">&nbsp;</div>
-                <h2 className="heading-secondary">Most Bought</h2>
-                <div className="heading-icon-tune svg-secondary" style={{ marginLeft: 'auto' }} onClick={handleBought}>
-                  &nbsp;
-                </div>
-              </div>
-              {mostBought.slice(startIndex1, startIndex1 + 10).map((item, index) => {
-                const position = boughtSymbol ? index + 1 : mostBought.length - index;
-
-                return (
-                  <div className="flex-row" key={index}>
-                    <Link href={`/${item.url}`} className="heading-tertiary" style={{ textDecoration: 'none' }}>
-                      {position}. {item.name.length > 10 ? item.name.substring(0, 7) + '...' : item.name} -{' '}
-                      {item.category.length > 8 ? item.category.substring(0, 5) + '...' : item.category}
-                    </Link>
-                  </div>
-                );
-              })}
+            <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+              <div className="text-ter-profit svg-tertiary">&nbsp;</div>
+              <h2 className="heading-tertiary">Total Profits: {shopCurrency} {totalProfit}</h2>
             </div>
-
-            <div className="analytics-rank-prev round-borderer round-borderer-extra">
-              <div className="flex-row" style={{ paddingBottom: '1rem' }}>
-                <div className="text-sec-profitable svg-secondary">&nbsp;</div>
-                <h2 className="heading-secondary">Top Grossing</h2>
-                <div className="heading-icon-tune svg-secondary" style={{ marginLeft: 'auto' }} onClick={handleProfit}>
-                  &nbsp;
-                </div>
-              </div>
-              {mostProfit.slice(startIndex2, startIndex2 + 10).map((item, index) => {
-                const position = profitSymbol ? index + 1 : mostProfit.length - index;
-
-                return (
-                  <div className="flex-row" key={index}>
-                    <Link href={`/${item.url}`} className="heading-tertiary" style={{ textDecoration: 'none' }}>
-                      {position}. {item.name.length > 10 ? item.name.substring(0, 7) + '...' : item.name} -{' '}
-                      {item.category.length > 8 ? item.category.substring(0, 5) + '...' : item.category}
-                    </Link>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="analytics-categ-prev">
-              <CategoryPerformance data={categories} colors={categoryColors} />
-            </div>
+          </div>
+          <div className='analytics-sales-cell'>
+            <DynamicLineChart finishedOrders={finishedOrders} profitColor={profitColor} cartValueColor={cartValueColor} dateBy={SelectDate} />
           </div>
         </div>
 
-        <div className="analytics-row round-borderer round-borderer-extra">
-          <span className="page-heading">
-            <div className="heading-icon-profile svg-color">&nbsp;</div>
-            <h1 className="heading-secondary no-margin">&nbsp;User Data</h1>
-            <select
-              value={SelectDate2}
-              className="text-options text-black"
-              style={{ width: "20rem", marginLeft: "1rem", transform: "translateY(-0.4rem)" }}
-              onChange={(event) => handleSelectDate2(event)}
-            >
-              <option value="1">Today</option>
-              <option value="30">Past 30 Days</option>
-              <option value="9999">All Time</option>
-              <option value="-10">Neg</option>
-            </select>
-
-            <Link href={`#`} className="product-action-2 flex-row-align" style={{ width: "18rem", margin: "0rem 1rem", marginLeft: "auto", height: "3.5rem", textDecoration: "none" }}><h3 className="heading-tertiary margin-side solid-text-color" style={{ transform: "translateY(0rem)" }}>See More</h3></Link>
-          </span>
-
-          <div className="analytics-grid">
-            <div className="analytics-rank-prev round-borderer round-borderer-extra" style={{ justifyContent: "space-around" }}>
-              <div className="flex-row" style={{ paddingBottom: '1rem' }}>
-                <div className="text-sec-user-perform svg-secondary">&nbsp;</div>
-                <h2 className="heading-secondary">User Performance</h2>
-              </div>
-              <div className="flex-row-spaceless">
-                <div className="text-ter-eye svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Mart Views: {timeCount} view/s</h2>
-              </div>
-              <div className="flex-row-spaceless">
-                <div className="text-ter-views-total svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Views: {totalCount} view/s</h2>
-              </div>
-              <div className="flex-row-spaceless">
-                <div className="text-ter-new-users svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;New Users: {filteredNewAccounts.length} user/s</h2>
-              </div>
-              <div className="flex-row-spaceless">
-                <div className="text-ter-user svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Users: {shopAccounts.length} user/s</h2>
-              </div>
-              <div className="flex-row-spaceless">
-                <div className="text-ter-repeat svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Repeat Users: {repeaterCount} user/s</h2>
-              </div>
-              <div className="flex-row-spaceless">
-                <div className="text-ter-repeat-user svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Repeat Users: {repeatTotal.length} user/s</h2>
-              </div>
-              <div className="flex-row-spaceless">
-                <div className="text-ter-cube svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Orders: {orderSum / userPerformance.length} order/s</h2>
-              </div>
-              <div className="flex-row-spaceless">
-                <div className="text-ter-profit svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Profit: {shopCurrency} {profitSum / userPerformance.length}</h2>
-              </div>
-              <div className="flex-row-spaceless">
-                <div className="text-ter-tags svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Spent: {shopCurrency} {spentSum / userPerformance.length}</h2>
-              </div>
+        <div>
+          <div className='flex-row' style={{ justifyContent: "space-between", margin: "0.5rem" }}>
+            <div className="flex-row" style={{ paddingBottom: '0rem' }}>
+              <div className="text-sec-rank svg-tertiary">&nbsp;</div>
+              <h2 className="heading-secondary">Categories by {rank === 1 ? "Profits" : rank === 2 ? "Buys" : "Both"}</h2>
             </div>
 
-            <div className='flex-col analytics-prev-small'>
-            <div className="flex-row-spaceless" style={{margin:"1rem"}}>
-                <div className="text-ter-cake svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Age: {averageAge} years old</h2>
-              </div>
-            <div className="analytics-age-prev">
-              <PieChart data={ageList} colors={ageColors} type="age"/>
-            </div>
+            <div className="heading-icon-tune svg-secondary" onClick={handleRank}>&nbsp;</div>
+          </div>
+          <div className='analytics-sales-cell'>
+            <RankPie data={categories} colors={categoryColors} chosen={rank} />
+          </div>
+        </div>
+
+        <div>
+          <div className='flex-row' style={{ justifyContent: "space-between", margin: "0.5rem" }}>
+            <div className="flex-row" style={{ paddingBottom: '0rem' }}>
+              {rank2 === 1 ? <><div className="text-sec-profit svg-tertiary">&nbsp;</div></> : rank2 === 2 ? <><div className="text-sec-cube svg-tertiary">&nbsp;</div></> : <div className="text-sec-average svg-tertiary">&nbsp;</div>}
+              <h2 className="heading-secondary">Categories by {rank2 === 1 ? <>Profits</> : rank2 === 2 ? <>Buys</> : "Both"}</h2>
             </div>
 
-            <div className='flex-col analytics-prev-small'>
-            <div className="flex-row-spaceless" style={{margin:"1rem"}}>
-                <div className="text-ter-gender4 svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Gender Distribution</h2>
-              </div>
-            <div className="analytics-age-prev">
-            <PieChart data={genderList} colors={genderColors} type="gender"/>
-            </div>
-            </div>
+            <div className="heading-icon-tune svg-secondary" onClick={handleRank2}>&nbsp;</div>
+          </div>
+          <div className='analytics-sales-cell'>
+            <DynamicCategoriesLine finishedOrders={finishedOrders} colors={categoryColorsArray} dateBy={SelectDate} chosen={rank2} />
+          </div>
+        </div>
 
-            <div className="analytics-location-prev">
-            {typeof window !== "undefined" && <DynamicUserMap data={userPerformance} center={shopCenter} colors={coordColors} showuser={showProfile}></DynamicUserMap>}
+        <div>
+          <div className='flex-row' style={{ justifyContent: "space-between" }}>
+            <div className="flex-row-spaceless" style={{ paddingBottom: '0rem' }}>
+            <div className="text-sec-category svg-tertiary">&nbsp;</div>
+              <select
+                value={selectedCategory}
+                className="text-options text-black"
+                style={{ width: "32rem", transform:"translateY(-1rem) scale(90%)" }}
+                onChange={(event, index) => setSelectedCategory(event.target.value)}
+              >
+              {categoriesList.map((item) => {
+                return <option value={item}>{item}</option>
+              })
+
+              }
+              </select>
+              <h2 className='heading-secondary'>Products</h2>
             </div>
           </div>
-
+          <div className='analytics-sales-cell' style={{transform:"translateY(-1rem)"}}>
+              <ProductBar data={combinedProducts} colors={productColors}></ProductBar>
+          </div>
         </div>
-      </div> */}
 
+        <div className='analytics-sales-cell'>
+        </div>
+        <div className='analytics-sales-cell'>
+        </div>
+
+      </div>
     </Fragment>
   );
 }

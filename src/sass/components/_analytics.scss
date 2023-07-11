@@ -58,8 +58,24 @@ $graph-height-2: 27vh;
   @include heading-logo(profitable, 3rem, 3rem);
 }
 
+.text-sec-cube {
+  @include heading-logo(cube, 3rem, 3rem);
+}
+
+.text-sec-average {
+  @include heading-logo(average, 3rem, 3rem);
+}
+
+.text-sec-category {
+  @include heading-logo(category, 3rem, 3rem);
+}
+
 .text-sec-rank {
   @include heading-logo(rank, 3rem, 3rem);
+}
+
+.text-sec-profit {
+  @include heading-logo(profit, 3rem, 3rem);
 }
 
 .text-sec-popular {
@@ -163,7 +179,7 @@ $graph-height-2: 27vh;
 
 .analytics-sales-cell{
   height: 30rem;
-  width: 100%;
+  width: 48vw;
   background-color: white;
   filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
   border-radius: 15px;

@@ -161,12 +161,12 @@ function Analytics(martID) {
     return result;
   }, []);
 
-  const categoryColors = useMemo(() => {
+  const categoryColors = () => {
     return categories.map(({ name }) => {
       const rng = seedrandom(name.toString());
       return '#' + Math.floor(rng() * 16777215).toString(16);
     });
-  }, []);
+  }
 
   const currentTime = new Date("2023-07-09T10:39:40.050Z");
   const withinView = new Date();
@@ -269,19 +269,19 @@ userPerformance.forEach((user) => {
     profitSum += user.totalProfit;
 })
 
-const ageColors = useMemo(() => {
+const ageColors = () => {
   return ageList.map(({ age }) => {
     const rng = seedrandom(age.toString());
     return '#' + Math.floor(rng() * 16777215).toString(16);
   });
-}, []);
+}
 
-  const genderColors = useMemo(() => {
+  const genderColors = () => {
     return genderList.map(({ gender }) => {
       const rng = seedrandom(gender.toString());
       return '#' + Math.floor(rng() * 16777215).toString(16);
     });
-  }, []);
+  }
 
 let weightedSum = 0;
 let ageCountTotal = 0;
@@ -293,12 +293,14 @@ for (const entry of ageList) {
 
 const averageAge = ageCountTotal > 0 ? weightedSum / ageCountTotal : 0;
 
-const coordColors = useMemo(() => {
+const coordColorsFn = () => {
   return userPerformance.map(({ email }) => {
     const rng = seedrandom(email.toString());
     return '#' + Math.floor(rng() * 16777215).toString(16);
   });
-}, []);
+}
+
+const coordColors = coordColorsFn()
 
 function showProfile(data){
 handleSetUser(data)
@@ -318,6 +320,7 @@ handleSetUser(data)
           <div className="heading-icon-insights svg-color">&nbsp;</div>
         </div>
         <h1 className="heading-primary no-margin">&nbsp;Mart Analytics</h1>
+        <button className="add-categ-init" style={{ width: "17rem", marginLeft:"auto", marginRight:"1rem" }}><h2 className='margin-side heading-tertiary'>Download CSV</h2></button>
       </span>
       <div className="analytics-container">
         <div className="analytics-row round-borderer round-borderer-extra">
