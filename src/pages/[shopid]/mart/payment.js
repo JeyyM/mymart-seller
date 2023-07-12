@@ -553,7 +553,7 @@ function Payment(martID) {
                     </motion.div>
                 )}
 
-                <span className="page-heading flex-row-align" style={{ margin: "2rem 0" }}>
+                {/* <span className="page-heading flex-row-align" style={{ margin: "2rem 0" }}>
                     <div className="heading-icon-pin svg-color">&nbsp;</div>
                     <h1 className="heading-secondary no-margin" style={{ marginTop: "0rem" }} title="A Google Map along with directions will be at checkout so the users know where to pick up their items, etc.">Show Google Maps Location to customer?</h1>
                     <div className="checkbox-container">
@@ -565,7 +565,7 @@ function Payment(martID) {
                             className="checkbox-style"
                         />
                     </div>
-                </span>
+                </span> */}
             </div>
             </div>
         </div>

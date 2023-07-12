@@ -10,6 +10,7 @@ import seedrandom from 'seedrandom';
 import ShowUser from '@/components/Analytics/ShowUser';
 import RankPie from '@/components/Analytics/RankPie';
 import ProductBar from '@/components/Analytics/ProductBar';
+import FulfillmentLine from '@/components/Analytics/FulfillmentLine';
 
 const DynamicLineChart = dynamic(() => import('../../../components/Analytics/DayLine'), {
   ssr: false,
@@ -345,6 +346,15 @@ function Analytics(martID) {
     }
   };
 
+  const [rank4, setRank4] = useState(1)
+  const handleRank4 = () => {
+    if (rank4 < 3) {
+      setRank4(rank4 + 1);
+    } else {
+      setRank4(1);
+    }
+  };
+
   const categorizedData = finishedOrders.flatMap((order) => {
     return order.order.map((item) => ({
       name: item.name,
@@ -386,16 +396,20 @@ function Analytics(martID) {
     return accumulator;
   }, []);
 
-  console.log(combinedProducts)
+  let deliveryCount = 0;
+  let deliverySum = 0;
+  let pickupCount = 0;
+  let pickupSum = 0;
 
-    let productColorsFn = () => {
-    return combinedProducts.map(({ name }) => {
-      const rng = seedrandom(name.toString());
-      return '#' + Math.floor(rng() * 16777215).toString(16);
-    });
-  };  
-
-  const productColors = productColorsFn()
+  for (const item of finishedOrders) {
+    if (item.mode === "pickup") {
+      pickupCount++;
+      pickupSum += item.totals.fees;
+    } else if (item.mode === "delivery") {
+      deliveryCount++;
+      deliverySum += item.totals.fees;
+    }
+  }
 
   return (
     <Fragment>
@@ -429,7 +443,7 @@ function Analytics(martID) {
               <div className="text-sec-cube svg-secondary">&nbsp;</div>
               <h2 className="heading-secondary">Total Buys: {totalUnits} unit/s</h2>
             </div>
-            <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+            <div className="flex-row" style={{ paddingBottom: '1rem', marginRight:"1rem" }}>
               <div className="text-sec-profit svg-secondary">&nbsp;</div>
               <h2 className="heading-secondary">Total Profits: {shopCurrency} {totalProfit}</h2>
             </div>
@@ -487,12 +501,12 @@ function Analytics(martID) {
             </div>
 
             <div className='flex-row' style={{marginRight:"1rem"}}>
-            <div className="heading-icon-average svg-secondary" onClick={handleRank3}>&nbsp;</div>
+            <div className="heading-icon-average svg-secondary" onClick={handleRank4}>&nbsp;</div>
               <div className="heading-icon-tune svg-secondary" onClick={handleRank3}>&nbsp;</div>
             </div>
           </div>
           <div className='analytics-sales-cell' style={{transform:"translateY(-1rem)"}}>
-              <ProductBar data={combinedProducts} colors={productColors} chosen={rank3}></ProductBar>
+              <ProductBar data={combinedProducts} chosen={rank3} sort={rank4}></ProductBar>
           </div>
         </div>
         
@@ -542,9 +556,37 @@ function Analytics(martID) {
               })}
             </div>
 
-        <div className='analytics-sales-cell'>
+            <span className="page-heading">
+        <div className="heading-icon-dropshadow">
+          <div className="heading-icon-fulfillment svg-color">&nbsp;</div>
         </div>
-        <div className='analytics-sales-cell'>
+        <h1 className="heading-primary no-margin">&nbsp;Fulfillment Method</h1>
+      </span>
+      <div></div>
+      {/* console.log(deliveryCount, deliverySum, pickupCount, pickupSum) */}
+
+      <div>
+          <div className='flex-row' style={{ justifyContent:"space-between" }}>
+            <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+              <div className="text-sec-shipping svg-secondary">&nbsp;</div>
+              <h2 className="heading-secondary">{deliveryCount} Deliveries for {shopCurrency} {deliverySum}</h2>
+            </div>
+          </div>
+          <div className='analytics-sales-cell'>
+            <FulfillmentLine finishedOrders={finishedOrders} profitColor={profitColor} cartValueColor={cartValueColor} dateBy={SelectDate} />
+          </div>
+        </div>
+
+        <div>
+          <div className='flex-row' style={{ justifyContent:"space-between" }}>
+            <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+              <div className="text-sec-basket svg-secondary">&nbsp;</div>
+              <h2 className="heading-secondary">{pickupCount} Orders Picked Up for {shopCurrency} {pickupSum}</h2>
+            </div>
+          </div>
+          <div className='analytics-sales-cell'>
+            <DynamicLineChart finishedOrders={finishedOrders} profitColor={profitColor} cartValueColor={cartValueColor} dateBy={SelectDate} />
+          </div>
         </div>
 
       </div>

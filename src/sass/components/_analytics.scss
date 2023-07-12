@@ -20,6 +20,11 @@ $graph-height-2: 27vh;
   margin-left: 1rem;
 }
 
+.heading-icon-fulfillment {
+  @include heading-logo(fulfillment, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
 .analytics-row {
   height: 50%;
   padding: 0rem 0.5rem 0.5rem 0.5rem;
@@ -56,6 +61,14 @@ $graph-height-2: 27vh;
 
 .text-sec-profitable {
   @include heading-logo(profitable, 3rem, 3rem);
+}
+
+.text-sec-shipping {
+  @include heading-logo(shipping, 3rem, 3rem);
+}
+
+.text-sec-basket {
+  @include heading-logo(basket, 3rem, 3rem);
 }
 
 .text-sec-cube {
