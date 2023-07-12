@@ -140,7 +140,7 @@ function ProductPage({ shopID }) {
   }
 
   function addProfit() {
-    setPriceValue(parseInt(profitValue) + 1)
+    setProfitValue(parseInt(profitValue) + 1)
   }
 
   function minusProfit() {

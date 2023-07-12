@@ -62,27 +62,28 @@ function Analytics(martID) {
 
   const products = [];
 
-  useEffect(() => {
-    finishedOrders.forEach((order) => {
-      order.order.forEach((item) => {
-        const existingProduct = products.find((product) => product.name === item.name && product.category === item.category);
+  // useEffect(() => {
+  //   finishedOrders.forEach((order) => {
+  //     order.order.forEach((item) => {
+  //       const existingProduct = products.find((product) => product.name === item.name && product.category === item.category);
 
-        if (existingProduct) {
-          existingProduct.orders += parseFloat(item.cartValue);
-          existingProduct.profit += parseFloat(item.profit * item.cartValue);
-        } else {
-          products.push({
-            name: item.name,
-            category: item.category,
-            orders: parseFloat(item.cartValue),
-            profit: parseFloat(item.profit),
-            url: item.url,
-          });
-        }
-      });
-    });
+  //       if (existingProduct) {
+  //         existingProduct.orders += parseFloat(item.cartValue);
+  //         existingProduct.profit += parseFloat(item.profit * item.cartValue);
+  //       } else {
+  //         console.log(item)
+  //         products.push({
+  //           name: item.name,
+  //           category: item.category,
+  //           orders: parseFloat(item.cartValue),
+  //           profit: parseFloat(item.profit * item.cartValue),
+  //           url: item.url,
+  //         });
+  //       }
+  //     });
+  //   });
 
-  }, [SelectDate])
+  // }, [SelectDate])
 
   finishedOrders.forEach((order) => {
     order.order.forEach((item) => {
@@ -90,13 +91,13 @@ function Analytics(martID) {
 
       if (existingProduct) {
         existingProduct.orders += parseFloat(item.cartValue);
-        existingProduct.profit += parseFloat(item.profit * item.cartValue);
+        existingProduct.profit += parseFloat(item.profit) * parseFloat(item.cartValue);
       } else {
         products.push({
           name: item.name,
           category: item.category,
           orders: parseFloat(item.cartValue),
-          profit: parseFloat(item.profit),
+          profit: parseFloat(item.profit) * parseFloat(item.cartValue),
           url: item.url,
         });
       }
@@ -141,7 +142,7 @@ function Analytics(martID) {
       existingCategory.products.push({
         name: item.name,
         orders: item.orders,
-        profit: item.profit
+        profit: item.profit * item.orders
       });
       existingCategory.orderTotal += item.orders;
       existingCategory.profitTotal += item.profit;
@@ -151,7 +152,7 @@ function Analytics(martID) {
         products: [{
           name: item.name,
           orders: item.orders,
-          profit: item.profit
+          profit: item.profit * item.orders
         }],
         orderTotal: item.orders,
         profitTotal: item.profit

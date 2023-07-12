@@ -8,7 +8,6 @@ import { GoogleMap, useLoadScript, DirectionsService, DirectionsRenderer, Marker
 const libraries = ['places'];
 
 function ShowUser(props) {
-    console.log(props.user)
     const router = useRouter()
     const appear = {
         hidden: {

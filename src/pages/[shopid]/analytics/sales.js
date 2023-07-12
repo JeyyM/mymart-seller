@@ -68,27 +68,27 @@ function Analytics(martID) {
 
   const products = [];
 
-  useEffect(() => {
-    finishedOrders.forEach((order) => {
-      order.order.forEach((item) => {
-        const existingProduct = products.find((product) => product.name === item.name && product.category === item.category);
+  // useEffect(() => {
+  //   finishedOrders.forEach((order) => {
+  //     order.order.forEach((item) => {
+  //       const existingProduct = products.find((product) => product.name === item.name && product.category === item.category);
 
-        if (existingProduct) {
-          existingProduct.orders += parseFloat(item.cartValue);
-          existingProduct.profit += parseFloat(item.profit * item.cartValue);
-        } else {
-          products.push({
-            name: item.name,
-            category: item.category,
-            orders: parseFloat(item.cartValue),
-            profit: parseFloat(item.profit),
-            url: item.url,
-          });
-        }
-      });
-    });
+  //       if (existingProduct) {
+  //         existingProduct.orders += parseFloat(item.cartValue);
+  //         existingProduct.profit += parseFloat(item.profit * item.cartValue);
+  //       } else {
+  //         products.push({
+  //           name: item.name,
+  //           category: item.category,
+  //           orders: parseFloat(item.cartValue),
+  //           profit: parseFloat(item.profit),
+  //           url: item.url,
+  //         });
+  //       }
+  //     });
+  //   });
 
-  }, [SelectDate])
+  // }, [SelectDate])
 
   finishedOrders.forEach((order) => {
     order.order.forEach((item) => {
@@ -96,13 +96,13 @@ function Analytics(martID) {
 
       if (existingProduct) {
         existingProduct.orders += parseFloat(item.cartValue);
-        existingProduct.profit += parseFloat(item.profit * item.cartValue);
+        existingProduct.profit += parseFloat(item.profit) * parseFloat(item.cartValue);
       } else {
         products.push({
           name: item.name,
           category: item.category,
           orders: parseFloat(item.cartValue),
-          profit: parseFloat(item.profit),
+          profit: parseFloat(item.profit) * parseFloat(item.cartValue),
           url: item.url,
         });
       }
@@ -134,8 +134,8 @@ function Analytics(martID) {
     }
   });
 
-  const startIndex1 = boughtSymbol ? 0 : mostBought.length - 10;
-  const startIndex2 = profitSymbol ? 0 : mostProfit.length - 10;
+  const startIndex1 = boughtSymbol ? 0 : mostBought.length - 50;
+  const startIndex2 = profitSymbol ? 0 : mostProfit.length - 50;
 
   const profitColor = "red"
   const cartValueColor = "blue"
@@ -162,7 +162,6 @@ function Analytics(martID) {
         }],
         orderTotal: item.orders,
         profitTotal: item.profit,
-        performanceTotal: (item.orders + item.profit) / 2
       });
     }
 
@@ -313,15 +312,15 @@ function Analytics(martID) {
   function showProfile(data) {
     handleSetUser(data)
   }
-  const profitArray = filteredOrders.map((order) => order.order.reduce((total, item) => total + (item.profit * item.cartValue), 0));
-  const boughtArray = filteredOrders.map((order) => order.order.reduce((total, item) => total + item.cartValue, 0));
+  const profitArray = finishedOrders.map((order) => order.order.reduce((total, item) => total + (item.profit * item.cartValue), 0));
+  const boughtArray = finishedOrders.map((order) => order.order.reduce((total, item) => total + item.cartValue, 0));
 
   const totalProfit = profitArray.reduce((acc, curr) => acc + curr, 0);
   const totalUnits = boughtArray.reduce((acc, curr) => acc + curr, 0);
 
   const [rank, setRank] = useState(1)
   const handleRank = () => {
-    if (rank < 3) {
+    if (rank < 2) {
       setRank(rank + 1);
     } else {
       setRank(1);
@@ -330,10 +329,19 @@ function Analytics(martID) {
 
   const [rank2, setRank2] = useState(1)
   const handleRank2 = () => {
-    if (rank2 < 3) {
+    if (rank2 < 2) {
       setRank2(rank2 + 1);
     } else {
       setRank2(1);
+    }
+  };
+
+  const [rank3, setRank3] = useState(1)
+  const handleRank3 = () => {
+    if (rank3 < 2) {
+      setRank3(rank3 + 1);
+    } else {
+      setRank3(1);
     }
   };
 
@@ -359,7 +367,7 @@ function Analytics(martID) {
   const [categoryBar, setCategoryBar] = useState(categorizedData.filter((item) => item.category === selectedCategory))
   useEffect(() => {
     setCategoryBar(categorizedData.filter((item) => item.category === selectedCategory))
-  }, [selectedCategory, SelectDate]) 
+  }, [selectedCategory, SelectDate])
 
   const combinedProducts = Object.values(categoryBar).reduce((accumulator, item) => {
     const existingProduct = accumulator.find((product) => product.name === item.name);
@@ -377,6 +385,8 @@ function Analytics(martID) {
   
     return accumulator;
   }, []);
+
+  console.log(combinedProducts)
 
     let productColorsFn = () => {
     return combinedProducts.map(({ name }) => {
@@ -414,14 +424,14 @@ function Analytics(martID) {
 
       <div className='analytics-sales-container'>
         <div>
-          <div className='flex-row' style={{ gap: "5rem", margin: "0.5rem" }}>
+          <div className='flex-row' style={{ justifyContent:"space-between" }}>
             <div className="flex-row" style={{ paddingBottom: '1rem' }}>
-              <div className="text-ter-cube svg-tertiary">&nbsp;</div>
-              <h2 className="heading-tertiary">Total Buys: {totalUnits} unit/s</h2>
+              <div className="text-sec-cube svg-secondary">&nbsp;</div>
+              <h2 className="heading-secondary">Total Buys: {totalUnits} unit/s</h2>
             </div>
             <div className="flex-row" style={{ paddingBottom: '1rem' }}>
-              <div className="text-ter-profit svg-tertiary">&nbsp;</div>
-              <h2 className="heading-tertiary">Total Profits: {shopCurrency} {totalProfit}</h2>
+              <div className="text-sec-profit svg-secondary">&nbsp;</div>
+              <h2 className="heading-secondary">Total Profits: {shopCurrency} {totalProfit}</h2>
             </div>
           </div>
           <div className='analytics-sales-cell'>
@@ -467,19 +477,70 @@ function Analytics(martID) {
                 style={{ width: "32rem", transform:"translateY(-1rem) scale(90%)" }}
                 onChange={(event, index) => setSelectedCategory(event.target.value)}
               >
-              {categoriesList.map((item) => {
-                return <option value={item}>{item}</option>
+              {categoriesList.map((item, index) => {
+                return <option value={item} key={index}>{item}</option>
               })
 
               }
               </select>
-              <h2 className='heading-secondary'>Products</h2>
+              <h2 className='heading-secondary'>Products By {rank3 === 1 ? <>Profits</> : rank3 === 2 ? <>Buys</> : "Both"}</h2>
+            </div>
+
+            <div className='flex-row' style={{marginRight:"1rem"}}>
+            <div className="heading-icon-average svg-secondary" onClick={handleRank3}>&nbsp;</div>
+              <div className="heading-icon-tune svg-secondary" onClick={handleRank3}>&nbsp;</div>
             </div>
           </div>
           <div className='analytics-sales-cell' style={{transform:"translateY(-1rem)"}}>
-              <ProductBar data={combinedProducts} colors={productColors}></ProductBar>
+              <ProductBar data={combinedProducts} colors={productColors} chosen={rank3}></ProductBar>
           </div>
         </div>
+        
+        <div className="analytics-rank-main round-borderer round-borderer-extra">
+              <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+                <div className="text-sec-popular svg-secondary">&nbsp;</div>
+                <h2 className="heading-secondary">Most Bought</h2>
+                <div className="heading-icon-tune svg-secondary" style={{ marginLeft: 'auto' }} onClick={handleBought}>
+                  &nbsp;
+                </div>
+              </div>
+              {mostBought.slice(startIndex1, startIndex1 + 50).map((item, index) => {
+                const position = boughtSymbol ? index + 1 : mostBought.length - index;
+
+                return (
+                  <div className="flex-row" key={index}>
+                    <Link href={`/${item.url}`} className="heading-tertiary" style={{ textDecoration: 'none' }}>
+                      {position}. {item.name.length > 30 ? item.name.substring(0, 27) + '...' : item.name} -{' '}
+                      {item.category.length > 30 ? item.category.substring(0, 27) + '...' : item.category}
+                    </Link>
+                    <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>{item.orders} order/s</h3>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="analytics-rank-main round-borderer round-borderer-extra">
+              <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+                <div className="text-sec-profitable svg-secondary">&nbsp;</div>
+                <h2 className="heading-secondary">Top Grossing</h2>
+                <div className="heading-icon-tune svg-secondary" style={{ marginLeft: 'auto' }} onClick={handleProfit}>
+                  &nbsp;
+                </div>
+              </div>
+              {mostProfit.slice(startIndex2, startIndex2 + 50).map((item, index) => {
+                const position = profitSymbol ? index + 1 : mostProfit.length - index;
+
+                return (
+                  <div className="flex-row" key={index}>
+                    <Link href={`/${item.url}`} className="heading-tertiary" style={{ textDecoration: 'none' }}>
+                      {position}. {item.name.length > 30 ? item.name.substring(0, 27) + '...' : item.name} -{' '}
+                      {item.category.length > 30 ? item.category.substring(0, 27) + '...' : item.category}
+                    </Link>
+                    <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>Profit: {shopCurrency} {item.profit}</h3>
+                  </div>
+                );
+              })}
+            </div>
 
         <div className='analytics-sales-cell'>
         </div>

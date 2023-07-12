@@ -90,6 +90,10 @@ $graph-height-2: 27vh;
   @include heading-logo(tune, 3rem, 3rem);
 }
 
+.heading-icon-average {
+  @include heading-logo(average, 3rem, 3rem);
+}
+
 .analytics-categ-prev {
   grid-column: span 3;
   filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
@@ -184,4 +188,11 @@ $graph-height-2: 27vh;
   filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
   border-radius: 15px;
   position: relative;
+}
+
+.analytics-rank-main{
+  height: auto;
+  width: 48vw;
+  position: relative;
+  padding: 1rem !important;
 }
