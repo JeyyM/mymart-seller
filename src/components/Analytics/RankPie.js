@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
 
 function RankPie({ data, colors, chosen }) {
+  console.log("pi", data)
     const chartData1 = {
     labels: data.map(category => category.name.substring(0, 10)),
     datasets: [

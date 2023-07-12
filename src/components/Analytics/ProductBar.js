@@ -1,6 +1,7 @@
 import { Bar } from 'react-chartjs-2';
 
 function ProductBarChart({ data, colors }) {
+  console.log(data)
   const chartData = {
     labels: data.map((product) => product.name),
     datasets: [
