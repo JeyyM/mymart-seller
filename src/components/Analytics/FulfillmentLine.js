@@ -5,7 +5,6 @@ import 'chartjs-adapter-moment';
 function FulfillmentLine({ finishedOrders, dateBy }) {
   const daysAgo = moment().subtract(dateBy, 'days');
   const filteredOrders = finishedOrders.filter((order) => moment(order.finishedOn).isAfter(daysAgo));
-  console.log(finishedOrders)
   const deliveryData = filteredOrders.reduce((result, order) => {
     const existingItem = result.find(item => moment(item.x).isSame(moment(order.finishedOn), 'day'));
     if (existingItem) {
@@ -63,7 +62,7 @@ function FulfillmentLine({ finishedOrders, dateBy }) {
         label: 'Pickup Count',
         data: deliveryData.map(item => item.pickupTotal),
         fill: false,
-        borderColor: "blue",
+        borderColor: "teal",
         borderWidth: 5,
         yAxisID: 'count',
       },

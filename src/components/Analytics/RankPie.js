@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
 
 function RankPie({ data, colors, chosen }) {
@@ -39,7 +39,7 @@ function RankPie({ data, colors, chosen }) {
       legend: {
         position: 'left'
       }
-    }
+    },
   };
 
     const [Used, setUsed] = useState(chartData1)

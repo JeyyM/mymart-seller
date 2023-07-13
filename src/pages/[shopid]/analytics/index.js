@@ -321,8 +321,7 @@ handleSetUser(data)
           <div className="heading-icon-insights svg-color">&nbsp;</div>
         </div>
         <h1 className="heading-primary no-margin">&nbsp;Mart Analytics</h1>
-        <button className="add-categ-init" style={{ width: "17rem", marginLeft:"auto", marginRight:"1rem" }}><h2 className='margin-side heading-tertiary'>Download CSV</h2></button>
-      </span>
+              </span>
       <div className="analytics-container">
         <div className="analytics-row round-borderer round-borderer-extra">
           <span className="page-heading">

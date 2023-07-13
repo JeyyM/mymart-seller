@@ -11,6 +11,7 @@ import ShowUser from '@/components/Analytics/ShowUser';
 import RankPie from '@/components/Analytics/RankPie';
 import ProductBar from '@/components/Analytics/ProductBar';
 import FulfillmentLine from '@/components/Analytics/FulfillmentLine';
+import FulfillmentPie from '@/components/Analytics/FulfillmentPie';
 
 const DynamicLineChart = dynamic(() => import('../../../components/Analytics/DayLine'), {
   ssr: false,
@@ -24,7 +25,7 @@ const DynamicUserMap = dynamic(() => import('../../../components/Analytics/UserM
   ssr: false,
 });
 
-function Analytics(martID) {
+function Sales(martID) {
   const router = useRouter()
   const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
   const shopCurrency = martID.shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
@@ -94,6 +95,7 @@ function Analytics(martID) {
   finishedOrders.forEach((order) => {
     order.order.forEach((item) => {
       const existingProduct = products.find((product) => product.name === item.name && product.category === item.category);
+      console.log("baz", item)
 
       if (existingProduct) {
         existingProduct.orders += parseFloat(item.cartValue);
@@ -105,6 +107,10 @@ function Analytics(martID) {
           orders: parseFloat(item.cartValue),
           profit: parseFloat(item.profit) * parseFloat(item.cartValue),
           url: item.url,
+          unit: item.unit,
+          price: item.price,
+          image: item.image,
+          profitper: item.profit,
         });
       }
     });
@@ -355,6 +361,15 @@ function Analytics(martID) {
     }
   };
 
+  const [rank5, setRank5] = useState(1)
+  const handleRank5 = () => {
+    if (rank5 < 2) {
+      setRank5(rank5 + 1);
+    } else {
+      setRank5(1);
+    }
+  };
+
   const categorizedData = finishedOrders.flatMap((order) => {
     return order.order.map((item) => ({
       name: item.name,
@@ -434,6 +449,7 @@ function Analytics(martID) {
           <option value="9999">All Time</option>
           <option value="-6">Neg</option>
         </select>
+        <button className="add-categ-init" style={{ width: "17rem", marginLeft:"auto", marginRight:"1rem" }}><h2 className='margin-side heading-tertiary'>Download CSV</h2></button>
       </span>
 
       <div className='analytics-sales-container'>
@@ -563,7 +579,6 @@ function Analytics(martID) {
         <h1 className="heading-primary no-margin">&nbsp;Fulfillment Method</h1>
       </span>
       <div></div>
-      {/* console.log(deliveryCount, deliverySum, pickupCount, pickupSum) */}
 
       <div>
           <div className='flex-row' style={{ justifyContent:"space-between" }}>
@@ -583,9 +598,11 @@ function Analytics(martID) {
               <div className="text-sec-basket svg-secondary">&nbsp;</div>
               <h2 className="heading-secondary">{pickupCount} Orders Picked Up for {shopCurrency} {pickupSum}</h2>
             </div>
+            <div className="heading-icon-tune svg-secondary" onClick={handleRank5} style={{marginRight:"1rem"}}>&nbsp;</div>
+
           </div>
           <div className='analytics-sales-cell'>
-            <DynamicLineChart finishedOrders={finishedOrders} profitColor={profitColor} cartValueColor={cartValueColor} dateBy={SelectDate} />
+              <FulfillmentPie ds={deliverySum} dc={deliveryCount} ps={pickupSum} pc={pickupCount} chosen={rank5}></FulfillmentPie>
           </div>
         </div>
 
@@ -594,6 +611,6 @@ function Analytics(martID) {
   );
 }
 
-export default Analytics;
+export default Sales;
 
 export { getServerSideProps };
