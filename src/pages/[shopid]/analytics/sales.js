@@ -12,6 +12,7 @@ import RankPie from '@/components/Analytics/RankPie';
 import ProductBar from '@/components/Analytics/ProductBar';
 import FulfillmentLine from '@/components/Analytics/FulfillmentLine';
 import FulfillmentPie from '@/components/Analytics/FulfillmentPie';
+import ModalCategory from '@/components/Analytics/ModalCategory';
 
 const DynamicLineChart = dynamic(() => import('../../../components/Analytics/DayLine'), {
   ssr: false,
@@ -95,7 +96,6 @@ function Sales(martID) {
   finishedOrders.forEach((order) => {
     order.order.forEach((item) => {
       const existingProduct = products.find((product) => product.name === item.name && product.category === item.category);
-      console.log("baz", item)
 
       if (existingProduct) {
         existingProduct.orders += parseFloat(item.cartValue);
@@ -426,12 +426,24 @@ function Sales(martID) {
     }
   }
 
+  const [modalCategory, setModalCategory] = useState(false)
+  function handleModalCategory(){
+    setModalCategory(!modalCategory)
+  }
+
+  const [categoryData, setCategoryData] = useState(null)
+  function showModal(name){
+    setCategoryData(products.filter((item) => item.category === name))
+    handleModalCategory()
+  }
+
   return (
     <Fragment>
       <Head>
         <title>Sales & Profits</title>
         <link rel="icon" type="image/jpeg" href={favicon} />
       </Head>
+      <ModalCategory modalStatus={modalCategory} data={categoryData} disable={handleModalCategory} currency={shopCurrency}></ModalCategory>
 
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
@@ -479,7 +491,7 @@ function Sales(martID) {
             <div className="heading-icon-tune svg-secondary" onClick={handleRank}>&nbsp;</div>
           </div>
           <div className='analytics-sales-cell'>
-            <RankPie data={categories} colors={categoryColors} chosen={rank} />
+            <RankPie data={categories} colors={categoryColors} chosen={rank} select={showModal}/>
           </div>
         </div>
 

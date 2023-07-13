@@ -2,7 +2,7 @@ import { Bar } from 'react-chartjs-2';
 import { useState, useEffect } from 'react';
 import seedrandom from 'seedrandom';
 
-function ProductBarChart({ data, colors, chosen, sort }) {
+function ProductBarChart({ data, chosen, sort }) {
   let sortedData = [...data];
 
   if (sort === 2) {

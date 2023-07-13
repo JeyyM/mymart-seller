@@ -84,7 +84,6 @@ function ShowUser(props) {
 
         userCoords = props.user.coords
 
-
         const getTravelTime = () => {
             if (directions && directions.routes && directions.routes.length > 0) {
                 const route = directions.routes[0];
@@ -153,6 +152,10 @@ function ShowUser(props) {
                                         </div>
                                         <div className="flex-row">
                                             <div className="text-ter-company svg-tertiary">&nbsp;</div><h2 className="heading-tertiary">{props.user.company}</h2>
+                                        </div>
+
+                                        <div className="flex-row">
+                                            <div className="text-ter-calendar svg-tertiary">&nbsp;</div><h2 className="heading-tertiary">Made on: {formatDateTime(props.user.creation)}</h2>
                                         </div>
                                     </div>
 

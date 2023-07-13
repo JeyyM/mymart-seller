@@ -241,6 +241,7 @@ for (const order of finishedOrders2) {
       job: order.user.profile.job,
       customjob: order.user.profile.customjob,
       company: order.user.profile.company,
+      creation: order.user.creationDate
     };
     userPerformance.push(newUser);
   }

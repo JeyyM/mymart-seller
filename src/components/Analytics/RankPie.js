@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
+import 'chartjs-plugin-datalabels';
 
-function RankPie({ data, colors, chosen }) {
+function RankPie({ data, colors, chosen, select }) {
     const chartData1 = {
     labels: data.map(category => category.name.substring(0, 10)),
     datasets: [
@@ -37,8 +38,24 @@ function RankPie({ data, colors, chosen }) {
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'left'
+        position: 'left',
+      },
+    },
+    onClick: (event, elements) => {
+      if (elements.length > 0) {
+        const index = elements[0].index;
+        const category = data[index].name;
+        select(category)
       }
+    },
+    elements: {
+      arc: {
+        borderWidth: 2,
+        borderColor: '#ffffff',
+        hoverBorderColor: '#000000',
+        hoverBorderWidth: 2,
+        cursor: 'pointer',
+      },
     },
   };
 
