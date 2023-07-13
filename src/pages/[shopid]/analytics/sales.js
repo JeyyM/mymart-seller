@@ -12,7 +12,8 @@ import RankPie from '@/components/Analytics/RankPie';
 import ProductBar from '@/components/Analytics/ProductBar';
 import FulfillmentLine from '@/components/Analytics/FulfillmentLine';
 import FulfillmentPie from '@/components/Analytics/FulfillmentPie';
-import ModalCategory from '@/components/Analytics/ModalCategory';
+// import ModalCategory from '@/components/Analytics/ModalCategory';
+import { CSVLink, CSVDownload } from 'react-csv';
 
 const DynamicLineChart = dynamic(() => import('../../../components/Analytics/DayLine'), {
   ssr: false,
@@ -30,11 +31,60 @@ function Sales(martID) {
   const router = useRouter()
   const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
   const shopCurrency = martID.shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
-  const shopAccounts = martID.shopID.shopData.shopAccounts
-  const shopCenter = martID.shopID.shopData.shopDetails.footerData.shopCoords
-  const shopViews = martID.shopID.shopData.shopViews
 
   const filteredOrders = martID.shopID.shopData.shopSales.finishedOrders.filter((order) => order.status === 'finished');
+
+  function formatDateTime(dateTimeString) {
+    const dateTime = new Date(dateTimeString);
+
+    const formattedDate = dateTime.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+    }).replace(/\//g, '-');
+
+    const formattedDateTime = `${formattedDate}`;
+
+    return formattedDateTime;
+}
+    
+  const csvData = martID.shopID.shopData.shopSales.finishedOrders.flatMap(item =>
+    item.order.map(orderItem => ({
+      "Order ID": "'" + item.id,
+      "Start Date": item.currentTime,
+      "Finish Date": item.finishedOn,
+      "Email": item.user.email,
+      "Name": item.user.profile.first + " " + item.user.profile.last,
+      "Phone #": item.user.profile.pnum,
+      "Company": item.user.profile.company,
+      "Mode": item.mode,
+      "Status": item.status,
+      "Category": orderItem.category,
+      "Product Name": orderItem.name,
+      "Price": orderItem.price,
+      "Profit": orderItem.profit,
+      "Amount": orderItem.cartValue,
+      "Link": orderItem.url
+    }))
+  );
+
+    const convertToCSV = (data) => {
+      const headers = Object.keys(data[0]);
+      const rows = data.map(obj => headers.map(header => obj[header]));
+      const csvArray = [headers, ...rows];
+      return csvArray.map(row => row.join(',')).join('\n');
+    };
+    
+    const csvContent = convertToCSV(csvData);
+    
+    const handleDownload = () => {
+      const csvLink = document.createElement('a');
+      const csvContentEncoded = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent);
+      csvLink.setAttribute('href', csvContentEncoded);
+      csvLink.setAttribute('download', 'data.csv');
+      csvLink.click();
+    };
+    
 
   const [selectedUser, setSelectedUser] = useState(null);
   const [SetUser, setUserModal] = useState(false);
@@ -48,25 +98,12 @@ function Sales(martID) {
     setSelectDate(event.target.value);
   };
 
-  const [SelectDate2, setSelectDate2] = useState("30");
-  const handleSelectDate2 = (event, index) => {
-    setSelectDate2(event.target.value);
-  };
-
   const finishedOrders = filteredOrders.filter(item => {
     const finishedOnDate = new Date(item.finishedOn);
     const currentDate = new Date()
     const timeDifference = currentDate.getTime() - finishedOnDate.getTime();
     const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
     return daysDifference <= SelectDate
-  });
-
-  const finishedOrders2 = filteredOrders.filter(item => {
-    const finishedOnDate = new Date(item.finishedOn);
-    const currentDate = new Date()
-    const timeDifference = currentDate.getTime() - finishedOnDate.getTime();
-    const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
-    return daysDifference <= SelectDate2
   });
 
   const products = [];
@@ -184,120 +221,7 @@ function Sales(martID) {
 
   const categoryColorsArray = categoryColors()
 
-  const currentTime = new Date("2023-07-09T10:39:40.050Z");
-  const withinView = new Date();
-  withinView.setDate(withinView.getDate() - SelectDate2);
-
-  const filteredCount = shopViews.filter(item => {
-    const keyDate = new Date(item.key);
-    return keyDate >= withinView && keyDate <= currentTime;
-  });
-
-  const timeCount = filteredCount.reduce((total, item) => total + parseInt(item.count), 0);
-  const totalCount = shopViews.reduce((total, item) => total + parseInt(item.count), 0);
-
-  const filteredNewAccounts = shopAccounts.filter((account) => {
-    const creationDate = new Date(account.creationDate);
-    const timeDifference = currentTime.getTime() - creationDate.getTime();
-    const daysDifference = timeDifference / (1000 * 3600 * 24);
-
-    return daysDifference <= SelectDate2;
-  });
-
   const ageList = [];
-  const genderList = [];
-
-  for (const user of filteredNewAccounts) {
-    const birthDate = new Date(user.profile.birth);
-    const age = Math.floor((currentTime - birthDate) / (1000 * 3600 * 24 * 365.25));
-
-    const ageEntry = ageList.find(entry => entry.age === age);
-
-    if (ageEntry) {
-      ageEntry.count++;
-    } else {
-      ageList.push({ age: age, count: 1 });
-    }
-
-    const gender = user.profile.gender;
-
-    const genderEntry = genderList.find(entry => entry.gender === gender);
-
-    if (genderEntry) {
-      genderEntry.count++;
-    } else {
-      genderList.push({ gender: gender, count: 1 });
-    }
-  }
-
-  const repeatTotal = shopAccounts.filter((acc) => acc.pastOrders.length > 1)
-  const userPerformance = [];
-  for (const order of finishedOrders2) {
-    const userEmail = order.user.email;
-    const existingUser = userPerformance.find((user) => user.email === userEmail);
-    if (existingUser) {
-      existingUser.orderCount++;
-      existingUser.totalSpent += order.totals.order + order.totals.fees;
-      const orderTotal = order.order.reduce((total, item) => total + item.cartValue * item.profit, 0);
-      existingUser.totalProfit += orderTotal;
-    } else {
-      const newUser = {
-        email: userEmail,
-        username: `${order.user.profile.last}, ${order.user.profile.first}`,
-        orderCount: order.order.length,
-        totalSpent: order.totals.order + order.totals.fees,
-        totalProfit: order.order.reduce((total, item) => total + item.cartValue * item.profit, 0),
-        coords: order.user.locationCoords,
-        location: order.user.location,
-        gender: order.user.profile.gender,
-        phone: order.user.profile.pnum,
-        birth: order.user.profile.birth,
-        other: order.user.profile.other,
-        job: order.user.profile.job,
-        customjob: order.user.profile.customjob,
-        company: order.user.profile.company,
-      };
-      userPerformance.push(newUser);
-    }
-  }
-
-
-  let repeaterCount = 0;
-
-  userPerformance.forEach((user) => {
-    if (user.orderCount > 1) {
-      repeaterCount++;
-    }
-  });
-
-  let orderSum = 0;
-  userPerformance.forEach((user) => {
-    orderSum += user.orderCount;
-  })
-
-  let spentSum = 0;
-  userPerformance.forEach((user) => {
-    spentSum += user.totalSpent;
-  })
-
-  let profitSum = 0;
-  userPerformance.forEach((user) => {
-    profitSum += user.totalProfit;
-  })
-
-  const ageColors = useMemo(() => {
-    return ageList.map(({ age }) => {
-      const rng = seedrandom(age.toString());
-      return '#' + Math.floor(rng() * 16777215).toString(16);
-    });
-  }, []);
-
-  const genderColors = useMemo(() => {
-    return genderList.map(({ gender }) => {
-      const rng = seedrandom(gender.toString());
-      return '#' + Math.floor(rng() * 16777215).toString(16);
-    });
-  }, []);
 
   let weightedSum = 0;
   let ageCountTotal = 0;
@@ -307,18 +231,6 @@ function Sales(martID) {
     ageCountTotal += entry.count;
   }
 
-  const averageAge = ageCountTotal > 0 ? weightedSum / ageCountTotal : 0;
-
-  const coordColors = useMemo(() => {
-    return userPerformance.map(({ email }) => {
-      const rng = seedrandom(email.toString());
-      return '#' + Math.floor(rng() * 16777215).toString(16);
-    });
-  }, []);
-
-  function showProfile(data) {
-    handleSetUser(data)
-  }
   const profitArray = finishedOrders.map((order) => order.order.reduce((total, item) => total + (item.profit * item.cartValue), 0));
   const boughtArray = finishedOrders.map((order) => order.order.reduce((total, item) => total + item.cartValue, 0));
 
@@ -431,11 +343,11 @@ function Sales(martID) {
     setModalCategory(!modalCategory)
   }
 
-  const [categoryData, setCategoryData] = useState(null)
-  function showModal(name){
-    setCategoryData(products.filter((item) => item.category === name))
-    handleModalCategory()
-  }
+  // const [categoryData, setCategoryData] = useState(null)
+  // function showModal(name){
+  //   setCategoryData(products.filter((item) => item.category === name))
+  //   handleModalCategory()
+  // }
 
   return (
     <Fragment>
@@ -443,7 +355,7 @@ function Sales(martID) {
         <title>Sales & Profits</title>
         <link rel="icon" type="image/jpeg" href={favicon} />
       </Head>
-      <ModalCategory modalStatus={modalCategory} data={categoryData} disable={handleModalCategory} currency={shopCurrency}></ModalCategory>
+      {/* <ModalCategory modalStatus={modalCategory} data={categoryData} disable={handleModalCategory} currency={shopCurrency}></ModalCategory> */}
 
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
@@ -461,7 +373,7 @@ function Sales(martID) {
           <option value="9999">All Time</option>
           <option value="-6">Neg</option>
         </select>
-        <button className="add-categ-init" style={{ width: "17rem", marginLeft:"auto", marginRight:"1rem" }}><h2 className='margin-side heading-tertiary'>Download CSV</h2></button>
+        <button onClick={handleDownload} className="add-categ-init" style={{ width: "17rem", marginLeft:"auto", marginRight:"1rem" }}><h2 className='margin-side heading-tertiary'>Download CSV</h2></button>
       </span>
 
       <div className='analytics-sales-container'>
@@ -491,7 +403,7 @@ function Sales(martID) {
             <div className="heading-icon-tune svg-secondary" onClick={handleRank}>&nbsp;</div>
           </div>
           <div className='analytics-sales-cell'>
-            <RankPie data={categories} colors={categoryColors} chosen={rank} select={showModal}/>
+            <RankPie data={categories} colors={categoryColors} chosen={rank}/>
           </div>
         </div>
 
