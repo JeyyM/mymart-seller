@@ -161,13 +161,13 @@ function ShowUser(props) {
 
                                     <div className="user-data-col">
                                     <div className="flex-row">
-                                            <div className="text-ter-receipt svg-tertiary">&nbsp;</div><h2 className="heading-tertiary">{props.user.orderCount} order/s</h2>
+                                            <div className="text-ter-receipt svg-tertiary">&nbsp;</div><h2 className="heading-tertiary">Total Orders: {props.user.orderCount}</h2>
                                         </div>
                                         <div className="flex-row">
-                                            <div className="text-ter-profit svg-tertiary">&nbsp;</div><h2 className="heading-tertiary">{props.currency} {props.user.totalProfit}</h2>
+                                            <div className="text-ter-profit svg-tertiary">&nbsp;</div><h2 className="heading-tertiary">Total Profit: {props.currency} {props.user.totalProfit}</h2>
                                         </div>
                                         <div className="flex-row">
-                                            <div className="text-ter-tags svg-tertiary">&nbsp;</div><h2 className="heading-tertiary">{props.currency} {props.user.totalSpent}</h2>
+                                            <div className="text-ter-tags svg-tertiary">&nbsp;</div><h2 className="heading-tertiary">Total Spent: {props.currency} {props.user.totalSpent}</h2>
                                         </div>
 
                                         <div className="flex-row">

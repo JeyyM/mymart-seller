@@ -108,28 +108,6 @@ function Sales(martID) {
 
   const products = [];
 
-  // useEffect(() => {
-  //   finishedOrders.forEach((order) => {
-  //     order.order.forEach((item) => {
-  //       const existingProduct = products.find((product) => product.name === item.name && product.category === item.category);
-
-  //       if (existingProduct) {
-  //         existingProduct.orders += parseFloat(item.cartValue);
-  //         existingProduct.profit += parseFloat(item.profit * item.cartValue);
-  //       } else {
-  //         products.push({
-  //           name: item.name,
-  //           category: item.category,
-  //           orders: parseFloat(item.cartValue),
-  //           profit: parseFloat(item.profit),
-  //           url: item.url,
-  //         });
-  //       }
-  //     });
-  //   });
-
-  // }, [SelectDate])
-
   finishedOrders.forEach((order) => {
     order.order.forEach((item) => {
       const existingProduct = products.find((product) => product.name === item.name && product.category === item.category);
@@ -371,7 +349,6 @@ function Sales(martID) {
           <option value="1">Today</option>
           <option value="30">Past 30 Days</option>
           <option value="9999">All Time</option>
-          <option value="-6">Neg</option>
         </select>
         <button onClick={handleDownload} className="add-categ-init" style={{ width: "17rem", marginLeft:"auto", marginRight:"1rem" }}><h2 className='margin-side heading-tertiary'>Download CSV</h2></button>
       </span>
