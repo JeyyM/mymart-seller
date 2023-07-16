@@ -31,7 +31,7 @@ function Sales(martID) {
   const router = useRouter()
   const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
   const shopCurrency = martID.shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
-
+  const currentTime = new Date();
   const filteredOrders = martID.shopID.shopData.shopSales.finishedOrders.filter((order) => order.status === 'finished');
 
   function formatDateTime(dateTimeString) {
@@ -57,6 +57,8 @@ function Sales(martID) {
       "Name": item.user.profile.first + " " + item.user.profile.last,
       "Phone #": item.user.profile.pnum,
       "Company": item.user.profile.company,
+      "Gender": item.user.profile.gender,
+      "Age": Math.floor((currentTime - new Date(item.user.profile.birth)) / (1000 * 3600 * 24 * 365.25)),
       "Mode": item.mode,
       "Status": item.status,
       "Category": orderItem.category,

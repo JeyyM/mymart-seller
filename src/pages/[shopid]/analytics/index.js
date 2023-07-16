@@ -24,6 +24,7 @@ function Analytics(martID) {
   const shopAccounts = martID.shopID.shopData.shopAccounts
   const shopCenter = martID.shopID.shopData.shopDetails.footerData.shopCoords
   const shopViews = martID.shopID.shopData.shopViews
+  const currentTime = new Date();
 
   const filteredOrders = martID.shopID.shopData.shopSales.finishedOrders.filter((order) => order.status === 'finished');
 
@@ -169,7 +170,6 @@ function Analytics(martID) {
     });
   }
 
-  const currentTime = new Date();
   const withinView = new Date();
   withinView.setDate(withinView.getDate() - SelectDate2);
 
@@ -440,9 +440,9 @@ handleSetUser(data)
               <div className="flex-row-spaceless">
                 <div className="text-ter-user svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Users: {shopAccounts.length} user/s</h2>
               </div>
-              <div className="flex-row-spaceless">
+              {/* <div className="flex-row-spaceless">
                 <div className="text-ter-repeat svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Repeat Users: {repeaterCount} user/s</h2>
-              </div>
+              </div> */}
               <div className="flex-row-spaceless">
                 <div className="text-ter-repeat-user svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Repeat Users: {repeatTotal.length} user/s</h2>
               </div>

@@ -317,9 +317,9 @@ function Designing({ shopID }) {
 
   const themeSet1 = ["#FF6000", "#FFD93D", "#2D2727", "#454545", "#F9F5EB", "#F9F5EB", "#FE6244", "#F7DB6A", 10, 10, 10, 10, "Neon Orange"]
 
-  const themeSet2 = ["#070A52", "#D21312", "#2A2F4F", "#2B3467", "#F3E8FF", "#FDF4F5", "#E74646", "#E11299", 30, 0, 30, 30, "Sunset Purple"]
+  const themeSet2 = ["#E74646", "#E11299", "#2A2F4F", "#2B3467", "#F3E8FF", "#FDF4F5", "#E74646", "#E11299", 30, 0, 30, 30, "Sunset Purple"]
 
-  const themeSet3 = ["#454545", "#FFFFFF", "#000000", "#292929", "#BEBEBE", "#DDDDDD", "#FFFFFF", "#3B3B3B", 0, 0, 0, 0, "Steel Gray"]
+  const themeSet3 = ["#454545", "#FFFFFF", "#151515", "#292929", "#BEBEBE", "#DDDDDD", "#FFFFFF", "#3B3B3B", 0, 0, 0, 0, "Steel Gray"]
 
   const themeSet4 = ["#001253", "#6EBF8B", "#292C6D", "#151D3B", "#CFFFDC", "#7CD1B8", "#39A388", "#6EBF8B", 20, 20, 0, 0, "Inky Teal"]
 

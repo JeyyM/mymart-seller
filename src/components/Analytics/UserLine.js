@@ -26,7 +26,7 @@ function UserLine({ users, dateBy }) {
         label: 'New Users per Day',
         data: userData,
         fill: false,
-        borderColor: 'indigo',
+        borderColor: 'blueviolet',
         borderWidth: 5,
         yAxisID: 'newUsers',
       },

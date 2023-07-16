@@ -254,3 +254,48 @@ $graph-height-2: 27vh;
 .text-sec-user {
   @include heading-logo(user, 3rem, 3rem);
 }
+
+.text-sec-repeat-user {
+  @include heading-logo(repeat-user, 3rem, 3rem);
+}
+
+.text-sec-exchange {
+  @include heading-logo(exchange, 3rem, 3rem);
+}
+
+.text-sec-company {
+  @include heading-logo(company, 3rem, 3rem);
+}
+
+.text-sec-repeat-company {
+  @include heading-logo(repeat-company, 3rem, 3rem);
+}
+
+.text-sec-set-group {
+  @include heading-logo(set-group, 3rem, 3rem);
+}
+
+.text-sec-map {
+  @include heading-logo(map, 3rem, 3rem);
+}
+
+.text-sec-cake {
+  @include heading-logo(cake, 3rem, 3rem);
+}
+
+.text-sec-gender4 {
+  @include heading-logo(gender4, 3rem, 3rem);
+}
+
+.userbase-container{
+  margin: 0 auto;
+  height: 30rem;
+  width: 32vw;
+  // background-color: white;
+  filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+  border-radius: 15px;
+  position: relative;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}

@@ -26,6 +26,7 @@ function Analytics(martID) {
   const shopAccounts = martID.shopID.shopData.shopAccounts
   const shopCenter = martID.shopID.shopData.shopDetails.footerData.shopCoords
   const shopViews = martID.shopID.shopData.shopViews
+  const currentTime = new Date();
 
   const filteredOrders = martID.shopID.shopData.shopSales.finishedOrders.filter((order) => order.status === 'finished');
 
@@ -64,7 +65,7 @@ function Analytics(martID) {
 
   const products = [];
 
-  finishedOrders.forEach((order) => {
+  finishedOrders2.forEach((order) => {
     order.order.forEach((item) => {
       const existingProduct = products.find((product) => product.name === item.name && product.category === item.category);
 
@@ -83,6 +84,120 @@ function Analytics(martID) {
     });
   });
 
+  const userDetails = [];
+
+  finishedOrders2.forEach((order) => {
+    const existingUser = userDetails.find((user) => user.email === order.user.email);
+  
+    if (existingUser) {
+      existingUser.buys.push(...order.order);
+    } else {
+      const userBuys = {
+        email: order.user.email,
+        company: order.user.profile.company,
+        profile: order.user.profile,
+        buys: [...order.order],
+      };
+      userDetails.push(userBuys);
+    }
+  });
+
+  const aggregatedBuys = [];
+
+userDetails.forEach((user) => {
+  const aggregatedItems = {};
+
+  user.buys.forEach((item) => {
+    const key = `${item.name}-${item.category}`;
+
+    if (aggregatedItems[key]) {
+      aggregatedItems[key].profit += item.profit * item.cartValue;
+      aggregatedItems[key].count += item.cartValue;
+    } else {
+      aggregatedItems[key] = {
+        name: item.name,
+        category: item.category,
+        profit: item.profit * item.cartValue,
+        count: item.cartValue,
+      };
+    }
+  });
+
+  const aggregatedItemsArray = Object.values(aggregatedItems);
+  user.buys = aggregatedItemsArray;
+
+  aggregatedBuys.push(user);
+});
+
+aggregatedBuys.forEach((user) => {
+  const totalProfit = user.buys.reduce((sum, item) => sum + item.profit, 0);
+  user.totalProfit = totalProfit;
+  const totalCount = user.buys.reduce((sum, item) => sum + item.count, 0);
+  user.totalCount = totalCount;
+});
+
+const aggregatedCompanies = {};
+
+userDetails.forEach((user) => {
+  const { email, company, totalProfit, totalCount } = user;
+  if (aggregatedCompanies.hasOwnProperty(company)) {
+    aggregatedCompanies[company].totalProfit += totalProfit;
+    aggregatedCompanies[company].totalCount += totalCount;
+    if (!aggregatedCompanies[company].employees.includes(email)) {
+      aggregatedCompanies[company].employees.push(email);
+    }
+  } else {
+    aggregatedCompanies[company] = {
+      company,
+      totalProfit,
+      totalCount,
+      employees: [email],
+    };
+  }
+});
+
+const aggregatedCompanyList = Object.values(aggregatedCompanies);
+
+aggregatedCompanyList.forEach((company) => {
+  company.employeeCount = company.employees.length;
+});
+
+const [Rank1, setRank1] = useState(1)
+const handleRank1 = () => {
+  if (Rank1 < 2) {
+    setRank1(Rank1 + 1);
+  } else {
+    setRank1(1);
+  }
+};
+
+const [Rank2, setRank2] = useState(1)
+const handleRank2 = () => {
+  if (Rank2 < 2) {
+    setRank2(Rank2 + 1);
+  } else {
+    setRank2(1);
+  }
+};
+
+const [Rank3, setRank3] = useState(1)
+const handleRank3 = () => {
+  if (Rank3 < 2) {
+    setRank3(Rank3 + 1);
+  } else {
+    setRank3(1);
+  }
+};
+
+const [Rank4, setRank4] = useState(1)
+const handleRank4 = () => {
+  if (Rank4 < 2) {
+    setRank4(Rank4 + 1);
+  } else {
+    setRank4(1);
+  }
+};
+
   const [profitSymbol, setProfitSymbol] = useState(true);
   function handleProfit() {
     setProfitSymbol(!profitSymbol);
@@ -92,11 +207,35 @@ function Analytics(martID) {
     setBoughtSymbol(!boughtSymbol);
   }
 
-  const mostProfit = [...products].sort((a, b) => {
+  const userSortProfit = [...aggregatedBuys].sort((a, b) => {
     if (profitSymbol === true) {
-      return b.profit - a.profit;
+      return b.totalProfit - a.totalProfit;
     } else {
-      return a.profit - b.profit;
+      return a.totalProfit - b.totalProfit;
+    }
+  });
+
+  const userSortCount = [...aggregatedBuys].sort((a, b) => {
+    if (profitSymbol === true) {
+      return b.totalCount - a.totalCount;
+    } else {
+      return a.totalCount - b.totalCount;
+    }
+  });
+
+  const companySortProfit = [...aggregatedCompanyList].sort((a, b) => {
+    if (profitSymbol === true) {
+      return b.totalProfit - a.totalProfit;
+    } else {
+      return a.totalProfit - b.totalProfit;
+    }
+  });
+
+  const companySortCount = [...aggregatedCompanyList].sort((a, b) => {
+    if (profitSymbol === true) {
+      return b.totalCount - a.totalCount;
+    } else {
+      return a.totalCount - b.totalCount;
     }
   });
 
@@ -108,8 +247,8 @@ function Analytics(martID) {
     }
   });
 
-  const startIndex1 = boughtSymbol ? 0 : mostBought.length - 10;
-  const startIndex2 = profitSymbol ? 0 : mostProfit.length - 10;
+  const startIndex1 = profitSymbol ? 0 : userSortProfit.length - 9;
+  const startIndex2 = boughtSymbol ? 0 : mostBought.length - 9;
 
   const profitColor = "red"
   const cartValueColor = "blue"
@@ -148,7 +287,6 @@ function Analytics(martID) {
     });
   }
 
-  const currentTime = new Date();
   const withinView = new Date();
   withinView.setDate(withinView.getDate() - SelectDate2);
 
@@ -226,7 +364,6 @@ for (const order of finishedOrders2) {
   }
 }
 
-    
 let repeaterCount = 0;
 
 userPerformance.forEach((user) => {
@@ -287,6 +424,60 @@ function showProfile(data){
 handleSetUser(data)
 }
 
+function warning(){
+  alert("The show all user data wasn't built for now to not risk using up many Google Maps api calls per click. I'm not sure if that is how it works but I have chosen to not risk it")
+}
+
+console.log(shopAccounts)
+
+const csvData = shopAccounts.map((item) => {
+  const totalProfits = item.pastOrders.reduce((sum, order) => {
+    return sum + order.order.reduce((orderSum, product) => {
+      return orderSum + (parseFloat(product.profit) * parseFloat(product.cartValue));
+    }, 0);
+  }, 0);
+
+  const totalbuys = item.pastOrders.reduce((sum, order) => {
+    return sum + order.order.reduce((orderSum, product) => {
+      return orderSum + parseFloat(product.cartValue);
+    }, 0);
+  }, 0);
+
+  return {
+    "Name": `${item.profile.first} ${item.profile.last}`,
+    "Email": item.email,
+    "Age": Math.floor((currentTime - new Date(item.profile.birth)) / (1000 * 3600 * 24 * 365.25)),
+    "Gender": item.profile.gender,
+    // "Location": item.location,
+    "Creation Date": item.creationDate,
+    "Custom Job": item.profile.other,
+    "Occupation": item.profile.job,
+    "Custom Occupation": item.profile.customjob,
+    "Company": item.profile.company,
+    "Total Orders": item.pastOrders.length,
+    "Total Profits": totalProfits,
+    "Total Buys": totalbuys
+  };
+});
+
+  const convertToCSV = (data) => {
+    const headers = Object.keys(data[0]);
+    const rows = data.map(obj => headers.map(header => obj[header]));
+    const csvArray = [headers, ...rows];
+    return csvArray.map(row => row.join(',')).join('\n');
+  };
+  
+  const csvContent = convertToCSV(csvData);
+  
+  const handleDownload = () => {
+    const csvLink = document.createElement('a');
+    const csvContentEncoded = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvContent);
+    csvLink.setAttribute('href', csvContentEncoded);
+    csvLink.setAttribute('download', 'data.csv');
+    csvLink.click();
+  };
+    
+
   return (
     <Fragment>
       <Head>
@@ -311,7 +502,7 @@ handleSetUser(data)
           <option value="30">Past 30 Days</option>
           <option value="9999">All Time</option>
         </select>
-        <button className="add-categ-init" style={{ width: "17rem", marginLeft:"auto", marginRight:"1rem" }}><h2 className='margin-side heading-tertiary'>Download CSV</h2></button>
+        <button onClick={handleDownload} className="add-categ-init" style={{ width: "17rem", marginLeft:"auto", marginRight:"1rem" }}><h2 className='margin-side heading-tertiary'>Download CSV</h2></button>
       </span>
       <div className='analytics-user-container'>
       <div>
@@ -334,11 +525,11 @@ handleSetUser(data)
           <div className='flex-row' style={{ justifyContent:"space-between" }}>
             <div className="flex-row" style={{ paddingBottom: '1rem' }}>
               <div className="text-sec-new-users svg-secondary">&nbsp;</div>
-              <h2 className="heading-secondary">{timeCount} view/s</h2>
+              <h2 className="heading-secondary">{filteredNewAccounts.length} New User/s</h2>
             </div>
             <div className="flex-row" style={{ paddingBottom: '1rem', marginRight:"1rem" }}>
               <div className="text-sec-user svg-secondary">&nbsp;</div>
-              <h2 className="heading-secondary">Total: {totalCount} view/s</h2>
+              <h2 className="heading-secondary">Total: {shopAccounts.length} user/s</h2>
             </div>
           </div>
           <div className='analytics-user-cell'>
@@ -349,104 +540,116 @@ handleSetUser(data)
         <div>
           <div className='flex-row' style={{ justifyContent:"space-between" }}>
             <div className="flex-row" style={{ paddingBottom: '1rem' }}>
-              <div className="text-sec-cube svg-secondary">&nbsp;</div>
-              <h2 className="heading-secondary"></h2>
+              {Rank2 === 1 ? <div className="text-sec-name svg-secondary">&nbsp;</div> : <div className="text-sec-company svg-secondary">&nbsp;</div>}
+              <h2 className="heading-secondary">{Rank2 === 1 ? <>Users</> : <>Companies</>} by {Rank1 === 1 ? <>Profits</> : Rank1 === 2 ? <>Buys</> : "Both"}</h2>
             </div>
             <div className="flex-row" style={{ paddingBottom: '1rem', marginRight:"1rem" }}>
-              <div className="text-sec-profit svg-secondary">&nbsp;</div>
-              <h2 className="heading-secondary">Total Profits: {shopCurrency}</h2>
+              <div className="text-sec-set-group svg-secondary" onClick={handleRank2} style={{ marginLeft: 'auto' }}>
+                  &nbsp;
+                </div>
+              <div className="text-sec-exchange svg-secondary" onClick={handleRank1}>
+                  &nbsp;
+                </div>
+                <div className="heading-icon-tune svg-secondary" onClick={handleProfit}>
+                  &nbsp;
+                </div>
+            </div>
+          </div>
+          <div className='userbase-container round-borderer round-borderer-extra'>
+
+              {Rank2 === 1 && Rank1 === 1 ? userSortProfit.slice(startIndex1, startIndex1 + 9).map((item, index) => {
+                const position = profitSymbol ? index + 1 : userSortProfit.length - index;
+
+                return (
+                  <div className="flex-row" key={index}>
+                    <h2 className="heading-tertiary">
+                      {position}. {item.profile.last}, {item.profile.first} -{' '}
+                      {item.profile.company}
+                    </h2>
+                    <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>Profit: {shopCurrency} {item.totalProfit}</h3>
+                  </div>
+                );
+              }) : Rank2 === 1 && userSortCount.slice(startIndex1, startIndex1 + 9).map((item, index) => {
+                const position = profitSymbol ? index + 1 : userSortCount.length - index;
+
+                return (
+                  <div className="flex-row" key={index}>
+                    <h2 className="heading-tertiary">
+                      {position}. {item.profile.last}, {item.profile.first} -{' '}
+                      {item.profile.company}
+                    </h2>
+                    <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>Buys: {item.totalCount}</h3>
+                  </div>
+                );
+              })
+              }
+
+              {Rank2 === 2 && Rank1 === 1 ? companySortProfit.slice(startIndex1, startIndex1 + 9).map((item, index) => {
+                const position = profitSymbol ? index + 1 : companySortProfit.length - index;
+
+                return (
+                  <div className="flex-row" key={index}>
+                    <h2 className="heading-tertiary">
+                      {position}. {item.company} - {item.employeeCount} Account/s
+                    </h2>
+                    <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>Profit: {shopCurrency} {item.totalProfit}</h3>
+                  </div>
+                );
+              }) : Rank2 === 2 && companySortCount.slice(startIndex1, startIndex1 + 9).map((item, index) => {
+                const position = profitSymbol ? index + 1 : companySortCount.length - index;
+
+                return (
+                  <div className="flex-row" key={index}>
+                    <h2 className="heading-tertiary">
+                      {position}. {item.company} - {item.employeeCount} Account/s
+                    </h2>
+                    <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>Buys: {item.totalCount}</h3>
+                  </div>
+                );
+              })
+              }
+
+              <button onClick={warning} className="product-action-2 flex-row-align" style={{ width: "15rem", height: "3.5rem", margin:"0rem 0.5rem 0.5rem auto", position:"absolute", bottom:"0", right:"0"}}><h3 className="heading-tertiary margin-side solid-text-color" style={{ transform: "translateY(0rem)" }}>All Data</h3></button>
+          </div>
+        </div>
+
+        <div>
+          <div className='flex-row' style={{ justifyContent:"space-between" }}>
+            <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+              <div className="text-sec-map svg-secondary">&nbsp;</div>
+              <h2 className="heading-secondary">User Map</h2>
             </div>
           </div>
           <div className='analytics-user-cell'>
-            <DynamicLineChart finishedOrders={finishedOrders} profitColor={profitColor} cartValueColor={cartValueColor} dateBy={SelectDate} />
+          {typeof window !== "undefined" && <DynamicUserMap data={userPerformance} center={shopCenter} colors={coordColors} showuser={showProfile}></DynamicUserMap>}
           </div>
         </div>
 
+        <div>
+          <div className='flex-row' style={{ justifyContent:"space-between" }}>
+            <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+              <div className="text-sec-cake svg-secondary">&nbsp;</div>
+              <h2 className="heading-secondary">Average Age: {averageAge.toFixed(2)} years old</h2>
+            </div>
+          </div>
+          <div className='analytics-user-cell'>
+          <PieChart data={ageList} colors={ageColors} type="age"/>
+          </div>
+        </div>
 
+        <div>
+          <div className='flex-row' style={{ justifyContent:"space-between" }}>
+            <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+              <div className="text-sec-gender4 svg-secondary">&nbsp;</div>
+              <h2 className="heading-secondary">Gender Distribution</h2>
+            </div>
+          </div>
+          <div className='analytics-user-cell'>
+          <PieChart data={genderList} colors={genderColors} type="gender"/>
+          </div>
+        </div>
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div style={{width:"100%", height:"3rem", backgroundColor:"red"}}></div>
-
-      <div className="analytics-container">
-        <div className="analytics-row round-borderer round-borderer-extra">
-
-          <div className="analytics-grid">
-            <div className="analytics-rank-prev round-borderer round-borderer-extra" style={{ justifyContent: "space-around" }}>
-              <div className="flex-row" style={{ paddingBottom: '1rem' }}>
-                <div className="text-sec-user-perform svg-secondary">&nbsp;</div>
-                <h2 className="heading-secondary">User Performance</h2>
-              </div>
-
-              <div className="flex-row-spaceless">
-                <div className="text-ter-new-users svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;New Users: {filteredNewAccounts.length} user/s</h2>
-              </div>
-              <div className="flex-row-spaceless">
-                <div className="text-ter-user svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Users: {shopAccounts.length} user/s</h2>
-              </div>
-              <div className="flex-row-spaceless">
-                <div className="text-ter-repeat svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Repeat Users: {repeaterCount} user/s</h2>
-              </div>
-              <div className="flex-row-spaceless">
-                <div className="text-ter-repeat-user svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Repeat Users: {repeatTotal.length} user/s</h2>
-              </div>
-              <div className="flex-row-spaceless">
-                <div className="text-ter-receipt svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Orders: {(orderSum / userPerformance.length).toFixed(1)} order/s</h2>
-              </div>
-              <div className="flex-row-spaceless">
-                <div className="text-ter-profit svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Profit: {shopCurrency} {(profitSum / userPerformance.length).toFixed(2)}</h2>
-              </div>
-              <div className="flex-row-spaceless">
-                <div className="text-ter-tags svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Spent: {shopCurrency} {(spentSum / userPerformance.length).toFixed(2)}</h2>
-              </div>
-            </div>
-
-            <div className='flex-col analytics-prev-small'>
-            <div className="flex-row-spaceless" style={{margin:"1rem"}}>
-                <div className="text-ter-cake svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Age: {averageAge.toFixed(2)} years old</h2>
-              </div>
-            <div className="analytics-age-prev">
-              <PieChart data={ageList} colors={ageColors} type="age"/>
-            </div>
-            </div>
-
-            <div className='flex-col analytics-prev-small'>
-            <div className="flex-row-spaceless" style={{margin:"1rem"}}>
-                <div className="text-ter-gender4 svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Gender Distribution</h2>
-              </div>
-            <div className="analytics-age-prev">
-            <PieChart data={genderList} colors={genderColors} type="gender"/>
-            </div>
-            </div>
-
-            <div className="analytics-location-prev">
-            {typeof window !== "undefined" && <DynamicUserMap data={userPerformance} center={shopCenter} colors={coordColors} showuser={showProfile}></DynamicUserMap>}
-            </div>
-          </div>
-
-        </div>
-      </div>
-
     </Fragment>
   );
 }
