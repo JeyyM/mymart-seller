@@ -36,7 +36,6 @@ async function handler(req, res) {
 
   if (req.method === "PATCH") {
     const data = req.body
-    console.log("new data here", data)
 
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
@@ -64,8 +63,6 @@ async function handler(req, res) {
         },
       }
     );
-
-    console.log("fucking pls")
 
     // const result = await db.collection("shops").updateOne(
     //   { _id: id },

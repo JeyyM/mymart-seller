@@ -112,4 +112,13 @@
   @include menu-logo(checkout, 4rem, 4rem)
 }
 
+.menu-sun {
+  @include menu-logo(sun, 4rem, 4rem);
+}
+
+.menu-moon {
+  @include menu-logo(moon, 4rem, 4rem);
+}
+
+
 .menu-animation{position: relative; z-index: 25;}

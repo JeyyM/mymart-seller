@@ -61,7 +61,7 @@
 
     return (
       <Fragment>
-        <NavMenu menuStatus={menuIsOn} onClick={showMenuToggler} function={showMenuToggler} user={props.user} userHandler={props.userHandler}></NavMenu>
+        <NavMenu menuStatus={menuIsOn} onClick={showMenuToggler} function={showMenuToggler} user={props.user} userHandler={props.userHandler} changeColor={props.changeColor} currentColor={props.currentColor}></NavMenu>
         <header className={`navbar ${isNavbarVisible ? 'nav-visible' : 'nav-hidden'}`}>
           <NavButton menuHandler={showMenuToggler} status={menuIsOn}></NavButton>
           <NavLogo navicon={props.navicon}></NavLogo>

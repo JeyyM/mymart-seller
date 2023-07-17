@@ -59,6 +59,30 @@ export default function App({ Component, pageProps }) {
   let chosenAccount;
   let martCategories = {}
 
+  async function colorApi(mode){
+    console.log(mode)
+    console.log(chosenAccount)
+
+    const response = await fetch(
+      `../../../api/set-colormode?martid=${router.query.shopid}&newmode=${mode}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(chosenAccount)
+      }
+    );
+    const data = await response.json();
+
+  }
+
+  const [preferred, setPrefferred] = useState(database.defaultMode)
+  async function handlePreferred(){
+    setPrefferred(!preferred)
+    await colorApi(!preferred)
+
+    console.log(preferred)
+    console.log(database.defaultMode)
+  }
 
   if (pageProps.shopID) {
     const authStorageKey = `auth_${shopid}`;
@@ -86,9 +110,10 @@ export default function App({ Component, pageProps }) {
     } else { data = database.darkDesign }
 
     if (chosenAccount !== undefined){
-      if (chosenAccount.preferredColor === true){
+      useEffect(() => {setPrefferred(chosenAccount.preferredColor)}, [])
+      if (preferred){
         data = database.lightDesign
-      } else if (chosenAccount.preferredColor === false) {
+      } else if (!preferred) {
         data = database.darkDesign}
     }
 
@@ -101,11 +126,13 @@ export default function App({ Component, pageProps }) {
       data = database.darkDesign
       colormode = false
     }
+
+    console.log("fucking", chosenAccount)
   }
-  
+
     return<LocalizationProvider dateAdapter={AdapterDayjs}>
     <MyProvider>
-    <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo} curr={martCurrency} user={chosenAccount} martCateg={martCategories}>
+    <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo} curr={martCurrency} user={chosenAccount} martCateg={martCategories} handlePreferred={handlePreferred} currentColor={preferred}>
     <Component {...pageProps} user={chosenAccount}/>
     </NavbarLayout>
     </MyProvider>

@@ -45,6 +45,12 @@ function NavMenu(props) {
         <NavMenuItem logo={"info"} label={"About Us"} exit={props.onClick}></NavMenuItem>
         <NavMenuItem logo={"quiz"} label={"Frequently Asked Questions"} link={"faq"} exit={props.onClick}></NavMenuItem>
         <NavMenuItem logo={"policy"} label={"Terms & Policies"} link={"policies"} exit={props.onClick}></NavMenuItem>
+
+        <button className="navmenu-item" onClick={() => {props.changeColor(); props.onClick()}}>
+        <div className={`${props.currentColor ? "menu-sun" : "menu-moon"} svg-color`}>&nbsp;</div>
+        <h2 className="heading-secondary">Change Colormode</h2>
+      </button>
+
         <NavMenuItem logo={"manage"} label={"Sign-Up to MyMart"} exit={props.onClick}></NavMenuItem>
       </div>
     </Fragment>

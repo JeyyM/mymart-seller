@@ -56,6 +56,10 @@ filter: brightness(50%);}`
         setUserStatus(!userStatus)
     }
 
+    function changeColor(){
+        props.handlePreferred()
+    }
+
     const appear = {
         hidden: {
           transform: "scale(0)",
@@ -467,7 +471,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
                 </style>
             </Head>
 
-            <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} cartOpen={CartHandler} user={props.user} userHandler={userHandler}/>
+            <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} cartOpen={CartHandler} user={props.user} userHandler={userHandler} changeColor={changeColor} currentColor={props.currentColor}/>
             {typeof window !== 'undefined' && (<>
               {props.user !== undefined &&  <DynamicComponent1 modalStatus={userStatus} disable={userHandler} user={props.user} colormode={props.color}></DynamicComponent1>}
               </>)}
