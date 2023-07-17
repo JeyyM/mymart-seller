@@ -383,6 +383,10 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 
 .white{color: white !important;}
 
+.text-black{
+    color: black !important;
+}
+
 .body-color{color:${props.color["bg-item"]} !important;}
 .button-solid-color{color:${props.color["button-solid-text"]} !important;}
 

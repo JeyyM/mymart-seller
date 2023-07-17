@@ -295,8 +295,16 @@ filter: brightness(120%);}
   height: 5rem;
   width: 100%;
   background-color: rgb(216, 216, 216);   
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+  border-top: 2px solid rgb(108, 108, 108);
+  transition: all 0.2s;
 }
 
-.search-container {
-  position: relative;
+.search-item:active, .search-item:hover{
+  filter: brightness(120%);
 }
+
+
+

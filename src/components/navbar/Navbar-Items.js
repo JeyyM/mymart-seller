@@ -6,7 +6,7 @@
   import CartNav from "./Cart-Nav"
   import Link from "next/link"
   import NavMenu from "./Nav-Menu"
-  import { useEffect, useState } from "react"
+  import { useEffect, useState, useRef } from "react"
   import NavUser from "./NavUser"
   import { useRouter } from "next/router"
 
@@ -78,7 +78,9 @@
     
     const [search, setSearch] = useState("")
     const [searchResults, setSearchResults] = useState([]);
-    const [isInputActive, setIsInputActive] = useState(false);
+
+    const [searchVisible, setSearchVisible] = useState(false);
+    const inputRef = useRef(null);
     
     const handleSearch = (event) => {
       const searchTerm = event.target.value.toLowerCase();
@@ -89,7 +91,22 @@
       });
   
       setSearchResults(results);
+      setSearchVisible(true);
     };
+
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (inputRef.current && !inputRef.current.contains(event.target)) {
+          setSearchVisible(false);
+        }
+      };
+  
+      document.body.addEventListener('click', handleClickOutside);
+  
+      return () => {
+        document.body.removeEventListener('click', handleClickOutside);
+      };
+    }, []);
 
     return (
       <Fragment>
@@ -98,19 +115,28 @@
           <NavButton menuHandler={showMenuToggler} status={menuIsOn}></NavButton>
           <NavLogo navicon={props.navicon}></NavLogo>
 
-          <div className="margin-side" style={{width:"30%", position:"relative"}}>
-          <input type="text" className="text-small input-number" style={{width:"100%"}} placeholder="Search" onChange={handleSearch} onFocus={() => setIsInputActive(true)} onBlur={() => setIsInputActive(false)}></input>
-          <div className="search-magnifying svg-tertiary" style={{position:"absolute", top:"0", right:"2%", top:"20%"}}></div>
-          {isInputActive && search.length > 0 && <div className="search-row">
-          {searchResults.map((item) => {
-            return <div className="search-item">
-            <Link href={`/${router.query.shopid}/categories/${encodeURIComponent(item.category)}/${encodeURIComponent(item.name)}`}>
-            <h1>{item.name}</h1>
+          <div className="margin-side" style={{ width: "30%", position: "relative" }}>
+      <input
+        type="text"
+        className="text-small input-number"
+        style={{ width: "100%" }}
+        placeholder="Search"
+        onChange={handleSearch}
+        ref={inputRef}
+      />
+      <div className="search-magnifying svg-tertiary" style={{ position: "absolute", top: "0", right: "2%", top: "20%" }}></div>
+      {searchVisible && search.length > 0 && (
+        <div className="search-row">
+          {searchResults.map((item) => (
+            <Link style={{textDecoration:"none"}} className="search-item" key={item.name} href={`/${router.query.shopid}/categories/${encodeURIComponent(item.category)}/${encodeURIComponent(item.name)}`}>
+              <div>
+                <h2 className="heading-tertiary text-black">{item.name}</h2>
+              </div>
             </Link>
-            </div>
-          })}
-          </div>}
-          </div>
+          ))}
+        </div>
+      )}
+    </div>
 
           <div className="navcontainer">
             <CartNav svg={<Cart className="menu-cart svg-color"></Cart>} link={"mart"} label="Cart" handleCart={props.cartOpen} user={props.user}></CartNav>
