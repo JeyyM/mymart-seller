@@ -1,7 +1,8 @@
 import Link from "next/link"
+import { useRouter } from "next/router"
 
 export default function Footer(props) {
-
+    const router = useRouter()
     const numbers = props.details.shopPhone
     const emails = props.details.shopEmails
     const socials = props.details.shopSocials
@@ -45,11 +46,11 @@ export default function Footer(props) {
         </div>
 
         <div className="footer-column">
-            <h3 className="heading-tertiary"><strong>Important Links</strong></h3>
-            <h3 className="heading-tertiary">About</h3>
-            <h3 className="heading-tertiary">FAQ</h3>
-            <h3 className="heading-tertiary">Terms of Service</h3>
-            <h3 className="heading-tertiary">Privacy Policy</h3>
+        <h3 className="heading-tertiary"><strong>Important Links</strong></h3>
+            <Link style={{textDecoration:"none"}} href={`/${router.query.shopid}/faq`} className="heading-tertiary">FAQ</Link>
+            <Link style={{textDecoration:"none"}} href={`/${router.query.shopid}/about`} className="heading-tertiary">About</Link>
+            <Link style={{textDecoration:"none"}} href={`/${router.query.shopid}/policies`} className="heading-tertiary">Terms of Service</Link>
+            <Link style={{textDecoration:"none"}} href={`/${router.query.shopid}/policies/privacy`} className="heading-tertiary">Privacy Policy</Link>
             <h3 className="heading-tertiary">Customer Service</h3>
 
             <br></br>

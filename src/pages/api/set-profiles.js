@@ -51,28 +51,21 @@ async function handler(req, res) {
 
     const shopAccounts = item.shopData.shopAccounts
 
-    console.log(shopAccounts)
-
     const accIndex = shopAccounts.findIndex((account) => account.email ===  data.email)
-    console.log(accIndex)
 
     const result = await db.collection("shops").updateOne(
       { _id: id },
       {
-          $set: {
-              [`shopData.shopAccounts.${accIndex}.card`]: data.newCard,
-          },
-          $set: {
-            [`shopData.shopAccounts.${accIndex}.profile`]: data.newProfile,
-        },
         $set: {
+          [`shopData.shopAccounts.${accIndex}.card`]: data.newCard,
+          [`shopData.shopAccounts.${accIndex}.profile`]: data.newProfile,
           [`shopData.shopAccounts.${accIndex}.location`]: data.newLocationName,
-      },
-      $set: {
-        [`shopData.shopAccounts.${accIndex}.locationCoords`]: data.newCoords,
-    },
+          [`shopData.shopAccounts.${accIndex}.locationCoords`]: data.newCoords,
+        },
       }
-  );
+    );
+
+    console.log("fucking pls")
 
     // const result = await db.collection("shops").updateOne(
     //   { _id: id },

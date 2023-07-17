@@ -396,7 +396,7 @@ export default function Checkout({ shopID, user }) {
           }
 
 
-        const updatedUser = { ...user, location: locationName, locationCoords: center,  currentCart: [] };
+        const updatedUser = { ...user, location: locationName, locationCoords: center,  currentCart: [], pastOrders: [] };
 
         let chosenFee = Mode === "delivery" ? delivTotal : pickTotal
 
@@ -656,7 +656,7 @@ export default function Checkout({ shopID, user }) {
                             <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Cancellations are allowed within {takebacks.cancelCount} {takebacks.cancelDuration}/s of ordering with a penalty of {takebacks.cancelFee}% of the order's total, fees not included. Approved orders cannot be cancelled.</h2>
                         </div>}
 
-                        <Link href={`/${router.query.shopid}/terms`}><h2 className="heading-tertiary" style={{ fontWeight: "900" }}>By completing this order, I agree with the mart's terms and conditions as well as the privacy policy.</h2></Link>
+                        <Link href={`/${router.query.shopid}/policies`}><h2 className="heading-tertiary" style={{ fontWeight: "900" }}>By completing this order, I agree with the mart's terms and conditions as well as the privacy policy.</h2></Link>
 
                         <button className="product-action-2 heading-secondary flex-row-align" type="button" style={{ width: "98%", margin: "1rem", textDecoration: "none" }} onClick={finishSubmission} disabled={loading}>
                         {loading ? <div className="spinner"></div> : (completion ? <div className="margin-side" style={{transform:"translateY(20%)"}}>{checkmark}</div> : <div className="flex-row-align margin-side"><div className="heading-icon-cashregister svg-solid-button">&nbsp;</div><h2 className="heading-secondary solid-button">Finish Order</h2></div>

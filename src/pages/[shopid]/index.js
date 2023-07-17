@@ -17,7 +17,7 @@ import CategoryBuyer from "@/components/category/CategoryBuyer"
 import CategoryProductsBuyer from "@/components/category-products/CategoryProductsBuyer"
 
 function HomePage({ shopID }) {
-  console.log(shopID.shopData)
+  const viewsList = shopID.shopData.shopViews
   const router = useRouter();
   const slide = {
     hidden: {
@@ -45,7 +45,7 @@ function HomePage({ shopID }) {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
-}, []);
+  }, []);
 
   const { shopid } = router.query;
 
@@ -87,99 +87,124 @@ function HomePage({ shopID }) {
     <PopModal modalStatus={startPop} disable={handleStart} image={popupInfo.image} link={popupInfo.link}></PopModal>
 
     {categoryData
-  .filter((categ) =>
-    categ.categoryProducts.some((prod) =>
-      prod.variations.some((variation) => variation.active)
-    )
-  )
-  .map((categ, index) => {
-    const activeItems = categ.categoryProducts.filter((prod) =>
-      prod.variations.some((variation) => variation.active)
-    );
-    const totalItems = activeItems.length;
-    const itemsPerSlide = 4;
-    const itemsPerLine = 4;
-    const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
-    const totalSlides = Math.ceil(totalItems / itemsPerSlide);
-    const slideIndexes = Array.from(Array(totalSlides).keys());
-    const lastSlideItems = totalItems % itemsPerSlide || itemsPerSlide;
+      .filter((categ) =>
+        categ.categoryProducts.some((prod) =>
+          prod.variations.some((variation) => variation.active)
+        )
+      )
+      .map((categ, index) => {
+        const activeItems = categ.categoryProducts.filter((prod) =>
+          prod.variations.some((variation) => variation.active)
+        );
+        const totalItems = activeItems.length;
+        const itemsPerSlide = 4;
+        const itemsPerLine = 4;
+        const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
+        const totalSlides = Math.ceil(totalItems / itemsPerSlide);
+        const slideIndexes = Array.from(Array(totalSlides).keys());
+        const lastSlideItems = totalItems % itemsPerSlide || itemsPerSlide;
 
-   async function addView(){
-    const response = await fetch(
-      `../../api/add-view?martid=${router.query.shopid}`,
-      {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify()
-      }
-    );
-    const data = await response.json();
-   }
+        async function addView(time) {
+          const date = new Date(time);
 
-    const viewMart = useMemo(() => {
-  if (typeof window !== "undefined") {
-    const currentTime = new Date();
-    const storedTime = localStorage.getItem(`${router.query.shopid}_view`);
+          const year = date.getFullYear();
+          const month = date.getMonth() + 1;
+          const day = date.getDate();
 
-    const hourDifference = ((currentTime.getTime() - new Date(storedTime).getTime()) / (1000 * 60 * 60) >= 1)
+          const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+          
+          const existsIndex = viewsList.findIndex(item => item.key === formattedDate);
+          let viewCount = 0
+          if (existsIndex !== -1){
+            viewCount = parseInt(viewsList[existsIndex].count) + 1
+          }
 
-    if (!hourDifference) {
-      localStorage.setItem(`${router.query.shopid}_view`, currentTime);
-    } else {
-      localStorage.setItem(`${router.query.shopid}_view`, currentTime);
-      addView()
-    }
-  }
-}, []);
-
-
-
-    return (
-      <>
-        <Link
-          className="heading-primary"
-          href={{
-            pathname: `/${shopid}/categories/${encodeURIComponent(
-              categ.categoryName
-            )}`,
-          }}
-          style={{ textDecoration: "none" }}
-        >
-          {categ.categoryName}
-        </Link>
-
-        <Slider {...sliderSettings}>
-          {slideIndexes.map((slideIndex) => {
-            const startIndex = slideIndex * itemsPerSlide;
-            const endIndex = startIndex + itemsPerSlide;
-            const slideItems = activeItems.slice(startIndex, endIndex);
-
-            if (slideItems.length === 0) {
-              return null;
+          if (existsIndex === -1){
+          const response = await fetch(
+            `../../api/add-view?martid=${router.query.shopid}`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({key: formattedDate, count: 1})
             }
+          );
+          const data = await response.json();
+          } else {
+          const response = await fetch(
+            `../../api/add-view?martid=${router.query.shopid}&exists=${existsIndex}&count=${viewCount}`,
+            {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+          const data = await response.json();
+          }
+        }
 
-            return (
-              <div className="slide" key={slideIndex}>
-                <div className="category-container" style={{ minHeight: "min-content" }}>
-                  {slideItems.map((prod, index) => {
-                    const relativeIndex = startIndex + index;
+        const viewMart = useMemo(() => {
+          if (typeof window !== "undefined") {
+            const currentTime = new Date();
+            const storedTime = localStorage.getItem(`${router.query.shopid}_view`);
 
-                    return (
-                      <CategoryProductsBuyer
-                        items={prod.variations}
-                        categName={encodeURIComponent(categ.categoryName)}
-                        id={router.query.shopid}
-                        index={index}
-                        currency={shopCurrency}
-                        key={relativeIndex}
-                      ></CategoryProductsBuyer>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
-        </Slider>
+            const hourDifference = ((currentTime.getTime() - new Date(storedTime).getTime()) / (1000 * 60 * 60) >= 1)
+
+            if (!hourDifference) {
+              localStorage.setItem(`${router.query.shopid}_view`, currentTime);
+            } else {
+              localStorage.setItem(`${router.query.shopid}_view`, currentTime);
+              addView(currentTime)
+            }
+          }
+        }, []);
+
+
+
+        return (
+          <>
+            <Link
+              className="heading-primary"
+              href={{
+                pathname: `/${shopid}/categories/${encodeURIComponent(
+                  categ.categoryName
+                )}`,
+              }}
+              style={{ textDecoration: "none" }}
+            >
+              {categ.categoryName}
+            </Link>
+
+            <Slider {...sliderSettings}>
+              {slideIndexes.map((slideIndex) => {
+                const startIndex = slideIndex * itemsPerSlide;
+                const endIndex = startIndex + itemsPerSlide;
+                const slideItems = activeItems.slice(startIndex, endIndex);
+
+                if (slideItems.length === 0) {
+                  return null;
+                }
+
+                return (
+                  <div className="slide" key={slideIndex}>
+                    <div className="category-container" style={{ minHeight: "min-content" }}>
+                      {slideItems.map((prod, index) => {
+                        const relativeIndex = startIndex + index;
+
+                        return (
+                          <CategoryProductsBuyer
+                            items={prod.variations}
+                            categName={encodeURIComponent(categ.categoryName)}
+                            id={router.query.shopid}
+                            index={index}
+                            currency={shopCurrency}
+                            key={relativeIndex}
+                          ></CategoryProductsBuyer>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </Slider>
           </>
         );
       })}

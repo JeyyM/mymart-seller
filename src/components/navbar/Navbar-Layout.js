@@ -10,9 +10,9 @@ import dynamic from "next/dynamic";
 function NavbarLayout(props) {
     const router = useRouter()
 
-    const DynamicComponent1 = dynamic(() => import("./UserProfile"), {
-        ssr: false,
-      });
+        const DynamicComponent1 = dynamic(() => import("./UserProfile"), {
+            ssr: false,
+        });
 
     function hexToRgb(hex) {
         hex = hex.replace('#', '');
