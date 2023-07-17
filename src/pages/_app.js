@@ -60,9 +60,6 @@ export default function App({ Component, pageProps }) {
   let martCategories = {}
 
   async function colorApi(mode){
-    console.log(mode)
-    console.log(chosenAccount)
-
     const response = await fetch(
       `../../../api/set-colormode?martid=${router.query.shopid}&newmode=${mode}`,
       {
@@ -75,13 +72,10 @@ export default function App({ Component, pageProps }) {
 
   }
 
-  const [preferred, setPrefferred] = useState(database.defaultMode)
+  const [preferred, setPreferred] = useState(database.defaultMode)
   async function handlePreferred(){
-    setPrefferred(!preferred)
+    setPreferred(!preferred)
     await colorApi(!preferred)
-
-    console.log(preferred)
-    console.log(database.defaultMode)
   }
 
   if (pageProps.shopID) {
@@ -104,13 +98,14 @@ export default function App({ Component, pageProps }) {
       );
       }
     }
+
+    useEffect(() => {setPreferred(chosenAccount ? chosenAccount.preferredColor : database.defaultMode)}, [])
     
     if (database.defaultMode) {
       data = database.lightDesign
     } else { data = database.darkDesign }
 
     if (chosenAccount !== undefined){
-      useEffect(() => {setPrefferred(chosenAccount.preferredColor)}, [])
       if (preferred){
         data = database.lightDesign
       } else if (!preferred) {
@@ -126,8 +121,6 @@ export default function App({ Component, pageProps }) {
       data = database.darkDesign
       colormode = false
     }
-
-    console.log("fucking", chosenAccount)
   }
 
     return<LocalizationProvider dateAdapter={AdapterDayjs}>

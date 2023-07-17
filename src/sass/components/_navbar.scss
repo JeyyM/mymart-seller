@@ -278,3 +278,25 @@ filter: brightness(120%);}
   @include heading-logo(manage-account, 4rem, 4rem);
   margin-left: 1rem;
 }
+
+.search-magnifying {
+  @include heading-logo(magnifying, 3rem, 3rem);
+}
+
+.search-row{
+  max-height: 25rem;
+  overflow: hidden;
+  overflow-y: scroll;
+  width: 100%;
+  position: absolute;
+}
+
+.search-item{
+  height: 5rem;
+  width: 100%;
+  background-color: rgb(216, 216, 216);   
+}
+
+.search-container {
+  position: relative;
+}
