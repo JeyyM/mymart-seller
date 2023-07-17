@@ -34,13 +34,18 @@ function NavMenu(props) {
       <div className="navmenu">
         <div className="menu-decoy"></div>
         <NavMenuItem logo={"category"} label={"Categories & Products"} link={"categories"} exit={props.onClick} function={props.function} title={"Add and edit categories, products, and variations"}></NavMenuItem>
-        <NavMenuItem logo={"insights"} label={"My Analytics"} exit={props.onClick}></NavMenuItem>
-        <NavMenuItem logo={"ongoing"} label={"Ongoing Sales"} exit={props.onClick}></NavMenuItem>
-        <NavMenuItem logo={"manage"} label={"My Mart"} link={"mart"} exit={props.onClick} title={"Set about page, descriptions, footers, and details of your mart"}></NavMenuItem>
-        <NavMenuItem logo={"brush"} label={"Mart Design"} link={"design/dark"} exit={props.onClick} title={"Edit mart's colors and fonts"}></NavMenuItem>
+        <NavMenuItem logo={"checkout"} label={"To Checkout"} link={"checkout"} exit={props.onClick}></NavMenuItem>
+        
+        <button className="navmenu-item" onClick={() => {props.userHandler(); props.onClick()}}>
+        <div className={`menu-profile svg-color`}>&nbsp;</div>
+        <h2 className="heading-secondary">Profile Details</h2>
+      </button>
+
+      <NavMenuItem logo={"receipt"} label={"My Orders"} link={"orders"} exit={props.onClick}></NavMenuItem>
+        <NavMenuItem logo={"info"} label={"About Us"} exit={props.onClick}></NavMenuItem>
         <NavMenuItem logo={"quiz"} label={"Frequently Asked Questions"} link={"faq"} exit={props.onClick}></NavMenuItem>
         <NavMenuItem logo={"policy"} label={"Terms & Policies"} link={"policies"} exit={props.onClick}></NavMenuItem>
-        <NavMenuItem logo={"settings"} label={"Settings"} exit={props.onClick}></NavMenuItem>
+        <NavMenuItem logo={"manage"} label={"Sign-Up to MyMart"} exit={props.onClick}></NavMenuItem>
       </div>
     </Fragment>
   }

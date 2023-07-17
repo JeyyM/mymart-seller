@@ -398,3 +398,7 @@ input[type="password"].input-number:focus {
   transform: translateY(1rem);
 }
 
+.heading-icon-mymart {
+  @include heading-logo(mymart, 4rem, 4rem);
+  margin-left: 1rem;
+}

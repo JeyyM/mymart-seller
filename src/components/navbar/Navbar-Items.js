@@ -61,7 +61,7 @@
 
     return (
       <Fragment>
-        <NavMenu menuStatus={menuIsOn} onClick={showMenuToggler} function={showMenuToggler} user={props.user}></NavMenu>
+        <NavMenu menuStatus={menuIsOn} onClick={showMenuToggler} function={showMenuToggler} user={props.user} userHandler={props.userHandler}></NavMenu>
         <header className={`navbar ${isNavbarVisible ? 'nav-visible' : 'nav-hidden'}`}>
           <NavButton menuHandler={showMenuToggler} status={menuIsOn}></NavButton>
           <NavLogo navicon={props.navicon}></NavLogo>
@@ -69,7 +69,13 @@
             <CartNav svg={<Cart className="menu-cart svg-color"></Cart>} link={"mart"} label="Cart" handleCart={props.cartOpen} user={props.user}></CartNav>
             <NavItem svg={<Category className="menu-category svg-color"></Category>} link={"categories"} label="Categories & Products" ></NavItem>
             <NavItem svg={<Info className="menu-info svg-color"></Info>} link={"about"} label="About Us"></NavItem>
-            <NavItem svg={<Manage className="menu-manage svg-color"></Manage>} link={"mart"} label="Sign-Up to MyMart"></NavItem>
+
+            <Link href={`/`} style={{ textDecoration: 'none' }}>
+    <button className="navitem">
+    <Manage className="menu-manage svg-color"></Manage>
+            <h3 className="heading-tertiary">Sign-Up to MyMart</h3></button>
+    </Link>
+
             <div className="nav-sign">
               {typeof window !== 'undefined' && (<>
                 {props.user === undefined && <DynamicComponent2 /> }

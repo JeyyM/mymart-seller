@@ -49,6 +49,23 @@
 .menu-category {
   @include menu-logo(category, 4rem, 4rem);
 }
+
+.menu-checkout {
+  @include menu-logo(checkout, 4rem, 4rem);
+}
+
+.menu-about {
+  @include menu-logo(about, 4rem, 4rem);
+}
+
+.menu-profile {
+  @include menu-logo(manage-account, 4rem, 4rem);
+}
+
+.menu-receipt {
+  @include menu-logo(receipt, 4rem, 4rem);
+}
+
 .menu-insights {
   @include menu-logo(insights, 4rem, 4rem)
 }
@@ -56,7 +73,7 @@
   @include menu-logo(brush, 4rem, 4rem)
 }
 .menu-manage {
-  @include menu-logo(manage, 4rem, 4rem)
+  @include menu-logo(mymart, 4rem, 4rem)
 }
 .menu-ongoing {
   @include menu-logo(ongoing, 4rem, 4rem)
