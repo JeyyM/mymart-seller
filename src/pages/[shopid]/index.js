@@ -35,9 +35,9 @@ function HomePage({ shopID, screenWidth }){
         <h1 className="heading-primary">Dashboard</h1>
         <main className="maincontainer">
             <HomepageButton color={defaultColors} title={"Add and edit categories, products, and variations"} item="home-category" label="Categories & Products" direction="categories"></HomepageButton>
-            {screenWidth < 600 && <HomepageButton color={defaultColors} item="home-insights" label="Mart Analytics" direction="analytics"></HomepageButton>}
+            {screenWidth < 650 && <HomepageButton color={defaultColors} item="home-insights" label="Mart Analytics" direction="analytics"></HomepageButton>}
             <HomepageButton color={defaultColors} item="home-ongoing" label="Ongoing Sales" direction="orders"></HomepageButton>
-            {screenWidth >= 600 && screenWidth < 1000 && <HomepageButton color={defaultColors} item="home-insights" label="Mart Analytics" direction="analytics"></HomepageButton>}
+            {screenWidth >= 650 && screenWidth < 1000 && <HomepageButton color={defaultColors} item="home-insights" label="Mart Analytics" direction="analytics"></HomepageButton>}
             <HomepageButton color={defaultColors} title={"Set about page, descriptions, footers, and details of your mart"} item="home-manage" label="My Mart" direction="mart"></HomepageButton>
             {screenWidth > 1000 && <HomepageButton color={defaultColors} item="home-insights" label="Mart Analytics" direction="analytics"></HomepageButton>}
             <HomepageButton color={defaultColors} item="home-receipt" label="Customer Records" direction="records"></HomepageButton>

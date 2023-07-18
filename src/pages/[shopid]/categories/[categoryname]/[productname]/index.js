@@ -8,9 +8,8 @@ import AddTags from "@/components/Modal/Add-Tags";
 import { getServerSideProps } from "..";
 import Head from "next/head";
 
-function ProductPage({ shopID }) {
+function ProductPage({ shopID, screenWidth }) {
   const router = useRouter()
-
   const shopCurrency = shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
   const favicon = shopID.shopData.shopDetails.imageData.icons.icon
 
@@ -50,9 +49,9 @@ function ProductPage({ shopID }) {
 
   variationsList.forEach((variant, index) => {
 
-      if (variant.productStock.stockAmount === "0"){
-        soldVar.push(index);
-      }
+    if (variant.productStock.stockAmount === "0") {
+      soldVar.push(index);
+    }
   })
 
   function varStateHandler(ind) {
@@ -109,7 +108,7 @@ function ProductPage({ shopID }) {
 
   const [profitValue, setProfitValue] = useState(variationsList[varState].productProfit);
   const handleProfitChange = (event) => {
-      setProfitValue(event.target.value);
+    setProfitValue(event.target.value);
   };
 
   const [stockAmount, setStockAmount] = useState(variationsList[varState].productStock.stockAmount);
@@ -229,7 +228,7 @@ function ProductPage({ shopID }) {
     }`;
 
   const profitClasses = `${formInputValidity.profit ? "text-small input-number" : "invalid-form-2"
-  }`;
+    }`;
 
   const amountClasses = `${formInputValidity.amount ? "text-small input-number" : "invalid-form-2"
     }`;
@@ -305,7 +304,7 @@ function ProductPage({ shopID }) {
     setTagsValue(event)
   };
 
-    const [tagStatus, setTagStatus] = useState(false)
+  const [tagStatus, setTagStatus] = useState(false)
   function handleTags() {
     setTagStatus(!tagStatus)
   }
@@ -444,7 +443,7 @@ function ProductPage({ shopID }) {
       }
     );
   }
-  
+
   function submitTags(data) {
     handleTagsChange(data)
     changeTags(data)
@@ -468,10 +467,10 @@ function ProductPage({ shopID }) {
     <Confirmer2 modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${variationsList[varState].productName}?`} load={() => { setLoading(true) }} default={varState} finish={delVariation} names={upcoming} routing={routerData} productFix={productFixer}></Confirmer2>
     <AddTags modalStatus={tagStatus} disable={handleTags} list={tagsValue} submit={submitTags}></AddTags>
 
-    <div className="product-container">
+    {screenWidth > 700 && <div className="product-container">
       <div className="main-img-container">
 
-        <div className="sample">
+        <div style={{ position: "relative" }}>
           <button className="product-edit-button" onClick={() => { handleShowImg() }} type="button" disabled={loading}><div className="heading-icon-edit svg-color">&nbsp;</div></button>
           <img src={imgSet[imgState]} alt={variationsList[varState].productName} className="product-image">
           </img>
@@ -511,27 +510,27 @@ function ProductPage({ shopID }) {
             <div className="flex-col">
               <div className="add-buttons flex-row-spaceless">
 
-              <div className="flex-col">
-              <div className="add-buttons flex-row-spaceless">
-              <button type="button" className="minus-button" onClick={minusPrice}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
-                <input type="number" value={priceValue} className={priceClasses} placeholder="Price" required id='price' onChange={handlePriceChange} style={{ borderRadius: "0", margin: "0" }}></input>
-                <button type="button" onClick={addPrice} className="add-button svg-color" style={{marginRight:"1rem"}}><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
-              </div>
-              {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}
-            </div>
-
-            <div className="flex-col">
-              <div className="add-buttons flex-row-spaceless">
-              <button type="button" className="minus-button" onClick={minusProfit}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
-                <input type="number" value={profitValue} className={profitClasses} placeholder="Profit" required id='profit' onChange={handleProfitChange} style={{ borderRadius: "0", margin: "0" }}></input>
-                <button type="button" onClick={addProfit} className="add-button svg-color"><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
-              </div>
-              {formInputValidity.profit ? <label className="form-label">Profit</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid profit</label>}
-            </div>
-
-                <div className="flex-row-align">
-                <h1 className="heading-secondary" style={{marginLeft:"2rem"}}>Active:</h1> <div style={{transform:"translateY(-1rem) "}}><input checked={activeValue} onChange={handleActive} type="checkbox" id="switch" className="toggle-switch" /><label htmlFor="switch" className="toggle-label">Toggle</label></div>
+                <div className="flex-col">
+                  <div className="add-buttons flex-row-spaceless">
+                    <button type="button" className="minus-button" onClick={minusPrice}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
+                    <input type="number" value={priceValue} className={priceClasses} placeholder="Price" required id='price' onChange={handlePriceChange} style={{ borderRadius: "0", margin: "0" }}></input>
+                    <button type="button" onClick={addPrice} className="add-button svg-color" style={{ marginRight: "1rem" }}><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
+                  </div>
+                  {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}
                 </div>
+
+                <div className="flex-col">
+                  <div className="add-buttons flex-row-spaceless">
+                    <button type="button" className="minus-button" onClick={minusProfit}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
+                    <input type="number" value={profitValue} className={profitClasses} placeholder="Profit" required id='profit' onChange={handleProfitChange} style={{ borderRadius: "0", margin: "0" }}></input>
+                    <button type="button" onClick={addProfit} className="add-button svg-color"><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
+                  </div>
+                  {formInputValidity.profit ? <label className="form-label">Profit</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid profit</label>}
+                </div>
+
+                {screenWidth > 900 && <div className="flex-row-align">
+                  <h1 className="heading-secondary" style={{ marginLeft: "2rem" }}>Active:</h1> <div style={{ transform: "translateY(-1rem) " }}><input checked={activeValue} onChange={handleActive} type="checkbox" id="switch" className="toggle-switch" /><label htmlFor="switch" className="toggle-label">Toggle</label></div>
+                </div>}
               </div>
             </div>
           </div>
@@ -568,33 +567,182 @@ function ProductPage({ shopID }) {
           </div>
         </form>
 
-        <label className="heading-secondary variations-label">Variations</label> <button className="add-img" type="button" onClick={handleAddVar} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+        <div className="flex-row-spaceless flex-row-align">
+          {screenWidth < 900 && <div className="flex-row-align">
+            <h1 className="heading-secondary" style={{ marginLeft: "2rem" }}>Active:</h1> <div style={{ transform: "translateY(-1rem) " }}><input checked={activeValue} onChange={handleActive} type="checkbox" id="switch" className="toggle-switch" /><label htmlFor="switch" className="toggle-label">Toggle</label></div>
+          </div>}
+          <div className="flex-row-align">
+            <label className="heading-secondary variations-label" style={{ marginBottom:"2rem"}}>Variations</label> <button className="add-img" type="button" onClick={handleAddVar} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+          </div>
+        </div>
 
         <motion.div className="varContainer" initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.2 }}>
           {variationsList.map((v, index) => (
             <div className="warning-container" key={index}>
-            {soldVar.includes(index) && 
+              {soldVar.includes(index) &&
                 <motion.div className="sold-out-warning svg-sold"
                   key={v}
                   initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.2, type: "spring", damping: 0 }}>&nbsp;</motion.div>}
-            <motion.img key={index} onClick={() => { varStateHandler(index);}} className={`varItem ${index === varState ? "active-var" : ""}`} src={imageGetter(index)} alt={index} initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 * index, duration: 0.2 }}></motion.img>
-              </div>
+              <motion.img key={index} onClick={() => { varStateHandler(index); }} className={`varItem ${index === varState ? "active-var" : ""}`} src={imageGetter(index)} alt={index} initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 * index, duration: 0.2 }}></motion.img>
+            </div>
           ))}
         </motion.div>
 
         <div className="product-action-buttons">
           <button className="product-action-3 heading-secondary white" disabled={loading} onClick={handleDelete} type="button">Delete Variation</button>
           <button className="product-action-1 heading-secondary" disabled={loading} onClick={handleTags} type="button">Edit Search Tags</button>
-          <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading} type="button">{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
+          {screenWidth > 900 && <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading} type="button">{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>}
         </div>
+        {screenWidth < 900 && <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading} type="button" style={{ width: "90%", margin: "0 auto", display: "block" }}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>}
       </div>
-    </div>
+    </div>}
+
+
+    {screenWidth < 700 && <div className="product-container">
+    <div className="main-img-container">
+
+<div className="new-main-img" style={{position:"relative"}}>
+  <button className="product-edit-button" onClick={() => { handleShowImg() }} type="button" disabled={loading}><div className="heading-icon-edit svg-color">&nbsp;</div></button>
+  <img src={imgSet[imgState]} alt={variationsList[varState].productName} className="product-image">
+  </img>
+</div>
+
+<motion.div className="new-side-img-container" initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.2 }}
+  key={varState}
+>
+  {imgSet.map((i, index) => (
+    i !== undefined && (
+      <motion.img
+        key={index}
+        src={imgSet[index]}
+        alt={index}
+        className={`side-img ${index === imgState ? "active-var" : ""}`}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 * index, duration: 0.2 }}
+        onClick={() => imgStateHandler(index)}
+      />)
+  ))}
+</motion.div>
+</div>
+
+<div className="details-section">
+        <form>
+          <div>
+            <input type="text" value={nameValue} className={nameClasses} placeholder="Product Name" required id='name' autoComplete="off" onChange={handleNameChange}></input>
+            {formInputValidity.name && !formInputValidity.exist ? <label className="form-label" title="Upon reaching 40 digits in length, an ellipsis (...) will be added.">Product Name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : !formInputValidity.exist ? <label className="form-label inv" style={{ color: "red" }}>Enter a valid product name <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label> : <label className="form-label inv" style={{ color: "red" }}>Product name already exists in category <span><span className={nameLengthClasses}>{nameLength}</span>/40</span></label>}
+
+          </div>
+
+          <div className="price-pair">
+            <label className="heading-secondary product-currency">{shopCurrency}</label>
+            <div className="flex-col">
+              <div className="add-buttons flex-row-spaceless">
+
+                <div className="flex-col">
+                  <div className="add-buttons flex-row-spaceless">
+                    <button type="button" className="minus-button" onClick={minusPrice}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
+                    <input type="number" value={priceValue} className={priceClasses} placeholder="Price" required id='price' onChange={handlePriceChange} style={{ borderRadius: "0", margin: "0" }}></input>
+                    <button type="button" onClick={addPrice} className="add-button svg-color" style={{ marginRight: "1rem" }}><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
+                  </div>
+                  {formInputValidity.price ? <label className="form-label">Price</label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid price</label>}
+                </div>
+
+                <div className="flex-col">
+                  <div className="add-buttons flex-row-spaceless">
+                    <button type="button" className="minus-button" onClick={minusProfit}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
+                    <input type="number" value={profitValue} className={profitClasses} placeholder="Profit" required id='profit' onChange={handleProfitChange} style={{ borderRadius: "0", margin: "0" }}></input>
+                    <button type="button" onClick={addProfit} className="add-button svg-color"><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
+                  </div>
+                  {formInputValidity.profit ? <label className="form-label">Profit</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid profit</label>}
+                </div>
+
+                {screenWidth > 900 && <div className="flex-row-align">
+                  <h1 className="heading-secondary" style={{ marginLeft: "2rem" }}>Active:</h1> <div style={{ transform: "translateY(-1rem) " }}><input checked={activeValue} onChange={handleActive} type="checkbox" id="switch" className="toggle-switch" /><label htmlFor="switch" className="toggle-label">Toggle</label></div>
+                </div>}
+              </div>
+            </div>
+
+            {screenWidth > 480 && <div className="flex-row-align">
+                  <h1 className="heading-secondary" style={{ marginLeft: "2rem" }}>Active:</h1> <div style={{ transform: "translateY(-1rem) " }}><input checked={activeValue} onChange={handleActive} type="checkbox" id="switch" className="toggle-switch" /><label htmlFor="switch" className="toggle-label">Toggle</label></div>
+                </div>}
+          </div>
+
+
+          <textarea
+            id='description'
+            required
+            rows='5'
+            value={descValue}
+            className={descClasses}
+            placeholder="Description"
+            onChange={handleDescChange}
+          ></textarea>
+          {formInputValidity.desc ? <label className="form-label" title="Upon reaching 150 digits in length, an ellipsis (...) will be added.">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label>}
+
+
+          <div className="price-pair">
+
+            <label className="heading-secondary product-currency">Stock</label>
+
+            <div className="flex-col">
+              <div className="add-buttons flex-row-spaceless">
+                <button type="button" className="minus-button" onClick={minusStock}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
+                <input type="number" value={stockAmount} className={amountClasses} placeholder="Amount" required id='amount' onChange={handleStockAmount} style={{ borderRadius: "0", margin: "0" }}></input>
+                <button type="button" onClick={addStock} className="add-button svg-color" style={{ marginRight: "2rem" }}><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
+              </div>
+              {formInputValidity.amount ? <label className="form-label">Stock Amount</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid stock amount</label>}
+            </div>
+            <div className="flex-col">
+              <input type="text" value={stockUnit} className={unitClasses} placeholder="Unit" required id='unit' onChange={handleStockUnit} autoComplete="off"></input>
+              {formInputValidity.unit ? <label className="form-label">Stock Unit</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid stock unit</label>}
+            </div>
+          </div>
+        </form>
+
+        <div className="flex-row-spaceless flex-row-align">
+        {screenWidth < 480 && <div className="flex-row-align">
+            <h1 className="heading-secondary" style={{ marginLeft: "2rem" }}>Active:</h1> <div style={{ transform: "translateY(-1rem) " }}><input checked={activeValue} onChange={handleActive} type="checkbox" id="switch" className="toggle-switch" /><label htmlFor="switch" className="toggle-label">Toggle</label></div>
+          </div>}
+          <div className="flex-row-align">
+            <label className="heading-secondary variations-label" style={{ marginBottom:"2rem"}}>Variations</label> <button className="add-img" type="button" onClick={handleAddVar} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+          </div>
+        </div>
+
+        <motion.div className="varContainer" initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.2 }}>
+          {variationsList.map((v, index) => (
+            <div className="warning-container" key={index}>
+              {soldVar.includes(index) &&
+                <motion.div className="sold-out-warning svg-sold"
+                  key={v}
+                  initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.2, type: "spring", damping: 0 }}>&nbsp;</motion.div>}
+              <motion.img key={index} onClick={() => { varStateHandler(index); }} className={`varItem ${index === varState ? "active-var" : ""}`} src={imageGetter(index)} alt={index} initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 * index, duration: 0.2 }}></motion.img>
+            </div>
+          ))}
+        </motion.div>
+
+        <div className="product-action-buttons">
+          <button className="product-action-3 heading-secondary white" disabled={loading} onClick={handleDelete} type="button">Delete Variation</button>
+          <button className="product-action-1 heading-secondary" disabled={loading} onClick={handleTags} type="button">Edit Search Tags</button>
+          {screenWidth > 480 && <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading} type="button">{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>}
+        </div>
+        {screenWidth < 480 && <button className="product-action-2 heading-secondary" onClick={handleClick} disabled={loading} type="button" style={{ width: "90%", margin: "0 auto", display: "block" }}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>}
+      </div>
+    </div>}
 
   </Fragment>
 }
