@@ -158,9 +158,6 @@ max-height: 51rem;
     height: auto;
 }
 
-.new-main-img{
-}
-
 @media (max-width: 600px) {
     .image-modal {
         display: block;
@@ -172,8 +169,30 @@ max-height: 51rem;
     }
 
     .add-prod-img{
+        height: 30rem;
+        width: 30rem;
+        margin: 1rem auto;
+        object-fit: cover;
+    }
+}
+
+@media (max-width: 550px) {
+    .add-prod-img{
+        height: 25rem;
+        width: 25rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .add-prod-img{
         height: 20rem;
         width: 20rem;
-        
+    }
+}
+
+@media (max-width: 350px) {
+    .add-prod-img{
+        height: 15rem;
+        width: 15rem;
     }
 }
