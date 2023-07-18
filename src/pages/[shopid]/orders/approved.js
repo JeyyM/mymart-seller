@@ -13,7 +13,7 @@ import AcceptOrder from "@/components/orders/AcceptOrder";
 import FinishOrder from "@/components/orders/FinishOrder";
 import Celebration from "@/components/orders/Celebration";
 
-function Orders({ shopID }) {
+function Orders({ shopID, screenWidth }) {
     const router = useRouter();
     const SlideHeight = {
         hidden: { opacity: 1, height: 0 },
@@ -106,7 +106,10 @@ function Orders({ shopID }) {
             if (index % 2 === 0) {
                 col1.push(order);
             } else if (index % 2 === 1) {
-                col2.push(order);
+                if  (screenWidth > 900){
+                col2.push(order);} else {
+                    col1.push(order)
+                }
             }
         });
     }
@@ -377,12 +380,19 @@ function Orders({ shopID }) {
                     </div>
                     <h1 className="heading-primary no-margin">Approved Sales</h1>
 
+                    {screenWidth > 500 && <>
                     <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
-                    <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
+                    <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
+                    </>}
 
                     {/* <button className="heading-tertiary add-categ-init" style={{ width: "max-content" }}>
         <div className="heading-icon-check svg-color">&nbsp;</div>Submit &nbsp;</button> */}
                 </span>
+                {screenWidth < 500 && <div className="flex-row">
+                    <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
+                    <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
+                    </div>}
+
                 <div className="order-container">
 
                     <div className="order-column">
@@ -411,8 +421,11 @@ function Orders({ shopID }) {
                                         <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
                                             <div className="text-ter-alarm svg-tertiary">&nbsp;</div> <h2 className="heading-tertiary">&nbsp;<span style={{ fontWeight: "900" }}>Expected By: {formatDateTime2(order.currentTime)}</span></h2>
                                         </div>
-                                        <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total: {currency} {order.totals.order + order.totals.fees}</h2>
+                                        {screenWidth >= 1100 || (screenWidth < 900 && screenWidth >= 400) ?(<h2 className="heading-tertiary" style={{ fontWeight: "900" }}> Total: {currency} {order.totals.order + order.totals.fees}</h2>) : null}
                                     </div>
+
+                                    {(screenWidth < 900 && screenWidth >= 400) || screenWidth < 1100 && <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total: {currency} {order.totals.order + order.totals.fees}</h2>}
+
                                     <textarea
                                         rows='3'
                                         value={order.message.length === 0 ? "No message" : order.message}
@@ -446,28 +459,38 @@ function Orders({ shopID }) {
                                                     <div className="flex-col">
 
                                                         <div className="flex-row">
-                                                        <Link style={{ marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{item.name.length > 20 ? item.name.substring(0, 17) + "..." : item.name} - {item.category.length > 20 ? item.category.substring(0, 17) + "..." : item.category}&nbsp;</Link>
+                                                        <Link style={{ marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{screenWidth > 400 ? item.name.length > 15 ? item.name.substring(0, 12) + "..." : item.name : item.name.length > 10 ? item.name.substring(0, 7) + "..." : item.name}&nbsp;</Link>
 
                                                             <div className="flex-row" style={{ margin: "1rem" }}>
                                                                 <h2 className="heading-tertiary whiteSpace">{typeof foundProduct !== "object" ? foundProduct : foundProduct.active ? "Active" : "Inactive"}&nbsp;</h2> {typeof foundProduct !== "object" ? <div className="order-missing">&nbsp;</div> : foundProduct.active ? <div className="order-active">&nbsp;</div> : <div className="order-inactive">&nbsp;</div>}
                                                             </div>
                                                         </div>
+                                                        <Link style={{margin:"0.5rem 0", marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{screenWidth > 400 ? item.category.length > 15 ? item.category.substring(0, 12) + "..." : item.category : item.category.length > 10 ? item.category.substring(0, 7) + "..." : item.category}&nbsp;</Link>
 
                                                         <div className="flex-row-align" style={{ justifyContent: "space-between" }}>
                                                             <h2 className="heading-tertiary">&nbsp;Current Stock: {typeof foundProduct !== "object" ? foundProduct : foundProduct.productStock.stockAmount}</h2>
 
-                                                            <div className="flex-row">
+                                                            {screenWidth > 400 && <div className="flex-row">
                                                                 <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Cart Amount: {item.cartValue} {item.unit}/s</h2>
-                                                            </div>
+                                                            </div>}
                                                         </div>
 
                                                         <div className="flex-row-align" style={{ justifyContent: "space-between" }}>
                                                             <h2 className="heading-tertiary">&nbsp;Price: {typeof foundProduct !== "object" ? foundProduct : `${currency} ${foundProduct.productPrice} / ${foundProduct.productStock.stockUnit}`}</h2>
 
+                                                            {screenWidth > 400 && <div className="flex-row">
+                                                                <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total Cost: {currency} {item.cartValue * item.price}</h2>
+                                                            </div>}
+                                                        </div>
+
+                                                        {screenWidth < 400 && <>
+                                                            <div className="flex-row">
+                                                                <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Cart Amount: {item.cartValue} {item.unit}/s</h2>
+                                                            </div>
                                                             <div className="flex-row">
                                                                 <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total Cost: {currency} {item.cartValue * item.price}</h2>
                                                             </div>
-                                                        </div>
+                                                        </>}
 
                                                     </div>
                                                 </div>
@@ -483,7 +506,7 @@ function Orders({ shopID }) {
 
                     </div>
 
-                    <div className="order-column">
+                    {screenWidth > 900 && <div className="order-column">
                     {
                             col2.map((order) => {
                                     const itemClass = `${order.status === "accepted" ? "round-borderer round-borderer-extra order-item" : "round-borderer round-borderer-extra order-item hidden-order-item"}`
@@ -509,8 +532,11 @@ function Orders({ shopID }) {
                                         <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
                                             <div className="text-ter-alarm svg-tertiary">&nbsp;</div> <h2 className="heading-tertiary">&nbsp;<span style={{ fontWeight: "900" }}>Expected By: {formatDateTime2(order.currentTime)}</span></h2>
                                         </div>
-                                        <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total: {currency} {order.totals.order + order.totals.fees}</h2>
+                                        {screenWidth > 1100 && <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total: {currency} {order.totals.order + order.totals.fees}</h2>}
                                     </div>
+
+                                    {screenWidth < 1100 && <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total: {currency} {order.totals.order + order.totals.fees}</h2>}
+
                                     <textarea
                                         rows='3'
                                         value={order.message.length === 0 ? "No message" : order.message}
@@ -544,12 +570,14 @@ function Orders({ shopID }) {
                                                     <div className="flex-col">
 
                                                         <div className="flex-row">
-                                                        <Link style={{ marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{item.name.length > 20 ? item.name.substring(0, 17) + "..." : item.name} - {item.category.length > 20 ? item.category.substring(0, 17) + "..." : item.category}&nbsp;</Link>
+                                                        <Link style={{ marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{item.name.length > 15 ? item.name.substring(0, 12) + "..." : item.name}&nbsp;</Link>
 
                                                             <div className="flex-row" style={{ margin: "1rem" }}>
                                                                 <h2 className="heading-tertiary whiteSpace">{typeof foundProduct !== "object" ? foundProduct : foundProduct.active ? "Active" : "Inactive"}&nbsp;</h2> {typeof foundProduct !== "object" ? <div className="order-missing">&nbsp;</div> : foundProduct.active ? <div className="order-active">&nbsp;</div> : <div className="order-inactive">&nbsp;</div>}
                                                             </div>
                                                         </div>
+                                                        <Link style={{margin:"0.5rem 0", marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{item.category.length > 15 ? item.category.substring(0, 12) + "..." : item.category}&nbsp;</Link>
+
 
                                                         <div className="flex-row-align" style={{ justifyContent: "space-between" }}>
                                                             <h2 className="heading-tertiary">&nbsp;Current Stock: {typeof foundProduct !== "object" ? foundProduct : foundProduct.productStock.stockAmount}</h2>
@@ -578,7 +606,7 @@ function Orders({ shopID }) {
                                 </div>
                             })
                         }
-                    </div>
+                    </div>}
 
                 </div>
             </Fragment>
@@ -595,10 +623,16 @@ function Orders({ shopID }) {
                     <div className="heading-icon-ongoing svg-color">&nbsp;</div>
                 </div>
                 <h1 className="heading-primary no-margin">Approved Sales</h1>
-                <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
-                    <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
-
+                {screenWidth > 500 && <>
+                    <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
+                    <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
+                    </>}
             </span>
+            {screenWidth < 500 && <div className="flex-row">
+                    <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
+                    <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
+                    </div>}
+                    
             <div className="empty-contents">
                 <div className="empty-ongoing svg-color">&nbsp;</div>
                 <h2 className="empty-text">There seems to be no approved sales</h2>

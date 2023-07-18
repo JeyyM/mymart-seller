@@ -302,33 +302,46 @@ function EditOrder(props) {
                                                         <button type="button" className="add-button svg-color" onClick={() => updateCartItem(index, 1, item)}><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
                                                     </div>
 
-                                                    <img className="order-img round-borderer" src={item.image}></img>
+                                                    <img className="order-img round-borderer" src={item.image} style={{marginRight:"1rem"}}></img>
 
                                                     <div className="flex-col">
 
                                                         <div className="flex-row flex-row-align">
-                                                            <Link style={{ marginRight: "auto", fontWeight: "900" }} href={`/${item.url}`} className="heading-tertiary whiteSpace noDecor">&nbsp;{item.name} - {item.category}&nbsp;</Link>
+                                                            <Link style={{ marginRight: "auto", fontWeight: "900" }} href={`/${item.url}`} className="heading-tertiary whiteSpace noDecor">&nbsp;{props.screenWidth > 600 ? item.name.length > 15 ? item.name.substring(0, 12) + "..." : item.name : item.name.length > 10 ? item.name.substring(0, 7) + "..." : item.name} - {props.screenWidth > 600 ? item.category.length > 15 ? item.category.substring(0, 12) + "..." : item.category : item.category.length > 10 ? item.category.substring(0, 7) + "..." : item.category}&nbsp;</Link>
 
-                                                            <div className="flex-row" style={{ margin: "1rem" }}>
+                                                            {props.screenWidth > 500 && <div className="flex-row" style={{ margin: "1rem" }}>
                                                                 <h2 className="heading-tertiary whiteSpace">{typeof foundProduct !== "object" ? foundProduct : foundProduct.active ? "Active" : "Inactive"}&nbsp;</h2> {typeof foundProduct !== "object" ? <div className="order-missing">&nbsp;</div> : foundProduct.active ? <div className="order-active">&nbsp;</div> : <div className="order-inactive">&nbsp;</div>}
-                                                            </div>
+                                                            </div>}
                                                         </div>
+
+                                                        {props.screenWidth < 500 && <div className="flex-row" style={{ margin: "1rem" }}>
+                                                                <h2 className="heading-tertiary whiteSpace">{typeof foundProduct !== "object" ? foundProduct : foundProduct.active ? "Active" : "Inactive"}&nbsp;</h2> {typeof foundProduct !== "object" ? <div className="order-missing">&nbsp;</div> : foundProduct.active ? <div className="order-active">&nbsp;</div> : <div className="order-inactive">&nbsp;</div>}
+                                                            </div>}
 
                                                         <div className="flex-row-align" style={{ justifyContent: "space-between" }}>
                                                             <h2 className={foundProduct.productStock.stockAmount >= item.cartValue ? "heading-tertiary transitionAll" : "heading-tertiary red-text transitionAll"}>&nbsp;Current Stock: {typeof foundProduct !== "object" ? foundProduct : foundProduct.productStock.stockAmount}</h2>
 
-                                                            <div className="flex-row">
+                                                            {props.screenWidth > 550 && <div className="flex-row">
                                                                 <h2 className={foundProduct.productStock.stockAmount >= item.cartValue ? "heading-tertiary transitionAll" : "heading-tertiary red-text transitionAll"} style={{ fontWeight: "900" }}>Cart Amount: {item.cartValue} {item.unit}/s</h2>
-                                                            </div>
+                                                            </div>}
                                                         </div>
 
                                                         <div className="flex-row-align" style={{ justifyContent: "space-between" }}>
                                                             <h2 className="heading-tertiary">&nbsp;Price: {typeof foundProduct !== "object" ? foundProduct : `${currency} ${foundProduct.productPrice} / ${foundProduct.productStock.stockUnit}`}</h2>
 
+                                                            {props.screenWidth > 550 && <div className="flex-row">
+                                                                <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total Cost: {currency} {item.cartValue * item.price}</h2>
+                                                            </div>}
+                                                        </div>
+
+                                                        {props.screenWidth < 550 && <>
+                                                            <div className="flex-row">
+                                                                <h2 className={foundProduct.productStock.stockAmount >= item.cartValue ? "heading-tertiary transitionAll" : "heading-tertiary red-text transitionAll"} style={{ fontWeight: "900" }}>Cart Amount: {item.cartValue} {item.unit}/s</h2>
+                                                            </div>
                                                             <div className="flex-row">
                                                                 <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total Cost: {currency} {item.cartValue * item.price}</h2>
                                                             </div>
-                                                        </div>
+                                                        </>}
 
                                                     </div>
                                                 </div>

@@ -98,6 +98,8 @@
     overflow: hidden;
     height: min-content;
     padding: 1rem;
+    width: 47.5vw;
+    margin: 0 auto;
   }
 
   .order-toggle {
@@ -266,4 +268,9 @@
 
 .round-borderer-red{
   @include border-round;
+}
+
+.user-detail-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }

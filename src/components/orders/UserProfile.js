@@ -121,7 +121,7 @@ function RefuseOrder(props) {
                                     </div>
                                 </span>
 
-                                <div className="grid-col-2" style={{ gap: "1rem" }}>
+                                <div className="user-detail-grid" style={{ gap: "1rem" }}>
                                     <div className="user-data-col">
                                         <div className="flex-row">
                                             <div className="text-sec-name svg-secondary">&nbsp;</div><h2 className="heading-secondary">{props.user.profile.last}, {props.user.profile.first}</h2>
