@@ -200,3 +200,22 @@
     grid-template-columns: 1fr;
   }
   }
+
+  @media (max-width: 775px) {
+    .refuse-grid-2{
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+  }
+
+  @media (max-width: 350px) {
+    .refuse-button{
+        width: 16rem; 
+      }
+  }
+
+
+  .MuiTypography-root.MuiTypography-overline.css-1hbyad5-MuiTypography-root, .MuiButtonBase-root.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.MuiButton-root.MuiButton-text.MuiButton-textPrimary.MuiButton-sizeMedium.MuiButton-textSizeMedium.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+    font-size: 2rem;
+  }
+

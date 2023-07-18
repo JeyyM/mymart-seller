@@ -691,7 +691,7 @@ function ProductPage({ shopID, screenWidth }) {
 
           <div className="price-pair">
 
-            <label className="heading-secondary product-currency">Stock</label>
+            <label className="heading-secondary product-currency">Stocks</label>
 
             <div className="flex-col">
               <div className="add-buttons flex-row-spaceless">

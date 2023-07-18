@@ -384,7 +384,7 @@ function Orders({ shopID, screenWidth }) {
                 <EditOrder modalStatus={SetEdit} order={selectedOrder} disable={editClose} change={changeOrder} categories={shopCategories} currency={currency} takebacks={takebacks} screenWidth={screenWidth}></EditOrder>
                 <UserProfile modalStatus={SetUser} user={selectedUser} disable={userClose} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords}></UserProfile>
                 <RefuseOrder modalStatus={refuse} user={selectedUser} disable={refuseClose} change={finishRefusal} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder}></RefuseOrder>
-                <AcceptOrder modalStatus={accept} user={selectedUser} disable={acceptClose} change={finishAccept} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder} colormode={defaultColor} design={design}></AcceptOrder>
+                <AcceptOrder modalStatus={accept} user={selectedUser} disable={acceptClose} change={finishAccept} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder} colormode={defaultColor} design={design} screenWidth={screenWidth}></AcceptOrder>
 
                 <span className="page-heading">
                     <div className="heading-icon-dropshadow">

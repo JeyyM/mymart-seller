@@ -120,7 +120,7 @@ function RefuseOrder(props) {
                                 <h2 className="heading-tertiary" style={{ margin: "1rem" }}>Are you sure you want to refuse the order? Upon refusing, the customer won't be charged. This order will be put into the customer records. Data such as the stock will be returned. This cannot be undone.</h2>
 
 
-                                <div className="grid-col-2" style={{ gap: "1rem", marginBottom: "1rem" }}>
+                                <div className="refuse-grid-2" style={{ gap: "1rem", marginBottom: "1rem" }}>
                                     <div className="flex-row">
                                         <div className="text-ter-pin svg-tertiary">&nbsp;</div><h2 className="heading-tertiary">{props.user.location} <span style={{ fontWeight: "900" }}>({getTravelTime()}) away</span></h2>
                                     </div>
@@ -164,8 +164,8 @@ function RefuseOrder(props) {
                                 </div>
 
                                 <div className="order-button-grid-2">
-                                    <button className="product-action-1 heading-secondary" onClick={props.disable} style={{ width: "18rem", margin: "0" }}>Cancel</button>
-                                    <button className="product-action-3 white heading-secondary" onClick={confirm} style={{ width: "18.5rem", margin: "0" }}>Refuse</button>
+                                    <button className="product-action-1 heading-secondary refuse-button" onClick={props.disable} >Cancel</button>
+                                    <button className="product-action-3 white heading-secondary refuse-button" onClick={confirm}>Refuse</button>
                                 </div>
 
 
