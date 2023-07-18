@@ -76,8 +76,8 @@ function ProductsPage({ shopID, screenWidth }) {
   });
 
   const totalItems = products.length;
-  const itemsPerSlide =  screenWidth < 1000 ? 15 : 12;
-  const itemsPerLine = screenWidth < 1000 ? 3 : 4;
+  const itemsPerSlide =screenWidth < 600 ? 20 : screenWidth < 1000 ? 15 : 12;
+  const itemsPerLine = screenWidth < 600 ? 2 : screenWidth < 1000 ? 3 : 4;
   const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
   const totalSlides = Math.ceil(totalItems / itemsPerSlide);
   const slideIndexes = Array.from(Array(totalSlides).keys());
