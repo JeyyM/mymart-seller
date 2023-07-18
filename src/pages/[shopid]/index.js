@@ -7,12 +7,11 @@ import { useRouter } from "next/router"
 import Head from "next/head"
 import { getServerSideProps } from "@/utilities/serversideProps"
 
-function HomePage({ shopID }){
+function HomePage({ shopID, screenWidth }){
     const router = useRouter();
     const { shopid } = router.query;
     const shopData = shopID.shopData;
     const favicon = shopID.shopData.shopDetails.imageData.icons.icon
-
 
     let mode = ""
     if (shopData.shopDesigns.defaultMode){mode = "/light"} else {
@@ -36,9 +35,11 @@ function HomePage({ shopID }){
         <h1 className="heading-primary">Dashboard</h1>
         <main className="maincontainer">
             <HomepageButton color={defaultColors} title={"Add and edit categories, products, and variations"} item="home-category" label="Categories & Products" direction="categories"></HomepageButton>
+            {screenWidth < 600 && <HomepageButton color={defaultColors} item="home-insights" label="Mart Analytics" direction="analytics"></HomepageButton>}
             <HomepageButton color={defaultColors} item="home-ongoing" label="Ongoing Sales" direction="orders"></HomepageButton>
+            {screenWidth >= 600 && screenWidth < 1000 && <HomepageButton color={defaultColors} item="home-insights" label="Mart Analytics" direction="analytics"></HomepageButton>}
             <HomepageButton color={defaultColors} title={"Set about page, descriptions, footers, and details of your mart"} item="home-manage" label="My Mart" direction="mart"></HomepageButton>
-            <HomepageButton color={defaultColors} item="home-insights" label="Mart Analytics" direction="analytics"></HomepageButton>
+            {screenWidth > 1000 && <HomepageButton color={defaultColors} item="home-insights" label="Mart Analytics" direction="analytics"></HomepageButton>}
             <HomepageButton color={defaultColors} item="home-receipt" label="Customer Records" direction="records"></HomepageButton>
             <HomepageButton color={defaultColors} title={"Edit mart's colors and fonts"} item="home-brush" label="Mart Design" direction="design" extra={mode}></HomepageButton>
             <HomepageButtonBlank color={defaultColors} item="home-policy" label="Terms & Policies" direction="policies"></HomepageButtonBlank>

@@ -11,7 +11,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 
-function ProductsPage({ shopID }) {
+function ProductsPage({ shopID, screenWidth }) {
   const router = useRouter()
   const queryCategoryName = router.query.categoryname
 
@@ -76,8 +76,8 @@ function ProductsPage({ shopID }) {
   });
 
   const totalItems = products.length;
-  const itemsPerSlide = 12;
-  const itemsPerLine = 4;
+  const itemsPerSlide =  screenWidth < 1000 ? 15 : 12;
+  const itemsPerLine = screenWidth < 1000 ? 3 : 4;
   const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
   const totalSlides = Math.ceil(totalItems / itemsPerSlide);
   const slideIndexes = Array.from(Array(totalSlides).keys());

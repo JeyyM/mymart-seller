@@ -10,9 +10,39 @@
 
 html {
     font-size: 62.5%;
-}
-
+}  
+  
 body {
     box-sizing: border-box;
     background-color: $background-color;
 }
+
+@media (max-width: 1200px) {
+    html {
+        font-size: 55%; 
+    }
+}
+
+@media (max-width: 1000px) {
+    html {
+        font-size: 50%; 
+    }
+}
+
+@media (max-width: 800px) {
+    html {
+        font-size: 45%; 
+    }
+}
+
+@media (max-width: 600px) {
+    html {
+        font-size: 42.5%; 
+    }
+}
+
+// @media (max-width: 480px) {
+//     html {
+//         font-size: 40%; 
+//     }
+// }

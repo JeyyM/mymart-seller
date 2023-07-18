@@ -192,6 +192,7 @@
 }
 
 @mixin home-setup-imageless() {
+  grid-column: span 2;
   background-image: $theme-bg,
     linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   height: 1fr;

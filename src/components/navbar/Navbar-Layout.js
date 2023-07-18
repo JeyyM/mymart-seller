@@ -3,9 +3,33 @@ import NavbarItems from "./Navbar-Items";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import Footer from "../Mart/Footer";
+import { useState, useEffect } from "react";
+import React from "react";
 
 function NavbarLayout(props) {
     const router = useRouter()
+
+    const [screenWidth, setScreenWidth] = useState(0);
+
+    useEffect(() => {
+        const handleResize = () => {
+          const newScreenWidth = window.innerWidth;
+          setScreenWidth(newScreenWidth);
+        };
+    
+        handleResize()
+    
+        if (typeof window !== 'undefined') {
+          setScreenWidth(window.innerWidth);
+          window.addEventListener('resize', handleResize);
+        }
+    
+        return () => {
+          if (typeof window !== 'undefined') {
+            window.removeEventListener('resize', handleResize);
+          }
+        };
+      }, []);
 
     function hexToRgb(hex) {
         hex = hex.replace('#', '');
@@ -21,6 +45,14 @@ function NavbarLayout(props) {
 
     let placeholder = {}
     let colormode = ""
+
+    const renderChildrenWithProps = () => {
+        return React.Children.map(props.children, (child) =>
+          React.cloneElement(child, {
+            screenWidth: screenWidth,
+          })
+        );
+      };
 
     if (props.mode === false) {
         placeholder = `{color: ${props.color["bg-item"]};
@@ -38,6 +70,8 @@ filter: brightness(50%);}`
     }
 
     const id = router.query.shopid
+
+    console.log("in nav", screenWidth)
 
     return (
         <Fragment>
@@ -353,8 +387,8 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
                 </style>
             </Head>
 
-            <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo}/>
-            <div>{props.children}</div>
+            <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} screenWidth={screenWidth}/>
+            <div>{renderChildrenWithProps()}</div>
             {router.asPath !== `/${id}/mart/details` && router.asPath !== "/" ? <Footer details={props.contents} address={props.address}></Footer> : <Fragment></Fragment>}
 
         </Fragment>
