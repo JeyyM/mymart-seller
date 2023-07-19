@@ -110,10 +110,6 @@ function Orders({ shopID, screenWidth }) {
 
     sorter()
 
-    // useEffect(()=> {sorter()}, [screenWidth])
-
-    // console.log(col1, col2)
-
     function formatDateTime(dateTimeString) {
         const dateTime = new Date(dateTimeString);
 
@@ -375,6 +371,8 @@ function Orders({ shopID, screenWidth }) {
     const acceptText = `${buttonMode ? "heading-tertiary margin-side" : "heading-tertiary margin-side solid-text-color"}`
 
     const removeList = []
+
+    console.log(contents)
 
     if (contents.length > 0) {
         return (

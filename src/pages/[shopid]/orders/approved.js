@@ -321,7 +321,10 @@ function Orders({ shopID, screenWidth }) {
         await editApi(selectedOrder, ProductIdentifiers)
     }
 
+    console.log(activeOrders)
+
     async function finishRefusal(changedOrder, message) {
+        console.log(changedOrder)
         let updatedOrder = activeOrders.filter((item) => item.id === changedOrder.id)
         updatedOrder[0].order = changedOrder.order;
         updatedOrder[0].status = "finished";

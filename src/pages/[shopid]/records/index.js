@@ -114,6 +114,8 @@ function Records({ shopID }) {
 
     sorter()
 
+    console.log(activeOrders)
+
     function formatDateTime(dateTimeString) {
         const dateTime = new Date(dateTimeString);
 

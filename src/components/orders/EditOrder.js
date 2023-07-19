@@ -195,12 +195,14 @@ function EditOrder(props) {
             return
         } else {
             let newItem = findItem(category, varName)
+            console.log(newItem)
             let schema = {
                 name: newItem.productName,
                 description: newItem.productDescription,
                 category: category,
                 image: newItem.productImages[0],
                 price: newItem.productPrice,
+                profit: newItem.productProfit,
                 unit: newItem.productStock.stockUnit,
                 amount: 1,
                 cartValue: 1,

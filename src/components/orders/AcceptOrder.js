@@ -36,9 +36,6 @@ function AcceptOrder(props) {
           totals = totalPrice + props.order.totals.fees
 
           props.order.totals.order = totalPrice
-
-
-          console.log(props.order)
     }
     
     const appear = {
