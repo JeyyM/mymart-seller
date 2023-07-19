@@ -26,13 +26,19 @@ $graph-height-2: 27vh;
 }
 
 .analytics-row {
-  height: 41vh;
+  height: min-content;
   padding: 0rem 0.5rem 0.5rem 0.5rem;
 }
 
 .analytics-grid {
   display: grid;
-  grid-template-columns: repeat(13, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+  gap: 1rem;
+}
+
+.analytics-grid-second {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
   gap: 1rem;
 }
 
@@ -43,7 +49,25 @@ $graph-height-2: 27vh;
 }
 
 .analytics-preview {
-  grid-column: span 4;
+  grid-column: span 10;
+  background-color: white;
+  height: $graph-height-1;
+  width: 100%;
+  border-radius: 15px;
+  filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+}
+
+.analytics-preview-2 {
+  grid-column: span 7;
+  background-color: white;
+  height: $graph-height-1;
+  width: 100%;
+  border-radius: 15px;
+  filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+}
+
+.analytics-preview-3 {
+  grid-column: span 6;
   background-color: white;
   height: $graph-height-1;
   width: 100%;
@@ -52,6 +76,14 @@ $graph-height-2: 27vh;
 }
 
 .analytics-rank-prev {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  margin: 0;
+  grid-column: span 3;
+}
+
+.analytics-rank-prev-2 {
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
@@ -182,7 +214,7 @@ $graph-height-2: 27vh;
 }
 
 .analytics-prev-small{
-  grid-column: span 3;
+  grid-column: span 4;
 }
 
 .analytics-sales-container{
@@ -298,4 +330,9 @@ $graph-height-2: 27vh;
   padding: 1rem;
   display: flex;
   flex-direction: column;
+}
+
+.show-user-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }

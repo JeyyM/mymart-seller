@@ -15,6 +15,11 @@ function CategoryPerformance({ data, colors }) {
   const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'left',
+      },
+    }
   };
 
   return <>

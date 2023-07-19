@@ -247,7 +247,7 @@ const handleRank4 = () => {
     }
   });
 
-  const startIndex1 = profitSymbol ? 0 : userSortProfit.length - 9;
+  const startIndex1 = profitSymbol ? 0 : Math.max(userSortProfit.length - 9, 0);
   const startIndex2 = boughtSymbol ? 0 : mostBought.length - 9;
 
   const profitColor = "red"

@@ -158,8 +158,8 @@ function Sales(martID) {
     }
   });
 
-  const startIndex1 = boughtSymbol ? 0 : mostBought.length - 50;
-  const startIndex2 = profitSymbol ? 0 : mostProfit.length - 50;
+  const startIndex1 = boughtSymbol ? 0 : Math.max(mostBought.length - 10, 0);
+  const startIndex2 = profitSymbol ? 0 : Math.max(mostProfit.length - 10, 0);
 
   const profitColor = "red"
   const cartValueColor = "blue"

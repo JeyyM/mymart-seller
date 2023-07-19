@@ -8,6 +8,8 @@ import CategoryPerformance from '@/components/Analytics/CategoryPerformance';
 import PieChart from '@/components/Analytics/PieChart';
 import seedrandom from 'seedrandom';
 import ShowUser from '@/components/Analytics/ShowUser';
+import ViewLine from '@/components/Analytics/ViewLine';
+import UserLine from '@/components/Analytics/UserLine';
 
 const DynamicLineChart = dynamic(() => import('../../../components/Analytics/DayLine'), {
   ssr: false,
@@ -18,6 +20,7 @@ const DynamicUserMap = dynamic(() => import('../../../components/Analytics/UserM
 });
 
 function Analytics(martID) {
+  const {screenWidth} = martID
   const router = useRouter()
   const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
   const shopCurrency = martID.shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
@@ -130,8 +133,8 @@ function Analytics(martID) {
     }
   });
 
-  const startIndex1 = boughtSymbol ? 0 : mostBought.length - 10;
-  const startIndex2 = profitSymbol ? 0 : mostProfit.length - 10;
+  const startIndex1 = boughtSymbol ? 0 : Math.max(mostBought.length - 10, 0);
+  const startIndex2 = profitSymbol ? 0 : Math.max(mostProfit.length - 10, 0);
 
   const profitColor = "red"
   const cartValueColor = "blue"
@@ -323,11 +326,20 @@ handleSetUser(data)
         </div>
         <h1 className="heading-primary no-margin">&nbsp;Mart Analytics</h1>
               </span>
+
+              {screenWidth <= 500 && <span className="page-heading">
+        <div className="heading-icon-dropshadow">
+          <div className="heading-icon-sales svg-color">&nbsp;</div>
+        </div>
+        <h1 className="heading-primary no-margin">&nbsp;Sales & Profits</h1>
+              </span>}
       <div className="analytics-container">
         <div className="analytics-row round-borderer round-borderer-extra">
-          <span className="page-heading">
+          <span className="page-heading" style={{marginBottom:"0.5rem"}}>
+          {screenWidth > 500 && <>
             <div className="heading-icon-sales svg-color">&nbsp;</div>
             <h1 className="heading-secondary no-margin">&nbsp;Sales & Profits</h1>
+          </>}
             <select
               value={SelectDate}
               className="text-options text-black"
@@ -342,13 +354,13 @@ handleSetUser(data)
             <Link href={`/${router.query.shopid}/analytics/sales`} className="product-action-2 flex-row-align" style={{ width: "18rem", margin: "0rem 1rem", marginLeft: "auto", height: "3.5rem", textDecoration: "none" }}><h3 className="heading-tertiary margin-side solid-text-color" style={{ transform: "translateY(0rem)" }}>See More</h3></Link>
           </span>
 
-          <div className="analytics-grid">
+          <div className="analytics-grid-second">
             <div className="analytics-preview">
               <DynamicLineChart finishedOrders={finishedOrders} profitColor={profitColor} cartValueColor={cartValueColor} dateBy={SelectDate} />
             </div>
 
-            <div className="analytics-rank-prev round-borderer round-borderer-extra">
-              <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+            {screenWidth > 900 && <div className="analytics-rank-prev round-borderer round-borderer-extra">
+            <div className="flex-row" style={{ paddingBottom: '1rem' }}>
                 <div className="text-sec-popular svg-secondary">&nbsp;</div>
                 <h2 className="heading-secondary">Most Bought</h2>
                 <div className="heading-icon-tune svg-secondary" style={{ marginLeft: 'auto' }} onClick={handleBought}>
@@ -361,15 +373,16 @@ handleSetUser(data)
                 return (
                   <div className="flex-row" key={index}>
                     <Link href={`/${item.url}`} className="heading-tertiary" style={{ textDecoration: 'none' }}>
-                      {position}. {item.name.length > 10 ? item.name.substring(0, 7) + '...' : item.name} -{' '}
-                      {item.category.length > 8 ? item.category.substring(0, 5) + '...' : item.category}
+                      {position}. {item.name.length > 15 ? item.name.substring(0, 12) + '...' : item.name} -{' '}
+                      {item.category.length > 15 ? item.category.substring(0, 12) + '...' : item.category}
                     </Link>
+                    <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>{item.orders} order/s</h3>
                   </div>
                 );
               })}
-            </div>
+            </div>}
 
-            <div className="analytics-rank-prev round-borderer round-borderer-extra">
+           {screenWidth > 1450 && <div className="analytics-rank-prev round-borderer round-borderer-extra">
               <div className="flex-row" style={{ paddingBottom: '1rem' }}>
                 <div className="text-sec-profitable svg-secondary">&nbsp;</div>
                 <h2 className="heading-secondary">Top Grossing</h2>
@@ -383,29 +396,84 @@ handleSetUser(data)
                 return (
                   <div className="flex-row" key={index}>
                     <Link href={`/${item.url}`} className="heading-tertiary" style={{ textDecoration: 'none' }}>
-                      {position}. {item.name.length > 10 ? item.name.substring(0, 7) + '...' : item.name} -{' '}
-                      {item.category.length > 8 ? item.category.substring(0, 5) + '...' : item.category}
+                      {position}. {item.name.length > 15 ? item.name.substring(0, 12) + '...' : item.name} -{' '}
+                      {item.category.length > 15 ? item.category.substring(0, 12) + '...' : item.category}
                     </Link>
+                    <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>Profit: {shopCurrency} {item.profit}</h3>
                   </div>
                 );
               })}
-            </div>
+            </div>}
 
             <div className='flex-col analytics-prev-small'>
             <div className="flex-row-spaceless" style={{margin:"1rem"}}>
-                <div className="text-ter-rank svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Categories by profits</h2>
+                <div className="text-sec-rank svg-secondary">&nbsp;</div><h2 className="heading-secondary margin-vert">&nbsp;Categories by Profits</h2>
               </div>
-            <div className="analytics-age-prev">
+            <div className="analytics-categ-prev">
             <CategoryPerformance data={categories} colors={categoryColors} />
             </div>
             </div>
+
+            {screenWidth <= 900 && <div className="analytics-rank-prev round-borderer round-borderer-extra">
+            <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+                <div className="text-sec-popular svg-secondary">&nbsp;</div>
+                <h2 className="heading-secondary">Most Bought</h2>
+                <div className="heading-icon-tune svg-secondary" style={{ marginLeft: 'auto' }} onClick={handleBought}>
+                  &nbsp;
+                </div>
+              </div>
+              {mostBought.slice(startIndex1, startIndex1 + 10).map((item, index) => {
+                const position = boughtSymbol ? index + 1 : mostBought.length - index;
+
+                return (
+                  <div className="flex-row" key={index}>
+                    <Link href={`/${item.url}`} className="heading-tertiary" style={{ textDecoration: 'none' }}>
+                      {position}. {item.name.length > 15 ? item.name.substring(0, 12) + '...' : item.name} -{' '}
+                      {item.category.length > 15 ? item.category.substring(0, 12) + '...' : item.category}
+                    </Link>
+                    <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>{item.orders} order/s</h3>
+                  </div>
+                );
+              })}
+            </div>}
+
+            {screenWidth <= 1450 && <div className="analytics-rank-prev round-borderer round-borderer-extra">
+              <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+                <div className="text-sec-profitable svg-secondary">&nbsp;</div>
+                <h2 className="heading-secondary">Top Grossing</h2>
+                <div className="heading-icon-tune svg-secondary" style={{ marginLeft: 'auto' }} onClick={handleProfit}>
+                  &nbsp;
+                </div>
+              </div>
+              {mostProfit.slice(startIndex2, startIndex2 + 10).map((item, index) => {
+                const position = profitSymbol ? index + 1 : mostProfit.length - index;
+
+                return (
+                  <div className="flex-row" key={index}>
+                    <Link href={`/${item.url}`} className="heading-tertiary" style={{ textDecoration: 'none' }}>
+                      {position}. {item.name.length > 15 ? item.name.substring(0, 12) + '...' : item.name} -{' '}
+                      {item.category.length > 15 ? item.category.substring(0, 12) + '...' : item.category}
+                    </Link>
+                    <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>Profit: {shopCurrency} {item.profit}</h3>
+                  </div>
+                );
+              })}
+            </div>}
           </div>
         </div>
 
+        {screenWidth <= 500 && <span className="page-heading" style={{marginBottom:"-1.5rem"}}>
+        <div className="heading-icon-dropshadow">
+          <div className="heading-icon-profile svg-color">&nbsp;</div>
+        </div>
+        <h1 className="heading-primary no-margin">&nbsp;User Data</h1>
+              </span>}
         <div className="analytics-row round-borderer round-borderer-extra">
           <span className="page-heading">
+          {screenWidth > 500 && <>
             <div className="heading-icon-profile svg-color">&nbsp;</div>
             <h1 className="heading-secondary no-margin">&nbsp;User Data</h1>
+          </>}
             <select
               value={SelectDate2}
               className="text-options text-black"
@@ -421,7 +489,7 @@ handleSetUser(data)
           </span>
 
           <div className="analytics-grid">
-            <div className="analytics-rank-prev round-borderer round-borderer-extra" style={{ justifyContent: "space-around" }}>
+            {screenWidth > 950 && <div className="analytics-rank-prev-2 round-borderer round-borderer-extra" style={{ justifyContent: "space-around" }}>
               <div className="flex-row" style={{ paddingBottom: '1rem' }}>
                 <div className="text-sec-user-perform svg-secondary">&nbsp;</div>
                 <h2 className="heading-secondary">User Performance</h2>
@@ -453,25 +521,70 @@ handleSetUser(data)
               <div className="flex-row-spaceless">
                 <div className="text-ter-tags svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Spent: {shopCurrency} {(spentSum / userPerformance.length).toFixed(2)}</h2>
               </div>
+            </div>}
+
+            <div className="analytics-preview-2">
+            <ViewLine views={filteredViews} dateBy={SelectDate2} />
             </div>
 
-            <div className='flex-col analytics-prev-small'>
+            {/* <div className='flex-col analytics-prev-small'>
             <div className="flex-row-spaceless" style={{margin:"1rem"}}>
                 <div className="text-ter-cake svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Age: {averageAge.toFixed(2)} years old</h2>
               </div>
             <div className="analytics-age-prev">
+            <ViewLine views={filteredViews} dateBy={SelectDate2} />
               <PieChart data={ageList} colors={ageColors} type="age"/>
             </div>
+            </div> */}
+
+
+            <div className="analytics-preview-3">
+            <UserLine users={filteredNewAccounts} dateBy={SelectDate2} />
             </div>
 
-            <div className='flex-col analytics-prev-small'>
+            {/* <div className='flex-col analytics-prev-small'>
             <div className="flex-row-spaceless" style={{margin:"1rem"}}>
                 <div className="text-ter-gender4 svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Gender Distribution</h2>
               </div>
             <div className="analytics-age-prev">
+            <UserLine users={filteredNewAccounts} dateBy={SelectDate2} />
             <PieChart data={genderList} colors={genderColors} type="gender"/>
             </div>
-            </div>
+            </div> */}
+
+            {screenWidth <= 950 && <div className="analytics-rank-prev-2 round-borderer round-borderer-extra" style={{ justifyContent: "space-around" }}>
+              <div className="flex-row" style={{ paddingBottom: '1rem' }}>
+                <div className="text-sec-user-perform svg-secondary">&nbsp;</div>
+                <h2 className="heading-secondary">User Performance</h2>
+              </div>
+              <div className="flex-row-spaceless">
+                <div className="text-ter-eye svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Mart Views: {timeCount} view/s</h2>
+              </div>
+              <div className="flex-row-spaceless">
+                <div className="text-ter-views-total svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Views: {totalCount} view/s</h2>
+              </div>
+              <div className="flex-row-spaceless">
+                <div className="text-ter-new-users svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;New Users: {filteredNewAccounts.length} user/s</h2>
+              </div>
+              <div className="flex-row-spaceless">
+                <div className="text-ter-user svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Users: {shopAccounts.length} user/s</h2>
+              </div>
+              {/* <div className="flex-row-spaceless">
+                <div className="text-ter-repeat svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Repeat Users: {repeaterCount} user/s</h2>
+              </div> */}
+              <div className="flex-row-spaceless">
+                <div className="text-ter-repeat-user svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Repeat Users: {repeatTotal.length} user/s</h2>
+              </div>
+              <div className="flex-row-spaceless">
+                <div className="text-ter-receipt svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Orders: {(orderSum / userPerformance.length).toFixed(1)} order/s</h2>
+              </div>
+              <div className="flex-row-spaceless">
+                <div className="text-ter-profit svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Profit: {shopCurrency} {(profitSum / userPerformance.length).toFixed(2)}</h2>
+              </div>
+              <div className="flex-row-spaceless">
+                <div className="text-ter-tags svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Spent: {shopCurrency} {(spentSum / userPerformance.length).toFixed(2)}</h2>
+              </div>
+            </div>}
 
             <div className="analytics-location-prev">
             {typeof window !== "undefined" && <DynamicUserMap data={userPerformance} center={shopCenter} colors={coordColors} showuser={showProfile}></DynamicUserMap>}

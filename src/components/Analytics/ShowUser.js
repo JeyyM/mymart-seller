@@ -120,7 +120,7 @@ function ShowUser(props) {
                                     </div>
                                 </span>
 
-                                <div className="grid-col-2" style={{ gap: "1rem" }}>
+                                <div className="show-user-grid" style={{ gap: "1rem" }}>
                                     <div className="user-data-col">
                                         <div className="flex-row">
                                             <div className="text-sec-name svg-secondary">&nbsp;</div><h2 className="heading-secondary">{props.user.username}</h2>

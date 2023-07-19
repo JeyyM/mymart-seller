@@ -34,7 +34,7 @@ function NavMenu(props) {
       <div className="navmenu">
         <div className="menu-decoy"></div>
         <NavMenuItem logo={"category"} label={"Categories & Products"} link={"categories"} exit={props.onClick} function={props.function} title={"Add and edit categories, products, and variations"}></NavMenuItem>
-        <NavMenuItem logo={"insights"} label={"My Analytics"} exit={props.onClick}></NavMenuItem>
+        <NavMenuItem logo={"insights"} label={"My Analytics"} link={"analytics"} exit={props.onClick}></NavMenuItem>
         <NavMenuItem logo={"ongoing"} label={"Ongoing Sales"} link={"orders"} exit={props.onClick}></NavMenuItem>
         <NavMenuItem logo={"receipt"} label={"Customer Records"} link={"records"} exit={props.onClick}></NavMenuItem>
         <NavMenuItem logo={"manage"} label={"My Mart"} link={"mart"} exit={props.onClick} title={"Set about page, descriptions, footers, and details of your mart"}></NavMenuItem>
