@@ -337,7 +337,6 @@ handleSetUser(data)
               <option value="1">Today</option>
               <option value="30">Past 30 Days</option>
               <option value="9999">All Time</option>
-              <option value="-5">Neg</option>
             </select>
 
             <Link href={`/${router.query.shopid}/analytics/sales`} className="product-action-2 flex-row-align" style={{ width: "18rem", margin: "0rem 1rem", marginLeft: "auto", height: "3.5rem", textDecoration: "none" }}><h3 className="heading-tertiary margin-side solid-text-color" style={{ transform: "translateY(0rem)" }}>See More</h3></Link>
@@ -416,7 +415,6 @@ handleSetUser(data)
               <option value="1">Today</option>
               <option value="30">Past 30 Days</option>
               <option value="9999">All Time</option>
-              <option value="-10">Neg</option>
             </select>
 
             <Link href={`/${router.query.shopid}/analytics/user`} className="product-action-2 flex-row-align" style={{ width: "18rem", margin: "0rem 1rem", marginLeft: "auto", height: "3.5rem", textDecoration: "none" }}><h3 className="heading-tertiary margin-side solid-text-color" style={{ transform: "translateY(0rem)" }}>See More</h3></Link>

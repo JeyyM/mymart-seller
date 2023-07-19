@@ -174,6 +174,16 @@
     }
   }
 
+  @media (max-width: 1100px) {
+    .order-container-2 {
+      display: flex;
+  }
+
+  .order-item-2{
+    width: 95vw;
+}
+  }
+
   @media (max-width: 900px) {
     .order-container {
         display: flex;
@@ -186,6 +196,11 @@
     .order-button-grid{
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
+  }
+
+  @media (max-width: 800px) {
+    .user-data-button{
+      width: 15rem;}
   }
 
   @media (max-width: 600px) {
@@ -206,6 +221,12 @@
         display: grid;
         grid-template-columns: 1fr;
       }
+  }
+  @media (max-width: 400px) {
+    .user-data-button{
+      margin: -1rem 0;
+      margin-bottom: 1rem;
+    }
   }
 
   @media (max-width: 350px) {

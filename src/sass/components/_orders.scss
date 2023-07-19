@@ -57,6 +57,14 @@
     padding: 1.5rem 2rem 2rem 2rem;
   }
 
+  .order-container-2 {
+    min-height: calc(100vh - $navbar-height);
+    width: 100%;
+    display: flex;
+    gap: 2rem;
+    padding: 1.5rem 2rem 2rem 2rem;
+  }
+
   .order-column {
     display: flex;
     flex-direction: column;
@@ -93,6 +101,16 @@
   }
   
   .order-item {
+    position: relative;
+    transition: all 0.2s;
+    overflow: hidden;
+    height: min-content;
+    padding: 1rem;
+    width: 47.5vw;
+    margin: 0 auto;
+  }
+  
+  .order-item-2 {
     position: relative;
     transition: all 0.2s;
     overflow: hidden;
@@ -283,4 +301,11 @@
 .refuse-button{
   width: 18rem; 
   margin: 0;
+}
+
+.user-data-button{
+  width: 13rem;
+  margin: 1rem 1rem;
+   height: 4rem;
+  text-decoration: none 
 }

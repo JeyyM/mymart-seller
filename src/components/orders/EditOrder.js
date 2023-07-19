@@ -195,7 +195,6 @@ function EditOrder(props) {
             return
         } else {
             let newItem = findItem(category, varName)
-            console.log(newItem)
             let schema = {
                 name: newItem.productName,
                 description: newItem.productDescription,

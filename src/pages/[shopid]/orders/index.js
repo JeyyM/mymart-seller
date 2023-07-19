@@ -372,8 +372,6 @@ function Orders({ shopID, screenWidth }) {
 
     const removeList = []
 
-    console.log(contents)
-
     if (contents.length > 0) {
         return (
             <Fragment>
@@ -445,7 +443,7 @@ function Orders({ shopID, screenWidth }) {
                                                 <div className={ExpandedOrders.includes(order.id) ? "heading-icon-chevron svg-color rotater transitionAll" : "heading-icon-chevron svg-color transitionAll"}>&nbsp;</div>
                                             </button>
                                             <div className="text-sec-profile svg-tertiary" >&nbsp;</div>
-                                            <h2 className="heading-secondary">&nbsp;{order.user.profile.last}, {order.user.profile.first}</h2>
+                                            <h2 className="heading-secondary">&nbsp;{screenWidth > 1100 ? order.user.profile.last > 15 ? order.user.profile.last.substring(0, 12) + "..." : order.user.profile.last : order.user.profile.last.length > 20 ? order.user.profile.last.substring(0, 17) + "..." : order.user.profile.last}, {screenWidth > 1100 ? order.user.profile.first > 15 ? order.user.profile.first.substring(0, 12) + "..." : order.user.profile.first : order.user.profile.first.length > 20 ? order.user.profile.first.substring(0, 17) + "..." : order.user.profile.first}</h2>
                                         </div>
 
                                         <h2 className="heading-secondary">{order.id}</h2>
@@ -507,7 +505,7 @@ function Orders({ shopID, screenWidth }) {
                                                         <div className="flex-row-align" style={{ justifyContent: "space-between" }}>
                                                             <h2 className="heading-tertiary">&nbsp;Current Stock: {typeof foundProduct !== "object" ? foundProduct : foundProduct.productStock.stockAmount}</h2>
 
-                                                            {screenWidth > 400 && <div className="flex-row">
+                                                            {screenWidth > 450 && <div className="flex-row">
                                                                 <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Cart Amount: {item.cartValue} {item.unit}/s</h2>
                                                             </div>}
                                                         </div>
@@ -515,12 +513,12 @@ function Orders({ shopID, screenWidth }) {
                                                         <div className="flex-row-align" style={{ justifyContent: "space-between" }}>
                                                             <h2 className="heading-tertiary">&nbsp;Price: {typeof foundProduct !== "object" ? foundProduct : `${currency} ${foundProduct.productPrice} / ${foundProduct.productStock.stockUnit}`}</h2>
 
-                                                            {screenWidth > 400 && <div className="flex-row">
+                                                            {screenWidth > 450 && <div className="flex-row">
                                                                 <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total Cost: {currency} {item.cartValue * item.price}</h2>
                                                             </div>}
                                                         </div>
 
-                                                        {screenWidth < 400 && <>
+                                                        {screenWidth < 450 && <>
                                                             <div className="flex-row">
                                                                 <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Cart Amount: {item.cartValue} {item.unit}/s</h2>
                                                             </div>
@@ -586,7 +584,7 @@ function Orders({ shopID, screenWidth }) {
                                                 <div className={ExpandedOrders.includes(order.id) ? "heading-icon-chevron svg-color rotater transitionAll" : "heading-icon-chevron svg-color transitionAll"}>&nbsp;</div>
                                             </button>
                                             <div className="text-sec-profile svg-tertiary" >&nbsp;</div>
-                                            <h2 className="heading-secondary">&nbsp;{order.user.profile.last}, {order.user.profile.first}</h2>
+                                            <h2 className="heading-secondary">&nbsp;{screenWidth > 1100 ? order.user.profile.last > 15 ? order.user.profile.last.substring(0, 12) + "..." : order.user.profile.last : order.user.profile.last.length > 20 ? order.user.profile.last.substring(0, 17) + "..." : order.user.profile.last}, {screenWidth > 1100 ? order.user.profile.first > 15 ? order.user.profile.first.substring(0, 12) + "..." : order.user.profile.first : order.user.profile.first.length > 20 ? order.user.profile.first.substring(0, 17) + "..." : order.user.profile.first}</h2>
                                         </div>
 
                                         <h2 className="heading-secondary">{order.id}</h2>

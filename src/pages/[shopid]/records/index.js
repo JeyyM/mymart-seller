@@ -13,7 +13,7 @@ import AcceptOrder from "@/components/orders/AcceptOrder";
 import FinishOrder from "@/components/orders/FinishOrder";
 import Celebration from "@/components/orders/Celebration";
 
-function Records({ shopID }) {
+function Records({ shopID, screenWidth }) {
     const router = useRouter();
     const SlideHeight = {
         hidden: { opacity: 1, height: 0 },
@@ -107,14 +107,15 @@ function Records({ shopID }) {
             if (index % 2 === 0) {
                 col1.push(order);
             } else if (index % 2 === 1) {
-                col2.push(order);
+                if  (screenWidth > 1100){
+                col2.push(order);} else {
+                    col1.push(order)
+                }
             }
         });
     }
 
     sorter()
-
-    console.log(activeOrders)
 
     function formatDateTime(dateTimeString) {
         const dateTime = new Date(dateTimeString);
@@ -358,12 +359,12 @@ function Records({ shopID }) {
                     <h1 className="heading-primary no-margin">Customer Records</h1>
 
                 </span>
-                <div className="order-container">
+                <div className="order-container-2">
 
                     <div className="order-column">
                         {
                             col1.map((order) => {
-                                const itemClass = `${order.status === "finished" ? "round-borderer round-borderer-extra order-item" : "round-borderer-red order-item"}`
+                                const itemClass = `${order.status === "finished" ? "round-borderer round-borderer-extra order-item-2" : "round-borderer-red order-item-2"}`
 
                                 const [timeDifference, setTimeDifference] = useState('');
 
@@ -402,12 +403,14 @@ function Records({ shopID }) {
                                                 <div className={ExpandedOrders.includes(order.id) ? "heading-icon-chevron svg-color rotater transitionAll" : "heading-icon-chevron svg-color transitionAll"}>&nbsp;</div>
                                             </button>
                                             <div className="text-sec-profile svg-tertiary" >&nbsp;</div>
-                                            <h2 className="heading-secondary">&nbsp;{order.user.profile.last}, {order.user.profile.first}</h2>
-                                            <button onClick={() => handleSetUser(order.user)} className={"product-action-1 flex-row-align"} style={{ width: "12rem", margin: "1rem 1rem", height: "4rem", textDecoration: "none" }}><h3 className={"heading-tertiary margin-side"} style={{ transform: "translateY(0rem)" }}>User Data</h3></button>
+                                            <h2 className="heading-secondary">&nbsp;{screenWidth > 1100 ? order.user.profile.last > 10 ? order.user.profile.last.substring(0, 7) + "..." : order.user.profile.last : order.user.profile.last.length > 15 ? order.user.profile.last.substring(0, 12) + "..." : order.user.profile.last}, {screenWidth > 1100 ? order.user.profile.first > 10 ? order.user.profile.first.substring(0, 7) + "..." : order.user.profile.first : order.user.profile.first.length > 15 ? order.user.profile.first.substring(0, 12) + "..." : order.user.profile.first}</h2>
+                                            {screenWidth > 400 && <button onClick={() => handleSetUser(order.user)} className={"product-action-1 flex-row-align user-data-button"}><h3 className={"heading-tertiary margin-side"} style={{ transform: "translateY(0rem)" }}>User Data</h3></button>}
                                         </div>
 
                                         <h2 className="heading-secondary">{order.id}</h2>
                                     </div>
+
+                                    {screenWidth < 400 && <button onClick={() => handleSetUser(order.user)} className={"product-action-1 flex-row-align user-data-button"}><h3 className={"heading-tertiary margin-side"} style={{ transform: "translateY(0rem)" }}>User Data</h3></button>}
 
                                     <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
                                         <div className="text-ter-calendar svg-tertiary">&nbsp;</div> <h2 className="heading-tertiary">&nbsp;On: {formatDateTime(order.currentTime)} for&nbsp;</h2> {order.mode === "delivery" ? <div className="text-ter-shipping svg-tertiary">&nbsp;</div> : <div className="text-ter-basket svg-tertiary">&nbsp;</div>} <h2 className="heading-tertiary">&nbsp;<span style={{ fontWeight: "900" }}>{order.mode}</span></h2>
@@ -417,8 +420,10 @@ function Records({ shopID }) {
                                         <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
                                             {order.status === "finished" ? <div className="text-ter-finished svg-tertiary">&nbsp;</div> : <div className="text-ter-refused svg-tertiary">&nbsp;</div>} <h2 className="heading-tertiary">&nbsp;<span style={{ fontWeight: "900" }}>{order.status === "finished" ? "Finished" : order.status === "refused" ? "Refused" : "Cancelled"} On: {formatDateTime(order.finishedOn)}</span></h2>
                                         </div>
-                                        <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total: {currency} {order.totals.order + order.totals.fees}</h2>
+                                        {screenWidth >= 1100 || (screenWidth < 900 && screenWidth >= 400) ?(<h2 className="heading-tertiary" style={{ fontWeight: "900" }}> Total: {currency} {order.totals.order + order.totals.fees}</h2>) : null}
                                     </div>
+                                    {(screenWidth < 900 && screenWidth >= 400) || screenWidth < 1100 && <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total: {currency} {order.totals.order + order.totals.fees}</h2>}
+
                                     <textarea
                                         rows='3'
                                         value={order.message.length === 0 ? "No message" : order.message}
@@ -445,28 +450,38 @@ function Records({ shopID }) {
                                                     <div className="flex-col">
 
                                                         <div className="flex-row">
-                                                            <Link style={{ marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{item.name} - {item.category}&nbsp;</Link>
+                                                        <Link style={{ marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{screenWidth > 400 ? item.name.length > 15 ? item.name.substring(0, 12) + "..." : item.name : item.name.length > 10 ? item.name.substring(0, 7) + "..." : item.name}&nbsp;</Link>
 
                                                             <div className="flex-row" style={{ margin: "1rem" }}>
                                                                 <h2 className="heading-tertiary whiteSpace">{typeof foundProduct !== "object" ? foundProduct : foundProduct.active ? "Active" : "Inactive"}&nbsp;</h2> {typeof foundProduct !== "object" ? <div className="order-missing">&nbsp;</div> : foundProduct.active ? <div className="order-active">&nbsp;</div> : <div className="order-inactive">&nbsp;</div>}
                                                             </div>
                                                         </div>
+                                                        <Link style={{ margin:"0.5rem 0", marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{screenWidth > 400 ? item.category.length > 15 ? item.category.substring(0, 12) + "..." : item.category : item.category.length > 10 ? item.category.substring(0, 7) + "..." : item.category}&nbsp;</Link>
+
 
                                                         <div className="flex-row-align" style={{ justifyContent: "space-between" }}>
                                                             <h2 className="heading-tertiary">&nbsp;Current Stock: {typeof foundProduct !== "object" ? foundProduct : foundProduct.productStock.stockAmount}</h2>
 
-                                                            <div className="flex-row">
+                                                            {screenWidth > 450 && <div className="flex-row">
                                                                 <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Cart Amount: {item.cartValue} {item.unit}/s</h2>
-                                                            </div>
+                                                            </div>}
                                                         </div>
 
                                                         <div className="flex-row-align" style={{ justifyContent: "space-between" }}>
                                                             <h2 className="heading-tertiary">&nbsp;Price: {typeof foundProduct !== "object" ? foundProduct : `${currency} ${foundProduct.productPrice} / ${foundProduct.productStock.stockUnit}`}</h2>
 
+                                                            {screenWidth > 450 && <div className="flex-row">
+                                                                <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total Cost: {currency} {item.cartValue * item.price}</h2>
+                                                            </div>}
+                                                        </div>
+                                                        {screenWidth < 450 && <>
+                                                            <div className="flex-row">
+                                                                <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Cart Amount: {item.cartValue} {item.unit}/s</h2>
+                                                            </div>
                                                             <div className="flex-row">
                                                                 <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total Cost: {currency} {item.cartValue * item.price}</h2>
                                                             </div>
-                                                        </div>
+                                                        </>}
 
                                                     </div>
                                                 </div>
@@ -483,10 +498,12 @@ function Records({ shopID }) {
 
                     </div>
 
+                    {screenWidth > 1100 && <div className="order-column">
+                    {
                     <div className="order-column">
                     {
                             col2.map((order) => {
-                                const itemClass = `${order.status === "finished" ? "round-borderer round-borderer-extra order-item" : "round-borderer-red order-item"}`
+                                const itemClass = `${order.status === "finished" ? "round-borderer round-borderer-extra order-item-2" : "round-borderer-red order-item-2"}`
 
                                 const [timeDifference, setTimeDifference] = useState('');
 
@@ -525,8 +542,8 @@ function Records({ shopID }) {
                                                 <div className={ExpandedOrders.includes(order.id) ? "heading-icon-chevron svg-color rotater transitionAll" : "heading-icon-chevron svg-color transitionAll"}>&nbsp;</div>
                                             </button>
                                             <div className="text-sec-profile svg-tertiary" >&nbsp;</div>
-                                            <h2 className="heading-secondary">&nbsp;{order.user.profile.last}, {order.user.profile.first}</h2>
-                                            <button onClick={() => handleSetUser(order.user)} className={"product-action-1 flex-row-align"} style={{ width: "12rem", margin: "1rem 1rem", height: "4rem", textDecoration: "none" }}><h3 className={"heading-tertiary margin-side"} style={{ transform: "translateY(0rem)" }}>User Data</h3></button>
+                                            <h2 className="heading-secondary">&nbsp;{screenWidth > 1100 ? order.user.profile.last > 10 ? order.user.profile.last.substring(0, 7) + "..." : order.user.profile.last : order.user.profile.last.length > 15 ? order.user.profile.last.substring(0, 12) + "..." : order.user.profile.last}, {screenWidth > 1100 ? order.user.profile.first > 10 ? order.user.profile.first.substring(0, 7) + "..." : order.user.profile.first : order.user.profile.first.length > 15 ? order.user.profile.first.substring(0, 12) + "..." : order.user.profile.first}</h2>
+                                            <button onClick={() => handleSetUser(order.user)} className={"product-action-1 flex-row-align user-data-button"}><h3 className={"heading-tertiary margin-side"} style={{ transform: "translateY(0rem)" }}>User Data</h3></button>
                                         </div>
 
                                         <h2 className="heading-secondary">{order.id}</h2>
@@ -540,8 +557,10 @@ function Records({ shopID }) {
                                         <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
                                             {order.status === "finished" ? <div className="text-ter-finished svg-tertiary">&nbsp;</div> : <div className="text-ter-refused svg-tertiary">&nbsp;</div>} <h2 className="heading-tertiary">&nbsp;<span style={{ fontWeight: "900" }}>{order.status === "finished" ? "Finished" : order.status === "refused" ? "Refused" : "Cancelled"} On: {formatDateTime(order.finishedOn)}</span></h2>
                                         </div>
-                                        <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total: {currency} {order.totals.order + order.totals.fees}</h2>
+                                        {screenWidth >= 1100 || (screenWidth < 900 && screenWidth >= 400) ?(<h2 className="heading-tertiary" style={{ fontWeight: "900" }}> Total: {currency} {order.totals.order + order.totals.fees}</h2>) : null}
                                     </div>
+                                    {(screenWidth < 900 && screenWidth >= 400) || screenWidth < 1100 && <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total: {currency} {order.totals.order + order.totals.fees}</h2>}
+
                                     <textarea
                                         rows='3'
                                         value={order.message.length === 0 ? "No message" : order.message}
@@ -568,12 +587,14 @@ function Records({ shopID }) {
                                                     <div className="flex-col">
 
                                                         <div className="flex-row">
-                                                            <Link style={{ marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{item.name} - {item.category}&nbsp;</Link>
+                                                        <Link style={{ marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{screenWidth > 400 ? item.name.length > 15 ? item.name.substring(0, 12) + "..." : item.name : item.name.length > 10 ? item.name.substring(0, 7) + "..." : item.name}&nbsp;</Link>
 
                                                             <div className="flex-row" style={{ margin: "1rem" }}>
                                                                 <h2 className="heading-tertiary whiteSpace">{typeof foundProduct !== "object" ? foundProduct : foundProduct.active ? "Active" : "Inactive"}&nbsp;</h2> {typeof foundProduct !== "object" ? <div className="order-missing">&nbsp;</div> : foundProduct.active ? <div className="order-active">&nbsp;</div> : <div className="order-inactive">&nbsp;</div>}
                                                             </div>
                                                         </div>
+                                                        <Link style={{ margin:"0.5rem 0", marginRight: "auto" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{screenWidth > 400 ? item.category.length > 15 ? item.category.substring(0, 12) + "..." : item.category : item.category.length > 10 ? item.category.substring(0, 7) + "..." : item.category}&nbsp;</Link>
+
 
                                                         <div className="flex-row-align" style={{ justifyContent: "space-between" }}>
                                                             <h2 className="heading-tertiary">&nbsp;Current Stock: {typeof foundProduct !== "object" ? foundProduct : foundProduct.productStock.stockAmount}</h2>
@@ -604,6 +625,8 @@ function Records({ shopID }) {
                             })
                         }
                     </div>
+                }
+                    </div>}
 
                 </div>
             </Fragment>
