@@ -1,5 +1,5 @@
 import { motion, AnimatePresence, } from "framer-motion";
-import { Fragment, use } from "react";
+import { Fragment, useMemo } from "react";
 import { useState, useEffect } from "react";
 import Backdrop from "../Modal/Backdrop";
 import { useRouter } from "next/router";
@@ -12,10 +12,35 @@ function AcceptOrder(props) {
     const router = useRouter()
     const colormode = props.colormode
     let totals = 0
-    if (props.modalStatus){
-        totals = props.order.totals.order + props.order.totals.fees
-    }
+    let filteredOrders = []
+    let removedItems = []
 
+    if (props.modalStatus){
+        filteredOrders = props.order.order.filter(order => {
+            return !props.removeList.some(pair => pair[0] === order.name && pair[1] === order.category);
+          });
+
+          removedItems = props.order.order.filter(order => {
+            return props.removeList.some(pair => pair[0] === order.name && pair[1] === order.category);
+          });
+
+          const removedItemsTotalPrice = removedItems.reduce((total, item) => total + parseFloat(item.price), 0);
+
+          props.order.order = filteredOrders
+          const totalPrice = filteredOrders.reduce((total, item) => {
+            const price = parseFloat(item.price);
+            const cartValue = item.cartValue;
+            return total + (price * cartValue);
+          }, 0);
+
+          totals = totalPrice + props.order.totals.fees
+
+          props.order.totals.order = totalPrice
+
+
+          console.log(props.order)
+    }
+    
     const appear = {
         hidden: {
             transform: "scale(0)",
@@ -145,7 +170,7 @@ function AcceptOrder(props) {
                                     <h2 className="heading-primary no-margin">Accept Order?</h2>
                                 </span>
 
-                                <h2 className="heading-tertiary" style={{ margin: "1rem" }}>Upon accepting, the order will be put into the approved orders. You may unapprove or finish this order there. The customer will be notified of approved orders.</h2>
+                                <h2 className="heading-tertiary" style={{ margin: "1rem" }}>Upon accepting, the order will be put into the approved orders. You may unapprove or finish this order there. The customer will be notified of approved orders. Orders which were renamed, removed, or have deleted categories will be ignored. Empty orders will still be accepted.</h2>
 
                                 {/* Are you sure you want to refuse the order? Upon refusing, the customer won't be charged. This order will be put into the customer records. Data such as the stock will be returned. This cannot be undone. */}
 

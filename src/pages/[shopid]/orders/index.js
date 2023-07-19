@@ -374,6 +374,8 @@ function Orders({ shopID, screenWidth }) {
     const ongoingText = `${buttonMode ? "heading-tertiary margin-side solid-text-color" : "heading-tertiary margin-side"}`
     const acceptText = `${buttonMode ? "heading-tertiary margin-side" : "heading-tertiary margin-side solid-text-color"}`
 
+    const removeList = []
+
     if (contents.length > 0) {
         return (
             <Fragment>
@@ -384,7 +386,7 @@ function Orders({ shopID, screenWidth }) {
                 <EditOrder modalStatus={SetEdit} order={selectedOrder} disable={editClose} change={changeOrder} categories={shopCategories} currency={currency} takebacks={takebacks} screenWidth={screenWidth}></EditOrder>
                 <UserProfile modalStatus={SetUser} user={selectedUser} disable={userClose} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords}></UserProfile>
                 <RefuseOrder modalStatus={refuse} user={selectedUser} disable={refuseClose} change={finishRefusal} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder}></RefuseOrder>
-                <AcceptOrder modalStatus={accept} user={selectedUser} disable={acceptClose} change={finishAccept} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder} colormode={defaultColor} design={design} screenWidth={screenWidth}></AcceptOrder>
+                <AcceptOrder modalStatus={accept} user={selectedUser} disable={acceptClose} change={finishAccept} currency={currency} martCoords={shopData.shopDetails.footerData.shopCoords} order={selectedOrder} colormode={defaultColor} design={design} screenWidth={screenWidth} removeList={removeList}></AcceptOrder>
 
                 <span className="page-heading">
                     <div className="heading-icon-dropshadow">
@@ -483,7 +485,9 @@ function Orders({ shopID, screenWidth }) {
 
                                         {order.order.map((item, index) => {
                                             let foundProduct = findItem(item.category, item.name)
-
+                                            if (foundProduct === "Missing Product" || foundProduct === "Category Missing"){
+                                                removeList.push([item.name, item.category])
+                                            }
 
                                             return <div className="flex-row flex-centered dark-underline" style={{ marginBottom: "1rem", paddingBottom: "1rem" }} key={index}>
 
@@ -623,7 +627,9 @@ function Orders({ shopID, screenWidth }) {
 
                                         {order.order.map((item, index) => {
                                             let foundProduct = findItem(item.category, item.name)
-
+                                            if (foundProduct === "Missing Product" || foundProduct === "Category Missing"){
+                                                removeList.push([item.name, item.category])
+                                            }
 
                                             return <div className="flex-row flex-centered dark-underline" style={{ marginBottom: "1rem", paddingBottom: "1rem" }} key={index}>
 
