@@ -28,6 +28,7 @@ const DynamicUserMap = dynamic(() => import('../../../components/Analytics/UserM
 });
 
 function Sales(martID) {
+  const {screenWidth} = martID
   const router = useRouter()
   const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
   const shopCurrency = martID.shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
@@ -341,38 +342,46 @@ function Sales(martID) {
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-sales svg-color">&nbsp;</div>
         </div>
-        <h1 className="heading-primary no-margin">&nbsp;Sales & Profits</h1>
+        <h1 className="heading-primary no-margin"  style={{ fontSize: `${screenWidth > 425 ? "3.5rem" : screenWidth > 360 ? "3rem" : "2.5rem"}`}}>&nbsp;Sales & Profits</h1>
         <select
           value={SelectDate}
           className="text-options text-black"
-          style={{ width: "20rem", marginLeft: "1rem" }}
+          style={{ width: `${screenWidth > 480 ? "20rem" : screenWidth > 400 ? "16rem" : "13rem"}`, marginLeft: "1rem" }}
           onChange={(event) => handleSelectDate(event)}
         >
           <option value="1">Today</option>
           <option value="30">Past 30 Days</option>
           <option value="9999">All Time</option>
         </select>
-        <button onClick={handleDownload} className="add-categ-init" style={{ width: "17rem", marginLeft:"auto", marginRight:"1rem" }}><h2 className='margin-side heading-tertiary'>Download CSV</h2></button>
+        <button onClick={handleDownload} className="add-categ-init" style={{ width: `${screenWidth > 580 ? "18rem" : screenWidth > 425 ? "14rem" : "11rem"}`, marginLeft:"auto", marginRight:"1rem", height: `${screenWidth > 580 ? "4rem" : "7rem"}` }}><h2 className='margin-side heading-tertiary'>Download CSV</h2></button>
       </span>
 
       <div className='analytics-sales-container'>
-        <div>
+        <div className='analytics-sales-1'>
           <div className='flex-row' style={{ justifyContent:"space-between" }}>
             <div className="flex-row" style={{ paddingBottom: '1rem' }}>
               <div className="text-sec-cube svg-secondary">&nbsp;</div>
               <h2 className="heading-secondary">Total Buys: {totalUnits} unit/s</h2>
             </div>
-            <div className="flex-row" style={{ paddingBottom: '1rem', marginRight:"1rem" }}>
+            {screenWidth > 500 && <div className="flex-row" style={{ paddingBottom: '1rem', marginRight:"1rem" }}>
+              <div className="text-sec-profit svg-secondary">&nbsp;</div>
+              <h2 className="heading-secondary">Total Profits: {shopCurrency} {totalProfit}</h2>
+            </div>}
+          </div>
+
+          {screenWidth < 500 && <div className='flex-row' style={{ justifyContent:"space-between" }}>
+            <div className="flex-row" style={{ paddingBottom: '1rem' }}>
               <div className="text-sec-profit svg-secondary">&nbsp;</div>
               <h2 className="heading-secondary">Total Profits: {shopCurrency} {totalProfit}</h2>
             </div>
-          </div>
+          </div>}
+
           <div className='analytics-sales-cell'>
             <DynamicLineChart finishedOrders={finishedOrders} profitColor={profitColor} cartValueColor={cartValueColor} dateBy={SelectDate} />
           </div>
         </div>
 
-        <div>
+        <div className='analytics-sales-1'>
           <div className='flex-row' style={{ justifyContent: "space-between", margin: "0.5rem" }}>
             <div className="flex-row" style={{ paddingBottom: '0rem' }}>
               <div className="text-sec-rank svg-tertiary">&nbsp;</div>
@@ -386,7 +395,7 @@ function Sales(martID) {
           </div>
         </div>
 
-        <div>
+        <div className='analytics-sales-1'>
           <div className='flex-row' style={{ justifyContent: "space-between", margin: "0.5rem" }}>
             <div className="flex-row" style={{ paddingBottom: '0rem' }}>
               {rank2 === 1 ? <><div className="text-sec-profit svg-tertiary">&nbsp;</div></> : rank2 === 2 ? <><div className="text-sec-cube svg-tertiary">&nbsp;</div></> : <div className="text-sec-average svg-tertiary">&nbsp;</div>}
@@ -400,14 +409,15 @@ function Sales(martID) {
           </div>
         </div>
 
-        <div>
+        <div className='analytics-sales-1'>
           <div className='flex-row' style={{ justifyContent: "space-between" }}>
             <div className="flex-row-spaceless" style={{ paddingBottom: '0rem' }}>
             <div className="text-sec-category svg-tertiary">&nbsp;</div>
               <select
                 value={selectedCategory}
                 className="text-options text-black"
-                style={{ width: "32rem", transform:"translateY(-1rem) scale(90%)" }}
+
+                style={{ width: `${screenWidth > 500 ? "32rem" : screenWidth > 450 ? "25rem" : screenWidth > 410 ? "20rem" : "15rem"}`, transform:"translateY(-1rem) scale(90%)" }}
                 onChange={(event, index) => setSelectedCategory(event.target.value)}
               >
               {categoriesList.map((item, index) => {
@@ -416,7 +426,9 @@ function Sales(martID) {
 
               }
               </select>
-              <h2 className='heading-secondary'>Products By {rank3 === 1 ? <>Profits</> : rank3 === 2 ? <>Buys</> : "Both"}</h2>
+              <h1 className="heading-secondary no-margin"  style={{ fontSize: `${screenWidth > 425 ? "3rem" : screenWidth > 340 ? "2.5rem" : "2rem"}`}}>Products By {rank3 === 1 ? <>Profits</> : rank3 === 2 ? <>Buys</> : "Both"}</h1>
+
+              {/* <h2 className='heading-secondary'>Products By {rank3 === 1 ? <>Profits</> : rank3 === 2 ? <>Buys</> : "Both"}</h2> */}
             </div>
 
             <div className='flex-row' style={{marginRight:"1rem"}}>
@@ -475,27 +487,26 @@ function Sales(martID) {
               })}
             </div>
 
-            <span className="page-heading">
+            <span className="page-heading" style={{gridColumn:"span 2"}}>
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-fulfillment svg-color">&nbsp;</div>
         </div>
         <h1 className="heading-primary no-margin">&nbsp;Fulfillment Method</h1>
       </span>
-      <div></div>
 
-      <div>
+      <div className='analytics-sales-2'>
           <div className='flex-row' style={{ justifyContent:"space-between" }}>
             <div className="flex-row" style={{ paddingBottom: '1rem' }}>
               <div className="text-sec-shipping svg-secondary">&nbsp;</div>
               <h2 className="heading-secondary">{deliveryCount} Deliveries for {shopCurrency} {deliverySum}</h2>
             </div>
           </div>
-          <div className='analytics-sales-cell'>
+          <div className='analytics-sales-cell-2'>
             <FulfillmentLine finishedOrders={finishedOrders} profitColor={profitColor} cartValueColor={cartValueColor} dateBy={SelectDate} />
           </div>
         </div>
 
-        <div>
+        <div className='analytics-sales-2'>
           <div className='flex-row' style={{ justifyContent:"space-between" }}>
             <div className="flex-row" style={{ paddingBottom: '1rem' }}>
               <div className="text-sec-basket svg-secondary">&nbsp;</div>
@@ -504,7 +515,7 @@ function Sales(martID) {
             <div className="heading-icon-tune svg-secondary" onClick={handleRank5} style={{marginRight:"1rem"}}>&nbsp;</div>
 
           </div>
-          <div className='analytics-sales-cell'>
+          <div className='analytics-sales-cell-2'>
               <FulfillmentPie ds={deliverySum} dc={deliveryCount} ps={pickupSum} pc={pickupCount} chosen={rank5}></FulfillmentPie>
           </div>
         </div>
