@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import Acc1 from "@/components/design/Acc1";
 import Acc2 from "@/components/design/Acc3";
 import Acc3 from "@/components/design/Acc2";
+import Preview from "@/components/design/Preview";
+import Palette from "@/components/design/Palette";
 
 import { ChromePicker } from "react-color";
 import chroma from 'chroma-js';
@@ -19,7 +21,7 @@ import CopyNotifier from "@/components/Modal/Copy-Notifier";
 import tinycolor from 'tinycolor2';
 
 
-function Designing({ shopID }) {
+function Designing({ shopID, screenWidth }) {
   const router = useRouter()
   const designs = shopID.shopData.shopDesigns
   const favicon = shopID.shopData.shopDetails.imageData.icons.icon
@@ -429,7 +431,7 @@ function Designing({ shopID }) {
 
   function copyItem(color) {
     navigator.clipboard.writeText(color)
-    setNotification(true)
+    // setNotification(true)
   }
 
   const [primaryContrast, setPrimaryContrast] = useState(0)
@@ -510,6 +512,30 @@ function Designing({ shopID }) {
     setTertiaryAcc(!tertiaryAcc)
   }
 
+  const [DesignPreview, setDesignPreview] = useState(false)
+  const handleDesignPreview = () => {
+    setDesignPreview(!DesignPreview)
+  }
+
+  const [PalettePreview, setPalettePreview] = useState(false)
+  const handlePalettePreview = () => {
+    setPalettePreview(!PalettePreview)
+  }
+
+  const [EditActive, setEditActive] = useState(false);
+
+  const originalEdit = {
+    margin: "1rem",
+    backgroundImage: `linear-gradient(${bgItem}, ${bgItem}), linear-gradient(${LightColor}, ${DarkColor})`,
+  };
+
+  const activeEdit = {
+    filter: "brightness(120%)",
+    boxShadow: `inset 0 0 0 10px ${bgItem}, 0 0 0 2px ${DarkColor}, 0 0 0 4px ${bgItem}`,
+  };
+
+  const editFinal = EditActive ? { ...originalEdit, ...activeEdit } : originalEdit;
+
   return <Fragment>
     <Head>
       <title>Design Mart</title>
@@ -518,15 +544,42 @@ function Designing({ shopID }) {
       </style>
       <link rel="icon" type="image/jpeg" href={favicon} />
     </Head>
+    <div className="design-prev-set">
+      <button className="product-action-1 design-prev-button" onClick={handlePalettePreview}>
+        <div className="palette-preview svg-outline margin-side">&nbsp;</div>
+      </button>
 
+      <button className="product-action-1 design-prev-button" onClick={handleDesignPreview}>
+        <div className="eye-preview svg-outline margin-side">&nbsp;</div>
+      </button>
+    </div>
+
+    <Preview modalStatus={DesignPreview} disable={handleDesignPreview} bgBody={bgBody}
+      DarkColor={DarkColor} LightColor={LightColor} textPrimary={textPrimary}
+      textPrimaryFont={textPrimaryFont} borderTL={borderTL} borderTR={borderTR}
+      borderBL={borderBL} borderBR={borderBR} bgItem={bgItem} textSecondary={textSecondary}
+      textSecondaryFont={textSecondaryFont} textTertiary={textTertiary} textTertiaryFont={textTertiaryFont}
+      setIsClicked={setIsClicked} setIsClicked2={setIsClicked2} setIsClicked3={setIsClicked3}
+      outlineDark={outlineDark} outlineLight={outlineLight} outlineText={outlineText} solidText={solidText} solidDark={solidDark}
+      solidLight={solidLight} handlePrimaryAcc={handlePrimaryAcc} handleSecondaryAcc={handleSecondaryAcc}
+      handleTertiaryAcc={handleTertiaryAcc} primaryContrast={primaryContrast} primaryContrastBg={primaryContrastBg}
+      primaryContrastText={primaryContrastText} secondaryContrast={secondaryContrast} secondaryContrastBg={secondaryContrastBg}
+      secondaryContrastText={secondaryContrastText} tertiaryContrast={tertiaryContrast} tertiaryContrastBg={tertiaryContrastBg}
+      tertiaryContrastText={tertiaryContrastText} isClicked={isClicked} isClicked2={isClicked2} isClicked3={isClicked3} shopCurrency={shopCurrency}
+      editFinal={editFinal} setEditActive={setEditActive}
+    ></Preview>
+    
+    <Palette modalStatus={PalettePreview} disable={handlePalettePreview} color={color} setColor={setColor} activeMode={activeMode}
+      copyHex={copyHex} fetchChroma={fetchChroma} copyItem={copyItem} chromaItems={chromaItems}
+    ></Palette>
 
     <Acc1 disable={handlePrimaryAcc} modalStatus={primaryAcc} value={primaryContrast} color={primaryContrastText} bg={primaryContrastBg}></Acc1>
     <Acc2 disable={handleSecondaryAcc} modalStatus={secondaryAcc} value={secondaryContrast} color={secondaryContrastText} bg={secondaryContrastBg}></Acc2>
     <Acc3 disable={handleTertiaryAcc} modalStatus={tertiaryAcc} value={tertiaryContrast} color={tertiaryContrastText} bg={tertiaryContrastBg}></Acc3>
-    <CopyNotifier
+    {/* <CopyNotifier
       status={notification}
       disable={() => { setNotification(false) }}
-    />
+    /> */}
 
 
     <div className="design-grid">
@@ -539,27 +592,56 @@ function Designing({ shopID }) {
         </span>
 
         <div className="color-moder item-setup">
-          <h2 className="heading-secondary">Color Theme</h2>
-          <a className="theme-button x" href="light"><div className="button-theme-moon svg-color">&nbsp;</div></a>
-          <button aria-label="Set Default Color Theme" className="product-action-2-small heading-secondary" disabled={loading} onClick={setAsDefault}>Set Default</button>
+          {screenWidth <= 900 && <div className="flex-row flex-row-align">
+            <div className="margin-side flex-row-align set-default">
+              <h2 className="heading-secondary" style={{ wordBreak: "break-word" }}>Color Theme</h2>
+              <a className="theme-button x" href="light"><div className="button-theme-moon svg-color">&nbsp;</div></a>
+              <button aria-label="Set Default Color Theme" className="product-action-2-small heading-secondary" disabled={loading} onClick={setAsDefault} style={{ margin: "0" }}>Set Default</button>
+            </div>
+          </div>}
+          {screenWidth > 900 && <h2 className="heading-secondary">Color Theme</h2>}
+          {screenWidth > 900 && <a className="theme-button x" href="light"><div className="button-theme-moon svg-color">&nbsp;</div></a>}
+          {screenWidth > 900 && <button aria-label="Set Default Color Theme" className="product-action-2-small heading-secondary" disabled={loading} onClick={setAsDefault}>Set Default</button>}
         </div>
 
-        <div style={{ height: "22em", overflow: "hidden" }}>
-          <ChromePicker color={color} onChange={updatedColor => setColor(updatedColor)} className="color-picker" disableAlpha={true} renderers={{ hex: ChromePicker }} styles={{ default: { picker: { backgroundColor: `${activeMode["bg-body"]}` } } }}></ChromePicker>
-        </div>
-
-        <input onFocus={copyHex} onTouchStart={copyHex} type="text" placeholder="HEXCODE" className="text-small input-number" autoComplete="off" style={{ width: "50%", margin: "0 auto" }} value={color.hex}></input>
+        {screenWidth > 900 && <>
+          <div style={{ height: "22em", overflow: "hidden" }}>
+            <ChromePicker color={color} onChange={updatedColor => setColor(updatedColor)} className="color-picker" disableAlpha={true} renderers={{ hex: ChromePicker }} styles={{ default: { picker: { backgroundColor: `${activeMode["bg-body"]}` } } }}></ChromePicker>
+          </div>
+          <input onFocus={copyHex} onTouchStart={copyHex} type="text" placeholder="HEXCODE" className="text-small input-number" autoComplete="off" style={{ width: "50%", margin: "0 auto" }} value={color.hex}></input>
+        </>}
 
         <div className="design-conf-buttons">
-          <div className="text-group" style={{ marginBottom: "1rem" }}>
+          <div className="buttons-group" style={{ marginBottom: "1rem" }}>
             <button aria-label="Hard Reset" className="product-action-3 heading-secondary white" type="button" style={{ margin: "0rem", width: "100%" }} onClick={() => { hardReset(themeSet1) }} disabled={loading}>Hard Reset</button>
             <button aria-label="Soft Reset" className="product-action-1 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }} onClick={softReset} disabled={loading}>Reset</button>
+            {screenWidth <= 400 || screenWidth <= 900 && <button aria-label="Submit" className="product-action-2 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }} onClick={onSubmit} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit")}</button>}
           </div>
-          <button aria-label="Submit" className="product-action-2 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }} onClick={onSubmit} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit")}</button>
+          {screenWidth > 900 && <button aria-label="Submit" className="product-action-2 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }} onClick={onSubmit} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit")}</button>}
+          {screenWidth <= 400 && <button aria-label="Submit" className="product-action-2 heading-secondary" type="button" style={{ margin: "0rem", width: "100%" }} onClick={onSubmit} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit")}</button>}
         </div>
+
+        {screenWidth <= 900 && <>
+          <span className="page-heading flex-row-align">
+            <div className="heading-icon-dropshadow">
+              <div className="heading-icon-moon svg-color">&nbsp;</div>
+            </div>
+            <h1 className="heading-secondary no-margin">Dark Themes</h1>
+          </span>
+
+          <div className="theme-set-grid">
+            <ThemePack themeSet={themeSet1} set={setAllTheme}></ThemePack>
+
+            <ThemePack themeSet={themeSet2} set={setAllTheme}></ThemePack>
+
+            <ThemePack themeSet={themeSet3} set={setAllTheme}></ThemePack>
+
+            <ThemePack themeSet={themeSet4} set={setAllTheme}></ThemePack>
+          </div>
+        </>}
       </div>
 
-      <div className="design-col-2">
+      {screenWidth > 900 && <div className="design-col-2">
         <span className="page-heading flex-row-align">
           <div className="heading-icon-dropshadow">
             <div className="heading-icon-moon svg-color">&nbsp;</div>
@@ -584,8 +666,7 @@ function Designing({ shopID }) {
         <button aria-label="Submit" className="product-action-1" onClick={fetchChroma} style={{ margin: "0rem auto", width: "20rem", height: "6rem" }}>Randomize</button>
 
         <ThemePack2 themeSet={chromaItems} copy={copyItem}></ThemePack2>
-
-      </div>
+      </div>}
 
       <div className="design-col-3">
         <div className="design-primary item-setup">
@@ -652,7 +733,7 @@ function Designing({ shopID }) {
         </div>
       </div>
 
-      <div className="design-col-4">
+      {screenWidth > 1350 && <div className="design-col-4">
         <div className="design-demo item-setup-dark" style={{
           backgroundImage: `linear-gradient( to right, ${bgBody}, ${bgBody}), 
         linear-gradient( to right, ${DarkColor}, ${LightColor})`, boxShadow: `inset 0 0 0 2rem ${bgBody}`
@@ -672,6 +753,15 @@ function Designing({ shopID }) {
                 borderRadius: `${borderTL}px ${borderTR}px ${borderBR}px ${borderBL}px`, cursor: "pointer",
                 backgroundImage: `linear-gradient(${bgItem}, ${bgItem}), linear-gradient(${LightColor}, ${DarkColor})`, ... (isHovered ? categorySampleHover : {}), ...(isClicked ? categorySampleClick : {}),
               }}>
+
+              <button
+                className="categ-edit-button-prev"
+                style={editFinal}
+                onMouseDown={() => setEditActive(true)}
+                onMouseUp={() => setEditActive(false)}
+              >
+                <div className="heading-icon-edit" style={{ backgroundImage: `linear-gradient(${LightColor}, ${DarkColor})` }}>&nbsp;</div>
+              </button>
 
               <div className="image-container-demo" style={{ borderImage: `linear-gradient(45deg, ${DarkColor}, ${LightColor}) 1`, backgroundColor: `${bgItem}` }}>
                 <img src="/categories.jpg" className="category-img" alt="Sample Image"></img>
@@ -728,10 +818,8 @@ function Designing({ shopID }) {
             <button aria-label="Tertiary accessibility button" onClick={handleTertiaryAcc} className="contrast-init" style={tertiaryContrastBg}><h2 className={tertiaryContrastText}>{tertiaryContrast >= 7 ? <div className="heading-icon-full-star" style={{ background: "linear-gradient(to right, #285430, #285430)" }}>&nbsp;</div> : tertiaryContrast >= 4.5 ? <div className="heading-icon-half-star" style={{ background: "linear-gradient(to right, #3b2f01, #3b2f01)" }}>&nbsp;</div> : <div className="heading-icon-no-star" style={{ background: "linear-gradient(to right, #540804, #540804)" }}>&nbsp;</div>} {tertiaryContrast}</h2></button><h2 className="heading-tertiary-demo" style={{ color: `${textTertiary}`, fontFamily: `${textTertiaryFont}`, marginLeft: "1rem" }}>Lorem Ipsum Dolor</h2>
           </div>
 
-
-
         </div>
-      </div>
+      </div>}
 
     </div>
   </Fragment>
