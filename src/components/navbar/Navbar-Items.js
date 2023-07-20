@@ -17,48 +17,25 @@ import { useEffect } from "react"
 
 let previousScrollPos = 0;
 function NavbarItems(props) {
-  // const [screenWidth, setScreenWidth] = useState(0);
-
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     const newScreenWidth = window.innerWidth;
-  //     setScreenWidth(newScreenWidth);
-  //   };
-
-  //   handleResize()
-
-  //   if (typeof window !== 'undefined') {
-  //     setScreenWidth(window.innerWidth);
-  //     window.addEventListener('resize', handleResize);
-  //   }
-
-  //   return () => {
-  //     if (typeof window !== 'undefined') {
-  //       window.removeEventListener('resize', handleResize);
-  //     }
-  //   };
-  // }, []);
-
   const {screenWidth} = props
 
   const [menuIsOn, setMenuIsOn] = useState(false)
+  const [isNavbarVisible, setNavbarVisible] = useState(true);
 
   const showMenuToggler = () => {
     setMenuIsOn(!menuIsOn);
     if (!menuIsOn) {
-      document.body.classList.add('no-scroll');
-      document.documentElement.classList.add('no-scroll');
+      // document.body.classList.add('no-scroll');
+      // document.documentElement.classList.add('no-scroll');
     } else {
-      document.body.classList.remove('no-scroll');
-      document.documentElement.classList.remove('no-scroll');
+      // document.body.classList.remove('no-scroll');
+      // document.documentElement.classList.remove('no-scroll');
     }
   };
 
-  const [isNavbarVisible, setNavbarVisible] = useState(true);
-
   const handleScroll = () => {
-    const currentScrollPos = typeof window !== "undefined" ? window.pageYOffset : 0;
-    setNavbarVisible(currentScrollPos < previousScrollPos || currentScrollPos === 0);
+    const currentScrollPos = typeof window !== "undefined" ? window.scrollY : 0;
+    setNavbarVisible(currentScrollPos < previousScrollPos || currentScrollPos === 0 || menuIsOn); 
     previousScrollPos = currentScrollPos;
   };
 

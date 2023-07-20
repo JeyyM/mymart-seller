@@ -20,6 +20,8 @@ const DynamicUserMap = dynamic(() => import('../../../components/Analytics/UserM
 });
 
 function Analytics(martID) {
+  const {screenWidth} = martID
+
   const router = useRouter()
   const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
   const shopCurrency = martID.shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
@@ -487,7 +489,7 @@ const csvData = shopAccounts.map((item) => {
 
       <ShowUser modalStatus={SetUser} user={selectedUser} disable={() => {setUserModal(false)}} currency={shopCurrency} martCoords={shopCenter}></ShowUser>
 
-      <span className="page-heading">
+      {/* <span className="page-heading">
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-profile svg-color">&nbsp;</div>
         </div>
@@ -503,7 +505,26 @@ const csvData = shopAccounts.map((item) => {
           <option value="9999">All Time</option>
         </select>
         <button onClick={handleDownload} className="add-categ-init" style={{ width: "17rem", marginLeft:"auto", marginRight:"1rem" }}><h2 className='margin-side heading-tertiary'>Download CSV</h2></button>
+      </span> */}
+
+      <span className="page-heading">
+        <div className="heading-icon-dropshadow">
+          <div className="heading-icon-profile svg-color">&nbsp;</div>
+        </div>
+        <h1 className="heading-primary no-margin"  style={{ fontSize: `${screenWidth > 425 ? "3.5rem" : screenWidth > 360 ? "3rem" : "2.5rem"}`}}>&nbsp;User Profile</h1>
+        <select
+          value={SelectDate2}
+          className="text-options text-black"
+          style={{ width: `${screenWidth > 480 ? "20rem" : screenWidth > 400 ? "16rem" : "13rem"}`, marginLeft: "1rem" }}
+          onChange={(event) => handleSelectDate2(event)}
+        >
+          <option value="1">Today</option>
+          <option value="30">Past 30 Days</option>
+          <option value="9999">All Time</option>
+        </select>
+        <button onClick={handleDownload} className="add-categ-init" style={{ width: `${screenWidth > 580 ? "18rem" : screenWidth > 425 ? "14rem" : "11rem"}`, marginLeft:"auto", marginRight:"1rem", height: `${screenWidth > 580 ? "4rem" : "7rem"}` }}><h2 className='margin-side heading-tertiary'>Download CSV</h2></button>
       </span>
+
       <div className='analytics-user-container'>
       <div>
           <div className='flex-row' style={{ justifyContent:"space-between" }}>
