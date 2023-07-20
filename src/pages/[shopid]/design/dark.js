@@ -8,6 +8,7 @@ import Acc2 from "@/components/design/Acc3";
 import Acc3 from "@/components/design/Acc2";
 import Preview from "@/components/design/Preview";
 import Palette from "@/components/design/Palette";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { ChromePicker } from "react-color";
 import chroma from 'chroma-js';
@@ -430,8 +431,8 @@ function Designing({ shopID, screenWidth }) {
   const categSample = `category-sample ${isHovered ? "category-sample-hover" : ""}`;
 
   function copyItem(color) {
-    navigator.clipboard.writeText(color)
-    // setNotification(true)
+    // console.log(color)
+    // navigator.clipboard.writeText(color)
   }
 
   const [primaryContrast, setPrimaryContrast] = useState(0)
@@ -545,13 +546,13 @@ function Designing({ shopID, screenWidth }) {
       <link rel="icon" type="image/jpeg" href={favicon} />
     </Head>
     <div className="design-prev-set">
-      <button className="product-action-1 design-prev-button" onClick={handlePalettePreview}>
+      {screenWidth <= 900 && <button className="product-action-1 design-prev-button" onClick={handlePalettePreview}>
         <div className="palette-preview svg-outline margin-side">&nbsp;</div>
-      </button>
+      </button>}
 
-      <button className="product-action-1 design-prev-button" onClick={handleDesignPreview}>
+      {screenWidth <= 1350 && <button className="product-action-1 design-prev-button" onClick={handleDesignPreview}>
         <div className="eye-preview svg-outline margin-side">&nbsp;</div>
-      </button>
+      </button>}
     </div>
 
     <Preview modalStatus={DesignPreview} disable={handleDesignPreview} bgBody={bgBody}

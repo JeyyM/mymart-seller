@@ -113,6 +113,12 @@
   background-color: white;
 }
 
+.demo-typography-prev {
+  height: 27rem;
+  width: 55vw;
+  background-color: white;
+}
+
 .item-setup {
   @include border-round;
   border: solid 5px transparent;
@@ -482,9 +488,17 @@
 }
 
 .preview-modal{
-  width: 50rem;
+  width: auto;
   height: auto;
   margin-top: 10rem;
+  display: flex;
+}
+
+.preview-modal-2{
+  width: auto;
+  height: auto;
+  margin-top: 10rem;
+  display: flex;
 }
 
 .eye-preview {
@@ -495,8 +509,22 @@
   @include heading-logo(palette, 8rem, 8rem);
 }
 
-.palette-flex{
+.palette-modal{
+  display: flex;
+  gap: 1rem;
+  width: auto;
+}
+
+.palette-flex-component{
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 25vw;
+  margin: 0 auto
+}
+
+
+.heading-icon-palette {
+  @include heading-logo(palette, 4rem, 4rem);
+  margin-left: 1rem;
 }

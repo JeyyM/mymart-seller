@@ -40,28 +40,34 @@ function Palette(props) {
                 {modalStatus && (
                     <Backdrop onClick={disable} className="categ-modals">
 
-                        <motion.div className="margin-side preview-modal"
+                        <motion.div className="margin-side preview-modal-2"
                             onClick={disable}
                             variants={appear}
                             initial="hidden"
                             animate="visible"
                             exit="exit"
                         >
-        <div className="round-borderer round-borderer-extra palette-flex" onClick={(e) => {e.stopPropagation()}} style={{padding:"2rem"}}>
-          <div style={{ height: "35em", overflow: "hidden" }}>
+        <div className="round-borderer round-borderer-extra palette-modal" onClick={(e) => {e.stopPropagation()}} style={{padding:"2rem"}}>
+        <div className="palette-flex-component">
+        <span className="page-heading flex-row-align">
+            <div className="heading-icon-palette svg-color">&nbsp;</div>
+            <h1 className="heading-secondary no-margin">Color Palette</h1>
+          </span>
+          <div style={{ overflow: "hidden" }}>
             <ChromePicker color={color} onChange={updatedColor => setColor(updatedColor)} className="color-picker" disableAlpha={true} renderers={{ hex: ChromePicker }} styles={{ default: { picker: { backgroundColor: `${activeMode["bg-body"]}` } } }}></ChromePicker>
           </div>
           <input onFocus={copyHex} onTouchStart={copyHex} type="text" placeholder="HEXCODE" className="text-small input-number" autoComplete="off" style={{ width: "50%", margin: "0 auto" }} value={color.hex}></input>
-
-        <span className="page-heading flex-row-align">
-          <div className="heading-icon-dropshadow">
-            <div className="heading-icon-dice svg-color">&nbsp;</div>
           </div>
+
+          <div className="palette-flex-component">
+        <span className="page-heading flex-row-align">
+            <div className="heading-icon-dice svg-color">&nbsp;</div>
           <h1 className="heading-secondary no-margin">Random Colors</h1>
         </span>
         <button aria-label="Submit" className="product-action-1" onClick={fetchChroma} style={{ margin: "0rem auto", width: "20rem", height: "6rem" }}>Randomize</button>
 
         <ThemePack2 themeSet={chromaItems} copy={copyItem}></ThemePack2>
+        </div>
         </div>
 
                         </motion.div>

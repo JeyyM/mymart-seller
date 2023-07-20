@@ -1,3 +1,5 @@
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+
 export default function ThemePack2(props) {
   const pack1 = props.themeSet.slice(0, 8);
   const pack2 = props.themeSet.slice(8, 16);
@@ -8,7 +10,9 @@ export default function ThemePack2(props) {
 
   function ThemePackItem(props) {
     return (
+      <CopyToClipboard text={props.chosenColor}>
       <button style={{ height: '3rem', width: "3rem", backgroundColor: props.chosenColor, borderRadius: "10rem" }} onClick={() => { props.action(props.chosenColor) }}>&nbsp;</button>
+      </CopyToClipboard>
     );
   }
 

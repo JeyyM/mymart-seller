@@ -18,6 +18,7 @@ import CopyNotifier from "@/components/Modal/Copy-Notifier";
 
 import tinycolor from 'tinycolor2';
 import Preview from "@/components/design/Preview";
+import Palette from "@/components/design/Palette";
 
 function Designing({ shopID, screenWidth }) {
   const router = useRouter()
@@ -430,8 +431,8 @@ function Designing({ shopID, screenWidth }) {
   const categSample = `category-sample ${isHovered ? "category-sample-hover" : ""}`;
 
   function copyItem(color) {
-    navigator.clipboard.writeText(color)
-    setNotification(true)
+    // navigator.clipboard.writeText(color)
+    // setNotification(true)
   }
 
   const [primaryContrast, setPrimaryContrast] = useState(0)
@@ -517,6 +518,11 @@ function Designing({ shopID, screenWidth }) {
     setDesignPreview(!DesignPreview)
   }
 
+  const [PalettePreview, setPalettePreview] = useState(false)
+  const handlePalettePreview = () => {
+    setPalettePreview(!PalettePreview)
+  }
+
   const [EditActive, setEditActive] = useState(false);
 
   const originalEdit = {
@@ -539,15 +545,15 @@ function Designing({ shopID, screenWidth }) {
       </style>
       <link rel="icon" type="image/jpeg" href={favicon} />
     </Head>
-    
-    <div className="design-prev-set">
-      <button className="product-action-1 design-prev-button">
-        <div className="palette-preview svg-outline margin-side">&nbsp;</div>
-      </button>
 
-      <button className="product-action-1 design-prev-button" onClick={handleDesignPreview}>
+    <div className="design-prev-set">
+      {screenWidth <= 900 && <button className="product-action-1 design-prev-button" onClick={handlePalettePreview}>
+        <div className="palette-preview svg-outline margin-side">&nbsp;</div>
+      </button>}
+
+      {screenWidth <= 1350 && <button className="product-action-1 design-prev-button" onClick={handleDesignPreview}>
         <div className="eye-preview svg-outline margin-side">&nbsp;</div>
-      </button>
+      </button>}
     </div>
 
     <Preview modalStatus={DesignPreview} disable={handleDesignPreview} bgBody={bgBody}
@@ -568,11 +574,10 @@ function Designing({ shopID, screenWidth }) {
     <Acc1 disable={handlePrimaryAcc} modalStatus={primaryAcc} value={primaryContrast} color={primaryContrastText} bg={primaryContrastBg}></Acc1>
     <Acc2 disable={handleSecondaryAcc} modalStatus={secondaryAcc} value={secondaryContrast} color={secondaryContrastText} bg={secondaryContrastBg}></Acc2>
     <Acc3 disable={handleTertiaryAcc} modalStatus={tertiaryAcc} value={tertiaryContrast} color={tertiaryContrastText} bg={tertiaryContrastBg}></Acc3>
-    {/* <CopyNotifier
-      status={notification}
-      disable={() => { setNotification(false) }}
-    /> */}
 
+    <Palette modalStatus={PalettePreview} disable={handlePalettePreview} color={color} setColor={setColor} activeMode={activeMode}
+      copyHex={copyHex} fetchChroma={fetchChroma} copyItem={copyItem} chromaItems={chromaItems}
+    ></Palette>
 
     <div className="design-grid">
       <div className="design-col-1">
