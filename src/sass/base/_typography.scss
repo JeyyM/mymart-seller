@@ -84,6 +84,17 @@
   word-wrap: break-word;
 }
 
+.heading-tertiary-colorless {
+  color: $text-tertiary-color;
+  line-height: 1;
+  transform: translateY(-0.2rem);
+  margin-top: 0px;
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 500;
+  word-wrap: break-word;
+}
+
 .heading-tertiary-notif {
   line-height: 1;
   transform: translateY(-0.2rem);

@@ -405,6 +405,8 @@ function About({ shopID, screenWidth }) {
 
   const [screenWidth2, setScreenWidth2] = useState(0);
   const [screenScale, setScreenScale] = useState(1)
+  const [screenScale2, setScreenScale2] = useState(1)
+  const [screenScale3, setScreenScale3] = useState(1)
 
   useEffect(() => {
     const handleResize = () => {
@@ -416,6 +418,30 @@ function About({ shopID, screenWidth }) {
 
     handleResize()
 
+    const handleResize2 = () => {
+      const newScreenWidth3 = window.innerWidth;;
+      const newScale = (newScreenWidth3 / screenPx).toFixed(2);
+      setScreenWidth2(newScreenWidth3);
+      setScreenScale2(newScale);
+    };
+
+    if (screenWidth <= 1366)
+    {
+      handleResize2()
+    }
+
+    const handleResize3 = () => {
+      const newScreenWidth4 = window.innerWidth;;
+      const newScale = (newScreenWidth4 / screenPx).toFixed(2);
+      setScreenWidth2(newScreenWidth4);
+      setScreenScale3(newScale);
+    };
+
+    if (screenWidth <= 360)
+    {
+      handleResize3()
+    }
+
     if (typeof window !== 'undefined') {
       setScreenWidth2(window.innerWidth);
       window.addEventListener('resize', handleResize);
@@ -426,7 +452,7 @@ function About({ shopID, screenWidth }) {
         window.removeEventListener('resize', handleResize);
       }
     };
-  }, []);
+  }, [screenWidth]);
 
   const textScaler = `${device === "desktop" ? 1 : device === "tablet" ? 0.44 : 0.15}`;
 
@@ -441,7 +467,7 @@ function About({ shopID, screenWidth }) {
         zIndex: item.zInd,
         margin: "0",
         alignSelf: "center",
-        transform: `scale(${device === "desktop" ? item.scale * screenScale : item.scale})`
+        transform: `scale(${device === "desktop" ? item.scale * screenScale : device === "tablet" && screenWidth <= 1366 ? item.scale * screenScale2 : device === "phone" && screenWidth <= 360 ? item.scale * screenScale3 : item.scale})`
       }}
       dangerouslySetInnerHTML={{ __html: item.content }}
     >
@@ -554,6 +580,8 @@ function About({ shopID, screenWidth }) {
     showModal(!modal)
   }
 
+  console.log(screenPx)
+
   return <Fragment>
     <Head>
       <title>Create About Page</title>
@@ -579,7 +607,7 @@ function About({ shopID, screenWidth }) {
           </span>
 
           <div className="flex-row-align">
-            <label className="heading-tertiary">Row count</label>
+            <label className="heading-tertiary">Row Count</label>
             <input value={rowCount} onChange={event => { setRowCount(event.target.value) }} type="number" className="text-small input-number" style={{ width: "15rem" }}></input>
 
             <div className="flex-row-align">
@@ -588,20 +616,29 @@ function About({ shopID, screenWidth }) {
             </div>
 
           </div>
-          <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
+          {screenWidth > 700 && <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
             <button className="product-action-2 heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleSubmit} disabled={loading} >{loading ? <div className="spinner"></div> : (completion ? checkmark : "Save")}</button>
             <button className="product-action-3 white heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleReset} disabled={loading} >Reset</button>
-          </div>
+          </div>}
+
+          {screenWidth <= 520 && <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
+            <button className="product-action-2 heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleSubmit} disabled={loading} >{loading ? <div className="spinner"></div> : (completion ? checkmark : "Save")}</button>
+            <button className="product-action-3 white heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleReset} disabled={loading} >Reset</button>
+          </div>}
 
           <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
-            <button className={device === "desktop" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("desktop"); setColLimit(12); setRowCount(DeskRowCount) }}>Desktop</button>
-            <button className={device === "tablet" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("tablet"); setColLimit(8); setRowCount(TabRowCount) }}>Tablet</button>
-            <button className={device === "phone" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("phone"); setColLimit(4); setRowCount(PhoneRowCount) }}>Phone</button>
+          {screenWidth <= 700 && screenWidth > 520 && <>
+          <button className="product-action-2 heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleSubmit} disabled={loading} >{loading ? <div className="spinner"></div> : (completion ? checkmark : "Save")}</button>
+            <button className="product-action-3 white heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleReset} disabled={loading} >Reset</button>
+          </>}
+            <button className={device === "desktop" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("desktop"); setScreenPx(1920); setColLimit(12); setRowCount(DeskRowCount) }}>Desktop</button>
+            <button className={device === "tablet" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("tablet"); setScreenPx(1366); setColLimit(8); setRowCount(TabRowCount) }}>Tablet</button>
+            <button className={device === "phone" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("phone"); setScreenPx(360); setColLimit(4); setRowCount(PhoneRowCount) }}>Phone</button>
           </div>
 
         </div>
         <span className="page-heading" style={{ margin: "1rem" }}>
-        <div className="heading-icon-dropshadow">
+          <div className="heading-icon-dropshadow">
             <div className="heading-icon-typography svg-color">&nbsp;</div>
           </div>
           <h1 className="heading-secondary no-margin" title="Fees that customers will pay if they choose for their items to be delivered.">&nbsp;Text Items &nbsp;</h1>
@@ -621,14 +658,14 @@ function About({ shopID, screenWidth }) {
                           {MinimizedText.includes(index) ? <div className="heading-icon-chevron svg-color">&nbsp;</div> : <div className="heading-icon-chevron svg-color">&nbsp;</div>}
                         </button>
                         <div className="flex-row" >
-                          <div className="flex-col">
+                          {screenWidth > 1400 && <div className="flex-col">
                             <label className="heading-tertiary">Heading Type: &nbsp;</label>
                             <select value={item.name} onChange={(event) => handleTextArrayTypeChange(index, event.target.value)} className="text-options text-span" style={{ width: "100%", marginTop: "1rem" }}>
                               <option value="heading-primary">Primary Heading</option>
                               <option value="heading-secondary">Secondary Heading</option>
                               <option value="heading-tertiary">Tertiary heading</option>
                             </select>
-                          </div>
+                          </div>}
 
                           <div className="flex-col">
                             <label className="heading-tertiary">Text Align: &nbsp;</label>
@@ -717,7 +754,7 @@ function About({ shopID, screenWidth }) {
                                 style={{ width: "100%", marginTop: "1rem" }}
                               >
 
-                                {Array.from({ length: rowCount + 1 }, (_, index) => (
+                                {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
                                   <option key={index + 1} value={index + 1}>
                                     {index + 1}
                                   </option>
@@ -731,7 +768,7 @@ function About({ shopID, screenWidth }) {
                                 style={{ width: "100%", marginTop: "1rem" }}
                               >
 
-                                {Array.from({ length: rowCount + 1 }, (_, index) => (
+                                {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
                                   <option key={index + 1} value={index + 1}>
                                     {index + 1}
                                   </option>
@@ -741,6 +778,7 @@ function About({ shopID, screenWidth }) {
                           </div>
                         </div>
 
+                        <div className="flex-row">
                         <div className="flex-col">
                           <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Text Content: &nbsp;</label>
                           <div className="flex-row-align">
@@ -755,6 +793,18 @@ function About({ shopID, screenWidth }) {
                             ></input>
                           </div>
                         </div>
+                        
+                        {screenWidth <= 1400 && <div className="flex-col">
+                            <label className="heading-tertiary">Heading Type: &nbsp;</label>
+                            <select value={item.name} onChange={(event) => handleTextArrayTypeChange(index, event.target.value)} className="text-options text-span" style={{ width: "100%", marginTop: "1rem" }}>
+                              <option value="heading-primary">Primary Heading</option>
+                              <option value="heading-secondary">Secondary Heading</option>
+                              <option value="heading-tertiary">Tertiary heading</option>
+                            </select>
+                          </div>}
+
+                          </div>
+
                       </div>
                       <button className="add-img" type="button" onClick={() => handleDeleteText(index)}>
                         {confirmDelete1 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
@@ -768,7 +818,7 @@ function About({ shopID, screenWidth }) {
                           {MinimizedText.includes(index) ? <div className="heading-icon-chevron svg-color">&nbsp;</div> : <div className="heading-icon-chevron svg-color">&nbsp;</div>}
                         </button>
 
-                        <div className="flex-row" style={{ marginBottom: "1rem" }}>
+                        {screenWidth <= 900 && <div className="flex-row" style={{ marginBottom: "1rem" }}>
                           <div className="flex-col">
                             <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Text Content: &nbsp;</label>
                             <div className="flex-row-align">
@@ -783,6 +833,23 @@ function About({ shopID, screenWidth }) {
                               ></input>
                             </div>
                           </div>
+                          </div>}
+
+                        <div className="flex-row" style={{ marginBottom: "1rem" }}>
+                          {screenWidth > 900 && <div className="flex-col">
+                            <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Text Content: &nbsp;</label>
+                            <div className="flex-row-align">
+                              <input
+                                type="text"
+                                placeholder="Content"
+                                className="text-small input-number"
+                                autoComplete="off"
+                                style={{ width: "100%", margin: "0" }}
+                                value={item.content}
+                                onChange={(event) => handleTextArrayContentChange(event, index)}
+                              ></input>
+                            </div>
+                          </div>}
 
                           <div className="flex-col">
                             <label className="heading-tertiary">Grid Column: &nbsp;</label>
@@ -827,7 +894,7 @@ function About({ shopID, screenWidth }) {
                                 style={{ width: "100%", marginTop: "1rem" }}
                               >
 
-                                {Array.from({ length: rowCount + 1 }, (_, index) => (
+                                {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
                                   <option key={index + 1} value={index + 1}>
                                     {index + 1}
                                   </option>
@@ -841,7 +908,7 @@ function About({ shopID, screenWidth }) {
                                 style={{ width: "100%", marginTop: "1rem" }}
                               >
 
-                                {Array.from({ length: rowCount + 1 + 1 }, (_, index) => (
+                                {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
                                   <option key={index + 1} value={index + 1}>
                                     {index + 1}
                                   </option>
@@ -861,23 +928,17 @@ function About({ shopID, screenWidth }) {
             </AnimatePresence>
           </div>
         </div>
-      </div>
-
-      <div className="flex-col">
-
-
+        {screenWidth <= 700 && <div className="flex-col">
         <div className="flex-col">
           <span className="page-heading" style={{ margin: "1rem 0" }}>
-          <div className="heading-icon-dropshadow">
-            <div className="heading-icon-add-img svg-color">&nbsp;</div>
-          </div>
+            <div className="heading-icon-dropshadow">
+              <div className="heading-icon-add-img svg-color">&nbsp;</div>
+            </div>
             <h1 className="heading-secondary no-margin">&nbsp;Image Items &nbsp;</h1>
             <button className="add-img" type="button" onClick={handleAddImgArray} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
           </span>
           <div>
             <div className="detail-inputs">
-
-
 
               <AnimatePresence>
                 {ImgArray.map((item, index) => (
@@ -905,6 +966,81 @@ function About({ shopID, screenWidth }) {
                                 ></input>
                               </div>
                             </div>
+
+                            {screenWidth <= 900 && <div className="flex-col">
+                            <img src={item.img} style={{ height: "7rem", width: "7rem", margin: "auto auto" }} className={`${item.border ? "round-borderer" : ""}`}></img>
+                            </div>}
+
+                            {screenWidth > 900 && <>
+                              <div className="flex-col">
+                                <label className="heading-tertiary">Grid Column: &nbsp;</label>
+                                <div className="flex-row-align">
+                                  <select
+                                    value={item.col1}
+                                    onChange={(event) => handleImgArrayC1Change(index, event.target.value)}
+                                    className="text-options text-span"
+                                    style={{ width: "100%", marginTop: "1rem" }}
+                                  >
+
+                                    {Array.from({ length: colLimit + 1 }, (_, index) => (
+                                      <option key={index + 1} value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                  <h2 className="heading-secondary">/</h2>
+                                  <select
+                                    value={item.col2}
+                                    onChange={(event) => handleImgArrayC2Change(index, event.target.value)}
+                                    className="text-options text-span"
+                                    style={{ width: "100%", marginTop: "1rem" }}
+                                  >
+
+                                    {Array.from({ length: colLimit + 1 }, (_, index) => (
+                                      <option key={index + 1} value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div className="flex-col">
+                                <label className="heading-tertiary">Grid Row: &nbsp;</label>
+                                <div className="flex-row-align">
+                                  <select
+                                    value={item.row1}
+                                    onChange={(event) => handleImgArrayR1Change(index, event.target.value)}
+                                    className="text-options text-span"
+                                    style={{ width: "100%", marginTop: "1rem" }}
+                                  >
+
+                                    {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
+                                      <option key={index + 1} value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                  <h2 className="heading-secondary">/</h2>
+                                  <select
+                                    value={item.row2}
+                                    onChange={(event) => handleImgArrayR2Change(index, event.target.value)}
+                                    className="text-options text-span"
+                                    style={{ width: "100%", marginTop: "1rem" }}
+                                  >
+
+                                    {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
+                                      <option key={index + 1} value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                              </div>
+                            </>}
+                          </div>
+
+                          {screenWidth <= 900 && <div className="flex-row" style={{ marginBottom: "1rem" }}>
 
                             <div className="flex-col">
                               <label className="heading-tertiary">Grid Column: &nbsp;</label>
@@ -949,7 +1085,7 @@ function About({ shopID, screenWidth }) {
                                   style={{ width: "100%", marginTop: "1rem" }}
                                 >
 
-                                  {Array.from({ length: rowCount + 1 }, (_, index) => (
+                                  {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
                                     <option key={index + 1} value={index + 1}>
                                       {index + 1}
                                     </option>
@@ -963,7 +1099,7 @@ function About({ shopID, screenWidth }) {
                                   style={{ width: "100%", marginTop: "1rem" }}
                                 >
 
-                                  {Array.from({ length: rowCount + 1 }, (_, index) => (
+                                  {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
                                     <option key={index + 1} value={index + 1}>
                                       {index + 1}
                                     </option>
@@ -971,7 +1107,9 @@ function About({ shopID, screenWidth }) {
                                 </select>
                               </div>
                             </div>
-                          </div>
+                          </div>}
+
+
 
                         </div>
                         <button className="add-img" type="button" onClick={() => handleDeleteImg(index)}>
@@ -1002,6 +1140,12 @@ function About({ shopID, screenWidth }) {
                               </div>
                             </div>
 
+                            
+                            {screenWidth <= 1100 && <div className="flex-col">
+                              <img src={item.img} style={{ height: "7rem", width: "7rem", margin: "auto auto" }} className={`${item.border ? "round-borderer" : ""}`}></img>
+                            </div>}
+
+                            {screenWidth > 1100 && <>
                             <div className="flex-col">
                               <label className="heading-tertiary">Border: &nbsp;</label>
                               <select value={item.border} onChange={(event) => handleImgArrayBorderChange(index, event.target.value)} className="text-options text-span" style={{ width: "100%", marginTop: "1rem" }}>
@@ -1040,6 +1184,7 @@ function About({ shopID, screenWidth }) {
                                 ></input>
                               </div>
                             </div>
+                            </>}
                           </div>
 
                           <div className="flex-row" style={{ marginBottom: "1rem" }}>
@@ -1087,7 +1232,7 @@ function About({ shopID, screenWidth }) {
                                   style={{ width: "100%", marginTop: "1rem" }}
                                 >
 
-                                  {Array.from({ length: rowCount + 1 }, (_, index) => (
+                                  {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
                                     <option key={index + 1} value={index + 1}>
                                       {index + 1}
                                     </option>
@@ -1101,7 +1246,7 @@ function About({ shopID, screenWidth }) {
                                   style={{ width: "100%", marginTop: "1rem" }}
                                 >
 
-                                  {Array.from({ length: rowCount + 1 }, (_, index) => (
+                                  {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
                                     <option key={index + 1} value={index + 1}>
                                       {index + 1}
                                     </option>
@@ -1110,6 +1255,46 @@ function About({ shopID, screenWidth }) {
                               </div>
                             </div>
                           </div>
+                          {screenWidth <= 1100 && <div className="flex-row">
+                            <div className="flex-col">
+                              <label className="heading-tertiary">Border: &nbsp;</label>
+                              <select value={item.border} onChange={(event) => handleImgArrayBorderChange(index, event.target.value)} className="text-options text-span" style={{ width: "100%", marginTop: "1rem" }}>
+                                <option value="round-borderer">On</option>
+                                <option value="">Off</option>
+                              </select>
+                            </div>
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary" title="For stacking priority. If the number is higher, it will appear on top of the other items.">Z-Index: &nbsp;</label>
+                              <select
+                                value={item.zInd}
+                                onChange={(event) => handleImgArrayZChange(index, event.target.value)}
+                                className="text-options text-span"
+                                style={{ width: "100%", marginTop: "1rem" }}
+                              >
+
+                                {Array.from({ length: 10 }, (_, index) => (
+                                  <option key={index + 1} value={index + 1}>
+                                    {index + 1}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                            <div className="flex-col">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc. The main method of sizing should be the grid system.">Scale: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <input
+                                  type="number"
+                                  placeholder="Scale"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.scale}
+                                  onChange={(event) => handleImgArrayScaleChange(event, index)}
+                                ></input>
+                              </div>
+                            </div>
+                          </div>}
 
                         </div>
                         <button className="add-img" type="button" onClick={() => handleDeleteImg(index)}>
@@ -1125,9 +1310,9 @@ function About({ shopID, screenWidth }) {
 
 
           <span className="page-heading" style={{ margin: "1rem 0" }}>
-          <div className="heading-icon-dropshadow">
-            <div className="heading-icon-cube svg-color">&nbsp;</div>
-          </div>
+            <div className="heading-icon-dropshadow">
+              <div className="heading-icon-cube svg-color">&nbsp;</div>
+            </div>
             <h1 className="heading-secondary no-margin">&nbsp;Container Items &nbsp;</h1>
             <button className="add-img" type="button" onClick={handleAddContArray} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
           </span>
@@ -1146,7 +1331,7 @@ function About({ shopID, screenWidth }) {
                           <div className="flex-row" style={{ marginBottom: "1rem" }}>
 
                             <div className="flex-col">
-                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Color Hex: &nbsp;</label>
+                              <label className="heading-tertiary-colorless" style={{ marginBottom: "1rem", color: item.color }}>Color Hex: &nbsp;</label>
                               <div className="flex-row-align">
                                 <input
                                   type="text"
@@ -1159,6 +1344,108 @@ function About({ shopID, screenWidth }) {
                                 ></input>
                               </div>
                             </div>
+
+                            {screenWidth <= 1000 && <>
+                              <div className="flex-col">
+                                <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc. The main method of sizing should be the grid system.">Scale: &nbsp;</label>
+                                <div className="flex-row-align">
+                                  <input
+                                    type="number"
+                                    placeholder="Scale"
+                                    className="text-small input-number"
+                                    autoComplete="off"
+                                    style={{ width: "100%", margin: "0" }}
+                                    value={item.scale}
+                                    onChange={(event) => handleContArrayScaleChange(event, index)}
+                                  ></input>
+                                </div>
+                              </div>
+
+                              <div className="flex-col">
+                                <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Makes containers transparent, goes from 0 to 1. 0 Means invisible, 1 means fully visible. 0.8 means 80% visible.">Opacity: &nbsp;</label>
+                                <div className="flex-row-align">
+                                  <input
+                                    type="number"
+                                    placeholder="Opacity"
+                                    className="text-small input-number"
+                                    autoComplete="off"
+                                    style={{ width: "100%", margin: "0" }}
+                                    value={item.opacity}
+                                    onChange={(event) => handleContArrayOpacityChange(event, index)}
+                                  ></input>
+                                </div>
+                              </div>
+                            </>}
+
+                            {screenWidth > 1000 && <>
+                              <div className="flex-col">
+                                <label className="heading-tertiary">Grid Column: &nbsp;</label>
+                                <div className="flex-row-align">
+                                  <select
+                                    value={item.col1}
+                                    onChange={(event) => handleContArrayC1Change(index, event.target.value)}
+                                    className="text-options text-span"
+                                    style={{ width: "100%", marginTop: "1rem" }}
+                                  >
+
+                                    {Array.from({ length: colLimit + 1 }, (_, index) => (
+                                      <option key={index + 1} value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                  <h2 className="heading-secondary">/</h2>
+                                  <select
+                                    value={item.col2}
+                                    onChange={(event) => handleContArrayC2Change(index, event.target.value)}
+                                    className="text-options text-span"
+                                    style={{ width: "100%", marginTop: "1rem" }}
+                                  >
+
+                                    {Array.from({ length: colLimit + 1 }, (_, index) => (
+                                      <option key={index + 1} value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div className="flex-col">
+                                <label className="heading-tertiary">Grid Row: &nbsp;</label>
+                                <div className="flex-row-align">
+                                  <select
+                                    value={item.row1}
+                                    onChange={(event) => handleContArrayR1Change(index, event.target.value)}
+                                    className="text-options text-span"
+                                    style={{ width: "100%", marginTop: "1rem" }}
+                                  >
+                                    {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
+                                      <option key={index + 1} value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                  <h2 className="heading-secondary">/</h2>
+                                  <select
+                                    value={item.row2}
+                                    onChange={(event) => handleContArrayR2Change(index, event.target.value)}
+                                    className="text-options text-span"
+                                    style={{ width: "100%", marginTop: "1rem" }}
+                                  >
+                                    {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
+                                      <option key={index + 1} value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                              </div>
+                            </>}
+                          </div>
+
+
+                          {screenWidth <= 1000 && <div className="flex-row" style={{ marginBottom: "1rem" }}>
 
                             <div className="flex-col">
                               <label className="heading-tertiary">Grid Column: &nbsp;</label>
@@ -1202,7 +1489,7 @@ function About({ shopID, screenWidth }) {
                                   className="text-options text-span"
                                   style={{ width: "100%", marginTop: "1rem" }}
                                 >
-                                  {Array.from({ length: rowCount + 1 }, (_, index) => (
+                                  {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
                                     <option key={index + 1} value={index + 1}>
                                       {index + 1}
                                     </option>
@@ -1215,7 +1502,7 @@ function About({ shopID, screenWidth }) {
                                   className="text-options text-span"
                                   style={{ width: "100%", marginTop: "1rem" }}
                                 >
-                                  {Array.from({ length: rowCount + 1 }, (_, index) => (
+                                  {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
                                     <option key={index + 1} value={index + 1}>
                                       {index + 1}
                                     </option>
@@ -1223,7 +1510,7 @@ function About({ shopID, screenWidth }) {
                                 </select>
                               </div>
                             </div>
-                          </div>
+                          </div>}
 
                         </div>
                         <button className="add-img" type="button" onClick={() => handleDeleteCont(index)}>
@@ -1243,7 +1530,7 @@ function About({ shopID, screenWidth }) {
                           </button>
                           <div className="flex-row">
                             <div className="flex-col">
-                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Color Hex: &nbsp;</label>
+                              <label className="heading-tertiary-colorless" style={{ marginBottom: "1rem", color: item.color }}>Color Hex: &nbsp;</label>
                               <div className="flex-row-align">
                                 <input
                                   type="text"
@@ -1264,6 +1551,220 @@ function About({ shopID, screenWidth }) {
                                 <option value="">Off</option>
                               </select>
                             </div>
+
+                            {screenWidth > 1100 && <>
+                              <div className="flex-col">
+                                <label className="heading-tertiary" title="For stacking priority. If the number is higher, it will appear on top of the other items.">Z-Index: &nbsp;</label>
+                                <select
+                                  value={item.zInd}
+                                  onChange={(event) => handleContArrayZChange(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+
+                                  {Array.from({ length: 10 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                              <div className="flex-col">
+                                <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc. The main method of sizing should be the grid system.">Scale: &nbsp;</label>
+                                <div className="flex-row-align">
+                                  <input
+                                    type="number"
+                                    placeholder="Scale"
+                                    className="text-small input-number"
+                                    autoComplete="off"
+                                    style={{ width: "100%", margin: "0" }}
+                                    value={item.scale}
+                                    onChange={(event) => handleContArrayScaleChange(event, index)}
+                                  ></input>
+                                </div>
+                              </div>
+                            </>}
+                            {screenWidth > 1500 && <div className="flex-col">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Makes containers transparent, goes from 0 to 1. 0 Means invisible, 1 means fully visible. 0.8 means 80% visible.">Opacity: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <input
+                                  type="number"
+                                  placeholder="Opacity"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.opacity}
+                                  onChange={(event) => handleContArrayOpacityChange(event, index)}
+                                ></input>
+                              </div>
+                            </div>}
+                          </div>
+
+                          <div className="flex-row" style={{ marginBottom: "1rem" }}>
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary">Grid Column: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <select
+                                  value={item.col1}
+                                  onChange={(event) => handleContArrayC1Change(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+
+                                  {Array.from({ length: colLimit + 1 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                                <h2 className="heading-secondary">/</h2>
+                                <select
+                                  value={item.col2}
+                                  onChange={(event) => handleContArrayC2Change(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+
+                                  {Array.from({ length: colLimit + 1 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                            </div>
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary">Grid Row: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <select
+                                  value={item.row1}
+                                  onChange={(event) => handleContArrayR1Change(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+                                  {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                                <h2 className="heading-secondary">/</h2>
+                                <select
+                                  value={item.row2}
+                                  onChange={(event) => handleContArrayR2Change(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+                                  {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                            </div>
+                            {screenWidth > 1500 && <div className="flex-col">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Border Radius: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <input
+                                  type="number"
+                                  placeholder="TL"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.tl}
+                                  onChange={(event) => handleContArrayTLChange(event, index)}
+                                ></input>
+                                <input
+                                  type="number"
+                                  placeholder="TR"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.tr}
+                                  onChange={(event) => handleContArrayTRChange(event, index)}
+                                ></input>
+                                <input
+                                  type="number"
+                                  placeholder="BL"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.bl}
+                                  onChange={(event) => handleContArrayBLChange(event, index)}
+                                ></input>
+                                <input
+                                  type="number"
+                                  placeholder="BR"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.br}
+                                  onChange={(event) => handleContArrayBRChange(event, index)}
+                                ></input>
+                              </div>
+                            </div>}
+                          </div>
+                          {screenWidth <= 1500 && <div className="about-input-grid" style={{ marginBottom: "1rem" }}>
+                            <div className="flex-col about-input-span">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Border Radius: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <input
+                                  type="number"
+                                  placeholder="TL"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.tl}
+                                  onChange={(event) => handleContArrayTLChange(event, index)}
+                                ></input>
+                                <input
+                                  type="number"
+                                  placeholder="TR"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.tr}
+                                  onChange={(event) => handleContArrayTRChange(event, index)}
+                                ></input>
+                                <input
+                                  type="number"
+                                  placeholder="BL"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.bl}
+                                  onChange={(event) => handleContArrayBLChange(event, index)}
+                                ></input>
+                                <input
+                                  type="number"
+                                  placeholder="BR"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.br}
+                                  onChange={(event) => handleContArrayBRChange(event, index)}
+                                ></input>
+                              </div>
+                            </div>
+                            {screenWidth > 1100 && <div className="flex-col about-input-span-2">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Makes containers transparent, goes from 0 to 1. 0 Means invisible, 1 means fully visible. 0.8 means 80% visible.">Opacity: &nbsp;</label>
+                              <input
+                                type="number"
+                                placeholder="Opacity"
+                                className="text-small input-number"
+                                autoComplete="off"
+                                style={{ width: "100%", margin: "0" }}
+                                value={item.opacity}
+                                onChange={(event) => handleContArrayOpacityChange(event, index)}
+                              ></input>
+                            </div>}
+                          </div>
+                          }
+
+                          {screenWidth <= 1100 && <div className="flex-row">
 
                             <div className="flex-col">
                               <label className="heading-tertiary" title="For stacking priority. If the number is higher, it will appear on top of the other items.">Z-Index: &nbsp;</label>
@@ -1295,6 +1796,694 @@ function About({ shopID, screenWidth }) {
                                 ></input>
                               </div>
                             </div>
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Makes containers transparent, goes from 0 to 1. 0 Means invisible, 1 means fully visible. 0.8 means 80% visible.">Opacity: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <input
+                                  type="number"
+                                  placeholder="Opacity"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.opacity}
+                                  onChange={(event) => handleContArrayOpacityChange(event, index)}
+                                ></input>
+                              </div>
+                            </div>
+                          </div>}
+
+                        </div>
+                        <button className="add-img" type="button" onClick={() => handleDeleteCont(index)}>
+                          {confirmDelete3 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
+                        </button>
+                      </motion.div>
+                    )}
+                  </div>
+                ))}
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+      </div>}
+      </div>
+
+      {screenWidth > 700 && <div className="flex-col">
+        <div className="flex-col">
+          <span className="page-heading" style={{ margin: "1rem 0" }}>
+            <div className="heading-icon-dropshadow">
+              <div className="heading-icon-add-img svg-color">&nbsp;</div>
+            </div>
+            <h1 className="heading-secondary no-margin">&nbsp;Image Items &nbsp;</h1>
+            <button className="add-img" type="button" onClick={handleAddImgArray} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+          </span>
+          <div>
+            <div className="detail-inputs">
+
+              <AnimatePresence>
+                {ImgArray.map((item, index) => (
+                  <div className="detail-row-about" key={index}>
+                    {!MinimizedImg.includes(index) && (
+                      <motion.div className="detail-row-about" key={index} variants={slide} initial="hidden" animate="visible" exit="exit">
+                        <div className="flex-col set-container" style={{ gap: "1rem" }}>
+                          <button className="min-button" onClick={() => toggleImgMin(index)}>
+                            {MinimizedImg.includes(index) ? <div className="heading-icon-chevron svg-color">&nbsp;</div> : <div className="heading-icon-chevron svg-color">&nbsp;</div>}
+                          </button>
+
+                          <div className="flex-row" style={{ marginBottom: "1rem" }}>
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Imgur Link: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <input
+                                  type="text"
+                                  placeholder="Imgur Link"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.img}
+                                  onChange={(event) => handleImgArrayImageChange(event, index)}
+                                ></input>
+                              </div>
+                            </div>
+
+                            {screenWidth <= 900 && <div className="flex-col">
+                            <img src={item.img} style={{ height: "7rem", width: "7rem", margin: "auto auto" }} className={`${item.border ? "round-borderer" : ""}`}></img>
+                            </div>}
+
+                            {screenWidth > 900 && <>
+                              <div className="flex-col">
+                                <label className="heading-tertiary">Grid Column: &nbsp;</label>
+                                <div className="flex-row-align">
+                                  <select
+                                    value={item.col1}
+                                    onChange={(event) => handleImgArrayC1Change(index, event.target.value)}
+                                    className="text-options text-span"
+                                    style={{ width: "100%", marginTop: "1rem" }}
+                                  >
+
+                                    {Array.from({ length: colLimit + 1 }, (_, index) => (
+                                      <option key={index + 1} value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                  <h2 className="heading-secondary">/</h2>
+                                  <select
+                                    value={item.col2}
+                                    onChange={(event) => handleImgArrayC2Change(index, event.target.value)}
+                                    className="text-options text-span"
+                                    style={{ width: "100%", marginTop: "1rem" }}
+                                  >
+
+                                    {Array.from({ length: colLimit + 1 }, (_, index) => (
+                                      <option key={index + 1} value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div className="flex-col">
+                                <label className="heading-tertiary">Grid Row: &nbsp;</label>
+                                <div className="flex-row-align">
+                                  <select
+                                    value={item.row1}
+                                    onChange={(event) => handleImgArrayR1Change(index, event.target.value)}
+                                    className="text-options text-span"
+                                    style={{ width: "100%", marginTop: "1rem" }}
+                                  >
+
+                                    {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
+                                      <option key={index + 1} value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                  <h2 className="heading-secondary">/</h2>
+                                  <select
+                                    value={item.row2}
+                                    onChange={(event) => handleImgArrayR2Change(index, event.target.value)}
+                                    className="text-options text-span"
+                                    style={{ width: "100%", marginTop: "1rem" }}
+                                  >
+
+                                    {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
+                                      <option key={index + 1} value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                              </div>
+                            </>}
+                          </div>
+
+                          {screenWidth <= 900 && <div className="flex-row" style={{ marginBottom: "1rem" }}>
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary">Grid Column: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <select
+                                  value={item.col1}
+                                  onChange={(event) => handleImgArrayC1Change(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+
+                                  {Array.from({ length: colLimit + 1 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                                <h2 className="heading-secondary">/</h2>
+                                <select
+                                  value={item.col2}
+                                  onChange={(event) => handleImgArrayC2Change(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+
+                                  {Array.from({ length: colLimit + 1 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                            </div>
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary">Grid Row: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <select
+                                  value={item.row1}
+                                  onChange={(event) => handleImgArrayR1Change(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+
+                                  {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                                <h2 className="heading-secondary">/</h2>
+                                <select
+                                  value={item.row2}
+                                  onChange={(event) => handleImgArrayR2Change(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+
+                                  {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                            </div>
+                          </div>}
+
+
+
+                        </div>
+                        <button className="add-img" type="button" onClick={() => handleDeleteImg(index)}>
+                          {confirmDelete1 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
+                        </button>
+                      </motion.div>
+                    )}
+
+                    {MinimizedImg.includes(index) && (
+                      <motion.div className="detail-row-about" key={index} variants={slide} initial="hidden" animate="visible" exit="exit">
+                        <div className="flex-col set-container" style={{ gap: "1rem" }}>
+                          <button className="min-button rotater" onClick={() => toggleImgMin(index)}>
+                            {MinimizedImg.includes(index) ? <div className="heading-icon-chevron svg-color">&nbsp;</div> : <div className="heading-icon-chevron svg-color">&nbsp;</div>}
+                          </button>
+                          <div className="flex-row">
+                            <div className="flex-col">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Imgur Link: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <input
+                                  type="text"
+                                  placeholder="Imgur Link"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.img}
+                                  onChange={(event) => handleImgArrayImageChange(event, index)}
+                                ></input>
+                              </div>
+                            </div>
+
+                            
+                            {screenWidth <= 1100 && <div className="flex-col">
+                              <img src={item.img} style={{ height: "7rem", width: "7rem", margin: "auto auto" }} className={`${item.border ? "round-borderer" : ""}`}></img>
+                            </div>}
+
+                            {screenWidth > 1100 && <>
+                            <div className="flex-col">
+                              <label className="heading-tertiary">Border: &nbsp;</label>
+                              <select value={item.border} onChange={(event) => handleImgArrayBorderChange(index, event.target.value)} className="text-options text-span" style={{ width: "100%", marginTop: "1rem" }}>
+                                <option value="round-borderer">On</option>
+                                <option value="">Off</option>
+                              </select>
+                            </div>
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary" title="For stacking priority. If the number is higher, it will appear on top of the other items.">Z-Index: &nbsp;</label>
+                              <select
+                                value={item.zInd}
+                                onChange={(event) => handleImgArrayZChange(index, event.target.value)}
+                                className="text-options text-span"
+                                style={{ width: "100%", marginTop: "1rem" }}
+                              >
+
+                                {Array.from({ length: 10 }, (_, index) => (
+                                  <option key={index + 1} value={index + 1}>
+                                    {index + 1}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                            <div className="flex-col">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc. The main method of sizing should be the grid system.">Scale: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <input
+                                  type="number"
+                                  placeholder="Scale"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.scale}
+                                  onChange={(event) => handleImgArrayScaleChange(event, index)}
+                                ></input>
+                              </div>
+                            </div>
+                            </>}
+                          </div>
+
+                          <div className="flex-row" style={{ marginBottom: "1rem" }}>
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary">Grid Column: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <select
+                                  value={item.col1}
+                                  onChange={(event) => handleImgArrayC1Change(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+
+                                  {Array.from({ length: colLimit + 1 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                                <h2 className="heading-secondary">/</h2>
+                                <select
+                                  value={item.col2}
+                                  onChange={(event) => handleImgArrayC2Change(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+
+                                  {Array.from({ length: colLimit + 1 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                            </div>
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary">Grid Row: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <select
+                                  value={item.row1}
+                                  onChange={(event) => handleImgArrayR1Change(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+
+                                  {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                                <h2 className="heading-secondary">/</h2>
+                                <select
+                                  value={item.row2}
+                                  onChange={(event) => handleImgArrayR2Change(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+
+                                  {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                          {screenWidth <= 1100 && <div className="flex-row">
+                            <div className="flex-col">
+                              <label className="heading-tertiary">Border: &nbsp;</label>
+                              <select value={item.border} onChange={(event) => handleImgArrayBorderChange(index, event.target.value)} className="text-options text-span" style={{ width: "100%", marginTop: "1rem" }}>
+                                <option value="round-borderer">On</option>
+                                <option value="">Off</option>
+                              </select>
+                            </div>
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary" title="For stacking priority. If the number is higher, it will appear on top of the other items.">Z-Index: &nbsp;</label>
+                              <select
+                                value={item.zInd}
+                                onChange={(event) => handleImgArrayZChange(index, event.target.value)}
+                                className="text-options text-span"
+                                style={{ width: "100%", marginTop: "1rem" }}
+                              >
+
+                                {Array.from({ length: 10 }, (_, index) => (
+                                  <option key={index + 1} value={index + 1}>
+                                    {index + 1}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                            <div className="flex-col">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc. The main method of sizing should be the grid system.">Scale: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <input
+                                  type="number"
+                                  placeholder="Scale"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.scale}
+                                  onChange={(event) => handleImgArrayScaleChange(event, index)}
+                                ></input>
+                              </div>
+                            </div>
+                          </div>}
+
+                        </div>
+                        <button className="add-img" type="button" onClick={() => handleDeleteImg(index)}>
+                          {confirmDelete2 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
+                        </button>
+                      </motion.div>
+                    )}
+                  </div>
+                ))}
+              </AnimatePresence>
+            </div>
+          </div>
+
+
+          <span className="page-heading" style={{ margin: "1rem 0" }}>
+            <div className="heading-icon-dropshadow">
+              <div className="heading-icon-cube svg-color">&nbsp;</div>
+            </div>
+            <h1 className="heading-secondary no-margin">&nbsp;Container Items &nbsp;</h1>
+            <button className="add-img" type="button" onClick={handleAddContArray} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+          </span>
+          <div>
+            <div className="detail-inputs">
+              <AnimatePresence>
+                {ContainerArray.map((item, index) => (
+                  <div className="detail-row-about" key={index}>
+                    {!MinimizedCont.includes(index) && (
+                      <motion.div className="detail-row-about" key={index} variants={slide} initial="hidden" animate="visible" exit="exit">
+                        <div className="flex-col set-container" style={{ gap: "1rem" }}>
+                          <button className="min-button" onClick={() => toggleContMin(index)}>
+                            {MinimizedCont.includes(index) ? <div className="heading-icon-chevron svg-color">&nbsp;</div> : <div className="heading-icon-chevron svg-color">&nbsp;</div>}
+                          </button>
+
+                          <div className="flex-row" style={{ marginBottom: "1rem" }}>
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary-colorless" style={{ marginBottom: "1rem", color: item.color }}>Color Hex: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <input
+                                  type="text"
+                                  placeholder="#HEXCODE"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.color}
+                                  onChange={(event) => handleContArrayColorChange(event, index)}
+                                ></input>
+                              </div>
+                            </div>
+
+                            {screenWidth <= 1000 && <>
+                              <div className="flex-col">
+                                <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc. The main method of sizing should be the grid system.">Scale: &nbsp;</label>
+                                <div className="flex-row-align">
+                                  <input
+                                    type="number"
+                                    placeholder="Scale"
+                                    className="text-small input-number"
+                                    autoComplete="off"
+                                    style={{ width: "100%", margin: "0" }}
+                                    value={item.scale}
+                                    onChange={(event) => handleContArrayScaleChange(event, index)}
+                                  ></input>
+                                </div>
+                              </div>
+
+                              <div className="flex-col">
+                                <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Makes containers transparent, goes from 0 to 1. 0 Means invisible, 1 means fully visible. 0.8 means 80% visible.">Opacity: &nbsp;</label>
+                                <div className="flex-row-align">
+                                  <input
+                                    type="number"
+                                    placeholder="Opacity"
+                                    className="text-small input-number"
+                                    autoComplete="off"
+                                    style={{ width: "100%", margin: "0" }}
+                                    value={item.opacity}
+                                    onChange={(event) => handleContArrayOpacityChange(event, index)}
+                                  ></input>
+                                </div>
+                              </div>
+                            </>}
+
+                            {screenWidth > 1000 && <>
+                              <div className="flex-col">
+                                <label className="heading-tertiary">Grid Column: &nbsp;</label>
+                                <div className="flex-row-align">
+                                  <select
+                                    value={item.col1}
+                                    onChange={(event) => handleContArrayC1Change(index, event.target.value)}
+                                    className="text-options text-span"
+                                    style={{ width: "100%", marginTop: "1rem" }}
+                                  >
+
+                                    {Array.from({ length: colLimit + 1 }, (_, index) => (
+                                      <option key={index + 1} value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                  <h2 className="heading-secondary">/</h2>
+                                  <select
+                                    value={item.col2}
+                                    onChange={(event) => handleContArrayC2Change(index, event.target.value)}
+                                    className="text-options text-span"
+                                    style={{ width: "100%", marginTop: "1rem" }}
+                                  >
+
+                                    {Array.from({ length: colLimit + 1 }, (_, index) => (
+                                      <option key={index + 1} value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                              </div>
+
+                              <div className="flex-col">
+                                <label className="heading-tertiary">Grid Row: &nbsp;</label>
+                                <div className="flex-row-align">
+                                  <select
+                                    value={item.row1}
+                                    onChange={(event) => handleContArrayR1Change(index, event.target.value)}
+                                    className="text-options text-span"
+                                    style={{ width: "100%", marginTop: "1rem" }}
+                                  >
+                                    {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
+                                      <option key={index + 1} value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                  <h2 className="heading-secondary">/</h2>
+                                  <select
+                                    value={item.row2}
+                                    onChange={(event) => handleContArrayR2Change(index, event.target.value)}
+                                    className="text-options text-span"
+                                    style={{ width: "100%", marginTop: "1rem" }}
+                                  >
+                                    {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
+                                      <option key={index + 1} value={index + 1}>
+                                        {index + 1}
+                                      </option>
+                                    ))}
+                                  </select>
+                                </div>
+                              </div>
+                            </>}
+                          </div>
+
+
+                          {screenWidth <= 1000 && <div className="flex-row" style={{ marginBottom: "1rem" }}>
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary">Grid Column: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <select
+                                  value={item.col1}
+                                  onChange={(event) => handleContArrayC1Change(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+
+                                  {Array.from({ length: colLimit + 1 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                                <h2 className="heading-secondary">/</h2>
+                                <select
+                                  value={item.col2}
+                                  onChange={(event) => handleContArrayC2Change(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+
+                                  {Array.from({ length: colLimit + 1 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                            </div>
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary">Grid Row: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <select
+                                  value={item.row1}
+                                  onChange={(event) => handleContArrayR1Change(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+                                  {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                                <h2 className="heading-secondary">/</h2>
+                                <select
+                                  value={item.row2}
+                                  onChange={(event) => handleContArrayR2Change(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+                                  {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                            </div>
+                          </div>}
+
+                        </div>
+                        <button className="add-img" type="button" onClick={() => handleDeleteCont(index)}>
+                          {confirmDelete3 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
+                        </button>
+                      </motion.div>
+                    )}
+
+
+
+
+                    {MinimizedCont.includes(index) && (
+                      <motion.div className="detail-row-about" key={index} variants={slide} initial="hidden" animate="visible" exit="exit">
+                        <div className="flex-col set-container" style={{ gap: "1rem" }}>
+                          <button className="min-button rotater" onClick={() => toggleContMin(index)}>
+                            {MinimizedCont.includes(index) ? <div className="heading-icon-chevron svg-color">&nbsp;</div> : <div className="heading-icon-chevron svg-color">&nbsp;</div>}
+                          </button>
+                          <div className="flex-row">
+                            <div className="flex-col">
+                              <label className="heading-tertiary-colorless" style={{ marginBottom: "1rem", color: item.color }}>Color Hex: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <input
+                                  type="text"
+                                  placeholder="#HEXCODE"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.color}
+                                  onChange={(event) => handleContArrayColorChange(event, index)}
+                                ></input>
+                              </div>
+                            </div>
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary">Body: &nbsp;</label>
+                              <select value={item.border} onChange={(event) => handleContArrayBorderChange(index, event.target.value)} className="text-options text-span" style={{ width: "100%", marginTop: "1rem" }}>
+                                <option value="round-borderer">On</option>
+                                <option value="">Off</option>
+                              </select>
+                            </div>
+
+                            {screenWidth > 1100 && <>
+                              <div className="flex-col">
+                                <label className="heading-tertiary" title="For stacking priority. If the number is higher, it will appear on top of the other items.">Z-Index: &nbsp;</label>
+                                <select
+                                  value={item.zInd}
+                                  onChange={(event) => handleContArrayZChange(index, event.target.value)}
+                                  className="text-options text-span"
+                                  style={{ width: "100%", marginTop: "1rem" }}
+                                >
+
+                                  {Array.from({ length: 10 }, (_, index) => (
+                                    <option key={index + 1} value={index + 1}>
+                                      {index + 1}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                              <div className="flex-col">
+                                <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc. The main method of sizing should be the grid system.">Scale: &nbsp;</label>
+                                <div className="flex-row-align">
+                                  <input
+                                    type="number"
+                                    placeholder="Scale"
+                                    className="text-small input-number"
+                                    autoComplete="off"
+                                    style={{ width: "100%", margin: "0" }}
+                                    value={item.scale}
+                                    onChange={(event) => handleContArrayScaleChange(event, index)}
+                                  ></input>
+                                </div>
+                              </div>
+                            </>}
                             {screenWidth > 1500 && <div className="flex-col">
                               <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Makes containers transparent, goes from 0 to 1. 0 Means invisible, 1 means fully visible. 0.8 means 80% visible.">Opacity: &nbsp;</label>
                               <div className="flex-row-align">
@@ -1355,7 +2544,7 @@ function About({ shopID, screenWidth }) {
                                   className="text-options text-span"
                                   style={{ width: "100%", marginTop: "1rem" }}
                                 >
-                                  {Array.from({ length: rowCount + 1 }, (_, index) => (
+                                  {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
                                     <option key={index + 1} value={index + 1}>
                                       {index + 1}
                                     </option>
@@ -1368,7 +2557,7 @@ function About({ shopID, screenWidth }) {
                                   className="text-options text-span"
                                   style={{ width: "100%", marginTop: "1rem" }}
                                 >
-                                  {Array.from({ length: rowCount + 1 }, (_, index) => (
+                                  {Array.from({ length: parseInt(rowCount) + 1 }, (_, index) => (
                                     <option key={index + 1} value={index + 1}>
                                       {index + 1}
                                     </option>
@@ -1418,7 +2607,8 @@ function About({ shopID, screenWidth }) {
                               </div>
                             </div>}
                           </div>
-                          {screenWidth <= 1500 && <div className="flex-col">
+                          {screenWidth <= 1500 && <div className="about-input-grid" style={{ marginBottom: "1rem" }}>
+                            <div className="flex-col about-input-span">
                               <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Border Radius: &nbsp;</label>
                               <div className="flex-row-align">
                                 <input
@@ -1457,8 +2647,59 @@ function About({ shopID, screenWidth }) {
                                   value={item.br}
                                   onChange={(event) => handleContArrayBRChange(event, index)}
                                 ></input>
-                                <div className="flex-col">
+                              </div>
+                            </div>
+                            {screenWidth > 1100 && <div className="flex-col about-input-span-2">
                               <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Makes containers transparent, goes from 0 to 1. 0 Means invisible, 1 means fully visible. 0.8 means 80% visible.">Opacity: &nbsp;</label>
+                              <input
+                                type="number"
+                                placeholder="Opacity"
+                                className="text-small input-number"
+                                autoComplete="off"
+                                style={{ width: "100%", margin: "0" }}
+                                value={item.opacity}
+                                onChange={(event) => handleContArrayOpacityChange(event, index)}
+                              ></input>
+                            </div>}
+                          </div>
+                          }
+
+                          {screenWidth <= 1100 && <div className="flex-row">
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary" title="For stacking priority. If the number is higher, it will appear on top of the other items.">Z-Index: &nbsp;</label>
+                              <select
+                                value={item.zInd}
+                                onChange={(event) => handleContArrayZChange(index, event.target.value)}
+                                className="text-options text-span"
+                                style={{ width: "100%", marginTop: "1rem" }}
+                              >
+
+                                {Array.from({ length: 10 }, (_, index) => (
+                                  <option key={index + 1} value={index + 1}>
+                                    {index + 1}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                            <div className="flex-col">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Increase or decrease an element's size. 1 for 100%, 1.2 for 120%, etc. The main method of sizing should be the grid system.">Scale: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <input
+                                  type="number"
+                                  placeholder="Scale"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.scale}
+                                  onChange={(event) => handleContArrayScaleChange(event, index)}
+                                ></input>
+                              </div>
+                            </div>
+
+                            <div className="flex-col">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Makes containers transparent, goes from 0 to 1. 0 Means invisible, 1 means fully visible. 0.8 means 80% visible.">Opacity: &nbsp;</label>
+                              <div className="flex-row-align">
                                 <input
                                   type="number"
                                   placeholder="Opacity"
@@ -1468,11 +2709,9 @@ function About({ shopID, screenWidth }) {
                                   value={item.opacity}
                                   onChange={(event) => handleContArrayOpacityChange(event, index)}
                                 ></input>
-                            </div>
                               </div>
                             </div>
-                            
-                            }
+                          </div>}
 
                         </div>
                         <button className="add-img" type="button" onClick={() => handleDeleteCont(index)}>
@@ -1486,7 +2725,7 @@ function About({ shopID, screenWidth }) {
             </div>
           </div>
         </div>
-      </div>
+      </div>}
     </div>
 
 

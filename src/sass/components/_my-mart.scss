@@ -337,3 +337,16 @@ input[type="checkbox"].checkbox-style {
   height: calc(100% - 16rem) 
 }
 
+.about-input-grid{
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+}
+
+.about-input-span{
+  grid-column: span 8;
+}
+
+.about-input-span-2{
+  margin-left: 1rem;
+  grid-column: span 2;
+}

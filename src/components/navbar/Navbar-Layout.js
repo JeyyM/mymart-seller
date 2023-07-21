@@ -98,6 +98,9 @@ body{background-color: ${props.color["bg-body"]} !important;}
 .heading-tertiary, .desc-text-area, .invalid-form-box, .form-label {font-family: ${props.color["text-tertiary-font"]} !important;
     color: ${props.color["text-tertiary-color"]} !important;}
 
+.heading-tertiary-colorless {font-family: ${props.color["text-tertiary-font"]} !important;
+}
+
 .heading-tertiary-notif {font-family: ${props.color["text-tertiary-font"]} !important;}
 
 .empty-text {color: ${props.color["color-primary-dark"]} !important;}
