@@ -18,6 +18,7 @@ const libraries = ['places'];
 export default function Details(martID) {
   const footerItems = martID.shopID.shopData.shopDetails.footerData
   const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
+  const {screenWidth} = martID 
 
   const router = useRouter()
 
@@ -336,13 +337,30 @@ export default function Details(martID) {
       <link rel="icon" type="image/jpeg" href={favicon} />
     </Head>
 
+    {/* <span className="page-heading">
+        <div className="heading-icon-dropshadow">
+          <div className="heading-icon-sales svg-color">&nbsp;</div>
+        </div>
+        <h1 className="heading-primary no-margin"  style={{ fontSize: `${screenWidth > 425 ? "3.5rem" : screenWidth > 360 ? "3rem" : "2.5rem"}`}}>&nbsp;Sales & Profits</h1>
+        <select
+          value={SelectDate}
+          className="text-options text-black"
+          style={{ width: `${screenWidth > 480 ? "20rem" : screenWidth > 400 ? "16rem" : "13rem"}`, marginLeft: "1rem" }}
+          onChange={(event) => handleSelectDate(event)}
+        >
+          <option value="1">Today</option>
+          <option value="30">Past 30 Days</option>
+          <option value="9999">All Time</option>
+        </select>
+        <button onClick={handleDownload} className="add-categ-init" style={{ width: `${screenWidth > 580 ? "18rem" : screenWidth > 425 ? "14rem" : "11rem"}`, marginLeft:"auto", marginRight:"1rem", height: `${screenWidth > 580 ? "4rem" : "7rem"}` }}><h2 className='margin-side heading-tertiary'>Download CSV</h2></button>
+      </span> */}
+
     <span className="page-heading">
       <div className="heading-icon-dropshadow">
         <div className="heading-icon-pin svg-color">&nbsp;</div>
       </div>
-      <h1 className="heading-primary no-margin">Contact Details and Footer&nbsp;</h1>
-      <button className="heading-tertiary add-categ-init" style={{ width: "max-content" }} onClick={submitChanges} disabled={loading}>
-        <div className="heading-icon-check svg-color">&nbsp;</div>{loading ? "Submitting..." : "Submit Changes"} &nbsp;</button>
+      <h1 className="heading-primary no-margin"  style={{ fontSize: `${screenWidth > 500 ? "3.5rem" : screenWidth > 450 ? "3rem" : "2.5rem"}`}}>Contact Details and Footer&nbsp;</h1>
+      <button onClick={submitChanges} className="heading-tertiary add-categ-init" style={{ width: `${screenWidth > 600 ? "21rem" : screenWidth > 400 ? "23rem" : "18rem"}`, height: `${screenWidth > 400 ? "4rem" : "7rem"}` }} disabled={loading}><div className="heading-icon-check svg-color">&nbsp;</div>{loading ? "Submitting..." : "Submit Changes"} &nbsp;</button>
     </span>
     <section className="contact-container">
 
@@ -354,7 +372,7 @@ export default function Details(martID) {
 
         <h2 className="heading-tertiary">{locationName}</h2>
 
-        <div style={{ height: "calc(100% - 16rem)" }}>
+        <div className="detail-location">
           <GoogleMap
             mapContainerStyle={mapContainerStyle}
             center={center}

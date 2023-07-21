@@ -6,7 +6,7 @@ import Link from "next/link"
 function Mart(martID) {
     const id = martID.shopID._id
     const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
-
+    const {screenWidth} = martID
 
     return <Fragment>
         <Head>
@@ -22,26 +22,30 @@ function Mart(martID) {
         </span>
 
         <div className="setting-grid">
-            <Link className="homepage-button x item-setup flex-col-center" href={`/${id}/mart/details`} style={{ textDecoration: "none" }}>
-                <div className="about-button-pin svg-down"></div>
+            <Link className="mymart-button x item-setup flex-col-center" href={`/${id}/mart/details`} style={{ textDecoration: "none" }}>
+                <div className={`${screenWidth > 350 ? "about-button-pin" : "about-button-pin-2"} svg-down`}></div>
                 <h2 className="heading-primary" style={{ display: "inline", margin: "1rem auto", textAlign: "center" }}>Contact Details & Footer</h2>
             </Link>
-            <Link className="homepage-button x item-setup flex-col-center" href={`/${id}/mart/payment`} style={{ textDecoration: "none" }}>
-                <div className="about-button-credit svg-down"></div>
+            <Link className="mymart-button x item-setup flex-col-center" href={`/${id}/mart/payment`} style={{ textDecoration: "none" }}>
+                <div className={`${screenWidth > 350 ? "about-button-credit" : "about-button-credit-2"} svg-down`}></div>
                 <h2 className="heading-primary" style={{ display: "inline", margin: "1rem auto", textAlign: "center" }}>Payment & Fees</h2>
             </Link>
-            <Link className="homepage-button x item-setup flex-col-center" href={`/${id}/mart/about`} style={{ textDecoration: "none" }}>
-                <div className="about-button-flag svg-down"></div>
+            <Link className="mymart-button x item-setup flex-col-center" href={`/${id}/mart/about`} style={{ textDecoration: "none" }}>
+                <div className={`${screenWidth > 350 ? "about-button-flag" : "about-button-flag-2"} svg-down`}></div>
                 <h2 className="heading-primary" style={{ display: "inline", margin: "1rem auto", textAlign: "center" }}>Create About Page</h2>
             </Link>
-            <Link className="homepage-button x item-setup flex-col-center" href={`/${id}/mart/images`} style={{ textDecoration: "none" }}>
-                <div className="about-button-pop-up svg-down"></div>
+            <Link className="mymart-button x item-setup flex-col-center" href={`/${id}/mart/images`} style={{ textDecoration: "none" }}>
+                <div className={`${screenWidth > 350 ? "about-button-pop-up" : "about-button-pop-up-2"} svg-down`}></div>
                 <h2 className="heading-primary" style={{ display: "inline", margin: "1rem auto", textAlign: "center" }}>Images & Pop-up</h2>
             </Link>
-            <Link className="homepage-button x item-setup flex-col-center" href={`/${id}/mart/about`} style={{ textDecoration: "none" }}>
+            <Link className="mymart-button x item-setup flex-col-center" href={`/${id}/mart/settings`} style={{ textDecoration: "none" }}>
+                <div className={`${screenWidth > 350 ? "about-button-settings" : "about-button-settings-2"} svg-down`}></div>
+                <h2 className="heading-primary" style={{ display: "inline", margin: "1rem auto", textAlign: "center" }}>Mart Settings</h2>
+            </Link>
+            {/* <Link className="mymart-button x item-setup flex-col-center" href={`/${id}/mart/about`} style={{ textDecoration: "none" }}>
                 <div className="about-button-messenger svg-down"></div>
                 <h2 className="heading-primary" style={{ display: "inline", margin: "1rem auto", textAlign: "center" }}>Messenger Plugin</h2>
-            </Link>
+            </Link> */}
 
 
         </div>

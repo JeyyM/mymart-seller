@@ -7,7 +7,7 @@ import { GliderComponent } from 'react-glider';
 import 'glider-js/glider.min.css';
 import ModalCarousel from "../../../components/Modal/ModalCarousel";
 
-function About({ shopID }) {
+function About({ shopID, screenWidth }) {
   const startingInfo = shopID.shopData.shopDetails.aboutData
   const rowInfo = shopID.shopData.shopDetails.aboutData.rows
   const favicon = shopID.shopData.shopDetails.imageData.icons.icon
@@ -94,6 +94,7 @@ function About({ shopID }) {
   function handleAddTextArray(link, type) {
     const newTextArray = [...TextArray, { type: "heading-primary", row1: "1", row2: "2", col1: "1", col2: "2", align: "center", zInd: "1", content: "Item", scale: "1" }];
     setTextArray(newTextArray);
+    MinimizedText.push(TextArray.length)
   }
 
   function handleTextArrayTypeChange(index) {
@@ -156,6 +157,7 @@ function About({ shopID }) {
   function handleAddImgArray() {
     const newImgArray = [...ImgArray, { img: "https://i.imgur.com/qlmYdJO.jpeg", row1: "1", row2: "2", col1: "1", col2: "2", zInd: "1", border: "", scale: "1" }];
     setImgArray(newImgArray);
+    MinimizedImg.push(ImgArray.length)
   }
 
   function handleImgArrayImageChange(event, index) {
@@ -211,6 +213,7 @@ function About({ shopID }) {
   function handleAddContArray() {
     const newContArray = [...ContainerArray, { color: "#FF0000", border: "", scale: "1", zInd: "1", opacity: "1", row1: "1", row2: "2", col1: "1", col2: "2", tl: "0", tr: "0", bl: "0", br: "0" }];
     setContainerArray(newContArray);
+    MinimizedCont.push(ContainerArray.length)
   }
 
   function handleContArrayColorChange(event, index) {
@@ -400,21 +403,21 @@ function About({ shopID }) {
     router.reload()
   }
 
-  const [screenWidth, setScreenWidth] = useState(0);
+  const [screenWidth2, setScreenWidth2] = useState(0);
   const [screenScale, setScreenScale] = useState(1)
 
   useEffect(() => {
     const handleResize = () => {
-      const newScreenWidth = window.innerWidth;
-      const newScale = (newScreenWidth / screenPx).toFixed(2);
-      setScreenWidth(newScreenWidth);
+      const newScreenWidth2 = window.innerWidth;
+      const newScale = (newScreenWidth2 / screenPx).toFixed(2);
+      setScreenWidth2(newScreenWidth2);
       setScreenScale(newScale);
     };
 
     handleResize()
 
     if (typeof window !== 'undefined') {
-      setScreenWidth(window.innerWidth);
+      setScreenWidth2(window.innerWidth);
       window.addEventListener('resize', handleResize);
     }
 
@@ -550,6 +553,7 @@ function About({ shopID }) {
   function handleModal() {
     showModal(!modal)
   }
+
   return <Fragment>
     <Head>
       <title>Create About Page</title>
@@ -609,7 +613,7 @@ function About({ shopID }) {
             <AnimatePresence>
               {TextArray.map((item, index) => (
                 <div className="detail-row-about" key={index}>
-                  {!MinimizedText.includes(index) && (
+                  {MinimizedText.includes(index) && (
                     <motion.div className="detail-row-about" key={index} variants={slide} initial="hidden" animate="visible" exit="exit">
 
                       <div className="flex-col set-container" style={{ gap: "1rem" }}>
@@ -756,7 +760,7 @@ function About({ shopID }) {
                         {confirmDelete1 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
                       </button>
                     </motion.div>)}
-                  {MinimizedText.includes(index) && (
+                  {!MinimizedText.includes(index) && (
                     <motion.div className="detail-row-about" key={index} variants={slide} initial="hidden" animate="visible" exit="exit">
 
                       <div className="flex-col set-container" style={{ gap: "1rem" }}>
@@ -878,7 +882,7 @@ function About({ shopID }) {
               <AnimatePresence>
                 {ImgArray.map((item, index) => (
                   <div className="detail-row-about" key={index}>
-                    {MinimizedImg.includes(index) && (
+                    {!MinimizedImg.includes(index) && (
                       <motion.div className="detail-row-about" key={index} variants={slide} initial="hidden" animate="visible" exit="exit">
                         <div className="flex-col set-container" style={{ gap: "1rem" }}>
                           <button className="min-button" onClick={() => toggleImgMin(index)}>
@@ -976,7 +980,7 @@ function About({ shopID }) {
                       </motion.div>
                     )}
 
-                    {!MinimizedImg.includes(index) && (
+                    {MinimizedImg.includes(index) && (
                       <motion.div className="detail-row-about" key={index} variants={slide} initial="hidden" animate="visible" exit="exit">
                         <div className="flex-col set-container" style={{ gap: "1rem" }}>
                           <button className="min-button rotater" onClick={() => toggleImgMin(index)}>
@@ -1132,7 +1136,7 @@ function About({ shopID }) {
               <AnimatePresence>
                 {ContainerArray.map((item, index) => (
                   <div className="detail-row-about" key={index}>
-                    {MinimizedCont.includes(index) && (
+                    {!MinimizedCont.includes(index) && (
                       <motion.div className="detail-row-about" key={index} variants={slide} initial="hidden" animate="visible" exit="exit">
                         <div className="flex-col set-container" style={{ gap: "1rem" }}>
                           <button className="min-button" onClick={() => toggleContMin(index)}>
@@ -1231,7 +1235,7 @@ function About({ shopID }) {
 
 
 
-                    {!MinimizedCont.includes(index) && (
+                    {MinimizedCont.includes(index) && (
                       <motion.div className="detail-row-about" key={index} variants={slide} initial="hidden" animate="visible" exit="exit">
                         <div className="flex-col set-container" style={{ gap: "1rem" }}>
                           <button className="min-button rotater" onClick={() => toggleContMin(index)}>
@@ -1291,7 +1295,7 @@ function About({ shopID }) {
                                 ></input>
                               </div>
                             </div>
-                            <div className="flex-col">
+                            {screenWidth > 1500 && <div className="flex-col">
                               <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Makes containers transparent, goes from 0 to 1. 0 Means invisible, 1 means fully visible. 0.8 means 80% visible.">Opacity: &nbsp;</label>
                               <div className="flex-row-align">
                                 <input
@@ -1304,7 +1308,7 @@ function About({ shopID }) {
                                   onChange={(event) => handleContArrayOpacityChange(event, index)}
                                 ></input>
                               </div>
-                            </div>
+                            </div>}
                           </div>
 
                           <div className="flex-row" style={{ marginBottom: "1rem" }}>
@@ -1372,7 +1376,7 @@ function About({ shopID }) {
                                 </select>
                               </div>
                             </div>
-                            <div className="flex-col">
+                            {screenWidth > 1500 && <div className="flex-col">
                               <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Border Radius: &nbsp;</label>
                               <div className="flex-row-align">
                                 <input
@@ -1412,8 +1416,63 @@ function About({ shopID }) {
                                   onChange={(event) => handleContArrayBRChange(event, index)}
                                 ></input>
                               </div>
-                            </div>
+                            </div>}
                           </div>
+                          {screenWidth <= 1500 && <div className="flex-col">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Border Radius: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <input
+                                  type="number"
+                                  placeholder="TL"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.tl}
+                                  onChange={(event) => handleContArrayTLChange(event, index)}
+                                ></input>
+                                <input
+                                  type="number"
+                                  placeholder="TR"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.tr}
+                                  onChange={(event) => handleContArrayTRChange(event, index)}
+                                ></input>
+                                <input
+                                  type="number"
+                                  placeholder="BL"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.bl}
+                                  onChange={(event) => handleContArrayBLChange(event, index)}
+                                ></input>
+                                <input
+                                  type="number"
+                                  placeholder="BR"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.br}
+                                  onChange={(event) => handleContArrayBRChange(event, index)}
+                                ></input>
+                                <div className="flex-col">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Makes containers transparent, goes from 0 to 1. 0 Means invisible, 1 means fully visible. 0.8 means 80% visible.">Opacity: &nbsp;</label>
+                                <input
+                                  type="number"
+                                  placeholder="Opacity"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.opacity}
+                                  onChange={(event) => handleContArrayOpacityChange(event, index)}
+                                ></input>
+                            </div>
+                              </div>
+                            </div>
+                            
+                            }
 
                         </div>
                         <button className="add-img" type="button" onClick={() => handleDeleteCont(index)}>

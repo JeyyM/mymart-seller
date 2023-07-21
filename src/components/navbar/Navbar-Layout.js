@@ -111,12 +111,12 @@ border-image: linear-gradient(
     1 !important;}
 
 
-.homepage-button, .add-categ-init, .add-prod-init, .category, .product-image, .side-img, .varItem, .detail-slot, .detail-slot-carousel, .detail-slot-about, .top-notif{border-radius: ${props.color["border-tl"]} ${props.color["border-tr"]} ${props.color["border-br"]} ${props.color["border-bl"]} !important;}
+.homepage-button, .mymart-button, .add-categ-init, .add-prod-init, .category, .product-image, .side-img, .varItem, .detail-slot, .detail-slot-carousel, .detail-slot-about, .top-notif{border-radius: ${props.color["border-tl"]} ${props.color["border-tr"]} ${props.color["border-br"]} ${props.color["border-bl"]} !important;}
 
-.homepage-button:hover.x, .category:hover {
+.homepage-button:hover.x, .mymart-button:hover, .category:hover {
     filter: drop-shadow(-6px 6px 0px ${props.color["color-primary-dark"]}) !important}
 
-.homepage-button:active.x, .category:active, .theme-pack:active {
+.homepage-button:active.x, .mymart-button:active, .category:active, .theme-pack:active {
     transform: translateY(0rem) translateX(0rem) !important;
     filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["color-primary-light"]}) !important;}
 

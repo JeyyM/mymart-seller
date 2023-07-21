@@ -1,6 +1,6 @@
 .setting-grid {
   width: 100%;
-  height: calc(100vh - $navbar-height - 5rem);
+  min-height: calc(100vh - $navbar-height - 5rem);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-flow: dense;
@@ -69,6 +69,10 @@
 
 .about-button-home {
   @include empty-logo(home, 10rem, 10rem);
+}
+
+.about-button-settings {
+  @include empty-logo(settings, 10rem, 10rem);
 }
 
 .footer {
@@ -307,3 +311,29 @@ input[type="checkbox"].checkbox-style {
   justify-content: center;
   align-content: center;
 }
+
+.mymart-button {
+  @include border-round;
+  height: 1fr;
+  position: relative;
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  transition: all 0.2s;
+  background-image: $theme-bg,
+    linear-gradient(45deg, $color-primary-dark, $color-primary-light);
+
+  &:hover {
+    transform: translateY(-0.6rem) translateX(1rem);
+    filter: drop-shadow(-6px 6px 0px $color-primary-dark);
+  }
+  &:active {
+    transform: translateY(0rem) translateX(0rem);
+    filter: drop-shadow(-1px 1px 0px $color-primary-dark);
+  }
+}
+
+.detail-location{
+  height: calc(100% - 16rem) 
+}
+
