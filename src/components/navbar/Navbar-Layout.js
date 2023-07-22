@@ -181,6 +181,10 @@ border-image: linear-gradient(
     )
     1 !important;}
 
+.preview-modal-3{
+    background-color: ${props.color["bg-body"]};
+}
+
 .navbutton, .theme-button { background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
     filter: drop-shadow(-2px 2px 0px ${props.color["color-primary-dark"]}) !important;}
