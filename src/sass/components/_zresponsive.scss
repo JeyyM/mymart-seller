@@ -581,10 +581,6 @@
 }
 
 @media (max-width: 1366px) {
-  // .about-grid-2 {
-  //   width: 100%;
-  // }
-
   .about-grid-2{
     width: 100vw;
     height: 100vw;
@@ -592,9 +588,11 @@
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 440px) {
   .about-grid-3 {
     width: 100%;
+    height: calc((100vw * 1.77));
+    grid-template-columns: repeat(4, calc((100vw / 4) - 1.2px));
   }
 }
 
