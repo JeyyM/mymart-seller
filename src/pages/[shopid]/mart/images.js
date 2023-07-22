@@ -488,7 +488,7 @@ function Images(martID) {
                                     >
                                         <div
                                             className="flex-col set-container"
-                                            style={{ gap: "1rem", marginBottom: "1rem" }}
+                                            style={{ gap: "1rem", marginBottom: "1rem", position:"relative" }}
                                         >
                                         
                                         <div className="flex-row">
@@ -709,11 +709,8 @@ function Images(martID) {
                                             </div>
                                         </div>
 
-                                        <button
-                                            className="add-img"
-                                            type="button"
-                                            onClick={() => handleDeleteNotif(index)}
-                                        >
+                                        <button className="add-img" type="button" onClick={() => handleDeleteNotif(index)} style={{position:"absolute", top:"0", right:"0", margin:"1rem"}}>
+
                                             {confirmDelete1 === index ? (
                                                 <div className="heading-icon-check-marginless svg-color">
                                                     &nbsp;
@@ -769,8 +766,20 @@ function Images(martID) {
                                     >
                                         <div
                                             className="flex-col set-container"
-                                            style={{ gap: "1rem", marginBottom: "1rem" }}
+                                            style={{ gap: "1rem", marginBottom: "1rem", position:"relative" }}
                                         >
+                                        
+                                        <button className="add-img" type="button" onClick={() => handleDeleteNotif(index)} style={{position:"absolute", right:"0", marginRight:"0.5rem", marginTop:"-1.5rem"}}>
+                                            {confirmDelete1 === index ? (
+                                                <div className="heading-icon-check-marginless svg-color">
+                                                    &nbsp;
+                                                </div>
+                                            ) : (
+                                                <div className="heading-icon-minus-marginless svg-color">
+                                                    &nbsp;
+                                                </div>
+                                            )}
+                                        </button>
                                             <div className="flex-row">
                                                 <div className="flex-col">
                                                     <label className="heading-tertiary">
@@ -985,23 +994,6 @@ function Images(martID) {
                                                 <button className="notif-close-button"><div className="notif-close" style={{ backgroundImage: `linear-gradient(to top right, ${item.textcol}, ${item.textcol})` }}>&nbsp;</div></button>
                                             </div>
                                         </div>
-
-                                        <button
-                                            className="add-img"
-                                            type="button"
-                                            onClick={() => handleDeleteNotif(index)}
-                                        >
-                                            {confirmDelete1 === index ? (
-                                                <div className="heading-icon-check-marginless svg-color">
-                                                    &nbsp;
-                                                </div>
-                                            ) : (
-                                                <div className="heading-icon-minus-marginless svg-color">
-                                                    &nbsp;
-                                                </div>
-                                            )}
-                                        </button>
-
                                     </motion.div>
                                 </div>
                             ))}
@@ -1048,7 +1040,7 @@ function Images(martID) {
                     </div>
                 </button>
             </span>
-            <BannerCarousel data={bannerItems}></BannerCarousel>
+            <BannerCarousel data={bannerItems} screenWidth={screenWidth}></BannerCarousel>
             <AnimatePresence>
                 {bannerItems.map((item, index) => (
                     <div className="detail-row-about" key={index} style={{ width: "95%", margin: "1rem auto" }}>
@@ -1062,10 +1054,27 @@ function Images(martID) {
                         >
                             <div
                                 className="flex-col set-container"
-                                style={{ gap: "1rem", marginBottom: "1rem" }}
+                                style={{ gap: "1rem", marginBottom: "1rem", position:"relative" }}
                             >
-                                <div className="flex-row">
-                                    <div className="flex-col">
+                            
+                            <button
+                                className="add-img"
+                                type="button"
+                                onClick={() => handleDeleteBanner(index)}
+                                style={{position:"absolute", right:"0", top:"0", margin:"0.5rem"}}
+                            >
+                                {confirmDelete2 === index ? (
+                                    <div className="heading-icon-check-marginless svg-color">
+                                        &nbsp;
+                                    </div>
+                                ) : (
+                                    <div className="heading-icon-minus-marginless svg-color">
+                                        &nbsp;
+                                    </div>
+                                )}
+                            </button>
+
+                            {screenWidth <= 600 && <div className="flex-col">
                                         <label
                                             className="heading-tertiary"
                                             style={{ marginBottom: "1rem" }}
@@ -1083,7 +1092,27 @@ function Images(martID) {
                                                 onChange={(event) => handleBannerImage(event, index)}
                                             ></input>
                                         </div>
-                                    </div>
+                                    </div>}
+                                <div className="flex-row">
+                                    {screenWidth > 600 && <div className="flex-col">
+                                        <label
+                                            className="heading-tertiary"
+                                            style={{ marginBottom: "1rem" }}
+                                        >
+                                            Banner Image: &nbsp;
+                                        </label>
+                                        <div className="flex-row-align">
+                                            <input
+                                                type="text"
+                                                placeholder="Link"
+                                                className="text-small input-number"
+                                                autoComplete="off"
+                                                style={{ width: "100%", margin: "0" }}
+                                                value={item.image}
+                                                onChange={(event) => handleBannerImage(event, index)}
+                                            ></input>
+                                        </div>
+                                    </div>}
                                     <div className="flex-col">
                                         <label
                                             className="heading-tertiary"
@@ -1126,12 +1155,12 @@ function Images(martID) {
                                 </div>
                             </div>
 
-                            <button
+                            {/* <button
                                 className="add-img"
                                 type="button"
                                 onClick={() => handleDeleteBanner(index)}
                             >
-                                {confirmDelete1 === index ? (
+                                {confirmDelete2 === index ? (
                                     <div className="heading-icon-check-marginless svg-color">
                                         &nbsp;
                                     </div>
@@ -1140,7 +1169,7 @@ function Images(martID) {
                                         &nbsp;
                                     </div>
                                 )}
-                            </button>
+                            </button> */}
 
                         </motion.div>
                     </div>

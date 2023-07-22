@@ -712,3 +712,32 @@
   }
 }
 
+@media (max-width: 450px) {
+.banner-item.active{
+  width: 40rem;
+  height: 30vh;
+}
+
+.banner-item{
+  height: 30vh;
+  width: 40rem;
+}
+
+.banner-carousel{
+  height: 30vh;
+}
+}
+
+@media (max-width: 350px) {
+  .banner-item.active{
+    width: 35rem;
+    height: 20vh;
+  }
+  .banner-item{
+    height: 20vh;
+    width: 35rem;
+  }
+  .banner-carousel{
+    height: 20vh;
+  }
+  }
