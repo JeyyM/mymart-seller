@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from "framer-motion"
 function Payment(martID) {
     const id = martID.shopID._id
     const router = useRouter()
+    const {screenWidth} = martID
 
     const paymentDetails = martID.shopID.shopData.shopDetails.paymentData
     const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
@@ -317,6 +318,10 @@ function Payment(martID) {
         <div className="payment-grid">
 
             <div className="payment-column">
+            {screenWidth <= 700 && <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
+                <button className="product-action-2 heading-secondary" onClick={submitChanges} disabled={loading} style={{ width: "25rem" }}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
+                <button className="product-action-3 heading-secondary white" onClick={resetChanges} disabled={loading} style={{ width: "25rem" }}>Reset to Default</button>
+            </div>}
             <div className="pay-segment round-borderer round-borderer-extra">
                 <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
                     <div className="heading-icon-credit svg-color">&nbsp;</div>
@@ -349,8 +354,9 @@ function Payment(martID) {
                     {formInputValidity.number ? <label className="form-label">Credit Card Number </label> : <label className="form-label inv">Enter a valid card number</label>}
                 </div>
 
-                <div className="flex-row-spaceless" style={{ alignItems: "center", gap: "2rem" }}>
-                    <label className="heading-secondary product-currency">Expiry Date:</label>
+                <div className="flex-row-spaceless" style={{ alignItems: "center", gap: `${screenWidth > 1300 ? "2rem" : "1rem"}`, marginTop:"0.5rem" }}>
+                    {screenWidth > 700 && <label className={`${screenWidth > 1100 ? "heading-secondary" : "heading-tertiary"} product-currency`}>Expiry Date:</label>}
+                    {screenWidth <= 700 && <label className={`${screenWidth > 10 ? "heading-secondary" : "heading-tertiary"} product-currency`}>Expiry Date:</label>}
                     <div className="flex-col-none">
                         <input style={{ width: "8rem", margin: "0" }} type="number" className={monthClasses} placeholder="MM" autoComplete="off" id='month' value={expiryMonth} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setExpiryMonth(newValue); } }}></input>
                         {formInputValidity.month ? <label className="form-label">Month</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid month</label>}
@@ -363,13 +369,41 @@ function Payment(martID) {
                         {formInputValidity.year ? <label className="form-label">Year</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid year</label>}
                     </div>
 
-                    <label className="heading-secondary product-currency">CVV:</label>
+                    {screenWidth > 900 && <>
+                    <label className={`${screenWidth > 1100 ? "heading-secondary" : "heading-tertiary"} product-currency`}>CVV:</label>
 
                     <div className="flex-col-none">
                         <input style={{ width: "12rem", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" id='year' value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setCvv(newValue); } }}></input>
                         {formInputValidity.cvv ? <label className="form-label">&nbsp;</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid CVV</label>}
                     </div>
+                    </>}
+
+                    {screenWidth <= 700 && screenWidth > 450 && <>
+                    <label className={`${screenWidth > 10 ? "heading-secondary" : "heading-tertiary"} product-currency`}>CVV:</label>
+
+                    <div className="flex-col-none">
+                        <input style={{ width: "12rem", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" id='year' value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setCvv(newValue); } }}></input>
+                        {formInputValidity.cvv ? <label className="form-label">&nbsp;</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid CVV</label>}
+                    </div>
+                    </>}
                 </div>
+                {screenWidth > 400 && screenWidth <= 900 && screenWidth > 700 && <div className="flex-row-spaceless" style={{ alignItems: "center", gap: `${screenWidth > 1300 ? "2rem" : "1rem"}`, marginTop:"0.5rem" }}>
+                    <label className={`${screenWidth > 1100 ? "heading-secondary" : "heading-tertiary"} product-currency`}>CVV:</label>
+
+                    <div className="flex-col-none">
+                        <input style={{ width: "12rem", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" id='year' value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setCvv(newValue); } }}></input>
+                        {formInputValidity.cvv ? <label className="form-label">&nbsp;</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid CVV</label>}
+                    </div>
+                    </div>}
+
+                    {screenWidth <= 450 && <div className="flex-row-spaceless" style={{ alignItems: "center", gap: `${screenWidth > 1300 ? "2rem" : "1rem"}`, marginTop:"0.5rem" }}>
+                    <label className={`${screenWidth > 10 ? "heading-secondary" : "heading-tertiary"} product-currency`}>CVV:</label>
+
+                    <div className="flex-col-none">
+                        <input style={{ width: "12rem", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" id='year' value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setCvv(newValue); } }}></input>
+                        {formInputValidity.cvv ? <label className="form-label">&nbsp;</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid CVV</label>}
+                    </div>
+                    </div>}
 
                 <div className="form-group">
                     <textarea
@@ -385,17 +419,15 @@ function Payment(martID) {
                 </div>
             </div>
 
-            <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
+            {screenWidth > 700 && <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
                 <button className="product-action-2 heading-secondary" onClick={submitChanges} disabled={loading} style={{ width: "25rem" }}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
                 <button className="product-action-3 heading-secondary white" onClick={resetChanges} disabled={loading} style={{ width: "25rem" }}>Reset to Default</button>
-            </div>
-            </div>
-
-            <div className="payment-column">
+            </div>}
+            {screenWidth <= 700 && <div className="payment-column-2">
             <div className="pay-segment-2 round-borderer round-borderer-extra">
                 <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
                         <div className="heading-icon-payment svg-color">&nbsp;</div>
-                    <h1 className="heading-secondary no-margin">Payments and Fees</h1>
+                    <h1 className="heading-secondary no-margin">Payments & Fees</h1>
                 </span>
 
                 <label className="heading-secondary">
@@ -480,9 +512,11 @@ function Payment(martID) {
                     </div>
                 </span>
 
+                <AnimatePresence>
                 {allowRefunds && (
-                    <motion.div variants={slide} initial="hidden" animate="visible" exit="exit" className="flex-row-spaceless" style={{ alignItems: "center", gap: "2rem" }}>
-                        <h2 className="heading-secondary">Length:</h2>
+                    <>
+                    <motion.div variants={slide} initial="hidden" animate="visible" exit="exit" className="flex-row-spaceless" style={{ alignItems: "center", alignContent:"center", gap: `${screenWidth > 1300 ? "1rem" : "0.5rem"}` }}>
+                        <h2 className={`${screenWidth > 1300 ? "heading-secondary" : "heading-tertiary"} product-currency`} style={{marginTop:"2rem"}}>Length:</h2>
                         <select value={refundCount} onChange={handleRefundCountChange} className="text-options text-span" style={{ width: "5rem" }}>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -495,7 +529,7 @@ function Payment(martID) {
                             <option value="9">9</option>
                         </select>
 
-                        <h2 className="heading-secondary">Duration:</h2>
+                        <h2 className={`${screenWidth > 1300 ? "heading-secondary" : "heading-tertiary"} product-currency`} style={{marginTop:"2rem"}}>Duration:</h2>
                         <select value={refundDuration} onChange={handleRefundDurationChange} className="text-options text-span" style={{ width: "12rem" }}>
                             <option value="minute">Minutes</option>
                             <option value="hour">Hours</option>
@@ -505,10 +539,21 @@ function Payment(martID) {
                             <option value="year">Years</option>
                         </select>
 
-                        <h2 className="heading-secondary" title="Will charge the customer by a % of their refunded total.">%Fee:</h2>
+                        {screenWidth > 400 && <>
+                        <h2 className={`${screenWidth > 1300 ? "heading-secondary" : "heading-tertiary"} product-currency`} style={{marginTop:"2rem"}} title="Will charge the customer by a % of their cancelled total.">%Fee:</h2>
                         <input onChange={(event) => setRefundFee(event.target.value)} value={refundFee} type="number" placeholder="%Penalty" className="text-small input-number" autoComplete="off" style={{ width: "20%", margin: "0rem" }}></input>
+                        </>}
+
                     </motion.div>
+                    <motion.div variants={slide} initial="hidden" animate="visible" exit="exit" className="flex-row-spaceless" style={{ alignItems: "center", alignContent:"center", gap: `${screenWidth > 1300 ? "1rem" : "0.5rem"}` }}>
+                    {screenWidth <= 400 && <>
+                        <h2 className={`${screenWidth > 1300 ? "heading-secondary" : "heading-tertiary"} product-currency`} style={{marginTop:"4rem"}} title="Will charge the customer by a % of their cancelled total.">%Fee:</h2>
+                        <input onChange={(event) => setRefundFee(event.target.value)} value={refundFee} type="number" placeholder="%Penalty" className="text-small input-number" autoComplete="off" style={{ width: "20%", margin: "0rem", marginTop:"2rem" }}></input>
+                        </>}
+                    </motion.div>
+                    </>
                 )}
+                </AnimatePresence>
 
                 <span className="page-heading flex-row-align" style={{ margin: "1rem 0" }}>
                     <div className="heading-icon-cancel svg-color">&nbsp;</div>
@@ -524,9 +569,11 @@ function Payment(martID) {
                     </div>
                 </span>
 
+                <AnimatePresence>
                 {allowCancel && (
-                    <motion.div variants={slide} initial="hidden" animate="visible" exit="exit" className="flex-row-spaceless" style={{ alignItems: "center", gap: "2rem" }}>
-                        <h2 className="heading-secondary">Length:</h2>
+                    <>
+                    <motion.div variants={slide} initial="hidden" animate="visible" exit="exit" className="flex-row-spaceless" style={{ alignItems: "center", alignContent:"center", gap: `${screenWidth > 1300 ? "1rem" : "0.5rem"}` }}>
+                    <h2 className={`${screenWidth > 1300 ? "heading-secondary" : "heading-tertiary"} product-currency`} style={{marginTop:"2rem"}}>Length:</h2>
                         <select value={cancelCount} onChange={handleCancelCountChange} className="text-options text-span" style={{ width: "5rem" }}>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -539,7 +586,7 @@ function Payment(martID) {
                             <option value="9">9</option>
                         </select>
 
-                        <h2 className="heading-secondary">Duration:</h2>
+                        <h2 className={`${screenWidth > 1300 ? "heading-secondary" : "heading-tertiary"} product-currency`} style={{marginTop:"2rem"}}>Duration:</h2>
                         <select value={cancelDuration} onChange={handleCancelDurationChange} className="text-options text-span" style={{ width: "12rem" }}>
                             <option value="minute">Minutes</option>
                             <option value="hour">Hours</option>
@@ -548,10 +595,189 @@ function Payment(martID) {
                             <option value="month">Months</option>
                         </select>
 
-                        <h2 className="heading-secondary" title="Will charge the customer by a % of their cancelled total.">%Fee:</h2>
+                        {screenWidth > 400 && <>
+                        <h2 className={`${screenWidth > 1300 ? "heading-secondary" : "heading-tertiary"} product-currency`} style={{marginTop:"2rem"}} title="Will charge the customer by a % of their cancelled total.">%Fee:</h2>
+                        <input onChange={(event) => setCancelFee(event.target.value)} value={cancelFee} type="number" placeholder="%Penalty" className="text-small input-number" autoComplete="off" style={{ width: "20%", margin: "0rem" }}></input>
+                        </>}
+                    </motion.div>
+                    {screenWidth <= 400 && <motion.div variants={slide} initial="hidden" animate="visible" exit="exit" className="flex-row-spaceless" style={{ alignItems: "center", alignContent:"center", gap: `${screenWidth > 1300 ? "1rem" : "0.5rem"}` }}>
+                        <h2 className={`${screenWidth > 1300 ? "heading-secondary" : "heading-tertiary"} product-currency`} style={{marginTop:"4rem"}} title="Will charge the customer by a % of their cancelled total.">%Fee:</h2>
+                        <input onChange={(event) => setCancelFee(event.target.value)} value={cancelFee} type="number" placeholder="%Penalty" className="text-small input-number" autoComplete="off" style={{ width: "20%", margin: "0rem", marginTop:"2rem" }}></input>
+                    </motion.div>}
+                    </>
+                )}
+                </AnimatePresence>
+            </div>
+            </div>}
+            </div>
+
+            {screenWidth > 700 && <div className="payment-column-2">
+            <div className="pay-segment-2 round-borderer round-borderer-extra">
+                <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
+                        <div className="heading-icon-payment svg-color">&nbsp;</div>
+                    <h1 className="heading-secondary no-margin">Payments & Fees</h1>
+                </span>
+
+                <label className="heading-secondary">
+                    Currency: &nbsp;
+                    <select value={currency} onChange={handleCurrencyChange} className="text-options text-span" style={{ width: "27rem" }}>
+                        <option value="$">$ - US Dollar</option>
+                        <option value="€">€ - Euro</option>
+                        <option value="£">£ - British Pound Sterling</option>
+                        <option value="¥">¥ - Japanese Yen</option>
+                        <option value="AUD$">$ - Australian Dollar</option>
+                        <option value="CAD$">$ - Canadian Dollar</option>
+                        <option value="Fr">Fr - Swiss Franc</option>
+                        <option value="元">元 - Chinese Yuan</option>
+                        <option value="HK$">$ - Hong Kong Dollar</option>
+                        <option value="NZ$">$ - New Zealand Dollar</option>
+                        <option value="SG$">$ - Singapore Dollar</option>
+                        <option value="₹">₹ - Indian Rupee</option>
+                        <option value="₱">₱ - Philippine Peso</option>
+                        <option value="R">R - South African Rand</option>
+                    </select>
+                </label>
+
+                <span className="page-heading flex-row-align" style={{ margin: "1rem 0" }}>
+                    <div className="heading-icon-fee svg-color">&nbsp;</div>
+                    <h1 className="heading-secondary no-margin">Set Fees</h1>
+                </span>
+                <div className="fee-cols">
+
+                    <div className="detail-slot">
+                        <span className="page-heading">
+                            <h1 className="heading-secondary no-margin" title="Fees that customers will pay if they choose for their items to be delivered.">&nbsp;Delivery Fees &nbsp;</h1>
+                            <button className="add-img" type="button" onClick={handleAddDelFee} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+                        </span>
+                        <div className="detail-inputs">
+                            <AnimatePresence>
+                                {DelFee.map((item, index) => (<div className="detail-row" key={index}>
+                                    <motion.div className="detail-row" key={index} variants={slide} initial="hidden" animate="visible" exit="exit" style={{ width: "100%" }}>
+                                        <input onChange={(event) => handleDelFeeNameChange(index, event.target.value)} type="text" value={item.name} placeholder="Fee Name" className="text-small input-number" autoComplete="off" style={{ width: "70%", margin: "0rem" }}></input>
+                                        <input onChange={(event) => handleDelFeeCostChange(index, event.target.value)} type="number" value={item.cost} placeholder="Fee Cost" className="text-small input-number" autoComplete="off" style={{ width: "70%", margin: "0rem" }}></input>
+                                        <button className="add-img" type="button" onClick={() => handleDeleteDel(index)}>
+                                            {confirmDelete1 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
+                                        </button>
+                                    </motion.div>
+                                </div>
+                                ))}
+                            </AnimatePresence>
+                        </div>
+                    </div>
+
+                    <div className="detail-slot">
+                        <span className="page-heading">
+                            <h1 className="heading-secondary no-margin" title="Fees that customers will pay if they choose for their items to be picked up.">&nbsp;Pick-Up Fees &nbsp;</h1>
+                            <button className="add-img" type="button" onClick={handleAddPickFee} ><div className="heading-icon-plus-marginless svg-color">&nbsp;</div></button>
+                        </span>
+                        <div className="detail-inputs">
+                            <AnimatePresence>
+                                {PickFee.map((item, index) => (<div className="detail-row" key={index}>
+                                    <motion.div className="detail-row" key={index} variants={slide} initial="hidden" animate="visible" exit="exit" style={{ width: "100%" }}>
+                                        <input onChange={(event) => handlePickFeeNameChange(index, event.target.value)} type="text" value={item.name} placeholder="Fee Name" className="text-small input-number" autoComplete="off" style={{ width: "70%", margin: "0rem" }}></input>
+                                        <input onChange={(event) => handlePickFeeCostChange(index, event.target.value)} type="number" value={item.cost} placeholder="Fee Cost" className="text-small input-number" autoComplete="off" style={{ width: "70%", margin: "0rem" }}></input>
+                                        <button className="add-img" type="button" onClick={() => handleDeletePick(index)}>
+                                            {confirmDelete2 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
+                                        </button>
+                                    </motion.div>
+                                </div>
+                                ))}
+                            </AnimatePresence>
+                        </div>
+                    </div>
+                </div>
+                <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
+                    <div className="heading-icon-refund svg-color">&nbsp;</div>
+                    <h1 className="heading-secondary no-margin">Allow Refunds?</h1>
+                    <div className="checkbox-container">
+                        {allowRefunds ? <div className="checkbox-fill svg-color"></div> : <div className="checkbox-blank svg-color"></div>}
+                        <input
+                            type="checkbox"
+                            checked={allowRefunds}
+                            onChange={handleRefundsChange}
+                            className="checkbox-style"
+                        />
+                    </div>
+                </span>
+
+                <AnimatePresence>
+                {allowRefunds && (
+                    <>
+                    <motion.div variants={slide} initial="hidden" animate="visible" exit="exit" className="flex-row-spaceless" style={{ alignItems: "center", alignContent:"center", gap: `${screenWidth > 1300 ? "1rem" : "0.5rem"}` }}>
+                        <h2 className={`${screenWidth > 1300 ? "heading-secondary" : "heading-tertiary"} product-currency`} style={{marginTop:"2rem"}}>Length:</h2>
+                        <select value={refundCount} onChange={handleRefundCountChange} className="text-options text-span" style={{ width: "5rem" }}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                        </select>
+
+                        <h2 className={`${screenWidth > 1300 ? "heading-secondary" : "heading-tertiary"} product-currency`} style={{marginTop:"2rem"}}>Duration:</h2>
+                        <select value={refundDuration} onChange={handleRefundDurationChange} className="text-options text-span" style={{ width: "12rem" }}>
+                            <option value="minute">Minutes</option>
+                            <option value="hour">Hours</option>
+                            <option value="day">Days</option>
+                            <option value="week">Weeks</option>
+                            <option value="month">Months</option>
+                            <option value="year">Years</option>
+                        </select>
+
+                        <h2 className={`${screenWidth > 1300 ? "heading-secondary" : "heading-tertiary"} product-currency`} style={{marginTop:"2rem"}} title="Will charge the customer by a % of their cancelled total.">%Fee:</h2>
+                        <input onChange={(event) => setRefundFee(event.target.value)} value={refundFee} type="number" placeholder="%Penalty" className="text-small input-number" autoComplete="off" style={{ width: "20%", margin: "0rem" }}></input>
+                    </motion.div>
+                    </>
+                )}
+                </AnimatePresence>
+
+                <span className="page-heading flex-row-align" style={{ margin: "1rem 0" }}>
+                    <div className="heading-icon-cancel svg-color">&nbsp;</div>
+                    <h1 className="heading-secondary no-margin" style={{ marginTop: "0rem" }}>Allow Cancellation?</h1>
+                    <div className="checkbox-container">
+                        {allowCancel ? <div className="checkbox-fill svg-color"></div> : <div className="checkbox-blank svg-color"></div>}
+                        <input
+                            type="checkbox"
+                            checked={allowCancel}
+                            onChange={handleCancelChange}
+                            className="checkbox-style"
+                        />
+                    </div>
+                </span>
+
+                <AnimatePresence>
+                {allowCancel && (
+                    <motion.div variants={slide} initial="hidden" animate="visible" exit="exit" className="flex-row-spaceless" style={{ alignItems: "center", alignContent:"center", gap: `${screenWidth > 1300 ? "1rem" : "0.5rem"}` }}>
+                    <h2 className={`${screenWidth > 1300 ? "heading-secondary" : "heading-tertiary"} product-currency`} style={{marginTop:"2rem"}}>Length:</h2>
+                        <select value={cancelCount} onChange={handleCancelCountChange} className="text-options text-span" style={{ width: "5rem" }}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                        </select>
+
+                        <h2 className={`${screenWidth > 1300 ? "heading-secondary" : "heading-tertiary"} product-currency`} style={{marginTop:"2rem"}}>Duration:</h2>
+                        <select value={cancelDuration} onChange={handleCancelDurationChange} className="text-options text-span" style={{ width: "12rem" }}>
+                            <option value="minute">Minutes</option>
+                            <option value="hour">Hours</option>
+                            <option value="day">Days</option>
+                            <option value="week">Weeks</option>
+                            <option value="month">Months</option>
+                        </select>
+
+                        <h2 className={`${screenWidth > 1300 ? "heading-secondary" : "heading-tertiary"} product-currency`} style={{marginTop:"2rem"}} title="Will charge the customer by a % of their cancelled total.">%Fee:</h2>
                         <input onChange={(event) => setCancelFee(event.target.value)} value={cancelFee} type="number" placeholder="%Penalty" className="text-small input-number" autoComplete="off" style={{ width: "20%", margin: "0rem" }}></input>
                     </motion.div>
                 )}
+                </AnimatePresence>
 
                 {/* <span className="page-heading flex-row-align" style={{ margin: "2rem 0" }}>
                     <div className="heading-icon-pin svg-color">&nbsp;</div>
@@ -567,7 +793,7 @@ function Payment(martID) {
                     </div>
                 </span> */}
             </div>
-            </div>
+            </div>}
         </div>
     </Fragment>
 }

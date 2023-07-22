@@ -314,7 +314,7 @@ function Designing({ shopID, screenWidth }) {
     }
   }
 
-  const [color, setColor] = useState("#fff")
+  const [color, setColor] = useState("#ffffff")
 
   const themeSet = ["#89375F", "#CE5959", "#BACDDB", "#F3E8FF", "#2A2F4F", "#4F4557", "#BA90C6", "#E8A0BF", 30, 30, 30, 30, "Coolors Random"]
 

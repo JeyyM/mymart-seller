@@ -120,7 +120,7 @@
     position: relative;
     margin: 0 auto;
     min-height: min-content;
-    max-width: 50%;
+    width: clamp(50%, 700px, 90%);
    border: 5px solid transparent;
    padding: 1rem;
    transition: all 0.2s;
@@ -239,3 +239,24 @@
     z-index: 5;
   }
   
+  .preview-modal-3{
+    width: auto;
+    height: auto;
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    transform: scale(0.6) !important;
+  }
+
+  .preview-desktop{
+    transform: scale(0.6) !important;
+  }
+
+  .preview-tablet{
+    transform: scale(0.6) !important;
+  }
+  
+  .preview-phone{
+    transform: scale(0.8) !important;
+  }

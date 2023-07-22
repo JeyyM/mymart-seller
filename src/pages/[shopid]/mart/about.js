@@ -6,6 +6,10 @@ import { useRouter } from "next/router";
 import { GliderComponent } from 'react-glider';
 import 'glider-js/glider.min.css';
 import ModalCarousel from "../../../components/Modal/ModalCarousel";
+import { ChromePicker } from "react-color";
+import chroma from 'chroma-js';
+import Palette from "@/components/design/Palette";
+import AboutPreview from "@/components/Mart/AboutPreview";
 
 function About({ shopID, screenWidth }) {
   const startingInfo = shopID.shopData.shopDetails.aboutData
@@ -468,7 +472,8 @@ function About({ shopID, screenWidth }) {
         display:"inline",
         margin: "0",
         alignSelf: "center",
-        transform: `scale(${device === "desktop" ? item.scale * screenScale : device === "tablet" && screenWidth <= 1366 ? item.scale * screenScale2 : device === "phone" && screenWidth <= 360 ? item.scale * screenScale3 : item.scale})`
+        // transform: `scale(${device === "desktop" ? item.scale * screenScale : device === "tablet" && screenWidth <= 1366 ? item.scale * screenScale2 : device === "phone" && screenWidth <= 360 ? item.scale * screenScale3 : item.scale})`
+        transform: `scale(${device === "desktop" ? item.scale : device === "tablet" ? item.scale : device === "phone" ? item.scale : item.scale})`
       }}
       dangerouslySetInnerHTML={{ __html: item.content }}
     >
@@ -581,13 +586,74 @@ function About({ shopID, screenWidth }) {
     showModal(!modal)
   }
 
-  console.log(screenPx)
+  const [color, setColor] = useState("#ffffff")
+
+  const [PalettePreview, setPalettePreview] = useState(false)
+  const handlePalettePreview = () => {
+    setPalettePreview(!PalettePreview)
+  }
+
+  const [MainPreview, setMainPreview] = useState(false)
+  const handleMainPreview = () => {
+    setMainPreview(!MainPreview)
+  }
+
+  function copyHex(event) {
+    event.target.select();
+    document.execCommand('copy');
+  }
+
+  function copyItem(color) {
+    // console.log(color)
+    // navigator.clipboard.writeText(color)
+  }
+
+  const [chromaItems, setChroma] = useState([])
+
+  const fetchChroma = () => {
+    const baseColor1 = chroma.random();
+    const colorScale1 = chroma.scale([baseColor1, "white"]);
+    const colorTheme1 = colorScale1.colors(4);
+
+    const baseColor3 = chroma.random();
+    const colorScale2 = chroma.scale([baseColor3, "black"]);
+    const colorTheme2 = colorScale2.colors(4);
+
+    const colors = [];
+    for (let i = 0; i < 8; i++) {
+      colors.push(chroma.random());
+    }
+
+    const finalSet = colorTheme1.concat(colorTheme2, colors);
+    setChroma(finalSet)
+  }
+
+  useEffect(() => { fetchChroma() }, [])
+
 
   return <Fragment>
     <Head>
       <title>Create About Page</title>
       <link rel="icon" type="image/jpeg" href={favicon} />
     </Head>
+
+    <ModalCarousel images={images} text={text} title={titles} modalStatus={modal} disable={handleModal} />
+    <AboutPreview modalStatus={MainPreview} disable={handleMainPreview} gridClass={gridClass} prevDivs={prevDivs} textElements={textElements} imgElements={imgElements} containerElements={containerElements} device={device}></AboutPreview>
+    <Palette modalStatus={PalettePreview} disable={handlePalettePreview} color={color} setColor={setColor}
+      copyHex={copyHex} fetchChroma={fetchChroma} copyItem={copyItem} chromaItems={chromaItems}
+    ></Palette>
+    
+
+<div className="design-prev-set">
+      <button className="product-action-1 design-prev-button" onClick={handlePalettePreview}>
+        <div className="palette-preview svg-outline margin-side">&nbsp;</div>
+      </button>
+
+      <button className="product-action-1 design-prev-button" onClick={handleMainPreview}>
+        <div className="eye-preview svg-outline margin-side">&nbsp;</div>
+      </button>
+    </div>
+
     <span className="page-heading">
       <div className="heading-icon-dropshadow">
         <div className="heading-icon-flag svg-color">&nbsp;</div>
@@ -595,8 +661,6 @@ function About({ shopID, screenWidth }) {
       <h1 className="heading-primary no-margin">Create About Page&nbsp;</h1>
       <button className="help-button" onClick={handleModal}><div className="heading-icon-question svg-color">&nbsp;</div></button>
     </span>
-
-    <ModalCarousel images={images} text={text} title={titles} modalStatus={modal} disable={handleModal} />
 
     <div className="flex-row" style={{ padding: "1rem" }}>
       <div className="flex-col">
@@ -2738,7 +2802,7 @@ function About({ shopID, screenWidth }) {
       <h1 className="heading-primary no-margin">About Page Preview</h1>
       {/* <div className="heading-icon-warning svg-color" title="Warning, the preview is an approximation for different screen sizes and may not be perfectly accurate depending on which screen size you are on.">&nbsp;</div> */}
     </span>
-    <section className={gridClass}>
+    {/* <section className={gridClass}>
 
       <>{prevDivs}</>
 
@@ -2747,7 +2811,7 @@ function About({ shopID, screenWidth }) {
       {containerElements}
 
 
-    </section>
+    </section> */}
   </Fragment>
 }
 

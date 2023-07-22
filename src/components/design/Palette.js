@@ -7,7 +7,7 @@ import ThemePack2 from "./ThemePack2";
 
 function Palette(props) {
 
-    const {modalStatus, disable, color, activeMode, copyHex, setColor, fetchChroma, copyItem, chromaItems} = props
+    const {modalStatus, disable, color, copyHex, setColor, fetchChroma, copyItem, chromaItems} = props
 
     const appear = {
         hidden: {
@@ -54,7 +54,7 @@ function Palette(props) {
             <h1 className="heading-secondary no-margin">Color Palette</h1>
           </span>
           <div style={{ overflow: "hidden" }}>
-            <ChromePicker color={color} onChange={updatedColor => setColor(updatedColor)} className="color-picker" disableAlpha={true} renderers={{ hex: ChromePicker }} styles={{ default: { picker: { backgroundColor: `${activeMode["bg-body"]}` } } }}></ChromePicker>
+            <ChromePicker color={color} onChange={updatedColor => setColor(updatedColor)} className="color-picker" disableAlpha={true} renderers={{ hex: ChromePicker }}></ChromePicker>
           </div>
           <input onFocus={copyHex} onTouchStart={copyHex} type="text" placeholder="HEXCODE" className="text-small input-number" autoComplete="off" style={{ width: "50%", margin: "0 auto" }} value={color.hex}></input>
           </div>

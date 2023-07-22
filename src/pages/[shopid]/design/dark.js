@@ -316,7 +316,7 @@ function Designing({ shopID, screenWidth }) {
     }
   }
 
-  const [color, setColor] = useState("#fff")
+  const [color, setColor] = useState("#ffffff")
 
   const themeSet1 = ["#FF6000", "#FFD93D", "#2D2727", "#454545", "#F9F5EB", "#F9F5EB", "#FE6244", "#F7DB6A", 10, 10, 10, 10, "Neon Orange"]
 
@@ -570,7 +570,7 @@ function Designing({ shopID, screenWidth }) {
       editFinal={editFinal} setEditActive={setEditActive}
     ></Preview>
     
-    <Palette modalStatus={PalettePreview} disable={handlePalettePreview} color={color} setColor={setColor} activeMode={activeMode}
+    <Palette modalStatus={PalettePreview} disable={handlePalettePreview} color={color} setColor={setColor}
       copyHex={copyHex} fetchChroma={fetchChroma} copyItem={copyItem} chromaItems={chromaItems}
     ></Palette>
 
