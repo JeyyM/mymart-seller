@@ -472,8 +472,8 @@ function About({ shopID, screenWidth }) {
         display:"inline",
         margin: "0",
         alignSelf: "center",
-        // transform: `scale(${device === "desktop" ? item.scale * screenScale : device === "tablet" && screenWidth <= 1366 ? item.scale * screenScale2 : device === "phone" && screenWidth <= 360 ? item.scale * screenScale3 : item.scale})`
-        transform: `scale(${device === "desktop" ? item.scale : device === "tablet" ? item.scale : device === "phone" ? item.scale : item.scale})`
+        transform: `scale(${device === "desktop" ? item.scale * screenScale : device === "tablet" && screenWidth <= 1366 ? item.scale * screenScale2 : device === "phone" && screenWidth <= 360 ? item.scale * screenScale3 : item.scale})`
+        // transform: `scale(${device === "desktop" ? item.scale : device === "tablet" ? item.scale : device === "phone" ? item.scale : item.scale})`
       }}
       dangerouslySetInnerHTML={{ __html: item.content }}
     >
@@ -2800,9 +2800,8 @@ function About({ shopID, screenWidth }) {
         <div className="heading-icon-preview svg-color">&nbsp;</div>
       </div>
       <h1 className="heading-primary no-margin">About Page Preview</h1>
-      {/* <div className="heading-icon-warning svg-color" title="Warning, the preview is an approximation for different screen sizes and may not be perfectly accurate depending on which screen size you are on.">&nbsp;</div> */}
     </span>
-    {/* <section className={gridClass}>
+    <section className={gridClass}>
 
       <>{prevDivs}</>
 
@@ -2811,7 +2810,7 @@ function About({ shopID, screenWidth }) {
       {containerElements}
 
 
-    </section> */}
+    </section>
   </Fragment>
 }
 

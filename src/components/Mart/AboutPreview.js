@@ -44,7 +44,7 @@ function AboutPreview(props) {
                             animate="visible"
                             exit="exit"
                         >
-
+<div onClick={(e) => {e.stopPropagation()}}>
 <span className="page-heading" style={{ marginBottom: "1rem" }}>
       <div className="heading-icon-dropshadow">
         <div className="heading-icon-preview svg-color">&nbsp;</div>
@@ -59,8 +59,8 @@ function AboutPreview(props) {
       {imgElements}
       {containerElements}
 
-
     </section>
+</div>
 
                         </motion.div>
                     </Backdrop>
