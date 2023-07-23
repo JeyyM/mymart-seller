@@ -659,7 +659,7 @@ function About({ shopID, screenWidth }) {
         <div className="heading-icon-flag svg-color">&nbsp;</div>
       </div>
       <h1 className="heading-primary no-margin">Create About Page&nbsp;</h1>
-      <button className="help-button" onClick={handleModal}><div className="heading-icon-question svg-color">&nbsp;</div></button>
+      <button className="help-button" onClick={handleModal} style={{zIndex:"99"}}><div className="heading-icon-question svg-color">&nbsp;</div></button>
     </span>
 
     <div className="flex-row" style={{ padding: "1rem" }}>

@@ -741,3 +741,15 @@
     height: 20vh;
   }
   }
+
+  @media (max-width: 600px) {
+    .faq-container{
+      padding: 0.5rem;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .faq-buttons{
+      flex-direction: column;
+    }
+  }

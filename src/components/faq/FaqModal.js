@@ -115,15 +115,17 @@ function FaqModal(props) {
                                 <div className={Expanded.includes(index) ? "heading-icon-chevron svg-color rotater transitionAll" : "heading-icon-chevron svg-color transitionAll"}>&nbsp;</div>
                             </button>
                             <h2 className="heading-secondary" onClick={() => toggleExpand(index)}>&nbsp;{answer.q}</h2>
-                        </div>
-                        <button className="add-img" type="button" onClick={() => handleDeleteDel(index)} style={{ position: "absolute", top: "1rem", right: "1rem" }}>
+
+                            <div className="faq-buttons">
+                        <button className="add-img" type="button" onClick={() => handleDeleteDel(index)}>
                             {confirmDelete1 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
                         </button>
 
-                        <button className="add-img" type="button" onClick={() => props.addNew(answer.q, answer.a, index)} style={{ position: "absolute", top: "1rem", right: "6rem" }}>
+                        <button className="add-img" type="button" onClick={() => props.addNew(answer.q, answer.a, index)}>
                         <div className="heading-icon-pen svg-color margin-side">&nbsp;</div>
                         </button>
-
+                        </div>
+                        </div>
 
                         <motion.div
                             style={{ overflow: 'hidden' }}

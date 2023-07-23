@@ -15,6 +15,8 @@ function Mart(martID) {
         visible: { opacity: 1, height: 'auto' }
     };
 
+    const {screenWidth} = martID
+
     const slide = {
         hidden: {
             x: "-10rem",
@@ -169,13 +171,18 @@ function Mart(martID) {
             <div className="heading-icon-dropshadow">
                 <div className="heading-icon-quiz svg-color">&nbsp;</div>
             </div>
-            <h1 className="heading-primary no-margin">&nbsp;Frequently Asked Questions&nbsp;</h1>
+            <h1 className="heading-primary no-margin" style={{fontSize: `${screenWidth > 400 ? "3.5rem" : screenWidth > 350 ? "3rem" : "2.5rem"}`}}>&nbsp;Frequently Asked Questions&nbsp;</h1>
+            {screenWidth > 700 && <>
             <button className="heading-tertiary add-categ-init" style={{ width: "max-content" }} onClick={handleSetModal} disabled={loading}>
                 &nbsp; Add New Item &nbsp;</button>
-
             <button className={acceptClass} style={{ width: "18rem", margin: "1rem 1rem", height: "3.5rem" }} disabled={loading} onClick={submitChanges}><h3 className={acceptText} style={{ transform: "translateY(0rem)" }}>{loading ? "Submitting..." : "Submit Changes"}</h3></button>
-
+            </>}
         </span>
+        {screenWidth <= 700 && <span className="page-heading">
+            <button className="heading-tertiary add-categ-init" style={{ width: "max-content" }} onClick={handleSetModal} disabled={loading}>
+                &nbsp; Add New Item &nbsp;</button>
+            <button className={acceptClass} style={{ width: "18rem", margin: "1rem 1rem", height: "3.5rem" }} disabled={loading} onClick={submitChanges}><h3 className={acceptText} style={{ transform: "translateY(0rem)" }}>{loading ? "Submitting..." : "Submit Changes"}</h3></button>
+            </span>}
 
         {answers.length > 0 ? <div className="faq-container">
             <AnimatePresence>
@@ -192,7 +199,7 @@ function Mart(martID) {
                                     placeholder="Question"
                                     value={answer.q}
                                     autoComplete="off"
-                                    style={{ width: "85%" }}
+                                    style={{ width: `${screenWidth > 550 ? "85%" : screenWidth > 450 ? "80%" : screenWidth > 330 ? "75%" : "70%"}` }}
                                     onChange={(event) => changeQ(event.target.value, index)}
                                 ></input>
 

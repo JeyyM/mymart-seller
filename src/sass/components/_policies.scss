@@ -51,3 +51,7 @@
 .heading-icon-eye {
   @include heading-logo(eye, 4rem, 4rem);
 }
+
+.exchange-preview {
+  @include heading-logo(exchange, 8rem, 8rem);
+}

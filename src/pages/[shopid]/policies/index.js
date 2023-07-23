@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import Head from "next/head";
 import { getServerSideProps } from "../categories";
 import { useState } from "react";
@@ -12,10 +12,11 @@ function Policies(martID) {
     const router = useRouter();
     const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
     const terms = martID.shopID.shopData.shopTerms.terms
+    const { screenWidth } = martID
 
     const [markdownContent, setMarkdownContent] = useState(terms);
     const [hidden, setHidden] = useState(false);
-    function handleHidden(){
+    function handleHidden() {
         setHidden(!hidden)
     }
 
@@ -24,7 +25,7 @@ function Policies(martID) {
     };
 
     const [help, setHelp] = useState(false)
-    function handleHelp(){
+    function handleHelp() {
         setHelp(!help)
     }
 
@@ -54,13 +55,22 @@ function Policies(martID) {
         router.reload()
     }
 
+    const [hiddenWrite, setHiddenWrite] = useState(true)
+    function handleHiddenWrite() {
+        setHiddenWrite(!hiddenWrite)
+    }
+
+    useEffect(() => {
+        if (screenWidth <= 1000) { setHidden(false); setHiddenWrite(true) }
+    }, [screenWidth])
+
     return (
         <Fragment>
             <Head>
                 <title>Terms & Conditions</title>
                 <link rel="icon" type="image/jpeg" href={favicon} />
             </Head>
-            <MdSample modalStatus={help} disable={handleHelp}></MdSample>
+            <MdSample modalStatus={help} disable={handleHelp} screenWidth={screenWidth} hidden={hidden} hiddenWrite={hiddenWrite}></MdSample>
 
             <style jsx global>{`
         /* Use GitHub Markdown CSS globally */
@@ -79,40 +89,67 @@ function Policies(martID) {
         }
       `}</style>
 
+            {screenWidth <= 1000 && <div className="design-prev-set">
+                <button className="product-action-1 design-prev-button" onClick={handleHiddenWrite}>
+                    <div className="exchange-preview svg-outline margin-side">&nbsp;</div>
+                </button>
+            </div>}
+
             <span className="page-heading">
                 <div className="heading-icon-dropshadow">
                     <div className="heading-icon-policy svg-color">&nbsp;</div>
                 </div>
-                <h1 className="heading-primary no-margin">&nbsp;Terms & Conditions&nbsp;</h1>
-                <Link href={`/${router.query.shopid}/policies/privacy`} className="heading-tertiary add-categ-init" style={{ width: "max-content", textDecoration:"none" }} disabled={loading}>
-                &nbsp; Privacy Policy &nbsp;</Link>
+                <h1 className="heading-primary no-margin" style={{fontSize: `${screenWidth > 300 ? "3.5rem" : "3rem"}`}}>&nbsp;Terms & Conditions&nbsp;</h1>
+                {screenWidth > 600 && <>
+                <Link href={`/${router.query.shopid}/policies/privacy`} className="heading-tertiary add-categ-init" style={{ width: "max-content", textDecoration: "none" }} disabled={loading}>
+                    &nbsp; Privacy Policy &nbsp;</Link>
                 <button onClick={submitChanges} className={acceptClass} style={{ width: "18rem", margin: "1rem 1rem", height: "3.5rem" }} disabled={loading}><h3 className={acceptText} style={{ transform: "translateY(0rem)" }}>{loading ? "Submitting..." : "Submit Changes"}</h3></button>
-
-                <button className="help-button" onClick={setHelp}><div className="heading-icon-question svg-color">&nbsp;</div></button>
+                </>}
+                <button className="help-button" onClick={handleHelp} style={{zIndex:"99"}}><div className="heading-icon-question svg-color">&nbsp;</div></button>
             </span>
 
+            {screenWidth <= 600 && <span className="page-heading">
+                <Link href={`/${router.query.shopid}/policies/privacy`} className="heading-tertiary add-categ-init" style={{ width: "max-content", textDecoration: "none" }} disabled={loading}>
+                    &nbsp; Privacy Policy &nbsp;</Link>
+                <button onClick={submitChanges} className={acceptClass} style={{ width: "18rem", margin: "1rem 1rem", height: "3.5rem" }} disabled={loading}><h3 className={acceptText} style={{ transform: "translateY(0rem)" }}>{loading ? "Submitting..." : "Submit Changes"}</h3></button>
+                </span>}
+
             <div className="policy-container">
-            <div style={{position:"relative"}}>
-            <button className="product-action-1 hide-button" onClick={handleHidden}>
+                <div style={{ position: "relative" }}>
+                    {screenWidth > 1000 && <button className="product-action-1 hide-button" onClick={handleHidden}>
                         <div className="heading-icon-eye svg-outline margin-side">&nbsp;</div>
-            </button>
-                {!hidden && <textarea
-                    value={markdownContent}
-                    onChange={handleInputChange}
-                    placeholder="Enter Markdown Content"
-                    className="markdown-half markdown-textarea"
-                >
-                </textarea>}
+                    </button>}
+                    {screenWidth > 1000 ? (
+                        !hidden && (
+                            <textarea
+                                value={markdownContent}
+                                onChange={handleInputChange}
+                                placeholder="Enter Markdown Content"
+                                className="markdown-half markdown-textarea"
+                                style={{width:`${screenWidth <= 1000 ? "90vw" : "45vw"}`}}
+                            ></textarea>
+                        )
+                    ) : (
+                        !hiddenWrite && (
+                            <textarea
+                                value={markdownContent}
+                                onChange={handleInputChange}
+                                placeholder="Enter Markdown Content"
+                                className="markdown-half markdown-textarea"
+                                style={{width:`${screenWidth <= 1000 ? "90vw" : "45vw"}`}}
+                            ></textarea>
+                        )
+                    )}
+
                 </div>
-                <div className="markdown-half markdown-preview" style={{width:`${hidden ? "90vw" : "45vw"}`}}>
+                {hiddenWrite && <div className="markdown-half markdown-preview" style={{ width: `${hidden || screenWidth <= 1000 ? "90vw" : "45vw"}` }}>
                     <ReactMarkdown
                         className="markdown-body"
                         children={markdownContent}
                         skipHtml={false}
                         remarkPlugins={[gfm]}
                     />
-
-                </div>
+                </div>}
             </div>
         </Fragment>
     );

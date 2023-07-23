@@ -8,6 +8,7 @@ import gfm from "remark-gfm";
 
 function MdSample(props) {
     const router = useRouter()
+    const {screenWidth, hiddenWrite} = props
 
     const appear = {
         hidden: {
@@ -147,23 +148,43 @@ To right align, just put : on the lines
                             animate="visible"
                             exit="exit"
                         >
+                    {screenWidth <= 1000 && hiddenWrite ? (
                             <textarea
                                 value={markdownContent}
                                 onChange={handleInputChange}
-                                onClick={(e) => { e.stopPropagation() }}
                                 placeholder="Enter Markdown Content"
                                 className="markdown-half markdown-textarea"
+                                style={{width:`${screenWidth <= 1000 ? "90vw" : "45vw"}`}}
                             ></textarea>
-                            <div className="markdown-half markdown-preview" onClick={(e) => { e.stopPropagation() }}
-                            >
+                    ) : (
+                        screenWidth > 1000 && (
+                            <textarea
+                                value={markdownContent}
+                                onChange={handleInputChange}
+                                placeholder="Enter Markdown Content"
+                                className="markdown-half markdown-textarea"
+                                style={{width:`${screenWidth <= 1000 ? "90vw" : "45vw"}`}}
+                            ></textarea>
+                        )
+                    )}
+
+
+                   { screenWidth <= 1000 && !hiddenWrite ? (<div className="markdown-half markdown-preview" style={{ width: `${screenWidth <= 1000 ? "90vw" : "45vw"}` }} onClick={(e) => { e.stopPropagation() }}>
                                 <ReactMarkdown
                                     className="markdown-body"
                                     children={markdownContent}
-                                    skipHtml={false} // Render raw HTML within Markdown
+                                    skipHtml={false}
                                     remarkPlugins={[gfm]}
                                 />
+                            </div>) : screenWidth > 1000 && (<div className="markdown-half markdown-preview" style={{ width: `${screenWidth <= 1000 ? "90vw" : "45vw"}` }} onClick={(e) => { e.stopPropagation() }}>
+                                <ReactMarkdown
+                                    className="markdown-body"
+                                    children={markdownContent}
+                                    skipHtml={false}
+                                    remarkPlugins={[gfm]}
+                                />
+                            </div>)}
 
-                            </div>
                         </motion.div>
                     </Backdrop>
                 )}
