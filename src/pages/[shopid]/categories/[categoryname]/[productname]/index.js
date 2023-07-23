@@ -688,10 +688,11 @@ function ProductPage({ shopID, screenWidth }) {
           ></textarea>
           {formInputValidity.desc ? <label className="form-label" title="Upon reaching 150 digits in length, an ellipsis (...) will be added.">Description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label> : <label className="form-label inv" style={{ color: "red" }}>Enter a valid description <span><span className={descLengthClasses}>{descLength}</span>/150</span></label>}
 
+          {screenWidth <= 400 && <h2 className="heading-secondary product-currency" style={{marginTop:"1rem", marginBottom:"-0.5rem"}}>Stocks</h2>}
 
           <div className="price-pair">
 
-            <label className="heading-secondary product-currency">Stocks</label>
+            {screenWidth > 400 && <label className="heading-secondary product-currency">Stocks</label>}
 
             <div className="flex-col">
               <div className="add-buttons flex-row-spaceless">
