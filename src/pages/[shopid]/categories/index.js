@@ -9,7 +9,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-function CategoryPage({ shopID }) {
+function CategoryPage({ shopID, screenWidth }) {
   const router = useRouter();
 
   const { shopData } = shopID;
@@ -92,8 +92,8 @@ function CategoryPage({ shopID }) {
 
 
   const totalItems = filteredContents.length;
-  const itemsPerSlide = 12;
-  const itemsPerLine = 4;
+  const itemsPerSlide =screenWidth < 400 ? 26 : screenWidth < 600 ? 20 : screenWidth < 1000 ? 15 : 12;
+  const itemsPerLine = screenWidth < 400 ? 1 : screenWidth < 600 ? 2 : screenWidth < 1000 ? 3 : 4;
   const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
   const totalSlides = Math.ceil(totalItems / itemsPerSlide);
   const slideIndexes = Array.from(Array(totalSlides).keys());

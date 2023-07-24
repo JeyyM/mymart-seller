@@ -83,7 +83,7 @@ function HomePage({ shopID, screenWidth }) {
 
     </Head>
     {activeNotifs.length > 0 && <ActiveNotifs notifs={activeNotifs}></ActiveNotifs>}
-    <BannerCarousel data={imageData.banners}></BannerCarousel>
+    <BannerCarousel data={imageData.banners} screenWidth={screenWidth}></BannerCarousel>
     <PopModal modalStatus={startPop} disable={handleStart} image={popupInfo.image} link={popupInfo.link}></PopModal>
 
     {categoryData
@@ -97,8 +97,8 @@ function HomePage({ shopID, screenWidth }) {
           prod.variations.some((variation) => variation.active)
         );
         const totalItems = activeItems.length;
-  const itemsPerSlide =screenWidth < 400 ? 1 : screenWidth < 600 ? 2 : screenWidth < 1000 ? 3 : 4;
-  const itemsPerLine = screenWidth < 400 ? 1 : screenWidth < 600 ? 2 : screenWidth < 1000 ? 3 : 4;
+        const itemsPerSlide = screenWidth < 400 ? 1 : screenWidth < 600 ? 2 : screenWidth < 1000 ? 3 : 4;
+        const itemsPerLine = screenWidth < 400 ? 1 : screenWidth < 600 ? 2 : screenWidth < 1000 ? 3 : 4;
         const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
         const totalSlides = Math.ceil(totalItems / itemsPerSlide);
         const slideIndexes = Array.from(Array(totalSlides).keys());
@@ -112,32 +112,32 @@ function HomePage({ shopID, screenWidth }) {
           const day = date.getDate();
 
           const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
-          
+
           const existsIndex = viewsList.findIndex(item => item.key === formattedDate);
           let viewCount = 0
-          if (existsIndex !== -1){
+          if (existsIndex !== -1) {
             viewCount = parseInt(viewsList[existsIndex].count) + 1
           }
 
-          if (existsIndex === -1){
-          const response = await fetch(
-            `../../api/add-view?martid=${router.query.shopid}`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({key: formattedDate, count: 1})
-            }
-          );
-          const data = await response.json();
+          if (existsIndex === -1) {
+            const response = await fetch(
+              `../../api/add-view?martid=${router.query.shopid}`,
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ key: formattedDate, count: 1 })
+              }
+            );
+            const data = await response.json();
           } else {
-          const response = await fetch(
-            `../../api/add-view?martid=${router.query.shopid}&exists=${existsIndex}&count=${viewCount}`,
-            {
-              method: "PATCH",
-              headers: { "Content-Type": "application/json" },
-            }
-          );
-          const data = await response.json();
+            const response = await fetch(
+              `../../api/add-view?martid=${router.query.shopid}&exists=${existsIndex}&count=${viewCount}`,
+              {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+              }
+            );
+            const data = await response.json();
           }
         }
 

@@ -396,8 +396,8 @@ function ProductPage({ shopID, user }) {
       <div className="details-section" style={{maxWidth:"50vw"}}>
         <form>
           <div>
-            <heading className="heading-primary" style={{ marginBottom: "2rem", whiteSpace: "pre-wrap" }}>{nameValue}</heading>
-            <h1 className="heading-secondary product-currency">{shopCurrency} {priceValue} / {stockUnit}</h1>
+            <heading className="heading-primary" style={{ whiteSpace: "pre-wrap" }}>{nameValue}</heading>
+            <h1 className="heading-secondary product-currency" style={{marginTop:"1rem"}}>{shopCurrency} {priceValue} / {stockUnit}</h1>
           </div>
 
           <div className="item-setup" style={{ margin: "1rem 0" }}>
