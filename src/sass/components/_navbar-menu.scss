@@ -120,5 +120,9 @@
   @include menu-logo(moon, 4rem, 4rem);
 }
 
+.menu-login {
+  @include menu-logo(login, 4rem, 4rem);
+}
+
 
 .menu-animation{position: relative; z-index: 25;}

@@ -203,7 +203,7 @@ function SignUp(martID) {
     return (
         <>
             <Head>
-                <title>Sign-Up</title>
+                <title>Log-In</title>
                 <link rel="icon" type="image/jpeg" href={favicon} />
             </Head>
             <div className="sign-up-container" style={{ transform: "translateY(-10%)" }}>
@@ -222,7 +222,7 @@ function SignUp(martID) {
                         transition={{ duration: 0.2 }}
                     ><div className="sign-step">
                             <img className="company-logo-med" src={navlogo} style={{ margin: "0", marginBottom: "1rem", display: "inline" }}></img>
-                            <h2 className="heading-secondary">Log-in to {shopName}</h2>
+                            <h2 className="heading-secondary" style={{textAlign:"center"}}>Log-In to {shopName}</h2>
 
                             <div className="form-group" style={{ marginTop: "1rem" }}>
                                 <input
@@ -253,7 +253,7 @@ function SignUp(martID) {
 
                             <div className="form-group" style={{ marginTop: "0.5rem" }}>
                                       {/* <button className="product-action-2 flex-row-align sign-page-button" onClick={accountValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div style={{transform:"translateY(20%)"}}>{checkmark}</div> : <h2 className="heading-secondary button-solid-text">Log-in</h2>)}</button> */}
-                                      <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: "22rem", height:"6rem", display:"block" }} disabled={loading} onClick={accountValidate}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Log-in")}</button>
+                                      <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: "22rem", height:"6rem", display:"block" }} disabled={loading} onClick={accountValidate}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Log-In")}</button>
 
 
                             </div>

@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import NavbarItems from "./Navbar-Items";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -6,6 +6,7 @@ import Footer from "../Mart/Footer";
 import CartModal from "../cart/CartModal";
 // import UserProfile from "./UserProfile";
 import dynamic from "next/dynamic";
+import React from "react";
 
 function NavbarLayout(props) {
     const router = useRouter()
@@ -13,6 +14,28 @@ function NavbarLayout(props) {
         const DynamicComponent1 = dynamic(() => import("./UserProfile"), {
             ssr: false,
         });
+
+        const [screenWidth, setScreenWidth] = useState(0);
+
+        useEffect(() => {
+            const handleResize = () => {
+              const newScreenWidth = window.innerWidth;
+              setScreenWidth(newScreenWidth);
+            };
+        
+            handleResize()
+        
+            if (typeof window !== 'undefined') {
+              setScreenWidth(window.innerWidth);
+              window.addEventListener('resize', handleResize);
+            }
+        
+            return () => {
+              if (typeof window !== 'undefined') {
+                window.removeEventListener('resize', handleResize);
+              }
+            };
+          }, []);
 
     function hexToRgb(hex) {
         hex = hex.replace('#', '');
@@ -28,6 +51,16 @@ function NavbarLayout(props) {
 
     let placeholder = {}
     let colormode = ""
+
+    const renderChildrenWithProps = () => {
+        return React.Children.map(props.children, (child) =>
+          React.cloneElement(child, {
+            screenWidth: screenWidth,
+          })
+        );
+      };
+
+      console.log("in nav", screenWidth)
 
     if (props.mode === false) {
         placeholder = `{color: ${props.color["bg-item"]};
@@ -475,12 +508,12 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
                 </style>
             </Head>
 
-            <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} cartOpen={CartHandler} user={props.user} userHandler={userHandler} changeColor={changeColor} currentColor={props.currentColor} categs={props.martCateg}/>
+            <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} cartOpen={CartHandler} user={props.user} userHandler={userHandler} changeColor={changeColor} currentColor={props.currentColor} categs={props.martCateg} currency={props.curr} screenWidth={screenWidth} />
             {typeof window !== 'undefined' && (<>
               {props.user !== undefined &&  <DynamicComponent1 modalStatus={userStatus} disable={userHandler} user={props.user} colormode={props.color}></DynamicComponent1>}
               </>)}
             <CartModal modalStatus={CartStatus} cartOpen={CartHandler} currency={props.curr} user={props.user} categs={props.martCateg} ></CartModal>
-            <div>{props.children}</div>
+            <div>{renderChildrenWithProps()}</div>
             {router.asPath !== `/${id}/mart/details` && router.asPath !== "/" ? <Footer details={props.contents} address={props.address}></Footer> : <Fragment></Fragment>}
 
         </Fragment>
