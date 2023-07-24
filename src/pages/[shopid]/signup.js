@@ -742,10 +742,10 @@ function SignUp(martID) {
                         transition={{ duration: 0.2 }}
                     >
                     <div className="sign-step">
-                            <span className="page-heading" style={{ width: "100%" }}>
+                            <heading className="page-heading" style={{ width: "100%" }}>
                                 <div className="heading-icon-profile svg-color">&nbsp;</div>
                                 <h1 className="heading-secondary no-margin">&nbsp;Register Details</h1>
-                            </span>
+                            </heading>
                             <div className="flex-row">
                                 <div className="form-group" style={{ marginTop: "1rem" }}>
                                     <input
@@ -873,10 +873,10 @@ function SignUp(martID) {
                         transition={{ duration: 0.2 }}
                     > <div>
                             <div style={{ width: "50rem" }}>
-                                <span className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
+                                <heading className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
                                     <div className="heading-icon-pin svg-color">&nbsp;</div>
                                     <h1 className="heading-secondary no-margin">&nbsp;Delivery Location Details</h1>
-                                </span>
+                                </heading>
                                 <h2 className="heading-tertiary">{locationName}</h2>
                             </div>
 
@@ -922,10 +922,10 @@ function SignUp(martID) {
                         transition={{ duration: 0.2 }}
                     >
                      <div className="sign-step">
-                            <span className="page-heading" style={{ width: "100%" }}>
+                            <heading className="page-heading" style={{ width: "100%" }}>
                                 <div className="heading-icon-credit svg-color">&nbsp;</div>
                                 <h1 className="heading-secondary no-margin">&nbsp;Credit Card Details</h1>
-                            </span>
+                            </heading>
                             <div className="form-group" style={{ marginTop: "1rem", width: "100%" }}>
                                 <input
                                     type="text"

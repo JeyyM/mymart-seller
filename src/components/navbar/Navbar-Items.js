@@ -33,13 +33,13 @@
 
     const showMenuToggler = () => {
       setMenuIsOn(!menuIsOn);
-      if (!menuIsOn) {
-        document.body.classList.add('no-scroll');
-        document.documentElement.classList.add('no-scroll');
-      } else {
-        document.body.classList.remove('no-scroll');
-        document.documentElement.classList.remove('no-scroll');
-      }
+      // if (!menuIsOn) {
+      //   document.body.classList.add('no-scroll');
+      //   document.documentElement.classList.add('no-scroll');
+      // } else {
+      //   document.body.classList.remove('no-scroll');
+      //   document.documentElement.classList.remove('no-scroll');
+      // }
     };
 
     const [isNavbarVisible, setNavbarVisible] = useState(true);

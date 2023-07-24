@@ -104,9 +104,9 @@ function ProductsPage({ shopID }) {
         <link rel="icon" type="image/jpeg" href={favicon} />
       </Head>
 
-      <span className="page-heading">
+      <heading className="page-heading">
         <h1 className="heading-primary">{router.query.categoryname} &nbsp;</h1>
-      </span>
+      </heading>
       <h2 className="category-description heading-tertiary">{chosenCategory.categoryDescription}</h2>
 
       <Slider {...sliderSettings}>
@@ -147,9 +147,9 @@ function ProductsPage({ shopID }) {
         <title>{queryCategoryName}</title>
         <link rel="icon" type="image/jpeg" href={favicon} />
       </Head>
-      <span className="page-heading">
+      <heading className="page-heading">
         <h1 className="heading-primary">{router.query.categoryname}&nbsp;</h1>
-      </span>
+      </heading>
       <h2 className="category-description heading-tertiary">{chosenCategory.categoryDescription}</h2>
       <div className="empty-contents">
         <div className="empty-logo svg-color">&nbsp;</div>

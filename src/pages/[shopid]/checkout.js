@@ -457,21 +457,21 @@ export default function Checkout({ shopID, user }) {
 
         <FinishCheckout modalStatus={finishModal} disable={toHome} toHome={toHome}name={shopName}></FinishCheckout>
 
-        <span className="page-heading" style={{ marginLeft: "1rem" }}>
+        <heading className="page-heading" style={{ marginLeft: "1rem" }}>
             <div className="heading-icon-dropshadow">
                 <div className="menu-checkout svg-color">&nbsp;</div>
             </div>
             <h1 className="heading-primary no-margin">
                 Checkout&nbsp;
             </h1>
-        </span>
+        </heading>
 
         <div className="checkout-container">
             <div className="checkout-column">
-                <span className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
+                <heading className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
                     <div className="heading-icon-credit svg-color">&nbsp;</div>
                     <h1 className="heading-secondary no-margin">Credit Card Details</h1>
-                </span>
+                </heading>
 
                 <div className="form-group">
                     <input
@@ -530,10 +530,10 @@ export default function Checkout({ shopID, user }) {
                     <label className="form-label">Checkout Message (optional)</label>
                 </div>
 
-                <span className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
+                <heading className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
                     <div className="heading-icon-pin svg-color">&nbsp;</div>
                     <h1 className="heading-secondary no-margin">&nbsp;Delivery Location Details</h1>
-                </span>
+                </heading>
                 <h2 className="heading-tertiary">{locationName}</h2>
 
                 <div>
@@ -561,10 +561,10 @@ export default function Checkout({ shopID, user }) {
 
             <div className="checkout-column" style={{ padding: "0", gap: "0", position: "relative" }}>
 
-                <span className="page-heading dark-underline">
+                <heading className="page-heading dark-underline">
                     <div className="heading-icon-receipt svg-color" style={{ margin: "1rem" }}>&nbsp;</div>
                     <h1 className="heading-secondary no-margin">Order Details</h1>
-                </span>
+                </heading>
 
                 {parsedData.map((item, index) => (
                     <div className="checkout-row" key={index}>
@@ -589,10 +589,10 @@ export default function Checkout({ shopID, user }) {
 
                     <div className="flex-col-none">
 
-                        <span className="page-heading">
+                        <heading className="page-heading">
                             <div className="heading-icon-shipping svg-color" style={{ margin: "0" }}>&nbsp;</div>
                             <h1 className="heading-secondary no-margin">&nbsp; Order Mode</h1>
-                        </span>
+                        </heading>
                         <div className="flex-row" style={{ marginTop: "2rem", justifyContent: "space-around" }}>
                             <button className={Mode === "delivery" ? modeButtonActive : modeButton} style={{ height: "5rem", width: "15rem", margin: "0rem" }} onClick={() => { setMode("delivery") }}>Delivery</button>
                             <button className={Mode === "pickup" ? modeButtonActive : modeButton} style={{ height: "5rem", width: "15rem", margin: "0rem" }} onClick={() => { setMode("pickup") }}>Pick-Up</button>

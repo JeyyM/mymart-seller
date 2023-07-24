@@ -76,14 +76,14 @@ function Mart(martID) {
         </Head>
         <NewFaq modalStatus={newItem} disable={handleNewItem} submit={finishSubmit}></NewFaq>
 
-        <span className="page-heading">
+        <heading className="page-heading">
             <div className="heading-icon-dropshadow">
                 <div className="heading-icon-quiz svg-color">&nbsp;</div>
             </div>
             <h1 className="heading-primary no-margin">&nbsp;Frequently Asked Questions&nbsp;</h1>
             <button className="heading-tertiary add-categ-init" style={{ width: "max-content" }} onClick={handleNewItem}>
                 &nbsp; Request New Question &nbsp;</button>
-        </span>
+        </heading>
 
         {answers.length > 0 ? <div className="faq-container">
             <AnimatePresence>
