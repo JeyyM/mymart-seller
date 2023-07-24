@@ -53,7 +53,7 @@ function NavbarItems(props) {
 
   return <Fragment>
 
-    <NavMenu menuStatus={menuIsOn} onClick={showMenuToggler} function={showMenuToggler}></NavMenu>
+    <NavMenu menuStatus={menuIsOn} onClick={showMenuToggler} function={showMenuToggler} screenWidth={screenWidth}></NavMenu>
 
     <header className={`navbar ${isNavbarVisible ? 'nav-visible' : 'nav-hidden'}`}>
       <NavButton menuHandler={showMenuToggler} status={menuIsOn}></NavButton>

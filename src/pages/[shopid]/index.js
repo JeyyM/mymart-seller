@@ -44,7 +44,7 @@ function HomePage({ shopID, screenWidth }){
             <HomepageButton color={defaultColors} title={"Edit mart's colors and fonts"} item="home-brush" label="Mart Design" direction="design" extra={mode}></HomepageButton>
             <HomepageButtonBlank color={defaultColors} item="home-policy" label="Terms & Policies" direction="policies"></HomepageButtonBlank>
             <HomepageLater color={defaultColors} item="home-support" label="Customer Service" direction="toggle"></HomepageLater>
-            <HomepageButtonBlank color={defaultColors} item="home-quiz" label="Frequently Asked Questions" direction="faq"></HomepageButtonBlank>
+            <HomepageButtonBlank color={defaultColors} item="home-quiz" label={screenWidth > 450 ? "Frequently Asked Questions" : "FAQ"} direction="faq"></HomepageButtonBlank>
             <HomepageLater color={defaultColors} item="home-power" label="Close or Open Mart" direction="toggle"></HomepageLater>
         </main>
     </Fragment>

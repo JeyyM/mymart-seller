@@ -71,8 +71,6 @@ filter: brightness(50%);}`
 
     const id = router.query.shopid
 
-    console.log("in nav", screenWidth)
-
     return (
         <Fragment>
             <Head>

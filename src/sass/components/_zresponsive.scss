@@ -243,6 +243,13 @@
 }
 
 @media (max-width: 800px) {
+  .images-column-1 {
+    width: 100%;
+  }
+  .images-inputs{
+    grid-template-columns: 1fr 1fr;
+  }
+
   .add-img {
     border: solid 4px transparent;
   }
@@ -396,6 +403,10 @@
 }
 
 @media (max-width: 600px) {
+  .faq-container{
+    padding: 0.5rem;
+  }
+
   .contact-container {
     grid-template-columns: repeat(1, 1fr);
     gap: 2rem;
@@ -471,6 +482,10 @@
 }
 
 @media (max-width: 500px) {
+  .images-inputs{
+    grid-template-columns: 1fr;
+  }
+
   .product-number-container {
     display: block;
   }
@@ -489,6 +504,20 @@
 }
 
 @media (max-width: 450px) {
+  .banner-item.active{
+    width: 40rem;
+    height: 30vh;
+  }
+  
+  .banner-item{
+    height: 30vh;
+    width: 40rem;
+  }
+  
+  .banner-carousel{
+    height: 30vh;
+  }
+
   .add-prod-img {
     height: 20rem;
     width: 20rem;
@@ -508,6 +537,10 @@
 }
 
 @media (max-width: 400px) {
+  .faq-buttons{
+    flex-direction: column;
+  }
+
   .setting-grid {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -560,6 +593,18 @@
 }
 
 @media (max-width: 350px) {
+  .banner-item.active{
+    width: 35rem;
+    height: 20vh;
+  }
+  .banner-item{
+    height: 20vh;
+    width: 35rem;
+  }
+  .banner-carousel{
+    height: 20vh;
+  }
+
   .category,
   .category-sample {
     height: 45rem;
@@ -632,9 +677,6 @@
   }
 }
 
-@media (max-width: 1400px) {
-}
-
 @media (max-width: 1300px) {
   .preview-tablet {
     transform: scale(0.7) !important;
@@ -696,60 +738,14 @@
 
 
 
-
-@media (max-width: 800px) {
-  .images-column-1 {
-    width: 100%;
+@media (max-width: 400px) {
+  .navmenu{
+    width: 45rem;
   }
-  .images-inputs{
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 500px) {
-  .images-inputs{
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 450px) {
-.banner-item.active{
-  width: 40rem;
-  height: 30vh;
-}
-
-.banner-item{
-  height: 30vh;
-  width: 40rem;
-}
-
-.banner-carousel{
-  height: 30vh;
-}
 }
 
 @media (max-width: 350px) {
-  .banner-item.active{
-    width: 35rem;
-    height: 20vh;
+  .navmenu{
+    width: 40rem;
   }
-  .banner-item{
-    height: 20vh;
-    width: 35rem;
-  }
-  .banner-carousel{
-    height: 20vh;
-  }
-  }
-
-  @media (max-width: 600px) {
-    .faq-container{
-      padding: 0.5rem;
-    }
-  }
-
-  @media (max-width: 400px) {
-    .faq-buttons{
-      flex-direction: column;
-    }
-  }
+}
