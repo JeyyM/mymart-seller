@@ -311,34 +311,34 @@
     margin-top: 1rem;
   }
 
-  .product-container {
-    display: flex;
-    flex-direction: column;
-  }
+  // .product-container {
+  //   display: flex;
+  //   flex-direction: column;
+  // }
 
-  .main-img-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  // .main-img-container {
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: center;
+  // }
 
-  .side-img {
-    margin: 1rem;
-    margin-top: 0rem;
-  }
+  // .side-img {
+  //   margin: 1rem;
+  //   margin-top: 0rem;
+  // }
 
-  .product-image {
-    max-height: 51rem;
-  }
+  // .product-image {
+  //   max-height: 51rem;
+  // }
 
-  .varContainer {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+  // .varContainer {
+  //   grid-template-columns: 1fr 1fr 1fr;
+  // }
 
-  .varItem {
-    height: 20rem;
-    width: 25rem;
-  }
+  // .varItem {
+  //   height: 20rem;
+  //   width: 25rem;
+  // }
 
   .analytics-preview,
   .analytics-categ-prev {
@@ -763,3 +763,77 @@
   }
   }
   
+  @media (max-width: 800px) {
+    // .varContainer {
+    //   grid-template-columns: 1fr 1fr 1fr;
+    // }
+  }
+
+  @media (max-width: 825px) {
+    .product-action-buttons {
+      // justify-content: space-between;
+      width: 110%;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .main-img-container {
+      width: 30vw
+    }
+    .side-img {
+      margin-top: 1rem;
+      height: 12rem;
+      margin-right: 1rem;
+      width: 15rem;
+    }
+
+    .varItem-sub {
+      @include border-round;
+      height: 20rem;
+      width: 25rem;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .main-img-container {
+      width: 33vw
+    }
+  }
+
+  @media (max-width: 650px) {
+  .product-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .details-section{
+    width: 100%;
+    max-width: 100%;
+  }
+      .varContainer {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .product-action-buttons {
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    .main-img-container {
+      display: flex;
+      width: auto;
+    }
+
+    .side-img-container {
+      grid-template-columns: 1fr;
+      margin: 1.5rem;
+    }
+
+    .side-img {
+      margin-top: 1rem;
+      height: 15rem;
+      margin-right: 1rem;
+      width: 20rem;
+    }
+}

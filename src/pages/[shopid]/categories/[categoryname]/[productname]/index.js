@@ -11,7 +11,7 @@ import { useContext } from "react";
 import { MyContext } from "@/components/store/MyProvider";
 import Link from "next/link";
 
-function ProductPage({ shopID, user }) {
+function ProductPage({ shopID, user, screenWidth }) {
   const router = useRouter()
 
   const shopCurrency = shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
@@ -364,8 +364,38 @@ function ProductPage({ shopID, user }) {
       <link rel="icon" type="image/jpeg" href={favicon} />
     </Head>
 
+    {screenWidth <= 650 && <div className="product-container">
+    <div className="main-img-container">
+
+<div className="new-main-img" style={{position:"relative"}}>
+  <img src={imgSet[imgState]} alt={variationsList[varState].productName} className="product-image">
+  </img>
+</div>
+
+<motion.div className="new-side-img-container" initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.2 }}
+  key={varState}
+>
+  {imgSet.map((i, index) => (
+    i !== undefined && (
+      <motion.img
+        key={index}
+        src={imgSet[index]}
+        alt={index}
+        className={`side-img ${index === imgState ? "active-var" : ""}`}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 * index, duration: 0.2 }}
+        onClick={() => imgStateHandler(index)}
+      />)
+  ))}
+</motion.div>
+</div>
+    </div>}
+
     <div className="product-container">
-      <div className="main-img-container">
+      {screenWidth > 650 && <div className="main-img-container">
 
         <div className="sample">
           <img src={imgSet[imgState]} alt={variationsList[varState].productName} className="product-image">
@@ -391,16 +421,17 @@ function ProductPage({ shopID, user }) {
               />)
           ))}
         </motion.div>
-      </div>
+      </div>}
+      
 
-      <div className="details-section" style={{maxWidth:"50vw"}}>
+      <div className="details-section">
         <form>
           <div>
             <heading className="heading-primary" style={{ whiteSpace: "pre-wrap" }}>{nameValue}</heading>
             <h1 className="heading-secondary product-currency" style={{marginTop:"1rem"}}>{shopCurrency} {priceValue} / {stockUnit}</h1>
           </div>
 
-          <div className="item-setup" style={{ margin: "1rem 0" }}>
+          <div className="item-setup" style={{ margin: "1rem 0", width:"100%" }}>
             <h2 className="heading-tertiary" style={{ whiteSpace: "pre-wrap", overflowWrap:"break-word" }}>{descValue}</h2>
           </div>
 
@@ -436,7 +467,7 @@ function ProductPage({ shopID, user }) {
         </form>
 
         <div className="product-action-buttons">
-          <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{width:"24rem"}} onClick={submitCart}><div className="menu-checkout svg-outline-button">&nbsp;</div><h2 className="heading-secondary outline-button">Add to Cart</h2></button>
+          <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{width:"24rem"}} onClick={submitCart}><div className="menu-cart-add svg-outline-button">&nbsp;</div><h2 className="heading-secondary outline-button">Add to Cart</h2></button>
           <Link href={`/${shopID._id}/checkout`} className="product-action-2 heading-secondary flex-row-align" style={{width:"24rem", textDecoration:"none"}}><div className="menu-checkout svg-solid-button">&nbsp;</div><h2 className="heading-secondary solid-button">To Checkout</h2></Link>
         </div>
       </div>
