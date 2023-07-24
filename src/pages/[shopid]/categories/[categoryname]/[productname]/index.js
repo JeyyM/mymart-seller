@@ -367,7 +367,7 @@ function ProductPage({ shopID, user, screenWidth }) {
     {screenWidth <= 650 && <div className="product-container">
     <div className="main-img-container">
 
-<div className="new-main-img" style={{position:"relative"}}>
+<div className="new-main-img" style={{position:"relative", margin:"auto 0"}}>
   <img src={imgSet[imgState]} alt={variationsList[varState].productName} className="product-image">
   </img>
 </div>
