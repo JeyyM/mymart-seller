@@ -742,7 +742,17 @@
 
 
 
+@media (max-width: 400px) {
+  .navmenu{
+    width: 45rem;
+  }
+}
 
+@media (max-width: 350px) {
+  .navmenu{
+    width: 40rem;
+  }
+}
 
 
 

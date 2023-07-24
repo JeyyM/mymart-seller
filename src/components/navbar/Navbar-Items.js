@@ -110,12 +110,10 @@ function NavbarItems(props) {
     };
   }, []);
 
-
   return (
     <Fragment>
-      <NavMenu menuStatus={menuIsOn} onClick={showMenuToggler} function={showMenuToggler} user={props.user} userHandler={props.userHandler} 
-      changeColor={props.changeColor} currentColor={props.currentColor} handleSearch={handleSearch} inputRef={inputRef} searchVisible={searchVisible}
-      search={search} searchResults={searchResults} currency={props.currency} setSearchResults={setSearchResults} setSearchVisible={setSearchVisible}></NavMenu>
+      <NavMenu menuStatus={menuIsOn} onClick={showMenuToggler} function={showMenuToggler} user={props.user} userHandler={props.userHandler} screenWidth={screenWidth}
+      changeColor={props.changeColor} currentColor={props.currentColor} transformedData={transformedData} ></NavMenu>
       <header className={`navbar ${isNavbarVisible ? 'nav-visible' : 'nav-hidden'}`}>
         <NavButton menuHandler={showMenuToggler} status={menuIsOn}></NavButton>
         <NavLogo navicon={props.navicon}></NavLogo>
@@ -127,8 +125,7 @@ function NavbarItems(props) {
             style={{ width: "100%" }}
             placeholder="Search"
             onChange={handleSearch}
-            value={search}
-            // ref={inputRef}
+            ref={inputRef}
           />
           <div className="search-magnifying svg-tertiary" style={{ position: "absolute", top: "0", right: "2%", top: "20%" }}></div>
           {searchVisible && search.length > 0 && (

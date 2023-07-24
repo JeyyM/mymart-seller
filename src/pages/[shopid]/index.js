@@ -16,7 +16,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import CategoryBuyer from "@/components/category/CategoryBuyer"
 import CategoryProductsBuyer from "@/components/category-products/CategoryProductsBuyer"
 
-function HomePage({ shopID }) {
+function HomePage({ shopID, screenWidth }) {
   const viewsList = shopID.shopData.shopViews
   const router = useRouter();
   const slide = {
@@ -97,8 +97,8 @@ function HomePage({ shopID }) {
           prod.variations.some((variation) => variation.active)
         );
         const totalItems = activeItems.length;
-        const itemsPerSlide = 4;
-        const itemsPerLine = 4;
+  const itemsPerSlide =screenWidth < 400 ? 1 : screenWidth < 600 ? 2 : screenWidth < 1000 ? 3 : 4;
+  const itemsPerLine = screenWidth < 400 ? 1 : screenWidth < 600 ? 2 : screenWidth < 1000 ? 3 : 4;
         const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
         const totalSlides = Math.ceil(totalItems / itemsPerSlide);
         const slideIndexes = Array.from(Array(totalSlides).keys());
