@@ -127,7 +127,8 @@ function NavbarItems(props) {
             style={{ width: "100%" }}
             placeholder="Search"
             onChange={handleSearch}
-            ref={inputRef}
+            value={search}
+            // ref={inputRef}
           />
           <div className="search-magnifying svg-tertiary" style={{ position: "absolute", top: "0", right: "2%", top: "20%" }}></div>
           {searchVisible && search.length > 0 && (
