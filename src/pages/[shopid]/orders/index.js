@@ -188,7 +188,7 @@ function MyOrders({ shopID, user, currency, screenWidth }) {
           </Head>
           <OrderDetails modalStatus={details} disable={handleDetails} order={selectedOrder} shopCategories={shopCategories} currency={shopCurrency} initiateCancel={handleCancel}></OrderDetails>
           <CancelOrder modalStatus={cancel} order={selectedOrder} disable={handleCancel}  currency={shopCurrency} finish={submitCancel}></CancelOrder>
-          <ShopInformation modalStatus={Info} disable={handleInfo} user={user} currency={shopCurrency} martCoords={coords} details={footerData} payment={paymentDetails}></ShopInformation>
+          <ShopInformation modalStatus={Info} disable={handleInfo} user={user} currency={shopCurrency} martCoords={coords} details={footerData} payment={paymentDetails} screenWidth={screenWidth}></ShopInformation>
 
           <div className="past-container">
             <heading className="page-heading">

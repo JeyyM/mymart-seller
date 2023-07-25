@@ -464,6 +464,9 @@
 }
 
 @media (max-width: 600px) {
+  .info-3{
+    grid-template-columns: 1fr;
+  }
   .faq-container{
     padding: 0.5rem;
   }

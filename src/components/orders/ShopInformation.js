@@ -9,6 +9,7 @@ import Link from "next/link";
 const libraries = ['places'];
 
 function ShopInformation(props) {
+  const {screenWidth} = props
   const router = useRouter()
   const appear = {
     hidden: {
@@ -117,7 +118,7 @@ function ShopInformation(props) {
               <motion.div
                 key={props.chosenItem}
                 onClick={(e) => e.stopPropagation()}
-                className="edit-order-modal"
+                className="edit-order-modal round-borderer"
                 variants={appear}
                 initial="hidden"
                 animate="visible"
@@ -128,7 +129,7 @@ function ShopInformation(props) {
                   <h2 className="heading-secondary no-margin">&nbsp;Mart Information</h2>
                 </span>
 
-                <div className="grid-col-3" style={{ gap: "1rem" }}>
+                <div className="info-3" style={{ gap: "1rem" }}>
                   <div className="user-data-col">
                     <span className="page-heading">
                       <div className="text-sec-phone svg-secondary">&nbsp;</div>
@@ -168,7 +169,7 @@ function ShopInformation(props) {
                   </div>
                 </div>
 
-                <div className="grid-col-2" style={{ marginTop: "1rem" }}>
+                <div className="grid-col-2" style={{ marginTop: "1rem", gridTemplateColumns: `${screenWidth > 600 ? "1fr 1fr" : "1fr"}` }}>
                   <div className="user-data-col">
                   <span className="page-heading">
                       <div className="text-sec-pin svg-secondary">&nbsp;</div>
@@ -201,7 +202,7 @@ function ShopInformation(props) {
                     </GoogleMap>
                   </div>
 
-                  <div className="user-data-col" style={{ paddingLeft: "1rem" }}>
+                  {screenWidth > 600 && <div className="user-data-col" style={{ paddingLeft: "1rem" }}>
                     <h2 className="heading-tertiary" style={{fontWeight: "900" }}>The owner may edit your orders such as reducing ordered amounts and adding new products. Edited items will be marked as such.</h2>
                     {takebacks.allowRefunds === false ? <div>
                       <h2 className="heading-tertiary">Refunds are not allowed.</h2>
@@ -216,8 +217,24 @@ function ShopInformation(props) {
                     </div>}
                     <Link href={`/${router.query.shopid}/terms`}><h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Terms and Conditions and Privacy Policy</h2></Link>
 
-                  </div>
+                  </div>}
                 </div>
+                {screenWidth <= 600 && <div className="user-data-col" style={{ paddingLeft: "1rem", marginTop:"1rem" }}>
+                    <h2 className="heading-tertiary" style={{fontWeight: "900" }}>The owner may edit your orders such as reducing ordered amounts and adding new products. Edited items will be marked as such.</h2>
+                    {takebacks.allowRefunds === false ? <div>
+                      <h2 className="heading-tertiary">Refunds are not allowed.</h2>
+                    </div> : <div>
+                      <h2 className="heading-tertiary">Refunds are allowed within {takebacks.refundCount} {takebacks.refundDuration}/s of receiving with a penalty of {takebacks.refundFee}% of the order's total, fees not included. Items must be returned on-site in good condition within the refund period.</h2>
+                    </div>}
+
+                    {takebacks.allowCancel === false ? <div>
+                      <h2 className="heading-tertiary">Cancellations are not allowed.</h2>
+                    </div> : <div>
+                      <h2 className="heading-tertiary">Cancellations are allowed within {takebacks.cancelCount} {takebacks.cancelDuration}/s of ordering with a penalty of {takebacks.cancelFee}% of the order's total, fees not included. Approved orders cannot be cancelled.</h2>
+                    </div>}
+                    <Link href={`/${router.query.shopid}/terms`}><h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Terms and Conditions and Privacy Policy</h2></Link>
+
+                  </div>}
                 <h3 className="heading-secondary" style={{ marginTop: "1rem" }}>Checkout Message</h3>
                 <h3 className="heading-tertiary">{checkoutData.message}</h3>
 
