@@ -146,3 +146,8 @@
     width: 100%;
     transition: all 0.2s;
   }
+
+  .past-container {
+    min-height: calc(100vh - $navbar-height);
+    width: 100%;
+  }

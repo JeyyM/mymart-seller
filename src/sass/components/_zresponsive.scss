@@ -104,6 +104,14 @@
 }
 
 @media (max-width: 1000px) {
+  .cart-modal {
+    margin-top: auto;
+  }
+
+  .top-notif {
+    width: 90%;
+  }
+
   .main-img-container {
     width: 30vw
   }
@@ -200,6 +208,10 @@
 }
 
 @media (max-width: 900px) {
+  .checkout-modal {
+    margin: auto;
+  }
+
   .payment-column {
     width: 40%;
   }
@@ -259,6 +271,22 @@
 }
 
 @media (max-width: 800px) {
+  .checkout-column {
+    width: 100%;
+    height: auto;
+  }
+.checkout-column-2 {
+  width: 100%;
+  height: auto;
+}
+.checkout-container {
+  flex-direction: column;
+}
+
+.checkout-msg{
+  margin: 0 1rem;
+}
+
   .images-column-1 {
     width: 100%;
   }
@@ -519,6 +547,15 @@
 }
 
 @media (max-width: 500px) {
+  .cart-img{
+    height:8rem;
+    width: 8rem;
+}
+
+  .top-notif {
+    width: 95%;
+  }
+
   .images-inputs{
     grid-template-columns: 1fr;
   }
@@ -541,6 +578,18 @@
 }
 
 @media (max-width: 450px) {
+  .checkout-fees{
+    flex-direction: column;
+  }
+
+  .checkout-pay{
+    margin-left: 0;
+  }
+
+  .checkout-total{
+    align-self: flex-start;
+  }
+
   .banner-item.active{
     width: 40rem;
     height: 30vh;
@@ -574,6 +623,11 @@
 }
 
 @media (max-width: 400px) {
+  .cart-bottom{
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
   .product-action-buttons {
     display: flex;
     flex-direction: column;
@@ -663,6 +717,11 @@
 
 
 @media (max-width: 350px) {
+  .cart-img{
+    height:6rem;
+    width: 6rem;
+}
+
   .banner-item.active{
     width: 35rem;
     height: 20vh;
@@ -711,101 +770,5 @@
 @media (max-width: 250px) {
   .analytics-sales-cell {
     height: 18rem;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@media (max-width: 500px) {
-.cart-img{
-    height:8rem;
-    width: 8rem;
-}
-}
-
-@media (max-width: 350px) {
-  .cart-img{
-      height:6rem;
-      width: 6rem;
-  }
-  }
-
-  @media (max-width: 400px) {
-    .cart-bottom{
-      justify-content: space-between;
-      padding: 0 1rem;
-  }
-    }
-
-    @media (max-width: 1000px) {
-      .cart-modal {
-        margin-top: auto;
-      }
-    }
-
-    @media (max-width: 1000px) {
-    .top-notif {
-      width: 90%;
-    }
-  }
-
-  @media (max-width: 500px) {
-    .top-notif {
-      width: 95%;
-    }
-  }
-
-  @media (max-width: 800px) {
-    .checkout-column {
-      width: 100%;
-      height: auto;
-    }
-  .checkout-column-2 {
-    width: 100%;
-    height: auto;
-  }
-  .checkout-container {
-    flex-direction: column;
-  }
-
-  .checkout-msg{
-    margin: 0 1rem;
-  }
-  }
-
-  @media (max-width: 450px) {
-    .checkout-fees{
-      flex-direction: column;
-    }
-
-    .checkout-pay{
-      margin-left: 0;
-    }
-
-    .checkout-total{
-      align-self: flex-start;
-    }
-  }
-  @media (max-width: 900px) {
-  .checkout-modal {
-    margin: auto;
-  }
-}
-
-@media (max-width: 900px) {
-  .checkout-modal {
-    
   }
 }

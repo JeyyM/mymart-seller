@@ -77,8 +77,8 @@ function MyOrders({ shopID, user, currency, screenWidth }) {
     const itemsPerSlide = 12;
     const itemsPerSlide2 = 8;
 
-    const itemsPerLine = 4;
-    const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
+    const itemsPerLine = screenWidth < 400 ? 1 : screenWidth < 600 ? 2 : screenWidth < 1000 ? 3 : 4;
+        const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
     const totalSlides = Math.ceil(totalItems / itemsPerSlide);
     const slideIndexes = Array.from(Array(totalSlides).keys());
 
@@ -190,7 +190,7 @@ function MyOrders({ shopID, user, currency, screenWidth }) {
           <CancelOrder modalStatus={cancel} order={selectedOrder} disable={handleCancel}  currency={shopCurrency} finish={submitCancel}></CancelOrder>
           <ShopInformation modalStatus={Info} disable={handleInfo} user={user} currency={shopCurrency} martCoords={coords} details={footerData} payment={paymentDetails}></ShopInformation>
 
-          <div className="order-container">
+          <div className="past-container">
             <heading className="page-heading">
               <div className="heading-icon-dropshadow">
                 <div className="heading-icon-receipt svg-color">&nbsp;</div>
