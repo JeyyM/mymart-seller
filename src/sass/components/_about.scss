@@ -19,7 +19,7 @@
   }
 
   .about-grid-2 {
-    width: 1366px;
+    width: 100vw;
     min-height: calc(66vw);
     max-height: min-content;
     display: grid;
@@ -27,6 +27,7 @@
     grid-auto-rows: 10%;
     transition: all 0.2s;
     overflow-x: hidden;
+    margin: 0 auto;
   }
 
   .about-grid-3 {
