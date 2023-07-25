@@ -82,7 +82,7 @@ function About({ shopID }) {
                 gridColumn: `${item.col1}/${item.col2}`,
                 textAlign: item.align,
                 zIndex: item.zInd,
-                margin: "0",
+                marginLeft: "0",
                 alignSelf: "center",
                 transform: `scale(${item.scale * screenScale})`
             }}
@@ -162,10 +162,10 @@ function About({ shopID }) {
             <title>About Us</title>
             <link rel="icon" type="image/jpeg" href={favicon} />
         </Head>
-
+{/* 
         <h1 className="heading-secondary" style={{textAlign:"center"}}>Item</h1>
         <h1 className="heading-tertiary" style={{textAlign:"center"}}>Item</h1>
-        <h1 className="heading-primary" style={{textAlign:"center"}}>Item</h1>
+        <h1 className="heading-primary" style={{textAlign:"center"}}>Item</h1> */}
 
 
         <section className={gridClass}>

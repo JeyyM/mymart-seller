@@ -31,8 +31,8 @@ function NewFaq(props) {
     const [a, setA] = useState("")
 
     useEffect(() => {
-        setQ("")
-        setA("")
+        setQ(props.newQ)
+        setA(props.newA)
     }, [props.modalStatus])
 
     return (
@@ -47,7 +47,7 @@ function NewFaq(props) {
                         <motion.div
                             key={props.chosenItem}
                             onClick={(e) => e.stopPropagation()}
-                            className="edit-order-modal"
+                            className="new-faq-modal"
                             variants={appear}
                             initial="hidden"
                             animate="visible"

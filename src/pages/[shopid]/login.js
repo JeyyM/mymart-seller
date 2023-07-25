@@ -5,6 +5,7 @@ import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect} from "react"
 import { useRouter } from "next/router"
+import sha256 from 'crypto-js/sha256';
 
 function SignUp(martID) {
     const router = useRouter()
@@ -57,7 +58,7 @@ function SignUp(martID) {
 
         let emailList = []
 
-    emailList = accounts.map(item => item.email.toUpperCase().trim());
+    emailList = accounts.map(item => item.email.toLowerCase().trim());
     
     const shopName = martID.shopID.name
     const navlogo = martID.shopID.shopData.shopDetails.imageData.icons.logo
@@ -79,12 +80,8 @@ function SignUp(martID) {
         return new Promise(resolve => setTimeout(resolve, 2000));
       }
 
-    async function hashString(data) {
-        const encoder = new TextEncoder();
-        const dataBuffer = encoder.encode(data);
-        const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+      async function hashString(data) {
+        const hashHex = sha256(data).toString();
         return hashHex;
       }
 
@@ -138,7 +135,7 @@ function SignUp(martID) {
 
         emailValid = email.trim() !== ""
         passValid = password.trim() !== ""
-        emailExist = emailList.includes(email.toUpperCase());
+        emailExist = emailList.includes(email.toLowerCase());
 
         if (!emailExist) {
             emailValid = false
@@ -152,6 +149,7 @@ function SignUp(martID) {
         })
 
         const submissionValid = emailValid && passValid && emailExist
+        console.log(emailValid, passValid, emailExist)
 
         if (submissionValid) {
             signIn()
@@ -162,7 +160,7 @@ function SignUp(martID) {
       async function passcheck(pass) {
     if ( typeof window !== 'undefined'){
     const response = await fetch(
-      `../../../api/read-cart?martid=${router.query.shopid}&email=${email}&password=${pass}`,
+      `../../../api/read-cart?martid=${router.query.shopid}&email=${email.toLowerCase()}&password=${pass}`,
       {
         method: "GET",
         headers: { "Content-Type": "application/json" },
@@ -179,7 +177,7 @@ function SignUp(martID) {
 
         if (result){
             const authKey = `auth_${martID.shopID._id}`;
-            const authData = {email: email, password: hashedPassword}
+            const authData = {email: email.toLowerCase(), password: hashedPassword}
             localStorage.setItem(authKey, JSON.stringify(authData));
             localStorage.setItem(localStorageKey, JSON.stringify(result.currentCart));
             setLoading(true)

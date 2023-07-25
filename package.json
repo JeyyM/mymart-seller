@@ -22,6 +22,7 @@
     "@react-spring/web": "^9.7.1",
     "@svgr/webpack": "^6.5.1",
     "chroma-js": "^2.4.2",
+    "crypto-js": "^4.1.1",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.7",
     "eslint": "8.35.0",

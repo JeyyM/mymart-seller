@@ -11,6 +11,7 @@ import { Marker } from '@react-google-maps/api';
 import { Autocomplete } from '@react-google-maps/api';
 import moment from 'moment'
 import { transform } from "lodash";
+import sha256 from 'crypto-js/sha256';
 
 // import Guide from "../../pages/api/Guide"
 
@@ -47,13 +48,9 @@ function UserProfile(props) {
     };
 
     async function hashString(data) {
-        const encoder = new TextEncoder();
-        const dataBuffer = encoder.encode(data);
-        const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+        const hashHex = sha256(data).toString();
         return hashHex;
-    }
+      }
 
     const genderOptions = [
         "Male", "Female", "Other"

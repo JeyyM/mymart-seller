@@ -11,6 +11,7 @@ function Policies(martID) {
     const router = useRouter();
     const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
     const privacy = martID.shopID.shopData.shopTerms.privacy
+    const {screenWidth} = martID
 
     const [markdownContent, setMarkdownContent] = useState(privacy);
 
@@ -46,7 +47,7 @@ function Policies(martID) {
                     <div className="heading-icon-policy svg-color">&nbsp;</div>
                 </div>
                 <h1 className="heading-primary no-margin">&nbsp;Privacy Policy&nbsp;</h1>
-                <Link href={`/${router.query.shopid}/policies`} className="heading-tertiary add-categ-init" style={{ width: "max-content", textDecoration:"none" }}>
+                <Link href={`/${router.query.shopid}/policies`} className="heading-tertiary add-categ-init" style={{ width: `${screenWidth > 360 ? "max-content" : "13rem"}`, textAlign:"center", textDecoration:"none", height: `${screenWidth > 360 ? "4rem" : "7rem"}` }}>
                 &nbsp; Terms & Conditions &nbsp;</Link>
             </heading>
 

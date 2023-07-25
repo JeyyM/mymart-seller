@@ -273,7 +273,7 @@ color: ${props.color["button-outline-text"]} !important;
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
 }
 
-    .categ-modal, .edit-order-modal, .confirm-modal, .set-container, .category, .categ-edit-button, .product-edit-button, .add-img, .help-button, .side-img, .add-prod-img, .product-image, .varItem-sub, .footer, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer{
+    .categ-modal, .checkout-modal .edit-order-modal, .new-faq-modal, .confirm-modal, .set-container, .category, .categ-edit-button, .product-edit-button, .add-img, .help-button, .side-img, .add-prod-img, .product-image, .varItem-sub, .footer, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;}
 
@@ -297,7 +297,7 @@ color: ${props.color["button-outline-text"]} !important;
   filter: brightness(120%) !important;
 }
 
-.add-categ-init:focus, .add-prod-init:focus, .categ-modal, .edit-order-modal, .confirm-modal, .set-container, .text-full, input[type="text"].text-full:focus, .desc-text-area, input[type="text"].desc-text-area:focus, .text-small, .invalid-form, .invalid-form-2, .invalid-form-box, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer-extra{
+.add-categ-init:focus, .add-prod-init:focus, .categ-modal, .checkout-modal, .edit-order-modal, .new-faq-modal, .confirm-modal, .set-container, .text-full, input[type="text"].text-full:focus, .desc-text-area, input[type="text"].desc-text-area:focus, .text-small, .invalid-form, .invalid-form-2, .invalid-form-box, .detail-slot, .detail-slot-about, .detail-slot-carousel, .round-borderer-extra{
     box-shadow: inset 0 0 0 2.2rem ${props.color["bg-item"]}, 0 0 0 2px ${props.color["color-primary-dark"]},
     0 0 0 4px ${props.color["bg-item"]} !important;
 }
@@ -447,7 +447,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
   filter: brightness(120%) !important;
 }
 
-.item-setup, .images-column, .pop-up-prev, .pop-up-img, .checkout-column{
+.item-setup, .images-column, .pop-up-prev, .pop-up-img, .checkout-column, .checkout-column-2{
     background-image: linear-gradient(${props.color["bg-item"]}, ${props.color["bg-item"]}),
     linear-gradient(to right, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
     box-shadow: inset 0 0 0 2.2rem ${props.color["bg-item"]} !important;
@@ -472,7 +472,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 .cartbob {
     filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["color-primary-light"]}) !important;}
 
-.cart-row, .checkout-row{
+.cart-row{
     border-bottom: 5px solid ${props.color["color-primary-dark"]};
 }
 

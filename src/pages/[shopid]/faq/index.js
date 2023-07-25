@@ -8,6 +8,7 @@ import { useRouter } from "next/router"
 
 function Mart(martID) {
     const router = useRouter()
+    const {screenWidth} = martID
     const SlideHeight = {
         hidden: { opacity: 1, height: 0 },
         visible: { opacity: 1, height: 'auto' }
@@ -80,8 +81,8 @@ function Mart(martID) {
             <div className="heading-icon-dropshadow">
                 <div className="heading-icon-quiz svg-color">&nbsp;</div>
             </div>
-            <h1 className="heading-primary no-margin">&nbsp;Frequently Asked Questions&nbsp;</h1>
-            <button className="heading-tertiary add-categ-init" style={{ width: "max-content" }} onClick={handleNewItem}>
+            <h1 className="heading-primary no-margin" style={{fontSize: `${screenWidth > 550 ? "3.5rem" : screenWidth > 500 ? "3rem" : "2.5rem"}`}}>&nbsp;Frequently Asked Questions&nbsp;</h1>
+            <button className="heading-tertiary add-categ-init" style={{ width: `${screenWidth > 600 ? "max-content" : screenWidth > 400 ? "20rem" : "18rem"}`, height: `${screenWidth > 600 ? "4rem" : "7rem"}` }} onClick={handleNewItem}>
                 &nbsp; Request New Question &nbsp;</button>
         </heading>
 

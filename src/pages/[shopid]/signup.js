@@ -11,6 +11,7 @@ import { FaMapMarkerAlt } from 'react-icons/fa';
 import { Marker } from '@react-google-maps/api';
 import { Autocomplete } from '@react-google-maps/api';
 import { useRouter } from "next/router"
+import sha256 from 'crypto-js/sha256';
 
 const libraries = ['places'];
 
@@ -96,12 +97,17 @@ function SignUp(martID) {
     const progress3Class = `${total >= 2 ? "progress-button round-borderer round-borderer-extra" : "progress-button round-borderer"}`
     const progress4Class = `${total >= 3 ? "progress-button round-borderer round-borderer-extra" : "progress-button round-borderer"}`
 
+    // async function hashString(data) {
+    //     const encoder = new TextEncoder();
+    //     const dataBuffer = encoder.encode(data);
+    //     const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
+    //     const hashArray = Array.from(new Uint8Array(hashBuffer));
+    //     const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+    //     return hashHex;
+    //   }
+
     async function hashString(data) {
-        const encoder = new TextEncoder();
-        const dataBuffer = encoder.encode(data);
-        const hashBuffer = await crypto.subtle.digest('SHA-256', dataBuffer);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+        const hashHex = sha256(data).toString();
         return hashHex;
       }
 
@@ -620,7 +626,7 @@ function SignUp(martID) {
         const hashedCVV = await hashString(cvv)
 
         const incomingData = {
-                email: email,
+                email: email.toLowerCase(),
                 password: hashedPassword,
                 creationDate: currentDate,
                 preferredColor: defaultColor,
@@ -637,7 +643,7 @@ function SignUp(martID) {
             }
 
             const authKey = `auth_${martID.shopID._id}`;
-            const authData = {email: email, password: hashedPassword}
+            const authData = {email: email.toLowerCase(), password: hashedPassword}
             localStorage.setItem(authKey, JSON.stringify(authData));
             
         completeForm(incomingData)

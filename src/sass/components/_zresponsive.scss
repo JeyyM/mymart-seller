@@ -454,7 +454,7 @@
   }
 
   .menu-decoy {
-    height: 47vh;
+    height: 30vh;
   }
   .footer {
     grid-template-columns: repeat(1, 1fr);
@@ -766,3 +766,46 @@
       width: 95%;
     }
   }
+
+  @media (max-width: 800px) {
+    .checkout-column {
+      width: 100%;
+      height: auto;
+    }
+  .checkout-column-2 {
+    width: 100%;
+    height: auto;
+  }
+  .checkout-container {
+    flex-direction: column;
+  }
+
+  .checkout-msg{
+    margin: 0 1rem;
+  }
+  }
+
+  @media (max-width: 450px) {
+    .checkout-fees{
+      flex-direction: column;
+    }
+
+    .checkout-pay{
+      margin-left: 0;
+    }
+
+    .checkout-total{
+      align-self: flex-start;
+    }
+  }
+  @media (max-width: 900px) {
+  .checkout-modal {
+    margin: auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .checkout-modal {
+    
+  }
+}

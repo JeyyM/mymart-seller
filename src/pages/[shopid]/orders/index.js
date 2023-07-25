@@ -11,7 +11,7 @@ import OrderDetails from "@/components/orders/OrderDetails";
 import CancelOrder from "@/components/orders/CancelOrder";
 import ShopInformation from "@/components/orders/ShopInformation";
 
-function MyOrders({ shopID, user, currency }) {
+function MyOrders({ shopID, user, currency, screenWidth }) {
   const router = useRouter();
   const [shouldRender, setShouldRender] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
