@@ -163,6 +163,11 @@ function About({ shopID }) {
             <link rel="icon" type="image/jpeg" href={favicon} />
         </Head>
 
+        <h1 className="heading-secondary" style={{textAlign:"center"}}>Item</h1>
+        <h1 className="heading-tertiary" style={{textAlign:"center"}}>Item</h1>
+        <h1 className="heading-primary" style={{textAlign:"center"}}>Item</h1>
+
+
         <section className={gridClass}>
 
             {textElements}

@@ -331,35 +331,6 @@
     margin-top: 1rem;
   }
 
-  // .product-container {
-  //   display: flex;
-  //   flex-direction: column;
-  // }
-
-  // .main-img-container {
-  //   display: flex;
-  //   align-items: center;
-  //   justify-content: center;
-  // }
-
-  // .side-img {
-  //   margin: 1rem;
-  //   margin-top: 0rem;
-  // }
-
-  // .product-image {
-  //   max-height: 51rem;
-  // }
-
-  // .varContainer {
-  //   grid-template-columns: 1fr 1fr 1fr;
-  // }
-
-  // .varItem {
-  //   height: 20rem;
-  //   width: 25rem;
-  // }
-
   .analytics-preview,
   .analytics-categ-prev {
     height: 27vh;
@@ -749,98 +720,6 @@
 
 
 
-
-
-/////////////////////////////////////////////
-
-
-// @media (max-width: 1366px) {
-//   .about-grid-2 {
-//     width: 100vw;
-//     min-height: calc(66vw);
-//     max-height: min-content;
-//     display: grid;
-//     grid-template-columns: repeat(8, calc((100vw / 8) - 1.2px));
-//     grid-auto-rows: 10%;
-//     transition: all 0.2s;
-//     overflow-x: hidden;
-//   }
-// }
-
-// @media (max-width: 1600px) {
-//   .preview-desktop {
-//     transform: scale(0.8) !important;
-//   }
-
-//   .preview-tablet {
-//     transform: scale(0.6) !important;
-//   }
-// }
-
-// @media (max-width: 1550px) {
-//   .preview-desktop {
-//     transform: scale(0.7) !important;
-//   }
-// }
-
-// @media (max-width: 1300px) {
-//   .preview-tablet {
-//     transform: scale(0.7) !important;
-//   }
-// }
-
-// @media (max-width: 1200px) {
-//   .preview-desktop {
-//     transform: scale(0.8) !important;
-//   }
-// }
-
-// @media (max-width: 1100px) {
-//   .preview-desktop {
-//     transform: scale(0.9) !important;
-//   }
-//   .preview-tablet {
-//     transform: scale(0.9) !important;
-//   }
-// }
-
-// @media (max-width: 1000px) {
-//   .preview-desktop {
-//     transform: scale(0.8) !important;
-//   }
-// }
-
-// @media (max-width: 900px) {
-//   .preview-desktop {
-//     transform: scale(0.9) !important;
-//   }
-// }
-
-// @media (max-width: 800px) {
-//   .preview-desktop {
-//     transform: scale(0.9) !important;
-//   }
-// }
-// @media (max-width: 600px) {
-//   .preview-tablet {
-//     transform: scale(0.9) !important;
-//   }
-// }
-
-// @media (max-width: 360px) {
-//   .about-grid-3 {
-//     width: 100vw;
-//     height: calc((100vw * 1.77));
-//     display: grid;
-//     grid-template-columns: repeat(4, calc((100vw / 4) - 1.2px));
-//     grid-auto-rows: 10%;
-//     margin: 0 auto;
-//     transition: all 0.2s;
-//     overflow-x: hidden;
-//   }
-// }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
