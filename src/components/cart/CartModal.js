@@ -8,6 +8,7 @@ import { MyContext } from "../store/MyProvider";
 import dynamic from "next/dynamic";
 
 function CartModal(props) {
+  const {screenWidth} = props
   const router = useRouter()
   const localStorageKey = `mart_${router.query.shopid}`;
   const { handleIncrement } = useContext(MyContext);
@@ -213,16 +214,16 @@ const updateCartInput = (index, amount, select) => {
                   <div className="cart-row" key={index}>
                     <img className="cart-img round-borderer" src={item.image}></img>
                     <div className="flex-col-2" style={{ width: "auto" }}>
-                      <a href={`/${item.url}`} className="heading-secondary" style={{ whiteSpace: "pre-wrap", display: "inline", textDecoration: "none" }}>{item.name.length > 32 ? item.name.substring(0, 20) + "..." : item.name}</a>
-                      <h3 className="heading-tertiary" style={{ display: "inline" }}>{item.description.length > 150 ? item.description.substring(0, 150) + "..." : item.description}</h3>
+                      <a href={`/${item.url}`} className={`${screenWidth > 500 ? "heading-secondary" : "heading-tertiary font-boost"}`} style={{ whiteSpace: "pre-wrap", display: "inline", textDecoration: "none", fontWeight:"900" }}>{item.name.length > 25 ? item.name.substring(0, 22) + "..." : item.name}</a>
+                      <h3 className="heading-tertiary" style={{ display: "inline" }}>{item.description.length > 30 ? item.description.substring(0, 27) + "..." : item.category}</h3>
                     </div>
 
                     <div className="cart-pay">
-                      <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Price: {props.currency} {item.price} / {item.unit}</h2>
+                      <h2 className="heading-tertiary" style={{ marginBottom: "1rem", textAlign:"center" }}>Price: {props.currency} {item.price} / {item.unit}</h2>
 
-                      <div className="add-buttons flex-row-spaceless" style={{ width: "20rem" }}>
+                      <div className="add-buttons flex-row-spaceless" style={{ width: `${screenWidth > 500 ? "20rem" : screenWidth > 400 ? "18rem" : "16rem"}`, justifyContent:'flex-end', marginLeft:'auto' }}>
                         <button type="button" className="minus-button" onClick={() => updateCartItem(index, -1, item)}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
-                        <input type="number" className="text-small input-number" placeholder="Amount" style={{ borderRadius: "0", margin: "0" }} value={item.cartValue} onChange={(e) => updateCartInput(index, parseInt(e.target.value) - item.cartValue, item)}></input>
+                        <input type="number" className="text-small input-number" placeholder="Amount" style={{ borderRadius: "0", margin: "0", width:`${screenWidth > 500 ? "95%" : screenWidth > 400 ? "8rem" : "6rem"}` }} value={item.cartValue} onChange={(e) => updateCartInput(index, parseInt(e.target.value) - item.cartValue, item)}></input>
                         <button type="button" className="add-button svg-color" onClick={() => updateCartItem(index, 1, item)}><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
                       </div>
                     </div>
@@ -236,8 +237,8 @@ const updateCartInput = (index, amount, select) => {
               <div className="cart-bottom dark-underline-upper">
                 <h2 className="heading-secondary">Total: {props.currency} {total}</h2>
                 {typeof window !== 'undefined' && (<>
-                  {props.user === undefined && <DynamicComponent2 route={router.query.shopid} click={props.cartOpen} />}
-                  {props.user !== undefined && <DynamicComponent1 route={router.query.shopid} click={props.cartOpen} />}
+                  {props.user === undefined && <DynamicComponent2 route={router.query.shopid} click={props.cartOpen} screenWidth={screenWidth} />}
+                  {props.user !== undefined && <DynamicComponent1 route={router.query.shopid} click={props.cartOpen} screenWidth={screenWidth} />}
                 </>
                 )}              
                 </div>

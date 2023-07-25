@@ -121,7 +121,7 @@ function NavMenu(props) {
           <NavMenuItem logo={"receipt"} label={"My Orders"} link={"orders"} exit={props.onClick}></NavMenuItem>
         </>}
 
-        <NavMenuItem logo={"info"} label={"About Us"} exit={props.onClick}></NavMenuItem>
+        <NavMenuItem logo={"info"} label={"About Us"} link={"about"} exit={props.onClick}></NavMenuItem>
         <NavMenuItem logo={"quiz"} label={screenWidth > 400 ? "Frequently Asked Questions" : "FAQ"} link={"faq"} exit={props.onClick}></NavMenuItem>
         <NavMenuItem logo={"policy"} label={"Terms & Policies"} link={"policies"} exit={props.onClick}></NavMenuItem>
 

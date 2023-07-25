@@ -1,5 +1,5 @@
 .cart-modal {
-    width: clamp(50%, 700px, 90%);
+    width: clamp(50%, 700px, 95%);
     height: auto;
     min-height: 50%;
     max-height: 75%;
@@ -18,11 +18,11 @@
   }
 
 .cart-row{
-    height: 12rem;
+    min-height: 12rem;
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 1rem;
+    padding: 0 1rem;
     gap: 1rem;
 }
 
@@ -56,7 +56,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    width:"auto";
+    width: min-content;
     margin-left: auto;
     align-items: center;
 }
@@ -80,4 +80,8 @@
 .heading-icon-celebration {
     @include heading-logo(celebration, 4rem, 4rem);
     margin-left: 1rem;
+  }
+
+  .font-boost{
+    font-size: 2.5rem;
   }

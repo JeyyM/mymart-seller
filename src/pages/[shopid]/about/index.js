@@ -140,10 +140,10 @@ function About({ shopID }) {
 
     useEffect(() => {
 
-        if (screenWidth > 1024) {
+        if (screenWidth > 1366) {
             setDevice("desktop");
             setScreenPx(1920)
-        } else if (screenWidth >= 480 && screenWidth <= 1024) {
+        } else if (screenWidth >= 480 && screenWidth <= 1366) {
             setDevice("tablet");
             setScreenPx(1200)
         } else if (screenWidth < 480) {

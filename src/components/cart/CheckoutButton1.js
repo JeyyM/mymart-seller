@@ -2,6 +2,7 @@ import Link from "next/link"
 import { useRouter } from "next/router";
 
 function CheckoutButton1(props){
+  const {screenWidth} = props
     const router = useRouter()
 
     const handleClick = () => {

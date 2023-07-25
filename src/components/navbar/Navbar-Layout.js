@@ -512,7 +512,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
             {typeof window !== 'undefined' && (<>
               {props.user !== undefined &&  <DynamicComponent1 modalStatus={userStatus} disable={userHandler} user={props.user} colormode={props.color}></DynamicComponent1>}
               </>)}
-            <CartModal modalStatus={CartStatus} cartOpen={CartHandler} currency={props.curr} user={props.user} categs={props.martCateg} ></CartModal>
+            <CartModal screenWidth={screenWidth} modalStatus={CartStatus} cartOpen={CartHandler} currency={props.curr} user={props.user} categs={props.martCateg} ></CartModal>
             <div>{renderChildrenWithProps()}</div>
             {router.asPath !== `/${id}/mart/details` && router.asPath !== "/" ? <Footer details={props.contents} address={props.address}></Footer> : <Fragment></Fragment>}
 
