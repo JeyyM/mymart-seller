@@ -131,7 +131,7 @@ function NavbarItems(props) {
           {searchVisible && search.length > 0 && (
             <div className="search-row">
               {searchResults.map((item) => (
-                <Link style={{ textDecoration: "none" }} className="search-item" key={item.name} href={`/${router.query.shopid}/categories/${encodeURIComponent(item.category)}/${encodeURIComponent(item.name)}`}>
+                <a style={{ textDecoration: "none" }} className="search-item" key={item.name} href={`/${router.query.shopid}/categories/${encodeURIComponent(item.category)}/${encodeURIComponent(item.name)}`}>
                   <div className="flex-row">
                     <img src={item.image} className="round-borderer" style={{ height: "4rem", width: "4rem" }}></img>
                     <div className="flex-col">
@@ -139,7 +139,7 @@ function NavbarItems(props) {
                       <h2 className="heading-tertiary text-black">{props.currency} {item.price}</h2>
                     </div>
                   </div>
-                </Link>
+                </a>
               ))}
             </div>
           )}

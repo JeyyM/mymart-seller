@@ -94,7 +94,7 @@ function NavMenu(props) {
           {searchVisible && search.length > 0 && (
             <div className="search-row">
               {searchResults.map((item) => (
-                <Link onClick={() => {props.onClick(); setSearch("")}} style={{ textDecoration: "none" }} className="search-item" key={item.name} href={`/${router.query.shopid}/categories/${encodeURIComponent(item.category)}/${encodeURIComponent(item.name)}`}>
+                <a onClick={() => {props.onClick(); setSearch("")}} style={{ textDecoration: "none" }} className="search-item" key={item.name} href={`/${router.query.shopid}/categories/${encodeURIComponent(item.category)}/${encodeURIComponent(item.name)}`}>
                   <div className="flex-row">
                     <img src={item.image} className="round-borderer" style={{ height: "4rem", width: "4rem" }}></img>
                     <div className="flex-col">
@@ -102,14 +102,14 @@ function NavMenu(props) {
                       <h2 className="heading-tertiary text-black">{props.currency} {item.price}</h2>
                     </div>
                   </div>
-                </Link>
+                </a>
               ))}
             </div>
           )}
         </div>
 
         <NavMenuItem logo={"category"} label={"Categories & Products"} link={"categories"} exit={props.onClick} function={props.function} title={"Add and edit categories, products, and variations"}></NavMenuItem>
-        <NavMenuItem logo={"checkout"} label={"To Checkout"} link={"checkout"} exit={props.onClick}></NavMenuItem>
+        {props.user !== undefined && <NavMenuItem logo={"checkout"} label={"To Checkout"} link={"checkout"} exit={props.onClick}></NavMenuItem>}
 
         {props.user === undefined && <NavMenuItem logo={"login"} label={"Login"} link={"login"} exit={props.onClick}></NavMenuItem>}
 

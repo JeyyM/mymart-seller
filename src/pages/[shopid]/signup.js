@@ -19,6 +19,7 @@ function SignUp(martID) {
     const id = martID.shopID._id
     const localStorageKey = `mart_${martID.shopID._id}`;
     const defaultColor = martID.shopID.shopData.shopDesigns.defaultMode
+    const {screenWidth} = martID
 
     const [parsedData, setParsedData] = useState([]);
     const [isVisible, setIsVisible] = useState(true);
@@ -720,7 +721,7 @@ function SignUp(martID) {
                                     onChange={handleRepeatChange}
                                 ></input>
                                 {signValidity.repeat ? <h3 className="form-label">Repeat password</h3> : <h3 className="form-label inv z">Password doesn't match</h3>}
-                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: "22rem", height:"6rem", display:"block" }} onClick={accountValidate}>Next</button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height:"6rem", display:"block" }} onClick={accountValidate}>Next</button>
 
                             </div>
                             <a className="heading-tertiary" style={{ margin: "1rem auto" }} href={`/${id}/login`}>Log-in instead?</a>
@@ -753,7 +754,7 @@ function SignUp(martID) {
                                         className={fnameClasses}
                                         placeholder="First Name"
                                         autoComplete="off"
-                                        style={{ width: "25rem", margin: "0" }}
+                                        style={{ width: "100%", margin: "0" }}
                                         value={fname}
                                         onChange={handlefnameChange}
                                     ></input>
@@ -765,32 +766,13 @@ function SignUp(martID) {
                                         className={lnameClasses}
                                         placeholder="Last Name"
                                         autoComplete="off"
-                                        style={{ width: "25rem", margin: "0" }}
+                                        style={{ width: "100%", margin: "0" }}
                                         value={lname}
                                         onChange={handlelnameChange}
                                     ></input>
                                     {detailValidity.lname ? <h3 className="form-label">Last Name</h3> : <h3 className="form-label inv z">Invalid last name</h3>}
                                 </div>
-                            </div>
-
-                            <div className="flex-row">
-                                <div className="form-group" style={{ marginTop: "1rem" }}>
-                                    <input
-                                        type="text"
-                                        className={phoneClasses}
-                                        placeholder="Phone Number"
-                                        autoComplete="off"
-                                        style={{ width: "17rem", margin: "0" }}
-                                        value={phone}
-                                        onChange={handlePhoneChange}
-                                    ></input>
-                                    {detailValidity.phone ? <h3 className="form-label">Phone Number</h3> : <h3 className="form-label inv z">Invalid number</h3>}
-                                </div>
-
-                                <div className="form-group" style={{ marginTop: "1rem" }}>
-                                    <CustomizedPicker colormode={chosenMode} selectedDate={bday} handleDateChange={handlebdayChange} valid={bdayValid}></CustomizedPicker>
-                                </div>
-                                <div className="form-group" style={{ marginTop: "1rem" }}>
+                                {screenWidth <= 450 && <div className="form-group" style={{ marginTop: "1rem" }}>
                                     <select
                                         value={selectGender}
                                         className={genderClasses}
@@ -802,7 +784,39 @@ function SignUp(martID) {
                                         ))}
                                     </select>
                                     {detailValidity.gender ? <h3 className="form-label">Gender</h3> : <h3 className="form-label inv z">Invalid gender</h3>}
+                                </div>}
+                            </div>
+
+                            <div className="flex-row">
+                                <div className="form-group" style={{ marginTop: "1rem" }}>
+                                    <input
+                                        type="text"
+                                        className={phoneClasses}
+                                        placeholder="Phone Number"
+                                        autoComplete="off"
+                                        style={{ width: `${screenWidth > 450 ? "17rem" : "100%"}`, margin: "0" }}
+                                        value={phone}
+                                        onChange={handlePhoneChange}
+                                    ></input>
+                                    {detailValidity.phone ? <h3 className="form-label">Phone Number</h3> : <h3 className="form-label inv z">Invalid number</h3>}
                                 </div>
+
+                                <div className="form-group" style={{ marginTop: "1rem" }}>
+                                    <CustomizedPicker colormode={chosenMode} selectedDate={bday} handleDateChange={handlebdayChange} valid={bdayValid}></CustomizedPicker>
+                                </div>
+                                {screenWidth > 450 && <div className="form-group" style={{ marginTop: "1rem" }}>
+                                    <select
+                                        value={selectGender}
+                                        className={genderClasses}
+                                        style={{ width: "14rem" }}
+                                        onChange={(event) => handleSelectGender(event)}
+                                    >
+                                        {genderOptions.map(gender => (
+                                            <option key={gender} value={gender}>{gender}</option>
+                                        ))}
+                                    </select>
+                                    {detailValidity.gender ? <h3 className="form-label">Gender</h3> : <h3 className="form-label inv z">Invalid gender</h3>}
+                                </div>}
                             </div>
 
                             <div className="flex-row">
@@ -841,7 +855,7 @@ function SignUp(martID) {
                                         className={companyClasses}
                                         placeholder="Company Name"
                                         autoComplete="off"
-                                        style={{ width: '30rem', margin: '0' }}
+                                        style={{ width: '100%', margin: '0' }}
                                         value={company}
                                         onChange={handleCompanyChange}
                                     ></input>
@@ -850,10 +864,8 @@ function SignUp(martID) {
                             </div>
 
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
-                                <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: "22rem", height:"6rem", margin:"0" }}  onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
-                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: "22rem", height:"6rem", display:"block" }} onClick={detailValidate}>Next</button>
-                                
-
+                                <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height:"6rem", margin:"0" }}  onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height:"6rem", display:"block" }} onClick={detailValidate}>Next</button>
                             </div>
 
                         </div>
@@ -872,7 +884,7 @@ function SignUp(martID) {
                         }}
                         transition={{ duration: 0.2 }}
                     > <div>
-                            <div style={{ width: "50rem" }}>
+                            <div>
                                 <heading className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
                                     <div className="heading-icon-pin svg-color">&nbsp;</div>
                                     <h1 className="heading-secondary no-margin">&nbsp;Delivery Location Details</h1>
@@ -880,7 +892,7 @@ function SignUp(martID) {
                                 <h2 className="heading-tertiary">{locationName}</h2>
                             </div>
 
-                            <div style={{ height: "24rem", margin: "1rem" }}>
+                            <div style={{ height: "24rem", margin: "1rem auto", width:"100%" }}>
                                 <GoogleMap
                                     mapContainerStyle={mapContainerStyle}
                                     center={center}
@@ -900,8 +912,8 @@ function SignUp(martID) {
                             <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: "100%", height:"6rem", margin:"0" }}  onClick={currentLoc}><h2 className="heading-secondary outline-button margin-side">Get Current Location</h2></button>
                             
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
-                            <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: "22rem", height:"6rem", margin:"0" }}  onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
-                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: "22rem", height:"6rem", display:"block" }} onClick={locationValidate}>Next</button>
+                            <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height:"6rem", margin:"0" }}  onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ marginLeft: "auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height:"6rem", display:"block" }} onClick={locationValidate}>Next</button>
 
                             </div>
 
@@ -955,29 +967,29 @@ function SignUp(martID) {
                             <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
                                 <label className="heading-tertiary product-currency" style={{ width: "13rem" }}>Expiry Date:</label>
                                 <div className="flex-col-none">
-                                    <input style={{ width: "8rem", margin: "0" }} type="number" className={cardmonthClasses} placeholder="MM" autoComplete="off" value={cardmonth} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setcardmonth(newValue); } }}></input>
+                                    <input style={{ width: "100%", margin: "0" }} type="number" className={cardmonthClasses} placeholder="MM" autoComplete="off" value={cardmonth} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setcardmonth(newValue); } }}></input>
                                     {cardValidity.mm ? <h3 className="form-label">Month</h3> : <h3 className="form-label inv z">Invalid</h3>}
                                 </div>
 
                                 <label className="heading-tertiary product-currency">/</label>
 
                                 <div className="flex-col-none">
-                                    <input style={{ width: "8rem", margin: "0" }} type="number" className={cardyearClasses} placeholder="YY" autoComplete="off" value={cardyear} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setcardyear(newValue); } }}></input>
+                                    <input style={{ width: "100%", margin: "0" }} type="number" className={cardyearClasses} placeholder="YY" autoComplete="off" value={cardyear} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setcardyear(newValue); } }}></input>
                                     {cardValidity.yy ? <h3 className="form-label">Year</h3> : <h3 className="form-label inv z">Invalid</h3>}
                                 </div>
 
                                 <label className="heading-tertiary product-currency">CVV:</label>
 
                                 <div className="flex-col-none">
-                                    <input style={{ width: "12rem", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setcvv(newValue); } }}></input>
+                                    <input style={{ width: "100%", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setcvv(newValue); } }}></input>
                                     {cardValidity.cvv ? <h3 className="form-label">&nbsp;</h3> : <h3 className="form-label inv z">Invalid</h3>}
                                 </div>
                             </div>
 
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
 
-                            <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: "22rem", height:"6rem", margin:"0" }}  onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
-                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: "22rem", height:"6rem", display:"block" }} onClick={cardValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Finish")}</button>
+                            <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height:"6rem", margin:"0" }}  onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height:"6rem", display:"block" }} onClick={cardValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Finish")}</button>
 
                             </div>
 

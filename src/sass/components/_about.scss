@@ -19,11 +19,11 @@
   }
 
   .about-grid-2 {
-    width: calc(100vw);
-    min-height: calc(100vw);
+    width: calc(98vw);
+    min-height: calc(98vw);
     max-height: min-content;
     display: grid;
-    grid-template-columns: repeat(8, calc((100vw /8) - 1.2px));
+    grid-template-columns: repeat(8, calc((98vw /8) - 1.2px));
     grid-auto-rows: 10%;
     margin: 0 auto;
     transition: all 0.2s;
@@ -31,10 +31,10 @@
   }
 
   .about-grid-3 {
-    width: calc(25vw);
-    height: calc((25vw * 1.77));
+    width: calc(98vw);
+    height: calc((98vw * 1.77));
     display: grid;
-    grid-template-columns: repeat(4, calc((25vw / 4) - 1.2px));
+    grid-template-columns: repeat(4, calc((98vw / 4) - 1.2px));
     grid-auto-rows: 10%;
     margin: 0 auto;
     transition: all 0.2s;

@@ -143,12 +143,12 @@ function About({ shopID }) {
         if (screenWidth > 1366) {
             setDevice("desktop");
             setScreenPx(1920)
-        } else if (screenWidth >= 480 && screenWidth <= 1366) {
+        } else if (screenWidth >= 560 && screenWidth <= 1366) {
             setDevice("tablet");
             setScreenPx(1200)
-        } else if (screenWidth < 480) {
+        } else if (screenWidth < 560) {
             setDevice("phone");
-            setScreenPx(480)
+            setScreenPx(560)
         }
 
         gridClass = device === "desktop" ? "about-grid-1" : device === "tablet" ? "about-grid-2" : "about-grid-3";

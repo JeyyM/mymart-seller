@@ -233,8 +233,8 @@ const updateCartInput = (index, amount, select) => {
 
               {parsedData.length > 0 && <>
               {parsedData.length > 0 && <div className="empty-cart-row"></div>}
-
-              <div className="cart-bottom dark-underline-upper">
+              {/* style={{flexDirection:"column", padding:"1rem"}} */}
+              <div className="cart-bottom dark-underline-upper" style={{flexDirection:`${screenWidth <= 360 && props.user !== undefined ? "column" : "row"}`, padding:`${screenWidth <= 360 && props.user !== undefined ? "1rem" : "0rem"}`, gap:`${screenWidth <= 360 && props.user !== undefined ? "1rem" : "0rem"}` }}>
                 <h2 className="heading-secondary">Total: {props.currency} {total}</h2>
                 {typeof window !== 'undefined' && (<>
                   {props.user === undefined && <DynamicComponent2 route={router.query.shopid} click={props.cartOpen} screenWidth={screenWidth} />}
