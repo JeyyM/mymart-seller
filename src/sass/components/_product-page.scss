@@ -100,7 +100,7 @@ input[type=number].invalid-form-2 {
   font-family: "Roboto";
   font-weight: 700;
   padding: 1rem;
-  box-shadow: inset 0 0 0 1rem white;
+  box-shadow: inset 0 0 0 2rem white;
   transition: all 0.2s;
 }
 
@@ -115,7 +115,7 @@ input[type=text].invalid-form-2 {
   font-family: "Roboto";
   font-weight: 700;
   padding: 1rem;
-  box-shadow: inset 0 0 0 1rem white;
+  box-shadow: inset 0 0 0 2rem white;
   transition: all 0.2s;
 }
 
@@ -130,7 +130,7 @@ input[type=password].invalid-form-2 {
   font-family: "Roboto";
   font-weight: 700;
   padding: 1rem;
-  box-shadow: inset 0 0 0 1rem white;
+  box-shadow: inset 0 0 0 2rem white;
   transition: all 0.2s;
 }
 
@@ -212,7 +212,7 @@ font-family: "Roboto";
 font-weight: 500;
 padding: 1rem;
 
-box-shadow: inset 0 0 0 1rem $theme-bg;
+box-shadow: inset 0 0 0 2rem $theme-bg;
 transition: all 0.2s;
 
 border: solid 5px transparent;
@@ -338,14 +338,14 @@ input[type="password"].input-number:focus {
   margin-bottom: 3rem;
   font-size: 2.5rem;
   padding: 1rem;
-  box-shadow: inset 0 0 0 1rem $theme-bg;
+  box-shadow: inset 0 0 0 2rem $theme-bg;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .product-action-1:active {
   filter: brightness(120%);
-  box-shadow: inset 0 0 0 10px $theme-bg, 0 0 0 2px $color-primary-dark,
+  box-shadow: inset 0 0 0 20px $theme-bg, 0 0 0 2px $color-primary-dark,
     0 0 0 4px white;
 }
 
@@ -385,7 +385,7 @@ input[type="password"].input-number:focus {
 
 .product-edit-button:active{
   filter: brightness(120%);
-  box-shadow: inset 0 0 0 10px white, 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+  box-shadow: inset 0 0 0 20px white, 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
 }
 
 .heading-icon-add-img {

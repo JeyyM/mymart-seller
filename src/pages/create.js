@@ -1,10 +1,10 @@
 import { Fragment } from "react"
 import Head from "next/head"
-import { getServerSideProps } from "../_app"
+import { getServerSideProps } from "./_app"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect, useRef } from "react"
-import CustomizedPicker from "@/components/Mart/CustomizedPicker"
+import CustomizedPickerBase from "@/components/Mart/CustomizedPickerBase"
 
 import { GoogleMap, useLoadScript } from '@react-google-maps/api';
 import { FaMapMarkerAlt } from 'react-icons/fa';
@@ -32,8 +32,6 @@ function CreateMart(martID) {
 
     // emailList = accounts.map(item => item.email.toUpperCase().trim());
     
-    const design = martID.shopID.shopData.shopDesigns
-
     const [total, setTotal] = useState(0)
     const [loading, setLoading] = useState(false)
     const [completion, setCompletion] = useState(false)
@@ -174,7 +172,7 @@ function CreateMart(martID) {
 
     const [signValidity, setSignValidity] = useState({
         email: true,
-        existing: false,
+        // existing: false,
         pass: true,
         repeat: true
     });
@@ -204,77 +202,12 @@ function CreateMart(martID) {
         setCompany(event.target.value);
     };
 
-    const occupationOptions = [
-        "Select Occupation",
-        "None",
-        "Retail Worker",
-        "Chef",
-        'Software Developer',
-        'Registered Nurse',
-        'Accountant',
-        'Teacher',
-        'Marketing Manager',
-        'Physician',
-        'Lawyer',
-        'Financial Analyst',
-        'Sales Manager',
-        'Civil Engineer',
-        'Project Manager',
-        'Human Resources Manager',
-        'Dentist',
-        'Graphic Designer',
-        'Pharmacist',
-        'Mechanical Engineer',
-        'Electrician',
-        'Data Analyst',
-        'Architect',
-        'Social Worker',
-        'Nurse Practitioner',
-        'Physical Therapist',
-        'Occupational Therapist',
-        'Operations Manager',
-        'Executive Assistant',
-        'Police Officer',
-    ];
-
-    const [isOtherSelected, setIsOtherSelected] = useState(false);
-    const [selectedOccupation, setSelectedOccupation] = useState("Select Occupation");
-    const [customOccupation, setCustomOccupation] = useState('');
-    const inputRef = useRef(null);
-
-    const handleOccupationChange = (event) => {
-        const selectedValue = event.target.value;
-        if (selectedValue === 'other') {
-            setIsOtherSelected(true);
-            setSelectedOccupation('');
-            if (inputRef.current) {
-                inputRef.current.focus();
-            }
-        } else {
-            setIsOtherSelected(false);
-            setSelectedOccupation(selectedValue);
-        }
-    };
-
-    const handleCustomOccupationChange = (event) => {
-        const value = event.target.value;
-        setCustomOccupation(value);
-
-        if (!isOtherSelected && value.length > 0) {
-            setIsOtherSelected(true);
-        } else if (isOtherSelected && value.length === 0) {
-            setIsOtherSelected(false);
-        }
-    };
-
     const [detailValidity, setDetailValidity] = useState({
         fname: true,
         lname: true,
         phone: true,
         bday: true,
         gender: true,
-        occupation: true,
-        other: true,
         company: true,
     });
 
@@ -285,8 +218,6 @@ function CreateMart(martID) {
         yy: true,
         cvv: true,
     });
-
-    const footerItems = martID.shopID.shopData.shopDetails.footerData
 
     const [locationValidity, setLocationValidity] = useState({
         location: true,
@@ -357,10 +288,6 @@ function CreateMart(martID) {
         }
     }
 
-    function resetLoc() {
-        setCenter(footerItems.shopCoords)
-    }
-
     useEffect(() => { setCenter() }, [])
     const [bdayValid, setbdayValid] = useState(true)
 
@@ -411,25 +338,27 @@ function CreateMart(martID) {
         let emailValid = true
         let passValid = true
         let repeatValid = true
-        let emailExist = false
+        // let emailExist = false
 
         emailValid = email.trim() !== ""
         passValid = password.trim() !== ""
         repeatValid = repeat === password
         // emailExist = emailList.includes(email.toUpperCase());
 
-        if (emailExist) {
-            emailValid = false
-        }
+        // if (emailExist) {
+        //     emailValid = false
+        // }
 
         setSignValidity({
             email: emailValid,
             pass: passValid,
             repeat: repeatValid,
-            existing: emailExist
+            // existing: emailExist
         })
 
-        const submissionValid = emailValid && passValid && repeatValid && !emailExist
+        // const submissionValid = emailValid && passValid && repeatValid && !emailExist
+        const submissionValid = emailValid && passValid && repeatValid
+
 
         if (submissionValid) {
             if (total <= 1) { setTotal(1) }
@@ -446,10 +375,6 @@ function CreateMart(martID) {
         let lnameValid = true
         let phoneValid = true
         setbdayValid(true)
-        let genderValid = true
-        let occupationValid = true
-        let otherValid = true
-        let companyValid = true
 
         fnameValid = fname.trim() !== ""
         lnameValid = lname.trim() !== ""
@@ -471,32 +396,14 @@ function CreateMart(martID) {
             }
         }
 
-        genderValid = selectGender !== "Select"
-
-        if (!isOtherSelected) {
-            occupationValid = selectedOccupation !== "Select Occupation" && selectedOccupation !== ""
-            otherValid = true
-        }
-
-        if (isOtherSelected) {
-            occupationValid = true
-            otherValid = customOccupation !== ""
-        }
-
-        companyValid = company.trim() !== ""
-
         setDetailValidity({
             fname: fnameValid,
             lname: lnameValid,
             phone: phoneValid,
             bday: bdayValid,
-            gender: genderValid,
-            occupation: occupationValid,
-            other: otherValid,
-            company: companyValid,
         })
 
-        const submissionValid = fnameValid && lnameValid && phoneValid && bdayValid && genderValid && occupationValid && otherValid && companyValid
+        const submissionValid = fnameValid && lnameValid && phoneValid && bdayValid
 
         if (submissionValid) {
             if (total <= 2) { setTotal(2) }
@@ -556,7 +463,7 @@ function CreateMart(martID) {
     const lnameClasses = `${detailValidity.lname ? "text-small input-number" : "invalid-form-2 z"}`;
     const phoneClasses = `${detailValidity.phone ? "text-small input-number" : "invalid-form-2 z"}`;
     const genderClasses = `${detailValidity.gender ? "text-options text-span" : "text-options text-span invalid-dropdown"}`
-    const occupationDropdownClasses = `${detailValidity.occupation ? "text-options text-span" : "text-options text-span invalid-dropdown"}`
+
     const otherClasses = `${detailValidity.other ? "text-small input-number" : "invalid-form-2 z"}`;
     const companyClasses = `${detailValidity.company ? "text-small input-number" : "invalid-form-2 z"}`;
 
@@ -567,15 +474,16 @@ function CreateMart(martID) {
     const cvvClasses = `${cardValidity.cvv ? "text-small input-number" : "invalid-form-2 z"}`;
 
     async function completeForm(formdata) {
-        const response = await fetch(
-          `../../../api/set-profiles?martid=${router.query.shopid}`,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formdata)
-          }
-        );
-        const data = await response.json();
+        console.log(formdata)
+        // const response = await fetch(
+        //   `../../../api/set-profiles?martid=${router.query.shopid}`,
+        //   {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify(formdata)
+        //   }
+        // );
+        // const data = await response.json();
     
       }
 
@@ -624,14 +532,17 @@ function CreateMart(martID) {
                 <title>Create Mart</title>
                 <link rel="icon" type="image/jpeg" href="/light.png" />
             </Head>
-            <div className="signup-progress round-borderer-extra">
+            <div className="main-signup-container">
+            <div className="signup-progress round-borderer-extra" style={{}}>
                 <div className="darken-progress">
-                    <div className="total-progress" style={{ width: `${33.3 * total}%`, transition: "all 0.5s" }}></div>
+                    <div className="total-progress" style={{ width: `${20 * total}%`, transition: "all 0.5s" }}></div>
                 </div>
                 <button className={progress1Class} onClick={() => { backtrack(0) }} id="prog1"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>1</h2></button>
                 <button className={progress2Class} onClick={() => { backtrack(1) }} id="prog2"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>2</h2></button>
                 <button className={progress3Class} onClick={() => { backtrack(2) }} id="prog3"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>3</h2></button>
                 <button className={progress4Class} onClick={() => { backtrack(3) }} id="prog4"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>4</h2></button>
+                <button className={progress5Class} onClick={() => { backtrack(4) }} id="prog3"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>5</h2></button>
+                <button className={progress6Class} onClick={() => { backtrack(5) }} id="prog4"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>6</h2></button>
 
             </div>
             <div className="sign-up-container" style={{ transform: "translateY(-10%)" }}>
@@ -649,7 +560,7 @@ function CreateMart(martID) {
                         }}
                         transition={{ duration: 0.2 }}
                     ><div className="sign-step">
-                            <img className="company-logo-med" src="/light.png" style={{ margin: "0", marginBottom: "1rem", display: "inline" }}></img>
+                            <img src="/light-2.png" className="mymart-pic" style={{ margin: "0", marginBottom: "1rem" }}></img>
                             <h2 className="heading-secondary" style={{textAlign:"center"}}>Create Your Mart Today</h2>
 
                             <div className="form-group" style={{ marginTop: "1rem" }}>
@@ -690,9 +601,8 @@ function CreateMart(martID) {
                                 ></input>
                                 {signValidity.repeat ? <h3 className="form-label">Repeat password</h3> : <h3 className="form-label inv z">Password doesn't match</h3>}
                                 <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height:"6rem", display:"block" }} onClick={accountValidate}>Next</button>
-
                             </div>
-                            <a className="heading-tertiary" style={{ margin: "1rem auto" }} href={`/${id}/login`}>Log-in instead?</a>
+                            {/* <a className="heading-tertiary" style={{ margin: "1rem auto" }} href={`/${id}/login`}>Log-in instead?</a> */}
 
                         </div>
                         </motion.div> </AnimatePresence>}
@@ -770,8 +680,8 @@ function CreateMart(martID) {
                                 </div>
 
                                 <div className="form-group" style={{ marginTop: "1rem" }}>
-                                    {/* <CustomizedPicker colormode={chosenMode} selectedDate={bday} handleDateChange={handlebdayChange} valid={bdayValid}></CustomizedPicker> */}
-                                    <CustomizedPicker selectedDate={bday} handleDateChange={handlebdayChange} valid={bdayValid}></CustomizedPicker>
+                                    {/* <CustomizedPickerBase colormode={chosenMode} selectedDate={bday} handleDateChange={handlebdayChange} valid={bdayValid}></CustomizedPickerBase> */}
+                                    <CustomizedPickerBase selectedDate={bday} handleDateChange={handlebdayChange} valid={bdayValid}></CustomizedPickerBase>
 
                                 </div>
                                 {screenWidth > 450 && <div className="form-group" style={{ marginTop: "1rem" }}>
@@ -789,36 +699,7 @@ function CreateMart(martID) {
                                 </div>}
                             </div>
 
-                            <div className="flex-row">
-                                <div className="form-group" style={{ marginTop: '1rem' }}>
-                                    {isOtherSelected ? (
-                                        <input
-                                            className={otherClasses}
-                                            type="text"
-                                            value={customOccupation}
-                                            onChange={handleCustomOccupationChange}
-                                            autoFocus
-                                            placeholder="Enter your occupation"
-                                            style={{ width: '22rem', margin: '0' }}
-                                        />
-                                    ) : (
-                                        <select
-                                            className={occupationDropdownClasses}
-                                            style={{ width: '22rem' }}
-                                            value={selectedOccupation}
-                                            onChange={handleOccupationChange}
-                                        >
-                                            {occupationOptions.map((occupation) => (
-                                                <option key={occupation} value={occupation}>
-                                                    {occupation}
-                                                </option>
-                                            ))}
-                                            <option value="other">Other</option>
-                                        </select>
-                                    )}
-                                    {detailValidity.occupation ? <h3 className="form-label">Occupation</h3> : <h3 className="form-label inv z">Invalid Occupation</h3>}
-                                </div>
-
+                            {/* <div className="flex-row">
                                 <div className="form-group" style={{ marginTop: '1rem' }}>
                                     <input
                                         type="text"
@@ -831,7 +712,7 @@ function CreateMart(martID) {
                                     ></input>
                                     {detailValidity.company ? <h3 className="form-label">Company Name</h3> : <h3 className="form-label inv z">Invalid company name</h3>}
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
                                 <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height:"6rem", margin:"0" }}  onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
@@ -966,7 +847,193 @@ function CreateMart(martID) {
                         </div>
                         </motion.div> </AnimatePresence>}
 
-                
+                        {currentStep === 5 && <AnimatePresence> <motion.div
+                        key={currentStep}
+                        className="sign-up-box round-borderer round-borderer-extra"
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        variants={{
+                            hidden: { scale: 0 },
+                            visible: { scale: 1 },
+                            exit: { scale: 0 },
+                        }}
+                        transition={{ duration: 0.2 }}
+                    >
+                     <div className="sign-step">
+                            <heading className="page-heading" style={{ width: "100%" }}>
+                                <div className="heading-icon-credit svg-color">&nbsp;</div>
+                                <h1 className="heading-secondary no-margin">&nbsp;xxxCredit Card Details</h1>
+                            </heading>
+                          
+
+                       
+                        
+
+                            <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
+
+                            <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height:"6rem", margin:"0" }}  onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height:"6rem", display:"block" }} onClick={handleNextStep} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Finish")}</button>
+
+                            </div>
+
+                        </div>
+                        </motion.div> </AnimatePresence>}
+
+                        {currentStep === 6 && <AnimatePresence> <motion.div
+                        key={currentStep}
+                        className="sign-up-box round-borderer round-borderer-extra"
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        variants={{
+                            hidden: { scale: 0 },
+                            visible: { scale: 1 },
+                            exit: { scale: 0 },
+                        }}
+                        transition={{ duration: 0.2 }}
+                    >
+                     <div className="sign-step">
+                            <heading className="page-heading" style={{ width: "100%" }}>
+                                <div className="heading-icon-credit svg-color">&nbsp;</div>
+                                <h1 className="heading-secondary no-margin">&nbsp;zzzCredit Card Details</h1>
+                            </heading>
+                            <div className="form-group" style={{ marginTop: "1rem", width: "100%" }}>
+                                <input
+                                    type="text"
+                                    className={cardnameClasses}
+                                    placeholder="Name on card"
+                                    autoComplete="off"
+                                    style={{ width: "100%" }}
+                                    value={cardname}
+                                    onChange={handlecardnameChange}
+                                ></input>
+                                {cardValidity.name ? <h3 className="form-label">Name on card</h3> : <h3 className="form-label inv z">Invalid card name</h3>}
+                            </div>
+
+                            <div className="form-group" style={{ marginTop: "1rem", width: "100%" }}>
+                                <input
+                                    type="number"
+                                    className={cardnumClasses}
+                                    placeholder="Credit Card Number"
+                                    autoComplete="off"
+                                    style={{ width: "100%" }}
+                                    value={cardnum}
+                                    onChange={handlecardnumChange}
+                                ></input>
+                                {cardValidity.number ? <h3 className="form-label">cCredit Card Number</h3> : <h3 className="form-label inv z">Invalid card number</h3>}
+                            </div>
+
+                            <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
+                                <label className="heading-tertiary product-currency" style={{ width: "13rem" }}>Expiry Date:</label>
+                                <div className="flex-col-none">
+                                    <input style={{ width: "100%", margin: "0" }} type="number" className={cardmonthClasses} placeholder="MM" autoComplete="off" value={cardmonth} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setcardmonth(newValue); } }}></input>
+                                    {cardValidity.mm ? <h3 className="form-label">Month</h3> : <h3 className="form-label inv z">Invalid</h3>}
+                                </div>
+
+                                <label className="heading-tertiary product-currency">/</label>
+
+                                <div className="flex-col-none">
+                                    <input style={{ width: "100%", margin: "0" }} type="number" className={cardyearClasses} placeholder="YY" autoComplete="off" value={cardyear} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setcardyear(newValue); } }}></input>
+                                    {cardValidity.yy ? <h3 className="form-label">Year</h3> : <h3 className="form-label inv z">Invalid</h3>}
+                                </div>
+
+                                <label className="heading-tertiary product-currency">CVV:</label>
+
+                                <div className="flex-col-none">
+                                    <input style={{ width: "100%", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setcvv(newValue); } }}></input>
+                                    {cardValidity.cvv ? <h3 className="form-label">&nbsp;</h3> : <h3 className="form-label inv z">Invalid</h3>}
+                                </div>
+                            </div>
+
+                            <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
+                            <h1>Hello</h1>
+
+                            <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height:"6rem", margin:"0" }}  onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height:"6rem", display:"block" }} onClick={handleNextStep} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Finish")}</button>
+
+                            </div>
+
+                        </div>
+                        </motion.div> </AnimatePresence>}
+
+                        {currentStep === 7 && <AnimatePresence> <motion.div
+                        key={currentStep}
+                        className="sign-up-box round-borderer round-borderer-extra"
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        variants={{
+                            hidden: { scale: 0 },
+                            visible: { scale: 1 },
+                            exit: { scale: 0 },
+                        }}
+                        transition={{ duration: 0.2 }}
+                    >
+                     <div className="sign-step">
+                            <heading className="page-heading" style={{ width: "100%" }}>
+                                <div className="heading-icon-credit svg-color">&nbsp;</div>
+                                <h1 className="heading-secondary no-margin">&nbsp;Credit Cardx Details</h1>
+                            </heading>
+                            <div className="form-group" style={{ marginTop: "1rem", width: "100%" }}>
+                                <input
+                                    type="text"
+                                    className={cardnameClasses}
+                                    placeholder="Name on card"
+                                    autoComplete="off"
+                                    style={{ width: "100%" }}
+                                    value={cardname}
+                                    onChange={handlecardnameChange}
+                                ></input>
+                                {cardValidity.name ? <h3 className="form-label">Name on card</h3> : <h3 className="form-label inv z">Invalid card name</h3>}
+                            </div>
+
+                            <div className="form-group" style={{ marginTop: "1rem", width: "100%" }}>
+                                <input
+                                    type="number"
+                                    className={cardnumClasses}
+                                    placeholder="Credit Card Number"
+                                    autoComplete="off"
+                                    style={{ width: "100%" }}
+                                    value={cardnum}
+                                    onChange={handlecardnumChange}
+                                ></input>
+                                {cardValidity.number ? <h3 className="form-label">Credit Cardz Number</h3> : <h3 className="form-label inv z">Invalid card number</h3>}
+                            </div>
+
+                            <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
+                                <label className="heading-tertiary product-currency" style={{ width: "13rem" }}>Expiry Date:</label>
+                                <div className="flex-col-none">
+                                    <input style={{ width: "100%", margin: "0" }} type="number" className={cardmonthClasses} placeholder="MM" autoComplete="off" value={cardmonth} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setcardmonth(newValue); } }}></input>
+                                    {cardValidity.mm ? <h3 className="form-label">Month</h3> : <h3 className="form-label inv z">Invalid</h3>}
+                                </div>
+
+                                <label className="heading-tertiary product-currency">/</label>
+
+                                <div className="flex-col-none">
+                                    <input style={{ width: "100%", margin: "0" }} type="number" className={cardyearClasses} placeholder="YY" autoComplete="off" value={cardyear} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setcardyear(newValue); } }}></input>
+                                    {cardValidity.yy ? <h3 className="form-label">Year</h3> : <h3 className="form-label inv z">Invalid</h3>}
+                                </div>
+
+                                <label className="heading-tertiary product-currency">CVV:</label>
+
+                                <div className="flex-col-none">
+                                    <input style={{ width: "100%", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setcvv(newValue); } }}></input>
+                                    {cardValidity.cvv ? <h3 className="form-label">&nbsp;</h3> : <h3 className="form-label inv z">Invalid</h3>}
+                                </div>
+                            </div>
+
+                            <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
+
+                            <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height:"6rem", margin:"0" }}  onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height:"6rem", display:"block" }} onClick={handleNextStep} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Finish")}</button>
+
+                            </div>
+
+                        </div>
+                        </motion.div> </AnimatePresence>}
+
+                        </div>
             </div>
 
         </>

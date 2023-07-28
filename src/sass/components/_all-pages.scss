@@ -237,6 +237,11 @@ input[type=number].shortener-25{
   @include border-round;
 }
 
+.round-borderer-extra{
+  box-shadow: inset 0 0 0 2.2rem $bg-item, 0 0 0 2px $color-primary-dark,
+  0 0 0 4px $bg-item;
+}
+
 .warning-container{
   height: min-content;
   width: min-content;
