@@ -84,6 +84,11 @@
     transform: translateY(-10rem);
 }
 
+.empty-nonexist{
+  @include empty-logo(nonexist, 8rem, 8rem);
+    transform: translateY(-10rem);
+}
+
 .checkbox-blank {
   @include heading-logo(checkbox-blank, 5rem, 5rem);
   transform: translateY(-5px);

@@ -8,7 +8,28 @@ import Head from "next/head"
 import { getServerSideProps } from "@/utilities/serversideProps"
 
 function HomePage({ shopID, screenWidth }){
+    const [loading, setLoading] = useState(true);
     const router = useRouter();
+  
+    const redirectToErrorPage = () => {
+      if (!shopID) {
+        router.push("/error");
+      }
+      setLoading(false);
+    };
+  
+    useEffect(() => {
+      redirectToErrorPage();
+    }, [shopID]);
+  
+    if (loading) {
+      return <p></p>;
+    }
+  
+    if (!shopID) {
+      return null;
+    }
+
     const { shopid } = router.query;
     const shopData = shopID.shopData;
     const favicon = shopID.shopData.shopDetails.imageData.icons.icon

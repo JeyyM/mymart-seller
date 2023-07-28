@@ -26,9 +26,31 @@ function ProductPage({ shopID, screenWidth }) {
 
   const allCategories = shopID.shopData.shopCategories
   const chosenCategory = allCategories.filter((value) => value.categoryName === queryCategory);
+
+  useEffect(() => {
+    if (chosenCategory.length === 0) {
+      router.push(`/${router.query.shopid}/error`);
+    }
+  }, []);
+
+  if (chosenCategory.length === 0){
+    return null
+  }
+
   const categoryIndex = allCategories.findIndex((value) => value.categoryName === queryCategory);
 
   const chosenProduct = chosenCategory[0].categoryProducts.filter(product => product.variations[0].productName === queryProduct);
+
+  useEffect(() => {
+    if (chosenProduct.length === 0) {
+      router.push(`/${router.query.shopid}/error`);
+    }
+  }, []);
+
+  if (chosenProduct.length === 0){
+    return null
+  }
+
   const productIndex = chosenCategory[0].categoryProducts.findIndex(product => product.variations[0].productName === queryProduct);
 
   const variationsList = chosenProduct[0].variations

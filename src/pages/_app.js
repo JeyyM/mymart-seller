@@ -33,7 +33,11 @@ export default function App({ Component, pageProps }) {
     }
   }
 
+  if (router. asPath === "/" || !pageProps.shopID){
+    return <Component {...pageProps} />
+  } else {
   return <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo}><Component {...pageProps} /></NavbarLayout>;
+  }
 }
 
 export { getServerSideProps }
