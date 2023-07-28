@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { useRouter } from "next/router";
 import CategoryProducts from "@/components/category-products/CategoryProducts";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddProduct from "@/components/Modal/Add-Product";
 import { getServerSideProps } from "..";
 import Head from "next/head";
@@ -25,6 +25,17 @@ function ProductsPage({ shopID, screenWidth }) {
   const contents = shopData.shopCategories;
 
   const chosenCategory = contents.find((c) => c.categoryName === queryCategoryName);
+
+  useEffect(() => {
+    if (!chosenCategory) {
+      router.push(`/${router.query.shopid}/categories/error`);
+    }
+  }, []);
+
+  if (!chosenCategory) {
+    return null;
+  }
+
   const chosenIndex = contents.findIndex((c) => c.categoryName === queryCategoryName);
 
   const products = chosenCategory.categoryProducts

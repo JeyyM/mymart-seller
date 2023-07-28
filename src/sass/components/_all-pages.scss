@@ -303,3 +303,8 @@ input[type=number].shortener-25{
 .transitionAll{
   transition: all 0.2s;
 }
+
+.empty-nonexist{
+  @include empty-logo(nonexist, 8rem, 8rem);
+    transform: translateY(-10rem);
+}

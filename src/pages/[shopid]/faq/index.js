@@ -5,8 +5,9 @@ import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import NewFaq from "@/components/faq/NewFaq"
 import { useRouter } from "next/router"
+import { FaQq } from "react-icons/fa"
 
-function Mart(martID) {
+function FaQ(martID) {
     const router = useRouter()
     const {screenWidth} = martID
     const SlideHeight = {
@@ -118,6 +119,6 @@ function Mart(martID) {
     </Fragment>
 }
 
-export default Mart
+export default FaQ
 
 export { getServerSideProps }

@@ -123,13 +123,19 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-    return<LocalizationProvider dateAdapter={AdapterDayjs}>
-    <MyProvider>
-    <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo} curr={martCurrency} user={chosenAccount} martCateg={martCategories} handlePreferred={handlePreferred} currentColor={preferred}>
+  if (router. asPath === "/" || !pageProps.shopID){
+    return <LocalizationProvider dateAdapter={AdapterDayjs}>
     <Component {...pageProps} user={chosenAccount}/>
-    </NavbarLayout>
-    </MyProvider>
     </LocalizationProvider>
+  } else {
+  return <LocalizationProvider dateAdapter={AdapterDayjs}>
+  <MyProvider>
+  <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo} curr={martCurrency} user={chosenAccount} martCateg={martCategories} handlePreferred={handlePreferred} currentColor={preferred}>
+  <Component {...pageProps} user={chosenAccount}/>
+  </NavbarLayout>
+  </MyProvider>
+  </LocalizationProvider>
+  }
   }
 
 

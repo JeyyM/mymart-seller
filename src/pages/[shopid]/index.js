@@ -16,9 +16,21 @@ import 'slick-carousel/slick/slick-theme.css';
 import CategoryBuyer from "@/components/category/CategoryBuyer"
 import CategoryProductsBuyer from "@/components/category-products/CategoryProductsBuyer"
 
-function HomePage({ shopID, screenWidth }) {
-  const viewsList = shopID.shopData.shopViews
+function HomePage({ shopID, screenWidth }) {  
   const router = useRouter();
+
+  useEffect(() => {
+    if (!shopID) {
+      router.push(`/${router.query.shopid}/error`);
+    }
+  }, []);
+
+  if (!shopID) {
+    return null;
+  }
+  
+  const viewsList = shopID.shopData.shopViews
+  
   const slide = {
     hidden: {
       x: "-10rem",
