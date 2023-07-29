@@ -29,3 +29,10 @@
   linear-gradient(to right, red, darkred) !important;
   filter: brightness(120%) !important
   }
+
+  .white{color: white !important;}
+
+  .heading-icon-finale {
+    @include heading-logo(finale, 4rem, 4rem);
+    margin-left: 1rem;
+  }

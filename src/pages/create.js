@@ -13,8 +13,18 @@ import { Autocomplete } from '@react-google-maps/api';
 import { useRouter } from "next/router"
 import sha256 from 'crypto-js/sha256';
 
+import Acc1 from "@/components/design/Acc1";
+import Acc2 from "@/components/design/Acc3";
+import Acc3 from "@/components/design/Acc2";
+import ThemePack from "@/components/design/ThemePack"
+import FontOptions from "@/components/design/FontOptions"
 import Preview from "@/components/design/Preview";
 import Palette from "@/components/design/Palette";
+
+import { ChromePicker } from "react-color";
+import chroma from 'chroma-js';
+import tinycolor from 'tinycolor2';
+
 
 const libraries = ['places'];
 
@@ -57,15 +67,13 @@ function CreateMart(martID) {
         return new Promise(resolve => setTimeout(resolve, 2000));
     }
 
-    const themeSet1 = ["#0057FF", "#7FC9FF", "#E7F6FD", "#FFFFFF", "#0A2647", "#003F76", "#004DFF", "#3974FF", 10, 10, 10, 10, "Cool Blue"]
-
     const progress1Class = `${total >= 0 ? "progress-button round-borderer round-borderer-extra progress-animation" : "progress-button round-borderer"}`
     const progress2Class = `${total >= 1 ? "progress-button round-borderer round-borderer-extra" : "progress-button round-borderer"}`
     const progress3Class = `${total >= 2 ? "progress-button round-borderer round-borderer-extra" : "progress-button round-borderer"}`
     const progress4Class = `${total >= 3 ? "progress-button round-borderer round-borderer-extra" : "progress-button round-borderer"}`
     const progress5Class = `${total >= 4 ? "progress-button round-borderer round-borderer-extra" : "progress-button round-borderer"}`
     const progress6Class = `${total >= 5 ? "progress-button round-borderer round-borderer-extra" : "progress-button round-borderer"}`
-
+    const progress7Class = `${total >= 6 ? "progress-button round-borderer round-borderer-extra" : "progress-button round-borderer"}`
 
     async function hashString(data) {
         const hashHex = sha256(data).toString();
@@ -80,6 +88,40 @@ function CreateMart(martID) {
         const hexRegex = /^#?([0-9A-F]{3}|[0-9A-F]{6})$/i;
         return hexRegex.test(text);
     }
+
+    const [chromaItems, setChroma] = useState([])
+
+    useEffect(() => { fetchChroma() }, [])
+  
+    const fetchChroma = () => {
+      const baseColor1 = chroma.random();
+      const colorScale1 = chroma.scale([baseColor1, "white"]);
+      const colorTheme1 = colorScale1.colors(4);
+  
+      const baseColor3 = chroma.random();
+      const colorScale2 = chroma.scale([baseColor3, "black"]);
+      const colorTheme2 = colorScale2.colors(4);
+  
+      const colors = [];
+      for (let i = 0; i < 8; i++) {
+        colors.push(chroma.random());
+      }
+  
+      const finalSet = colorTheme1.concat(colorTheme2, colors);
+      setChroma(finalSet)
+    }
+
+    const [color, setColor] = useState("#ffffff")
+
+    function copyHex(event) {
+        event.target.select();
+        document.execCommand('copy');
+          }
+
+          function copyItem(color) {
+            // console.log(color)
+            // navigator.clipboard.writeText(color)
+          }
 
     useEffect(() => {
         const progress2Element = document.getElementById("prog2");
@@ -360,27 +402,29 @@ function CreateMart(martID) {
         event.target.select();
     }
 
-    const [LightColor, setLightColor] = useState("#E74646");
+    const themeSetxz1 = [ "#004DFF", "#3974FF", 10, 10, 10, 10, "Cool Blue"]
+
+    const [LightColor, setLightColor] = useState("#7FC9FF");
     const handleLightColorChange = (event) => {
         setLightColor(event.target.value);
     };
 
-    const [DarkColor, setDarkColor] = useState("#E11299");
+    const [DarkColor, setDarkColor] = useState("#0057FF");
     const handleDarkColorChange = (event) => {
         setDarkColor(event.target.value);
     };
 
-    const [bgBody, setBgBody] = useState("#2A2F4F");
+    const [bgBody, setBgBody] = useState("#E7F6FD");
     const handleBgBody = (event) => {
         setBgBody(event.target.value);
     };
 
-    const [bgItem, setBgItem] = useState("#2B3467");
+    const [bgItem, setBgItem] = useState("#FFFFFF");
     const handleBgItem = (event) => {
         setBgItem(event.target.value);
     };
 
-    const [textPrimary, setTextPrimary] = useState("#F3E8FF");
+    const [textPrimary, setTextPrimary] = useState("#0A2647");
     const handleTextPrimary = (event) => {
         setTextPrimary(event.target.value);
     };
@@ -389,7 +433,7 @@ function CreateMart(martID) {
         setTextPrimaryFont(event.target.value);
     };
 
-    const [textSecondary, setTextSecondary] = useState("#FDF4F5");
+    const [textSecondary, setTextSecondary] = useState("#003F76");
     const handleTextSecondary = (event) => {
         setTextSecondary(event.target.value);
     };
@@ -398,7 +442,7 @@ function CreateMart(martID) {
         setTextSecondaryFont(event.target.value);
     };
 
-    const [textTertiary, setTextTertiary] = useState("#FDF4F5");
+    const [textTertiary, setTextTertiary] = useState("#003F76");
     const handleTextTertiary = (event) => {
         setTextTertiary(event.target.value);
     };
@@ -407,46 +451,46 @@ function CreateMart(martID) {
         setTextTertiaryFont(event.target.value);
     };
 
-    const [borderTL, setBorderTL] = useState(15)
+    const [borderTL, setBorderTL] = useState(10)
     const handleBorderTL = (event) => {
         setBorderTL(event.target.value);
     };
-    const [borderTR, setBorderTR] = useState(15)
+    const [borderTR, setBorderTR] = useState(10)
     const handleBorderTR = (event) => {
         setBorderTR(event.target.value);
     };
-    const [borderBL, setBorderBL] = useState(15)
+    const [borderBL, setBorderBL] = useState(10)
     const handleBorderBL = (event) => {
         setBorderBL(event.target.value);
     };
-    const [borderBR, setBorderBR] = useState(15)
+    const [borderBR, setBorderBR] = useState(10)
     const handleBorderBR = (event) => {
         setBorderBR(event.target.value);
     };
 
 
-    const [outlineDark, setOutlineDark] = useState("#E74646")
+    const [outlineDark, setOutlineDark] = useState("#004DFF")
     const handleOutlineDark = (event) => {
         setOutlineDark(event.target.value);
     };
-    const [outlineLight, setOutlineLight] = useState("#E11299")
+    const [outlineLight, setOutlineLight] = useState("#3974FF")
     const handleOutlineLight = (event) => {
         setOutlineLight(event.target.value);
     };
-    const [outlineText, setOutlineText] = useState("#FDF4F5")
+    const [outlineText, setOutlineText] = useState("#003F76")
     const handleOutlineText = (event) => {
         setOutlineText(event.target.value);
     };
 
-    const [solidDark, setSolidDark] = useState("#E74646")
+    const [solidDark, setSolidDark] = useState("#004DFF")
     const handleSolidDark = (event) => {
         setSolidDark(event.target.value);
     };
-    const [solidLight, setSolidLight] = useState("#E11299")
+    const [solidLight, setSolidLight] = useState("#3974FF")
     const handleSolidLight = (event) => {
         setSolidLight(event.target.value);
     };
-    const [solidText, setSolidText] = useState("#FDF4F5")
+    const [solidText, setSolidText] = useState("#FFFFFF")
     const handleSolidText = (event) => {
         setSolidText(event.target.value);
     };
@@ -481,6 +525,59 @@ function CreateMart(martID) {
     const [primaryContrastText, setPrimaryContrastText] = useState("heading-tertiary green")
     const [secondaryContrastText, setSecondaryContrastText] = useState("heading-tertiary green")
     const [tertiaryContrastText, setTertiaryContrastText] = useState("heading-tertiary green")
+
+    
+  useEffect(() => {
+    const contrastRatioPrimary = tinycolor.readability(bgBody, textPrimary);
+    setPrimaryContrast(contrastRatioPrimary.toFixed(2))
+
+  }, [bgBody, textPrimary])
+
+  useEffect(() => {
+    if (primaryContrast >= 7) { setPrimaryContrastBg({ background: "#C9F4AA" }) }
+    else if (7 > primaryContrast && primaryContrast >= 4.5) { setPrimaryContrastBg({ background: "#FFD966" }) }
+    else if (primaryContrast < 4.5) { setPrimaryContrastBg({ background: "#D27685" }) }
+
+    if (primaryContrast >= 7) { setPrimaryContrastText("heading-tertiary green") }
+    else if (7 > primaryContrast && primaryContrast >= 4.5) { setPrimaryContrastText("heading-tertiary yellow") }
+    else if (primaryContrast < 4.5) { setPrimaryContrastText("heading-tertiary red") }
+
+  }, [primaryContrast])
+
+
+  useEffect(() => {
+    const contrastRatioSecondary = tinycolor.readability(bgItem, textSecondary);
+    setSecondaryContrast(contrastRatioSecondary.toFixed(2))
+  }, [bgItem, textSecondary])
+
+  useEffect(() => {
+    if (secondaryContrast >= 7) { setSecondaryContrastBg({ background: "#C9F4AA" }) }
+    else if (7 > secondaryContrast && secondaryContrast >= 4.5) { setSecondaryContrastBg({ background: "#FFD966" }) }
+    else if (secondaryContrast < 4.5) { setSecondaryContrastBg({ background: "#D27685" }) }
+
+    if (secondaryContrast >= 7) { setSecondaryContrastText("heading-tertiary green") }
+    else if (7 > secondaryContrast && secondaryContrast >= 4.5) { setSecondaryContrastText("heading-tertiary yellow") }
+    else if (secondaryContrast < 4.5) { setSecondaryContrastText("heading-tertiary red") }
+
+  }, [secondaryContrast])
+
+
+  useEffect(() => {
+    const contrastRatioTertiary = tinycolor.readability(bgItem, textTertiary);
+    setTertiaryContrast(contrastRatioTertiary.toFixed(2))
+  }, [bgItem, textTertiary])
+
+  useEffect(() => {
+    if (tertiaryContrast >= 7) { setTertiaryContrastBg({ background: "#C9F4AA" }) }
+    else if (7 > tertiaryContrast && tertiaryContrast >= 4.5) { setTertiaryContrastBg({ background: "#FFD966" }) }
+    else if (tertiaryContrast < 4.5) { setTertiaryContrastBg({ background: "#D27685" }) }
+
+    if (tertiaryContrast >= 7) { setTertiaryContrastText("heading-tertiary green") }
+    else if (7 > tertiaryContrast && tertiaryContrast >= 4.5) { setTertiaryContrastText("heading-tertiary yellow") }
+    else if (tertiaryContrast < 4.5) { setTertiaryContrastText("heading-tertiary red") }
+
+  }, [tertiaryContrast])
+
 
     const [DesignPreview, setDesignPreview] = useState(false)
     const handleDesignPreview = () => {
@@ -808,10 +905,10 @@ function CreateMart(martID) {
         const submissionValid = nameValid && numValid && mmvalid && yyvalid && cvvalid
 
         if (submissionValid) {
-            if (total <= 4) { setTotal(4) }
+            if (total <= 6) { setTotal(6) }
             handleNextStep()
         } else {
-            setTotal(3)
+            setTotal(5)
         }
 
     };
@@ -893,6 +990,57 @@ function CreateMart(martID) {
         }
     }
 
+    const themeSet1 = ["#0057FF", "#7FC9FF", "#E7F6FD", "#FFFFFF", "#0A2647", "#003F76", "#004DFF", "#3974FF", 10, 10, 10, 10, "Cool Blue"]
+
+    const themeSet2 = ["#263A29", "#41644A", "#E8D2A6", "#B3E5BE", "#3C2317", "#003700", "#367E18", "#BFDB38", 50, 10, 10, 50, "Forest Green"]
+
+    const themeSet3 = ["#89375F", "#CE5959", "#BACDDB", "#F3E8FF", "#2A2F4F", "#4F4557", "#BA90C6", "#E8A0BF", 30, 30, 30, 30, "Floral Pink"]
+
+    const themeSet4 = ["#A84448", "#F2CD5C", "#FFAFB2", "#FFF2CC", "#570000", "#570000", "#E74646", "#FFD93D", 0, 30, 30, 30, "Brick Red"]
+
+    const setAllTheme = (payload) => {
+        setDarkColor(payload[0])
+        setLightColor(payload[1])
+        setBgBody(payload[2])
+        setBgItem(payload[3])
+        setTextPrimary(payload[4])
+        setTextSecondary(payload[5])
+        setTextTertiary(payload[5])
+        setOutlineDark(payload[6])
+        setOutlineLight(payload[7])
+        setSolidDark(payload[6])
+        setSolidLight(payload[7])
+        setBorderTL(payload[8])
+        setBorderTR(payload[9])
+        setBorderBL(payload[10])
+        setBorderBR(payload[11])
+        setSolidText(payload[5])
+        setOutlineText(payload[5])
+    }
+
+    const hardReset = (payload) => {
+        setDarkColor(payload[0])
+        setLightColor(payload[1])
+        setBgBody(payload[2])
+        setBgItem(payload[3])
+        setTextPrimary(payload[4])
+        setTextSecondary(payload[5])
+        setTextTertiary(payload[5])
+        setOutlineDark(payload[6])
+        setOutlineLight(payload[7])
+        setSolidDark(payload[6])
+        setSolidLight(payload[7])
+        setBorderTL(payload[8])
+        setBorderTR(payload[9])
+        setBorderBL(payload[10])
+        setBorderBR(payload[11])
+        setSolidText(payload[5])
+        setOutlineText(payload[5])
+        setTextPrimaryFont("Roboto")
+        setTextSecondaryFont("Roboto")
+        setTextTertiaryFont("Roboto")
+    }
+
     return (
         <>
             <Head>
@@ -914,6 +1062,14 @@ function CreateMart(martID) {
                 tertiaryContrastText={tertiaryContrastText} isClicked={isClicked} isClicked2={isClicked2} isClicked3={isClicked3} shopCurrency={"$"}
                 editFinal={editFinal} setEditActive={setEditActive}
             ></Preview>
+
+<Palette modalStatus={PalettePreview} disable={handlePalettePreview} color={color} setColor={setColor}
+      copyHex={copyHex} fetchChroma={fetchChroma} copyItem={copyItem} chromaItems={chromaItems}
+    ></Palette>
+
+    <Acc1 disable={handlePrimaryAcc} modalStatus={primaryAcc} value={primaryContrast} color={primaryContrastText} bg={primaryContrastBg}></Acc1>
+    <Acc2 disable={handleSecondaryAcc} modalStatus={secondaryAcc} value={secondaryContrast} color={secondaryContrastText} bg={secondaryContrastBg}></Acc2>
+    <Acc3 disable={handleTertiaryAcc} modalStatus={tertiaryAcc} value={tertiaryContrast} color={tertiaryContrastText} bg={tertiaryContrastBg}></Acc3>
 
             <AnimatePresence>
                 {currentStep >= 5 && <motion.div className="design-prev-set"
@@ -939,15 +1095,15 @@ function CreateMart(martID) {
             <div className="main-signup-container">
                 <div className="signup-progress round-borderer-extra" style={{}}>
                     <div className="darken-progress">
-                        <div className="total-progress" style={{ width: `${20 * total}%`, transition: "all 0.5s" }}></div>
+                        <div className="total-progress" style={{ width: `${16.67 * total}%`, transition: "all 0.5s" }}></div>
                     </div>
                     <button className={progress1Class} onClick={() => { backtrack(0) }} id="prog1"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>1</h2></button>
                     <button className={progress2Class} onClick={() => { backtrack(1) }} id="prog2"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>2</h2></button>
                     <button className={progress3Class} onClick={() => { backtrack(2) }} id="prog3"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>3</h2></button>
                     <button className={progress4Class} onClick={() => { backtrack(3) }} id="prog4"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>4</h2></button>
-                    <button className={progress5Class} onClick={() => { backtrack(4) }} id="prog3"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>5</h2></button>
-                    <button className={progress6Class} onClick={() => { backtrack(5) }} id="prog4"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>6</h2></button>
-
+                    <button className={progress5Class} onClick={() => { backtrack(4) }} id="prog5"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>5</h2></button>
+                    <button className={progress6Class} onClick={() => { backtrack(5) }} id="prog6"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>6</h2></button>
+                    <button className={progress7Class} onClick={() => { backtrack(6) }} id="prog7"><h2 className="heading-tertiary" style={{ transform: "translateY(-0%)" }}>7</h2></button>
                 </div>
                 <div className="sign-up-container" style={{ transform: "translateY(-10%)" }}>
 
@@ -1343,66 +1499,120 @@ function CreateMart(martID) {
                     </motion.div> </AnimatePresence>} */}
 
                     {currentStep === 5 && <AnimatePresence>
-                        <motion.div className="design-primary round-borderer round-borderer-extra"
-                            key={currentStep}
-                            initial="hidden"
-                            animate="visible"
-                            exit="exit"
-                            variants={{
-                                hidden: { scale: 0 },
-                                visible: { scale: 1 },
-                                exit: { scale: 0 },
-                            }}
-                            transition={{ duration: 0.2 }}
-                            style={{ width: "60rem", padding: "2rem", height: "auto" }}
-                        >
-                            <span className="page-heading flex-row-align">
-                                <div className="heading-icon-brush svg-color">&nbsp;</div>
-                                <h1 className="heading-secondary no-margin">Design Your Mart</h1>
-                            </span>
+                        <div className="flex-row">
+                            <motion.div className="design-primary round-borderer round-borderer-extra"
+                                key={currentStep}
+                                initial="hidden"
+                                animate="visible"
+                                exit="exit"
+                                variants={{
+                                    hidden: { scale: 0 },
+                                    visible: { scale: 1 },
+                                    exit: { scale: 0 },
+                                }}
+                                transition={{ duration: 0.2 }}
+                                style={{ width: "60rem", padding: "1rem", height: "auto", margin: "0.5rem" }}
+                            >
+                                <span className="page-heading flex-row-align">
+                                    <div className="heading-icon-brush svg-color">&nbsp;</div>
+                                    <h1 className="heading-secondary no-margin">Design Your Mart</h1>
+                                </span>
 
-                            {formInputValidity.mainDark && formInputValidity.mainLight ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Main Colors</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Enter Valid Main Colors</h3>}
+                                {formInputValidity.mainDark && formInputValidity.mainLight ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Main Colors</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Enter Valid Main Colors</h3>}
 
-                            <div className="text-group">
-                                <input onFocus={handleFocus} type="text" placeholder="Dark Color" className={darkClasses} autoComplete="off" style={{ width: "100%" }} value={DarkColor} onChange={handleDarkColorChange}></input>
-                                <input onFocus={handleFocus} type="text" placeholder="Light Color" className={lightClasses} autoComplete="off" style={{ width: "100%" }} value={LightColor} onChange={handleLightColorChange}></input>
-                            </div>
+                                <div className="text-group">
+                                    <input onFocus={handleFocus} type="text" placeholder="Dark Color" className={darkClasses} autoComplete="off" style={{ width: "100%" }} value={DarkColor} onChange={handleDarkColorChange}></input>
+                                    <input onFocus={handleFocus} type="text" placeholder="Light Color" className={lightClasses} autoComplete="off" style={{ width: "100%" }} value={LightColor} onChange={handleLightColorChange}></input>
+                                </div>
 
-                            {formInputValidity.bgBody && formInputValidity.bgItem ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Background Colors</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Enter Valid Background Colors</h3>}
+                                {formInputValidity.bgBody && formInputValidity.bgItem ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Background Colors</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Enter Valid Background Colors</h3>}
 
-                            <div className="text-group">
-                                <input onFocus={handleFocus} type="text" placeholder="Body Bg" className={bodyClasses} autoComplete="off" style={{ width: "100%" }} value={bgBody} onChange={handleBgBody}></input>
-                                <input onFocus={handleFocus} type="text" placeholder="Item Bg" className={itemClasses} autoComplete="off" style={{ width: "100%" }} value={bgItem} onChange={handleBgItem}></input>
-                            </div>
+                                <div className="text-group">
+                                    <input onFocus={handleFocus} type="text" placeholder="Body Bg" className={bodyClasses} autoComplete="off" style={{ width: "100%" }} value={bgBody} onChange={handleBgBody}></input>
+                                    <input onFocus={handleFocus} type="text" placeholder="Item Bg" className={itemClasses} autoComplete="off" style={{ width: "100%" }} value={bgItem} onChange={handleBgItem}></input>
+                                </div>
 
-                            {formInputValidity.borderTL && formInputValidity.borderTR && formInputValidity.borderBL && formInputValidity.borderBR ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Border Radius (px)</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Invalid Border Radius (0 and above)</h3>}
-                            <div className="text-group-4">
-                                <input type="number" placeholder="T L" className={TLClasses} autoComplete="off" style={{ width: "100%" }} value={borderTL} onChange={handleBorderTL}></input>
-                                <input type="number" placeholder="T R" className={TRClasses} autoComplete="off" style={{ width: "100%" }} value={borderTR} onChange={handleBorderTR}></input>
-                                <input type="number" placeholder="B L" className={BLClasses} autoComplete="off" style={{ width: "100%" }} value={borderBL} onChange={handleBorderBL}></input>
-                                <input type="number" placeholder="B R" className={BRClasses} autoComplete="off" style={{ width: "100%" }} value={borderBR} onChange={handleBorderBR}></input>
-                            </div>
+                                {formInputValidity.borderTL && formInputValidity.borderTR && formInputValidity.borderBL && formInputValidity.borderBR ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Border Radius (px)</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Invalid Border Radius (0 and above)</h3>}
+                                <div className="text-group-4">
+                                    <input type="number" placeholder="T L" className={TLClasses} autoComplete="off" style={{ width: "100%" }} value={borderTL} onChange={handleBorderTL}></input>
+                                    <input type="number" placeholder="T R" className={TRClasses} autoComplete="off" style={{ width: "100%" }} value={borderTR} onChange={handleBorderTR}></input>
+                                    <input type="number" placeholder="B L" className={BLClasses} autoComplete="off" style={{ width: "100%" }} value={borderBL} onChange={handleBorderBL}></input>
+                                    <input type="number" placeholder="B R" className={BRClasses} autoComplete="off" style={{ width: "100%" }} value={borderBR} onChange={handleBorderBR}></input>
+                                </div>
 
-                            {formInputValidity.outlineDark && formInputValidity.outlineLight && formInputValidity.outlineFont ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Outline Button</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Enter Valid Outline Colors</h3>}
-                            <div className="text-group-3">
-                                <input onFocus={handleFocus} type="text" placeholder="Dark Color" className={outlineDarkClasses} autoComplete="off" style={{ width: "100%" }} value={outlineDark} onChange={handleOutlineDark}></input>
-                                <input onFocus={handleFocus} type="text" placeholder="Light Color" className={outlineLightClasses} autoComplete="off" style={{ width: "100%" }} value={outlineLight} onChange={handleOutlineLight}></input>
-                                <input onFocus={handleFocus} type="text" placeholder="Text Color" className={outlineFontClasses} autoComplete="off" style={{ width: "100%" }} value={outlineText} onChange={handleOutlineText}></input>
-                            </div>
+                                {formInputValidity.outlineDark && formInputValidity.outlineLight && formInputValidity.outlineFont ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Outline Button</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Enter Valid Outline Colors</h3>}
+                                <div className="text-group-3">
+                                    <input onFocus={handleFocus} type="text" placeholder="Dark Color" className={outlineDarkClasses} autoComplete="off" style={{ width: "100%" }} value={outlineDark} onChange={handleOutlineDark}></input>
+                                    <input onFocus={handleFocus} type="text" placeholder="Light Color" className={outlineLightClasses} autoComplete="off" style={{ width: "100%" }} value={outlineLight} onChange={handleOutlineLight}></input>
+                                    <input onFocus={handleFocus} type="text" placeholder="Text Color" className={outlineFontClasses} autoComplete="off" style={{ width: "100%" }} value={outlineText} onChange={handleOutlineText}></input>
+                                </div>
 
-                            {formInputValidity.solidDark && formInputValidity.solidLight && formInputValidity.solidFont ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Solid Button</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Enter Valid Solid Colors</h3>}
-                            <div className="text-group-3">
-                                <input onFocus={handleFocus} type="text" placeholder="Dark Color" className={solidDarkClasses} autoComplete="off" style={{ width: "100%" }} value={solidDark} onChange={handleSolidDark}></input>
-                                <input onFocus={handleFocus} type="text" placeholder="Light Color" className={solidLightClasses} autoComplete="off" style={{ width: "100%" }} value={solidLight} onChange={handleSolidLight}></input>
-                                <input onFocus={handleFocus} type="text" placeholder="Text Color" className={solidFontClasses} autoComplete="off" style={{ width: "100%" }} value={solidText} onChange={handleSolidText}></input>
-                            </div>
+                                {formInputValidity.solidDark && formInputValidity.solidLight && formInputValidity.solidFont ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Solid Button</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Enter Valid Solid Colors</h3>}
+                                <div className="text-group-3">
+                                    <input onFocus={handleFocus} type="text" placeholder="Dark Color" className={solidDarkClasses} autoComplete="off" style={{ width: "100%" }} value={solidDark} onChange={handleSolidDark}></input>
+                                    <input onFocus={handleFocus} type="text" placeholder="Light Color" className={solidLightClasses} autoComplete="off" style={{ width: "100%" }} value={solidLight} onChange={handleSolidLight}></input>
+                                    <input onFocus={handleFocus} type="text" placeholder="Text Color" className={solidFontClasses} autoComplete="off" style={{ width: "100%" }} value={solidText} onChange={handleSolidText}></input>
+                                </div>
 
-                            <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem", justifyContent: "space-around" }}>
-                                <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
-                                <button className="product-action-2 heading-secondary" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", display: "block" }} onClick={designValidate}>Next</button>
-                            </div>
+                                <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem", justifyContent: "space-around" }}>
+                                    <button className="product-action-3 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", margin: "0" }} onClick={() => hardReset(themeSet1)}><h2 className="heading-secondary outline-button margin-side white">Reset</h2></button>
+                                    <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
+                                    <button className="product-action-2 heading-secondary" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", display: "block", margin: "0" }} onClick={designValidate}>Next</button>
+                                </div>
 
-                        </motion.div>
+                            </motion.div>
+
+                            <motion.div className="design-primary round-borderer round-borderer-extra"
+                                key={currentStep}
+                                initial="hidden"
+                                animate="visible"
+                                exit="exit"
+                                variants={{
+                                    hidden: { scale: 0 },
+                                    visible: { scale: 1 },
+                                    exit: { scale: 0 },
+                                }}
+                                transition={{ duration: 0.2 }}
+                                style={{ maxWidth: "70rem", padding: "1rem", height: "auto", margin: "0.5rem" }}
+                            >
+
+                                    <span className="page-heading flex-row-align">
+                                        <div className="heading-icon-typography svg-color">&nbsp;</div>
+                                        <h1 className="heading-secondary no-margin">Typography</h1>
+                                    </span>
+
+                                    <div className="text-group-3" style={{ marginTop: "1rem" }}>
+                                        <FontOptions defaultFont={textPrimaryFont} type={"heading-primary-select"} effect={setTextPrimaryFont}></FontOptions>
+                                        <input onFocus={handleFocus} type="text" placeholder="Text Color" className={primaryColorClasses} autoComplete="off" style={{ width: "100%" }} value={textPrimary} onChange={handleTextPrimary}></input>
+                                    </div>
+                                    <div className="text-group-3" style={{ marginTop: "1rem" }}>
+                                        <FontOptions defaultFont={textSecondaryFont} type={"heading-secondary-select"} effect={setTextSecondaryFont}></FontOptions>
+                                        <input onFocus={handleFocus} type="text" placeholder="Text Color" className={secondaryColorClasses} autoComplete="off" style={{ width: "100%" }} value={textSecondary} onChange={handleTextSecondary}></input>
+                                    </div>
+                                    <div className="text-group-3" style={{ margin: "1rem 0" }}>
+                                        <FontOptions defaultFont={textTertiaryFont} type={"heading-tertiary-select"} effect={setTextTertiaryFont}></FontOptions>
+                                        <input onFocus={handleFocus} type="text" placeholder="Text Color" className={tertiaryColorClasses} autoComplete="off" style={{ width: "100%" }} value={textTertiary} onChange={handleTextTertiary}></input>
+                                    </div>
+
+                                <span className="page-heading flex-row-align" style={{ marginBottom: "0.5rem" }}>
+                                    <div className="heading-icon-dropshadow">
+                                        <div className="heading-icon-sun svg-color">&nbsp;</div>
+                                    </div>
+                                    <h1 className="heading-secondary no-margin">Light Themes</h1>
+                                </span>
+
+                                <div className="theme-set-grid">
+                                    <ThemePack themeSet={themeSet1} set={setAllTheme}></ThemePack>
+
+                                    <ThemePack themeSet={themeSet2} set={setAllTheme}></ThemePack>
+
+                                    <ThemePack themeSet={themeSet3} set={setAllTheme}></ThemePack>
+
+                                    <ThemePack themeSet={themeSet4} set={setAllTheme}></ThemePack>
+                                </div>
+
+                            </motion.div>
+                        </div>
                     </AnimatePresence>}
 
                     {currentStep === 6 && <AnimatePresence> <motion.div
@@ -1421,7 +1631,7 @@ function CreateMart(martID) {
                         <div className="sign-step">
                             <heading className="page-heading" style={{ width: "100%" }}>
                                 <div className="heading-icon-credit svg-color">&nbsp;</div>
-                                <h1 className="heading-secondary no-margin">&nbsp;zzzCredit Card Details</h1>
+                                <h1 className="heading-secondary no-margin">&nbsp;Credit Card Details</h1>
                             </heading>
                             <div className="form-group" style={{ marginTop: "1rem", width: "100%" }}>
                                 <input
@@ -1446,7 +1656,7 @@ function CreateMart(martID) {
                                     value={cardnum}
                                     onChange={handlecardnumChange}
                                 ></input>
-                                {cardValidity.number ? <h3 className="form-label">cCredit Card Number</h3> : <h3 className="form-label inv z">Invalid card number</h3>}
+                                {cardValidity.number ? <h3 className="form-label">Credit Card Number</h3> : <h3 className="form-label inv z">Invalid card number</h3>}
                             </div>
 
                             <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
@@ -1472,10 +1682,8 @@ function CreateMart(martID) {
                             </div>
 
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
-                                <h1>Hello</h1>
-
                                 <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
-                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", display: "block" }} onClick={handleNextStep} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Finish")}</button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", display: "block" }} onClick={cardValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Next")}</button>
 
                             </div>
 
@@ -1484,6 +1692,7 @@ function CreateMart(martID) {
 
                     {currentStep === 7 && <AnimatePresence> <motion.div
                         key={currentStep}
+                        style={{width:"60rem"}}
                         className="sign-up-box round-borderer round-borderer-extra"
                         initial="hidden"
                         animate="visible"
@@ -1497,8 +1706,8 @@ function CreateMart(martID) {
                     >
                         <div className="sign-step">
                             <heading className="page-heading" style={{ width: "100%" }}>
-                                <div className="heading-icon-credit svg-color">&nbsp;</div>
-                                <h1 className="heading-secondary no-margin">&nbsp;Credit Cardx Details</h1>
+                                <div className="heading-icon-finale svg-color">&nbsp;</div>
+                                <h1 className="heading-secondary no-margin">&nbsp;Finalize Details</h1>
                             </heading>
                             <div className="form-group" style={{ marginTop: "1rem", width: "100%" }}>
                                 <input
@@ -1551,7 +1760,7 @@ function CreateMart(martID) {
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
 
                                 <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
-                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", display: "block" }} onClick={handleNextStep} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Finish")}</button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", display: "block" }} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Finish")}</button>
 
                             </div>
 
