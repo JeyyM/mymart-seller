@@ -24,3 +24,8 @@
 .form-label.inv{
     color: red;
 }
+
+.text-options.invalid-dropdown {background-image: linear-gradient(white, white),
+  linear-gradient(to right, red, darkred) !important;
+  filter: brightness(120%) !important
+  }

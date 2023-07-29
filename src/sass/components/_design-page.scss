@@ -391,3 +391,116 @@
 //   transform: translateY(0rem) translateX(0rem) !important;
 //   filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["bg-item"]}) !important;}
 
+.design-prev-set{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  margin-right: 1rem;
+  z-index: 99;
+
+}
+.design-prev-button {
+  height: 9rem;
+  width: 10rem;
+  padding: 0;
+  margin: 1rem 0;
+  margin-top: 0;
+}
+
+
+.preview-modal{
+  width: auto;
+  height: auto;
+  margin-top: 10rem;
+  display: flex;
+}
+
+.preview-modal-2{
+  width: auto;
+  height: auto;
+  margin-top: 10rem;
+  display: flex;
+}
+
+.eye-preview {
+  @include heading-logo(eye, 8rem, 8rem);
+}
+
+.palette-preview {
+  @include heading-logo(palette, 8rem, 8rem);
+}
+
+.palette-modal{
+  display: flex;
+  gap: 1rem;
+  width: auto;
+}
+
+.palette-flex-component{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 25vw;
+  margin: 0 auto
+}
+
+
+.heading-icon-palette {
+  @include heading-logo(palette, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
+.categ-edit-button-prev{
+  position: absolute;
+  top: 0;
+  right:0;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  height:5.5rem;
+  width: 5.5rem;
+  @include border-round;
+  border-radius: 50%;
+  display: flex;
+  // justify-content: center;
+  align-items: center;
+  cursor: cell;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.categ-edit-button-prev:hover{
+  filter: brightness(120%);
+}
+
+.categ-edit-button-prev:active{
+  filter: brightness(120%);
+  box-shadow: inset 0 0 0 10px white, 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+}
+
+.design-typography {
+  height: 25rem;
+  width: 100%;
+  background-color: white;
+}
+
+.design-demo {
+  height: auto;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.demo-typography {
+  height: 26rem;
+  width: 100%;
+  background-color: white;
+}
+
+.demo-typography-prev {
+  height: 27rem;
+  width: 55vw;
+  background-color: white;
+}

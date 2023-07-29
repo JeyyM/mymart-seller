@@ -407,3 +407,8 @@ input[type="password"].input-number:focus {
 .menu-cart-add {
   @include menu-logo(menu-cart-add, 4rem, 4rem);
 }
+
+.heading-icon-shop {
+  @include heading-logo(shop, 4rem, 4rem);
+  margin-left: 1rem;
+}
