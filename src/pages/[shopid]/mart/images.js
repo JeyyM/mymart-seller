@@ -314,7 +314,7 @@ function Images(martID) {
                         <span className="page-heading flex-row-align">
                             <div className="heading-icon-favicon svg-color">&nbsp;</div>
                             <h1 className="heading-secondary no-margin">Set Shop Icon</h1>
-                            <img src={favicon} style={{ height: "16px", width: "16px" }}></img>
+                            <img src={favicon}  style={{ height: "16px", width: "16px" }}></img>
                         </span>
                         <h3 className="heading-tertiary" style={{ margin: "1rem" }}>
                             Input an Imgur jpeg link
