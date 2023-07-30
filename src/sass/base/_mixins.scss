@@ -76,13 +76,13 @@
   margin-bottom: 3rem;
   font-size: 2.5rem;
   padding: 1rem;
-  box-shadow: inset 0 0 0 1rem $theme-bg;
+  box-shadow: inset 0 0 0 2rem $theme-bg;
   cursor: pointer;
   transition: all 0.2s;
 
   &:active {
     filter: brightness(120%);
-    box-shadow: inset 0 0 0 10px $theme-bg, 0 0 0 2px $color-primary-dark,
+    box-shadow: inset 0 0 0 20px $theme-bg, 0 0 0 2px $color-primary-dark,
       0 0 0 4px white;
   }
 }
@@ -305,7 +305,7 @@
   // font-family: 'Roboto';
   font-weight: 900;
   padding: 1rem;
-  box-shadow: inset 0 0 0 1rem $theme-bg;
+  box-shadow: inset 0 0 0 2rem $theme-bg;
   transition: all 0.2s;
 }
 
@@ -328,7 +328,7 @@
     // font-family: "Roboto";
     font-weight: 700;
     padding: 1rem;
-  box-shadow: inset 0 0 0 1rem $theme-bg;
+  box-shadow: inset 0 0 0 2rem $theme-bg;
   transition: all 0.2s;
 }
 
@@ -350,7 +350,7 @@ font-family: "Roboto";
 font-weight: 500;
 padding: 1rem;
 
-box-shadow: inset 0 0 0 1rem $theme-bg;
+box-shadow: inset 0 0 0 2rem $theme-bg;
 transition: all 0.2s;
 }
 
@@ -377,7 +377,7 @@ transition: all 0.2s;
         font-family: "Roboto";
         font-weight: 700;
         padding: 1rem;
-      box-shadow: inset 0 0 0 1rem $theme-bg;
+      box-shadow: inset 0 0 0 2rem $theme-bg;
       margin-right: 2rem;
       transition: all 0.2s;
       width: 95%;

@@ -26,6 +26,7 @@
     "chartjs-adapter-moment": "^1.0.1",
     "chartjs-plugin-datalabels": "^2.2.0",
     "chroma-js": "^2.4.2",
+    "crypto-js": "^4.1.1",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.7",
     "eslint": "8.35.0",

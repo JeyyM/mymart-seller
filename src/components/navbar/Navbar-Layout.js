@@ -394,7 +394,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 
             <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} screenWidth={screenWidth}/>
             <div>{renderChildrenWithProps()}</div>
-            {router.asPath !== `/${id}/mart/details` && router.asPath !== "/" ? <Footer details={props.contents} address={props.address}></Footer> : <Fragment></Fragment>}
+            {router.asPath !== `/${id}/mart/details` && router.asPath !== "/" ? <Footer details={props.contents} address={props.address} adminInfo={props.adminInfo}></Footer> : <Fragment></Fragment>}
 
         </Fragment>
     );

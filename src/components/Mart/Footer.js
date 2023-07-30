@@ -9,6 +9,9 @@ export default function Footer(props) {
     const additional = props.details.additionalLinks
     const about = props.details.footerAbout
     const location = props.details.shopLocation
+    const admin = props.adminInfo
+
+    const today = new Date()
 
     return <footer className="footer">
         <div className="footer-column">
@@ -69,6 +72,6 @@ export default function Footer(props) {
             {about.footerMessage === "" ? <h3 className="heading-tertiary">-</h3> : <h3 className="heading-tertiary">{about.footerMessage}</h3>}
 
         </div>
-        <h3 className="heading-tertiary" style={{ gridColumn: "1/-1", justifySelf: "center" }}><strong>Copyright &copy; YEAR Company Name</strong></h3>
+        <h3 className="heading-tertiary" style={{ gridColumn: "1/-1", justifySelf: "center" }}><strong>Copyright &copy; {new Date(admin.foundYear).getFullYear()}-{today.getFullYear()} {admin.company}</strong></h3>
     </footer>
 }

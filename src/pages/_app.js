@@ -13,11 +13,15 @@ export default function App({ Component, pageProps }) {
   let colormode = ""
   let details = {}
   let iconInfo = {}
+  let adminInfo = {}
+  let accEmail
 
   if (pageProps.shopID) {
     iconInfo = pageProps.shopID.shopData.shopDetails.imageData.icons
     database = pageProps.shopID.shopData.shopDesigns
     details = pageProps.shopID.shopData.shopDetails.footerData
+    adminInfo = pageProps.shopID.adminData
+    
     if (database.defaultMode) {
       data = database.lightDesign
     } else { data = database.darkDesign }
@@ -36,7 +40,7 @@ export default function App({ Component, pageProps }) {
   if (router. asPath === "/" || !pageProps.shopID){
     return <Component {...pageProps} />
   } else {
-  return <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo}><Component {...pageProps} /></NavbarLayout>;
+  return <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo} adminInfo={adminInfo}><Component {...pageProps} /></NavbarLayout>;
   }
 }
 
