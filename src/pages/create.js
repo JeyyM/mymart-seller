@@ -28,7 +28,7 @@ import tinycolor from 'tinycolor2';
 
 const libraries = ['places'];
 
-function CreateMart(martID) {
+function CreateMart() {
 
     // if (typeof window !== "undefined"){
     //     alert("This is the mart creation process. This is just for showing of the signup process, no new mart will be created. Sign on to MyMartAdmin with the accounts a@a.com, b@b.com, and c@c.com all of which have the password: 123. A new mart won't be made to avoid bloating my database. Thank you for your understanding.")
@@ -38,15 +38,30 @@ function CreateMart(martID) {
     // const id = martID.shopID._id
     // const localStorageKey = `mart_${martID.shopID._id}`;
     // const defaultColor = martID.shopID.shopData.shopDesigns.defaultMode
-    const { screenWidth } = martID
+
+    const [screenWidth, setScreenWidth] = useState(0);
+
+    useEffect(() => {
+        const handleResize = () => {
+          const newScreenWidth = window.innerWidth;
+          setScreenWidth(newScreenWidth);
+        };
+    
+        handleResize()
+    
+        if (typeof window !== 'undefined') {
+          setScreenWidth(window.innerWidth);
+          window.addEventListener('resize', handleResize);
+        }
+    
+        return () => {
+          if (typeof window !== 'undefined') {
+            window.removeEventListener('resize', handleResize);
+          }
+        };
+      }, []);
 
     const [currentStep, setCurrentStep] = useState(1);
-
-    // const accounts = martID.shopID.shopData.shopAccounts
-
-    // let emailList = []
-
-    // emailList = accounts.map(item => item.email.toUpperCase().trim());
 
     const [total, setTotal] = useState(0)
     const [loading, setLoading] = useState(false)
@@ -117,8 +132,6 @@ function CreateMart(martID) {
           }
 
           function copyItem(color) {
-            // console.log(color)
-            // navigator.clipboard.writeText(color)
           }
 
     useEffect(() => {
@@ -936,20 +949,20 @@ function CreateMart(martID) {
     const cvvClasses = `${cardValidity.cvv ? "text-small input-number" : "invalid-form-2 z"}`;
 
     async function completeForm(formdata) {
-        console.log(formdata)
-        // const response = await fetch(
-        //   `../../../api/set-profiles?martid=${router.query.shopid}`,
-        //   {
-        //     method: "POST",
-        //     headers: { "Content-Type": "application/json" },
-        //     body: JSON.stringify(formdata)
-        //   }
-        // );
-        // const data = await response.json();
-
+        const response = await fetch(
+          `../../../api/create-mart`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formdata)
+          }
+        );
+        const data = await response.json();
     }
 
-
+    async function submitData(){
+        await completeForm("test")
+    }
 
     function backtrack(needed) {
         if (total >= needed) {
@@ -1066,9 +1079,21 @@ function CreateMart(martID) {
                         exit: { scale: 0 },
                     }}
                     transition={{ duration: 0.2 }}>
-                    {<button className="product-action-1 design-prev-button" onClick={handlePalettePreview}>
+                    <AnimatePresence>
+                    {currentStep === 5 && <motion.button className="product-action-1 design-prev-button" onClick={handlePalettePreview}
+                                        initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                    variants={{
+                        hidden: { scale: 0 },
+                        visible: { scale: 1 },
+                        exit: { scale: 0 },
+                    }}
+                    transition={{ duration: 0.2 }}>
+
                         <div className="palette-preview svg-outline margin-side">&nbsp;</div>
-                    </button>}
+                    </motion.button>}
+                    </AnimatePresence>
 
                     {<button className="product-action-1 design-prev-button" onClick={handleDesignPreview}>
                         <div className="eye-preview svg-outline margin-side">&nbsp;</div>
@@ -1076,8 +1101,8 @@ function CreateMart(martID) {
                 </motion.div>}
             </AnimatePresence>
 
-            <div className="main-signup-container">
-                <div className="signup-progress round-borderer-extra" style={{}}>
+            <div className="main-signup-container" style={{overflow:"hidden"}}>
+                <div className="signup-progress round-borderer-extra">
                     <div className="darken-progress">
                         <div className="total-progress" style={{ width: `${16.67 * total}%`, transition: "all 0.5s" }}></div>
                     </div>
@@ -1092,7 +1117,6 @@ function CreateMart(martID) {
                 <div className="sign-up-container" style={{ transform: "translateY(-10%)" }}>
 
                     {currentStep === 1 && <AnimatePresence> <motion.div
-                        key={currentStep}
                         className="sign-up-box round-borderer round-borderer-extra"
                         initial="hidden"
                         animate="visible"
@@ -1162,12 +1186,11 @@ function CreateMart(martID) {
                                     {signValidity.repeat ? <h3 className="form-label">Repeat password</h3> : <h3 className="form-label inv z">Password doesn't match</h3>}
                                 </div>
                             </div>
-                            <button className="product-action-2 heading-secondary" type="button" style={{ margin: "1rem auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", display: "block" }} onClick={accountValidate}>Next</button>
+                            <button className="product-action-2 heading-secondary" type="button" style={{ margin: "1rem auto", width: `22rem`, height: "6rem", display: "block" }} onClick={accountValidate}>Next</button>
                         </div>
                     </motion.div> </AnimatePresence>}
 
                     {currentStep === 2 && <AnimatePresence> <motion.div
-                        key={currentStep}
                         className="sign-up-box round-borderer round-borderer-extra"
                         initial="hidden"
                         animate="visible"
@@ -1185,7 +1208,7 @@ function CreateMart(martID) {
 
                             <heading className="page-heading" style={{ width: "100%" }}>
                                 <div className="heading-icon-shop svg-color">&nbsp;</div>
-                                <h1 className="heading-secondary no-margin">&nbsp;Shop Details</h1>
+                                <h1 className="heading-secondary no-margin">&nbsp;Shop Details (Imgur Links Only)</h1>
                             </heading>
 
                             <div className="flex-row">
@@ -1199,7 +1222,7 @@ function CreateMart(martID) {
                                         value={shopimg}
                                         onChange={handleshopimgChange}
                                     ></input>
-                                    {shopValidity.shopimg ? <h3 className="form-label">Mart Logo Image</h3> : <h3 className="form-label inv z">Invalid image link</h3>}
+                                    {shopValidity.shopimg ? <h3 className="form-label">Logo Image</h3> : <h3 className="form-label inv z">Invalid image link</h3>}
                                 </div>
                                 {shopicon !== "" && <img src={shopicon} style={{ margin: "auto", height: "16px", width: "16px", objectFit: "cover" }}></img>}
                                 <div className="form-group" style={{ marginTop: "1rem" }}>
@@ -1212,7 +1235,7 @@ function CreateMart(martID) {
                                         value={shopicon}
                                         onChange={handleshopiconChange}
                                     ></input>
-                                    {shopValidity.shopicon ? <h3 className="form-label">Mart Icon Image</h3> : <h3 className="form-label inv z">Invalid image link</h3>}
+                                    {shopValidity.shopicon ? <h3 className="form-label">Icon Image</h3> : <h3 className="form-label inv z">Invalid image link</h3>}
                                 </div>
                             </div>
 
@@ -1250,15 +1273,14 @@ function CreateMart(martID) {
                             </div>
 
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
-                                <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
-                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", display: "block" }} onClick={shopValidate}>Next</button>
+                                <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `22rem`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `22rem`, height: "6rem", display: "block" }} onClick={shopValidate}>Next</button>
                             </div>
                         </div>
 
                     </motion.div> </AnimatePresence>}
 
                     {currentStep === 3 && <AnimatePresence> <motion.div
-                        key={currentStep}
                         className="sign-up-box round-borderer round-borderer-extra"
                         initial="hidden"
                         animate="visible"
@@ -1269,7 +1291,7 @@ function CreateMart(martID) {
                             exit: { scale: 0 },
                         }}
                         transition={{ duration: 0.2 }}
-                        style={{ width: "60rem" }}
+                        style={{ width: "60rem", margin:"1rem" }}
                     >
                         <div className="sign-step" style={{ height: "auto" }}>
                             <heading className="page-heading" style={{ width: "100%" }}>
@@ -1302,7 +1324,22 @@ function CreateMart(martID) {
                                     {detailValidity.lname ? <h3 className="form-label">Last Name</h3> : <h3 className="form-label inv z">Invalid last name</h3>}
                                 </div>
 
-                                <div className="form-group" style={{ marginTop: "1rem" }}>
+                                {screenWidth > 400 && <div className="form-group" style={{ marginTop: "1rem" }}>
+                                    <input
+                                        type="text"
+                                        className={shopEmailClasses}
+                                        placeholder="Shop Email"
+                                        autoComplete="off"
+                                        style={{ width: "100%", margin: "0" }}
+                                        value={semail}
+                                        onChange={handleSemailChange}
+                                    ></input>
+                                    {detailValidity.semail ? <h3 className="form-label">Shop Email</h3> : <h3 className="form-label inv z">Invalid email</h3>}
+                                </div>}
+                            </div>
+
+                            {screenWidth <= 400 && <div className="flex-row">
+                            <div className="form-group">
                                     <input
                                         type="text"
                                         className={shopEmailClasses}
@@ -1314,9 +1351,7 @@ function CreateMart(martID) {
                                     ></input>
                                     {detailValidity.semail ? <h3 className="form-label">Shop Email</h3> : <h3 className="form-label inv z">Invalid email</h3>}
                                 </div>
-                            </div>
 
-                            <div className="flex-row">
                                 <div className="form-group" style={{ marginTop: "1rem" }}>
                                     <input
                                         type="text"
@@ -1329,6 +1364,21 @@ function CreateMart(martID) {
                                     ></input>
                                     {detailValidity.phone ? <h3 className="form-label">Phone Number</h3> : <h3 className="form-label inv z">Invalid number</h3>}
                                 </div>
+                            </div>}
+
+                            <div className="flex-row">
+                                {screenWidth > 400 && <div className="form-group" style={{ marginTop: "1rem" }}>
+                                    <input
+                                        type="text"
+                                        className={phoneClasses}
+                                        placeholder="Shop Phone"
+                                        autoComplete="off"
+                                        style={{ width: "100%", margin: "0" }}
+                                        value={phone}
+                                        onChange={handlePhoneChange}
+                                    ></input>
+                                    {detailValidity.phone ? <h3 className="form-label">Phone Number</h3> : <h3 className="form-label inv z">Invalid number</h3>}
+                                </div>}
 
                                 <div className="form-group" style={{ marginTop: "1rem" }}>
                                     <CustomizedPickerBase selectedDate={bday} handleDateChange={handlebdayChange} valid={bdayValid} title={"Birthday"}></CustomizedPickerBase>
@@ -1338,7 +1388,7 @@ function CreateMart(martID) {
                                     <select
                                         value={selectGender}
                                         className={genderClasses}
-                                        style={{ width: "14rem" }}
+                                        style={{ width: `${screenWidth > 400 ? "14rem" : "100%"}` }}
                                         onChange={(event) => handleSelectGender(event)}
                                     >
                                         {genderOptions.map(gender => (
@@ -1350,15 +1400,14 @@ function CreateMart(martID) {
                             </div>
 
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
-                                <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
-                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", display: "block" }} onClick={detailValidate}>Next</button>
+                                <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `22rem`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `22rem`, height: "6rem", display: "block" }} onClick={detailValidate}>Next</button>
                             </div>
 
                         </div>
                     </motion.div> </AnimatePresence>}
 
                     {currentStep === 4 && <AnimatePresence> <motion.div
-                        key={currentStep}
                         className="sign-up-box round-borderer round-borderer-extra"
                         initial="hidden"
                         animate="visible"
@@ -1369,7 +1418,7 @@ function CreateMart(martID) {
                             exit: { scale: 0 },
                         }}
                         transition={{ duration: 0.2 }}
-                        style={{ width: "45rem", marginTop: "2rem" }}
+                        style={{ width: "50vw", marginTop: "2rem" }}
                     > <div>
                             <div>
                                 <heading className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
@@ -1398,94 +1447,18 @@ function CreateMart(martID) {
                             </div>
                             <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: "100%", height: "6rem", margin: "0" }} onClick={currentLoc}><h2 className="heading-secondary outline-button margin-side">Get Current Location</h2></button>
 
-                            <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
-                                <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
-                                <button className="product-action-2 heading-secondary" type="button" style={{ marginLeft: "auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", display: "block" }} onClick={locationValidate}>Next</button>
+                            <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem", justifyContent:"space-around" }}>
+                                <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `22rem`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ marginLeft: "auto", width: `22rem`, height: "6rem", display: "block", margin: "0" }} onClick={locationValidate}>Next</button>
                             </div>
 
                         </div>
                     </motion.div> </AnimatePresence>
                     }
-                    {/* {currentStep === 4 && <AnimatePresence> <motion.div
-                        key={currentStep}
-                        className="sign-up-box round-borderer round-borderer-extra"
-                        initial="hidden"
-                        animate="visible"
-                        exit="exit"
-                        variants={{
-                            hidden: { scale: 0 },
-                            visible: { scale: 1 },
-                            exit: { scale: 0 },
-                        }}
-                        transition={{ duration: 0.2 }}
-                    >
-                        <div className="sign-step">
-                            <heading className="page-heading" style={{ width: "100%" }}>
-                                <div className="heading-icon-credit svg-color">&nbsp;</div>
-                                <h1 className="heading-secondary no-margin">&nbsp;Credit Card Details</h1>
-                            </heading>
-                            <div className="form-group" style={{ marginTop: "1rem", width: "100%" }}>
-                                <input
-                                    type="text"
-                                    className={cardnameClasses}
-                                    placeholder="Name on card"
-                                    autoComplete="off"
-                                    style={{ width: "100%" }}
-                                    value={cardname}
-                                    onChange={handlecardnameChange}
-                                ></input>
-                                {cardValidity.name ? <h3 className="form-label">Name on card</h3> : <h3 className="form-label inv z">Invalid card name</h3>}
-                            </div>
-
-                            <div className="form-group" style={{ marginTop: "1rem", width: "100%" }}>
-                                <input
-                                    type="number"
-                                    className={cardnumClasses}
-                                    placeholder="Credit Card Number"
-                                    autoComplete="off"
-                                    style={{ width: "100%" }}
-                                    value={cardnum}
-                                    onChange={handlecardnumChange}
-                                ></input>
-                                {cardValidity.number ? <h3 className="form-label">Credit Card Number</h3> : <h3 className="form-label inv z">Invalid card number</h3>}
-                            </div>
-
-                            <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
-                                <label className="heading-tertiary product-currency" style={{ width: "13rem" }}>Expiry Date:</label>
-                                <div className="flex-col-none">
-                                    <input style={{ width: "100%", margin: "0" }} type="number" className={cardmonthClasses} placeholder="MM" autoComplete="off" value={cardmonth} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setcardmonth(newValue); } }}></input>
-                                    {cardValidity.mm ? <h3 className="form-label">Month</h3> : <h3 className="form-label inv z">Invalid</h3>}
-                                </div>
-
-                                <label className="heading-tertiary product-currency">/</label>
-
-                                <div className="flex-col-none">
-                                    <input style={{ width: "100%", margin: "0" }} type="number" className={cardyearClasses} placeholder="YY" autoComplete="off" value={cardyear} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setcardyear(newValue); } }}></input>
-                                    {cardValidity.yy ? <h3 className="form-label">Year</h3> : <h3 className="form-label inv z">Invalid</h3>}
-                                </div>
-
-                                <label className="heading-tertiary product-currency">CVV:</label>
-
-                                <div className="flex-col-none">
-                                    <input style={{ width: "100%", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setcvv(newValue); } }}></input>
-                                    {cardValidity.cvv ? <h3 className="form-label">&nbsp;</h3> : <h3 className="form-label inv z">Invalid</h3>}
-                                </div>
-                            </div>
-
-                            <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
-
-                                <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
-                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", display: "block" }} onClick={cardValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Finish")}</button>
-
-                            </div>
-
-                        </div>
-                    </motion.div> </AnimatePresence>} */}
 
                     {currentStep === 5 && <AnimatePresence>
                         <div className="flex-row">
                             <motion.div className="design-primary round-borderer round-borderer-extra"
-                                key={currentStep}
                                 initial="hidden"
                                 animate="visible"
                                 exit="exit"
@@ -1495,7 +1468,7 @@ function CreateMart(martID) {
                                     exit: { scale: 0 },
                                 }}
                                 transition={{ duration: 0.2 }}
-                                style={{ width: "60rem", padding: "1rem", height: "auto", margin: "0.5rem" }}
+                                style={{ width: `${screenWidth > 450 ? "60rem" : "95vw"}`, padding: "1rem", margin: "0.5rem", height:`${screenWidth > 900 ? "auto" : "70rem"}`, overflowY:"scroll" }}
                             >
                                 <span className="page-heading flex-row-align">
                                     <div className="heading-icon-brush svg-color">&nbsp;</div>
@@ -1538,15 +1511,53 @@ function CreateMart(martID) {
                                     <input onFocus={handleFocus} type="text" placeholder="Text Color" className={solidFontClasses} autoComplete="off" style={{ width: "100%" }} value={solidText} onChange={handleSolidText}></input>
                                 </div>
 
-                                <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem", justifyContent: "space-around" }}>
-                                    <button className="product-action-3 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", margin: "0" }} onClick={() => hardReset(themeSet1)}><h2 className="heading-secondary outline-button margin-side white">Reset</h2></button>
-                                    <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
-                                    <button className="product-action-2 heading-secondary" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", display: "block", margin: "0" }} onClick={designValidate}>Next</button>
+                                {screenWidth <= 900 && <>
+                                <span className="page-heading flex-row-align">
+                                        <div className="heading-icon-typography svg-color">&nbsp;</div>
+                                        <h1 className="heading-secondary no-margin">Typography</h1>
+                                    </span>
+
+                                    <div className="text-group-3" style={{ marginTop: "1rem" }}>
+                                        <FontOptions defaultFont={textPrimaryFont} type={"heading-primary-select"} effect={setTextPrimaryFont}></FontOptions>
+                                        <input onFocus={handleFocus} type="text" placeholder="Text Color" className={primaryColorClasses} autoComplete="off" style={{ width: "100%" }} value={textPrimary} onChange={handleTextPrimary}></input>
+                                    </div>
+                                    <div className="text-group-3" style={{ marginTop: "1rem" }}>
+                                        <FontOptions defaultFont={textSecondaryFont} type={"heading-secondary-select"} effect={setTextSecondaryFont}></FontOptions>
+                                        <input onFocus={handleFocus} type="text" placeholder="Text Color" className={secondaryColorClasses} autoComplete="off" style={{ width: "100%" }} value={textSecondary} onChange={handleTextSecondary}></input>
+                                    </div>
+                                    <div className="text-group-3" style={{ margin: "1rem 0" }}>
+                                        <FontOptions defaultFont={textTertiaryFont} type={"heading-tertiary-select"} effect={setTextTertiaryFont}></FontOptions>
+                                        <input onFocus={handleFocus} type="text" placeholder="Text Color" className={tertiaryColorClasses} autoComplete="off" style={{ width: "100%" }} value={textTertiary} onChange={handleTextTertiary}></input>
+                                    </div>
+
+                                <span className="page-heading flex-row-align" style={{ marginBottom: "0.5rem" }}>
+                                    <div className="heading-icon-dropshadow">
+                                        <div className="heading-icon-sun svg-color">&nbsp;</div>
+                                    </div>
+                                    <h1 className="heading-secondary no-margin">Light Themes</h1>
+                                </span>
+
+                                <div className="theme-set-grid">
+                                    <ThemePack themeSet={themeSet1} set={setAllTheme}></ThemePack>
+
+                                    <ThemePack themeSet={themeSet2} set={setAllTheme}></ThemePack>
+
+                                    <ThemePack themeSet={themeSet3} set={setAllTheme}></ThemePack>
+
+                                    <ThemePack themeSet={themeSet4} set={setAllTheme}></ThemePack>
                                 </div>
+                                </>}
+
+                                <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem", justifyContent: "space-around" }}>
+                                    <button className="product-action-3 heading-secondary flex-row-align" type="button" style={{ width: "22rem", height: "6rem", margin: "0" }} onClick={() => hardReset(themeSet1)}><h2 className="heading-secondary outline-button margin-side white">Reset</h2></button>
+                                    <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `22rem`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
+                                    {screenWidth > 450 && <button className="product-action-2 heading-secondary" type="button" style={{ width: "22rem", height: "6rem", display: "block", margin: "0" }} onClick={designValidate}>Next</button>}
+                                </div>
+                                {screenWidth <= 450 && <button className="product-action-2 heading-secondary" type="button" style={{ width: `100%`, height: "6rem", display: "block", margin: "0", marginTop:"1rem" }} onClick={designValidate}>Next</button>}
 
                             </motion.div>
 
-                            <motion.div className="design-primary round-borderer round-borderer-extra"
+                            {screenWidth > 900 && <motion.div className="design-primary round-borderer round-borderer-extra"
                                 key={currentStep}
                                 initial="hidden"
                                 animate="visible"
@@ -1595,12 +1606,11 @@ function CreateMart(martID) {
                                     <ThemePack themeSet={themeSet4} set={setAllTheme}></ThemePack>
                                 </div>
 
-                            </motion.div>
+                            </motion.div>}
                         </div>
                     </AnimatePresence>}
 
                     {currentStep === 6 && <AnimatePresence> <motion.div
-                        key={currentStep}
                         className="sign-up-box round-borderer round-borderer-extra"
                         initial="hidden"
                         animate="visible"
@@ -1666,8 +1676,8 @@ function CreateMart(martID) {
                             </div>
 
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
-                                <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
-                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", display: "block" }} onClick={cardValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Next")}</button>
+                                <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `22rem`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `22rem`, height: "6rem", display: "block" }} onClick={cardValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Next")}</button>
 
                             </div>
 
@@ -1675,8 +1685,7 @@ function CreateMart(martID) {
                     </motion.div> </AnimatePresence>}
 
                     {currentStep === 7 && <AnimatePresence> <motion.div
-                        key={currentStep}
-                        style={{width:"60rem"}}
+                        style={{width:"50rem", maxHeight:"75%", overflowY:"scroll", margin:"1rem", marginTop:"15vh"}}
                         className="sign-up-box round-borderer round-borderer-extra"
                         initial="hidden"
                         animate="visible"
@@ -1694,44 +1703,101 @@ function CreateMart(martID) {
                                 <h1 className="heading-secondary no-margin">&nbsp;Finalize Details</h1>
                             </heading>
 
+                            {shopimg !== "" && <img className="company-logo-med" src={shopimg} style={{ margin: "0", marginBottom: "1rem", display: "inline" }}></img>}
+
                             <div className="user-data-col">
-                                        <div className="flex-row">
-                                            <div className="text-sec-name svg-secondary">&nbsp;</div><h2 className="heading-secondary">Name: {lname}, {fname}</h2>
+                            <div className="flex-row">
+                            <div className="text-sec-profile svg-secondary-2">&nbsp;</div><h2 className="heading-secondary">Profile Details</h2>
+                            </div>
+                            <div className="flex-row">
+                                            <div className="text-ter-shop svg-tertiary-2">&nbsp;</div><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Mart Name:</span> {MartName}</h2>
                                         </div>
                                         <div className="flex-row">
-                                            <div className="text-sec-mail svg-secondary">&nbsp;</div><h2 className="heading-secondary">Registered Email: {email}</h2>
+                                            <div className="text-ter-name svg-tertiary-2">&nbsp;</div><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Name:</span> {lname}, {fname}</h2>
                                         </div>
                                         <div className="flex-row">
-                                            <div className="text-sec-phone svg-secondary">&nbsp;</div><h2 className="heading-secondary">Shop Phone: {phone}</h2>
+                                            <div className="text-ter-mail svg-tertiary-2">&nbsp;</div><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Registered Email:</span> {email}</h2>
                                         </div>
                                         <div className="flex-row">
-                                                <div className="text-ter-cake svg-tertiary">&nbsp;</div><h2 className="heading-tertiary">Age: {formatDateTime(bday)} - {today.getFullYear() -  new Date(bday).getFullYear()} years old</h2>
+                                            <div className="text-ter-password svg-tertiary-2">&nbsp;</div><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Registered Password</span> {password}</h2>
                                         </div>
+                                        <div className="flex-row">
+                                                <div className="text-ter-cake svg-tertiary-2">&nbsp;</div><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Age:</span> {formatDateTime(bday)} - {today.getFullYear() -  new Date(bday).getFullYear()} years old</h2>
+                                        </div>
+
                                         <div className="flex-row">
                                                 {selectGender === "Male" &&
-                                                    <div className="text-ter-gender1 svg-tertiary">&nbsp;</div>
+                                                    <div className="text-ter-gender1 svg-tertiary-2">&nbsp;</div>
                                                 }
                                                 {selectGender === "Female" &&
-                                                    <div className="text-ter-gender2 svg-tertiary">&nbsp;</div>
+                                                    <div className="text-ter-gender2 svg-tertiary-2">&nbsp;</div>
                                                 }
                                                 {selectGender === "Other" &&
-                                                    <div className="text-ter-gender3 svg-tertiary">&nbsp;</div>
+                                                    <div className="text-ter-gender3 svg-tertiary-2">&nbsp;</div>
                                                 }
-                                                <h2 className="heading-tertiary">{selectGender}</h2>
+                                                <h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Gender:</span> {selectGender}</h2>
                                             </div>
 
+                                            <div className="flex-row">
+                            <div className="text-sec-shop svg-secondary-2">&nbsp;</div><h2 className="heading-secondary">Shop Information</h2>
+                            </div>
+
+                                        <div className="flex-row">
+                                            <img src={shopicon} style={{height:"16px", width:"16px"}}></img><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Shop Icon</span></h2>
+                                        </div>
+
+                                        <div className="flex-row">
+                                            <div className="text-ter-mail svg-tertiary-2">&nbsp;</div><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Shop Email</span> {semail}</h2>
+                                        </div>
+
+                                        <div className="flex-row">
+                                            <div className="text-ter-phone svg-tertiary-2">&nbsp;</div><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Shop Phone</span> {phone}</h2>
+                                        </div>
+
+                                        <div className="flex-row">
+                                            <div className="text-ter-pin svg-tertiary-2">&nbsp;</div><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Shop Location:</span> {locationName}</h2>
+                                        </div>
            
                                         <div className="flex-row">
-                                            <div className="text-ter-company svg-tertiary">&nbsp;</div><h2 className="heading-tertiary">{company}</h2>
+                                            <div className="text-ter-company svg-tertiary-2">&nbsp;</div><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Company Name:</span> {company}</h2>
                                         </div>
+
+                                        <div className="flex-row">
+                                            <div className="text-ter-calendar svg-tertiary-2">&nbsp;</div><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Foundation Year:</span> {new Date(foundyear).getFullYear()}</h2>
+                                        </div>
+                                        <div className="flex-row">
+                                            <div className="text-ter-description svg-tertiary-2">&nbsp;</div><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Shop Description</span></h2>
+                                        </div>
+                                        <h2 className="heading-tertiary" style={{whiteSpace:"pre-wrap"}}>{shopdesc}</h2>
+                                        
+                                        <div className="flex-row">
+                            <div className="text-sec-credit svg-secondary-2">&nbsp;</div><h2 className="heading-secondary">Card Information</h2>
+                            </div>
+                            <div className="flex-row">
+                                            <div className="text-ter-name svg-tertiary-2">&nbsp;</div><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Card Name:</span> {cardname}</h2>
+                                        </div>
+                                        <div className="flex-row">
+                                            <div className="text-ter-credit svg-tertiary-2">&nbsp;</div><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Card Number:</span> {cardnum}</h2>
+                                        </div>
+                                        
+                                        <div className="flex-row" style={{justifyContent:"space-between"}}>
+                                        <div className="flex-row">
+                                            <div className="text-ter-calendar svg-tertiary-2">&nbsp;</div><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Expiry Date:</span> {cardmonth}/{cardyear}</h2>
+                                        </div>
+
+                                        <div className="flex-row">
+                                            <div className="text-ter-cvv svg-tertiary-2">&nbsp;</div><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>CVV:</span> {cvv}</h2>
+                                        </div>
+                                        </div>
+                                        
+                                        <h2 className="heading-tertiary">The details within can be changed upon the creation of your mart. However, there are more details that can be changed upon exploration such as the creation of your about page, privacy policy, and more. Create your mart to be able to make categories, add products, and manage orders.</h2>
+                                        <h2 className="heading-tertiary" style={{fontWeight:"900"}}>Upon creation, login with the registered email and password to gain access. Your ecommerce journey starts today!</h2>
+
                                     </div>
-
-
-
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
 
-                                <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
-                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height: "6rem", display: "block" }} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Finish")}</button>
+                                <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `22rem`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `22rem`, height: "6rem", display: "block" }} disabled={loading} onClick={submitData}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Finish")}</button>
 
                             </div>
 

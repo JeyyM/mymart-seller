@@ -208,6 +208,10 @@
 }
 
 @media (max-width: 900px) {
+  .theme-set-grid{
+    grid-template-columns: 1fr;
+  }
+
   .checkout-modal {
     margin: auto;
   }
@@ -374,10 +378,6 @@
 
   .design-grid {
     grid-template-columns: repeat(7, 1fr);
-  }
-
-  .theme-set-grid {
-    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -573,10 +573,6 @@
   }
   .analytics-sales-cell {
     height: 20rem;
-  }
-
-  .theme-set-grid {
-    grid-template-columns: 1fr;
   }
 }
 
