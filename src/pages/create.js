@@ -25,7 +25,6 @@ import { ChromePicker } from "react-color";
 import chroma from 'chroma-js';
 import tinycolor from 'tinycolor2';
 
-
 const libraries = ['places'];
 
 function CreateMart() {
@@ -961,7 +960,175 @@ function CreateMart() {
     }
 
     async function submitData(){
-        await completeForm("test")
+        setLoading(true)
+        const hashPass = await hashString(password)
+        const sample = {
+            "_id": "object id",
+            "name": MartName.trim(),
+            "email": email,
+            "password": hashPass,
+            "description": shopdesc,
+            "adminData": {
+                "adminFirst": fname,
+                "adminLast": lname,
+                "adminBirth": bday,
+                "adminGender": selectGender,
+                "company": company,
+                "foundYear": foundyear,
+            },
+            "shopData": {
+                "shopCategories": [],
+                "shopDesigns": {
+                    "defaultMode": true,
+                    "lightDesign": {
+                        "color-primary-dark": DarkColor,
+                        "color-primary-light": LightColor,
+                        "bg-body": bgBody,
+                        "bg-item": bgItem,
+                        "text-primary-color": textPrimary,
+                        "text-secondary-color": textSecondary,
+                        "text-tertiary-color": textTertiary,
+                        "text-primary-font": textPrimaryFont,
+                        "text-secondary-font": textSecondaryFont,
+                        "text-tertiary-font": textTertiaryFont,
+                        "button-outline-dark": outlineDark,
+                        "button-outline-light": outlineLight,
+                        "button-solid-dark": solidDark,
+                        "button-solid-light": solidLight,
+                        "border-tl": borderTL,
+                        "border-tr": borderTR,
+                        "border-bl": borderBL,
+                        "border-br": borderBR,
+                        "button-solid-text": solidText,
+                        "button-outline-text": outlineText
+                    },
+                    "darkDesign": {
+                        "color-primary-dark": "#FF6000",
+                        "color-primary-light": "#FFD93D",
+                        "bg-body": "#2D2727",
+                        "bg-item": "#454545",
+                        "text-primary-color": "#F9F5EB",
+                        "text-secondary-color": "#F9F5EB",
+                        "text-tertiary-color": "#F9F5EB",
+                        "text-primary-font": "Roboto",
+                        "text-secondary-font": "Roboto",
+                        "text-tertiary-font": "Roboto",
+                        "button-outline-dark": "#FE6244",
+                        "button-outline-light": "#F7DB6A",
+                        "button-solid-dark": "#FE6244",
+                        "button-solid-light": "#F7DB6A",
+                        "border-tl": "10px",
+                        "border-tr": "10px",
+                        "border-bl": "10px",
+                        "border-br": "10px",
+                        "button-solid-text": "#F9F5EB",
+                        "button-outline-text": "#F9F5EB"
+                    }
+                },
+                "shopDetails": {
+                    "footerData": {
+                        "shopEmails": [semail],
+                        "shopPhone": [phone],
+                        "footerAbout": {
+                            "footerImg": shopimg,
+                            "footerMessage": "",
+                            "borderless": false
+                        },
+                        "shopSocials": [],
+                        "additionalLinks": [],
+                        "shopLocation": locationName,
+                        "shopCoords": center,
+                    },
+                    "paymentData": {
+                        "cardInfo": {
+                            "cardName": cardname,
+                            "cardNumber": cardnum,
+                            "expiryMonth": cardmonth,
+                            "expiryYear": cardyear,
+                            "cvv": cvv
+                        },
+                        "checkoutInfo": {
+                            "message": "",
+                            "currency": "$",
+                            "showMap": true
+                        },
+                        "Adds": {
+                            "DelFee": [],
+                            "PickFee": []
+                        },
+                        "Takebacks": {
+                            "allowRefunds": false,
+                            "refundDuration": "minute",
+                            "refundCount": {
+                                "$numberInt": "1"
+                            },
+                            "refundFee": "0",
+                            "allowCancel": false,
+                            "cancelDuration": "minute",
+                            "cancelCount": {
+                                "$numberInt": "1"
+                            },
+                            "cancelFee": "0"
+                        }
+                    },
+                    "aboutData": {
+                        "text": {
+                            "desktop": [],
+                            "tablet": [],
+                            "phone": []
+                        },
+                        "img": {
+                            "desktop": [],
+                            "tablet": [],
+                            "phone": []
+                        },
+                        "container": {
+                            "desktop": [],
+                            "tablet": [],
+                            "phone": []
+                        },
+                        "rows": {
+                            "desktop": "10",
+                            "tablet": "10",
+                            "phone": "10"
+                        }
+                    },
+                    "imageData": {
+                        "icons": {
+                            "icon": shopicon,
+                            "logo": shopimg
+                        },
+                        "notifications": [],
+                        "popups": {
+                            "active": false,
+                            "image": "",
+                            "link": ""
+                        },
+                        "banners": []
+                    }
+                },
+                "shopAccounts": [],
+                "shopSales": {
+                    "activeOrders": [],
+                    "finishedOrders": []
+                },
+                "shopFaq": {
+                    "answers": [],
+                    "questions": []
+                },
+                "shopTerms": {
+                    "terms": "",
+                    "privacy": ""
+                },
+                "shopViews": []
+            }
+        }
+        await completeForm(sample)
+        await waitSeconds()
+        setLoading(false)
+        setCompletion(true)
+        router.reload()
+        /////////Make link to real website
     }
 
     function backtrack(needed) {

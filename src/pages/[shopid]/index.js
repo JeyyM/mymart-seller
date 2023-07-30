@@ -94,6 +94,7 @@ function HomePage({ shopID, screenWidth }) {
       <link rel="icon" type="image/jpeg" href={favicon} />
 
     </Head>
+    <div className="homepage-container">
     {activeNotifs.length > 0 && <ActiveNotifs notifs={activeNotifs}></ActiveNotifs>}
     <BannerCarousel data={imageData.banners} screenWidth={screenWidth}></BannerCarousel>
     <PopModal modalStatus={startPop} disable={handleStart} image={popupInfo.image} link={popupInfo.link}></PopModal>
@@ -220,7 +221,7 @@ function HomePage({ shopID, screenWidth }) {
           </>
         );
       })}
-
+</div>
   </Fragment>
 }
 

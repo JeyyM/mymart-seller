@@ -2,16 +2,9 @@ import { MongoClient, ObjectId } from "mongodb";
 
 async function handler(req, res) {
   if (req.method === "POST") {
-    // const data = req.body;
+    const data = req.body;
 
-    const newID = new ObjectId("HELlo")
-
-    const sample = {
-        _id: newID,
-        name: "Sample Mart",
-        location: "Some Place",
-      };    
-
+    data._id = new ObjectId()
 
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
@@ -19,12 +12,11 @@ async function handler(req, res) {
     });
     const db = client.db();
 
-    const result = await db.collection("shops").insertOne(sample);
+    const result = await db.collection("shops").insertOne(data);
 
     client.close();
 
     res.status(201).json({ message: "Mart Inserted" });
-    console.log("it worked")
   }
 }
 

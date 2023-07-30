@@ -147,17 +147,17 @@
     @include heading-logo(description, 2rem, 2rem);
   }
 
-  ::-webkit-scrollbar {
-    width: 1.2rem;
-  }
+  // ::-webkit-scrollbar {
+  //   width: 1.2rem;
+  // }
   
-  ::-webkit-scrollbar-track {
-    background-color: $bg-item;
-  }
+  // ::-webkit-scrollbar-track {
+  //   background-color: $bg-item;
+  // }
   
-  ::-webkit-scrollbar-thumb {
-    background-color: $color-primary-dark;
-    border-radius: 10px;
-    border: 3px solid $text-primary-color;
-    filter: brightness(120%) !important;
-  }
+  // ::-webkit-scrollbar-thumb {
+  //   background-color: $color-primary-dark;
+  //   border-radius: 10px;
+  //   border: 3px solid $text-primary-color;
+  //   filter: brightness(120%) !important;
+  // }

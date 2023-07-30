@@ -12,6 +12,10 @@
   filter: drop-shadow(-4px 4px 0px $color-primary-dark);
 }
 
+.homepage-container{
+  min-height: calc(100vh - $navbar-height)
+}
+
 .homepage-button {
   @include border-round;
   height: 1fr;

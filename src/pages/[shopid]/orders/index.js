@@ -291,11 +291,16 @@ function MyOrders({ shopID, user, currency, screenWidth }) {
             <title>Categories</title>
             <link rel="icon" type="image/jpeg" href={favicon} />
           </Head>
+          <ShopInformation modalStatus={Info} disable={handleInfo} user={user} currency={shopCurrency} martCoords={coords} details={footerData} payment={paymentDetails} screenWidth={screenWidth}></ShopInformation>
+
           <heading className="page-heading">
             <div className="heading-icon-dropshadow">
               <div className="heading-icon-category svg-color">&nbsp;</div>
             </div>
             <h1 className="heading-primary no-margin">Past Orders</h1>
+            <button className="help-button" onClick={handleInfo}>
+                <div className="heading-icon-question svg-color">&nbsp;</div>
+              </button>
           </heading>
           <div className="empty-contents">
             <div className="empty-receipt svg-color">&nbsp;</div>

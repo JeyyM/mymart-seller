@@ -106,6 +106,8 @@ function ShopInformation(props) {
     const takebacks = paymentDetails.Takebacks
     const checkoutData = paymentDetails.checkoutInfo
 
+    console.log(props.user)
+
     return (
       <Fragment>
         <AnimatePresence
@@ -176,7 +178,7 @@ function ShopInformation(props) {
                       <h2 className="heading-secondary no-margin">&nbsp;Location</h2>
                     </span>
                     <div className="flex-row">
-                      <h2 className="heading-tertiary">{props.user.location} <span style={{ fontWeight: "900" }}>({getTravelTime()}) away.</span></h2>
+                      <h2 className="heading-tertiary">{props.details.shopLocation} <span style={{ fontWeight: "900" }}>({getTravelTime()}) away.</span></h2>
                     </div>
 
                     <GoogleMap

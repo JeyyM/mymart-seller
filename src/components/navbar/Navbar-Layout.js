@@ -60,8 +60,6 @@ function NavbarLayout(props) {
         );
       };
 
-      console.log("in nav", screenWidth)
-
     if (props.mode === false) {
         placeholder = `{color: ${props.color["bg-item"]};
 opacity: 0.8;
@@ -493,7 +491,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 }
 
 .total-progress{
-    background-image: linear-gradient(to left, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]});
+    background-image: linear-gradient(to left, ${props.color["color-primary-dark"]}, ${props.color["color-primary-light"]}) !important;
 }
 
 .svg-solid-button {
