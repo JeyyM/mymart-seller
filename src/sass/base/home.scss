@@ -36,3 +36,17 @@
     @include heading-logo(finale, 4rem, 4rem);
     margin-left: 1rem;
   }
+
+  .svg-tertiary {
+    background-image: linear-gradient(
+    to right,
+    $text-tertiary-color,
+    $text-tertiary-color
+  )}
+
+  .svg-secondary {
+    background-image: linear-gradient(
+    to right,
+    $text-secondary-color,
+    $text-secondary-color
+  )}

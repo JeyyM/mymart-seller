@@ -40,9 +40,7 @@ function CreateMart(martID) {
     // const defaultColor = martID.shopID.shopData.shopDesigns.defaultMode
     const { screenWidth } = martID
 
-    const [parsedData, setParsedData] = useState([]);
-
-    const [currentStep, setCurrentStep] = useState(5);
+    const [currentStep, setCurrentStep] = useState(1);
 
     // const accounts = martID.shopID.shopData.shopAccounts
 
@@ -951,37 +949,7 @@ function CreateMart(martID) {
 
     }
 
-    async function finishSignup() {
-        const currentDate = new Date();
-        const hashedPassword = await hashString(password);
-        // const hashedCard = await hashString(cardnum)
-        // const hashedMonth = await hashString(cardmonth)
-        // const hashedYear = await hashString(cardyear)
-        const hashedCVV = await hashString(cvv)
 
-        const incomingData = {
-            email: email.toLowerCase(),
-            password: hashedPassword,
-            creationDate: currentDate,
-            preferredColor: defaultColor,
-            ignore: false,
-            profile: { first: fname, last: lname, pnum: phone, birth: bday, gender: selectGender, other: isOtherSelected, job: selectedOccupation, customjob: customOccupation, company: company },
-            location: locationName,
-            locationCoords: center,
-            card: { name: cardname, number: cardnum, month: cardmonth, year: cardyear, cvv: hashedCVV },
-            currentCart: [...parsedData],
-            pastOrders: [],
-            currentOrders: [],
-            totalBuys: 0,
-            totalSpent: 0,
-        }
-
-        const authKey = `auth_${martID.shopID._id}`;
-        const authData = { email: email.toLowerCase(), password: hashedPassword }
-        localStorage.setItem(authKey, JSON.stringify(authData));
-
-        completeForm(incomingData)
-    }
 
     function backtrack(needed) {
         if (total >= needed) {
@@ -1039,6 +1007,22 @@ function CreateMart(martID) {
         setTextPrimaryFont("Roboto")
         setTextSecondaryFont("Roboto")
         setTextTertiaryFont("Roboto")
+    }
+
+    const today = new Date()
+
+    function formatDateTime(dateTimeString) {
+        const dateTime = new Date(dateTimeString);
+
+        const formattedDate = dateTime.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+        }).replace(/\//g, '-');
+
+        const formattedDateTime = `${formattedDate}`;
+
+        return formattedDateTime;
     }
 
     return (
@@ -1709,53 +1693,40 @@ function CreateMart(martID) {
                                 <div className="heading-icon-finale svg-color">&nbsp;</div>
                                 <h1 className="heading-secondary no-margin">&nbsp;Finalize Details</h1>
                             </heading>
-                            <div className="form-group" style={{ marginTop: "1rem", width: "100%" }}>
-                                <input
-                                    type="text"
-                                    className={cardnameClasses}
-                                    placeholder="Name on card"
-                                    autoComplete="off"
-                                    style={{ width: "100%" }}
-                                    value={cardname}
-                                    onChange={handlecardnameChange}
-                                ></input>
-                                {cardValidity.name ? <h3 className="form-label">Name on card</h3> : <h3 className="form-label inv z">Invalid card name</h3>}
-                            </div>
 
-                            <div className="form-group" style={{ marginTop: "1rem", width: "100%" }}>
-                                <input
-                                    type="number"
-                                    className={cardnumClasses}
-                                    placeholder="Credit Card Number"
-                                    autoComplete="off"
-                                    style={{ width: "100%" }}
-                                    value={cardnum}
-                                    onChange={handlecardnumChange}
-                                ></input>
-                                {cardValidity.number ? <h3 className="form-label">Credit Cardz Number</h3> : <h3 className="form-label inv z">Invalid card number</h3>}
-                            </div>
+                            <div className="user-data-col">
+                                        <div className="flex-row">
+                                            <div className="text-sec-name svg-secondary">&nbsp;</div><h2 className="heading-secondary">Name: {lname}, {fname}</h2>
+                                        </div>
+                                        <div className="flex-row">
+                                            <div className="text-sec-mail svg-secondary">&nbsp;</div><h2 className="heading-secondary">Registered Email: {email}</h2>
+                                        </div>
+                                        <div className="flex-row">
+                                            <div className="text-sec-phone svg-secondary">&nbsp;</div><h2 className="heading-secondary">Shop Phone: {phone}</h2>
+                                        </div>
+                                        <div className="flex-row">
+                                                <div className="text-ter-cake svg-tertiary">&nbsp;</div><h2 className="heading-tertiary">Age: {formatDateTime(bday)} - {today.getFullYear() -  new Date(bday).getFullYear()} years old</h2>
+                                        </div>
+                                        <div className="flex-row">
+                                                {selectGender === "Male" &&
+                                                    <div className="text-ter-gender1 svg-tertiary">&nbsp;</div>
+                                                }
+                                                {selectGender === "Female" &&
+                                                    <div className="text-ter-gender2 svg-tertiary">&nbsp;</div>
+                                                }
+                                                {selectGender === "Other" &&
+                                                    <div className="text-ter-gender3 svg-tertiary">&nbsp;</div>
+                                                }
+                                                <h2 className="heading-tertiary">{selectGender}</h2>
+                                            </div>
 
-                            <div className="flex-row-spaceless" style={{ alignItems: "center" }}>
-                                <label className="heading-tertiary product-currency" style={{ width: "13rem" }}>Expiry Date:</label>
-                                <div className="flex-col-none">
-                                    <input style={{ width: "100%", margin: "0" }} type="number" className={cardmonthClasses} placeholder="MM" autoComplete="off" value={cardmonth} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setcardmonth(newValue); } }}></input>
-                                    {cardValidity.mm ? <h3 className="form-label">Month</h3> : <h3 className="form-label inv z">Invalid</h3>}
-                                </div>
+           
+                                        <div className="flex-row">
+                                            <div className="text-ter-company svg-tertiary">&nbsp;</div><h2 className="heading-tertiary">{company}</h2>
+                                        </div>
+                                    </div>
 
-                                <label className="heading-tertiary product-currency">/</label>
 
-                                <div className="flex-col-none">
-                                    <input style={{ width: "100%", margin: "0" }} type="number" className={cardyearClasses} placeholder="YY" autoComplete="off" value={cardyear} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 2) { setcardyear(newValue); } }}></input>
-                                    {cardValidity.yy ? <h3 className="form-label">Year</h3> : <h3 className="form-label inv z">Invalid</h3>}
-                                </div>
-
-                                <label className="heading-tertiary product-currency">CVV:</label>
-
-                                <div className="flex-col-none">
-                                    <input style={{ width: "100%", margin: "0" }} type="number" className={cvvClasses} placeholder="CVV" autoComplete="off" value={cvv} onChange={(event) => { const newValue = event.target.value; if (newValue.length <= 3) { setcvv(newValue); } }}></input>
-                                    {cardValidity.cvv ? <h3 className="form-label">&nbsp;</h3> : <h3 className="form-label inv z">Invalid</h3>}
-                                </div>
-                            </div>
 
                             <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
 
