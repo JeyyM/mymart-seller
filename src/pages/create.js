@@ -29,9 +29,13 @@ const libraries = ['places'];
 
 function CreateMart() {
 
-    // if (typeof window !== "undefined"){
-    //     alert("This is the mart creation process. This is just for showing of the signup process, no new mart will be created. Sign on to MyMartAdmin with the accounts a@a.com, b@b.com, and c@c.com all of which have the password: 123. A new mart won't be made to avoid bloating my database. Thank you for your understanding.")
-    // }
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+          alert(
+            "This is the mart creation process. This is just for showing of the signup process, no new mart will be created. Sign on to MyMartAdmin with the accounts a@a.com, b@b.com, and c@c.com all of which have the password: 123. A new mart won't be made to avoid bloating my database. Thank you for your understanding."
+          );
+        }
+      }, []);
 
     const router = useRouter()
     // const id = martID.shopID._id
@@ -965,7 +969,7 @@ function CreateMart() {
         const sample = {
             "_id": "object id",
             "name": MartName.trim(),
-            "email": email,
+            "email": email.toLowerCase(),
             "password": hashPass,
             "description": shopdesc,
             "adminData": {

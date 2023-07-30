@@ -149,7 +149,6 @@ function SignUp(martID) {
         })
 
         const submissionValid = emailValid && passValid && emailExist
-        console.log(emailValid, passValid, emailExist)
 
         if (submissionValid) {
             signIn()
