@@ -35,6 +35,11 @@
   margin-left: 1rem;
 }
 
+.heading-icon-password {
+  @include heading-logo(password, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
 .heading-icon-home {
   @include heading-logo(home, 4rem, 4rem);
   margin-left: 1rem;

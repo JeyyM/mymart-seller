@@ -1,18 +1,49 @@
-import { Fragment } from "react"
+import { Fragment, useState } from "react"
 import Head from "next/head"
 import { getServerSideProps } from "../categories"
 import Link from "next/link"
+import AdminData from "@/components/Mart/AdminData"
+import { useRouter } from "next/router"
 
 function Mart(martID) {
+    const router = useRouter()
     const id = martID.shopID._id
     const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
     const {screenWidth} = martID
+
+    const [settings, setSettings] = useState(false)
+    function handleSettings(){
+        setSettings(!settings)
+    }
+
+    let chosenMode = {}
+
+    if (martID.shopID.shopData.shopDesigns.defaultMode === true) {
+        chosenMode = martID.shopID.shopData.shopDesigns.lightDesign
+    } else if (martID.shopID.shopData.shopDesigns.defaultMode === false) {
+        chosenMode = martID.shopID.shopData.shopDesigns.darkDesign
+    }
+
+    async function submitChanges(formdata) {
+
+        const response = await fetch(
+          `../../api/edit-admin?martid=${router.query.shopid}`,
+          {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formdata)
+          }
+        );
+        const data = await response.json();
+      }
 
     return <Fragment>
         <Head>
             <title>Mart Details</title>
             <link rel="icon" type="image/jpeg" href={favicon} />
         </Head>
+
+        <AdminData modalStatus={settings} disable={handleSettings} name={martID.shopID.name} email={martID.shopID.email} description={martID.shopID.description} data={martID.shopID.adminData} chosenMode={chosenMode} screenWidth={screenWidth} finish={submitChanges}></AdminData>
 
         <span className="page-heading">
             <div className="heading-icon-dropshadow">
@@ -38,10 +69,10 @@ function Mart(martID) {
                 <div className={`${screenWidth > 350 ? "about-button-pop-up" : "about-button-pop-up-2"} svg-down`}></div>
                 <h2 className="heading-primary" style={{ display: "inline", margin: "1rem auto", textAlign: "center" }}>Images & Pop-up</h2>
             </Link>
-            <Link className="mymart-button x item-setup flex-col-center" href={`/${id}/mart/settings`} style={{ textDecoration: "none" }}>
+            <button className="mymart-button x item-setup flex-col-center" onClick={handleSettings}>
                 <div className={`${screenWidth > 350 ? "about-button-settings" : "about-button-settings-2"} svg-down`}></div>
                 <h2 className="heading-primary" style={{ display: "inline", margin: "1rem auto", textAlign: "center" }}>Mart Settings</h2>
-            </Link>
+            </button>
             {/* <Link className="mymart-button x item-setup flex-col-center" href={`/${id}/mart/about`} style={{ textDecoration: "none" }}>
                 <div className="about-button-messenger svg-down"></div>
                 <h2 className="heading-primary" style={{ display: "inline", margin: "1rem auto", textAlign: "center" }}>Messenger Plugin</h2>
