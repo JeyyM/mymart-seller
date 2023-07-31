@@ -7,6 +7,7 @@ import CustomizedPicker from "./CustomizedPicker";
 
 function AdminData(props) {
     const router = useRouter()
+    const {screenWidth} = props
 
     const appear = {
         hidden: {
@@ -331,13 +332,33 @@ function AdminData(props) {
                                     ></input>
                                     {formInputValidity.lname ? <h3 className="form-label">Last Name</h3> : <h3 className="form-label inv z">Invalid name</h3>}
                                 </div>
-                                <div className="form-group" style={{ marginTop: "1rem" }}>
+                                {screenWidth > 500 && <div className="form-group" style={{ marginTop: "1rem" }}>
                                     <CustomizedPicker selectedDate={bday} handleDateChange={handlebdayChange} valid={bdayValid} title={"Birthday"} colormode={props.chosenMode} ></CustomizedPicker>
-                                </div>
+                                </div>}
                             </div>
 
-                            <div className="flex-row">
+                            {screenWidth <= 500 && <div className="flex-row" style={{justifyContent:"space-between"}}>
                             <div className="form-group" style={{ marginTop: "1rem" }}>
+                                    <CustomizedPicker selectedDate={bday} handleDateChange={handlebdayChange} valid={bdayValid} title={"Birthday"} colormode={props.chosenMode} ></CustomizedPicker>
+                                </div>
+
+                                <div className="form-group" style={{ marginTop: "1rem" }}>
+                                    <select
+                                        value={selectGender}
+                                        className={genderClasses}
+                                        style={{ width: "100%" }}
+                                        onChange={(event) => handleSelectGender(event)}
+                                    >
+                                        {genderOptions.map(gender => (
+                                            <option key={gender} value={gender}>{gender}</option>
+                                        ))}
+                                    </select>
+                                    {formInputValidity.gender ? <h3 className="form-label">Gender</h3> : <h3 className="form-label inv z">Invalid gender</h3>}
+                                </div>
+                            </div>}
+
+                            <div className="flex-row">
+                            {screenWidth > 500 && <div className="form-group" style={{ marginTop: "1rem" }}>
                                     <select
                                         value={selectGender}
                                         className={genderClasses}
@@ -349,7 +370,7 @@ function AdminData(props) {
                                         ))}
                                     </select>
                                     {formInputValidity.gender ? <h3 className="form-label">Gender</h3> : <h3 className="form-label inv z">Invalid gender</h3>}
-                                </div>
+                                </div>}
 
                                 <div className="form-group" style={{ marginTop: "1rem", width: "100%" }}>
                                     <input
