@@ -97,8 +97,8 @@ function CreateMart() {
     }
 
     function startsImgur(word) {
-        return word.slice(0, 20) === "https://i.imgur.com/";
-    }
+        return word.startsWith("https://i.imgur.com/") || word.startsWith("https://picsum.photos/");
+      }
 
     function isHexCode(text) {
         const hexRegex = /^#?([0-9A-F]{3}|[0-9A-F]{6})$/i;
@@ -415,8 +415,6 @@ function CreateMart() {
     function handleFocus(event) {
         event.target.select();
     }
-
-    const themeSetxz1 = [ "#004DFF", "#3974FF", 10, 10, 10, 10, "Cool Blue"]
 
     const [LightColor, setLightColor] = useState("#7FC9FF");
     const handleLightColorChange = (event) => {
@@ -927,8 +925,8 @@ function CreateMart() {
 
     };
 
-    const emailClasses = `${signValidity.email ? "text-small input-number" : "invalid-form-2 z"}`;
-    const martNameClasses = `${signValidity.name ? "text-small input-number" : "invalid-form-2 z"}`;
+        const emailClasses = `${signValidity.email ? "text-small input-number" : "invalid-form-2 z"}`;
+        const martNameClasses = `${signValidity.name ? "text-small input-number" : "invalid-form-2 z"}`;
     const passClasses = `${signValidity.pass ? "text-small input-number" : "invalid-form-2 z"}`;
     const repeatClasses = `${signValidity.repeat ? "text-small input-number" : "invalid-form-2 z"}`;
 

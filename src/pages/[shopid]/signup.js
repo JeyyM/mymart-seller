@@ -500,7 +500,6 @@ function SignUp(martID) {
                 setbdayValid(false)
             }
         }
-
         if (bdayValid === false) {
             if (isNaN(bday.$D)) {
                 setbdayValid(false)

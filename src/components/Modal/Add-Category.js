@@ -90,7 +90,7 @@ function AddCategory(props) {
   }
 
   function startsImgur(word) {
-    return word.slice(0, 20) === "https://i.imgur.com/";
+    return word.startsWith("https://i.imgur.com/") || word.startsWith("https://picsum.photos/");
   }
 
   const [loading, setLoading] = useState(false)

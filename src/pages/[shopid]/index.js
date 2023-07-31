@@ -92,6 +92,7 @@ function HomePage({ shopID, screenWidth }) {
     <Head>
       <title>{shopID.name}</title>
       <link rel="icon" type="image/jpeg" href={favicon} />
+      <meta name="description" content={shopID.description} />
 
     </Head>
     <div className="homepage-container">
@@ -171,7 +172,7 @@ function HomePage({ shopID, screenWidth }) {
         }, []);
 
 
-
+{/* 
         return (
           <>
             <Link
@@ -219,7 +220,7 @@ function HomePage({ shopID, screenWidth }) {
               })}
             </Slider>
           </>
-        );
+        ); */}
       })}
 </div>
   </Fragment>

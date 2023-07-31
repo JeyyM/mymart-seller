@@ -118,6 +118,8 @@ function CategoryPage({ shopID, screenWidth }) {
         <Head>
           <title>Categories</title>
           <link rel="icon" type="image/jpeg" href={favicon} />
+          <meta name="description" content={shopID.description} />
+
         </Head>
         <heading className="page-heading" style={{ width: "min-content" }}>
           <div className="heading-icon-dropshadow">

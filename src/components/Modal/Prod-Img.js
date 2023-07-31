@@ -53,10 +53,8 @@ function ProdImg(props) {
     }
 
     function startsImgur(word) {
-        if (word) {
-            return word.slice(0, 20) === "https://i.imgur.com/";
-        }
-    }
+        return word.startsWith("https://i.imgur.com/") || word.startsWith("https://picsum.photos/");
+      }
 
     const handleClick = async (event) => {
         await handleSubmit(event);

@@ -113,6 +113,7 @@ function ProductsPage({ shopID, screenWidth }) {
       <Head>
         <title>{queryCategoryName}</title>
         <link rel="icon" type="image/jpeg" href={favicon} />
+        <meta name="description" content={chosenCategory.categoryDescription} />
       </Head>
 
       <heading className="page-heading">
