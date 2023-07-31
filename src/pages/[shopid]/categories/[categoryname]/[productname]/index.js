@@ -198,7 +198,7 @@ function ProductPage({ shopID, screenWidth }) {
   }
 
   function startsImgur(word) {
-    if (word) { return word.slice(0, 20) === "https://i.imgur.com/"; }
+    if (word) { return word.startsWith("https://i.imgur.com/") || word.startsWith("https://picsum.photos/"); }
   }
 
   const [imgSet, setImgSet] = useState([imgValue1, imgValue2, imgValue3, imgValue4])

@@ -8,7 +8,6 @@ import sha256 from 'crypto-js/sha256';
 import { MongoClient } from "mongodb"
 
 function SignUp(props) {
-    console.log(props.shopCollection)
     const router = useRouter()
 
     const [currentStep, setCurrentStep] = useState(1);
@@ -19,8 +18,6 @@ function SignUp(props) {
         id: item._id
       }));
   
-    console.log(emailList)
-
     const [loading, setLoading] = useState(false)
     const [completion, setCompletion] = useState(false)
 
