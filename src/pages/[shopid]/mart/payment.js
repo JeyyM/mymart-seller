@@ -421,7 +421,7 @@ function Payment(martID) {
 
             {screenWidth > 700 && <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
                 <button className="product-action-2 heading-secondary" onClick={submitChanges} disabled={loading} style={{ width: "25rem" }}>{loading ? <div className="spinner"></div> : (completion ? checkmark : "Submit Changes")}</button>
-                <button className="product-action-3 heading-secondary white" onClick={resetChanges} disabled={loading} style={{ width: "25rem" }}>Reset to Default</button>
+                <button className="product-action-3 heading-secondary white" onClick={resetChanges} disabled={loading} style={{ width: "25rem" }}>Reset</button>
             </div>}
             {screenWidth <= 700 && <div className="payment-column-2">
             <div className="pay-segment-2 round-borderer round-borderer-extra">

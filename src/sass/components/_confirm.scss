@@ -1,18 +1,34 @@
+// .confirm-modal {
+//     width: clamp(40%, 100%, 40%);
+//     height: auto;
+//     min-height: 50%;
+//     max-height: 75%;
+//     margin: auto;
+//     padding: 2rem;
+//     border-radius: 12px;
+//     display: flex;
+//     flex-direction: column;
+//     @include border-round;
+//     box-shadow: inset 0 0 0 2rem $theme-bg,
+//     0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+//     transition: all 0.2s;
+//   }
+
 .confirm-modal {
-    width: clamp(40%, 100%, 40%);
-    height: auto;
-    min-height: 50%;
-    max-height: 75%;
-    margin: auto;
-    padding: 2rem;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    @include border-round;
-    box-shadow: inset 0 0 0 2rem $theme-bg,
-    0 0 0 2px $color-primary-dark, 0 0 0 4px white;
-    transition: all 0.2s;
-  }
+  width: clamp(40%, 700px, 90%);
+  height: auto;
+  // min-height: 50%;
+  max-height: 75%;
+  margin: auto;
+  padding: 2rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  @include border-round;
+  box-shadow: inset 0 0 0 2rem $theme-bg,
+  0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+  transition: all 0.2s;
+}
 
   .confirm-contents {
     display: flex;

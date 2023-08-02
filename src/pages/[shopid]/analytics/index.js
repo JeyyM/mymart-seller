@@ -29,6 +29,16 @@ function Analytics(martID) {
   const shopViews = martID.shopID.shopData.shopViews
   const currentTime = new Date();
 
+  function nameSetup(name, maxLength) {
+    if (name.length <= maxLength) {
+      return name;
+    } else {
+      const firstPart = name.substring(0, 9);
+      const lastPart = name.substring(name.length - 3);
+      return `${firstPart}...${lastPart}`;
+    }
+  }
+
   const filteredOrders = martID.shopID.shopData.shopSales.finishedOrders.filter((order) => order.status === 'finished');
 
   const [selectedUser, setSelectedUser] = useState(null);
@@ -373,8 +383,8 @@ handleSetUser(data)
                 return (
                   <div className="flex-row" key={index}>
                     <Link href={`/${item.url}`} className="heading-tertiary" style={{ textDecoration: 'none' }}>
-                      {position}. {item.name.length > 15 ? item.name.substring(0, 12) + '...' : item.name} -{' '}
-                      {item.category.length > 15 ? item.category.substring(0, 12) + '...' : item.category}
+                      {position}. {nameSetup(item.name, 10)} -{' '}
+                      {nameSetup(item.category, 10)}
                     </Link>
                     <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>{item.orders} order/s</h3>
                   </div>
@@ -396,8 +406,8 @@ handleSetUser(data)
                 return (
                   <div className="flex-row" key={index}>
                     <Link href={`/${item.url}`} className="heading-tertiary" style={{ textDecoration: 'none' }}>
-                      {position}. {item.name.length > 15 ? item.name.substring(0, 12) + '...' : item.name} -{' '}
-                      {item.category.length > 15 ? item.category.substring(0, 12) + '...' : item.category}
+                      {position}. {nameSetup(item.name, 10)} -{' '}
+                      {nameSetup(item.category, 10)}
                     </Link>
                     <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>Profit: {shopCurrency} {item.profit}</h3>
                   </div>
@@ -428,8 +438,8 @@ handleSetUser(data)
                 return (
                   <div className="flex-row" key={index}>
                     <Link href={`/${item.url}`} className="heading-tertiary" style={{ textDecoration: 'none' }}>
-                      {position}. {item.name.length > 15 ? item.name.substring(0, 12) + '...' : item.name} -{' '}
-                      {item.category.length > 15 ? item.category.substring(0, 12) + '...' : item.category}
+                      {position}. {nameSetup(item.name, 10)} -{' '}
+                      {nameSetup(item.category, 10)}
                     </Link>
                     <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>{item.orders} order/s</h3>
                   </div>
@@ -451,8 +461,8 @@ handleSetUser(data)
                 return (
                   <div className="flex-row" key={index}>
                     <Link href={`/${item.url}`} className="heading-tertiary" style={{ textDecoration: 'none' }}>
-                      {position}. {item.name.length > 15 ? item.name.substring(0, 12) + '...' : item.name} -{' '}
-                      {item.category.length > 15 ? item.category.substring(0, 12) + '...' : item.category}
+                      {position}. {nameSetup(item.name, 10)} -{' '}
+                      {nameSetup(item.category, 10)}
                     </Link>
                     <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>Profit: {shopCurrency} {item.profit}</h3>
                   </div>

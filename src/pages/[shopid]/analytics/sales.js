@@ -35,6 +35,16 @@ function Sales(martID) {
   const currentTime = new Date();
   const filteredOrders = martID.shopID.shopData.shopSales.finishedOrders.filter((order) => order.status === 'finished');
 
+  function nameSetup(name, maxLength) {
+    if (name.length <= maxLength) {
+      return name;
+    } else {
+      const firstPart = name.substring(0, 9);
+      const lastPart = name.substring(name.length - 5);
+      return `${firstPart}...${lastPart}`;
+    }
+  }
+
   function formatDateTime(dateTimeString) {
     const dateTime = new Date(dateTimeString);
 
@@ -455,8 +465,8 @@ function Sales(martID) {
                 return (
                   <div className="flex-row" key={index}>
                     <Link href={`/${item.url}`} className="heading-tertiary" style={{ textDecoration: 'none' }}>
-                      {position}. {item.name.length > 30 ? item.name.substring(0, 27) + '...' : item.name} -{' '}
-                      {item.category.length > 30 ? item.category.substring(0, 27) + '...' : item.category}
+                      {position}. {nameSetup(item.name, 15)} -{' '}
+                      {nameSetup(item.category)}
                     </Link>
                     <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>{item.orders} order/s</h3>
                   </div>
@@ -478,8 +488,8 @@ function Sales(martID) {
                 return (
                   <div className="flex-row" key={index}>
                     <Link href={`/${item.url}`} className="heading-tertiary" style={{ textDecoration: 'none' }}>
-                      {position}. {item.name.length > 30 ? item.name.substring(0, 27) + '...' : item.name} -{' '}
-                      {item.category.length > 30 ? item.category.substring(0, 27) + '...' : item.category}
+                      {position}. {nameSetup(item.name)} - {' '}
+                      {nameSetup(item.category)}
                     </Link>
                     <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>Profit: {shopCurrency} {item.profit}</h3>
                   </div>

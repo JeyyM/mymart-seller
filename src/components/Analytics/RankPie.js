@@ -3,8 +3,18 @@ import { Pie } from 'react-chartjs-2';
 import 'chartjs-plugin-datalabels';
 
 function RankPie({ data, colors, chosen, select }) {
+  function nameSetup(name, maxLength) {
+    if (name.length <= maxLength) {
+      return name;
+    } else {
+      const firstPart = name.substring(0, 9);
+      const lastPart = name.substring(name.length - 5);
+      return `${firstPart}...${lastPart}`;
+    }
+  }
+
     const chartData1 = {
-    labels: data.map(category => category.name.substring(0, 10)),
+    labels: data.map(category => nameSetup(category.name, 15)),
     datasets: [
       {
         data: data.map(category => category.profitTotal),
@@ -14,7 +24,7 @@ function RankPie({ data, colors, chosen, select }) {
   };
 
   const chartData2 = {
-    labels: data.map(category => category.name.substring(0, 10)),
+    labels: data.map(category => nameSetup(category.name, 15)),
     datasets: [
       {
         data: data.map(category => category.orderTotal),
@@ -24,7 +34,7 @@ function RankPie({ data, colors, chosen, select }) {
   };
 
   const chartData3 = {
-    labels: data.map(category => category.name.substring(0, 10)),
+    labels: data.map(category => nameSetup(category.name, 15)),
     datasets: [
       {
         data: data.map(category => category.performanceTotal),

@@ -587,7 +587,7 @@ const csvData = shopAccounts.map((item) => {
                       {position}. {item.profile.last}, {item.profile.first} -{' '}
                       {item.profile.company}
                     </h2>
-                    <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>Profit: {shopCurrency} {item.totalProfit}</h3>
+                    <h3 className='heading-tertiary' style={{fontWeight:"900", marginLeft:"auto"}}>Profit: {shopCurrency}{item.totalProfit}</h3>
                   </div>
                 );
               }) : Rank2 === 1 && userSortCount.slice(startIndex1, startIndex1 + 9).map((item, index) => {

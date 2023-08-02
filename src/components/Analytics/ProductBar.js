@@ -5,6 +5,16 @@ import seedrandom from 'seedrandom';
 function ProductBarChart({ data, chosen, sort }) {
   let sortedData = [...data];
 
+  function nameSetup(name, maxLength) {
+    if (name.length <= maxLength) {
+      return name;
+    } else {
+      const firstPart = name.substring(0, 9);
+      const lastPart = name.substring(name.length - 5);
+      return `${firstPart}...${lastPart}`;
+    }
+  }
+
   if (sort === 2) {
     sortedData.sort((a, b) => a.profit - b.profit);
   } else if (sort === 3) {
@@ -38,7 +48,7 @@ function ProductBarChart({ data, chosen, sort }) {
   const productColors2 = productColorsFn()
 
   const chartData1 = {
-    labels: sortedData.map((product) => product.name),
+    labels: sortedData.map((product) => nameSetup(product.name, 15)),
     datasets: [
       {
         label: `Profit${sort === 1 ? "" : sort === 2 ? " (Ascending)" : " (Descending)"}`,
@@ -49,7 +59,7 @@ function ProductBarChart({ data, chosen, sort }) {
   };
 
   const chartData2 = {
-    labels: sortedData2.map((product) => product.name),
+    labels: sortedData2.map((product) => nameSetup(product.name, 15)),
     datasets: [
       {
         label: `Orders${sort === 1 ? "" : sort === 2 ? " (Ascending)" : " (Descending)"}`,
