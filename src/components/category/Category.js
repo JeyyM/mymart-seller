@@ -58,11 +58,11 @@ function Category(props) {
         </div>
         <div className="category-content">
           <div>
-            <h2 className="heading-secondary category-name">
-              {categoryName.length > 40 ? categoryName.substring(0, 37) + "..." : categoryName}
+            <h2 className="heading-secondary category-name clamp-1">
+              {categoryName}
             </h2>
-            <h3 className="heading-tertiary">
-              {categoryDescription.length > 150 ? categoryDescription.substring(0, 147) + "..." : categoryDescription}
+            <h3 className="heading-tertiary clamp-5">
+              {categoryDescription}
             </h3>
           </div>
         </div>

@@ -214,8 +214,8 @@ const updateCartInput = (index, amount, select) => {
                   <div className="cart-row" key={index}>
                     <img className="cart-img round-borderer" src={item.image}></img>
                     <div className="flex-col-2" style={{ width: "auto" }}>
-                      <a href={`/${item.url}`} className={`${screenWidth > 500 ? "heading-secondary" : "heading-tertiary font-boost"}`} style={{ whiteSpace: "pre-wrap", display: "inline", textDecoration: "none", fontWeight:"900" }}>{item.name.length > 25 ? item.name.substring(0, 22) + "..." : item.name}</a>
-                      <h3 className="heading-tertiary" style={{ display: "inline" }}>{item.description.length > 30 ? item.description.substring(0, 27) + "..." : item.category}</h3>
+                      <a href={`/${item.url}`} className={`${screenWidth > 500 ? "heading-secondary" : "heading-tertiary font-boost"} clamp-1`} style={{ whiteSpace: "pre-wrap", textDecoration: "none", fontWeight:"900" }}>{item.name}</a>
+                      <h3 className="heading-tertiary clamp-1" style={{ display: "inline", marginTop:"1rem" }}>{item.category}</h3>
                     </div>
 
                     <div className="cart-pay">

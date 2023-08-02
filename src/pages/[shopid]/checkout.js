@@ -457,21 +457,21 @@ export default function Checkout({ shopID, user, screenWidth }) {
 
         <FinishCheckout modalStatus={finishModal} disable={toHome} toHome={toHome}name={shopName}></FinishCheckout>
 
-        <heading className="page-heading" style={{ marginLeft: "1rem" }}>
+        <header className="page-heading" style={{ marginLeft: "1rem" }}>
             <div className="heading-icon-dropshadow">
                 <div className="menu-checkout svg-color">&nbsp;</div>
             </div>
             <h1 className="heading-primary no-margin">
                 Checkout&nbsp;
             </h1>
-        </heading>
+        </header>
 
         <div className="checkout-container">
             {screenWidth > 800 && <div className="checkout-column">
-                <heading className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
+                <header className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
                     <div className="heading-icon-credit svg-color">&nbsp;</div>
                     <h1 className="heading-secondary no-margin">Credit Card Details</h1>
-                </heading>
+                </header>
 
                 <div className="form-group">
                     <input
@@ -532,10 +532,10 @@ export default function Checkout({ shopID, user, screenWidth }) {
                     <label className="form-label">Checkout Message (optional)</label>
                 </div>
 
-                <heading className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
+                <header className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
                     <div className="heading-icon-pin svg-color">&nbsp;</div>
                     <h1 className="heading-secondary no-margin">&nbsp;Delivery Location Details</h1>
-                </heading>
+                </header>
                 <h2 className="heading-tertiary">{locationName}</h2>
 
                 <div>
@@ -559,10 +559,10 @@ export default function Checkout({ shopID, user, screenWidth }) {
 
             <div className="checkout-column-2" style={{ padding: "0", gap: "0", position: "relative" }}>
 
-                <heading className="page-heading dark-underline">
+                <header className="page-heading dark-underline">
                     <div className="heading-icon-receipt svg-color" style={{ margin: "1rem" }}>&nbsp;</div>
                     <h1 className="heading-secondary no-margin">Order Details</h1>
-                </heading>
+                </header>
 
                 {parsedData.map((item, index) => (
                     <div className="dark-underline">
@@ -574,13 +574,14 @@ export default function Checkout({ shopID, user, screenWidth }) {
                         </div>
                         <img className="checkout-img round-borderer" src={item.image}></img>
                         <div className="flex-col-2" style={{ width: "auto" }}>
-                            <a href={`/${item.url}`} className="heading-secondary" style={{ whiteSpace: "pre-wrap", display: "inline", textDecoration: "none" }}>{item.name}</a>
-                            <a href={`/${router.query.shopid}/categories/${encodeURIComponent(item.category)}`} className="heading-tertiary" style={{ whiteSpace: "pre-wrap", display: "inline", textDecoration: "none" }}>{item.category}</a>
+                            <a href={`/${item.url}`} className="heading-secondary clamp-1" style={{ whiteSpace: "pre-wrap", textDecoration: "none" }}>{item.name}</a>
+                            <a href={`/${router.query.shopid}/categories/${encodeURIComponent(item.category)}`} className="heading-tertiary clamp-1" style={{ whiteSpace: "pre-wrap", textDecoration: "none", marginTop:"1rem" }}>{item.category}</a>
                         </div>
 
                         {screenWidth > 500 && <div className="cart-pay">
-                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Price: {currency} {item.price} / {item.unit}</h2>
-                            <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900" }}>Total: {currency} {item.price * item.cartValue}</h2>
+                        <h2 className="heading-tertiary">Price:</h2>
+                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" , width:"max-content"}}>{currency} {item.price} / {item.unit}</h2>
+                            <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", width:"max-content" }}>Total: {currency} {item.price * item.cartValue}</h2>
                         </div>}
                     </div>
 
@@ -596,10 +597,10 @@ export default function Checkout({ shopID, user, screenWidth }) {
                 <div className="checkout-fees dark-underline">
                     <div className="flex-col-none">
 
-                        <heading className="page-heading">
+                        <header className="page-heading">
                             <div className="heading-icon-shipping svg-color" style={{ margin: "0" }}>&nbsp;</div>
                             <h1 className="heading-secondary no-margin">&nbsp; Order Mode</h1>
-                        </heading>
+                        </header>
                         <h3 className="heading-tertiary" style={{ marginTop: "1rem" }}>{checkoutData.message}</h3>
 
                         <div className="flex-row" style={{ marginTop: "2rem", justifyContent: "space-around" }}>
@@ -611,7 +612,7 @@ export default function Checkout({ shopID, user, screenWidth }) {
                     <div className="checkout-pay">
                         {Mode === "delivery" && <>
                         <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", margin:"0" }}>Total: {currency} {total}</h2>
-                            <h2 className="heading-secondary" style={{ marginBottom: "1rem" }}>Delivery Fees:</h2>
+                            <h2 className="heading-secondary" style={{ marginBottom: "1rem", textAlign:"right" }}>Delivery Fees:</h2>
                             {fees.DelFee.length === 0 && <div>
                                 <h2 className="heading-tertiary checkout-total">There are no delivery fees</h2>
                             </div>}
@@ -629,7 +630,7 @@ export default function Checkout({ shopID, user, screenWidth }) {
 
                         {Mode === "pickup" && <>
                         <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", margin:"0" }}>Total: {currency} {total}</h2>
-                            <h2 className="heading-secondary" style={{ marginBottom: "1rem" }}>Pick-Up Fees:</h2>
+                            <h2 className="heading-secondary" style={{ marginBottom: "1rem", textAlign:"right" }}>Pick-Up Fees:</h2>
                             {fees.PickFee.length === 0 && <div>
                                 <h2 className="heading-tertiary checkout-total">There are no pick-up fees</h2>
                             </div>}
@@ -677,10 +678,10 @@ export default function Checkout({ shopID, user, screenWidth }) {
             </div>
 
             {screenWidth <= 800 && <div className="checkout-column">
-                <heading className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
+                <header className="page-heading flex-row-align" style={{ marginBottom: "1rem" }}>
                     <div className="heading-icon-credit svg-color">&nbsp;</div>
                     <h1 className="heading-secondary no-margin">Credit Card Details</h1>
-                </heading>
+                </header>
 
                 <div className="flex-row">
                 <div className="form-group margin-side">
@@ -780,10 +781,10 @@ export default function Checkout({ shopID, user, screenWidth }) {
 </div>}
 
                 <div>
-                <heading className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
+                <header className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
                     <div className="heading-icon-pin svg-color">&nbsp;</div>
                     <h1 className="heading-secondary no-margin">&nbsp;Delivery Location Details</h1>
-                </heading>
+                </header>
                 <h2 className="heading-tertiary">{locationName}</h2>
 
                 <div>
@@ -827,10 +828,10 @@ export default function Checkout({ shopID, user, screenWidth }) {
 
                     {screenWidth <= 450 && <h3 className="heading-tertiary">{checkoutData.message}</h3>}
 
-                        <heading className="page-heading">
+                        <header className="page-heading">
                             <div className="heading-icon-shipping svg-color" style={{ margin: "0" }}>&nbsp;</div>
                             <h1 className="heading-secondary no-margin">&nbsp; Order Mode</h1>
-                        </heading>
+                        </header>
                         {screenWidth > 450 && <h3 className="heading-tertiary" style={{ marginTop: "1rem" }}>{checkoutData.message}</h3>}
 
                         <div className="flex-row" style={{ marginTop: `${screenWidth > 450 ? "2rem" : "0rem"}`, justifyContent: "space-around" }}>

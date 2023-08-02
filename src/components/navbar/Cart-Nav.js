@@ -100,7 +100,7 @@ function CartNav(props) {
       <h3 className="heading-secondary">{isVisible ? total : "-"}</h3>
       <div style={{ transform: "translateY(-1rem)" }}>
         {props.svg}
-        <h3 className="heading-tertiary">{props.label}</h3>
+        <h3 className="heading-tertiary" style={{transform:"translateY(-0.8rem)"}}>{props.label}</h3>
       </div>
     </button>
     </>

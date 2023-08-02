@@ -16,6 +16,14 @@ import sha256 from 'crypto-js/sha256';
 const libraries = ['places'];
 
 function SignUp(martID) {
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+          alert(
+            `Although you can't make new marts, you may still create accounts. You may use the sample accounts a@a.com b@b.com... up to e@e.com. All of which have the password "123". All of them have the cvv number 000.`
+          );
+        }
+      }, []);
+
     const router = useRouter()
     const id = martID.shopID._id
     const localStorageKey = `mart_${martID.shopID._id}`;
@@ -748,10 +756,10 @@ function SignUp(martID) {
                         transition={{ duration: 0.2 }}
                     >
                     <div className="sign-step">
-                            <heading className="page-heading" style={{ width: "100%" }}>
+                            <header className="page-heading" style={{ width: "100%" }}>
                                 <div className="heading-icon-profile svg-color">&nbsp;</div>
                                 <h1 className="heading-secondary no-margin">&nbsp;Register Details</h1>
-                            </heading>
+                            </header>
                             <div className="flex-row">
                                 <div className="form-group" style={{ marginTop: "1rem" }}>
                                     <input
@@ -890,10 +898,10 @@ function SignUp(martID) {
                         transition={{ duration: 0.2 }}
                     > <div>
                             <div>
-                                <heading className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
+                                <header className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
                                     <div className="heading-icon-pin svg-color">&nbsp;</div>
                                     <h1 className="heading-secondary no-margin">&nbsp;Delivery Location Details</h1>
-                                </heading>
+                                </header>
                                 <h2 className="heading-tertiary">{locationName}</h2>
                             </div>
 
@@ -939,10 +947,10 @@ function SignUp(martID) {
                         transition={{ duration: 0.2 }}
                     >
                      <div className="sign-step">
-                            <heading className="page-heading" style={{ width: "100%" }}>
+                            <header className="page-heading" style={{ width: "100%" }}>
                                 <div className="heading-icon-credit svg-color">&nbsp;</div>
                                 <h1 className="heading-secondary no-margin">&nbsp;Credit Card Details</h1>
-                            </heading>
+                            </header>
                             <div className="form-group" style={{ marginTop: "1rem", width: "100%" }}>
                                 <input
                                     type="text"

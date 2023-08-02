@@ -123,7 +123,7 @@ body{background-color: ${props.color["bg-body"]} !important;}
 
 .maincontainer, .category-container, .setting-grid {filter: drop-shadow(-4px 4px 0px ${props.color["color-primary-dark"]}) !important;}
 
-.heading-primary {font-family: ${props.color["text-primary-font"]} !important;
+.heading-primary, .heading-primary-2 {font-family: ${props.color["text-primary-font"]} !important;
     color: ${props.color["text-primary-color"]} !important;}
 
 .heading-primary-notif {font-family: ${props.color["text-primary-font"]} !important;}

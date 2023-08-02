@@ -121,12 +121,12 @@ function CategoryPage({ shopID, screenWidth }) {
           <meta name="description" content={shopID.description} />
 
         </Head>
-        <heading className="page-heading" style={{ width: "min-content" }}>
+        <header className="page-heading" style={{ width: "min-content" }}>
           <div className="heading-icon-dropshadow">
             <div className="heading-icon-category svg-color">&nbsp;</div>
           </div>
           <h1 className="heading-primary no-margin">Categories</h1>
-        </heading>
+        </header>
 
 
         <Slider {...sliderSettings}>
@@ -172,12 +172,12 @@ function CategoryPage({ shopID, screenWidth }) {
         <title>Categories</title>
         <link rel="icon" type="image/jpeg" href={favicon} />
       </Head>
-      <heading className="page-heading">
+      <header className="page-heading">
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-category svg-color">&nbsp;</div>
         </div>
         <h1 className="heading-primary no-margin">Categories</h1>
-      </heading>
+      </header>
       <div className="empty-contents">
         <div className="empty-logo svg-color">&nbsp;</div>
         <h2 className="empty-text">There seems to be no categories yet</h2>

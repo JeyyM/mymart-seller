@@ -106,8 +106,6 @@ function ShopInformation(props) {
     const takebacks = paymentDetails.Takebacks
     const checkoutData = paymentDetails.checkoutInfo
 
-    console.log(props.user)
-
     return (
       <Fragment>
         <AnimatePresence

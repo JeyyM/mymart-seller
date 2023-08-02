@@ -32,6 +32,10 @@
     @include heading-logo(phone, 3rem, 3rem);
   }
 
+  .text-sec-alarm {
+    @include heading-logo(alarm, 3rem, 3rem);
+  }
+
   .text-sec-mail {
     @include heading-logo(mail, 3rem, 3rem);
   }
@@ -118,6 +122,7 @@
   .order-img{
     width: 8rem;
     height: 8rem;
+    object-fit: cover;
   }
 
   .edit-order-modal {

@@ -1,6 +1,4 @@
 import { Fragment, useState, useEffect, useMemo } from "react"
-import HomepageButton from "../../components/homepage/Homepage-Button"
-import HomepageButtonBlank from "@/components/homepage/Homepage-Button-Blank"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import Head from "next/head"
@@ -172,7 +170,7 @@ function HomePage({ shopID, screenWidth }) {
         }, []);
 
 
-{/* 
+
         return (
           <>
             <Link
@@ -220,7 +218,7 @@ function HomePage({ shopID, screenWidth }) {
               })}
             </Slider>
           </>
-        ); */}
+        );
       })}
 </div>
   </Fragment>

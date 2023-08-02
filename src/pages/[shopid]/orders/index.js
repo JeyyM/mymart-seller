@@ -191,7 +191,7 @@ function MyOrders({ shopID, user, currency, screenWidth }) {
           <ShopInformation modalStatus={Info} disable={handleInfo} user={user} currency={shopCurrency} martCoords={coords} details={footerData} payment={paymentDetails} screenWidth={screenWidth}></ShopInformation>
 
           <div className="past-container">
-            <heading className="page-heading">
+            <header className="page-heading">
               <div className="heading-icon-dropshadow">
                 <div className="heading-icon-receipt svg-color">&nbsp;</div>
               </div>
@@ -199,7 +199,7 @@ function MyOrders({ shopID, user, currency, screenWidth }) {
               <button className="help-button" onClick={handleInfo}>
                 <div className="heading-icon-question svg-color">&nbsp;</div>
               </button>
-            </heading>
+            </header>
 
             <Slider {...sliderSettings}>
               {slideIndexes.map((slideIndex) => {
@@ -249,12 +249,12 @@ function MyOrders({ shopID, user, currency, screenWidth }) {
               })}
             </Slider>
 
-            <heading className="page-heading">
+            <header className="page-heading">
               <div className="heading-icon-dropshadow">
                 <div className="heading-icon-ongoing svg-color">&nbsp;</div>
               </div>
               <h1 className="heading-primary no-margin">Past Orders</h1>
-            </heading>
+            </header>
 
             <Slider {...sliderSettings}>
               {slideIndexes2.map((slideIndex) => {
@@ -293,7 +293,7 @@ function MyOrders({ shopID, user, currency, screenWidth }) {
           </Head>
           <ShopInformation modalStatus={Info} disable={handleInfo} user={user} currency={shopCurrency} martCoords={coords} details={footerData} payment={paymentDetails} screenWidth={screenWidth}></ShopInformation>
 
-          <heading className="page-heading">
+          <header className="page-heading">
             <div className="heading-icon-dropshadow">
               <div className="heading-icon-category svg-color">&nbsp;</div>
             </div>
@@ -301,7 +301,7 @@ function MyOrders({ shopID, user, currency, screenWidth }) {
             <button className="help-button" onClick={handleInfo}>
                 <div className="heading-icon-question svg-color">&nbsp;</div>
               </button>
-          </heading>
+          </header>
           <div className="empty-contents">
             <div className="empty-receipt svg-color">&nbsp;</div>
             <h2 className="empty-text">There seems to be no orders yet</h2>

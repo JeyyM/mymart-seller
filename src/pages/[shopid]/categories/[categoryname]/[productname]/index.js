@@ -450,7 +450,7 @@ function ProductPage({ shopID, user, screenWidth }) {
       <div className="details-section">
         <form>
           <div>
-            <heading className="heading-primary" style={{ whiteSpace: "pre-wrap" }}>{nameValue}</heading>
+            <header className="heading-primary" style={{ whiteSpace: "pre-wrap" }}>{nameValue}</header>
             <h1 className="heading-secondary product-currency" style={{marginTop:"1rem"}}>{shopCurrency} {priceValue} / {stockUnit}</h1>
           </div>
 
@@ -490,8 +490,8 @@ function ProductPage({ shopID, user, screenWidth }) {
         </form>
 
         <div className="product-action-buttons">
-          <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{width:"24rem"}} onClick={submitCart}><div className="menu-cart-add svg-outline-button">&nbsp;</div><h2 className="heading-secondary outline-button">Add to Cart</h2></button>
-          <Link href={`/${shopID._id}/checkout`} className="product-action-2 heading-secondary flex-row-align" style={{width:"24rem", textDecoration:"none"}}><div className="menu-checkout svg-solid-button">&nbsp;</div><h2 className="heading-secondary solid-button">To Checkout</h2></Link>
+          <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{width:"max-content"}} onClick={submitCart}><div className="menu-cart-add svg-outline-button">&nbsp;</div><h2 className="heading-secondary outline-button">Add to Cart</h2></button>
+          <Link href={`/${shopID._id}/checkout`} className="product-action-2 heading-secondary flex-row-align" style={{width:"max-content", textDecoration:"none"}}><div className="menu-checkout svg-solid-button">&nbsp;</div><h2 className="heading-secondary solid-button" style={{textAlign:"center"}}>To Checkout</h2></Link>
         </div>
       </div>
     </div>

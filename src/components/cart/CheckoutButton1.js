@@ -10,7 +10,7 @@ function CheckoutButton1(props){
       router.push(`/${props.route}/checkout`);
     };
 
-return <button onClick={handleClick} className="product-action-2 heading-secondary flex-row-align" type="button" style={{width:"24rem", margin:"0", textDecoration:"none"}}>
+return <button onClick={handleClick} className="product-action-2 heading-secondary flex-row-align" type="button" style={{width:"max-content", margin:"0", textDecoration:"none"}}>
 <div className="menu-checkout svg-solid-button">&nbsp;</div><h2 className="heading-secondary solid-button">To Checkout</h2>
 </button>
 

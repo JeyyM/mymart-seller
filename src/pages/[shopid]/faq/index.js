@@ -78,14 +78,14 @@ function FaQ(martID) {
         </Head>
         <NewFaq modalStatus={newItem} disable={handleNewItem} submit={finishSubmit}></NewFaq>
 
-        <heading className="page-heading">
+        <header className="page-heading">
             <div className="heading-icon-dropshadow">
                 <div className="heading-icon-quiz svg-color">&nbsp;</div>
             </div>
             <h1 className="heading-primary no-margin" style={{fontSize: `${screenWidth > 550 ? "3.5rem" : screenWidth > 500 ? "3rem" : "2.5rem"}`}}>&nbsp;Frequently Asked Questions&nbsp;</h1>
             <button className="heading-tertiary add-categ-init" style={{ width: `${screenWidth > 600 ? "max-content" : screenWidth > 400 ? "20rem" : "18rem"}`, height: `${screenWidth > 600 ? "4rem" : "7rem"}` }} onClick={handleNewItem}>
                 &nbsp; Request New Question &nbsp;</button>
-        </heading>
+        </header>
 
         {answers.length > 0 ? <div className="faq-container">
             <AnimatePresence>

@@ -213,6 +213,7 @@ function OrderDetails(props) {
                                 value={order.message.length === 0 ? "No message" : order.message}
                                 className={"desc-text-area"}
                                 placeholder="Description"
+                                style={{minHeight:"9rem"}}
                             ></textarea>
 
                             {order.status !== "ongoing" && <>
@@ -222,6 +223,7 @@ function OrderDetails(props) {
                                     value={order.ownerMessage.length === 0 ? "No message" : order.ownerMessage}
                                     className={"desc-text-area"}
                                     placeholder="Description"
+                                    style={{minHeight:"9rem"}}
                                 ></textarea>
                             </>}
 
@@ -236,22 +238,26 @@ function OrderDetails(props) {
                                         <div className="flex-col">
 
                                             <div className="flex-row">
-                                                <Link style={{ marginRight: "auto", textDecoration: "none" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor">&nbsp;{item.name} - {item.category}&nbsp;</Link>
+                                                <Link style={{ marginRight: "auto", textDecoration: "none" }} href={`/${item.url}`} className="heading-secondary whiteSpace noDecor clamp-1">{item.name}</Link>
+                                            </div>
+                                            
+                                            <div className="flex-row">
+                                                <Link style={{ margin:"1rem 0rem", marginRight: "auto", textDecoration: "none", fontWeight:"900" }} href={`/${router.query.shopid}/categories/${encodeURIComponent(item.category)}`} className="heading-tertiary whiteSpace noDecor clamp-1">{item.category}</Link>
                                             </div>
 
                                             <div className="flex-row-align" style={{ justifyContent: "space-between" }}>
-                                                <h2 className="heading-tertiary">&nbsp;Current Stock: {typeof foundProduct !== "object" ? foundProduct : foundProduct.productStock.stockAmount}</h2>
+                                                <h2 className="heading-tertiary" style={{marginLeft:"0.5rem"}}>Current Stock: {typeof foundProduct !== "object" ? foundProduct : foundProduct.productStock.stockAmount}</h2>
 
                                                 <div className="flex-row">
-                                                    <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Cart Amount: {item.cartValue} {item.unit}/s</h2>
+                                                    <h2 className="heading-tertiary" style={{ fontWeight: "900", textAlign:"right" }}>Cart: {item.cartValue} {item.unit}/s</h2>
                                                 </div>
                                             </div>
 
                                             <div className="flex-row-align" style={{ justifyContent: "space-between" }}>
-                                                <h2 className="heading-tertiary">&nbsp;Price: {typeof foundProduct !== "object" ? foundProduct : `${currency} ${foundProduct.productPrice} / ${foundProduct.productStock.stockUnit}`}</h2>
+                                                <h2 className="heading-tertiary" style={{marginLeft:"0.5rem"}}>Price: {typeof foundProduct !== "object" ? foundProduct : `${currency} ${foundProduct.productPrice} / ${foundProduct.productStock.stockUnit}`}</h2>
 
                                                 <div className="flex-row">
-                                                    <h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Total Cost: {currency} {item.cartValue * item.price}</h2>
+                                                    <h2 className="heading-tertiary" style={{ fontWeight: "900", textAlign:"right" }}>Total Cost: {currency}{item.cartValue * item.price}</h2>
                                                 </div>
                                             </div>
 

@@ -60,14 +60,10 @@ function OrderOngoing(props) {
       total += totalCost;
     });
 
-    return total;
+    return total + props.item.totals.fees;
   };
 
   const itemClasses = `${(props.item.status === "refused" || props.item.status === "cancelled") ? "category round-borderer-extra-red" : "category"}`;
-  console.log(props.item.finishedOn)
-  if (props.item.finishedOn === undefined) {
-    console.log("test")
-  }
 
   return (
     <>

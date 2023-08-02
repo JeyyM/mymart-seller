@@ -8,6 +8,14 @@ import { useRouter } from "next/router"
 import sha256 from 'crypto-js/sha256';
 
 function SignUp(martID) {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      alert(
+        `You may use the sample accounts a@a.com b@b.com... up to e@e.com. All of which have the password "123". All of them have the cvv number 000.`
+      );
+    }
+  }, []);
+
     const router = useRouter()
     const id = martID.shopID._id
     const localStorageKey = `mart_${martID.shopID._id}`;

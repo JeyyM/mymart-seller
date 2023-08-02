@@ -10,7 +10,7 @@ function CheckoutButton2(props){
       router.push(`/${props.route}/signup`);
     };
 
-    return <button onClick={handleClick} className="product-action-2 heading-secondary flex-row-align" style={{width:`${screenWidth > 400 ? "24rem" : screenWidth > 300 ? "20rem" : "16rem"}`, margin:"0", textDecoration:"none"}}>
+    return <button onClick={handleClick} className="product-action-2 heading-secondary flex-row-align" style={{width:`${screenWidth > 400 ? "max-content" : screenWidth > 300 ? "20rem" : "16rem"}`, margin:"0", textDecoration:"none"}}>
     <h2 className="heading-secondary solid-button" style={{margin:"0 auto"}}>Sign-Up</h2>
     <h2>{props.click}</h2>
     </button>
