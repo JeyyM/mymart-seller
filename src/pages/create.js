@@ -1587,15 +1587,13 @@ function CreateMart() {
                             exit: { scale: 0 },
                         }}
                         transition={{ duration: 0.2 }}
-                        style={{ width: "50vw", marginTop: "2rem" }}
-                    > <div>
-                            <div>
+                        style={{ width: "max-content", margin:"1rem", marginTop: "2rem" }}
+                    > <div style={{width:"100%"}}>
                                 <heading className="page-heading" style={{ width: "100%", marginBottom: "1rem" }}>
                                     <div className="heading-icon-pin svg-color">&nbsp;</div>
                                     <h1 className="heading-secondary no-margin">&nbsp;Mart Location</h1>
                                 </heading>
                                 <h2 className="heading-tertiary">{locationName}</h2>
-                            </div>
 
                             <div style={{ height: "24rem", margin: "1rem auto", width: "100%" }}>
                                 <GoogleMap
@@ -1844,10 +1842,9 @@ function CreateMart() {
                                 </div>
                             </div>
 
-                            <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
+                            <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem", width:"100%" }}>
                                 <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `22rem`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
                                 <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `22rem`, height: "6rem", display: "block" }} onClick={cardValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Next")}</button>
-
                             </div>
 
                         </div>
@@ -1963,8 +1960,7 @@ function CreateMart() {
                                         <h2 className="heading-tertiary" style={{fontWeight:"900"}}>Upon creation, login with the registered email and password to gain access. Your ecommerce journey starts today!</h2>
 
                                     </div>
-                            <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem" }}>
-
+                            <div className="flex-row" style={{ marginTop: "1rem", gap: "2rem", width:"100%" }}>
                                 <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: `22rem`, height: "6rem", margin: "0" }} onClick={handlePreviousStep}><h2 className="heading-secondary outline-button margin-side">Previous</h2></button>
                                 <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `22rem`, height: "6rem", display: "block" }} disabled={loading} onClick={submitData}>{loading ? <div className="spinner"></div> : (completion ? <div>{checkmark}</div> : "Finish")}</button>
 

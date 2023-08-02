@@ -580,14 +580,14 @@ export default function Checkout({ shopID, user, screenWidth }) {
 
                         {screenWidth > 500 && <div className="cart-pay">
                         <h2 className="heading-tertiary">Price:</h2>
-                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" , width:"max-content"}}>{currency} {item.price} / {item.unit}</h2>
-                            <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", width:"max-content" }}>Total: {currency} {item.price * item.cartValue}</h2>
+                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" , width:"max-content"}}>{currency}{item.price} / {item.unit}</h2>
+                            <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", width:"max-content" }}>Total: {currency}{item.price * item.cartValue}</h2>
                         </div>}
                     </div>
 
                     {screenWidth <= 500 && <div className="flex-row flex-row-align" style={{padding:"0 1rem", paddingBottom:"0.5rem"}}>
-                            <h2 className="heading-tertiary">Price: {currency} {item.price} / {item.unit}</h2>
-                            <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", marginLeft:"auto" }}>Total: {currency} {item.price * item.cartValue}</h2>
+                            <h2 className="heading-tertiary">Price: {currency}{item.price} / {item.unit}</h2>
+                            <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", marginLeft:"auto" }}>Total: {currency}{item.price * item.cartValue}</h2>
                         </div>}
                         
                         </div>
@@ -611,7 +611,7 @@ export default function Checkout({ shopID, user, screenWidth }) {
 
                     <div className="checkout-pay">
                         {Mode === "delivery" && <>
-                        <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", margin:"0" }}>Total: {currency} {total}</h2>
+                        <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", margin:"0" }}>Total: {currency}{total}</h2>
                             <h2 className="heading-secondary" style={{ marginBottom: "1rem", textAlign:"right" }}>Delivery Fees:</h2>
                             {fees.DelFee.length === 0 && <div>
                                 <h2 className="heading-tertiary checkout-total">There are no delivery fees</h2>
@@ -619,17 +619,17 @@ export default function Checkout({ shopID, user, screenWidth }) {
 
                             {fees.DelFee.length > 0 && <>
                                 {fees.DelFee.map((fee) => (
-                                    <h2 className="heading-tertiary checkout-total" key={fee.name}>{fee.name}: {currency} {fee.cost}</h2>
+                                    <h2 className="heading-tertiary checkout-total" key={fee.name}>{fee.name}: {currency}{fee.cost}</h2>
                                 ))}
 
-                                <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", marginTop: "1rem" }}>Total: {currency} {delivTotal}</h2>
+                                <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", marginTop: "1rem" }}>Total: {currency}{delivTotal}</h2>
 
                             </>}
                         </>
                         }
 
                         {Mode === "pickup" && <>
-                        <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", margin:"0" }}>Total: {currency} {total}</h2>
+                        <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", margin:"0" }}>Total: {currency}{total}</h2>
                             <h2 className="heading-secondary" style={{ marginBottom: "1rem", textAlign:"right" }}>Pick-Up Fees:</h2>
                             {fees.PickFee.length === 0 && <div>
                                 <h2 className="heading-tertiary checkout-total">There are no pick-up fees</h2>
@@ -637,10 +637,10 @@ export default function Checkout({ shopID, user, screenWidth }) {
 
                             {fees.PickFee.length > 0 && <>
                                 {fees.PickFee.map((fee) => (
-                                    <h2 className="heading-tertiary checkout-total" key={fee.name}>{fee.name}: {currency} {fee.cost}</h2>
+                                    <h2 className="heading-tertiary checkout-total" key={fee.name}>{fee.name}: {currency}{fee.cost}</h2>
                                 ))}
 
-                                <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", marginTop: "1rem" }}>Total: {currency} {pickTotal}</h2>
+                                <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", marginTop: "1rem" }}>Total: {currency}{pickTotal}</h2>
 
                             </>}
                         </>
@@ -651,7 +651,7 @@ export default function Checkout({ shopID, user, screenWidth }) {
                 <div className="checkout-fees">
 
                     <div className="flex-col-none">
-                        <h2 className="heading-secondary" style={{ marginBottom: "1rem" }}>Total: {currency} {absoluteTotal}</h2>
+                        <h2 className="heading-secondary" style={{ marginBottom: "1rem" }}>Total: {currency}{absoluteTotal}</h2>
                         <h2 className="heading-tertiary" style={{ marginBottom: "1rem", fontWeight:"900" }}>The owner may edit your orders such as reducing ordered amounts and adding new products. Edited items will be marked as such.</h2>
                         {takebacks.allowRefunds === false ? <div>
                             <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Refunds are not allowed.</h2>
@@ -842,7 +842,7 @@ export default function Checkout({ shopID, user, screenWidth }) {
 
                     <div className="checkout-pay">
                         {Mode === "delivery" && <>
-                        <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", margin:"0" }}>Total: {currency} {total}</h2>
+                        <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", margin:"0" }}>Total: {currency}{total}</h2>
                             <h2 className="heading-secondary" style={{ marginBottom: "1rem" }}>Delivery Fees:</h2>
                             {fees.DelFee.length === 0 && <div>
                                 <h2 className="heading-tertiary checkout-total">There are no delivery fees</h2>
@@ -850,17 +850,17 @@ export default function Checkout({ shopID, user, screenWidth }) {
 
                             {fees.DelFee.length > 0 && <>
                                 {fees.DelFee.map((fee) => (
-                                    <h2 className="heading-tertiary checkout-total" key={fee.name}>{fee.name}: {currency} {fee.cost}</h2>
+                                    <h2 className="heading-tertiary checkout-total" key={fee.name}>{fee.name}: {currency}{fee.cost}</h2>
                                 ))}
 
-                                <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", marginTop: "1rem" }}>Total: {currency} {delivTotal}</h2>
+                                <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", marginTop: "1rem" }}>Total: {currency}{delivTotal}</h2>
 
                             </>}
                         </>
                         }
 
                         {Mode === "pickup" && <>
-                        <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", margin:"0" }}>Total: {currency} {total}</h2>
+                        <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", margin:"0" }}>Total: {currency}{total}</h2>
                             <h2 className="heading-secondary" style={{ marginBottom: "1rem" }}>Pick-Up Fees:</h2>
                             {fees.PickFee.length === 0 && <div>
                                 <h2 className="heading-tertiary checkout-total">There are no pick-up fees</h2>
@@ -868,10 +868,10 @@ export default function Checkout({ shopID, user, screenWidth }) {
 
                             {fees.PickFee.length > 0 && <>
                                 {fees.PickFee.map((fee) => (
-                                    <h2 className="heading-tertiary checkout-total" key={fee.name}>{fee.name}: {currency} {fee.cost}</h2>
+                                    <h2 className="heading-tertiary checkout-total" key={fee.name}>{fee.name}: {currency}{fee.cost}</h2>
                                 ))}
 
-                                <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", marginTop: "1rem" }}>Total: {currency} {pickTotal}</h2>
+                                <h2 className="heading-tertiary checkout-total" style={{ fontWeight: "900", marginTop: "1rem" }}>Total: {currency}{pickTotal}</h2>
 
                             </>}
                         </>
@@ -882,7 +882,7 @@ export default function Checkout({ shopID, user, screenWidth }) {
                 <div className="checkout-fees">
 
                     <div className="flex-col-none">
-                        <h2 className="heading-secondary" style={{ marginBottom: "1rem" }}>Total: {currency} {absoluteTotal}</h2>
+                        <h2 className="heading-secondary" style={{ marginBottom: "1rem" }}>Total: {currency}{absoluteTotal}</h2>
                         <h2 className="heading-tertiary" style={{ marginBottom: "1rem", fontWeight:"900" }}>The owner may edit your orders such as reducing ordered amounts and adding new products. Edited items will be marked as such.</h2>
                         {takebacks.allowRefunds === false ? <div>
                             <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Refunds are not allowed.</h2>

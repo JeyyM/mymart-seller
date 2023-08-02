@@ -271,7 +271,7 @@ function OrderDetails(props) {
 
                             {(order.status === "ongoing" || order.status === "edited") && <div className="flex-row flex-row-align">
                                 {order.allowCancel ? <><h2 className="heading-tertiary" style={{marginRight:"auto"}}>Cancellation Period: {timeDifference}</h2>
-                                    {timeDifference !== 'Cancellation period has passed' && <button onClick={() => {props.initiateCancel(); props.disable()}} className={ongoingClass} style={{ width: "18rem", margin: "1rem 1rem", height: "3.5rem", textDecoration: "none" }}><h3 className={ongoingText} style={{ transform: "translateY(0rem)" }}>Cancel Order</h3></button>}
+                                    {timeDifference !== 'Cancellation period has passed' && <button onClick={() => {props.initiateCancel(); props.disable()}} className={ongoingClass} style={{ minWidth:"max-content", width: "18rem", margin: "1rem 1rem", height: "3.5rem", textDecoration: "none" }}><h3 className={ongoingText} style={{ transform: "translateY(0rem)" }}>Cancel Order</h3></button>}
                                 </> : "Cancellations disabled"}
                             </div>}
 

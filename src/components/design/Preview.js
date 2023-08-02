@@ -138,7 +138,7 @@ function Preview(props) {
                                 </div>
 
                             </div>
-                            <div className="demo-typography-prev item-setup" style={{ padding: "0rem" }} onClick={(e) => e.stopPropagation()}>
+                            <div className="demo-typography-prev item-setup" style={{ padding: "0rem", height:"max-content" }} onClick={(e) => e.stopPropagation()}>
                                 <span className="page-heading flex-row-align" style={{ padding: "1rem" }}>
 
                                     <div className="heading-icon-typography svg-color">&nbsp;</div>

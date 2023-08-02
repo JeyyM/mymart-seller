@@ -114,7 +114,7 @@ function CancelOrder(props) {
               <div className="confirm-contents">
                 <div className="warning-logo">&nbsp;</div>
                 <h2 className="confirm-text heading-tertiary">{props.msg}</h2>
-                <h2 className="heading-tertiary" style={{ margin: "1rem" }}>Are you sure you want to cancel your order? This cannot be undone. There will be a cancellation fee of {props.currency} {props.order.totals.order * `0.${props.order.cancelFee}`}.</h2>
+                <h2 className="heading-tertiary" style={{ margin: "1rem" }}>Are you sure you want to cancel your order? This cannot be undone. There will be a cancellation fee of {props.currency} {(props.order.totals.order * (props.order.cancelFee / 100)).toFixed(2)}.</h2>
               </div>
               <div className="add-categ-buttons">
                 <button className="product-action-1 heading-secondary categ-button-1" type="button" onClick={props.disable} disabled={loading}>Cancel</button>

@@ -78,14 +78,16 @@ function About({ shopID }) {
             key={index}
             className={item.type}
             style={{
-                gridRow: `${item.row1}/${item.row2}`,
-                gridColumn: `${item.col1}/${item.col2}`,
-                textAlign: item.align,
-                zIndex: item.zInd,
-                marginLeft: "0",
-                alignSelf: "center",
-                transform: `scale(${item.scale * screenScale})`
-            }}
+        gridRow: `${item.row1}/${item.row2}`,
+        gridColumn: `${item.col1}/${item.col2}`,
+        maxHeight:"15rem",
+        textAlign: item.align,
+        zIndex: item.zInd,
+        display:"inline",
+        margin: "0",
+        alignSelf: "center",
+        transform: `scale(${item.scale * screenScale})`
+      }}
             dangerouslySetInnerHTML={{ __html: item.content }}
         >
         </h3>
@@ -97,14 +99,17 @@ function About({ shopID }) {
             key={index}
             className={item.border}
             style={{
-                gridRow: `${item.row1}/${item.row2}`,
-                gridColumn: `${item.col1}/${item.col2}`,
-                zIndex: item.zInd,
-                maxHeight: "100%",
-                maxWidth: "100%",
-                margin: "auto auto",
-                transform: `scale(${item.scale})`,
-            }}
+        gridRow: `${item.row1}/${item.row2}`,
+        gridColumn: `${item.col1}/${item.col2}`,
+        zIndex: item.zInd,
+        height: "100%",
+        width: "100%",
+        margin: "auto auto",
+        transform: `scale(${item.scale})`,
+        objectFit:"cover",
+        borderRadius: `${item.tl}px ${item.tr}px ${item.br}px ${item.bl}px`,
+        opacity: item.opacity,
+      }}
         >
         </img>
     ));
@@ -114,17 +119,17 @@ function About({ shopID }) {
             key={index}
             className={item.border}
             style={{
-                gridRow: `${item.row1}/${item.row2}`,
-                gridColumn: `${item.col1}/${item.col2}`,
-                zIndex: item.zInd,
-                height: "100%",
-                width: "100%",
-                margin: "auto auto",
-                transform: `scale(${item.scale})`,
-                backgroundColor: `${item.color}`,
-                opacity: item.opacity,
-                borderRadius: `${item.tl}px ${item.tr}px ${item.br}px ${item.bl}px`,
-            }}
+        gridRow: `${item.row1}/${item.row2}`,
+        gridColumn: `${item.col1}/${item.col2}`,
+        zIndex: item.zInd,
+        height: "100%",
+        width: "100%",
+        margin: "auto auto",
+        transform: `scale(${item.scale})`,
+        backgroundColor: `${item.color}`,
+        opacity: item.opacity,
+        borderRadius: `${item.tl}px ${item.tr}px ${item.br}px ${item.bl}px`,
+      }}
         >
             &nbsp;
         </div>

@@ -508,7 +508,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
 
             <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} cartOpen={CartHandler} user={props.user} userHandler={userHandler} changeColor={changeColor} currentColor={props.currentColor} categs={props.martCateg} currency={props.curr} screenWidth={screenWidth} />
             {typeof window !== 'undefined' && (<>
-              {props.user !== undefined &&  <DynamicComponent1 modalStatus={userStatus} disable={userHandler} user={props.user} colormode={props.color}></DynamicComponent1>}
+              {props.user !== undefined &&  <DynamicComponent1 modalStatus={userStatus} disable={userHandler} user={props.user} colormode={props.color} screenWidth={screenWidth}></DynamicComponent1>}
               </>)}
             <CartModal screenWidth={screenWidth} modalStatus={CartStatus} cartOpen={CartHandler} currency={props.curr} user={props.user} categs={props.martCateg} ></CartModal>
             <div>{renderChildrenWithProps()}</div>

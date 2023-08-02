@@ -89,6 +89,7 @@ function NavMenu(props) {
             placeholder="Search"
             onChange={handleSearch}
             value={search}
+            autoComplete="off"
           />
           <div className="search-magnifying svg-tertiary" style={{ position: "absolute", right: "8%", top: "15%" }}></div>
           {searchVisible && search.length > 0 && (
@@ -98,7 +99,7 @@ function NavMenu(props) {
                   <div className="flex-row">
                     <img src={item.image} className="round-borderer" style={{ height: "4rem", width: "4rem" }}></img>
                     <div className="flex-col">
-                      <h2 className="heading-tertiary text-black" style={{ fontWeight: "900" }}>{item.name}</h2>
+                      <h2 className="heading-tertiary text-black clamp-1" style={{ fontWeight: "900" }}>{item.name}</h2>
                       <h2 className="heading-tertiary text-black">{props.currency} {item.price}</h2>
                     </div>
                   </div>

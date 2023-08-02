@@ -17,6 +17,7 @@ import sha256 from 'crypto-js/sha256';
 
 const libraries = ['places'];
 function UserProfile(props) {
+    const {screenWidth} = props
     const router = useRouter()
     const localStorageKey = `mart_${router.query.shopid}`;
     const authKey = `auth_${router.query.shopid}`;
@@ -172,7 +173,7 @@ function UserProfile(props) {
         }
     };
 
-    const mapContainerStyle = { width: '100%', height: '25rem' };
+    const mapContainerStyle = { width: `${screenWidth > 575 ? "100%" : "200%"}`, height: '25rem' };
 
     const [center, setCenter] = useState(props.user.locationCoords);
     const [locationName, setLocationName] = useState(props.user.location);
@@ -506,6 +507,7 @@ function UserProfile(props) {
                                     {emailCheck ? <h3 className="form-label">Change Disabled</h3> : <h3 className="form-label inv z">Invalid Email</h3>}
 
                                 </div>
+                                {screenWidth > 450 && <>
                                 <div className="form-group" style={{ marginTop: "1rem" }}>
                                     <input
                                         type="text"
@@ -530,7 +532,8 @@ function UserProfile(props) {
                                     ></input>
                                     {signValidity.lname ? <h3 className="form-label">Last Name</h3> : <h3 className="form-label inv z">Invalid last name</h3>}
                                 </div>
-                                <div className="form-group" style={{ marginTop: "1rem" }}>
+                                </>}
+                                {screenWidth <= 450 && <div className="form-group" style={{ marginTop: "1rem" }}>
                                     <input
                                         type="text"
                                         className={phoneClasses}
@@ -541,8 +544,46 @@ function UserProfile(props) {
                                         onChange={handlePhoneChange}
                                     ></input>
                                     {signValidity.phone ? <h3 className="form-label">Phone Number</h3> : <h3 className="form-label inv z">Invalid number</h3>}
-                                </div>
+                                </div>}
+                                {screenWidth > 575 && <div className="form-group" style={{ marginTop: "1rem" }}>
+                                    <input
+                                        type="text"
+                                        className={phoneClasses}
+                                        placeholder="Phone Number"
+                                        autoComplete="off"
+                                        style={{ width: "100%", margin: "0" }}
+                                        value={phone}
+                                        onChange={handlePhoneChange}
+                                    ></input>
+                                    {signValidity.phone ? <h3 className="form-label">Phone Number</h3> : <h3 className="form-label inv z">Invalid number</h3>}
+                                </div>}
                             </div>
+                            <div className="flex-row">
+                                <div className="form-group" style={{ marginTop: "1rem" }}>
+                                    <input
+                                        type="text"
+                                        className={fnameClasses}
+                                        placeholder="First Name"
+                                        autoComplete="off"
+                                        style={{ width: "100%", margin: "0" }}
+                                        value={fname}
+                                        onChange={handlefnameChange}
+                                    ></input>
+                                    {signValidity.fname ? <h3 className="form-label">First Name</h3> : <h3 className="form-label inv z">Invalid first name</h3>}
+                                </div>
+                                <div className="form-group" style={{ marginTop: "1rem" }}>
+                                    <input
+                                        type="text"
+                                        className={lnameClasses}
+                                        placeholder="Last Name"
+                                        autoComplete="off"
+                                        style={{ width: "100%", margin: "0" }}
+                                        value={lname}
+                                        onChange={handlelnameChange}
+                                    ></input>
+                                    {signValidity.lname ? <h3 className="form-label">Last Name</h3> : <h3 className="form-label inv z">Invalid last name</h3>}
+                                </div>
+                                </div>
                             <div>
                                 <div className="flex-row">
                                     <div className="form-group" style={{ marginTop: "1rem" }}>
@@ -552,7 +593,7 @@ function UserProfile(props) {
                                         <select
                                             value={selectGender}
                                             className={genderClasses}
-                                            style={{ width: "10rem" }}
+                                            style={{ width: `${screenWidth > 450 ? "10rem" : "100%"}` }}
                                             onChange={(event) => handleSelectGender(event)}
                                         >
                                             {genderOptions.map(gender => (
@@ -561,6 +602,7 @@ function UserProfile(props) {
                                         </select>
                                         {signValidity.gender ? <h3 className="form-label">Gender</h3> : <h3 className="form-label inv z">Invalid gender</h3>}
                                     </div>
+                                    {screenWidth > 575 && <>
                                     <div className="form-group" style={{ marginTop: '1rem' }}>
                                         {isOtherSelected ? (
                                             <input
@@ -602,7 +644,79 @@ function UserProfile(props) {
                                         ></input>
                                         {signValidity.company ? <h3 className="form-label">Company Name</h3> : <h3 className="form-label inv z">Invalid company name</h3>}
                                     </div>
+                                    </>}
+                                    {screenWidth <= 575 && screenWidth > 450 && <div className="form-group" style={{ marginTop: "1rem" }}>
+                                    <input
+                                        type="text"
+                                        className={phoneClasses}
+                                        placeholder="Phone Number"
+                                        autoComplete="off"
+                                        style={{ width: "100%", margin: "0" }}
+                                        value={phone}
+                                        onChange={handlePhoneChange}
+                                    ></input>
+                                    {signValidity.phone ? <h3 className="form-label">Phone Number</h3> : <h3 className="form-label inv z">Invalid number</h3>}
+                                </div>}
                                 </div>
+                                {screenWidth <= 575 && <div className="flex-row">
+                                    <div className="form-group" style={{ marginTop: '1rem' }}>
+                                        {isOtherSelected ? (
+                                            <input
+                                                className={otherClasses}
+                                                type="text"
+                                                value={customOccupation}
+                                                onChange={handleCustomOccupationChange}
+                                                autoFocus
+                                                placeholder="Enter your occupation"
+                                                style={{ width: '22rem', margin: '0' }}
+                                            />
+                                        ) : (
+                                            <select
+                                                className={occupationDropdownClasses}
+                                                style={{ width: `${screenWidth > 350 ? "22rem" : "100%"}` }}
+                                                value={selectedOccupation}
+                                                onChange={handleOccupationChange}
+                                            >
+                                                {occupationOptions.map((occupation) => (
+                                                    <option key={occupation} value={occupation}>
+                                                        {occupation}
+                                                    </option>
+                                                ))}
+                                                <option value="other">Other</option>
+                                            </select>
+                                        )}
+                                        {signValidity.occupation ? <h3 className="form-label">Occupation</h3> : <h3 className="form-label inv z">Invalid Occupation</h3>}
+                                    </div>
+
+                                    {screenWidth > 350 && <div className="form-group" style={{ marginTop: '1rem' }}>
+                                        <input
+                                            type="text"
+                                            className={companyClasses}
+                                            placeholder="Company Name"
+                                            autoComplete="off"
+                                            style={{ width: '100%', margin: '0' }}
+                                            value={company}
+                                            onChange={handleCompanyChange}
+                                        ></input>
+                                        {signValidity.company ? <h3 className="form-label">Company Name</h3> : <h3 className="form-label inv z">Invalid company name</h3>}
+                                    </div>}
+                                </div>}
+                                {screenWidth <= 350 && <div className="form-group" style={{ marginTop: '1rem' }}>
+                                        <input
+                                            type="text"
+                                            className={companyClasses}
+                                            placeholder="Company Name"
+                                            autoComplete="off"
+                                            style={{ width: '100%', margin: '0' }}
+                                            value={company}
+                                            onChange={handleCompanyChange}
+                                        ></input>
+                                        {signValidity.company ? <h3 className="form-label">Company Name</h3> : <h3 className="form-label inv z">Invalid company name</h3>}
+                                    </div>}
+                                {screenWidth <= 575 && <span className="page-heading" style={{marginTop:"1rem"}}>
+                                            <div className="heading-icon-pin svg-color">&nbsp;</div>
+                                            <h1 className="heading-secondary no-margin">Delivery Location</h1>
+                                        </span>}
                                 <div className="account-detail-address">
                                     <GoogleMap
                                         mapContainerStyle={mapContainerStyle}
@@ -619,17 +733,24 @@ function UserProfile(props) {
                                             </Autocomplete>
                                         </div>
                                     </GoogleMap>
-                                    <div className="detail-address-col">
+                                    {screenWidth > 575 && <div className="detail-address-col">
                                         <span className="page-heading">
                                             <div className="heading-icon-pin svg-color">&nbsp;</div>
                                             <h1 className="heading-secondary no-margin">Delivery Location</h1>
                                         </span>
                                         <h2 className="heading-tertiary">{locationName}</h2>
-                                        <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: "100%", height:"6rem", margin:"0" }}  onClick={currentLoc}><h2 className="heading-secondary outline-button margin-side">Get Current Location</h2></button>
+                                        <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: "100%", height:"auto", margin:"0" }}  onClick={currentLoc}><h2 className="heading-secondary outline-button margin-side">Get Current Location</h2></button>
 
-                                        <button className="product-action-3 white flex-row-align sign-page-button" onClick={resetLoc} style={{ width: "100%" }}><h2 className="heading-secondary button-solid-text">Reset</h2></button>
-                                    </div>
+                                        <button className="product-action-3 white flex-row-align sign-page-button" onClick={resetLoc} style={{ width: "100%" }}><h2 className="heading-secondary white button-solid-text">Reset</h2></button>
+                                    </div>}
                                 </div>
+                                
+                                <div className="flex-row flex-row-align" style={{marginBottom:"1rem"}}>
+                                <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{ width: "150%", height:"auto", margin:"0" }}  onClick={currentLoc}><h2 className="heading-secondary outline-button margin-side">Get Current Location</h2></button>
+
+<button className="product-action-3 white flex-row-align sign-page-button" onClick={resetLoc} style={{ width: "50%" }}><h2 className="heading-secondary white button-solid-text">Reset</h2></button>
+                                </div>
+
                                 <span className="page-heading">
                                     <div className="heading-icon-credit svg-color">&nbsp;</div>
                                     <h1 className="heading-secondary no-margin">&nbsp;Card Details &nbsp;</h1>
@@ -695,8 +816,7 @@ function UserProfile(props) {
 
                             </motion.div>
 
-                            <div className="flex-row" style={{marginTop:"1rem"}}>
-                            <div className="flex-row-spaceless" style={{ alignItems: "center", marginTop:"1rem" }}>
+                            {screenWidth <= 550 && <div className="flex-row-spaceless" style={{ alignItems: "center", marginTop:"1rem" }}>
                                 <label className="heading-tertiary product-currency" style={{ width: "13rem" }}>Password:</label>
                                 <div className="flex-col-none">
                                 <input
@@ -710,11 +830,28 @@ function UserProfile(props) {
                                 ></input>
                                 {passwordCheck ? <h3 className="form-label">&nbsp;</h3> : <h3 className="form-label inv z">Incorrect Password</h3>}
                                 </div>
-                            </div>
-                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: "22rem", height:"6rem", display:"block" }} onClick={passValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div style={{transform:"translateY(20%)"}}><div style={{transform:"translateY(-22%)"}}>{checkmark}</div></div> : "Submit Changes")}</button>
+                            </div>}
+
+                            <div className="flex-row" style={{marginTop:"1rem"}}>
+                            {screenWidth > 550 && <div className="flex-row-spaceless" style={{ alignItems: "center", marginTop:"1rem" }}>
+                                <label className="heading-tertiary product-currency" style={{ width: "13rem" }}>Password:</label>
+                                <div className="flex-col-none">
+                                <input
+                                    type="text"
+                                    className={passClasses}
+                                    placeholder="Password"
+                                    autoComplete="off"
+                                    style={{ maxWidth: "25rem" }}
+                                    value={password}
+                                    onChange={handlePassChange}
+                                ></input>
+                                {passwordCheck ? <h3 className="form-label">&nbsp;</h3> : <h3 className="form-label inv z">Incorrect Password</h3>}
+                                </div>
+                            </div>}
+                                <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 550 ? "22rem" : "100%"}`, height:`${screenWidth > 550 ? "auto" : "6rem"}`, display:"block" }} onClick={passValidate} disabled={loading}>{loading ? <div className="spinner"></div> : (completion ? <div style={{transform:"translateY(20%)"}}><div style={{transform:"translateY(-22%)"}}>{checkmark}</div></div> : "Submit Changes")}</button>
                             </div>
 
-                            <button className="product-action-3 white flex-row-align sign-page-button" onClick={logout} style={{ width: "30rem", marginTop:"2rem" }}><h2 className="heading-secondary button-solid-text">Log-out</h2></button>
+                            <button className="product-action-3 flex-row-align sign-page-button" onClick={logout} style={{ width: "30rem", marginTop:"2rem" }}><h2 className="heading-secondary white button-solid-text">Log-out</h2></button>
 
                         </motion.div>
                     </Backdrop>

@@ -125,6 +125,7 @@ function NavbarItems(props) {
             style={{ width: "100%" }}
             placeholder="Search"
             onChange={handleSearch}
+            autoComplete="off"
             ref={inputRef}
           />
           <div className="search-magnifying svg-tertiary" style={{ position: "absolute", top: "0", right: "2%", top: "20%" }}></div>
@@ -135,7 +136,7 @@ function NavbarItems(props) {
                   <div className="flex-row">
                     <img src={item.image} className="round-borderer" style={{ height: "4rem", width: "4rem" }}></img>
                     <div className="flex-col">
-                      <h2 className="heading-tertiary text-black" style={{ fontWeight: "900" }}>{item.name}</h2>
+                      <h2 className="heading-tertiary text-black clamp-1" style={{ fontWeight: "900" }}>{item.name}</h2>
                       <h2 className="heading-tertiary text-black">{props.currency} {item.price}</h2>
                     </div>
                   </div>
