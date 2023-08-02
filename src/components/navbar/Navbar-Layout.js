@@ -82,7 +82,7 @@ body{background-color: ${props.color["bg-body"]} !important;}
 
 .maincontainer, .category-container, .setting-grid {filter: drop-shadow(-4px 4px 0px ${props.color["color-primary-dark"]}) !important;}
 
-.heading-primary {font-family: ${props.color["text-primary-font"]} !important;
+.heading-primary, .heading-primary-2 {font-family: ${props.color["text-primary-font"]} !important;
     color: ${props.color["text-primary-color"]} !important;}
 
 .heading-primary-notif {font-family: ${props.color["text-primary-font"]} !important;}
@@ -392,7 +392,7 @@ input[type="text"].text-full:focus, input[type="number"].text-small:focus, input
                 </style>
             </Head>
 
-            <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} screenWidth={screenWidth}/>
+            <NavbarItems shopid={router.query.shopid} colormode={colormode} navicon={props.icons.logo} screenWidth={screenWidth} defaultMode={props.defaultMode}/>
             <div>{renderChildrenWithProps()}</div>
             {router.asPath !== `/${id}/mart/details` && router.asPath !== "/" ? <Footer details={props.contents} address={props.address} adminInfo={props.adminInfo}></Footer> : <Fragment></Fragment>}
 

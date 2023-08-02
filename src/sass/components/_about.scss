@@ -259,3 +259,17 @@
   .preview-phone{
     transform: scale(0.8) !important;
   }
+
+  .img-input-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+  }
+
+  .img-input-span {
+    grid-column: span 7;
+  }
+  
+  .img-input-span-2 {
+    margin-left: 1rem;
+    grid-column: span 3;
+  }

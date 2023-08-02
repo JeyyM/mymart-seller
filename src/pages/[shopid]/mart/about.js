@@ -16,6 +16,10 @@ function About({ shopID, screenWidth }) {
   const rowInfo = shopID.shopData.shopDetails.aboutData.rows
   const favicon = shopID.shopData.shopDetails.imageData.icons.icon
 
+  function startsImgur(word) {
+    if (word) { return word.startsWith("https://i.imgur.com/") || word.startsWith("https://picsum.photos/"); }
+  }
+
   const router = useRouter()
   const slide = {
     hidden: {
@@ -96,7 +100,7 @@ function About({ shopID, screenWidth }) {
   const [ContainerArray, setContainerArray] = useState(AllContainer[device]);
 
   function handleAddTextArray(link, type) {
-    const newTextArray = [...TextArray, { type: "heading-primary", row1: "1", row2: "2", col1: "1", col2: "2", align: "center", zInd: "1", content: "Item", scale: "1" }];
+    const newTextArray = [...TextArray, { type: "heading-primary-2", row1: "1", row2: "2", col1: "1", col2: "2", align: "center", zInd: "1", content: "Item", scale: "1" }];
     setTextArray(newTextArray);
     MinimizedText.push(TextArray.length)
   }
@@ -159,7 +163,7 @@ function About({ shopID, screenWidth }) {
 
 
   function handleAddImgArray() {
-    const newImgArray = [...ImgArray, { img: "https://i.imgur.com/qlmYdJO.jpeg", row1: "1", row2: "2", col1: "1", col2: "2", zInd: "1", border: "", scale: "1" }];
+    const newImgArray = [...ImgArray, { img: "https://picsum.photos/300/200", row1: "1", row2: "2", col1: "1", col2: "2", zInd: "1", border: "", scale: "1", tl: "0", tr: "0", bl: "0", br: "0", opacity:"1" }];
     setImgArray(newImgArray);
     MinimizedImg.push(ImgArray.length)
   }
@@ -210,6 +214,36 @@ function About({ shopID, screenWidth }) {
     const newImgArray = [...ImgArray];
     newImgArray[index].scale = event.target.value
     setImgArray(newImgArray);
+  }
+  
+  function handleImgArrayOpacityChange(event, index) {
+    const newImgArray = [...ImgArray];
+    newImgArray[index].opacity = event.target.value;
+    setImgArray(newImgArray)
+  }
+
+  function handleImgArrayTLChange(event, index) {
+    const newImgArray = [...ImgArray];
+    newImgArray[index].tl = event.target.value;
+    setImgArray(newImgArray)
+  }
+
+  function handleImgArrayTRChange(event, index) {
+    const newImgArray = [...ImgArray];
+    newImgArray[index].tr = event.target.value;
+    setImgArray(newImgArray)
+  }
+
+  function handleImgArrayBLChange(event, index) {
+    const newImgArray = [...ImgArray];
+    newImgArray[index].bl = event.target.value;
+    setImgArray(newImgArray)
+  }
+
+  function handleImgArrayBRChange(event, index) {
+    const newContArray = [...ImgArray];
+    newContArray[index].br = event.target.value;
+    setImgArray(newContArray)
   }
 
 
@@ -378,9 +412,16 @@ function About({ shopID, screenWidth }) {
       [device]: TextArray
     };
 
+    const updatedImgArray = ImgArray.map((item) => {
+      if (!startsImgur(item.img)) {
+        item.img = "https://i.imgur.com/removed.png";
+      }
+      return item;
+    });
+  
     const updatedAllImg = {
       ...AllImg,
-      [device]: ImgArray
+      [device]: updatedImgArray,
     };
 
     const updatedAllCont = {
@@ -460,13 +501,15 @@ function About({ shopID, screenWidth }) {
 
   const textScaler = `${device === "desktop" ? 1 : device === "tablet" ? 0.44 : 0.15}`;
 
-  const textElements = TextArray.map((item, index) => (
-    <h3
+  const textElements = TextArray.map((item, index) => 
+    { console.log(item)
+      return <h3
       key={index}
       className={item.type}
       style={{
         gridRow: `${item.row1}/${item.row2}`,
         gridColumn: `${item.col1}/${item.col2}`,
+        maxHeight:"15rem",
         textAlign: item.align,
         zIndex: item.zInd,
         display:"inline",
@@ -478,7 +521,7 @@ function About({ shopID, screenWidth }) {
       dangerouslySetInnerHTML={{ __html: item.content }}
     >
     </h3>
-  ));
+});
 
   const imgElements = ImgArray.map((item, index) => (
     <img
@@ -489,10 +532,13 @@ function About({ shopID, screenWidth }) {
         gridRow: `${item.row1}/${item.row2}`,
         gridColumn: `${item.col1}/${item.col2}`,
         zIndex: item.zInd,
-        maxHeight: "100%",
-        maxWidth: "100%",
+        height: "100%",
+        width: "100%",
+        maxHeight:"100%",
         margin: "auto auto",
         transform: `scale(${item.scale})`,
+        objectFit:"cover",
+        borderRadius: `${item.tl}px ${item.tr}px ${item.br}px ${item.bl}px`,
       }}
     >
     </img>
@@ -572,14 +618,14 @@ function About({ shopID, screenWidth }) {
       }}></div>
   ));
 
-  const titles = ["The Grid System", "Cell Limitation", "Screen Versions", "Z-Index, Opacity, and Scale", "Containers", "Switch Warning"]
-  const images = ['/about/about-1.png', '/about/about-2.png', '/about/about-3.png', '/about/about-4.png', '/about/about-5.png', '/about/about-6.png'];
+  const titles = ["The Grid System", "Cell Limitation", "Screen Versions", "Z-Index, Opacity, and Scale", "Containers", "Switch Warning", "Image Stretching"]
+  const images = ['/about/about-1.png', '/about/about-2.png', '/about/about-3.png', '/about/about-4.png', '/about/about-5.png', '/about/about-6.png', '/about/about-7.jpg'];
   const text = ['In the about page maker, you can make your own layout of your about page through the grid system. The grid system works by making lines that start from 1 up until the end. The grid columns specify where an item is placed horizontally, and the grid row specifies where it is placed vertically.',
     'Mix and match the 2 properties to set how big the space an item occupies. Each item will be limited to their sides and are set to be centered. For example, tall images will be limited to their ceiling and floor while wide images are limited by their sides and will be centered. This applies to text as well. Set their positions to be between a range to put them in between grids.',
     'There are different column amounts for different screen sizes. The preview is an approximation of the screen sizes. It is best to test this in the live site. Text may appear smaller than they really are. There are 12 columns for desktops, 8 columns for tablets, and 4 for phones. You will need to make a version of the about page for all 3 so that it is accessible wherever the user accesses your page. Edit the row count to expand the height of your page.',
     "There are properties such as Z-Index that specifies which items appear on top. Opacity that sets the transparency of item, as well as scale. Scale multiplies the size of an item. When opacity and scale are at 1, it means 100%, so other decimal places mean their percentages such as 0.5 being 50%. Make sure you use the grid system to set the sizes of your items first because it and scale are multiplicative and may grow too big.",
     "Containers are used for creating text boxes and other figures. They may even be set to Body Mode to make it look like a foreground. However, be mindful of which colors you pick as the light mode and dark mode designs are different and may make your about page inaccessible at certain color modes.",
-    "Data will be lost upon switching modes. Make sure to save your changes before changing to another device. Save often to protect your progress. Should you need to use other screen designs as references, it is recommended to open this page in another tab to compare. You may also open up the designing page to check both color modes and access the color picker."];
+    "Data will be lost upon switching modes. Make sure to save your changes before changing to another device. Save often to protect your progress. Should you need to use other screen designs as references, it is recommended to open this page in another tab to compare. You may also open up the designing page to check both color modes and access the color picker.", "When putting an image to a certain role like a banner for example, make sure to use images of a similar aspect ratio. Using a tall image for a wide and short image as an example may cause the preview to stretch and become less accurate."];
 
   const [modal, showModal] = useState(false)
   function handleModal() {
@@ -681,10 +727,10 @@ function About({ shopID, screenWidth }) {
             </div>
 
           </div>
-          {screenWidth > 700 && <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
+          <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
             <button className="product-action-2 heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleSubmit} disabled={loading} >{loading ? <div className="spinner"></div> : (completion ? checkmark : "Save")}</button>
             <button className="product-action-3 white heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleReset} disabled={loading} >Reset</button>
-          </div>}
+          </div>
 
           {screenWidth <= 520 && <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
             <button className="product-action-2 heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleSubmit} disabled={loading} >{loading ? <div className="spinner"></div> : (completion ? checkmark : "Save")}</button>
@@ -692,13 +738,17 @@ function About({ shopID, screenWidth }) {
           </div>}
 
           <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
-          {screenWidth <= 700 && screenWidth > 520 && <>
+          {/* {screenWidth <= 700 && screenWidth > 520 && <>
           <button className="product-action-2 heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleSubmit} disabled={loading} >{loading ? <div className="spinner"></div> : (completion ? checkmark : "Save")}</button>
             <button className="product-action-3 white heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleReset} disabled={loading} >Reset</button>
-          </>}
-            <button className={device === "desktop" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("desktop"); setScreenPx(1920); setColLimit(12); setRowCount(DeskRowCount) }}>Desktop</button>
-            <button className={device === "tablet" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("tablet"); setScreenPx(1366); setColLimit(8); setRowCount(TabRowCount) }}>Tablet</button>
-            <button className={device === "phone" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("phone"); setScreenPx(360); setColLimit(4); setRowCount(PhoneRowCount) }}>Phone</button>
+          </>} */}
+            <button className={device === "desktop" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem", marginBottom:"0" }} onClick={() => { setDevice("desktop"); setScreenPx(1920); setColLimit(12); setRowCount(DeskRowCount) }}>Desktop</button>
+            <button className={device === "tablet" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem", marginBottom:"0" }} onClick={() => { setDevice("tablet"); setScreenPx(1366); setColLimit(8); setRowCount(TabRowCount) }}>Tablet</button>
+            {screenWidth2 > 350 && <button className={device === "phone" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("phone"); setScreenPx(360); setColLimit(4); setRowCount(PhoneRowCount) }}>Phone</button>}
+          </div>
+
+          <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
+          {screenWidth2 <= 350 && <button className={device === "phone" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem", marginBottom:"0" }} onClick={() => { setDevice("phone"); setScreenPx(360); setColLimit(4); setRowCount(PhoneRowCount) }}>Phone</button>}
           </div>
 
         </div>
@@ -726,7 +776,7 @@ function About({ shopID, screenWidth }) {
                           {screenWidth > 1400 && <div className="flex-col">
                             <label className="heading-tertiary">Heading Type: &nbsp;</label>
                             <select value={item.name} onChange={(event) => handleTextArrayTypeChange(index, event.target.value)} className="text-options text-span" style={{ width: "100%", marginTop: "1rem" }}>
-                              <option value="heading-primary">Primary Heading</option>
+                              <option value="heading-primary-2">Primary Heading</option>
                               <option value="heading-secondary">Secondary Heading</option>
                               <option value="heading-tertiary">Tertiary heading</option>
                             </select>
@@ -1174,11 +1224,9 @@ function About({ shopID, screenWidth }) {
                             </div>
                           </div>}
 
-
-
                         </div>
                         <button className="add-img" type="button" onClick={() => handleDeleteImg(index)}>
-                          {confirmDelete1 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
+                          {confirmDelete2 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
                         </button>
                       </motion.div>
                     )}
@@ -1320,6 +1368,63 @@ function About({ shopID, screenWidth }) {
                               </div>
                             </div>
                           </div>
+
+                          <div className="img-input-grid" style={{ marginBottom: "1rem" }}>
+                            <div className="flex-col img-input-span">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Border Radius: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <input
+                                  type="number"
+                                  placeholder="TL"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.tl}
+                                  onChange={(event) => handleImgArrayTLChange(event, index)}
+                                ></input>
+                                <input
+                                  type="number"
+                                  placeholder="TR"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.tr}
+                                  onChange={(event) => handleImgArrayTRChange(event, index)}
+                                ></input>
+                                <input
+                                  type="number"
+                                  placeholder="BL"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.bl}
+                                  onChange={(event) => handleImgArrayBLChange(event, index)}
+                                ></input>
+                                <input
+                                  type="number"
+                                  placeholder="BR"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.br}
+                                  onChange={(event) => handleImgArrayBRChange(event, index)}
+                                ></input>
+                              </div>
+                            </div>
+                            <div className="flex-col img-input-span-2">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Makes images transparent, goes from 0 to 1. 0 Means invisible, 1 means fully visible. 0.8 means 80% visible.">Opacity: &nbsp;</label>
+                              <input
+                                type="number"
+                                placeholder="Opacity"
+                                className="text-small input-number"
+                                autoComplete="off"
+                                style={{ width: "100%", margin: "0" }}
+                                value={item.opacity}
+                                onChange={(event) => handleImgArrayOpacityChange(event, index)}
+                              ></input>
+                            </div>
+                          </div>
+                          
                           {screenWidth <= 1100 && <div className="flex-row">
                             <div className="flex-col">
                               <label className="heading-tertiary">Border: &nbsp;</label>
@@ -1731,7 +1836,7 @@ function About({ shopID, screenWidth }) {
                               </div>
                             </div>
                             {screenWidth > 1500 && <div className="flex-col">
-                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Border Radius: &nbsp;</label>
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Border Radiusz: &nbsp;</label>
                               <div className="flex-row-align">
                                 <input
                                   type="number"
@@ -2003,6 +2108,7 @@ function About({ shopID, screenWidth }) {
                                 </div>
                               </div>
                             </>}
+                            
                           </div>
 
                           {screenWidth <= 900 && <div className="flex-row" style={{ marginBottom: "1rem" }}>
@@ -2078,7 +2184,7 @@ function About({ shopID, screenWidth }) {
 
                         </div>
                         <button className="add-img" type="button" onClick={() => handleDeleteImg(index)}>
-                          {confirmDelete1 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
+                          {confirmDelete2 === index ? <div className="heading-icon-check-marginless svg-color">&nbsp;</div> : <div className="heading-icon-minus-marginless svg-color">&nbsp;</div>}
                         </button>
                       </motion.div>
                     )}
@@ -2150,6 +2256,62 @@ function About({ shopID, screenWidth }) {
                               </div>
                             </div>
                             </>}
+                          </div>
+
+                          <div className="img-input-grid" style={{ marginBottom: "1rem" }}>
+                            <div className="flex-col img-input-span">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }}>Border Radius: &nbsp;</label>
+                              <div className="flex-row-align">
+                                <input
+                                  type="number"
+                                  placeholder="TL"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.tl}
+                                  onChange={(event) => handleImgArrayTLChange(event, index)}
+                                ></input>
+                                <input
+                                  type="number"
+                                  placeholder="TR"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.tr}
+                                  onChange={(event) => handleImgArrayTRChange(event, index)}
+                                ></input>
+                                <input
+                                  type="number"
+                                  placeholder="BL"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.bl}
+                                  onChange={(event) => handleImgArrayBLChange(event, index)}
+                                ></input>
+                                <input
+                                  type="number"
+                                  placeholder="BR"
+                                  className="text-small input-number"
+                                  autoComplete="off"
+                                  style={{ width: "100%", margin: "0" }}
+                                  value={item.br}
+                                  onChange={(event) => handleImgArrayBRChange(event, index)}
+                                ></input>
+                              </div>
+                            </div>
+                            <div className="flex-col img-input-span-2">
+                              <label className="heading-tertiary" style={{ marginBottom: "1rem" }} title="Makes images transparent, goes from 0 to 1. 0 Means invisible, 1 means fully visible. 0.8 means 80% visible.">Opacity: &nbsp;</label>
+                              <input
+                                type="number"
+                                placeholder="Opacity"
+                                className="text-small input-number"
+                                autoComplete="off"
+                                style={{ width: "100%", margin: "0" }}
+                                value={item.opacity}
+                                onChange={(event) => handleImgArrayOpacityChange(event, index)}
+                              ></input>
+                            </div>
                           </div>
 
                           <div className="flex-row" style={{ marginBottom: "1rem" }}>

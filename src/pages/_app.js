@@ -24,6 +24,7 @@ export default function App({ Component, pageProps }) {
     
     if (database.defaultMode) {
       data = database.lightDesign
+
     } else { data = database.darkDesign }
 
     if (router.asPath === `/${router.query.shopid}/design/light`) {
@@ -40,7 +41,7 @@ export default function App({ Component, pageProps }) {
   if (router. asPath === "/" || !pageProps.shopID){
     return <Component {...pageProps} />
   } else {
-  return <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo} adminInfo={adminInfo}><Component {...pageProps} /></NavbarLayout>;
+  return <NavbarLayout color={data} mode={colormode} contents={details} icons={iconInfo} adminInfo={adminInfo} defaultMode={database.defaultMode}><Component {...pageProps} /></NavbarLayout>;
   }
 }
 
