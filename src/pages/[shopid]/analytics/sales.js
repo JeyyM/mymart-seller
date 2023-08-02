@@ -353,7 +353,7 @@ function Sales(martID) {
           <option value="30">Past 30 Days</option>
           <option value="9999">All Time</option>
         </select>
-        <button onClick={handleDownload} className="add-categ-init" style={{ width: `${screenWidth > 580 ? "18rem" : screenWidth > 425 ? "14rem" : "11rem"}`, marginLeft:"auto", marginRight:"1rem", height: `${screenWidth > 580 ? "4rem" : "7rem"}` }}><h2 className='margin-side heading-tertiary'>Download CSV</h2></button>
+        <button onClick={handleDownload} className="add-categ-init" style={{ width: `${screenWidth > 580 ? "max-content" : screenWidth > 425 ? "14rem" : "11rem"}`, marginLeft:"auto", marginRight:"1rem", height: `${screenWidth > 580 ? "4rem" : "7rem"}` }}><h2 className='margin-side heading-tertiary'>Download CSV</h2></button>
       </span>
 
       <div className='analytics-sales-container'>

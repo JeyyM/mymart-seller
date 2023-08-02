@@ -62,8 +62,8 @@ function CategoryProducts(props) {
         {/* <img src={productImages[0]} className="category-img"></img> */}
         <div className="category-content">
             <div>
-                <h2 className="heading-secondary category-name">{productName.length > 40 ? productName.substring(0, 37) + "..." : productName}</h2>
-                <h3 className="heading-tertiary">{productDescription.length > 150 ? productDescription.substring(0, 147) + "..." : productDescription}</h3>
+                <h2 className="heading-secondary category-name clamp-1">{productName}</h2>
+                <h3 className="heading-tertiary clamp-4">{productDescription}</h3>
             </div>
             <div className="product-number-container">
                 <h2 className="heading-secondary product-numbers product-price">{props.currency} {productPrice} / {productStock.stockUnit}</h2>

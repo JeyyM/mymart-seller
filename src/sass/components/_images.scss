@@ -87,14 +87,14 @@
   margin: 1rem auto;
 }
 
-.pop-up-prev {
-  height: 100%;
-  width: 100%;
-  @include border-round;
+  .pop-up-prev {
+    height: 100%;
+    width: 100%;
+    @include border-round;
 
-  object-fit: cover;
-  object-position: center;
-}
+    object-fit: cover;
+    object-position: center;
+  }
   
 .pop-up-img {
   margin: 0 auto;

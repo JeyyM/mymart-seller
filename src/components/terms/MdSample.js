@@ -149,15 +149,19 @@ To right align, just put : on the lines
                             exit="exit"
                         >
                     {screenWidth <= 1000 && hiddenWrite ? (
+                        <div onClick={(e) => e.stopPropagation()}>
                             <textarea
                                 value={markdownContent}
                                 onChange={handleInputChange}
                                 placeholder="Enter Markdown Content"
                                 className="markdown-half markdown-textarea"
                                 style={{width:`${screenWidth <= 1000 ? "90vw" : "45vw"}`}}
+                                onClick={(e) => e.stopPropagation()}
                             ></textarea>
+                        </div>
                     ) : (
                         screenWidth > 1000 && (
+                            <div onClick={(e) => e.stopPropagation()}>
                             <textarea
                                 value={markdownContent}
                                 onChange={handleInputChange}
@@ -165,6 +169,7 @@ To right align, just put : on the lines
                                 className="markdown-half markdown-textarea"
                                 style={{width:`${screenWidth <= 1000 ? "90vw" : "45vw"}`}}
                             ></textarea>
+                            </div>
                         )
                     )}
 

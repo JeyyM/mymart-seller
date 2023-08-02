@@ -287,7 +287,7 @@ function Images(martID) {
                 <button
                     disabled={loading}
                     className="heading-tertiary add-categ-init"
-                    style={{ width: `${screenWidth > 600 ? "21rem" : screenWidth > 400 ? "23rem" : "18rem"}`, height: `${screenWidth > 400 ? "4rem" : "7rem"}` }}
+                    style={{ width: `${screenWidth > 600 ? "max-content" : screenWidth > 400 ? "23rem" : "18rem"}`, height: `${screenWidth > 400 ? "4rem" : "7rem"}` }}
                     onClick={() => {
                         const validatedPopup = startsImgur(Popup) ? Popup : "https://i.imgur.com/removed.png";
                         const validatedFavicon = startsImgur(favicon) ? favicon : "https://i.imgur.com/removed.png";

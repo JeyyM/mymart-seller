@@ -244,7 +244,7 @@ export default function Details(martID) {
     router.reload()
   }
 
-  const mapContainerStyle = { width: '100%', height: '100%' };
+  const mapContainerStyle = { width: '100%', height: '100%', minHeight:"20rem" };
 
   const [center, setCenter] = useState(null);
   const [locationName, setLocationName] = useState(footerItems.shopLocation);
@@ -360,7 +360,7 @@ export default function Details(martID) {
         <div className="heading-icon-pin svg-color">&nbsp;</div>
       </div>
       <h1 className="heading-primary no-margin"  style={{ fontSize: `${screenWidth > 500 ? "3.5rem" : screenWidth > 450 ? "3rem" : "2.5rem"}`}}>Contact Details and Footer&nbsp;</h1>
-      <button onClick={submitChanges} className="heading-tertiary add-categ-init" style={{ width: `${screenWidth > 600 ? "21rem" : screenWidth > 400 ? "23rem" : "18rem"}`, height: `${screenWidth > 400 ? "4rem" : "7rem"}` }} disabled={loading}><div className="heading-icon-check svg-color">&nbsp;</div>{loading ? "Submitting..." : "Submit Changes"} &nbsp;</button>
+      <button onClick={submitChanges} className="heading-tertiary add-categ-init" style={{ width: `${screenWidth > 600 ? "max-content" : screenWidth > 400 ? "23rem" : "18rem"}`, height: `${screenWidth > 400 ? "4rem" : "7rem"}` }} disabled={loading}><div className="heading-icon-check svg-color">&nbsp;</div>{loading ? "Submitting..." : "Submit Changes"} &nbsp;</button>
     </span>
     <section className="contact-container">
 

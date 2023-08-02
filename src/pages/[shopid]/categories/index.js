@@ -1,5 +1,5 @@
 import Category from "../../../components/category/Category";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import AddCategory from "@/components/Modal/Add-Category";
 import Head from "next/head";
@@ -11,6 +11,14 @@ import 'slick-carousel/slick/slick-theme.css';
 
 function CategoryPage({ shopID, screenWidth }) {
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      alert(
+        `Images can only be Imgur links to lessen the risk of unsafe site links, you may put Lorem Picsum links like: "https://picsum.photos/400/200" where 400/200 are the dimensions of the picture. You may change those to get a certain dimension. So that you won't need to copy paste image links.`
+      );
+    }
+  }, []);
 
   const { shopData } = shopID;
   const contents = shopData.shopCategories;
@@ -125,9 +133,12 @@ function CategoryPage({ shopID, screenWidth }) {
             <div className="heading-icon-category svg-color">&nbsp;</div>
           </div>
           <h1 className="heading-primary no-margin">Categories</h1>
-          <button onClick={addCategHandler} className="add-categ-init heading-tertiary">
-            <div className="heading-icon-plus svg-color">&nbsp;</div>Add Category</button>
+          {screenWidth > 350 && <button onClick={addCategHandler} className="add-categ-init heading-tertiary">
+            <div className="heading-icon-plus svg-color">&nbsp;</div>Add Category</button>}
         </span>
+
+        {screenWidth <= 350 && <button onClick={addCategHandler} className="add-categ-init heading-tertiary">
+            <div className="heading-icon-plus svg-color">&nbsp;</div>Add Category</button>}
 
 
         <Slider {...sliderSettings}>

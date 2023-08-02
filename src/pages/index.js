@@ -7,8 +7,16 @@ import { useRouter } from "next/router"
 import sha256 from 'crypto-js/sha256';
 import { MongoClient } from "mongodb"
 
-function SignUp(props) {
+function Login(props) {
     const router = useRouter()
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+          alert(
+            `Use the email a@a.com, b@b.com, and c@c.com with the password "123" to access the 3 samples. The authentication system is disabled for easier access to admin dashboards. New mart creation has been disabled to not bloat the database. Thank you for your understanding.`
+          );
+        }
+      }, []);
 
     const [currentStep, setCurrentStep] = useState(1);
     // const localStorageKey = `mart_${martID.shopID._id}`;
@@ -209,16 +217,18 @@ function SignUp(props) {
 
                         </div>
                         {/* <a className="heading-tertiary" style={{ margin: "1rem auto" }} href={`/${id}/signup`}>Sign-up?</a> */}
-                        <a href="/64b7787af81c8adaa29eae4b" className="heading-secondary" style={{marginTop:"1rem"}}>Shop 1</a>
-
+                        <a href="/64c84adf0cac7b00a22be359" className="heading-secondary" style={{marginTop:"1rem"}}>Shop 1</a>
+                        <a href="/64c97d5cc0920367fad4222b" className="heading-secondary" style={{marginTop:"1rem"}}>Shop 2</a>
+                        <a href="/64c9a0fb66248cc084a3ae8f" className="heading-secondary" style={{marginTop:"1rem"}}>Shop 3</a>
                     </div>
+                    
                 </motion.div> </AnimatePresence>}
             </div>
         </>
     );
 }
 
-export default SignUp
+export default Login
 
 export async function getServerSideProps({ params }) {
     try {

@@ -10,6 +10,14 @@ import { getServerSideProps } from "@/utilities/serversideProps"
 function HomePage({ shopID, screenWidth }){
     const [loading, setLoading] = useState(true);
     const router = useRouter();
+
+    useEffect(() => {
+      if (typeof window !== "undefined") {
+        alert(
+          `WARNING: People may freely add text and images (limited to Imgur links). If you see crude imagery or slurs, I did not add those. The images set up are from Lorem Picsum to generate random images and avoid copyright problems. Since they are from this site, they may load slower. Be wary of links such as the banner slides and additional links in the footer. This can be customized and people may put malicious links.`
+        );
+      }
+    }, []);
   
     const redirectToErrorPage = () => {
       if (!shopID) {
