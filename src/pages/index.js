@@ -218,8 +218,8 @@ function Login(props) {
                         </div>
                         {/* <a className="heading-tertiary" style={{ margin: "1rem auto" }} href={`/${id}/signup`}>Sign-up?</a> */}
                         <a href="/64c84adf0cac7b00a22be359" className="heading-secondary" style={{marginTop:"1rem"}}>Shop 1</a>
-                        <a href="/64c97d5cc0920367fad4222b" className="heading-secondary" style={{marginTop:"1rem"}}>Shop 2</a>
-                        <a href="/64c9a0fb66248cc084a3ae8f" className="heading-secondary" style={{marginTop:"1rem"}}>Shop 3</a>
+                        <a href="/64c9a0fb66248cc084a3ae8f" className="heading-secondary" style={{marginTop:"1rem"}}>Shop 2</a>
+                        <a href="/64cb36f20ba185ffcb7e0ba1" className="heading-secondary" style={{marginTop:"1rem"}}>Shop 3</a>
                     </div>
                     
                 </motion.div> </AnimatePresence>}
