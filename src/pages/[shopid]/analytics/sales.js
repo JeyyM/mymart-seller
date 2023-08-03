@@ -58,6 +58,12 @@ function Sales(martID) {
 
     return formattedDateTime;
 }
+
+function removeSpecialCharacters(inputString) {
+  const specialCharactersRegex = /[^\p{L}\p{N}\s]/gu;
+
+  return inputString.replace(specialCharactersRegex, '');
+}
     
   const csvData = martID.shopID.shopData.shopSales.finishedOrders.flatMap(item =>
     item.order.map(orderItem => ({
@@ -72,8 +78,8 @@ function Sales(martID) {
       "Age": Math.floor((currentTime - new Date(item.user.profile.birth)) / (1000 * 3600 * 24 * 365.25)),
       "Mode": item.mode,
       "Status": item.status,
-      "Category": orderItem.category,
-      "Product Name": orderItem.name,
+      "Category": removeSpecialCharacters(orderItem.category),
+      "Product Name": removeSpecialCharacters(orderItem.name),
       "Price": orderItem.price,
       "Profit": orderItem.profit,
       "Amount": orderItem.cartValue,
