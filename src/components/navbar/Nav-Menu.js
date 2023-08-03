@@ -74,6 +74,11 @@ function NavMenu(props) {
     setSearchVisible(false)
   },[props.menuStatus])
 
+  const handleGoBack = () => {
+    window.history.back();
+    props.onClick()
+  };
+
   function Menu() {
 
     return <Fragment>
@@ -123,7 +128,7 @@ function NavMenu(props) {
         </>}
 
         <NavMenuItem logo={"info"} label={"About Us"} link={"about"} exit={props.onClick}></NavMenuItem>
-        <NavMenuItem logo={"quiz"} label={screenWidth > 400 ? "Frequently Asked Questions" : "FAQ"} link={"faq"} exit={props.onClick}></NavMenuItem>
+        <NavMenuItem logo={"quiz"} label={"FAQ"} link={"faq"} exit={props.onClick}></NavMenuItem>
         <NavMenuItem logo={"policy"} label={"Terms & Policies"} link={"policies"} exit={props.onClick}></NavMenuItem>
 
         {props.user !== undefined && <>
@@ -134,6 +139,11 @@ function NavMenu(props) {
         </>}
 
         <NavMenuItem logo={"manage"} label={"Sign-Up to MyMart"} exit={props.onClick}></NavMenuItem>
+
+        {router.asPath !== `/${router.query.shopid}` && <button className="navmenu-item" onClick={handleGoBack}>
+        <div className={`menu-goback svg-color`} style={{marginLeft:"-1.5rem"}}>&nbsp;</div>
+        <h2 className="heading-secondary">Back</h2>
+      </button>}
       </div>
     </Fragment>
   }

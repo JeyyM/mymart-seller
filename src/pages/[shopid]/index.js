@@ -17,6 +17,14 @@ import CategoryProductsBuyer from "@/components/category-products/CategoryProduc
 function HomePage({ shopID, screenWidth }) {  
   const router = useRouter();
 
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     alert(
+  //       `Images are loaded in using Lorem Picsum to have non-copyright random image. Due to this, images may load slower.  Thank you for your understanding.`
+  //     );
+  //   }
+  // }, []);
+
   useEffect(() => {
     if (!shopID) {
       router.push(`/${router.query.shopid}/error`);

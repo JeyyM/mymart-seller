@@ -124,5 +124,8 @@
   @include menu-logo(login, 4rem, 4rem);
 }
 
+.menu-goback {
+  @include menu-logo(goback, 4rem, 4rem)
+}
 
 .menu-animation{position: relative; z-index: 25;}
