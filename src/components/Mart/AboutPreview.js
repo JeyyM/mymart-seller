@@ -55,9 +55,9 @@ function AboutPreview(props) {
 
       <>{prevDivs}</>
 
-      {textElements}
-      {imgElements}
       {containerElements}
+      {imgElements}
+      {textElements}
 
     </section>
 </div>

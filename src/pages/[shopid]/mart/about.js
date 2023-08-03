@@ -502,7 +502,7 @@ function About({ shopID, screenWidth }) {
   const textScaler = `${device === "desktop" ? 1 : device === "tablet" ? 0.44 : 0.15}`;
 
   const textElements = TextArray.map((item, index) => 
-    { console.log(item)
+    {
       return <h3
       key={index}
       className={item.type}
@@ -626,7 +626,7 @@ function About({ shopID, screenWidth }) {
     'There are different column amounts for different screen sizes. The preview is an approximation of the screen sizes. It is best to test this in the live site. Text may appear smaller than they really are. There are 12 columns for desktops, 8 columns for tablets, and 4 for phones. You will need to make a version of the about page for all 3 so that it is accessible wherever the user accesses your page. Edit the row count to expand the height of your page.',
     "There are properties such as Z-Index that specifies which items appear on top. Opacity that sets the transparency of item, as well as scale. Scale multiplies the size of an item. When opacity and scale are at 1, it means 100%, so other decimal places mean their percentages such as 0.5 being 50%. Make sure you use the grid system to set the sizes of your items first because it and scale are multiplicative and may grow too big.",
     "Containers are used for creating text boxes and other figures. They may even be set to Body Mode to make it look like a foreground. However, be mindful of which colors you pick as the light mode and dark mode designs are different and may make your about page inaccessible at certain color modes.",
-    "Data will be lost upon switching modes. Make sure to save your changes before changing to another device. Save often to protect your progress. Should you need to use other screen designs as references, it is recommended to open this page in another tab to compare. You may also open up the designing page to check both color modes and access the color picker.", "When putting an image to a certain role like a banner for example, make sure to use images of a similar aspect ratio. Using a tall image for a wide and short image as an example may cause the preview to stretch and become less accurate."];
+    "Data will be lost upon switching modes. Make sure to save your changes before changing to another device. Save often to protect your progress. Should you need to use other screen designs as references, it is recommended to open this page in another tab to compare. You may also open up the designing page to check both color modes and access the color picker.", "When putting an image to a certain role like a banner for example, make sure to use images of a similar aspect ratio. Using a tall image for a wide and short image as an example may cause the preview to stretch and become less accurate. A sign of this is if the red grid markers start to stretch vertically."];
 
   const [modal, showModal] = useState(false)
   function handleModal() {
@@ -2968,9 +2968,9 @@ function About({ shopID, screenWidth }) {
 
       <>{prevDivs}</>
 
-      {textElements}
-      {imgElements}
       {containerElements}
+      {imgElements}
+      {textElements}
 
 
     </section>
