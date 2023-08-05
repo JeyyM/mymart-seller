@@ -19,3 +19,11 @@
     overflow: hidden;
   }
   
+  .color-sample{
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px white, 0 0 0 2px rgb(41, 41, 41);
+    z-index: 10;
+  }
+    

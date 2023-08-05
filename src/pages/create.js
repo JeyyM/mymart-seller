@@ -1642,15 +1642,21 @@ function CreateMart() {
                                     <h1 className="heading-secondary no-margin">Design Your Mart</h1>
                                 </span>
 
-                                {formInputValidity.mainDark && formInputValidity.mainLight ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Main Colors</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Enter Valid Main Colors</h3>}
-
+                                <div className="flex-row flex-row-align">
+          {formInputValidity.mainDark && formInputValidity.mainLight ? <><h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Main Colors</h3> </> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Enter Valid Main Colors</h3>}
+          <div className="color-sample" style={{backgroundColor:`${DarkColor}`}}></div>
+          <div className="color-sample" style={{backgroundColor:`${LightColor}`}}></div>
+</div>
                                 <div className="text-group">
                                     <input onFocus={handleFocus} type="text" placeholder="Dark Color" className={darkClasses} autoComplete="off" style={{ width: "100%" }} value={DarkColor} onChange={handleDarkColorChange}></input>
                                     <input onFocus={handleFocus} type="text" placeholder="Light Color" className={lightClasses} autoComplete="off" style={{ width: "100%" }} value={LightColor} onChange={handleLightColorChange}></input>
                                 </div>
 
-                                {formInputValidity.bgBody && formInputValidity.bgItem ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Background Colors</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Enter Valid Background Colors</h3>}
-
+                                <div className="flex-row flex-row-align">
+          {formInputValidity.bgBody && formInputValidity.bgItem ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Background Colors</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Enter Valid Background Colors</h3>}
+          <div className="color-sample" style={{backgroundColor:`${bgBody}`}}></div>
+          <div className="color-sample" style={{backgroundColor:`${bgItem}`}}></div>
+          </div>
                                 <div className="text-group">
                                     <input onFocus={handleFocus} type="text" placeholder="Body Bg" className={bodyClasses} autoComplete="off" style={{ width: "100%" }} value={bgBody} onChange={handleBgBody}></input>
                                     <input onFocus={handleFocus} type="text" placeholder="Item Bg" className={itemClasses} autoComplete="off" style={{ width: "100%" }} value={bgItem} onChange={handleBgItem}></input>
@@ -1664,15 +1670,24 @@ function CreateMart() {
                                     <input type="number" placeholder="B R" className={BRClasses} autoComplete="off" style={{ width: "100%" }} value={borderBR} onChange={handleBorderBR}></input>
                                 </div>
 
-                                {formInputValidity.outlineDark && formInputValidity.outlineLight && formInputValidity.outlineFont ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Outline Button</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Enter Valid Outline Colors</h3>}
-                                <div className="text-group-3">
+                                <div className="flex-row flex-row-align">
+          {formInputValidity.outlineDark && formInputValidity.outlineLight && formInputValidity.outlineFont ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Outline Button</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Enter Valid Outline Colors</h3>}
+          <div className="color-sample" style={{backgroundColor:`${outlineDark}`}}></div>
+          <div className="color-sample" style={{backgroundColor:`${outlineLight}`}}></div>
+          <div className="color-sample" style={{backgroundColor:`${outlineText}`}}></div>
+          </div>
+                                          <div className="text-group-3">
                                     <input onFocus={handleFocus} type="text" placeholder="Dark Color" className={outlineDarkClasses} autoComplete="off" style={{ width: "100%" }} value={outlineDark} onChange={handleOutlineDark}></input>
                                     <input onFocus={handleFocus} type="text" placeholder="Light Color" className={outlineLightClasses} autoComplete="off" style={{ width: "100%" }} value={outlineLight} onChange={handleOutlineLight}></input>
                                     <input onFocus={handleFocus} type="text" placeholder="Text Color" className={outlineFontClasses} autoComplete="off" style={{ width: "100%" }} value={outlineText} onChange={handleOutlineText}></input>
                                 </div>
 
-                                {formInputValidity.solidDark && formInputValidity.solidLight && formInputValidity.solidFont ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Solid Button</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Enter Valid Solid Colors</h3>}
-                                <div className="text-group-3">
+                                <div className="flex-row flex-row-align">
+          {formInputValidity.solidDark && formInputValidity.solidLight && formInputValidity.solidFont ? <h3 className="heading-tertiary" style={{ margin: "0.5rem 0" }}>Solid Button</h3> : <h3 className="form-label inv z" style={{ margin: "0.5rem 0" }}>Enter Valid Solid Colors</h3>}
+          <div className="color-sample" style={{backgroundColor:`${solidDark}`}}></div>
+          <div className="color-sample" style={{backgroundColor:`${solidLight}`}}></div>
+          <div className="color-sample" style={{backgroundColor:`${solidText}`}}></div>
+          </div>                                <div className="text-group-3">
                                     <input onFocus={handleFocus} type="text" placeholder="Dark Color" className={solidDarkClasses} autoComplete="off" style={{ width: "100%" }} value={solidDark} onChange={handleSolidDark}></input>
                                     <input onFocus={handleFocus} type="text" placeholder="Light Color" className={solidLightClasses} autoComplete="off" style={{ width: "100%" }} value={solidLight} onChange={handleSolidLight}></input>
                                     <input onFocus={handleFocus} type="text" placeholder="Text Color" className={solidFontClasses} autoComplete="off" style={{ width: "100%" }} value={solidText} onChange={handleSolidText}></input>
@@ -1682,6 +1697,13 @@ function CreateMart() {
                                 <span className="page-heading flex-row-align">
                                         <div className="heading-icon-typography svg-color">&nbsp;</div>
                                         <h1 className="heading-secondary no-margin">Typography</h1>
+
+                                        
+            <div className="flex-row flex-row-align" style={{marginLeft:"auto"}}>
+          <div className="color-sample" style={{backgroundColor:`${textPrimary}`}}></div>
+          <div className="color-sample" style={{backgroundColor:`${textSecondary}`}}></div>
+          <div className="color-sample" style={{backgroundColor:`${textTertiary}`}}></div>
+          </div>
                                     </span>
 
                                     <div className="text-group-3" style={{ marginTop: "1rem" }}>
@@ -1741,6 +1763,13 @@ function CreateMart() {
                                     <span className="page-heading flex-row-align">
                                         <div className="heading-icon-typography svg-color">&nbsp;</div>
                                         <h1 className="heading-secondary no-margin">Typography</h1>
+
+                                        
+            <div className="flex-row flex-row-align" style={{marginLeft:"auto"}}>
+          <div className="color-sample" style={{backgroundColor:`${textPrimary}`}}></div>
+          <div className="color-sample" style={{backgroundColor:`${textSecondary}`}}></div>
+          <div className="color-sample" style={{backgroundColor:`${textTertiary}`}}></div>
+          </div>
                                     </span>
 
                                     <div className="text-group-3" style={{ marginTop: "1rem" }}>
@@ -1956,7 +1985,7 @@ function CreateMart() {
                                         </div>
                                         </div>
                                         
-                                        <h2 className="heading-tertiary">The details within can be changed upon the creation of your mart. However, there are more details that can be changed upon exploration such as the creation of your about page, privacy policy, and more. Create your mart to be able to make categories, add products, and manage orders.</h2>
+                                        <h2 className="heading-tertiary">The details within can be changed upon the creation of your mart. However, there are more details that can be changed upon exploration such as creating the dark theme and choosing the default theme, the creation of your about page, privacy policy, and more. Create your mart to be able to make categories, add products, and manage orders.</h2>
                                         <h2 className="heading-tertiary" style={{fontWeight:"900"}}>Upon creation, login with the registered email and password to gain access. Your ecommerce journey starts today!</h2>
 
                                     </div>

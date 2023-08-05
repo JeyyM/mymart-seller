@@ -157,8 +157,6 @@ function About({ shopID }) {
         }
 
         gridClass = device === "desktop" ? "about-grid-1" : device === "tablet" ? "about-grid-2" : "about-grid-3";
-        console.log(gridClass)
-        console.log("screenpx", screenPx)
 
     }, [screenWidth, screenPx, device])
 
@@ -175,9 +173,10 @@ function About({ shopID }) {
 
         <section className={gridClass}>
 
-            {textElements}
-            {imgElements}
             {containerElements}
+            {imgElements}
+            {textElements}
+
 
 
         </section>
@@ -187,3 +186,4 @@ function About({ shopID }) {
 
 export default About
 export { getServerSideProps }
+

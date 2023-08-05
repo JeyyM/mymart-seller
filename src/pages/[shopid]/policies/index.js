@@ -42,14 +42,14 @@ function Policies(martID) {
         }
       `}</style>
 
-            <heading className="page-heading">
+            <header className="page-heading">
                 <div className="heading-icon-dropshadow">
                     <div className="heading-icon-policy svg-color">&nbsp;</div>
                 </div>
                 <h1 className="heading-primary no-margin">&nbsp;Terms & Conditions&nbsp;</h1>
                 <Link href={`/${router.query.shopid}/policies/privacy`} className="heading-tertiary add-categ-init" style={{ width: `${screenWidth > 400 ? "max-content" : "13rem"}`, textAlign:"center", textDecoration:"none", height: `${screenWidth > 400 ? "4rem" : "7rem"}` }}>
                 &nbsp; Privacy Policy &nbsp;</Link>
-            </heading>
+            </header>
 
             <div className="policy-container">
                 <div className="markdown-half markdown-preview" style={{width:"90vw", minHeight:"90vh"}}>

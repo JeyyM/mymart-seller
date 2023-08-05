@@ -56,7 +56,7 @@ function Palette(props) {
           <div style={{ overflow: "hidden" }}>
             <ChromePicker color={color} onChange={updatedColor => setColor(updatedColor)} className="color-picker" disableAlpha={true} renderers={{ hex: ChromePicker }}></ChromePicker>
           </div>
-          <input onFocus={copyHex} onTouchStart={copyHex} type="text" placeholder="HEXCODE" className="text-small input-number" autoComplete="off" style={{ width: "50%", margin: "0 auto" }} value={color.hex}></input>
+          {/* <input onFocus={copyHex} onTouchStart={copyHex} type="text" placeholder="HEXCODE" className="text-small input-number" autoComplete="off" style={{ width: "50%", margin: "0 auto" }} value={color.hex}></input> */}
           </div>
 
           <div className="palette-flex-component">
