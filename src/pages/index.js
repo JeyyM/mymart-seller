@@ -1,4 +1,4 @@
-    import { Fragment, useState, useEffect } from "react"
+    import { Fragment, useState, useEffect, useRef } from "react"
     import HomepageButton from "../components/homepage/Homepage-Button"
     import Head from "next/head"
     import Link from "next/link"
@@ -57,6 +57,100 @@
                 {setScrollState(0)}
             }
           }, [redPieceInView, yellowPieceInView, cyanPieceInView, pinkPieceInView, inView]);
+
+          const designImages = [
+            'https://i.imgur.com/4JVTZw1.jpeg',
+            'https://i.imgur.com/kRKrEzb.jpeg',
+            'https://i.imgur.com/jLIck2a.jpeg',
+            'https://i.imgur.com/I76LNw6.jpeg',
+            'https://i.imgur.com/1n0xDHF.jpeg',
+          ];
+
+          const colors = [
+            ["#0057FF", "#41644A"],
+            ["#0057FF", "#CE5959"],
+            ["#0057FF", "#E74646"],
+            ["#0057FF", "#FFD93D"],
+            ["#0057FF", "#734492"],
+          ];
+
+          const [IsFlipping, setIsFlipping] = useState(false);
+          const [currentIndex, setCurrentIndex] = useState(0);
+
+          const [designAutoOpacity, setDesignAutoOpacity] = useState(1);
+          const [designHeadingWidth, setDesignHeadingWidth] = useState(68);
+        
+          const designColorSet = {
+            backgroundImage: `linear-gradient(
+            to bottom,
+            ${colors[currentIndex][0]},
+            ${colors[currentIndex][1]}
+            )`
+          }
+
+          const handleCard = () => {
+            if (!IsFlipping) {
+              setIsFlipping(true);
+
+              setDesignAutoOpacity(0);
+              setDesignHeadingWidth(0);
+
+              setTimeout(() => {
+                setCurrentIndex((prevIndex) => (prevIndex + 1) % designImages.length);
+                setIsFlipping(false);
+
+                setDesignAutoOpacity(1);
+                setDesignHeadingWidth(68);
+              }, 400); 
+            }
+          };
+        
+          
+          const scrollRef = useRef(null);
+          const [scrollPosition, setScrollPosition] = useState(0);
+        
+          const scrollToBottom = () => {
+            if (scrollRef.current) {
+              const containerHeight = scrollRef.current.scrollHeight;
+              const maxScroll = containerHeight - window.innerHeight;
+              setScrollPosition((prevPosition) => {
+                const newPosition = (prevPosition + 1) % maxScroll;
+                scrollRef.current.scrollTo(0, newPosition);
+                return newPosition;
+              });
+            }
+          };
+        
+          useEffect(() => {
+            const scrollAnimation = () => {
+              scrollToBottom();
+              requestAnimationFrame(scrollAnimation);
+            };
+            const animationId = scrollAnimation();
+        
+            return () => {
+              cancelAnimationFrame(animationId);
+            };
+          }, []);
+
+          const statWave = <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+          height="100vh" viewBox="0 0 943 576" preserveAspectRatio="xMidYMid meet">
+    
+          <g transform="translate(0,576) scale(0.1,-0.1)" fill="#e7f6fd" stroke="none" className="wave-dropshadow">
+            <path d="M515 4094 c-174 -20 -355 -62 -476 -110 l-39 -16 0 -1984 0 -1984
+            3828 1 c2105 1 3816 3 3802 5 -280 41 -336 52 -495 94 -129 34 -205 59 -300
+            100 -11 4 -63 29 -115 54 -87 42 -118 60 -248 135 -23 14 -42 28 -42 33 0 4
+            -7 8 -15 8 -8 0 -15 4 -15 8 0 4 -15 16 -32 27 -29 17 -156 111 -229 169 -14
+            12 -40 32 -59 46 -18 14 -38 30 -44 35 -6 6 -47 37 -91 70 -44 33 -82 62 -85
+            65 -3 3 -21 17 -40 30 -19 13 -41 30 -48 37 -21 20 -202 138 -267 173 -133 73
+            -150 83 -160 90 -5 4 -21 11 -35 15 -14 4 -38 13 -55 21 -87 39 -259 93 -508
+            160 -270 72 -453 129 -587 180 -61 24 -281 130 -325 157 -45 27 -290 190 -295
+            196 -3 3 -34 28 -70 56 -36 27 -67 52 -70 55 -3 3 -39 34 -80 70 -41 36 -97
+            85 -125 110 -74 66 -399 394 -565 570 -80 85 -179 190 -220 234 -99 106 -339
+            346 -421 421 -196 181 -258 231 -444 357 -232 155 -465 257 -675 293 -90 16
+            -290 26 -355 19z"/>
+          </g>
+        </svg>
 
         return <Fragment>
             <Head>
@@ -170,10 +264,25 @@
             </div>
 
             <div className="section-3">
-                <div className="design-heading-container">
-                <div className="design-heading">&nbsp;</div>
+                <div className="design-auto" style={{ opacity: designAutoOpacity }}>
+                <div className="design-brush-1" style={{...designColorSet}}></div>
+                <div className="design-brush-2" style={{...designColorSet}} ></div>
+                <div className="design-heading-container" style={{ width: `${designHeadingWidth}rem`}}>
+                <div className="design-heading" style={{...designColorSet}}>&nbsp;</div>
                 </div>
-                <div className="design-card"></div>
+                </div>
+
+                <div className="flip-card" onClick={handleCard}>
+      <div className={`flip-card-inner ${IsFlipping ? 'flipping' : ''}`} style={{ transform: `rotateY(${currentIndex * 180}deg)` }}>
+        <div className="flip-card-front">
+          <img src={designImages[currentIndex]} className="flip-card-img" />
+        </div>
+        <div className="flip-card-back">
+          <img src={designImages[currentIndex]} className="flip-card-img" />
+        </div>
+      </div>
+    </div>
+
             </div>
 
             <div className="section-4" ref={sect4Ref}>
@@ -187,16 +296,32 @@
                 <div className="section-4-text">
                 <h1 className="sect-4-text">Manage <span className="gradient-redviolet word-glue">at Home or On the Go</span></h1>
                 <motion.h3 className="paragraph-text" style={{width: "55rem"}}>MyMart works on all devices, allowing you to be up to date with your mart's statistics, update your product catalogue, change prices and stocks, and manage at the office or on the way to work and so can your customers. Through  your shop's link, customers can view and make orders which you can then approve or refuse anytime, anywhere.</motion.h3>
-
                 </div>
             </div>
 
+            <div className="section-5">
+      <div className="orders-container" ref={scrollRef}>
+        <img src="/scrolling-test.png" className="tall-image" />
+      </div>
+
+        <div className="sample-container">
+            <div className="sample-orders"></div>
+        </div>
+    </div>
+
+    <div class="section-6">
+    <div className="svg-container">
+    {statWave}
+    </div>
+    <div className="section-6-2">
+    <div className="svg-container-2">
+    {statWave}
+    </div>
+    </div>
+
+  </div>
 
 
-
-            <div className="section-1">
-
-            </div>
 
         </Fragment>
     }
