@@ -35,7 +35,7 @@ function ProductPage({ shopID, user, screenWidth }) {
 
   useEffect(() => {
     if (chosenCategory.length === 0) {
-      router.push(`/${router.query.shopid}/error`);
+      router.push(`/${router.query.shopid}/categories/${chosenCategory.categoryName}error`);
     }
   }, []);
 
@@ -51,7 +51,7 @@ function ProductPage({ shopID, user, screenWidth }) {
 
   useEffect(() => {
     if (chosenProduct.length === 0) {
-      router.push(`/${router.query.shopid}/error`);
+      router.push(`/${router.query.shopid}/categories/${chosenCategory.categoryName}/error`);
     }
   }, []);
 
@@ -67,6 +67,11 @@ function ProductPage({ shopID, user, screenWidth }) {
 
   const variationsList = productContents.filter((product) => product.active === true);
 
+
+    if (variationsList.length === 0) {
+      let router2 = useRouter()
+      router2.push(`/${router.query.shopid}/categories/${router.queryCategory}/error`);
+    }
 
   const variationRange = Array.from({ length: variationsList.length }, (_, index) => index);
 

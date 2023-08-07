@@ -22,7 +22,7 @@ function ProductsPage({ shopID, screenWidth }) {
 
   const shopCurrency = shopData.shopDetails.paymentData.checkoutInfo.currency
 
-  const contents = shopData.shopCategories;
+  const contents = shopData.shopCategories.filter(c => c.active === true);
 
   const chosenCategory = contents.find((c) => c.categoryName === queryCategoryName);
 

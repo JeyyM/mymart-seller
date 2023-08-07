@@ -119,6 +119,21 @@
   @include gradient-text(to right, #bc3d2f, #a16bfe);
 }
 
+.gradient-b {
+  font-weight: 900;
+  @include gradient-text(to right, #eb3349 , #f45c43);
+}
+
+.gradient-c {
+  font-weight: 900;
+  @include gradient-text(to right, #185a9d , #43cea2);
+}
+
+.gradient-d {
+  font-weight: 900;
+  @include gradient-text(to right, #7b4397  , #dc2430 );
+}
+
 .paragraph-text {
   font-family: "Lato", sans-serif;
   font-size: 2rem;
@@ -277,6 +292,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  filter: drop-shadow(-4px 4px 0px $color-primary-dark);
 }
 
 .sect-2-col2 {
@@ -293,7 +309,11 @@
   flex-direction: column;
   background-color: white;
   border-radius: 15px;
-  padding: 2rem;
+  padding: 1rem;
+  filter: drop-shadow(-1px 1px 1px rgba(0, 0, 0, 0.39));
+  transition: all 0.5s;
+  @include border-round;
+  box-shadow: inset 0 0 0 2.2rem $bg-item,
 }
 
 .sect-2-screen {
@@ -305,8 +325,8 @@
 
 .active-sect-2 {
   // filter: drop-shadow(5px 10px 10px rgba(32, 105, 105, 0.454)) drop-shadow(2px 4px 4px red);
-  filter: drop-shadow(-4px 4px 0px green) drop-shadow(-6px 6px 0px red);
-  border: 2px solid rgb(128, 240, 255);
+  transform: translateY(-0.6rem) translateX(1rem);
+  filter: drop-shadow(-6px 6px 0px $color-primary-dark);
   transition: all 0.2s;
 }
 

@@ -281,23 +281,23 @@ function HomePage() {
     </Head>
 
     {scrollState > 0 && <div className="section-2-main" style={{ position: scrollState > 0 ? "fixed" : "absolute" }}>
-      <motion.h1 className="sect-1-text gradient-a" style={{ margin: "1rem" }}>Manage Your Mart with Ease</motion.h1>
+      <motion.h1 className="sect-1-text" style={{ margin: "1rem" }}>Manage Your Mart with Ease</motion.h1>
       <div className="sect-2-container">
         <div className="sect-2-col1">
-          <div className="sect-2-info active-sect-2">
-            <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-purple word-glue">Design Experience</span> Data here</h1>
-            <h3 className="paragraph-text" style={{ height: `${scrollState === 1 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
+          <div className={`${(scrollState === 1 || scrollState === 0) ? "sect-2-info active-sect-2" : "sect-2-info"}`}>
+            <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-b word-glue">Create Categories</span></h1>
+            <h3 className="paragraph-text" style={{ height: `${scrollState === 1 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Be able to create any number of categories with the relevant details such as an image and description. You may disable categories too so that users can't access the page.</h3>
           </div>
-          <div className="sect-2-info">
-            <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-purple word-glue">Design Experience</span> Data here</h1>
+          <div className={`${scrollState === 2 ? "sect-2-info active-sect-2" : "sect-2-info"}`}>
+            <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-c word-glue">Create Products</span></h1>
             <h3 className="paragraph-text" style={{ height: `${scrollState === 2 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
           </div>
-          <div className="sect-2-info">
-            <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-purple word-glue">Design Experience</span> Data here</h1>
+          <div className={`${scrollState === 3 ? "sect-2-info active-sect-2" : "sect-2-info"}`}>
+            <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-d word-glue">Manage Prices and Stocks</span></h1>
             <h3 className="paragraph-text" style={{ height: `${scrollState === 3 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
           </div>
-          <div className="sect-2-info" style={{ marginBottom: "2rem" }}>
-            <h1 className="sect-1-text-2"><span className="gradient-purple word-glue">Design Experience</span> Data here</h1>
+          <div className={`${scrollState === 4 ? "sect-2-info active-sect-2" : "sect-2-info"}`} style={{ marginBottom: "2rem" }}>
+            <h1 className="sect-1-text-2"><span className="gradient-purple word-glue">Add Variations</span></h1>
             <h3 className="paragraph-text" style={{ height: `${scrollState === 4 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
           </div>
         </div>
@@ -330,10 +330,11 @@ function HomePage() {
 
     <div className="section-2-bg" ref={section2Ref}>
       <div className="section-2-main" style={{ position: "relative", zIndex: "0", height: "120vh" }} ref={redPieceRef}>
-        <motion.h1 className="sect-1-text gradient-a" style={{ margin: "1rem" }}>Manage Your Mart with Ease</motion.h1>
+        <motion.h1 className="sect-1-text" style={{ margin: "1rem" }}>Manage Your Mart with Ease</motion.h1>
+
         <div className="sect-2-container">
           <div className="sect-2-col1">
-            <div className="sect-2-info">
+            <div className="sect-2-info active-sect-2">
               <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-purple word-glue">Design Experience</span> Data here</h1>
               <h3 className="paragraph-text" style={{ height: "10rem", overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
             </div>
@@ -373,7 +374,7 @@ function HomePage() {
               <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-purple word-glue">Design Experience</span> Data here</h1>
               <h3 className="paragraph-text" style={{ height: `${scrollState === 30 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
             </div>
-            <div className="sect-2-info" style={{ marginBottom: "2rem" }}>
+            <div className="sect-2-info active-sect-2" style={{ marginBottom: "2rem" }}>
               <h1 className="sect-1-text-2"><span className="gradient-purple word-glue">Design Experience</span> Data here</h1>
               <h3 className="paragraph-text" style={{ height: "10rem", overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
             </div>
