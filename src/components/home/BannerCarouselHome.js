@@ -5,19 +5,16 @@ import Backdrop from '@/components/Modal/Backdrop';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-const BannerCarousel = ({ data, screenWidth }) => {
-  const filteredData = data.filter((item) => item.active);
-
-console.log(data)
+const BannerCarouselHome = ({ data, screenWidth }) => {
 
   let itemLength = 0
-  if (filteredData.length === 1) {
+  if (data.length === 1) {
     itemLength = 1
   }
-  if (filteredData.length === 2) {
+  if (data.length === 2) {
     itemLength = 2
   }
-  if (filteredData.length >= 3) {
+  if (data.length >= 3) {
     itemLength = 3
   }
 
@@ -45,6 +42,8 @@ console.log(data)
   const sliderRef = useRef(null);
   const [activeSlide, setActiveSlide] = useState(0);
 
+  // USE ACTIVE SLIDE TO GET A NOTIF AND TRIGGER POPUP
+
   const [isInteracting, setIsInteracting] = useState(false);
 
   useEffect(() => {
@@ -63,18 +62,10 @@ console.log(data)
     slidesToScroll: 1,
     centerMode: true,
     initialSlide: 0,
-    autoplay: true,
+    autoplay: false,
     onSwipe: () => setIsInteracting(true),
     afterChange: () => setIsInteracting(false),
     beforeChange: (current, next) => setActiveSlide(next),
-  };
-
-  const handleLinkClick = (index, link) => {
-    if (filteredData.length >= 4) {
-      if (!isInteracting && index === activeSlide) {
-        window.open(link, '_blank', 'noopener,noreferrer');
-      }
-    } else { window.open(link, '_blank', 'noopener,noreferrer') }
   };
 
   const handlePrevClick = () => {
@@ -90,13 +81,13 @@ console.log(data)
   };
 
   let bannerClass = ""
-  if (filteredData.length <= 3) {
+  if (data.length <= 3) {
     bannerClass = "active"
   }
 
   return (
     <div>
-      {filteredData.length > 0 && (
+      {data.length > 0 && (
         <AnimatePresence initial={false} mode="wait" onExitComplete={() => null}>
           <motion.div
             onClick={(e) => e.stopPropagation()}
@@ -106,7 +97,7 @@ console.log(data)
             exit="exit"
             className="banner-carousel"
           >
-            {filteredData.length >= 4 || (screenWidth <= 600 && filteredData.length > 1) ? (
+            {data.length >= 4 || (screenWidth <= 600 && data.length > 1) ? (
               <div className="carousel-buttons">
                 <button className="carousel-button prev-button car-button prev-item round-borderer" onClick={handlePrevClick} style={{ marginLeft: "1rem" }}>
                   <div
@@ -124,10 +115,10 @@ console.log(data)
             ) : null}
 
             <Slider ref={sliderRef} {...settings} className="center">
-              {filteredData.map((item, index) => (
+              {data.map((item, index) => (
                 <div key={index}>
                   <img
-                    onClick={() => handleLinkClick(index, item.link)}
+                    // onClick={() => handleLinkClick(index, item.link)}
                     src={item.image}
                     alt={`Image ${index}`}
                     className={`round-borderer banner-item ${activeSlide === index ? 'active' : bannerClass}`}
@@ -143,4 +134,4 @@ console.log(data)
 
 };
 
-export default BannerCarousel;
+export default BannerCarouselHome;

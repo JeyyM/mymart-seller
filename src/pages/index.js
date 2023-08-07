@@ -4,8 +4,32 @@ import Head from "next/head"
 import Link from "next/link"
 import { useInView } from 'react-intersection-observer';
 import { AnimatePresence, motion } from "framer-motion";
+import BannerCarouselHome from "@/components/home/BannerCarouselHome";
 
 function HomePage() {
+
+  const [screenWidth, setScreenWidth] = useState(0);
+
+  useEffect(() => {
+      const handleResize = () => {
+        const newScreenWidth = window.innerWidth;
+        setScreenWidth(newScreenWidth);
+      };
+  
+      handleResize()
+  
+      if (typeof window !== 'undefined') {
+        setScreenWidth(window.innerWidth);
+        window.addEventListener('resize', handleResize);
+      }
+  
+      return () => {
+        if (typeof window !== 'undefined') {
+          window.removeEventListener('resize', handleResize);
+        }
+      };
+    }, []);
+
   const [sect1Ref, inView1] = useInView({
     triggerOnce: true,
     threshold: 0,
@@ -19,6 +43,11 @@ function HomePage() {
   const [sect6Ref, inView6] = useInView({
     triggerOnce: true,
     threshold: 0.9,
+  });
+
+  const [sect8Ref, inView8] = useInView({
+    triggerOnce: true,
+    threshold: 0.7,
   });
 
   const growAnimation = {
@@ -229,7 +258,21 @@ function HomePage() {
     }
   }, [inView6])
 
-  console.log(showUser)
+
+  const bannerData = [
+    {
+        "image": "https://picsum.photos/1000/1000",
+    },
+    {
+        "image": "https://picsum.photos/1001/1001",
+    },
+    {
+        "image": "https://picsum.photos/1002/1002",
+    },
+    {
+        "image": "https://picsum.photos/1003/1003",
+    }
+]
 
   return <Fragment>
     <Head>
@@ -378,7 +421,7 @@ function HomePage() {
       </div>
     </div>
 
-    <div className="section-5">
+    {/* <div className="section-5">
       <div className="orders-container" ref={scrollRef}>
         <img src="/scrolling-test.png" className="tall-image" />
       </div>
@@ -386,7 +429,7 @@ function HomePage() {
       <div className="sample-container">
         <div className="sample-orders"></div>
       </div>
-    </div>
+    </div> */}
 
     <div className="section-6">
       <div className="svg-container">
@@ -408,7 +451,45 @@ function HomePage() {
 
     </div>
 
+<div className="section-8">
+<BannerCarouselHome screenWidth={screenWidth} data={bannerData}></BannerCarouselHome>
 
+<div className="feature-cards" ref={sect8Ref}>
+<div className="feature-item" style={{marginLeft:`${inView8 ? "4vw" : "100vw"}`}}><h1>1</h1></div>
+<div className="feature-item" style={{marginLeft:`${inView8 ? "28vw" : "100vw"}`}}><h1>2</h1></div>
+<div className="feature-item" style={{marginLeft:`${inView8 ? "52vw" : "100vw"}`}}><h1>3</h1></div>
+<div className="feature-item" style={{marginLeft:`${inView8 ? "76vw" : "100vw"}`}}><h1>4</h1></div>
+</div>
+
+<div className="testimony">
+
+</div>
+</div>
+
+<div className="section-9">
+<motion.h1 className="sect-1-text gradient-a" style={{ margin: "1rem" }}>Manage Your Mart with Ease</motion.h1>
+
+<div className="prices">
+<div className="price-card">
+
+</div>
+
+<div className="price-card">
+  
+</div>
+</div>
+</div>
+
+<div className="section-10">
+    <div className="signup-box">
+
+    </div>
+</div>
+
+
+<div className="footer-home">
+
+</div>
   </Fragment>
 }
 
