@@ -345,7 +345,6 @@
 .design-heading-container {
   height: 18rem;
   width: auto;
-  background-color: #00cd7d;
   position: relative;
   overflow: hidden;
   transition: all 0.5s;
@@ -364,11 +363,10 @@
 .design-brush-1 {
   position: absolute;
   transition: all 1s;
-  top: 30%;
+  top: 0%;
   right: 0;
   height: 5rem;
   width: 5rem;
-  background-color: red;
   z-index: 3;
   transform: translateX(50%);
 }
@@ -376,11 +374,10 @@
 .design-brush-2 {
   position: absolute;
   transition: all 1s;
-  top: 30%;
+  top: 0%;
   left: 0;
   height: 5rem;
   width: 5rem;
-  background-color: blue;
   z-index: 3;
   transform: translateX(-50%);
 }
@@ -496,7 +493,7 @@
   height: 100vh;
   width: 100%;
   position: relative;
-  background-image: linear-gradient(to bottom right, red, orange);
+  background-image: linear-gradient(to bottom right, #00C1FF, #407CFF);
 }
 
 .svg-container {
@@ -517,7 +514,7 @@
   width: 90%;
   position: absolute;
   opacity: 1;
-  background-image: linear-gradient(to bottom right, green, blue);
+  background-image: linear-gradient(to bottom right, #84E1FF, #0051FF);
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
   top: 50%;
   left: 50%;
@@ -663,4 +660,22 @@
   border-radius: 10px;
   border: 3px solid white;
   filter: brightness(120%) !important;
+}
+
+.home-paintbrush {
+  position: absolute;
+  top: 0;
+  left: 0;
+  @include heading-logo(home-paintbrush, 36rem, 20rem);
+  transform: rotate(-40deg);
+  // background-image: linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, orange 90%);
+}
+
+.home-paintbrush-2 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  @include heading-logo(home-paintbrush, 36rem, 20rem);
+  // background-image: linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, rgb(13, 0, 255) 90%);
+  transform: scaleX(-1) rotate(-40deg);
 }

@@ -126,8 +126,13 @@ function HomePage() {
             )`
   }
 
+  let brush1 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, ${colors[currentIndex][0]} 80%)`}
+let brush2 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, ${colors[currentIndex][1]} 80%)`}
+
   const handleCard = () => {
     if (!IsFlipping) {
+      brush1 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, ${colors[currentIndex][0]} 80%)`}
+      brush2 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, ${colors[currentIndex][1]} 80%)`}
       setIsFlipping(true);
 
       setDesignAutoOpacity(0);
@@ -274,6 +279,32 @@ function HomePage() {
     }
 ]
 
+const paintbrush = <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+width="12rem" height="21rem" viewBox="0 0 360.000000 630.000000"
+preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,630.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M2114 6267 l-192 -32 42 -46 c43 -49 207 -311 320 -514 64 -114 67
+-123 63 -174 -3 -46 -9 -59 -36 -83 -25 -22 -41 -28 -77 -28 -69 0 -93 19
+-160 127 -97 156 -253 428 -291 510 l-36 75 22 45 c12 25 20 48 17 50 -11 11
+-666 -150 -981 -242 -432 -125 -646 -210 -724 -285 -81 -78 -96 -152 -51 -240
+23 -45 46 -65 147 -129 45 -29 100 -74 121 -99 179 -216 377 -648 523 -1136
+29 -98 58 -180 65 -183 7 -2 124 25 261 62 390 104 1888 511 2091 568 l183 51
+-6 34 c-10 52 -134 422 -204 612 -159 425 -354 854 -425 937 -20 23 -59 55
+-86 72 -139 86 -288 98 -586 48z"/>
+<path d="M3295 4410 c-950 -259 -1248 -340 -1705 -465 -294 -81 -562 -155
+-595 -164 -58 -16 -60 -18 -57 -46 5 -35 48 -174 61 -193 9 -15 270 53 1726
+449 872 238 796 214 789 247 -14 64 -58 193 -68 201 -7 5 -66 -6 -151 -29z"/>
+<path d="M2845 3891 c-1559 -426 -1731 -474 -1744 -481 -8 -4 79 -38 215 -84
+367 -124 462 -175 638 -346 137 -133 196 -209 255 -335 112 -234 172 -475 231
+-923 37 -283 68 -457 120 -667 113 -458 275 -801 451 -952 114 -98 262 -128
+367 -74 59 30 112 91 148 168 57 121 67 189 68 438 0 350 -6 373 -404 1515
+-109 312 -165 491 -187 592 -26 120 -26 431 1 543 49 211 133 352 378 631 122
+139 134 154 121 153 -4 0 -300 -81 -658 -178z"/>
+</g>
+</svg>
+
   return <Fragment>
     <Head>
       <title>Home - MyMart</title>
@@ -286,19 +317,19 @@ function HomePage() {
         <div className="sect-2-col1">
           <div className={`${(scrollState === 1 || scrollState === 0) ? "sect-2-info active-sect-2" : "sect-2-info"}`}>
             <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-b word-glue">Create Categories</span></h1>
-            <h3 className="paragraph-text" style={{ height: `${scrollState === 1 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Be able to create any number of categories with the relevant details such as an image and description. You may disable categories too so that users can't access the page.</h3>
+            <h3 className="paragraph-text" style={{ height: `${scrollState === 1 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Be able to create any number of categories with the relevant details such as an image and description. You may disable categories too so that users can't access the page.</h3>
           </div>
           <div className={`${scrollState === 2 ? "sect-2-info active-sect-2" : "sect-2-info"}`}>
             <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-c word-glue">Create Products</span></h1>
-            <h3 className="paragraph-text" style={{ height: `${scrollState === 2 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
+            <h3 className="paragraph-text" style={{ height: `${scrollState === 2 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>You may populate categories with any number of products. The products can be set with data such as their price, stock, and profits. The set data will be collected as users order to create statistics</h3>
           </div>
           <div className={`${scrollState === 3 ? "sect-2-info active-sect-2" : "sect-2-info"}`}>
             <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-d word-glue">Manage Prices and Stocks</span></h1>
-            <h3 className="paragraph-text" style={{ height: `${scrollState === 3 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
+            <h3 className="paragraph-text" style={{ height: `${scrollState === 3 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>The names, images, prices. and stocks can be changed at anytime past their initialization and will update as users refresh the page. Products with no stock will be marked as sold out.</h3>
           </div>
           <div className={`${scrollState === 4 ? "sect-2-info active-sect-2" : "sect-2-info"}`} style={{ marginBottom: "2rem" }}>
             <h1 className="sect-1-text-2"><span className="gradient-purple word-glue">Add Variations</span></h1>
-            <h3 className="paragraph-text" style={{ height: `${scrollState === 4 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
+            <h3 className="paragraph-text" style={{ height: `${scrollState === 4 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>After product initialization, variations can be added with the same types of details. Each new variation will have their own statistics so that they can be compared with each other.</h3>
           </div>
         </div>
         <div className="sect-2-col2">
@@ -335,19 +366,19 @@ function HomePage() {
         <div className="sect-2-container">
           <div className="sect-2-col1">
             <div className="sect-2-info active-sect-2">
-              <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-purple word-glue">Design Experience</span> Data here</h1>
-              <h3 className="paragraph-text" style={{ height: "10rem", overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
+              <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-b word-glue">Create Categories</span></h1>
+              <h3 className="paragraph-text" style={{ height: "auto", overflow: "hidden", transition: "all 0.5s" }}>Be able to create any number of categories with the relevant details such as an image and description. You may disable categories too so that users can't access the page.</h3>
             </div>
             <div className="sect-2-info">
-              <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-purple word-glue">Design Experience</span> Data here</h1>
+              <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-c word-glue">Create Products</span></h1>
               <h3 className="paragraph-text" style={{ height: `${scrollState === 20 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
             </div>
             <div className="sect-2-info">
-              <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-purple word-glue">Design Experience</span> Data here</h1>
+              <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-d word-glue">Manage Prices and Stocks</span></h1>
               <h3 className="paragraph-text" style={{ height: `${scrollState === 30 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
             </div>
             <div className="sect-2-info" style={{ marginBottom: "2rem" }}>
-              <h1 className="sect-1-text-2"><span className="gradient-purple word-glue">Design Experience</span> Data here</h1>
+              <h1 className="sect-1-text-2"><span className="gradient-purple word-glue">Add Variations</span></h1>
               <h3 className="paragraph-text" style={{ height: `${scrollState === 40 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
             </div>
           </div>
@@ -363,20 +394,20 @@ function HomePage() {
         <div className="sect-2-container">
           <div className="sect-2-col1">
             <div className="sect-2-info">
-              <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-purple word-glue">Design Experience</span> Data here</h1>
-              <h3 className="paragraph-text" style={{ height: `${scrollState === 20 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
+              <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-b word-glue">Create Categories</span></h1>
+              <h3 className="paragraph-text" style={{ height: `${scrollState === 20 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}></h3>
             </div>
             <div className="sect-2-info">
-              <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-purple word-glue">Design Experience</span> Data here</h1>
-              <h3 className="paragraph-text" style={{ height: `${scrollState === 20 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
+              <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-c word-glue">Create Products</span></h1>
+              <h3 className="paragraph-text" style={{ height: `${scrollState === 20 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}></h3>
             </div>
             <div className="sect-2-info">
-              <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-purple word-glue">Design Experience</span> Data here</h1>
-              <h3 className="paragraph-text" style={{ height: `${scrollState === 30 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
+              <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-d word-glue">Manage Prices and Stocks</span></h1>
+              <h3 className="paragraph-text" style={{ height: `${scrollState === 30 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}></h3>
             </div>
             <div className="sect-2-info active-sect-2" style={{ marginBottom: "2rem" }}>
-              <h1 className="sect-1-text-2"><span className="gradient-purple word-glue">Design Experience</span> Data here</h1>
-              <h3 className="paragraph-text" style={{ height: "10rem", overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
+              <h1 className="sect-1-text-2"><span className="gradient-purple word-glue">Add Variations</span></h1>
+              <h3 className="paragraph-text" style={{ height: "auto", overflow: "hidden", transition: "all 0.5s" }}>After product initialization, variations can be added with the same types of details. Each new variation will have their own statistics so that they can be compared with each other.</h3>
             </div>
           </div>
           <div className="sect-2-col2">
@@ -388,8 +419,8 @@ function HomePage() {
 
     <div className="section-3">
       <div className="design-auto" style={{ opacity: designAutoOpacity }}>
-        <div className="design-brush-1" style={{ ...designColorSet }}></div>
-        <div className="design-brush-2" style={{ ...designColorSet }} ></div>
+        <div className="design-brush-1"><div className="home-paintbrush" style={{...brush1}}></div></div>
+        <div className="design-brush-2"><div className="home-paintbrush-2" style={{...brush2}}></div></div>
         <div className="design-heading-container" style={{ width: `${designHeadingWidth}rem` }}>
           <div className="design-heading" style={{ ...designColorSet }}>&nbsp;</div>
         </div>
@@ -489,7 +520,7 @@ function HomePage() {
 
 
 <div className="footer-home">
-
+<div>{paintbrush}</div>
 </div>
   </Fragment>
 }
