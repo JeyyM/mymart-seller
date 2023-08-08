@@ -40,6 +40,11 @@ function HomePage() {
     threshold: 0.5,
   });
 
+  const [sect5Ref, inView5] = useInView({
+    triggerOnce: true,
+    threshold: 0.8,
+  });
+
   const [sect6Ref, inView6] = useInView({
     triggerOnce: true,
     threshold: 0.9,
@@ -153,11 +158,11 @@ let brush2 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%
   const [scrollPosition, setScrollPosition] = useState(0);
 
   const scrollToBottom = () => {
-    if (scrollRef.current) {
+    if (inView5 && scrollRef.current) {
       const containerHeight = scrollRef.current.scrollHeight;
       const maxScroll = containerHeight - window.innerHeight;
       setScrollPosition((prevPosition) => {
-        const newPosition = (prevPosition + 1) % maxScroll;
+        const newPosition = (prevPosition + 0.5) % maxScroll;
         scrollRef.current.scrollTo(0, newPosition);
         return newPosition;
       });
@@ -165,16 +170,20 @@ let brush2 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%
   };
 
   useEffect(() => {
-    const scrollAnimation = () => {
-      scrollToBottom();
-      requestAnimationFrame(scrollAnimation);
-    };
-    const animationId = scrollAnimation();
+    if (inView5) {
+      const scrollAnimation = () => {
+        scrollToBottom();
+        requestAnimationFrame(scrollAnimation);
+      };
+      const animationId = scrollAnimation();
 
-    return () => {
-      cancelAnimationFrame(animationId);
-    };
-  }, []);
+      return () => {
+        cancelAnimationFrame(animationId);
+      };
+    }
+  }, [inView5]);
+
+  console.log(inView5)
 
   const statWave = <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
     height="100vh" viewBox="0 0 1076.000000 659.000000"
@@ -453,7 +462,7 @@ fill="#000000" stroke="none">
       </div>
     </div>
 
-    {/* <div className="section-5">
+    <div className="section-5" ref={sect5Ref}>
       <div className="orders-container" ref={scrollRef}>
         <img src="/scrolling-test.png" className="tall-image" />
       </div>
@@ -461,7 +470,18 @@ fill="#000000" stroke="none">
       <div className="sample-container">
         <div className="sample-orders"></div>
       </div>
-    </div> */}
+
+      <div className="order-text">
+      <motion.h1 className="sect-5-text gradient-e" style={{ margin: "1rem" }}>Collect - <span className="gradient-g">Edit</span> - <span className="gradient-f">Approve</span> / <span className="gradient-h">Refuse</span></motion.h1>
+      <h3 className="paragraph-text" style={{margin:"1rem 5rem", textAlign:"left", whiteSpace:"pre-wrap"}}>    Instantly receive orders upon customer checkout. From there you can see the list of their orders. You may even edit them which will alert the user. From there you can view the user's contact information and location to see if you can finish the order.</h3>
+      <h3 className="paragraph-text" style={{margin:"1rem 5rem", textAlign:"left", whiteSpace:"pre-wrap"}}>    Upon review, you may then choose to approve or refuse an order. When approved, you can set a date when a user can expect their products to arrive. You may even enable cancellations and set penalties.</h3>
+
+      <div className="order-img">
+
+      </div>
+      </div>
+
+    </div>
 
     <div className="section-6">
       <div className="svg-container">
@@ -471,14 +491,27 @@ fill="#000000" stroke="none">
         <div className="svg-container-2">
           {statWave2}
         </div>
+        <div className="stat-text">
+        <h1 className="sect-6-text gradient-orangered">Work with Performance Statistics</h1>
+        <h3 className="paragraph-text" style={{marginTop:"1rem"}}>Collect data on how your mart performs. Collect metrics on views and new users, compare categories and products by their profits and their sales, as well as viewing their ranks relative to a time period. Observe your mart's performance across the day as orders are finished!</h3>
+        </div>
+
+        <div className="stat-img">
+
+        </div>
       </div>
     </div>
 
     <div className="section-7" ref={sect6Ref}>
-      <motion.h1 style={{ marginTop: `${showUser ? "5%" : "20%"}` }} className="sect-7-text" initial={{ x: "-100px", opacity: 0 }} animate={leftAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>Manage Your Mart with Ease</motion.h1>
+      <motion.h1 style={{ marginTop: `${showUser ? "5%" : "20%"}` }} className="sect-7-text gradient-green" initial={{ x: "-100px", opacity: 0 }} animate={leftAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>The Customer is (12 mins) Away</motion.h1>
 
       <div style={{ height: `${showUser ? "70%" : "0"}`, opacity: `${showUser ? "1" : "0"}` }} className="user-data">
-        <h1>test</h1>
+        <div className="user-stats"></div>
+        <div className="user-stat-text">
+        <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-c">Gain Data on Your Users</span></h1>
+        <h3 className="paragraph-text" style={{marginTop:"1rem", whiteSpace:"pre-wrap"}}>    Besides data on products and categories, you can collect statistics of your users. Collate user demographics such as age and gender together with lifetime statistics such as average profit and bought products. Users are ranked along with the companies they belong to allowing you to find your corporate clients.</h3>
+        <h3 className="paragraph-text" style={{marginTop:"1rem", whiteSpace:"pre-wrap"}}>    User locations and coordinates are included in account creation where you can find prime locations where your mart is most popular. Powered by Google Maps, the users' price locations can be found and an estimate of the travel duration to deliver products with precision.</h3>
+        </div>
       </div>
 
     </div>
@@ -487,10 +520,30 @@ fill="#000000" stroke="none">
 <BannerCarouselHome screenWidth={screenWidth} data={bannerData}></BannerCarouselHome>
 
 <div className="feature-cards" ref={sect8Ref}>
-<div className="feature-item" style={{marginLeft:`${inView8 ? "4vw" : "100vw"}`}}><h1>1</h1></div>
-<div className="feature-item" style={{marginLeft:`${inView8 ? "28vw" : "100vw"}`}}><h1>2</h1></div>
-<div className="feature-item" style={{marginLeft:`${inView8 ? "52vw" : "100vw"}`}}><h1>3</h1></div>
-<div className="feature-item" style={{marginLeft:`${inView8 ? "76vw" : "100vw"}`}}><h1>4</h1></div>
+<div className="feature-item feature-1" style={{marginLeft:`${inView8 ? "4vw" : "100vw"}`}}>
+<div className="feature-intuitive">&nbsp;</div>
+<h1 className="feature-heading" style={{marginLeft:"1rem"}}><span className="gradient-c">Simple & Intuitive</span></h1>
+<h3 className="feature-description" style={{marginTop:"1rem", whiteSpace:"pre-wrap"}}>MyMart strives to allow you to create a simple and functional online store without needing to learn how to code or hire a designer. Simply input your shop details, choose colors, and populate your catalogue and your shop can fly!</h3>
+</div>
+
+<div className="feature-item" style={{marginLeft:`${inView8 ? "28vw" : "100vw"}`}}>
+<div className="feature-receipt">&nbsp;</div>
+<h1 className="feature-heading" style={{marginLeft:"1rem"}}><span className="gradient-c">Straightforward Management</span></h1>
+<h3 className="feature-description" style={{marginTop:"1rem", whiteSpace:"pre-wrap"}}>Manage prices, profits, products, and stocks to keep your data collection up to date. Cleanly keep track and finish orders with dynamically updating stocks and statistics.</h3>
+</div>
+
+<div className="feature-item" style={{marginLeft:`${inView8 ? "52vw" : "100vw"}`}}>
+<div className="feature-data-driven">&nbsp;</div>
+<h1 className="feature-heading" style={{marginLeft:"1rem"}}><span className="gradient-c">Data Driven</span></h1>
+<h3 className="feature-description" style={{marginTop:"1rem", whiteSpace:"pre-wrap"}}>Be up to speed with the performance of your Mart in all fronts. From the performance of products and categories up against each other. Create an image of who your users are through demographic data and bought products.</h3>
+</div>
+
+<div className="feature-item" style={{marginLeft:`${inView8 ? "76vw" : "100vw"}`}}>
+<div className="feature-familiar">&nbsp;</div>
+<h1 className="feature-heading" style={{marginLeft:"1rem"}}><span className="gradient-c">Customer Familiarity</span></h1>
+<h3 className="feature-description" style={{marginTop:"1rem", whiteSpace:"pre-wrap"}}>MyMart is built with customers in mind. The design of the mart in the user's perspective is similar to the standard e-commerce website. Helping users and admins to navigate with ease.</h3>
+</div>
+
 </div>
 
 <div className="testimony">

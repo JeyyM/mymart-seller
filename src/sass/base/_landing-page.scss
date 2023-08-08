@@ -134,6 +134,26 @@
   @include gradient-text(to right, #7b4397  , #dc2430 );
 }
 
+.gradient-e {
+  font-weight: 900;
+  @include gradient-text(to right, #0f3663  , #011754 );
+}
+
+.gradient-f {
+  font-weight: 900;
+  @include gradient-text(to right, #16ff00, #ffde00 );
+}
+
+.gradient-g {
+  font-weight: 900;
+  @include gradient-text(to right, #F1C40F  , #FF0061 );
+}
+
+.gradient-h {
+  font-weight: 900;
+  @include gradient-text(to right, darkred  , red );
+}
+
 .paragraph-text {
   font-family: "Lato", sans-serif;
   font-size: 2rem;
@@ -440,6 +460,32 @@
   width: 30rem;
 }
 
+.home-paintbrush {
+  position: absolute;
+  top: 0;
+  left: 0;
+  @include heading-logo(home-paintbrush, 36rem, 20rem);
+  transform: rotate(-40deg);
+  // background-image: linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, orange 90%);
+}
+
+.home-paintbrush-2 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  @include heading-logo(home-paintbrush, 36rem, 20rem);
+  // background-image: linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, rgb(13, 0, 255) 90%);
+  transform: scaleX(-1) rotate(-40deg);
+}
+
+.sect-6-text {
+  font-size: 5rem;
+  color: transparent;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: -1px;
+  line-height: 1;
+}
+
 .section-5 {
   height: 100vh;
   width: 100%;
@@ -454,6 +500,14 @@
   position: relative;
 }
 
+.sect-5-text {
+  font-size: 5rem;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: -1px;
+  line-height: 1;
+  padding-bottom: 0.3rem;
+}
+
 .orders-container {
   width: 50%;
   position: relative;
@@ -463,6 +517,12 @@
   overflow: hidden;
   pointer-events: none;
   height: 100%;
+}
+
+.order-img{
+  height: 25rem;
+  width: 45rem;
+  background-color: red;
 }
 
 .tall-image {
@@ -487,6 +547,17 @@
   width: 40rem;
   background-color: green;
   z-index: 2;
+}
+
+.order-text{
+width: 50%;
+height: 100%;
+position: absolute;
+right: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
 }
 
 .section-6 {
@@ -521,6 +592,7 @@
   transform: translate(-50%, -50%);
   overflow: hidden;
   z-index: 3;
+  display: flex;
 }
 
 .svg-container-2 {
@@ -529,6 +601,30 @@
     left: -5vw;
     width: 100%;
     height: 100vh;
+  }
+
+  .stat-text{
+    width: 50%;
+    height: 50%;
+    z-index: 4;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 5rem;
+    padding-left: 3rem;
+  }
+
+  .stat-img{
+    height: 85%;
+    width: 50%;
+    z-index: 4;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: green;
+    margin: 5rem;
   }
 
 .section-7{
@@ -544,9 +640,7 @@
 
 .sect-7-text {
   font-size: 5rem;
-  color: transparent;
   font-family: "Roboto", sans-serif;
-  @include gradient-text(0deg, #17ead9, #0057ff);
   letter-spacing: -1px;
   line-height: 1;
   padding-bottom: 0.3rem;
@@ -561,6 +655,22 @@
   margin: auto;
   transition: all 0.8s;
   overflow: hidden;
+  display: flex;
+}
+
+.user-stats{
+  width: 50%;
+  height: 100%;
+  background-color: #0057ff;
+}
+
+.user-stat-text{
+  width: 50%;
+  height: 100%;
+  background-color: #FF0061;
+  display: flex;
+  flex-direction: column;
+  padding: 5rem;
 }
 
 .section-8{
@@ -571,24 +681,73 @@
 }
 
 .feature-cards{
-  height: 50%;
   width: 100%;
   display: flex;
   transition: all 0.5s;
-  margin-top: 3rem;
+  margin-top: 4rem;
   position: relative;
   overflow: hidden;
-  height: 25vw;
+  height: 37rem;
 }
 
 .feature-item{
-  height: 25vw;
+  height: 95%;
   width: 20vw;
-  background-color: red;
+  background-color: #53535a;
   border-radius: 15px;
   transition: all 1s;
   position: absolute;
-  // margin-left: 100vw;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  filter: drop-shadow(-2px 2px 2px rgba(0, 0, 0, 0.39));
+}
+
+.feature-heading {
+    font-size: 3rem;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    color: #0a2647;
+}
+
+.feature-description{
+  font-size: 2rem;
+  font-family: "Lato", sans-serif;
+  color: white;
+}
+
+.feature-intuitive{
+  @include heading-logo(intuitive, 6rem, 6rem);
+  margin: 1rem;
+  background-image: linear-gradient(
+    to right,
+    red,
+    darkred
+  );
+}
+
+.feature-1{
+border: solid 5px transparent;
+background-image: linear-gradient(#53535a, #53535a),
+  linear-gradient(45deg, $color-primary-dark, $color-primary-light);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: inset 0 0 0 2.2rem #53535a,
+}
+
+.feature-receipt{
+@include heading-logo(receipt, 6rem, 6rem);
+margin: 1rem;
+}
+
+.feature-data-driven{
+@include heading-logo(data-driven, 6rem, 6rem);
+margin: 1rem;
+}
+
+.feature-familiar{
+@include heading-logo(familiar, 6rem, 6rem);
+margin: 1rem;
 }
 
 .testimony{
@@ -662,20 +821,3 @@
   filter: brightness(120%) !important;
 }
 
-.home-paintbrush {
-  position: absolute;
-  top: 0;
-  left: 0;
-  @include heading-logo(home-paintbrush, 36rem, 20rem);
-  transform: rotate(-40deg);
-  // background-image: linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, orange 90%);
-}
-
-.home-paintbrush-2 {
-  position: absolute;
-  top: 0;
-  right: 0;
-  @include heading-logo(home-paintbrush, 36rem, 20rem);
-  // background-image: linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, rgb(13, 0, 255) 90%);
-  transform: scaleX(-1) rotate(-40deg);
-}
