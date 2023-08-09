@@ -6,10 +6,47 @@ import { useInView } from 'react-intersection-observer';
 import { AnimatePresence, motion } from "framer-motion";
 import BannerCarouselHome from "@/components/home/BannerCarouselHome";
 import Testimony from "@/components/home/Testimony";
+// import HomeNavbar from "@/components/home/HomeNavbar";
+
+let previousScrollPos = 0;
 
 function HomePage() {
 
   const [screenWidth, setScreenWidth] = useState(0);
+  const [isNavbarVisible, setNavbarVisible] = useState(true);
+
+  const handleScroll = () => {
+    const currentScrollPos = typeof window !== "undefined" ? window.pageYOffset : 0;
+    setNavbarVisible(currentScrollPos < previousScrollPos || currentScrollPos === 0);
+    previousScrollPos = currentScrollPos;
+  };
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleScroll);
+    }
+    return () => {
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
+
+  const outRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (outRef.current && !outRef.current.contains(event.target)) {
+        setSearchVisible(false);
+      }
+    };
+
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.body.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
       const handleResize = () => {
@@ -134,11 +171,12 @@ function HomePage() {
 
   let brush1 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, ${colors[currentIndex][0]} 80%)`}
 let brush2 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, ${colors[currentIndex][1]} 80%)`}
+let cursorColor = { backgroundImage: `linear-gradient(to right, white, ${colors[currentIndex][1]})`}
 
   const handleCard = () => {
     if (!IsFlipping) {
-      brush1 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, ${colors[currentIndex][0]} 80%)`}
-      brush2 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, ${colors[currentIndex][1]} 80%)`}
+      // brush1 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, ${colors[currentIndex][0]} 80%)`}
+      // brush2 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, ${colors[currentIndex][1]} 80%)`}
       setIsFlipping(true);
 
       setDesignAutoOpacity(0);
@@ -155,36 +193,34 @@ let brush2 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%
   };
 
 
-  const scrollRef = useRef(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
+  // const scrollRef = useRef(null);
+  // const [scrollPosition, setScrollPosition] = useState(0);
 
-  const scrollToBottom = () => {
-    if (inView5 && scrollRef.current) {
-      const containerHeight = scrollRef.current.scrollHeight;
-      const maxScroll = containerHeight - window.innerHeight;
-      setScrollPosition((prevPosition) => {
-        const newPosition = (prevPosition + 0.5) % maxScroll;
-        scrollRef.current.scrollTo(0, newPosition);
-        return newPosition;
-      });
-    }
-  };
+  // const scrollToBottom = () => {
+  //   if (inView5 && scrollRef.current) {
+  //     const containerHeight = scrollRef.current.scrollHeight;
+  //     const maxScroll = containerHeight - window.innerHeight;
+  //     setScrollPosition((prevPosition) => {
+  //       const newPosition = (prevPosition + 0.5) % maxScroll;
+  //       scrollRef.current.scrollTo(0, newPosition);
+  //       return newPosition;
+  //     });
+  //   }
+  // };
 
-  useEffect(() => {
-    if (inView5) {
-      const scrollAnimation = () => {
-        scrollToBottom();
-        requestAnimationFrame(scrollAnimation);
-      };
-      const animationId = scrollAnimation();
+  // useEffect(() => {
+  //   if (inView5) {
+  //     const scrollAnimation = () => {
+  //       scrollToBottom();
+  //       requestAnimationFrame(scrollAnimation);
+  //     };
+  //     const animationId = scrollAnimation();
 
-      return () => {
-        cancelAnimationFrame(animationId);
-      };
-    }
-  }, [inView5]);
-
-  console.log(inView5)
+  //     return () => {
+  //       cancelAnimationFrame(animationId);
+  //     };
+  //   }
+  // }, [inView5]);
 
   const statWave = <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
     height="100vh" viewBox="0 0 1076.000000 659.000000"
@@ -319,18 +355,27 @@ const scrollToSection = (id) => {
   const ref = document.getElementById(id);
     ref.scrollIntoView({ behavior: 'smooth' });
 };
+
   return <Fragment>
     <Head>
       <title>Home - MyMart</title>
       <link rel="icon" type="image/jpeg" href="/light.png" />
     </Head>
 
+    <header className={`home-navbar ${isNavbarVisible ? 'nav-visible' : 'nav-hidden'}`}>
+        <img src="/light-2.png" className="home-nav-logo" onClick={() => scrollToSection('section-1')}></img>
+        <a onClick={() => scrollToSection('section-1')} className="header-home-text">Features</a>
+        <a onClick={() => scrollToSection('section-4')} className="header-home-text">Statistics</a>
+        <a onClick={() => scrollToSection('section-9')} className="header-home-text">Pricing</a>
+        <a onClick={() => scrollToSection('section-10')} className="header-home-text">Sign-Up</a>
+
+      </header>
     {scrollState > 0 && <section className="section-2-main" style={{ position: scrollState > 0 ? "fixed" : "absolute" }}>
-      <motion.h1 className="sect-1-text" style={{ margin: "1rem" }}>Manage Your Mart with Ease</motion.h1>
+      <motion.header className="sect-1-text" style={{ margin: "1rem", fontWeight:"700" }}>Manage Your Mart with Ease</motion.header>
       <div className="sect-2-container">
         <div className="sect-2-col1">
           <div className={`${(scrollState === 1 || scrollState === 0) ? "sect-2-info active-sect-2" : "sect-2-info"}`}>
-            <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-b word-glue">Create Categories</span></h1>
+            <header className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-b word-glue">Create Categories</span></header>
             <h3 className="paragraph-text" style={{ height: `${scrollState === 1 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Be able to create any number of categories with the relevant details such as an image and description. You may disable categories too so that users can't access the page.</h3>
           </div>
           <div className={`${scrollState === 2 ? "sect-2-info active-sect-2" : "sect-2-info"}`}>
@@ -347,35 +392,35 @@ const scrollToSection = (id) => {
           </div>
         </div>
         <div className="sect-2-col2">
-          {scrollState === 1 && <motion.div variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "purple" }}></motion.div>}
-          {scrollState === 2 && <motion.div variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "orange" }}></motion.div>}
-          {scrollState === 3 && <motion.div variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "gray" }}></motion.div>}
-          {scrollState === 4 && <motion.div variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "blue" }}></motion.div>}
+          {scrollState === 1 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "purple" }}></motion.figure>}
+          {scrollState === 2 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "orange" }}></motion.figure>}
+          {scrollState === 3 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "gray" }}></motion.figure>}
+          {scrollState === 4 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "blue" }}></motion.figure>}
         </div>
       </div>
     </section>}
 
-    <div className="section-1" id="section-1">
+    <section className="section-1" id="section-1">
       <div className="section-1-col">
         <motion.h3 ref={sect1Ref} className="adj-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>INTUITIVE. DATA-DRIVEN. CUSTOMIZABLE.</motion.h3>
-        <motion.h1 ref={sect1Ref} className="sect-1-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}>Instantly Create an <span className="word-glue">E-Commerce</span> Site for Your Business</motion.h1>
+        <motion.header ref={sect1Ref} className="sect-1-text" style={{fontWeight:"700"}} initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}>Instantly Create an <span className="word-glue">E-Commerce</span> Site for Your Business</motion.header>
         <motion.h1 ref={sect1Ref} className="sect-1-text-2" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}>With <span className="gradient-orange">No Coding</span> or <span className="gradient-purple word-glue">Design Experience</span></motion.h1>
         <motion.h3 ref={sect1Ref} style={{ marginBottom: "3rem" }} className="paragraph-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></motion.h3>
         <motion.button onClick={() => scrollToSection('section-10')} ref={sect1Ref} className="cta-1" initial={{ y: "20px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.5, delay: 0.8 }}>GET STARTED<div className="icon-next">&nbsp;</div></motion.button>
       </div>
 
-      <motion.div className="section-1-col2"
+      <motion.figure className="section-1-col2"
         initial={{ scale: 0, opacity: 0 }}
         animate={growAnimation}
         transition={{ duration: 1, ease: "easeOut" }}
       >
         <img src="https://i.imgur.com/qlmYdJO.jpeg" className="sect-1-img"></img>
-      </motion.div>
-    </div>
+      </motion.figure>
+    </section>
 
-    <div className="section-2-bg" ref={section2Ref}>
+    <section className="section-2-bg" ref={section2Ref} id="section-2">
       <div className="section-2-main" style={{ position: "relative", zIndex: "0", height: "120vh" }} ref={redPieceRef}>
-        <motion.h1 className="sect-1-text" style={{ margin: "1rem" }}>Manage Your Mart with Ease</motion.h1>
+        <motion.header className="sect-1-text" style={{ margin: "1rem", fontWeight:"700" }}>Manage Your Mart with Ease</motion.header>
 
         <div className="sect-2-container">
           <div className="sect-2-col1">
@@ -429,9 +474,9 @@ const scrollToSection = (id) => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div className="section-3">
+    <section className="section-3">
       <div className="design-auto" style={{ opacity: designAutoOpacity }}>
         <div className="design-brush-1"><div className="home-paintbrush" style={{...brush1}}></div></div>
         <div className="design-brush-2"><div className="home-paintbrush-2" style={{...brush2}}></div></div>
@@ -441,6 +486,13 @@ const scrollToSection = (id) => {
       </div>
 
       <div className="flip-card" onClick={handleCard}>
+      <div className="design-click">
+      <motion.div className="logo-click" style={{...cursorColor, opacity: designAutoOpacity}}
+                                initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 2 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.2, type: "spring", damping: 0 }}
+      ></motion.div>
+      </div>
         <div className={`flip-card-inner ${IsFlipping ? 'flipping' : ''}`} style={{ transform: `rotateY(${currentIndex * 180}deg)` }}>
           <div className="flip-card-front">
             <img src={designImages[currentIndex]} className="flip-card-img" />
@@ -451,33 +503,33 @@ const scrollToSection = (id) => {
         </div>
       </div>
 
-    </div>
+    </section>
 
-    <div className="section-4" ref={sect4Ref}>
-      <motion.div className="section-4-img" initial={{ x: "-100px", opacity: 0 }} animate={sideAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>
+    <section className="section-4" ref={sect4Ref}>
+      <motion.figure className="section-4-img" initial={{ x: "-100px", opacity: 0 }} animate={sideAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>
         <div className="section-4-circle">
           <img src="https://i.imgur.com/qlmYdJO.jpeg" className="sect-4-img"></img>
           <img src="https://media.tenor.com/x_IgoSdRecYAAAAC/walking-walking-duck.gif" className="sect-4-gif"></img>
         </div>
-      </motion.div>
+      </motion.figure>
 
-      <div className="section-4-text">
-        <h1 className="sect-4-text">Manage <span className="gradient-redviolet word-glue">at Home or On the Go</span></h1>
+      <div className="section-4-text" id="section-4">
+        <header style={{fontWeight:"700"}} className="sect-4-text">Manage <span className="gradient-redviolet word-glue">at Home or On the Go</span></header>
         <motion.h3 className="paragraph-text" style={{ width: "55rem" }}>MyMart works on all devices, allowing you to be up to date with your mart's statistics, update your product catalogue, change prices and stocks, and manage at the office or on the way to work and so can your customers. Through  your shop's link, customers can view and make orders which you can then approve or refuse anytime, anywhere.</motion.h3>
       </div>
-    </div>
+    </section>
 
-    {/* <div className="section-5" ref={sect5Ref}>
-      <div className="orders-container" ref={scrollRef}>
+    <section className="section-5" ref={sect5Ref}>
+      <figure className="orders-container">
         <img src="/scrolling-test.png" className="tall-image" />
-      </div>
+      </figure>
 
       <div className="sample-container">
         <div className="sample-orders"></div>
       </div>
 
       <div className="order-text">
-      <motion.h1 className="sect-5-text gradient-e" style={{ margin: "1rem" }}>Collect - <span className="gradient-g">Edit</span> - <span className="gradient-f">Approve</span> / <span className="gradient-h">Refuse</span></motion.h1>
+      <motion.header className="sect-5-text gradient-e" style={{ margin: "1rem", fontWeight:"700" }}>Collect - <span className="gradient-g">Edit</span> - <span className="gradient-f">Approve</span> / <span className="gradient-h">Refuse</span></motion.header>
       <h3 className="paragraph-text" style={{margin:"1rem 5rem", textAlign:"left", whiteSpace:"pre-wrap"}}>    Instantly receive orders upon customer checkout. From there you can see the list of their orders. You may even edit them which will alert the user. From there you can view the user's contact information and location to see if you can finish the order.</h3>
       <h3 className="paragraph-text" style={{margin:"1rem 5rem", textAlign:"left", whiteSpace:"pre-wrap"}}>    Upon review, you may then choose to approve or refuse an order. When approved, you can set a date when a user can expect their products to arrive. You may even enable cancellations and set penalties.</h3>
 
@@ -486,9 +538,9 @@ const scrollToSection = (id) => {
       </div>
       </div>
 
-    </div> */}
+    </section>
 
-    <div className="section-6">
+    <section className="section-6">
       <div className="svg-container">
         {statWave}
       </div>
@@ -497,7 +549,7 @@ const scrollToSection = (id) => {
           {statWave2}
         </div>
         <div className="stat-text">
-        <h1 className="sect-6-text gradient-orangered">Work with Performance Statistics</h1>
+        <header style={{fontWeight:"700"}} className="sect-6-text gradient-orangered">Work with Performance Statistics</header>
         <h3 className="paragraph-text" style={{marginTop:"1rem"}}>Collect data on how your mart performs. Collect metrics on views and new users, compare categories and products by their profits and their sales, as well as viewing their ranks relative to a time period. Observe your mart's performance across the day as orders are finished!</h3>
         </div>
 
@@ -505,10 +557,10 @@ const scrollToSection = (id) => {
 
         </div>
       </div>
-    </div>
+    </section>
 
-    <div className="section-7" ref={sect6Ref}>
-      <motion.h1 style={{ marginTop: `${showUser ? "5%" : "20%"}` }} className="sect-7-text gradient-green" initial={{ x: "-100px", opacity: 0 }} animate={leftAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>The Customer is (12 mins) Away</motion.h1>
+    <section className="section-7" ref={sect6Ref}>
+      <motion.header style={{ marginTop: `${showUser ? "5%" : "20%"}`, fontWeight:"700" }} className="sect-7-text gradient-green" initial={{ x: "-100px", opacity: 0 }} animate={leftAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>The Customer is (12 mins) Away</motion.header>
 
       <div style={{ height: `${showUser ? "70%" : "0"}`, opacity: `${showUser ? "1" : "0"}` }} className="user-data">
         <div className="user-stats"></div>
@@ -519,9 +571,9 @@ const scrollToSection = (id) => {
         </div>
       </div>
 
-    </div>
+    </section>
 
-<div className="section-8">
+<section className="section-8">
 <BannerCarouselHome screenWidth={screenWidth} data={bannerData}></BannerCarouselHome>
 
 <div className="feature-cards" ref={sect8Ref}>
@@ -550,15 +602,15 @@ const scrollToSection = (id) => {
 </div>
 
 </div>
-  <h1 className="sect-8-text gradient-orangered">Work with Performance Statistics</h1>
+  <header style={{fontWeight:"700"}} className="sect-8-text gradient-orangered">Customer Testimonies</header>
 
 <div className="testimony-container">
   <Testimony></Testimony>
 </div>
-</div>
+</section>
 
-<div className="section-9">
-<motion.h1 className="sect-1-text" style={{ margin: "1rem", transform:"scale(1.5)" }}>Pricing</motion.h1>
+<section className="section-9" id="section-9">
+<motion.header className="sect-1-text" style={{ margin: "1rem", transform:"scale(1.5)", fontWeight:"700" }}>Pricing</motion.header>
 
 <div className="prices">
 <div className="price-card">
@@ -578,12 +630,12 @@ const scrollToSection = (id) => {
 <h3 className="price-text-info-2" style={{borderBottom:"0px solid white"}}>Includes Popups & Promos</h3>
 </div>
 </div>
-</div>
+</section>
 
-<div className="section-10" id="section-10">
+<section className="section-10" id="section-10">
     <div className="signup-box">
     <div className="signup-input">
-    <motion.h1 className="sect-10-text" style={{ margin: "1rem" }}>YOUR DREAM MART AWAITS</motion.h1>
+    <motion.header className="sect-10-text" style={{ margin: "1rem", fontWeight:"700" }}>YOUR DREAM MART AWAITS</motion.header>
 
     <div className="flex-row" style={{width:"82%"}}>
     <div className="form-group">
@@ -609,7 +661,7 @@ const scrollToSection = (id) => {
 
     </div>
     </div>
-</div>
+</section>
 
 
 <div className="footer-home">

@@ -166,6 +166,7 @@
 }
 
 .cta-1 {
+  cursor: pointer;
   filter: drop-shadow(-3px 6px 8px rgba(0, 0, 0, 0.39));
   height: 5.5rem;
   width: 25rem;
@@ -401,6 +402,24 @@
   width: 5rem;
   z-index: 3;
   transform: translateX(-50%);
+}
+
+.design-click{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translateX(80%) translateY(80%);
+  z-index: 5;
+}
+
+.logo-click{
+  @include heading-logo(click, 10rem, 10rem);
+  background-image: linear-gradient(
+    to right,
+    white,
+    white
+  );
+  transition: all 0.5s;
 }
 
 .design-auto {
@@ -842,6 +861,7 @@ width: 100%;
 }
 
 .move-item{
+  cursor: pointer;
   height: 6rem;
   width: 6rem;
   border: solid 5px transparent;
@@ -1062,6 +1082,7 @@ width: 100%;
 }
 
 .cta-2 {
+  cursor: pointer;
   filter: drop-shadow(-5px 8px 10px rgba(0, 0, 0, 0.39));
   height: 5.5rem;
   width: 35rem;
@@ -1086,4 +1107,47 @@ width: 100%;
   background-color: #0057ff;
   gap: 1rem;
   letter-spacing: 0.5px;
+}
+
+.home-navbar {
+  background-color: rgba(255, 255, 255, 0.39);
+  height: $navbar-height;
+  display: flex;
+  align-items: center;
+  z-index: 100;
+  // overflow: hidden;
+  width: 100%;
+  transition: all 0.2s;
+  position: sticky;
+  margin-bottom: -$navbar-height;
+  padding-left: 1.5rem;
+  backdrop-filter: blur(10px);
+  gap: 2rem;
+}
+
+.home-nav-logo{
+  height: 8rem;
+  width: 9rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.home-nav-logo:hover{
+  filter: brightness(120%);
+}
+
+.header-home-text{
+    font-size: 3rem;
+    color: #0a2647;
+    font-family: "Roboto", sans-serif;
+    line-height: 1;
+    padding-bottom: 0.3rem;
+    background-image: linear-gradient(0deg, #17ead9, #0057ff);
+    background-clip: text;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.header-home-text:hover{
+  color: transparent;
 }
