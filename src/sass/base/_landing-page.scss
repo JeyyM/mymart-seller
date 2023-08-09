@@ -166,6 +166,7 @@
 }
 
 .cta-1 {
+  filter: drop-shadow(-3px 6px 8px rgba(0, 0, 0, 0.39));
   height: 5.5rem;
   width: 25rem;
   background-color: #0a2647;
@@ -680,6 +681,15 @@ justify-content: center;
   padding-top: 3rem
 }
 
+.sect-8-text {
+  font-size: 5rem;
+  color: transparent;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin: 1rem;
+}
+
 .feature-cards{
   width: 100%;
   display: flex;
@@ -687,7 +697,7 @@ justify-content: center;
   margin-top: 4rem;
   position: relative;
   overflow: hidden;
-  height: 37rem;
+  height: 40rem;
 }
 
 .feature-item{
@@ -721,15 +731,15 @@ justify-content: center;
   margin: 1rem;
   background-image: linear-gradient(
     to right,
-    red,
-    darkred
+    #ea5a6f,
+    #fccf3a
   );
 }
 
 .feature-1{
 border: solid 5px transparent;
 background-image: linear-gradient(#53535a, #53535a),
-  linear-gradient(45deg, $color-primary-dark, $color-primary-light);
+  linear-gradient(45deg, #ea5a6f, #fccf3a);
   background-origin: border-box;
   background-clip: content-box, border-box;
   box-shadow: inset 0 0 0 2.2rem #53535a,
@@ -738,26 +748,112 @@ background-image: linear-gradient(#53535a, #53535a),
 .feature-receipt{
 @include heading-logo(receipt, 6rem, 6rem);
 margin: 1rem;
+background-image: linear-gradient(
+  to right, #00cd7d, #5fd0df
+);
 }
+
+.feature-2{
+  border: solid 5px transparent;
+  background-image: linear-gradient(#53535a, #53535a),
+    linear-gradient(45deg, #00cd7d, #5fd0df);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    box-shadow: inset 0 0 0 2.2rem #53535a,
+  }
 
 .feature-data-driven{
 @include heading-logo(data-driven, 6rem, 6rem);
 margin: 1rem;
+background-image: linear-gradient(
+  to right, #f02fc2, #897af2
+);
 }
+
+.feature-3{
+  border: solid 5px transparent;
+  background-image: linear-gradient(#53535a, #53535a),
+    linear-gradient(45deg, #f02fc2, #897af2);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    box-shadow: inset 0 0 0 2.2rem #53535a,
+  }
 
 .feature-familiar{
 @include heading-logo(familiar, 6rem, 6rem);
 margin: 1rem;
+background-image: linear-gradient(
+  to right, #ee0979, #ff6a00
+);
+}
+
+.feature-4{
+  border: solid 5px transparent;
+  background-image: linear-gradient(#53535a, #53535a),
+    linear-gradient(45deg, #ee0979, #ff6a00);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    box-shadow: inset 0 0 0 2.2rem #53535a,
+  }
+
+.testimony-container{
+  height: 30rem;
+width: 100%;
+  transform: translateY(3rem);
 }
 
 .testimony{
   height: 30rem;
-  width: 80%;
-  background-color: green;
-  margin: auto;
-  margin-top: 3rem;
-  transform: translateY(5rem);
+  width: 120rem !important;
+  background-color: #53535a;
+  // margin-top: 1rem;
+  margin-bottom: 5rem;
   filter: drop-shadow(5px 10px 10px rgba(0, 0, 0, 0.39));
+  transform: translateX(-10%);
+  transition: all 1.2s;
+  display: flex !important;
+  position: relative;
+  border: 5px solid $color-primary-light;
+}
+
+.testimony-img{
+  height: 12rem;
+  margin-top: auto;
+  display: inline !important;
+  transition: all 1.2s;
+  object-fit: cover;
+  object-position: center;
+}
+
+.testimony-data{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.move-buttons{
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+}
+
+.move-item{
+  height: 6rem;
+  width: 6rem;
+  border: solid 5px transparent;
+  background-image: linear-gradient(#53535a, #53535a),
+    linear-gradient(45deg, #e7f6fd, #e7f6fd);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  transition: all 0.2s;
+}
+
+.move-item:hover{
+  filter: brightness(120%);
 }
 
 .section-9{
@@ -768,12 +864,12 @@ margin: 1rem;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  background-color: #e7f6fd;
 }
 
 .prices{
   height: auto;
   width: 100%;
-  background-color: #00cd7d;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -783,27 +879,154 @@ margin: 1rem;
 .price-card{
   height: 40rem;
   width: 30rem;
-  background-color: red;
+  background-color: white;
+  border-radius: 15px;
+  filter: drop-shadow(-3px 3px 3px rgba(0, 0, 0, 0.39));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3rem;
 }
+
+.price-card-2{
+  @include border-round;
+  height: 40rem;
+  width: 30rem;
+  background-color: white;
+  border-radius: 15px;
+  // filter: drop-shadow(-3px 3px 3px rgba(0, 0, 0, 0.39));
+  transform: translateY(-0.6rem) translateX(1rem);
+  filter: drop-shadow(-6px 6px 0px $color-primary-dark) drop-shadow(-5px 5px 5px rgba(0, 0, 0, 0.39));
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  box-shadow: inset 0 0 0 2.2rem $bg-item,
+}
+
+.price-text-name{
+  font-size: 2rem;
+  color: rgb(70, 84, 89);
+  font-family: "Lato", sans-serif;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+.price-text-main{
+  font-size: 5rem;
+  color: black;
+  font-family: "Lato", sans-serif;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-top: 1rem;
+}
+
+.price-text-info{
+  font-size: 2rem;
+  color: rgba(70, 84, 89, 0.842);
+  font-family: "Lato", sans-serif;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-top: 1rem;
+  width: 80%;
+  text-align: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(70, 84, 89, 0.842);
+}
+
+.price-text-info-2{
+  font-size: 2rem;
+  color: #0a2647cf;
+  font-family: "Lato", sans-serif;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-top: 1rem;
+  width: 80%;
+  text-align: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #0a2647cf;
+}
+
 
 .section-10 {
   height: 100vh;
   width: 100%;
-  background-color: brown;
   padding-top: 5%;
+  background-image: linear-gradient(90deg, #0057ff, #7fc9ff);
+}
+
+.sect-10-text {
+  font-size: 5rem;
+  color: transparent;
+  font-family: "Roboto", sans-serif;
+  @include gradient-text(-90deg, #0f3663, #0057ff);
+  letter-spacing: -1px;
+  line-height: 1;
+  padding-bottom: 0.3rem;
+}
+
+.signup-input{
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+
 }
 
 .signup-box{
   height: 90%;
   width: 80%;
-  background-color: #0057ff;
+  background-image: linear-gradient(105deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.9) 50%, transparent 50%), url(https://i.imgur.com/rBkbXS3.jpeg);
+  background-size: 100%;
   margin: auto;
+  padding: 5rem;
+  filter: drop-shadow(-5px 10px 5px rgba(0, 0, 0, 0.39));
 }
 
 .footer-home{
-  height: 35rem;
+  height: auto;
   width: 100%;
   background-color: antiquewhite;
+  padding: 7rem 2rem;
+  background-color: white;
+  border-top: 8px solid #0f3663;
+}
+
+.footer-icon-box{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-icon{
+  height: 20rem;
+  width: auto;
+}
+
+.footer-details-row{
+  width: 100%;
+  display: flex;
+  gap: 30rem;
+}
+
+.footer-details-1{
+  height: 12rem;
+  width: 100%;
+  border-top: 5px solid #0f3663;
+  display: flex;
+  padding-top: 2rem;
+  justify-content: space-around;
+}
+
+.footer-details-2{
+  height: 12rem;
+  width: 100%;
+  border-top: 5px solid #0f3663;
+  display: flex;
+  padding-top: 2rem;
+  justify-content: space-around;
 }
 
 ::-webkit-scrollbar {
@@ -821,3 +1044,46 @@ margin: 1rem;
   filter: brightness(120%) !important;
 }
 
+.svg-bg{
+  background-image: linear-gradient(
+  to right,
+  #e7f6fd,
+  #e7f6fd
+) !important;}
+
+.icon-quote {
+  @include heading-logo(quote, 10rem, 10rem);
+  margin: 1rem;
+  background-image: linear-gradient(to right, white, white);
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.cta-2 {
+  filter: drop-shadow(-5px 8px 10px rgba(0, 0, 0, 0.39));
+  height: 5.5rem;
+  width: 35rem;
+  background-color: #0a2647;
+  color: white;
+  border-radius: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 500;
+  border: transparent;
+  transition: all 0.5s;
+  font-family: "Roboto", sans-serif;
+  gap: 0rem;
+  letter-spacing: 0px;
+  margin-top: 1rem;
+  text-decoration: none;
+}
+
+.cta-2:hover {
+  background-color: #0057ff;
+  gap: 1rem;
+  letter-spacing: 0.5px;
+}

@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useInView } from 'react-intersection-observer';
 import { AnimatePresence, motion } from "framer-motion";
 import BannerCarouselHome from "@/components/home/BannerCarouselHome";
+import Testimony from "@/components/home/Testimony";
 
 function HomePage() {
 
@@ -314,13 +315,17 @@ fill="#000000" stroke="none">
 </g>
 </svg>
 
+const scrollToSection = (id) => {
+  const ref = document.getElementById(id);
+    ref.scrollIntoView({ behavior: 'smooth' });
+};
   return <Fragment>
     <Head>
       <title>Home - MyMart</title>
       <link rel="icon" type="image/jpeg" href="/light.png" />
     </Head>
 
-    {scrollState > 0 && <div className="section-2-main" style={{ position: scrollState > 0 ? "fixed" : "absolute" }}>
+    {scrollState > 0 && <section className="section-2-main" style={{ position: scrollState > 0 ? "fixed" : "absolute" }}>
       <motion.h1 className="sect-1-text" style={{ margin: "1rem" }}>Manage Your Mart with Ease</motion.h1>
       <div className="sect-2-container">
         <div className="sect-2-col1">
@@ -348,15 +353,15 @@ fill="#000000" stroke="none">
           {scrollState === 4 && <motion.div variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "blue" }}></motion.div>}
         </div>
       </div>
-    </div>}
+    </section>}
 
-    <div className="section-1">
+    <div className="section-1" id="section-1">
       <div className="section-1-col">
         <motion.h3 ref={sect1Ref} className="adj-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>INTUITIVE. DATA-DRIVEN. CUSTOMIZABLE.</motion.h3>
         <motion.h1 ref={sect1Ref} className="sect-1-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}>Instantly Create an <span className="word-glue">E-Commerce</span> Site for Your Business</motion.h1>
         <motion.h1 ref={sect1Ref} className="sect-1-text-2" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}>With <span className="gradient-orange">No Coding</span> or <span className="gradient-purple word-glue">Design Experience</span></motion.h1>
         <motion.h3 ref={sect1Ref} style={{ marginBottom: "3rem" }} className="paragraph-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></motion.h3>
-        <motion.button ref={sect1Ref} className="cta-1" initial={{ y: "20px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.5, delay: 0.8 }}>GET STARTED<div className="icon-next">&nbsp;</div></motion.button>
+        <motion.button onClick={() => scrollToSection('section-10')} ref={sect1Ref} className="cta-1" initial={{ y: "20px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.5, delay: 0.8 }}>GET STARTED<div className="icon-next">&nbsp;</div></motion.button>
       </div>
 
       <motion.div className="section-1-col2"
@@ -522,59 +527,111 @@ fill="#000000" stroke="none">
 <div className="feature-cards" ref={sect8Ref}>
 <div className="feature-item feature-1" style={{marginLeft:`${inView8 ? "4vw" : "100vw"}`}}>
 <div className="feature-intuitive">&nbsp;</div>
-<h1 className="feature-heading" style={{marginLeft:"1rem"}}><span className="gradient-c">Simple & Intuitive</span></h1>
+<h1 className="feature-heading" style={{marginLeft:"1rem"}}><span className="gradient-orange">Simple & Intuitive</span></h1>
 <h3 className="feature-description" style={{marginTop:"1rem", whiteSpace:"pre-wrap"}}>MyMart strives to allow you to create a simple and functional online store without needing to learn how to code or hire a designer. Simply input your shop details, choose colors, and populate your catalogue and your shop can fly!</h3>
 </div>
 
-<div className="feature-item" style={{marginLeft:`${inView8 ? "28vw" : "100vw"}`}}>
+<div className="feature-item feature-2" style={{marginLeft:`${inView8 ? "28vw" : "100vw"}`}}>
 <div className="feature-receipt">&nbsp;</div>
-<h1 className="feature-heading" style={{marginLeft:"1rem"}}><span className="gradient-c">Straightforward Management</span></h1>
+<h1 className="feature-heading" style={{marginLeft:"1rem"}}><span className="gradient-green">Straightforward Management</span></h1>
 <h3 className="feature-description" style={{marginTop:"1rem", whiteSpace:"pre-wrap"}}>Manage prices, profits, products, and stocks to keep your data collection up to date. Cleanly keep track and finish orders with dynamically updating stocks and statistics.</h3>
 </div>
 
-<div className="feature-item" style={{marginLeft:`${inView8 ? "52vw" : "100vw"}`}}>
+<div className="feature-item feature-3" style={{marginLeft:`${inView8 ? "52vw" : "100vw"}`}}>
 <div className="feature-data-driven">&nbsp;</div>
-<h1 className="feature-heading" style={{marginLeft:"1rem"}}><span className="gradient-c">Data Driven</span></h1>
+<h1 className="feature-heading" style={{marginLeft:"1rem"}}><span className="gradient-purple">Data Driven</span></h1>
 <h3 className="feature-description" style={{marginTop:"1rem", whiteSpace:"pre-wrap"}}>Be up to speed with the performance of your Mart in all fronts. From the performance of products and categories up against each other. Create an image of who your users are through demographic data and bought products.</h3>
 </div>
 
-<div className="feature-item" style={{marginLeft:`${inView8 ? "76vw" : "100vw"}`}}>
+<div className="feature-item feature-4" style={{marginLeft:`${inView8 ? "76vw" : "100vw"}`}}>
 <div className="feature-familiar">&nbsp;</div>
-<h1 className="feature-heading" style={{marginLeft:"1rem"}}><span className="gradient-c">Customer Familiarity</span></h1>
+<h1 className="feature-heading" style={{marginLeft:"1rem"}}><span className="gradient-orangered">Customer Familiarity</span></h1>
 <h3 className="feature-description" style={{marginTop:"1rem", whiteSpace:"pre-wrap"}}>MyMart is built with customers in mind. The design of the mart in the user's perspective is similar to the standard e-commerce website. Helping users and admins to navigate with ease.</h3>
 </div>
 
 </div>
+  <h1 className="sect-8-text gradient-orangered">Work with Performance Statistics</h1>
 
-<div className="testimony">
-
+<div className="testimony-container">
+  <Testimony></Testimony>
 </div>
 </div>
 
 <div className="section-9">
-<motion.h1 className="sect-1-text gradient-a" style={{ margin: "1rem" }}>Manage Your Mart with Ease</motion.h1>
+<motion.h1 className="sect-1-text" style={{ margin: "1rem", transform:"scale(1.5)" }}>Pricing</motion.h1>
 
 <div className="prices">
 <div className="price-card">
-
+<h1 className="price-text-name">Basic Plan</h1>
+<h2 className="price-text-main">FREE</h2>
+<h3 className="price-text-info">No Statistics</h3>
+<h3 className="price-text-info">Default Colors Only</h3>
+<h3 className="price-text-info" style={{borderBottom:"0px solid white"}}>No Pop-ups & Promos</h3>
 </div>
 
-<div className="price-card">
-  
+<div className="price-card-2">
+  <h1 className="price-text-name" style={{color:"#0a2647"}}>Pro Plan</h1>
+  <h2 className="price-text-main"><sup style={{fontSize:"3rem"}}>$</sup>4.99</h2>
+  <h3 className="price-text-info-2">Full Package</h3>
+<h3 className="price-text-info-2">Mart Statistics</h3>
+<h3 className="price-text-info-2">Full Color Customization</h3>
+<h3 className="price-text-info-2" style={{borderBottom:"0px solid white"}}>Includes Popups & Promos</h3>
 </div>
 </div>
 </div>
 
-<div className="section-10">
+<div className="section-10" id="section-10">
     <div className="signup-box">
+    <div className="signup-input">
+    <motion.h1 className="sect-10-text" style={{ margin: "1rem" }}>YOUR DREAM MART AWAITS</motion.h1>
 
+    <div className="flex-row" style={{width:"82%"}}>
+    <div className="form-group">
+    <input type="text" placeholder="First Name" className="text-full" style={{width:"100%"}}></input>
+    <label className="form-label">First Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>    
+    </div>
+    <div className="form-group">
+    <input type="text" placeholder="Last Name" className="text-full" style={{width:"100%"}}></input>
+    <label className="form-label">Last Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>    
+    </div>
+    </div>
+
+    <div className="form-group">
+    <input type="text" placeholder="Mart Name" className="text-full" style={{width:"82%"}}></input>
+    <label className="form-label">Mart Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>    
+    </div>
+
+    <div className="form-group">
+    <input type="text" placeholder="Email" className="text-full" style={{width:"82%"}}></input>
+    <label className="form-label">Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>    
+    </div>
+    <Link href="/create" className="cta-2">CONTINUE CREATION<div className="icon-next">&nbsp;</div></Link>
+
+    </div>
     </div>
 </div>
 
 
 <div className="footer-home">
-<div>{paintbrush}</div>
+<div className="footer-icon-box">
+  <img className="footer-icon" src="/light-2.png"></img>
 </div>
+
+<div className="footer-details-row">
+  <div className="footer-details-1">
+    <h3 className="paragraph-text" style={{fontWeight:"900"}}>Github</h3>
+    <h3 className="paragraph-text" style={{fontWeight:"900"}}>Personal Site</h3>
+    <h3 className="paragraph-text" style={{fontWeight:"900"}}>LinkedIn</h3>
+    <h3 className="paragraph-text" style={{fontWeight:"900"}}>Github</h3>
+    <h3 className="paragraph-text" style={{fontWeight:"900"}}>Admin Page</h3>
+  </div>
+
+  <div className="footer-details-2">
+    <h3 className="paragraph-text" style={{margin:"0 4rem"}}>Built by JM Miranda for my online portfolio. To access the 3 sample websites, click on the shop name links found in the testimonials or go back to <span style={{fontWeight:"900"}}>My Personal Site</span>. Contact me at <span style={{fontWeight:"900"}}>sdfggfd0000@gmail.com</span>. Please don't steal my code, thank you!</h3>
+  </div> 
+</div>
+</div>
+
   </Fragment>
 }
 
