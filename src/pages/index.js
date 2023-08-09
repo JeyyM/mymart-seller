@@ -467,7 +467,7 @@ const scrollToSection = (id) => {
       </div>
     </div>
 
-    <div className="section-5" ref={sect5Ref}>
+    {/* <div className="section-5" ref={sect5Ref}>
       <div className="orders-container" ref={scrollRef}>
         <img src="/scrolling-test.png" className="tall-image" />
       </div>
@@ -486,7 +486,7 @@ const scrollToSection = (id) => {
       </div>
       </div>
 
-    </div>
+    </div> */}
 
     <div className="section-6">
       <div className="svg-container">
