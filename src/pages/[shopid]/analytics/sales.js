@@ -88,10 +88,14 @@ function removeSpecialCharacters(inputString) {
   );
 
     const convertToCSV = (data) => {
+      if (data.length > 0){
       const headers = Object.keys(data[0]);
       const rows = data.map(obj => headers.map(header => obj[header]));
       const csvArray = [headers, ...rows];
       return csvArray.map(row => row.join(',')).join('\n');
+      } else {
+        return
+      }
     };
     
     const csvContent = convertToCSV(csvData);
@@ -533,6 +537,19 @@ function removeSpecialCharacters(inputString) {
           </div>
           <div className='analytics-sales-cell-2'>
               <FulfillmentPie ds={deliverySum} dc={deliveryCount} ps={pickupSum} pc={pickupCount} chosen={rank5}></FulfillmentPie>
+          </div>
+        </div>
+        <div className='analytics-sales-1' style={{margin:"5rem"}}>
+          <div className='flex-row' style={{ justifyContent: "space-between", margin: "0.5rem" }}>
+            <div className="flex-row" style={{ paddingBottom: '0rem' }}>
+              <div className="text-sec-rank svg-tertiary">&nbsp;</div>
+              <h2 className="heading-secondary">Categories by {rank === 1 ? "Profits" : rank === 2 ? "Buys" : "Both"}</h2>
+            </div>
+
+            <div className="heading-icon-tune svg-secondary" onClick={handleRank}>&nbsp;</div>
+          </div>
+          <div className='analytics-sales-cell'>
+            <RankPie data={categories} colors={categoryColors} chosen={rank}/>
           </div>
         </div>
 

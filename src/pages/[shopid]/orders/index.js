@@ -390,13 +390,13 @@ function Orders({ shopID, screenWidth }) {
                     </div>
                     <h1 className="heading-primary no-margin">Ongoing Sales</h1>
                     {screenWidth > 500 && <>
-                    <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
+                    <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "max-content", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
                     <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
                     </>}
 
                 </span>
                 {screenWidth < 500 && <div className="flex-row">
-                    <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
+                    <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "max-content", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
                     <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
                     </div>}
                 <div className="order-container">
@@ -689,12 +689,12 @@ function Orders({ shopID, screenWidth }) {
                     <div className="heading-icon-ongoing-1 svg-color">&nbsp;</div>
                 </div>
                 <h1 className="heading-primary no-margin">Ongoing Sales</h1>
-                {screenWidth > 500 && <><Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
+                {screenWidth > 500 && <><Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "max-content", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
                     <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link></>}
 
             </span>
             {screenWidth < 500 && <div className="flex-row">
-                    <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "18rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
+                    <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "max-content", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
                     <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
                     </div>}
             <div className="empty-contents">
