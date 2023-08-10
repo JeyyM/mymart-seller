@@ -1151,3 +1151,54 @@ width: 100%;
 .header-home-text:hover{
   color: transparent;
 }
+
+.sect-1-imageset{
+  width: 60rem;
+  height: 45rem;
+  background-color: #16ff00;
+  transform: translateY(-10%);
+  position: relative;
+}
+
+.hero-laptop{
+position: absolute;
+width: 40rem;
+height: 40rem;
+bottom: 0;
+left: 50%;
+// transform: translateX(-50%);
+object-fit: cover;
+// transform: rotateX(30deg) rotateY(45deg); /* Adjust angles as needed */
+transform: rotateY(10deg); /* Adjust angles as needed */
+
+}
+
+.svg-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.stroke-svg::before {
+  content: '';
+  background-image: url('data:image/svg+xml;charset=UTF-8,<SVG_CONTENT_ENCODED>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 10rem;
+  height: 10rem;
+  filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.3));
+  /* Apply stroke effect */
+  -webkit-mask-image: url('data:image/svg+xml;charset=UTF-8,<SVG_CONTENT_ENCODED>');
+  mask-image: url('data:image/svg+xml;charset=UTF-8,<SVG_CONTENT_ENCODED>');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  /* Add the stroke */
+  border: 2px solid black;
+  border-radius: 50%;
+}

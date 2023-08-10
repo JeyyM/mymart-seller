@@ -114,7 +114,7 @@ function NavbarItems(props) {
     <Fragment>
       <NavMenu menuStatus={menuIsOn} onClick={showMenuToggler} function={showMenuToggler} user={props.user} userHandler={props.userHandler} screenWidth={screenWidth}
       changeColor={props.changeColor} currentColor={props.currentColor} transformedData={transformedData} ></NavMenu>
-      <header className={`home-navbar ${isNavbarVisible ? 'nav-visible' : 'nav-hidden'}`}>
+      <header className={`navbar ${isNavbarVisible ? 'nav-visible' : 'nav-hidden'}`}>
         <NavButton menuHandler={showMenuToggler} status={menuIsOn}></NavButton>
         <NavLogo navicon={props.navicon}></NavLogo>
 
