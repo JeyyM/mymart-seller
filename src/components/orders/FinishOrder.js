@@ -113,7 +113,7 @@ function FinishOrder(props) {
                                     <h2 className="heading-primary no-margin">Finish Order?</h2>
                                 </span>
 
-                                <h2 className="heading-tertiary" style={{ margin: "1rem" }}>Are you sure you want to finish the order? Upon completion, the order will be put into the customer records and cannot be undone. The refund period will start. </h2>
+                                <h2 className="heading-tertiary" style={{ margin: "1rem" }}>Are you sure you want to finish the order? Upon completion, the order will be put into the customer records and cannot be undone. The refund period will start. <span style={{fontWeight:"900"}}>Missing items or those with missing categories will be removed and ignored.</span></h2>
 
 
                                 <div className="grid-col-2" style={{ gap: "1rem", marginBottom: "1rem" }}>

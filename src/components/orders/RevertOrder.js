@@ -7,6 +7,7 @@ import { cloneDeep } from "lodash";
 import { useRouter } from "next/router";
 
 function EditOrder(props) {
+    console.log(props)
     const router = useRouter()
     const appear = {
         hidden: {
@@ -30,6 +31,33 @@ function EditOrder(props) {
     };
     let newOrder = {}
     let originalOrder = {}
+
+    let totals = 0
+    let filteredOrders = []
+    let removedItems = []
+
+    if (props.modalStatus){
+        filteredOrders = props.order.order.filter(order => {
+            return !props.removeList.some(pair => pair[0] === order.name && pair[1] === order.category);
+          });
+
+          removedItems = props.order.order.filter(order => {
+            return props.removeList.some(pair => pair[0] === order.name && pair[1] === order.category);
+          });
+
+          const removedItemsTotalPrice = removedItems.reduce((total, item) => total + parseFloat(item.price), 0);
+
+          props.order.order = filteredOrders
+          const totalPrice = filteredOrders.reduce((total, item) => {
+            const price = parseFloat(item.price);
+            const cartValue = item.cartValue;
+            return total + (price * cartValue);
+          }, 0);
+
+          totals = totalPrice + props.order.totals.fees
+
+          props.order.totals.order = totalPrice
+    }
 
     if (props.order !== null) {
         newOrder = cloneDeep(props.order.order);
@@ -187,7 +215,7 @@ function EditOrder(props) {
                                     <div className="warning-logo">&nbsp;</div>
                                 </div>
 
-                                <h3 className="heading-tertiary" style={{ margin: "1rem 0" }}>Reverting the order will send the order back to the ongoing orders page. It will reset the cancellation period. Are you sure you want to do this?</h3>
+                                <h3 className="heading-tertiary" style={{ margin: "1rem 0" }}>Reverting the order will send the order back to the ongoing orders page. It will reset the cancellation period. Are you sure you want to do this? <span style={{fontWeight:"900"}}>Missing items or those with missing categories will be removed and ignored.</span></h3>
 
                                 <div className="dark-underline" style={{ margin: "1rem 0", paddingBottom: "1rem" }}>
                                     <h2 className="heading-secondary">Revert Message</h2>

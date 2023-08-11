@@ -10,8 +10,33 @@ const libraries = ['places'];
 function RefuseOrder(props) {
     const router = useRouter()
     let totals = 0
+    // if (props.modalStatus){
+    //     totals = props.order.totals.order + props.order.totals.fees
+    // }
+    let filteredOrders = []
+    let removedItems = []
+
     if (props.modalStatus){
-        totals = props.order.totals.order + props.order.totals.fees
+        filteredOrders = props.order.order.filter(order => {
+            return !props.removeList.some(pair => pair[0] === order.name && pair[1] === order.category);
+          });
+
+          removedItems = props.order.order.filter(order => {
+            return props.removeList.some(pair => pair[0] === order.name && pair[1] === order.category);
+          });
+
+          const removedItemsTotalPrice = removedItems.reduce((total, item) => total + parseFloat(item.price), 0);
+
+          props.order.order = filteredOrders
+          const totalPrice = filteredOrders.reduce((total, item) => {
+            const price = parseFloat(item.price);
+            const cartValue = item.cartValue;
+            return total + (price * cartValue);
+          }, 0);
+
+          totals = totalPrice + props.order.totals.fees
+
+          props.order.totals.order = totalPrice
     }
 
     const appear = {
