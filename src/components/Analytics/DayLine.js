@@ -6,21 +6,55 @@ function DayLine({ finishedOrders, profitColor, cartValueColor, dateBy }) {
   const daysAgo = moment().subtract(dateBy, 'days');
   const filteredOrders = finishedOrders.filter((order) => moment(order.finishedOn).isAfter(daysAgo));
 
-  const profitData = filteredOrders.map((order) => {
-    const profitTotal = order.order.reduce((total, item) => total + (item.profit * item.cartValue), 0);
-    return {
-      x: moment(order.finishedOn),
-      y: profitTotal,
-    };
-  });
+  // const profitData = filteredOrders.map((order) => {
+  //   const profitTotal = order.order.reduce((total, item) => total + (item.profit * item.cartValue), 0);
+  //   return {
+  //     x: moment(order.finishedOn),
+  //     y: profitTotal,
+  //   };
+  // });
   
-  const boughtTotal = filteredOrders.map((order) => ({
-    x: moment(order.finishedOn),
-    y: order.order.reduce((total, item) => total + item.cartValue, 0),
+  // const boughtTotal = filteredOrders.map((order) => ({
+  //   x: moment(order.finishedOn),
+  //   y: order.order.reduce((total, item) => total + item.cartValue, 0),
+  // }));
+
+  const aggregatedData = {};
+
+  filteredOrders.forEach((order) => {
+    const day = moment(order.finishedOn).format('YYYY-MM-DD');
+    if (!aggregatedData[day]) {
+      aggregatedData[day] = {
+        profitTotal: 0,
+        cartValueTotal: 0,
+      };
+    }
+    const orderProfit = order.order.reduce(
+      (total, item) => total + item.profit * item.cartValue,
+      0
+    );
+    const orderCartValue = order.order.reduce(
+      (total, item) => total + item.cartValue,
+      0
+    );
+    aggregatedData[day].profitTotal += orderProfit;
+    aggregatedData[day].cartValueTotal += orderCartValue;
+  });  
+
+  // console.log(aggregatedData)
+
+  const profitData = Object.entries(aggregatedData).map(([day, data]) => ({
+    x: moment(day),
+    y: data.profitTotal,
   }));
   
+  const boughtTotal = Object.entries(aggregatedData).map(([day, data]) => ({
+    x: moment(day),
+    y: data.cartValueTotal,
+  }));
+
   const chartData = {
-    labels: filteredOrders.map((order) => moment(order.finishedOn)),
+    labels: profitData.map((order) => moment(order.x)),
     datasets: [
       {
         label: 'Profits per day',
