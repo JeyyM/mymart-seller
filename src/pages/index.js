@@ -364,8 +364,8 @@ const scrollToSection = (id) => {
 
     <header className={`home-navbar ${isNavbarVisible ? 'nav-visible' : 'nav-hidden'}`}>
         <img src="/light-2.png" className="home-nav-logo" onClick={() => scrollToSection('section-1')}></img>
-        <a onClick={() => scrollToSection('section-1')} className="header-home-text">Features</a>
-        <a onClick={() => scrollToSection('section-4')} className="header-home-text">Statistics</a>
+        <a onClick={() => scrollToSection('section-2')} className="header-home-text">Features</a>
+        <a onClick={() => scrollToSection('section-6')} className="header-home-text">Statistics</a>
         <a onClick={() => scrollToSection('section-9')} className="header-home-text">Pricing</a>
         <a onClick={() => scrollToSection('section-10')} className="header-home-text">Sign-Up</a>
 
@@ -515,7 +515,7 @@ const scrollToSection = (id) => {
         </div>
       </motion.figure>
 
-      <div className="section-4-text" id="section-4">
+      <div className="section-4-text">
         <header style={{fontWeight:"700"}} className="sect-4-text">Manage <span className="gradient-redviolet word-glue">at Home or On the Go</span></header>
         <motion.h3 className="paragraph-text" style={{ width: "55rem" }}>MyMart works on all devices, allowing you to be up to date with your mart's statistics, update your product catalogue, change prices and stocks, and manage at the office or on the way to work and so can your customers. Through  your shop's link, customers can view and make orders which you can then approve or refuse anytime, anywhere.</motion.h3>
       </div>
@@ -542,7 +542,7 @@ const scrollToSection = (id) => {
 
     </section>
 
-    <section className="section-6">
+    <section className="section-6" id="section-6">
       <div className="svg-container">
         {statWave}
       </div>
@@ -564,7 +564,7 @@ const scrollToSection = (id) => {
     <section className="section-7" ref={sect6Ref}>
       <motion.header style={{ marginTop: `${showUser ? "5%" : "20%"}`, fontWeight:"700" }} className="sect-7-text gradient-green" initial={{ x: "-100px", opacity: 0 }} animate={leftAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>The Customer is (12 mins) Away</motion.header>
 
-      <div style={{ height: `${showUser ? "70%" : "0"}`, opacity: `${showUser ? "1" : "0"}` }} className="user-data">
+      <div style={{ height: `${showUser ? "80%" : "0"}`, opacity: `${showUser ? "1" : "0"}` }} className="user-data">
         <div className="user-stats"></div>
         <div className="user-stat-text">
         <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-c">Gain Data on Your Users</span></h1>

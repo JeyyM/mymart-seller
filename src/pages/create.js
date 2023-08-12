@@ -1593,7 +1593,7 @@ function CreateMart() {
                                     <div className="heading-icon-pin svg-color">&nbsp;</div>
                                     <h1 className="heading-secondary no-margin">&nbsp;Mart Location</h1>
                                 </heading>
-                                <h2 className="heading-tertiary">{locationName}</h2>
+                                <h2 className="heading-tertiary" style={{maxWidth:"50rem"}}>{locationName}</h2>
 
                             <div style={{ height: "24rem", margin: "1rem auto", width: "100%" }}>
                                 <GoogleMap

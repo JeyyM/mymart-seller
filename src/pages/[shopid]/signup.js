@@ -19,7 +19,7 @@ function SignUp(martID) {
     useEffect(() => {
         if (typeof window !== "undefined") {
           alert(
-            `Although you can't make new marts, you may still create accounts. You may use the sample accounts a@a.com b@b.com... up to e@e.com. All of which have the password "123". All of them have the cvv number 000.`
+            `Although you can't make new marts, you may still create accounts. You may use the sample accounts a@a.com b@b.com... up to e@e.com. All of which have the password "123". All of them have the cvv number 000. Do not use real emails or passwords. Authentication through Google, etc. weren't added to not risk Hacks through git history, etc. and do not use real credit card info or names.`
           );
         }
       }, []);

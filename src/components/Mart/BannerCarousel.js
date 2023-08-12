@@ -8,8 +8,6 @@ import 'slick-carousel/slick/slick-theme.css';
 const BannerCarousel = ({ data, screenWidth }) => {
   const filteredData = data.filter((item) => item.active);
 
-console.log(data)
-
   let itemLength = 0
   if (filteredData.length === 1) {
     itemLength = 1

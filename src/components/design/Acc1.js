@@ -59,7 +59,7 @@ function Acc1(props) {
               initial="hidden"
               animate="visible"
               exit="exit"
-              style={{ margin: "0 auto", maxWidth: "73rem", height: "32rem", backgroundImage: `linear-gradient(to right, ${bgColor}, ${bgColor})`, borderRadius: "1.5rem", border: `5px solid ${hexColor}` }}
+              style={{ margin: "0 auto", maxWidth: "73rem", height: "auto", backgroundImage: `linear-gradient(to right, ${bgColor}, ${bgColor})`, borderRadius: "1.5rem", border: `5px solid ${hexColor}` }}
             >
               <h2 style={{ margin: "1rem 3rem" }} className={colorClass}>Primary Contrast: {props.value} - {props.value >= 7 ? <h2 className="heading-primary no-margin green" style={{ display: "inline" }}>Great</h2> : props.value >= 4.5 ? <h2 className="heading-primary no-margin yellow" style={{ display: "inline" }}>Suboptimal</h2> : <h2 className="heading-primary no-margin red" style={{ display: "inline" }}>Bad</h2>}</h2>
 

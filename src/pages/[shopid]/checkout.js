@@ -17,6 +17,14 @@ import { Link } from "@mui/material"
 const libraries = ['places'];
 
 export default function Checkout({ shopID, user, screenWidth }) {
+      useEffect(() => {
+    if (typeof window !== "undefined") {
+      alert(
+        `All accounts have the CVV number "000"`
+      );
+    }
+  }, []);
+
     const footerItems = shopID.shopData.shopDetails.footerData
     const favicon = shopID.shopData.shopDetails.imageData.icons.icon
     const { handleIncrement, state } = useContext(MyContext);
