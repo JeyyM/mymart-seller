@@ -204,7 +204,7 @@ function AcceptOrder(props) {
 
                                 <div className="flex-row flex-row-align" style={{marginTop:"1rem"}}>
                                 <h2 className="heading-secondary">Expect By: </h2>
-                                <CustomizedPicker colormode={chosenMode} selectedDate={Expect} handleDateChange={handleExpectChange} valid={dateValid}></CustomizedPicker>
+                                <CustomizedPicker colormode={chosenMode} selectedDate={Expect} handleDateChange={handleExpectChange} valid={dateValid} title="Date"></CustomizedPicker>
                                 </div>
 
                                 <div className="dark-underline" style={{ margin: "1rem 0", paddingBottom: "1rem" }}>

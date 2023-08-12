@@ -389,7 +389,7 @@ function removeSpecialCharacters(inputString) {
             </div>}
           </div>
 
-          {screenWidth < 500 && <div className='flex-row' style={{ justifyContent:"space-between" }}>
+          {screenWidth <= 500 && <div className='flex-row' style={{ justifyContent:"space-between" }}>
             <div className="flex-row" style={{ paddingBottom: '1rem' }}>
               <div className="text-sec-profit svg-secondary">&nbsp;</div>
               <h2 className="heading-secondary">Total Profits: {shopCurrency} {totalProfit}</h2>

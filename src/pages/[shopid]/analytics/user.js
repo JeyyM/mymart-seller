@@ -427,7 +427,7 @@ handleSetUser(data)
 }
 
 function warning(){
-  alert("The show all user data wasn't built for now to not risk using up many Google Maps api calls per click. I'm not sure if that is how it works but I have chosen to not risk it")
+  alert("Feature coming soon.")
 }
 
 console.log(shopAccounts)

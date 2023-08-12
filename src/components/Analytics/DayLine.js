@@ -18,7 +18,7 @@ function DayLine({ finishedOrders, profitColor, cartValueColor, dateBy }) {
     x: moment(order.finishedOn),
     y: order.order.reduce((total, item) => total + item.cartValue, 0),
   }));
-
+  
   const chartData = {
     labels: filteredOrders.map((order) => moment(order.finishedOn)),
     datasets: [

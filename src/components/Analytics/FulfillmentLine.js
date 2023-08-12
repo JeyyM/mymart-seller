@@ -30,9 +30,10 @@ function FulfillmentLine({ finishedOrders, dateBy }) {
     }
     return result;
   }, []);
-  
+
+    
   const chartData = {
-    labels: filteredOrders.map((order) => moment(order.finishedOn)),
+    labels: deliveryData.map((order) => moment(order.x)),
     datasets: [
       {
         label: 'Delivery Fees',

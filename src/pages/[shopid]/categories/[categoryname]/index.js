@@ -112,7 +112,7 @@ function ProductsPage({ shopID, screenWidth }) {
         <link rel="icon" type="image/jpeg" href={favicon} />
       </Head>
 
-      <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} names={upperProductNames} currency={shopCurrency}></AddProduct>
+      <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} names={upperProductNames} currency={shopCurrency} screenWidth={screenWidth}></AddProduct>
       <span className="page-heading">
         <h1 className="heading-primary">{router.query.categoryname} &nbsp;</h1>
         <button onClick={addProdHandler} className="add-prod-init heading-tertiary">
@@ -186,7 +186,7 @@ function ProductsPage({ shopID, screenWidth }) {
         <title>{queryCategoryName}</title>
         <link rel="icon" type="image/jpeg" href={favicon} />
       </Head>
-      <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} names={upperProductNames} currency={shopCurrency}></AddProduct>
+      <AddProduct modalStatus={addProduct} disable={addProdHandler} finish={completeForm} names={upperProductNames} currency={shopCurrency} screenWidth={screenWidth}></AddProduct>
       <span className="page-heading">
         <h1 className="heading-primary">{router.query.categoryname}&nbsp;</h1>
         <button onClick={addProdHandler} className="add-prod-init heading-tertiary">

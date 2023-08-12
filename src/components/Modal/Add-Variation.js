@@ -418,15 +418,28 @@ function AddProduct(props) {
                     <input type="number" className={profitClasses} placeholder="Profit" autoComplete="off" id='profit' value={profitValue} onChange={handleProfitChange}></input>
                     {formInputValidity.profit ? <label className="form-label">Profit</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid profit</label>}
                   </div>
+                  {props.screenWidth > 525 && <>
                   <div>
                     <input type="number" className={amountClasses} placeholder="Stock Amount" autoComplete="off" id='amount' value={stockAmount} onChange={handleStockAmount}></input>
-                    {formInputValidity.amount ? <label className="form-label">Stock Amount</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid stock amount</label>}
+                    {formInputValidity.amount ? <label className="form-label">Stock Amount</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid stock</label>}
                   </div>
                   <div>
                     <input type="text" className={unitClasses} placeholder="Stock Unit" autoComplete="off" id='unit' value={stockUnit} onChange={handleStockUnit}></input>
-                    {formInputValidity.unit ? <label className="form-label">Stock Unit</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid stock unit</label>}
+                    {formInputValidity.unit ? <label className="form-label">Stock Unit</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid unit</label>}
                   </div>
+                  </>}
                 </div>
+
+                {props.screenWidth <= 525 && <div className="price-pair" style={{paddingLeft:"3.5rem"}}>
+                  <div>
+                    <input type="number" className={amountClasses} placeholder="Stock Amount" autoComplete="off" id='amount' value={stockAmount} onChange={handleStockAmount}></input>
+                    {formInputValidity.amount ? <label className="form-label">Stock Amount</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid stock</label>}
+                  </div>
+                  <div>
+                    <input type="text" className={unitClasses} placeholder="Stock Unit" autoComplete="off" id='unit' value={stockUnit} onChange={handleStockUnit}></input>
+                    {formInputValidity.unit ? <label className="form-label">Stock Unit</label> : <label className="form-label inv" style={{ color: "red" }}>Invalid unit</label>}
+                  </div>
+                </div>}
 
                 <div className="form-group">
                   <textarea

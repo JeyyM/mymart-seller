@@ -485,7 +485,7 @@ function ProductPage({ shopID, screenWidth }) {
       <link rel="icon" type="image/jpeg" href={favicon} />
     </Head>
     <ProdImg disable={handleShowImg} modalStatus={showImg} imgnumber={validImgSet.length} imgs={imgSet} setImg={imagePayload}></ProdImg>
-    <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation} currency={shopCurrency}></AddVariation>
+    <AddVariation modalStatus={addVar} disable={handleAddVar} names={upperProductNames} finish={addVariation} currency={shopCurrency} screenWidth={screenWidth}></AddVariation>
     <Confirmer2 modalStatus={deletion} disable={handleDelete} msg="Are you sure you want to delete the variation? This cannot be undone. However, the data from this variation's statistics will remain." action="Delete Variation?" label={`Will you delete ${variationsList[varState].productName}?`} load={() => { setLoading(true) }} default={varState} finish={delVariation} names={upcoming} routing={routerData} productFix={productFixer}></Confirmer2>
     <AddTags modalStatus={tagStatus} disable={handleTags} list={tagsValue} submit={submitTags}></AddTags>
 
