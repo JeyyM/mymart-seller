@@ -668,6 +668,12 @@ justify-content: center;
   display: flex;
   flex-direction: column;
   transition: all 0.5s;
+  background: radial-gradient(
+    circle at 95% 95%,
+    #4bb3ff,
+    #7fc9ff,
+    transparent 45%
+  )
 }
 
 .sect-7-text {

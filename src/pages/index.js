@@ -385,7 +385,7 @@ function HomePage() {
           </div>
           <div className={`${scrollState === 3 ? "sect-2-info active-sect-2" : "sect-2-info"}`}>
             <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-d word-glue">Manage Prices and Stocks</span></h1>
-            <h3 className="paragraph-text" style={{ height: `${scrollState === 3 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 1s" }}>The names, images, prices. and stocks can be changed at anytime past their initialization and will update as users refresh the page. Products with no stock will be marked as sold out.</h3>
+            <h3 className="paragraph-text" style={{ height: `${scrollState === 3 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 1s" }}>The names, images, prices. and stocks can be changed at anytime past their initialization and will update as users refresh the page. Products with no stock will be marked as sold out. You may disable products too so that users can't access them.</h3>
           </div>
           <div className={`${scrollState === 4 ? "sect-2-info active-sect-2" : "sect-2-info"}`} style={{ marginBottom: "2rem" }}>
             <h1 className="sect-1-text-2"><span className="gradient-purple word-glue">Add Variations</span></h1>
@@ -418,7 +418,7 @@ function HomePage() {
         <motion.h3 ref={sect1Ref} className="adj-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>INTUITIVE. DATA-DRIVEN. CUSTOMIZABLE.</motion.h3>
         <motion.header ref={sect1Ref} className="sect-1-text" style={{ fontWeight: "700" }} initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}>Instantly Create an <span className="word-glue">E-Commerce</span> Site for Your Business</motion.header>
         <motion.h1 ref={sect1Ref} className="sect-1-text-2" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}>With <span className="gradient-orange">No Coding</span> or <span className="gradient-purple word-glue">Design Experience</span></motion.h1>
-        <motion.h3 ref={sect1Ref} style={{ marginBottom: "3rem" }} className="paragraph-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></motion.h3>
+        <motion.h3 ref={sect1Ref} style={{ marginBottom: "3rem" }} className="paragraph-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize designs and colors. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></motion.h3>
         <motion.button onClick={() => scrollToSection('section-10')} ref={sect1Ref} className="cta-1" initial={{ y: "20px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.5, delay: 0.8 }}>GET STARTED<div className="icon-next">&nbsp;</div></motion.button>
       </div>
 
@@ -615,7 +615,7 @@ function HomePage() {
         <div className="user-stat-text">
           <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-c">Gain Data on Your Users</span></h1>
           <h3 className="paragraph-text" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>    Besides data on products and categories, you can collect statistics of your users. Collate user demographics such as age and gender together with lifetime statistics such as average profit and bought products. Users are ranked along with the companies they belong to allowing you to find your corporate clients.</h3>
-          <h3 className="paragraph-text" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>    User locations and coordinates are included in account creation where you can find prime locations where your mart is most popular. Powered by Google Maps, the users' price locations can be found and an estimate of the travel duration to deliver products with precision.</h3>
+          <h3 className="paragraph-text" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>    User locations and coordinates are included in account creation where you can find prime locations where your mart is most popular. Powered by Google Maps, the users' locations can be found and an estimate of the travel duration to deliver products with precision.</h3>
         
           <img src="/home/stat3.webp" className="user-stats-2"></img>
         </div>
@@ -644,13 +644,13 @@ function HomePage() {
         <div className="feature-item feature-3" style={{ marginLeft: `${inView8 ? "52vw" : "100vw"}` }}>
           <div className="feature-data-driven">&nbsp;</div>
           <h1 className="feature-heading" style={{ marginLeft: "1rem" }}><span className="gradient-purple">Data Driven</span></h1>
-          <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>Be up to speed with the performance of your Mart in all fronts. From the performance of products and categories up against each other. Create an image of who your users are through demographic data and bought products.</h3>
+          <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>Be up to speed with the performance of your Mart in all fronts. From the performance of products and categories and creation of an image of who your users are through demographic data and bought products.</h3>
         </div>
 
         <div className="feature-item feature-4" style={{ marginLeft: `${inView8 ? "76vw" : "100vw"}` }}>
           <div className="feature-familiar">&nbsp;</div>
           <h1 className="feature-heading" style={{ marginLeft: "1rem" }}><span className="gradient-orangered">Customer Familiarity</span></h1>
-          <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>MyMart is built with customers in mind. The design of the mart in the user's perspective is similar to the standard e-commerce website. Helping users and admins to navigate with ease.</h3>
+          <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>MyMart is built with customers in mind. The structure of each mart is similar to the standard e-commerce website. Helping users and admins to navigate with ease.</h3>
         </div>
 
       </div>
