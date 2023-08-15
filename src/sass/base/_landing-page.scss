@@ -268,7 +268,7 @@
 }
 
 .sect-4-gif {
-  height: 27rem;
+  height: 20rem;
   width: 30rem;
   object-fit: cover;
   border-radius: 10px;
@@ -277,6 +277,7 @@
   right: -5%;
   bottom: -8%;
   filter: drop-shadow(5px 10px 10px rgba(0, 0, 0, 0.39));
+  pointer-events: none;
 }
 
 .section-2-bg {
@@ -421,6 +422,9 @@
 }
 
 .logo-click{
+  position: absolute;
+  right: -10%;
+  bottom: -10%;
   @include heading-logo(click, 10rem, 10rem);
   background-image: linear-gradient(
     to right,
@@ -440,12 +444,10 @@
 .design-card {
   height: 40rem;
   width: 70rem;
-  background-color: red;
 }
 
 .flip-card {
-  background-color: yellow;
-  width: 100%;
+  width: 60%;
   height: auto;
   perspective: 1000px;
 }
@@ -466,29 +468,27 @@
 .flip-card-front,
 .flip-card-back {
   position: absolute;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
-.flip-card-front {
-  // background-color: #bbb;
-  // color: black;
-  // height: 40rem;
-  // margin: auto;
-}
 
 .flip-card-back {
-  // background-color: dodgerblue;
-  // color: white;
-  // transform: rotateY(180deg);
-  // height: 40rem;
+  transform: rotateY(180deg);
 }
 
 .flip-card-img {
-  height: 30rem;
-  width: 30rem;
+  height: 100%;
+  filter: brightness(120%);
+}
+
+.flip-cursor-container{
+  position: relative;
+  height: 40rem;
+  width: min-content;
+  margin: auto;
 }
 
 .home-paintbrush {
@@ -551,9 +551,9 @@
 }
 
 .order-img{
-  height: 25rem;
-  width: 45rem;
-  background-color: red;
+  height: auto;
+  width: 80%;
+  margin-top: 2rem;
 }
 
 .tall-image {
@@ -649,13 +649,14 @@ justify-content: center;
 
   .stat-img{
     height: 85%;
-    width: 50%;
+    width: 90%;
     z-index: 4;
     position: absolute;
     top: 0;
     right: 0;
-    background-color: green;
     margin: 5rem;
+    z-index: 1;
+    object-fit: contain;
   }
 
 .section-7{
@@ -682,7 +683,7 @@ justify-content: center;
 .user-data{
   height: 80%;
   width: 90%;
-  background-color: green;
+  // background-color: green;
   margin: auto;
   transition: all 0.8s;
   overflow: hidden;
@@ -692,13 +693,21 @@ justify-content: center;
 .user-stats{
   width: 50%;
   height: 100%;
-  background-color: #0057ff;
+  // background-color: #0057ff;
+  object-fit: contain;
+}
+
+.user-stats-2{
+  width: auto;
+  height: 100%;
+  // background-color: #0057ff;
+  object-fit: contain;
 }
 
 .user-stat-text{
   width: 50%;
   height: 100%;
-  background-color: #FF0061;
+  // background-color: #FF0061;
   display: flex;
   flex-direction: column;
   padding: 5rem;
@@ -991,7 +1000,7 @@ width: 100%;
   font-size: 5rem;
   color: transparent;
   font-family: "Roboto", sans-serif;
-  @include gradient-text(-90deg, #0f3663, #0057ff);
+  @include gradient-text(-90deg, #e7f6fd, white);
   letter-spacing: -1px;
   line-height: 1;
   padding-bottom: 0.3rem;
@@ -1008,11 +1017,12 @@ width: 100%;
 .signup-box{
   height: 90%;
   width: 80%;
-  background-image: linear-gradient(105deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.9) 50%, transparent 50%), url(https://i.imgur.com/rBkbXS3.jpeg);
+  background-image: linear-gradient(105deg, #0f3663cf 0%, #0055ffcc 50%, transparent 50%), url(/home/ui.webp);
   background-size: 100%;
   margin: auto;
   padding: 5rem;
   filter: drop-shadow(-5px 10px 5px rgba(0, 0, 0, 0.39));
+  // object-fit: cover;
 }
 
 .footer-home{
@@ -1193,4 +1203,66 @@ object-fit: cover;
 .gradient-testimony-3 {
   font-weight: 900;
   @include gradient-text(to right, #FF6000, #FFD93D);
+}
+
+// .orders-container {
+//   width: 50%;
+//   position: relative;
+//   display: flex;
+//   align-items: flex-start;
+//   position: relative;
+//   overflow: hidden;
+//   pointer-events: none;
+//   height: 100%;
+// }
+
+.scrolling-image-container {
+  overflow: hidden;
+  width: 50%;
+  height: 100%; 
+  position: relative;
+}
+
+.scrolling-image {
+  width: 100%; 
+  height: auto;
+  position: absolute;
+  top: 0;
+  animation: scrollImage 120s linear infinite;
+}
+
+.scrolling-image-container-sm {
+  position: absolute;
+top: 50%;
+left: 50%;
+height: 50rem;
+width: 30rem;
+z-index: 2;
+margin: auto;
+transform: translate(-50%, -50%);
+}
+
+.scrolling-image-sm {
+  width: 100%; 
+  height: auto;
+  position: absolute;
+  top: 0;
+  animation: scrollImage 75s linear infinite;
+}
+
+@keyframes scrollImage {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.gradient-cover{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(to bottom left, #0051FF, #7fc9ff);
+  opacity: 0.8;
 }

@@ -8,6 +8,31 @@ import BannerCarouselHome from "@/components/home/BannerCarouselHome";
 import Testimony from "@/components/home/Testimony";
 // import HomeNavbar from "@/components/home/HomeNavbar";
 
+const ImagePreloader = () => {
+  useEffect(() => {
+    const images = [
+      '/home/phone1.webp',
+      '/home/phone1-piece.webp',
+      '/home/phone2.webp',
+      '/home/phone2-piece.webp',
+      '/home/phone3.webp',
+      '/home/phone3-piece.webp',
+      '/home/phone4.webp',
+      '/home/phone4-piece.webp',
+      '/home/stat1.webp',
+      '/home/stat2.webp',
+      '/home/stat3.webp',
+    ];
+
+    images.forEach(imageSrc => {
+      const img = new Image();
+      img.src = imageSrc;
+    });
+  }, []);
+
+  return null;
+};
+
 let previousScrollPos = 0;
 
 function HomePage() {
@@ -49,24 +74,24 @@ function HomePage() {
   }, []);
 
   useEffect(() => {
-      const handleResize = () => {
-        const newScreenWidth = window.innerWidth;
-        setScreenWidth(newScreenWidth);
-      };
-  
-      handleResize()
-  
+    const handleResize = () => {
+      const newScreenWidth = window.innerWidth;
+      setScreenWidth(newScreenWidth);
+    };
+
+    handleResize()
+
+    if (typeof window !== 'undefined') {
+      setScreenWidth(window.innerWidth);
+      window.addEventListener('resize', handleResize);
+    }
+
+    return () => {
       if (typeof window !== 'undefined') {
-        setScreenWidth(window.innerWidth);
-        window.addEventListener('resize', handleResize);
+        window.removeEventListener('resize', handleResize);
       }
-  
-      return () => {
-        if (typeof window !== 'undefined') {
-          window.removeEventListener('resize', handleResize);
-        }
-      };
-    }, []);
+    };
+  }, []);
 
   const [sect1Ref, inView1] = useInView({
     triggerOnce: true,
@@ -114,8 +139,8 @@ function HomePage() {
   };
 
   const screenVariants = {
-    hidden: { y: 20 },
-    visible: { y: 0 },
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1 },
   };
 
   const [scrollState, setScrollState] = useState(0);
@@ -148,11 +173,11 @@ function HomePage() {
   ];
 
   const colors = [
-    ["#0057FF", "#41644A"],
-    ["#0057FF", "#CE5959"],
-    ["#0057FF", "#E74646"],
-    ["#0057FF", "#FFD93D"],
-    ["#0057FF", "#734492"],
+    ["#0057FF", "#7FC9FF"],
+    ["#FF6000", "#FFD93D"],
+    ["#E74646", "#E11299"],
+    ["#001253", "#a1c2ff"],
+    ["#89375F", "#CE5959"],
   ];
 
   const [IsFlipping, setIsFlipping] = useState(false);
@@ -169,9 +194,9 @@ function HomePage() {
             )`
   }
 
-  let brush1 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, ${colors[currentIndex][0]} 80%)`}
-let brush2 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, ${colors[currentIndex][1]} 80%)`}
-let cursorColor = { backgroundImage: `linear-gradient(to right, white, ${colors[currentIndex][1]})`}
+  let brush1 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, ${colors[currentIndex][0]} 80%)` }
+  let brush2 = { backgroundImage: `linear-gradient(-15deg, #A9885C 57%, silver 56%, silver 60%, white 64%, ${colors[currentIndex][1]} 80%)` }
+  let cursorColor = { backgroundImage: `linear-gradient(to right, white, ${colors[currentIndex][1]})` }
 
   const handleCard = () => {
     if (!IsFlipping) {
@@ -312,49 +337,23 @@ let cursorColor = { backgroundImage: `linear-gradient(to right, white, ${colors[
 
   const bannerData = [
     {
-        "image": "https://picsum.photos/1000/1000",
+      "image": "/home/slide1.webp",
     },
     {
-        "image": "https://picsum.photos/1001/1001",
+      "image": "/home/slide2.webp",
     },
     {
-        "image": "https://picsum.photos/1002/1002",
+      "image": "/home/slide3.webp",
     },
     {
-        "image": "https://picsum.photos/1003/1003",
+      "image": "/home/slide4.webp",
     }
-]
+  ]
 
-const paintbrush = <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
-width="12rem" height="21rem" viewBox="0 0 360.000000 630.000000"
-preserveAspectRatio="xMidYMid meet">
-
-<g transform="translate(0.000000,630.000000) scale(0.100000,-0.100000)"
-fill="#000000" stroke="none">
-<path d="M2114 6267 l-192 -32 42 -46 c43 -49 207 -311 320 -514 64 -114 67
--123 63 -174 -3 -46 -9 -59 -36 -83 -25 -22 -41 -28 -77 -28 -69 0 -93 19
--160 127 -97 156 -253 428 -291 510 l-36 75 22 45 c12 25 20 48 17 50 -11 11
--666 -150 -981 -242 -432 -125 -646 -210 -724 -285 -81 -78 -96 -152 -51 -240
-23 -45 46 -65 147 -129 45 -29 100 -74 121 -99 179 -216 377 -648 523 -1136
-29 -98 58 -180 65 -183 7 -2 124 25 261 62 390 104 1888 511 2091 568 l183 51
--6 34 c-10 52 -134 422 -204 612 -159 425 -354 854 -425 937 -20 23 -59 55
--86 72 -139 86 -288 98 -586 48z"/>
-<path d="M3295 4410 c-950 -259 -1248 -340 -1705 -465 -294 -81 -562 -155
--595 -164 -58 -16 -60 -18 -57 -46 5 -35 48 -174 61 -193 9 -15 270 53 1726
-449 872 238 796 214 789 247 -14 64 -58 193 -68 201 -7 5 -66 -6 -151 -29z"/>
-<path d="M2845 3891 c-1559 -426 -1731 -474 -1744 -481 -8 -4 79 -38 215 -84
-367 -124 462 -175 638 -346 137 -133 196 -209 255 -335 112 -234 172 -475 231
--923 37 -283 68 -457 120 -667 113 -458 275 -801 451 -952 114 -98 262 -128
-367 -74 59 30 112 91 148 168 57 121 67 189 68 438 0 350 -6 373 -404 1515
--109 312 -165 491 -187 592 -26 120 -26 431 1 543 49 211 133 352 378 631 122
-139 134 154 121 153 -4 0 -300 -81 -658 -178z"/>
-</g>
-</svg>
-
-const scrollToSection = (id) => {
-  const ref = document.getElementById(id);
+  const scrollToSection = (id) => {
+    const ref = document.getElementById(id);
     ref.scrollIntoView({ behavior: 'smooth' });
-};
+  };
 
   return <Fragment>
     <Head>
@@ -362,16 +361,18 @@ const scrollToSection = (id) => {
       <link rel="icon" type="image/jpeg" href="/light.png" />
     </Head>
 
-    <header className={`home-navbar ${isNavbarVisible ? 'nav-visible' : 'nav-hidden'}`}>
-        <img src="/light-2.png" className="home-nav-logo" onClick={() => scrollToSection('section-1')}></img>
-        <a onClick={() => scrollToSection('section-2')} className="header-home-text">Features</a>
-        <a onClick={() => scrollToSection('section-6')} className="header-home-text">Statistics</a>
-        <a onClick={() => scrollToSection('section-9')} className="header-home-text">Pricing</a>
-        <a onClick={() => scrollToSection('section-10')} className="header-home-text">Sign-Up</a>
+<ImagePreloader></ImagePreloader>
 
-      </header>
+    <header className={`home-navbar ${isNavbarVisible ? 'nav-visible' : 'nav-hidden'}`}>
+      <img src="/light-2.png" className="home-nav-logo" onClick={() => scrollToSection('section-1')}></img>
+      <a onClick={() => scrollToSection('section-2')} className="header-home-text">Features</a>
+      <a onClick={() => scrollToSection('section-6')} className="header-home-text">Statistics</a>
+      <a onClick={() => scrollToSection('section-9')} className="header-home-text">Pricing</a>
+      <a onClick={() => scrollToSection('section-10')} className="header-home-text">Sign-Up</a>
+
+    </header>
     {scrollState > 0 && <section className="section-2-main" style={{ position: scrollState > 0 ? "fixed" : "absolute" }}>
-      <motion.header className="sect-1-text" style={{ margin: "1rem", fontWeight:"700" }}>Manage Your Mart with Ease</motion.header>
+      <motion.header className="sect-1-text" style={{ margin: "1rem", fontWeight: "700" }}>Manage Your Mart with Ease</motion.header>
       <div className="sect-2-container">
         <div className="sect-2-col1">
           <div className={`${(scrollState === 1 || scrollState === 0) ? "sect-2-info active-sect-2" : "sect-2-info"}`}>
@@ -393,19 +394,19 @@ const scrollToSection = (id) => {
         </div>
         <div className="sect-2-col2">
           {scrollState === 1 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
-            <motion.img className="sect-2-piece" style={{top:"50%", transform:"translateY(-50%)"}} src="/home/phone1-piece.webp"></motion.img>
+            <motion.img className="sect-2-piece" style={{ top: "50%", transform: "translateY(-50%)" }} src="/home/phone1-piece.webp"></motion.img>
             <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone1.webp"></img>
           </motion.figure>}
           {scrollState === 2 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
-            <motion.img className="sect-2-piece" style={{height:"45rem", top:"50%", transform:"translateY(-50%) translateX(-15%)"}} src="/home/phone2-piece.webp"></motion.img>
+            <motion.img className="sect-2-piece" style={{ height: "45rem", top: "50%", transform: "translateY(-50%) translateX(-15%)" }} src="/home/phone2-piece.webp"></motion.img>
             <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone2.webp"></img>
           </motion.figure>}
           {scrollState === 3 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
-            <motion.img className="sect-2-piece" style={{height:"90%"}} src="/home/phone3-piece.webp"></motion.img>
+            <motion.img className="sect-2-piece" style={{ height: "90%" }} src="/home/phone3-piece.webp"></motion.img>
             <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone3.webp"></img>
           </motion.figure>}
           {scrollState === 4 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
-            <motion.img className="sect-2-piece" style={{top:"50%", transform:"translateY(-50%) translateX(-10%)", height:"40rem"}} src="/home/phone4-piece.webp"></motion.img>
+            <motion.img className="sect-2-piece" style={{ top: "50%", transform: "translateY(-50%) translateX(-10%)", height: "40rem" }} src="/home/phone4-piece.webp"></motion.img>
             <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone4.webp"></img>
           </motion.figure>}
         </div>
@@ -415,7 +416,7 @@ const scrollToSection = (id) => {
     <section className="section-1" id="section-1">
       <div className="section-1-col">
         <motion.h3 ref={sect1Ref} className="adj-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>INTUITIVE. DATA-DRIVEN. CUSTOMIZABLE.</motion.h3>
-        <motion.header ref={sect1Ref} className="sect-1-text" style={{fontWeight:"700"}} initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}>Instantly Create an <span className="word-glue">E-Commerce</span> Site for Your Business</motion.header>
+        <motion.header ref={sect1Ref} className="sect-1-text" style={{ fontWeight: "700" }} initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}>Instantly Create an <span className="word-glue">E-Commerce</span> Site for Your Business</motion.header>
         <motion.h1 ref={sect1Ref} className="sect-1-text-2" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}>With <span className="gradient-orange">No Coding</span> or <span className="gradient-purple word-glue">Design Experience</span></motion.h1>
         <motion.h3 ref={sect1Ref} style={{ marginBottom: "3rem" }} className="paragraph-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></motion.h3>
         <motion.button onClick={() => scrollToSection('section-10')} ref={sect1Ref} className="cta-1" initial={{ y: "20px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.5, delay: 0.8 }}>GET STARTED<div className="icon-next">&nbsp;</div></motion.button>
@@ -426,25 +427,25 @@ const scrollToSection = (id) => {
         animate={growAnimation}
         transition={{ duration: 1, ease: "easeOut" }}
       >
-      <div className="sect-1-imageset">
-      <img src="/home/1.webp" className="hero-laptop" style={{zIndex:"2"}}></img>
-      <motion.img src="/home/2.webp" style={{zIndex:"3", position:"absolute", height:"15rem", bottom:"0", left:"0", transform:"translateX(-25%)", marginBottom:"1rem"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay: 0.5}}></motion.img>
-      <motion.img src="/home/3.webp" style={{zIndex:"3", position:"absolute", height:"10rem", bottom:"5%", right:"0", transform:"translateX(25%)", marginBottom:"1rem"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay: 0.5}}></motion.img>
-      <motion.img src="/home/4.webp" style={{zIndex:"1", position:"absolute", height:"15rem", left:"0", top:"30%", margin:"1rem"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay:1}}></motion.img>
-      <div style={{position:"absolute"}}>
-      <motion.img src="/home/5.webp" style={{zIndex:"3", position:"absolute", height:"3rem", top:"0", left:"0"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay: 0.5}}></motion.img>
-      <motion.img src="/home/6.webp" style={{zIndex:"1", position:"absolute", height:"15rem", top:"0", left:"30px", transform:"translateY(-50px)"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay: 0.7}}></motion.img>
-      </div>
-      <motion.img src="/home/7.webp" style={{zIndex:"1", position:"absolute", height:"15rem", top:"40%", right:"-10%"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay:0.7}}></motion.img>
-      <motion.img src="/home/8.webp" style={{zIndex:"0", position:"absolute", height:"23rem", top:"-10%", right:"10%"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay:1}}></motion.img>
-      {/* <motion.h1 initial={{scale:0, opacity:0}} animate={{scale:1, opacity:1}} transition={{duration:2, ease: "easeOut", delay: 5}}>Hello</motion.h1> */}
-      </div>
+        <div className="sect-1-imageset">
+          <img src="/home/1.webp" className="hero-laptop" style={{ zIndex: "2" }}></img>
+          <motion.img src="/home/2.webp" style={{ zIndex: "3", position: "absolute", height: "15rem", bottom: "0", left: "0", transform: "translateX(-25%)", marginBottom: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
+          <motion.img src="/home/3.webp" style={{ zIndex: "3", position: "absolute", height: "10rem", bottom: "5%", right: "0", transform: "translateX(25%)", marginBottom: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
+          <motion.img src="/home/4.webp" style={{ zIndex: "1", position: "absolute", height: "15rem", left: "0", top: "30%", margin: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 1 }}></motion.img>
+          <div style={{ position: "absolute" }}>
+            <motion.img src="/home/5.webp" style={{ zIndex: "3", position: "absolute", height: "3rem", top: "0", left: "0" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
+            <motion.img src="/home/6.webp" style={{ zIndex: "1", position: "absolute", height: "15rem", top: "0", left: "30px", transform: "translateY(-50px)" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.7 }}></motion.img>
+          </div>
+          <motion.img src="/home/7.webp" style={{ zIndex: "1", position: "absolute", height: "15rem", top: "40%", right: "-10%" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.7 }}></motion.img>
+          <motion.img src="/home/8.webp" style={{ zIndex: "0", position: "absolute", height: "23rem", top: "-10%", right: "10%" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 1 }}></motion.img>
+          {/* <motion.h1 initial={{scale:0, opacity:0}} animate={{scale:1, opacity:1}} transition={{duration:2, ease: "easeOut", delay: 5}}>Hello</motion.h1> */}
+        </div>
       </motion.figure>
     </section>
 
     <section className="section-2-bg" ref={section2Ref} id="section-2">
       <div className="section-2-main" style={{ position: "relative", zIndex: "0", height: "120vh" }} ref={redPieceRef}>
-        <motion.header className="sect-1-text" style={{ margin: "1rem", fontWeight:"700" }}>Manage Your Mart with Ease</motion.header>
+        <motion.header className="sect-1-text" style={{ margin: "1rem", fontWeight: "700" }}>Manage Your Mart with Ease</motion.header>
 
         <div className="sect-2-container">
           <div className="sect-2-col1">
@@ -466,7 +467,7 @@ const scrollToSection = (id) => {
             </div>
           </div>
           <div className="sect-2-col2">
-          <img className="sect-2-piece" style={{top:"50%", transform:"translateY(-50%)"}} src="/home/phone1-piece.png"></img>
+            <img className="sect-2-piece" style={{ top: "50%", transform: "translateY(-50%)" }} src="/home/phone1-piece.png"></img>
             <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone1.png"></img>
           </div>
         </div>
@@ -495,10 +496,10 @@ const scrollToSection = (id) => {
             </div>
           </div>
           <div className="sect-2-col2">
-          <figure>
-            <img className="sect-2-piece" style={{top:"50%", transform:"translateY(-50%) translateX(-10%)", height:"40rem"}} src="/home/phone4-piece.webp"></img>
-            <img className="sect-2-screen" src="/home/phone4.webp"></img>
-          </figure>
+            <figure>
+              <img className="sect-2-piece" style={{ top: "50%", transform: "translateY(-50%) translateX(-10%)", height: "40rem" }} src="/home/phone4-piece.webp"></img>
+              <img className="sect-2-screen" src="/home/phone4.webp"></img>
+            </figure>
           </div>
         </div>
       </div>
@@ -506,29 +507,39 @@ const scrollToSection = (id) => {
 
     <section className="section-3">
       <div className="design-auto" style={{ opacity: designAutoOpacity }}>
-        <div className="design-brush-1"><div className="home-paintbrush" style={{...brush1}}></div></div>
-        <div className="design-brush-2"><div className="home-paintbrush-2" style={{...brush2}}></div></div>
+        <div className="design-brush-1"><div className="home-paintbrush" style={{ ...brush1 }}></div></div>
+        <div className="design-brush-2"><div className="home-paintbrush-2" style={{ ...brush2 }}></div></div>
         <div className="design-heading-container" style={{ width: `${designHeadingWidth}rem` }}>
           <div className="design-heading" style={{ ...designColorSet }}>&nbsp;</div>
         </div>
       </div>
 
       <div className="flip-card" onClick={handleCard}>
-      <div className="design-click">
-      <motion.div className="logo-click" style={{...cursorColor, opacity: designAutoOpacity}}
-                                initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 2 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ duration: 0.2, type: "spring", damping: 0 }}
-      ></motion.div>
-      </div>
+        <div className="design-click">
+
+        </div>
         <div className={`flip-card-inner ${IsFlipping ? 'flipping' : ''}`} style={{ transform: `rotateY(${currentIndex * 180}deg)` }}>
           <div className="flip-card-front">
-            {/* <img src={designImages[currentIndex]} className="flip-card-img" /> */}
-            <div style={{width:"50rem", height:"100%", backgroundColor:"green"}}></div>
+            <div className="flip-cursor-container">
+              <img src={designImages[currentIndex]} className="flip-card-img" />
+
+              <motion.div className="logo-click" style={{ ...cursorColor, opacity: designAutoOpacity }}
+                initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 2 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2, type: "spring", damping: 0 }}
+              ></motion.div>
+            </div>
           </div>
           <div className="flip-card-back">
-          <div style={{width:"20rem", height:"100%", backgroundColor:"orange"}}></div>
-            {/* <img src={designImages[currentIndex]} className="flip-card-img" /> */}
+            <div className="flip-cursor-container">
+              <img src={designImages[currentIndex]} className="flip-card-img" />
+
+              <motion.div className="logo-click" style={{ ...cursorColor, opacity: designAutoOpacity }}
+                initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 2 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2, type: "spring", damping: 0 }}
+              ></motion.div>
+            </div>
           </div>
         </div>
       </div>
@@ -538,34 +549,41 @@ const scrollToSection = (id) => {
     <section className="section-4" ref={sect4Ref}>
       <motion.figure className="section-4-img" initial={{ x: "-100px", opacity: 0 }} animate={sideAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>
         <div className="section-4-circle">
-          <img src="https://i.imgur.com/qlmYdJO.jpeg" className="sect-4-img"></img>
-          <img src="https://media.tenor.com/x_IgoSdRecYAAAAC/walking-walking-duck.gif" className="sect-4-gif"></img>
+          <img src="/home/9.webp" className="sect-4-img"></img>
+          <video controls className="sect-4-gif" autoPlay loop muted playsInline>
+  <source src="/home/vid.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
         </div>
       </motion.figure>
 
       <div className="section-4-text">
-        <header style={{fontWeight:"700"}} className="sect-4-text">Manage <span className="gradient-redviolet word-glue">at Home or On the Go</span></header>
+        <header style={{ fontWeight: "700" }} className="sect-4-text">Manage <span className="gradient-redviolet word-glue">at Home or On the Go</span></header>
         <motion.h3 className="paragraph-text" style={{ width: "55rem" }}>MyMart works on all devices, allowing you to be up to date with your mart's statistics, update your product catalogue, change prices and stocks, and manage at the office or on the way to work and so can your customers. Through  your shop's link, customers can view and make orders which you can then approve or refuse anytime, anywhere.</motion.h3>
       </div>
     </section>
 
     <section className="section-5" ref={sect5Ref}>
-      <figure className="orders-container">
-        <img src="/scrolling-test.png" className="tall-image" />
+      <figure className="scrolling-image-container">
+        <img src="/home/scroll1.webp" className="scrolling-image" />
+        <div className="gradient-cover">
+        </div>
+
+          <div className="scrolling-image-container-sm round-borderer" style={{overflow:"hidden"}}>
+        <img src="/home/scroll2.webp" className="scrolling-image" />
+        </div>
+
       </figure>
 
-      <div className="sample-container">
-        <div className="sample-orders"></div>
-      </div>
-
       <div className="order-text">
-      <motion.header className="sect-5-text gradient-e" style={{ margin: "1rem", fontWeight:"700" }}>Collect - <span className="gradient-g">Edit</span> - <span className="gradient-f">Approve</span> / <span className="gradient-h">Refuse</span></motion.header>
-      <h3 className="paragraph-text" style={{margin:"1rem 5rem", textAlign:"left", whiteSpace:"pre-wrap"}}>    Instantly receive orders upon customer checkout. From there you can see the list of their orders. You may even edit them which will alert the user. From there you can view the user's contact information and location to see if you can finish the order.</h3>
-      <h3 className="paragraph-text" style={{margin:"1rem 5rem", textAlign:"left", whiteSpace:"pre-wrap"}}>    Upon review, you may then choose to approve or refuse an order. When approved, you can set a date when a user can expect their products to arrive. You may even enable cancellations and set penalties.</h3>
+        <motion.header className="sect-5-text gradient-e" style={{ margin: "1rem", fontWeight: "700" }}>Collect - <span className="gradient-g">Edit</span> - <span className="gradient-f">Approve</span> / <span className="gradient-h">Refuse</span></motion.header>
+        <h3 className="paragraph-text" style={{ margin: "1rem 5rem", textAlign: "left", whiteSpace: "pre-wrap" }}>    Instantly receive orders upon customer checkout. From there you can see the list of their orders. You may even edit them which will alert the user. From there you can view the user's contact information and location to see if you can finish the order.</h3>
+        <h3 className="paragraph-text" style={{ margin: "1rem 5rem", textAlign: "left", whiteSpace: "pre-wrap" }}>    Upon review, you may then choose to approve or refuse an order. When approved, you can set a date when a user can expect their products to arrive. You may even enable cancellations and set penalties.</h3>
 
-      <div className="order-img">
+        <img src="/home/10.webp" className="order-img">
 
-      </div>
+        </img>
       </div>
 
     </section>
@@ -579,142 +597,144 @@ const scrollToSection = (id) => {
           {statWave2}
         </div>
         <div className="stat-text">
-        <header style={{fontWeight:"700"}} className="sect-6-text gradient-orangered">Work with Performance Statistics</header>
-        <h3 className="paragraph-text" style={{marginTop:"1rem"}}>Collect data on how your mart performs. Collect metrics on views and new users, compare categories and products by their profits and their sales, as well as viewing their ranks relative to a time period. Observe your mart's performance across the day as orders are finished!</h3>
+          <header style={{ fontWeight: "700" }} className="sect-6-text gradient-orangered">Work with Performance Statistics</header>
+          <h3 className="paragraph-text" style={{ marginTop: "1rem" }}>Collect data on how your mart performs. Collect metrics on views and new users, compare categories and products by their profits and their sales, as well as viewing their ranks relative to a time period. Observe your mart's performance across the day as orders are finished!</h3>
         </div>
 
-        <div className="stat-img">
+        <img src="/home/stat1.webp" className="stat-img">
 
-        </div>
+        </img>
       </div>
     </section>
 
     <section className="section-7" ref={sect6Ref}>
-      <motion.header style={{ marginTop: `${showUser ? "5%" : "20%"}`, fontWeight:"700" }} className="sect-7-text gradient-green" initial={{ x: "-100px", opacity: 0 }} animate={leftAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>The Customer is (12 mins) Away</motion.header>
+      <motion.header style={{ marginTop: `${showUser ? "5%" : "20%"}`, fontWeight: "700" }} className="sect-7-text gradient-green" initial={{ x: "-100px", opacity: 0 }} animate={leftAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>The Customer is (12 mins) Away</motion.header>
 
-      <div style={{ height: `${showUser ? "80%" : "0"}`, opacity: `${showUser ? "1" : "0"}` }} className="user-data">
-        <div className="user-stats"></div>
+      <div style={{ height: "80%", opacity: `${showUser ? "1" : "0"}` }} className="user-data">
+        <img src="/home/stat2.webp" className="user-stats"></img>
         <div className="user-stat-text">
-        <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-c">Gain Data on Your Users</span></h1>
-        <h3 className="paragraph-text" style={{marginTop:"1rem", whiteSpace:"pre-wrap"}}>    Besides data on products and categories, you can collect statistics of your users. Collate user demographics such as age and gender together with lifetime statistics such as average profit and bought products. Users are ranked along with the companies they belong to allowing you to find your corporate clients.</h3>
-        <h3 className="paragraph-text" style={{marginTop:"1rem", whiteSpace:"pre-wrap"}}>    User locations and coordinates are included in account creation where you can find prime locations where your mart is most popular. Powered by Google Maps, the users' price locations can be found and an estimate of the travel duration to deliver products with precision.</h3>
+          <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-c">Gain Data on Your Users</span></h1>
+          <h3 className="paragraph-text" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>    Besides data on products and categories, you can collect statistics of your users. Collate user demographics such as age and gender together with lifetime statistics such as average profit and bought products. Users are ranked along with the companies they belong to allowing you to find your corporate clients.</h3>
+          <h3 className="paragraph-text" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>    User locations and coordinates are included in account creation where you can find prime locations where your mart is most popular. Powered by Google Maps, the users' price locations can be found and an estimate of the travel duration to deliver products with precision.</h3>
+        
+          <img src="/home/stat3.webp" className="user-stats-2"></img>
         </div>
       </div>
 
     </section>
 
-<section className="section-8">
-<header style={{fontWeight:"700", marginLeft:"3rem", marginBottom:"1rem"}} className="sect-6-text gradient-purple">Even More Customizables</header>
+    <section className="section-8">
+      <header style={{ fontWeight: "700", marginLeft: "3rem", marginBottom: "1rem" }} className="sect-6-text gradient-purple">Even More Customizables</header>
 
-<BannerCarouselHome screenWidth={screenWidth} data={bannerData}></BannerCarouselHome>
+      <BannerCarouselHome screenWidth={screenWidth} data={bannerData}></BannerCarouselHome>
 
-<div className="feature-cards" ref={sect8Ref}>
-<div className="feature-item feature-1" style={{marginLeft:`${inView8 ? "4vw" : "100vw"}`}}>
-<div className="feature-intuitive">&nbsp;</div>
-<h1 className="feature-heading" style={{marginLeft:"1rem"}}><span className="gradient-orange">Simple & Intuitive</span></h1>
-<h3 className="feature-description" style={{marginTop:"1rem", whiteSpace:"pre-wrap"}}>MyMart strives to allow you to create a simple and functional online store without needing to learn how to code or hire a designer. Simply input your shop details, choose colors, and populate your catalogue and your shop can fly!</h3>
-</div>
+      <div className="feature-cards" ref={sect8Ref}>
+        <div className="feature-item feature-1" style={{ marginLeft: `${inView8 ? "4vw" : "100vw"}` }}>
+          <div className="feature-intuitive">&nbsp;</div>
+          <h1 className="feature-heading" style={{ marginLeft: "1rem" }}><span className="gradient-orange">Simple & Intuitive</span></h1>
+          <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>MyMart strives to allow you to create a simple and functional online store without needing to learn how to code or hire a designer. Simply input your shop details, choose colors, and populate your catalogue and your shop can fly!</h3>
+        </div>
 
-<div className="feature-item feature-2" style={{marginLeft:`${inView8 ? "28vw" : "100vw"}`}}>
-<div className="feature-receipt">&nbsp;</div>
-<h1 className="feature-heading" style={{marginLeft:"1rem"}}><span className="gradient-green">Straightforward Management</span></h1>
-<h3 className="feature-description" style={{marginTop:"1rem", whiteSpace:"pre-wrap"}}>Manage prices, profits, products, and stocks to keep your data collection up to date. Cleanly keep track and finish orders with dynamically updating stocks and statistics.</h3>
-</div>
+        <div className="feature-item feature-2" style={{ marginLeft: `${inView8 ? "28vw" : "100vw"}` }}>
+          <div className="feature-receipt">&nbsp;</div>
+          <h1 className="feature-heading" style={{ marginLeft: "1rem" }}><span className="gradient-green">Straightforward Management</span></h1>
+          <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>Manage prices, profits, products, and stocks to keep your data collection up to date. Cleanly keep track and finish orders with dynamically updating stocks and statistics.</h3>
+        </div>
 
-<div className="feature-item feature-3" style={{marginLeft:`${inView8 ? "52vw" : "100vw"}`}}>
-<div className="feature-data-driven">&nbsp;</div>
-<h1 className="feature-heading" style={{marginLeft:"1rem"}}><span className="gradient-purple">Data Driven</span></h1>
-<h3 className="feature-description" style={{marginTop:"1rem", whiteSpace:"pre-wrap"}}>Be up to speed with the performance of your Mart in all fronts. From the performance of products and categories up against each other. Create an image of who your users are through demographic data and bought products.</h3>
-</div>
+        <div className="feature-item feature-3" style={{ marginLeft: `${inView8 ? "52vw" : "100vw"}` }}>
+          <div className="feature-data-driven">&nbsp;</div>
+          <h1 className="feature-heading" style={{ marginLeft: "1rem" }}><span className="gradient-purple">Data Driven</span></h1>
+          <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>Be up to speed with the performance of your Mart in all fronts. From the performance of products and categories up against each other. Create an image of who your users are through demographic data and bought products.</h3>
+        </div>
 
-<div className="feature-item feature-4" style={{marginLeft:`${inView8 ? "76vw" : "100vw"}`}}>
-<div className="feature-familiar">&nbsp;</div>
-<h1 className="feature-heading" style={{marginLeft:"1rem"}}><span className="gradient-orangered">Customer Familiarity</span></h1>
-<h3 className="feature-description" style={{marginTop:"1rem", whiteSpace:"pre-wrap"}}>MyMart is built with customers in mind. The design of the mart in the user's perspective is similar to the standard e-commerce website. Helping users and admins to navigate with ease.</h3>
-</div>
+        <div className="feature-item feature-4" style={{ marginLeft: `${inView8 ? "76vw" : "100vw"}` }}>
+          <div className="feature-familiar">&nbsp;</div>
+          <h1 className="feature-heading" style={{ marginLeft: "1rem" }}><span className="gradient-orangered">Customer Familiarity</span></h1>
+          <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>MyMart is built with customers in mind. The design of the mart in the user's perspective is similar to the standard e-commerce website. Helping users and admins to navigate with ease.</h3>
+        </div>
 
-</div>
-  <header style={{fontWeight:"700"}} className="sect-8-text gradient-orangered">Customer Testimonies</header>
+      </div>
+      <header style={{ fontWeight: "700" }} className="sect-8-text gradient-orangered">Customer Testimonies</header>
 
-<div className="testimony-container">
-  <Testimony></Testimony>
-</div>
-</section>
+      <div className="testimony-container">
+        <Testimony></Testimony>
+      </div>
+    </section>
 
-<section className="section-9" id="section-9">
-<motion.header className="sect-1-text" style={{ margin: "1rem", transform:"scale(1.5)", fontWeight:"700" }}>Pricing</motion.header>
+    <section className="section-9" id="section-9">
+      <motion.header className="sect-1-text" style={{ margin: "1rem", transform: "scale(1.5)", fontWeight: "700" }}>Pricing</motion.header>
 
-<div className="prices">
-<div className="price-card">
-<h1 className="price-text-name">Basic Plan</h1>
-<h2 className="price-text-main">FREE</h2>
-<h3 className="price-text-info">No Statistics</h3>
-<h3 className="price-text-info">Default Colors Only</h3>
-<h3 className="price-text-info" style={{borderBottom:"0px solid white"}}>No Pop-ups & Promos</h3>
-</div>
+      <div className="prices">
+        <div className="price-card">
+          <h1 className="price-text-name">Basic Plan</h1>
+          <h2 className="price-text-main">FREE</h2>
+          <h3 className="price-text-info">No Statistics</h3>
+          <h3 className="price-text-info">Default Colors Only</h3>
+          <h3 className="price-text-info" style={{ borderBottom: "0px solid white" }}>No Pop-ups & Promos</h3>
+        </div>
 
-<div className="price-card-2">
-  <h1 className="price-text-name" style={{color:"#0a2647"}}>Pro Plan</h1>
-  <h2 className="price-text-main"><sup style={{fontSize:"3rem"}}>$</sup>4.99</h2>
-  <h3 className="price-text-info-2">Full Package</h3>
-<h3 className="price-text-info-2">Mart Statistics</h3>
-<h3 className="price-text-info-2">Full Color Customization</h3>
-<h3 className="price-text-info-2" style={{borderBottom:"0px solid white"}}>Includes Popups & Promos</h3>
-</div>
-</div>
-</section>
+        <div className="price-card-2">
+          <h1 className="price-text-name" style={{ color: "#0a2647" }}>Pro Plan</h1>
+          <h2 className="price-text-main"><sup style={{ fontSize: "3rem" }}>$</sup>4.99</h2>
+          <h3 className="price-text-info-2">Full Package</h3>
+          <h3 className="price-text-info-2">Mart Statistics</h3>
+          <h3 className="price-text-info-2">Full Color Customization</h3>
+          <h3 className="price-text-info-2" style={{ borderBottom: "0px solid white" }}>Includes Popups & Promos</h3>
+        </div>
+      </div>
+    </section>
 
-<section className="section-10" id="section-10">
-    <div className="signup-box">
-    <div className="signup-input">
-    <motion.header className="sect-10-text" style={{ margin: "1rem", fontWeight:"700" }}>YOUR DREAM MART AWAITS</motion.header>
+    <section className="section-10" id="section-10">
+      <div className="signup-box">
+        <div className="signup-input">
+          <motion.header className="sect-10-text" style={{ margin: "1rem", fontWeight: "700" }}>YOUR DREAM MART AWAITS</motion.header>
 
-    <div className="flex-row" style={{width:"82%"}}>
-    <div className="form-group">
-    <input type="text" placeholder="First Name" className="text-full" style={{width:"100%"}}></input>
-    <label className="form-label">First Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>    
+          <div className="flex-row" style={{ width: "82%" }}>
+            <div className="form-group">
+              <input type="text" placeholder="First Name" className="text-full" style={{ width: "100%" }}></input>
+              <label className="form-label">First Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            </div>
+            <div className="form-group">
+              <input type="text" placeholder="Last Name" className="text-full" style={{ width: "100%" }}></input>
+              <label className="form-label">Last Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <input type="text" placeholder="Mart Name" className="text-full" style={{ width: "82%" }}></input>
+            <label className="form-label">Mart Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          </div>
+
+          <div className="form-group">
+            <input type="text" placeholder="Email" className="text-full" style={{ width: "82%" }}></input>
+            <label className="form-label">Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+          </div>
+          <Link href="/create" className="cta-2">CONTINUE CREATION<div className="icon-next">&nbsp;</div></Link>
+
+        </div>
+      </div>
+    </section>
+
+
+    <div className="footer-home">
+      <div className="footer-icon-box">
+        <img className="footer-icon" src="/light-2.png"></img>
+      </div>
+
+      <div className="footer-details-row">
+        <div className="footer-details-1">
+          <h3 className="paragraph-text" style={{ fontWeight: "900" }}>Github</h3>
+          <h3 className="paragraph-text" style={{ fontWeight: "900" }}>Personal Site</h3>
+          <h3 className="paragraph-text" style={{ fontWeight: "900" }}>LinkedIn</h3>
+          <h3 className="paragraph-text" style={{ fontWeight: "900" }}>Github</h3>
+          <h3 className="paragraph-text" style={{ fontWeight: "900" }}>Admin Page</h3>
+        </div>
+
+        <div className="footer-details-2">
+          <h3 className="paragraph-text" style={{ margin: "0 4rem" }}>Built by JM Miranda for my online portfolio. To access the 3 sample websites, click on the shop name links found in the testimonials or go back to <span style={{ fontWeight: "900" }}>My Personal Site</span>. Contact me at <span style={{ fontWeight: "900" }}>jeymson9000@gmail.com</span>. Thank you for stopping by!</h3>
+        </div>
+      </div>
     </div>
-    <div className="form-group">
-    <input type="text" placeholder="Last Name" className="text-full" style={{width:"100%"}}></input>
-    <label className="form-label">Last Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>    
-    </div>
-    </div>
-
-    <div className="form-group">
-    <input type="text" placeholder="Mart Name" className="text-full" style={{width:"82%"}}></input>
-    <label className="form-label">Mart Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>    
-    </div>
-
-    <div className="form-group">
-    <input type="text" placeholder="Email" className="text-full" style={{width:"82%"}}></input>
-    <label className="form-label">Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>    
-    </div>
-    <Link href="/create" className="cta-2">CONTINUE CREATION<div className="icon-next">&nbsp;</div></Link>
-
-    </div>
-    </div>
-</section>
-
-
-<div className="footer-home">
-<div className="footer-icon-box">
-  <img className="footer-icon" src="/light-2.png"></img>
-</div>
-
-<div className="footer-details-row">
-  <div className="footer-details-1">
-    <h3 className="paragraph-text" style={{fontWeight:"900"}}>Github</h3>
-    <h3 className="paragraph-text" style={{fontWeight:"900"}}>Personal Site</h3>
-    <h3 className="paragraph-text" style={{fontWeight:"900"}}>LinkedIn</h3>
-    <h3 className="paragraph-text" style={{fontWeight:"900"}}>Github</h3>
-    <h3 className="paragraph-text" style={{fontWeight:"900"}}>Admin Page</h3>
-  </div>
-
-  <div className="footer-details-2">
-    <h3 className="paragraph-text" style={{margin:"0 4rem"}}>Built by JM Miranda for my online portfolio. To access the 3 sample websites, click on the shop name links found in the testimonials or go back to <span style={{fontWeight:"900"}}>My Personal Site</span>. Contact me at <span style={{fontWeight:"900"}}>sdfggfd0000@gmail.com</span>. Please don't steal my code, thank you!</h3>
-  </div> 
-</div>
-</div>
 
   </Fragment>
 }

@@ -35,9 +35,9 @@ const Testimony = () => {
   };
 
   const images = [
-    'https://picsum.photos/300/200',
-    'https://picsum.photos/300/201',
-    'https://picsum.photos/300/202',
+    '/home/person1.webp',
+    '/home/person3.jpg',
+    '/home/person2.webp',
   ];
 
   const imageClass = {width: "10%", height:"12rem", marginLeft: "0"}
