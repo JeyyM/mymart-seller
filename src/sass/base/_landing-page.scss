@@ -286,7 +286,7 @@
 }
 
 .section-2-piece {
-  height: 12  0vh;
+  height: 120vh;
   width: 100%;
 }
 
@@ -444,16 +444,16 @@
 }
 
 .flip-card {
-  background-color: transparent;
-  width: 30rem;
-  height: 30rem;
+  background-color: yellow;
+  width: 100%;
+  height: auto;
   perspective: 1000px;
 }
 
 .flip-card-inner {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: 40rem;
   text-align: center;
   transition: transform 0.8s;
   transform-style: preserve-3d;
@@ -466,21 +466,24 @@
 .flip-card-front,
 .flip-card-back {
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
 .flip-card-front {
-  background-color: #bbb;
-  color: black;
+  // background-color: #bbb;
+  // color: black;
+  // height: 40rem;
+  // margin: auto;
 }
 
 .flip-card-back {
-  background-color: dodgerblue;
-  color: white;
-  transform: rotateY(180deg);
+  // background-color: dodgerblue;
+  // color: white;
+  // transform: rotateY(180deg);
+  // height: 40rem;
 }
 
 .flip-card-img {
@@ -1163,7 +1166,6 @@ width: 100%;
 .sect-1-imageset{
   width: 60rem;
   height: 45rem;
-  background-color: #16ff00;
   transform: translateY(-10%);
   position: relative;
 }

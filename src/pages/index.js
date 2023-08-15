@@ -140,11 +140,11 @@ function HomePage() {
   }, [redPieceInView, yellowPieceInView, cyanPieceInView, pinkPieceInView, inView]);
 
   const designImages = [
-    'https://i.imgur.com/4JVTZw1.jpeg',
-    'https://i.imgur.com/kRKrEzb.jpeg',
-    'https://i.imgur.com/jLIck2a.jpeg',
-    'https://i.imgur.com/I76LNw6.jpeg',
-    'https://i.imgur.com/1n0xDHF.jpeg',
+    '/home/design1.webp',
+    '/home/design2.webp',
+    '/home/design3.webp',
+    '/home/design4.webp',
+    '/home/design5.webp',
   ];
 
   const colors = [
@@ -376,33 +376,38 @@ const scrollToSection = (id) => {
         <div className="sect-2-col1">
           <div className={`${(scrollState === 1 || scrollState === 0) ? "sect-2-info active-sect-2" : "sect-2-info"}`}>
             <header className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-b word-glue">Create Categories</span></header>
-            <h3 className="paragraph-text" style={{ height: `${scrollState === 1 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Be able to create any number of categories with the relevant details such as an image and description. You may disable categories too so that users can't access the page.</h3>
+            <h3 className="paragraph-text" style={{ height: `${scrollState === 1 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 1s" }}>Be able to create any number of categories with the relevant details such as an image and description. You may disable categories too so that users can't access the page.</h3>
           </div>
           <div className={`${scrollState === 2 ? "sect-2-info active-sect-2" : "sect-2-info"}`}>
             <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-c word-glue">Create Products</span></h1>
-            <h3 className="paragraph-text" style={{ height: `${scrollState === 2 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>You may populate categories with any number of products. The products can be set with data such as their price, stock, and profits. The set data will be collected as users order to create statistics</h3>
+            <h3 className="paragraph-text" style={{ height: `${scrollState === 2 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 1s" }}>You may populate categories with any number of products. The products can be set with data such as their price, stock, and profits. The set data will be collected as users order to create statistics</h3>
           </div>
           <div className={`${scrollState === 3 ? "sect-2-info active-sect-2" : "sect-2-info"}`}>
             <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-d word-glue">Manage Prices and Stocks</span></h1>
-            <h3 className="paragraph-text" style={{ height: `${scrollState === 3 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>The names, images, prices. and stocks can be changed at anytime past their initialization and will update as users refresh the page. Products with no stock will be marked as sold out.</h3>
+            <h3 className="paragraph-text" style={{ height: `${scrollState === 3 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 1s" }}>The names, images, prices. and stocks can be changed at anytime past their initialization and will update as users refresh the page. Products with no stock will be marked as sold out.</h3>
           </div>
           <div className={`${scrollState === 4 ? "sect-2-info active-sect-2" : "sect-2-info"}`} style={{ marginBottom: "2rem" }}>
             <h1 className="sect-1-text-2"><span className="gradient-purple word-glue">Add Variations</span></h1>
-            <h3 className="paragraph-text" style={{ height: `${scrollState === 4 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>After product initialization, variations can be added with the same types of details. Each new variation will have their own statistics so that they can be compared with each other.</h3>
+            <h3 className="paragraph-text" style={{ height: `${scrollState === 4 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 1s" }}>After product initialization, variations can be added with the same types of details. Each new variation will have their own statistics so that they can be compared with each other.</h3>
           </div>
         </div>
         <div className="sect-2-col2">
-        {/* <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "purple" }}></motion.figure> */}
           {scrollState === 1 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
-            <motion.img className="sect-2-piece" style={{top:"50%", transform:"translateY(-50%)"}} src="/home/phone1-piece.png"></motion.img>
-            <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone1.png"></img>
+            <motion.img className="sect-2-piece" style={{top:"50%", transform:"translateY(-50%)"}} src="/home/phone1-piece.webp"></motion.img>
+            <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone1.webp"></img>
           </motion.figure>}
           {scrollState === 2 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
-            <motion.img className="sect-2-piece" style={{height:"45rem", top:"50%", transform:"translateY(-50%) translateX(-15%)"}} src="/home/phone2-piece.png"></motion.img>
-            <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone2.png"></img>
+            <motion.img className="sect-2-piece" style={{height:"45rem", top:"50%", transform:"translateY(-50%) translateX(-15%)"}} src="/home/phone2-piece.webp"></motion.img>
+            <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone2.webp"></img>
           </motion.figure>}
-          {scrollState === 3 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "gray" }}></motion.figure>}
-          {scrollState === 4 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "blue" }}></motion.figure>}
+          {scrollState === 3 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+            <motion.img className="sect-2-piece" style={{height:"90%"}} src="/home/phone3-piece.webp"></motion.img>
+            <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone3.webp"></img>
+          </motion.figure>}
+          {scrollState === 4 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+            <motion.img className="sect-2-piece" style={{top:"50%", transform:"translateY(-50%) translateX(-10%)", height:"40rem"}} src="/home/phone4-piece.webp"></motion.img>
+            <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone4.webp"></img>
+          </motion.figure>}
         </div>
       </div>
     </section>}
@@ -422,16 +427,16 @@ const scrollToSection = (id) => {
         transition={{ duration: 1, ease: "easeOut" }}
       >
       <div className="sect-1-imageset">
-      <img src="/home/1.png" className="hero-laptop" style={{zIndex:"2"}}></img>
-      <motion.img src="/home/2.png" style={{zIndex:"3", position:"absolute", height:"15rem", bottom:"0", left:"0", transform:"translateX(-25%)", marginBottom:"1rem"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay: 0.5}}></motion.img>
-      <motion.img src="/home/3.png" style={{zIndex:"3", position:"absolute", height:"10rem", bottom:"5%", right:"0", transform:"translateX(25%)", marginBottom:"1rem"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay: 0.5}}></motion.img>
-      <motion.img src="/home/4.png" style={{zIndex:"1", position:"absolute", height:"15rem", left:"0", top:"30%", margin:"1rem"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay:1}}></motion.img>
+      <img src="/home/1.webp" className="hero-laptop" style={{zIndex:"2"}}></img>
+      <motion.img src="/home/2.webp" style={{zIndex:"3", position:"absolute", height:"15rem", bottom:"0", left:"0", transform:"translateX(-25%)", marginBottom:"1rem"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay: 0.5}}></motion.img>
+      <motion.img src="/home/3.webp" style={{zIndex:"3", position:"absolute", height:"10rem", bottom:"5%", right:"0", transform:"translateX(25%)", marginBottom:"1rem"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay: 0.5}}></motion.img>
+      <motion.img src="/home/4.webp" style={{zIndex:"1", position:"absolute", height:"15rem", left:"0", top:"30%", margin:"1rem"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay:1}}></motion.img>
       <div style={{position:"absolute"}}>
-      <motion.img src="/home/5.png" style={{zIndex:"3", position:"absolute", height:"3rem", top:"0", left:"0"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay: 0.5}}></motion.img>
-      <motion.img src="/home/6.png" style={{zIndex:"1", position:"absolute", height:"15rem", top:"0", left:"30px", transform:"translateY(-50px)"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay: 0.7}}></motion.img>
+      <motion.img src="/home/5.webp" style={{zIndex:"3", position:"absolute", height:"3rem", top:"0", left:"0"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay: 0.5}}></motion.img>
+      <motion.img src="/home/6.webp" style={{zIndex:"1", position:"absolute", height:"15rem", top:"0", left:"30px", transform:"translateY(-50px)"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay: 0.7}}></motion.img>
       </div>
-      <motion.img src="/home/7.png" style={{zIndex:"1", position:"absolute", height:"15rem", top:"40%", right:"-10%"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay:0.7}}></motion.img>
-      <motion.img src="/home/8.png" style={{zIndex:"0", position:"absolute", height:"23rem", top:"-10%", right:"10%"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay:1}}></motion.img>
+      <motion.img src="/home/7.webp" style={{zIndex:"1", position:"absolute", height:"15rem", top:"40%", right:"-10%"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay:0.7}}></motion.img>
+      <motion.img src="/home/8.webp" style={{zIndex:"0", position:"absolute", height:"23rem", top:"-10%", right:"10%"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay:1}}></motion.img>
       {/* <motion.h1 initial={{scale:0, opacity:0}} animate={{scale:1, opacity:1}} transition={{duration:2, ease: "easeOut", delay: 5}}>Hello</motion.h1> */}
       </div>
       </motion.figure>
@@ -490,7 +495,10 @@ const scrollToSection = (id) => {
             </div>
           </div>
           <div className="sect-2-col2">
-            <motion.div variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" style={{ backgroundColor: "blue" }}></motion.div>
+          <figure>
+            <img className="sect-2-piece" style={{top:"50%", transform:"translateY(-50%) translateX(-10%)", height:"40rem"}} src="/home/phone4-piece.webp"></img>
+            <img className="sect-2-screen" src="/home/phone4.webp"></img>
+          </figure>
           </div>
         </div>
       </div>
@@ -515,10 +523,12 @@ const scrollToSection = (id) => {
       </div>
         <div className={`flip-card-inner ${IsFlipping ? 'flipping' : ''}`} style={{ transform: `rotateY(${currentIndex * 180}deg)` }}>
           <div className="flip-card-front">
-            <img src={designImages[currentIndex]} className="flip-card-img" />
+            {/* <img src={designImages[currentIndex]} className="flip-card-img" /> */}
+            <div style={{width:"50rem", height:"100%", backgroundColor:"green"}}></div>
           </div>
           <div className="flip-card-back">
-            <img src={designImages[currentIndex]} className="flip-card-img" />
+          <div style={{width:"20rem", height:"100%", backgroundColor:"orange"}}></div>
+            {/* <img src={designImages[currentIndex]} className="flip-card-img" /> */}
           </div>
         </div>
       </div>
