@@ -286,7 +286,7 @@
 }
 
 .section-2-piece {
-  height: 120vh;
+  height: 12  0vh;
   width: 100%;
 }
 
@@ -322,6 +322,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .sect-2-info {
@@ -339,10 +340,17 @@
 }
 
 .sect-2-screen {
-  height: 65rem;
-  width: 50rem;
+  height: 70rem;
+  width: 60rem;
   margin: auto;
   transition: all;
+}
+
+.sect-2-piece {
+  height: 35rem;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .active-sect-2 {
@@ -1168,4 +1176,19 @@ bottom: 0;
 left: 50%;
 transform: translateX(-50%);
 object-fit: cover;
+}
+
+.gradient-testimony-1 {
+  font-weight: 900;
+  @include gradient-text(to right, #7FC9FF, #E7F6FD);
+}
+
+.gradient-testimony-2 {
+  font-weight: 900;
+  @include gradient-text(to right, #CE5959, #E8A0BF);
+}
+
+.gradient-testimony-3 {
+  font-weight: 900;
+  @include gradient-text(to right, #FF6000, #FFD93D);
 }

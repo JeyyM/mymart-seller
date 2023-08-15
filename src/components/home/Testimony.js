@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 
 const Testimony = () => {
   const settings = {
@@ -52,7 +53,7 @@ const Testimony = () => {
         </div>
         <img src={images[0]} className='testimony-img' style={activeSlide === 0 ? imageClass2 : imageClass}></img>
         <div className='testimony-data'>
-        <h1 className="feature-heading" style={{marginLeft:"1rem", color:"white"}}>Alvin LastName, Owner of <span className="gradient-orange">Alvin's Artifacts</span></h1>
+        <h1 className="feature-heading" style={{marginLeft:"1rem", color:"white"}} >Alvin Adams, Owner of <span style={{textDecoration:"underline"}}><Link href="/64c84adf0cac7b00a22be359" className="gradient-testimony-1">Alvin's Artifacts</Link></span></h1>
         <h3 className="paragraph-text" style={{marginTop:"1rem", whiteSpace:"pre-wrap", color: "white"}}>    When I tried making an online store myself, It was really confusing. I didn't have the time to learn how to code so when I came across MyMart, I knew I had to give it a try. I love that I can design it to fit my brand. So far, no regrets!</h3>
         </div>
         </div>
@@ -65,7 +66,7 @@ const Testimony = () => {
         </div>
         <img src={images[1]} className='testimony-img' style={activeSlide === 1? imageClass2 : imageClass}></img>
         <div className='testimony-data'>
-        <h1 className="feature-heading" style={{marginLeft:"1rem", color:"white"}}>Bname LastName, Owner of <span className="gradient-orange">Bright Boutique</span></h1>
+        <h1 className="feature-heading" style={{marginLeft:"1rem", color:"white"}}>Bob Blake, Owner of <span style={{textDecoration:"underline"}}><Link href="/64c9a0fb66248cc084a3ae8f" className="gradient-testimony-2">Bright Boutique</Link></span></h1>
         <h3 className="paragraph-text" style={{marginTop:"1rem", whiteSpace:"pre-wrap", color: "white"}}>    MyMart made managing the orders and stocks so easy for me. When I first started, I didn't have any stock system so restocking accurately was impossible and logging all of the orders was cumbersome. Because of the map system, delivery is made easy too!</h3>
         </div>
         </div>
@@ -79,7 +80,7 @@ const Testimony = () => {
 
         <img src={images[2]} className='testimony-img' style={activeSlide === 2 ? imageClass2 : imageClass}></img>
         <div className='testimony-data'>
-        <h1 className="feature-heading" style={{marginLeft:"1rem", color:"white"}}>Cname LastName, Owner of <span className="gradient-orange">Creative Commerce</span></h1>
+        <h1 className="feature-heading" style={{marginLeft:"1rem", color:"white"}}>Carla Charlie, Owner of <span style={{textDecoration:"underline"}}><Link href="/64cb36f20ba185ffcb7e0ba1" className="gradient-testimony-3">Creative Commerce</Link></span></h1>
         <h3 className="paragraph-text" style={{marginTop:"1rem", whiteSpace:"pre-wrap", color: "white"}}>    Thanks to the collected statistics and data, I was able to find out which products my store sold out the most! My customers love that everything is catalogued and everything is available. </h3>
         </div>
         </div>

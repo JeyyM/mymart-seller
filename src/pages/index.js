@@ -392,8 +392,15 @@ const scrollToSection = (id) => {
           </div>
         </div>
         <div className="sect-2-col2">
-          {scrollState === 1 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "purple" }}></motion.figure>}
-          {scrollState === 2 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "orange" }}></motion.figure>}
+        {/* <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "purple" }}></motion.figure> */}
+          {scrollState === 1 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+            <motion.img className="sect-2-piece" style={{top:"50%", transform:"translateY(-50%)"}} src="/home/phone1-piece.png"></motion.img>
+            <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone1.png"></img>
+          </motion.figure>}
+          {scrollState === 2 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+            <motion.img className="sect-2-piece" style={{height:"45rem", top:"50%", transform:"translateY(-50%) translateX(-15%)"}} src="/home/phone2-piece.png"></motion.img>
+            <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone2.png"></img>
+          </motion.figure>}
           {scrollState === 3 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "gray" }}></motion.figure>}
           {scrollState === 4 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden" className="sect-2-screen" style={{ backgroundColor: "blue" }}></motion.figure>}
         </div>
@@ -415,7 +422,17 @@ const scrollToSection = (id) => {
         transition={{ duration: 1, ease: "easeOut" }}
       >
       <div className="sect-1-imageset">
-      <img src="/home/laptop.png" className="hero-laptop"></img>
+      <img src="/home/1.png" className="hero-laptop" style={{zIndex:"2"}}></img>
+      <motion.img src="/home/2.png" style={{zIndex:"3", position:"absolute", height:"15rem", bottom:"0", left:"0", transform:"translateX(-25%)", marginBottom:"1rem"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay: 0.5}}></motion.img>
+      <motion.img src="/home/3.png" style={{zIndex:"3", position:"absolute", height:"10rem", bottom:"5%", right:"0", transform:"translateX(25%)", marginBottom:"1rem"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay: 0.5}}></motion.img>
+      <motion.img src="/home/4.png" style={{zIndex:"1", position:"absolute", height:"15rem", left:"0", top:"30%", margin:"1rem"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay:1}}></motion.img>
+      <div style={{position:"absolute"}}>
+      <motion.img src="/home/5.png" style={{zIndex:"3", position:"absolute", height:"3rem", top:"0", left:"0"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay: 0.5}}></motion.img>
+      <motion.img src="/home/6.png" style={{zIndex:"1", position:"absolute", height:"15rem", top:"0", left:"30px", transform:"translateY(-50px)"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay: 0.7}}></motion.img>
+      </div>
+      <motion.img src="/home/7.png" style={{zIndex:"1", position:"absolute", height:"15rem", top:"40%", right:"-10%"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay:0.7}}></motion.img>
+      <motion.img src="/home/8.png" style={{zIndex:"0", position:"absolute", height:"23rem", top:"-10%", right:"10%"}} initial={{y:50, opacity:0}} animate={{y: 0, opacity:1}} transition={{duration:0.5, ease: "easeOut", delay:1}}></motion.img>
+      {/* <motion.h1 initial={{scale:0, opacity:0}} animate={{scale:1, opacity:1}} transition={{duration:2, ease: "easeOut", delay: 5}}>Hello</motion.h1> */}
       </div>
       </motion.figure>
     </section>
@@ -444,7 +461,8 @@ const scrollToSection = (id) => {
             </div>
           </div>
           <div className="sect-2-col2">
-            <motion.div variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" style={{ backgroundColor: "purple" }}></motion.div>
+          <img className="sect-2-piece" style={{top:"50%", transform:"translateY(-50%)"}} src="/home/phone1-piece.png"></img>
+            <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone1.png"></img>
           </div>
         </div>
       </div>
@@ -576,6 +594,8 @@ const scrollToSection = (id) => {
     </section>
 
 <section className="section-8">
+<header style={{fontWeight:"700", marginLeft:"3rem", marginBottom:"1rem"}} className="sect-6-text gradient-purple">Even More Customizables</header>
+
 <BannerCarouselHome screenWidth={screenWidth} data={bannerData}></BannerCarouselHome>
 
 <div className="feature-cards" ref={sect8Ref}>
