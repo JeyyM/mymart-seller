@@ -361,44 +361,86 @@ function HomePage() {
       <link rel="icon" type="image/jpeg" href="/light.png" />
     </Head>
 
-<ImagePreloader></ImagePreloader>
+    <ImagePreloader></ImagePreloader>
 
     <header className={`home-navbar ${isNavbarVisible ? 'nav-visible' : 'nav-hidden'}`}>
       <img src="/light-2.png" className="home-nav-logo" onClick={() => scrollToSection('section-1')}></img>
       <a onClick={() => scrollToSection('section-2')} className="header-home-text">Features</a>
-      <a onClick={() => scrollToSection('section-6')} className="header-home-text">Statistics</a>
+      {screenWidth > 380 && <a onClick={() => scrollToSection('section-6')} className="header-home-text">Statistics</a>}
       <a onClick={() => scrollToSection('section-9')} className="header-home-text">Pricing</a>
       <a onClick={() => scrollToSection('section-10')} className="header-home-text">Sign-Up</a>
-
     </header>
+
     {scrollState > 0 && <section className="section-2-main" style={{ position: scrollState > 0 ? "fixed" : "absolute" }}>
-      <motion.header className="sect-1-text" style={{ margin: "1rem", fontWeight: "700" }}>Manage Your Mart with Ease</motion.header>
+      <motion.header className="sect-1-text landing-headline" style={{ margin: "1rem", fontWeight: "700" }}>Manage Your Mart with Ease {screenWidth}</motion.header>
       <div className="sect-2-container">
         <div className="sect-2-col1">
           <div className={`${(scrollState === 1 || scrollState === 0) ? "sect-2-info active-sect-2" : "sect-2-info"}`}>
             <header className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-b word-glue">Create Categories</span></header>
-            <h3 className="paragraph-text" style={{ height: `${scrollState === 1 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 1s" }}>Be able to create any number of categories with the relevant details such as an image and description. You may disable categories too so that users can't access the page.</h3>
+
+            {screenWidth <= 450 && <motion.figure style={{ overflow: "hidden", position: "relative", height: `${scrollState === 1 ? "auto" : "0px"}`, width: "auto", margin: "auto" }} variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+              <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)" }} src="/home/phone1-piece.webp"></motion.img>
+              <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone1.webp"></img>
+            </motion.figure>}
+
+            <div className="flex-row flex-row-align">
+              <h3 className="paragraph-text" style={{ height: `${scrollState === 1 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 1s" }}>Be able to create any number of categories with the relevant details such as an image and description. You may disable categories too so that users can't access the page.</h3>
+              {(screenWidth <= 700 && screenWidth > 450) && <motion.figure style={{ position: "relative", overflow: "hidden", width: `${screenWidth <= 500 ? "300vw" : screenWidth <= 600 ? "200vw" : "140vw"}`, height: `${scrollState === 1 ? "auto" : "0px"}` }} variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+                <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)" }} src="/home/phone1-piece.webp"></motion.img>
+                <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone1.webp"></img>
+              </motion.figure>}
+            </div>
           </div>
           <div className={`${scrollState === 2 ? "sect-2-info active-sect-2" : "sect-2-info"}`}>
             <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-c word-glue">Create Products</span></h1>
+            {screenWidth <= 450 && <motion.figure style={{ overflow: "hidden", position: "relative", height: `${scrollState === 2 ? "auto" : "0px"}`, width: "auto", margin: "auto" }} variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+              <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)" }} src="/home/phone2-piece.webp"></motion.img>
+              <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone2.webp"></img>
+            </motion.figure>}
+            <div className="flex-row flex-row-align">
             <h3 className="paragraph-text" style={{ height: `${scrollState === 2 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 1s" }}>You may populate categories with any number of products. The products can be set with data such as their price, stock, and profits. The set data will be collected as users order to create statistics</h3>
+            {(screenWidth <= 700 && screenWidth > 450) && <motion.figure style={{ position: "relative", overflow: "hidden", width: `${screenWidth <= 500 ? "340vw" : screenWidth <= 600 ? "220vw" : "160vw"}`, height: `${scrollState === 2 ? "auto" : "0px"}` }} variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+                <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)" }} src="/home/phone2-piece.webp"></motion.img>
+                <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone2.webp"></img>
+              </motion.figure>}
+            </div>
           </div>
           <div className={`${scrollState === 3 ? "sect-2-info active-sect-2" : "sect-2-info"}`}>
             <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-d word-glue">Manage Prices and Stocks</span></h1>
+            {screenWidth <= 450 && <motion.figure style={{ overflow: "hidden", position: "relative", height: `${scrollState === 3 ? "auto" : "0px"}`, width: "auto", margin: "auto" }} variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+              <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)", height:"80%" }} src="/home/phone3-piece.webp"></motion.img>
+              <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone3.webp"></img>
+            </motion.figure>}
+            <div className="flex-row flex-row-align">
             <h3 className="paragraph-text" style={{ height: `${scrollState === 3 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 1s" }}>The names, images, prices. and stocks can be changed at anytime past their initialization and will update as users refresh the page. Products with no stock will be marked as sold out. You may disable products too so that users can't access them.</h3>
+            {(screenWidth <= 700 && screenWidth > 450) && <motion.figure style={{ position: "relative", overflow: "hidden", width: `${screenWidth <= 500 ? "400vw" : screenWidth <= 600 ? "270vw" : "200vw"}`, height: `${scrollState === 3 ? "auto" : "0px"}` }} variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+                <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)", height:"80%" }} src="/home/phone3-piece.webp"></motion.img>
+                <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone3.webp"></img>
+              </motion.figure>}
+          </div>
           </div>
           <div className={`${scrollState === 4 ? "sect-2-info active-sect-2" : "sect-2-info"}`} style={{ marginBottom: "2rem" }}>
             <h1 className="sect-1-text-2"><span className="gradient-purple word-glue">Add Variations</span></h1>
+            {screenWidth <= 450 && <motion.figure style={{ overflow: "hidden", position: "relative", height: `${scrollState === 4 ? "auto" : "0px"}`, width: "auto", margin: "auto" }} variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+            <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)" }} src="/home/phone4-piece.webp"></motion.img>
+              <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone4.webp"></img>
+            </motion.figure>}
+            <div className="flex-row flex-row-align">
             <h3 className="paragraph-text" style={{ height: `${scrollState === 4 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 1s" }}>After product initialization, variations can be added with the same types of details. Each new variation will have their own statistics so that they can be compared with each other.</h3>
+            {(screenWidth <= 700 && screenWidth > 450) && <motion.figure style={{ position: "relative", overflow: "hidden", width: `${screenWidth <= 500 ? "260vw" : screenWidth <= 600 ? "180vw" : "140vw"}`, height: `${scrollState === 4 ? "auto" : "0px"}` }} variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+                <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)" }} src="/home/phone4-piece.webp"></motion.img>
+                <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone4.webp"></img>
+              </motion.figure>}
+          </div>
           </div>
         </div>
-        <div className="sect-2-col2">
+        {screenWidth > 700 && <div className="sect-2-col2">
           {scrollState === 1 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
-            <motion.img className="sect-2-piece" style={{ top: "50%", transform: "translateY(-50%)" }} src="/home/phone1-piece.webp"></motion.img>
+            <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)" }} src="/home/phone1-piece.webp"></motion.img>
             <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone1.webp"></img>
           </motion.figure>}
           {scrollState === 2 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
-            <motion.img className="sect-2-piece" style={{ height: "45rem", top: "50%", transform: "translateY(-50%) translateX(-15%)" }} src="/home/phone2-piece.webp"></motion.img>
+            <motion.img className="sect-2-piece" style={{ height: `${screenWidth > 1500 ? "45rem" : screenWidth > 950 ? "36rem" : screenWidth > 850 ? "27rem" : "23rem"}`, top: "50%", transform: `translateY(-50%) ${screenWidth > 1500 ? "translateX(-15%)" : screenWidth > 950 ? "translateX(0%)" : "translateX(15%)"}` }} src="/home/phone2-piece.webp"></motion.img>
             <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone2.webp"></img>
           </motion.figure>}
           {scrollState === 3 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
@@ -406,52 +448,80 @@ function HomePage() {
             <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone3.webp"></img>
           </motion.figure>}
           {scrollState === 4 && <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
-            <motion.img className="sect-2-piece" style={{ top: "50%", transform: "translateY(-50%) translateX(-10%)", height: "40rem" }} src="/home/phone4-piece.webp"></motion.img>
+            <motion.img className="sect-2-piece" style={{ height: `${screenWidth > 1500 ? "40rem" : screenWidth > 950 ? "32rem" : screenWidth > 850 ? "26rem" : "24rem"}`, top: "50%", transform: `translateY(-50%) ${screenWidth > 1500 ? "translateX(-15%)" : screenWidth > 950 ? "translateX(0%)" : "translateX(15%)"}` }} src="/home/phone4-piece.webp"></motion.img>
             <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone4.webp"></img>
           </motion.figure>}
-        </div>
+        </div>}
       </div>
     </section>}
 
     <section className="section-1" id="section-1">
       <div className="section-1-col">
         <motion.h3 ref={sect1Ref} className="adj-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>INTUITIVE. DATA-DRIVEN. CUSTOMIZABLE.</motion.h3>
-        <motion.header ref={sect1Ref} className="sect-1-text" style={{ fontWeight: "700" }} initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}>Instantly Create an <span className="word-glue">E-Commerce</span> Site for Your Business</motion.header>
+        <motion.header ref={sect1Ref} className="sect-1-text landing-headline" style={{ fontWeight: "700" }} initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}>Instantly Create an <span className="word-glue">E-Commerce</span> Site for Your Business</motion.header>
         <motion.h1 ref={sect1Ref} className="sect-1-text-2" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}>With <span className="gradient-orange">No Coding</span> or <span className="gradient-purple word-glue">Design Experience</span></motion.h1>
-        <motion.h3 ref={sect1Ref} style={{ marginBottom: "3rem" }} className="paragraph-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize designs and colors. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></motion.h3>
+        {screenWidth <= 600 && <motion.figure className="section-1-col2"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={growAnimation}
+          transition={{ duration: 1, ease: "easeOut" }}
+        >
+          <div className="sect-1-imageset">
+            <img src="/home/1.webp" className="hero-laptop" style={{ zIndex: "2", height: `${screenWidth > 1100 ? "40rem" : screenWidth > 750 ? "32rem" : screenWidth > 350 ? "25.6rem" : "20.38rem"}` }}></img>
+            <motion.img src="/home/2.webp" style={{ zIndex: "3", position: "absolute", height: `${screenWidth > 1100 ? "15rem" : screenWidth > 750 ? "12rem" : screenWidth > 350 ? "9.6rem" : "7.68rem"}`, bottom: "0", left: "0", transform: "translateX(-25%)", marginBottom: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
+            <motion.img src="/home/3.webp" style={{ zIndex: "3", position: "absolute", height: `${screenWidth > 1100 ? "10rem" : screenWidth > 750 ? "8rem" : screenWidth > 350 ? "6.4rem" : "5.12rem"}`, bottom: "5%", right: "0", transform: "translateX(25%)", marginBottom: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
+            <motion.img src="/home/4.webp" style={{ zIndex: "1", position: "absolute", height: `${screenWidth > 1100 ? "15rem" : screenWidth > 750 ? "12rem" : screenWidth > 350 ? "9.6rem" : "7.68rem"}`, left: "0", top: "30%", margin: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 1 }}></motion.img>
+            <div style={{ position: "absolute" }}>
+              <motion.img src="/home/5.webp" style={{ zIndex: "3", position: "absolute", height: `${screenWidth > 1100 ? "3rem" : screenWidth > 750 ? "2.4rem" : screenWidth > 350 ? "1.92rem" : "1.46rem"}`, top: "0", left: "0" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
+              <motion.img src="/home/6.webp" style={{ zIndex: "1", position: "absolute", height: `${screenWidth > 1100 ? "15rem" : screenWidth > 750 ? "12rem" : screenWidth > 350 ? "9.6rem" : "7.68rem"}`, top: "0", left: "30px", transform: "translateY(-50px)" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.7 }}></motion.img>
+            </div>
+            <motion.img src="/home/7.webp" style={{ zIndex: "1", position: "absolute", height: `${screenWidth > 1100 ? "15rem" : screenWidth > 750 ? "12rem" : screenWidth > 350 ? "9.6rem" : "7.68rem"}`, top: "40%", right: "-10%" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.7 }}></motion.img>
+            <motion.img src="/home/8.webp" style={{ zIndex: "0", position: "absolute", height: `${screenWidth > 1100 ? "23rem" : screenWidth > 750 ? "18.4rem" : screenWidth > 350 ? "14.72rem" : "11.78rem"}`, top: "-10%", right: "10%" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 1 }}></motion.img>
+          </div>
+        </motion.figure>}
+        <motion.h3 ref={sect1Ref} style={{ marginBottom: "3rem", marginRight: "5rem" }} className="paragraph-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize designs and colors. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></motion.h3>
         <motion.button onClick={() => scrollToSection('section-10')} ref={sect1Ref} className="cta-1" initial={{ y: "20px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.5, delay: 0.8 }}>GET STARTED<div className="icon-next">&nbsp;</div></motion.button>
       </div>
 
-      <motion.figure className="section-1-col2"
+      {screenWidth > 600 && <motion.figure className="section-1-col2"
         initial={{ scale: 0, opacity: 0 }}
         animate={growAnimation}
         transition={{ duration: 1, ease: "easeOut" }}
       >
         <div className="sect-1-imageset">
-          <img src="/home/1.webp" className="hero-laptop" style={{ zIndex: "2" }}></img>
-          <motion.img src="/home/2.webp" style={{ zIndex: "3", position: "absolute", height: "15rem", bottom: "0", left: "0", transform: "translateX(-25%)", marginBottom: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
-          <motion.img src="/home/3.webp" style={{ zIndex: "3", position: "absolute", height: "10rem", bottom: "5%", right: "0", transform: "translateX(25%)", marginBottom: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
-          <motion.img src="/home/4.webp" style={{ zIndex: "1", position: "absolute", height: "15rem", left: "0", top: "30%", margin: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 1 }}></motion.img>
+          <img src="/home/1.webp" className="hero-laptop" style={{ zIndex: "2", height: `${screenWidth > 1100 ? "40rem" : screenWidth > 750 ? "32rem" : "25.6rem"}` }}></img>
+          <motion.img src="/home/2.webp" style={{ zIndex: "3", position: "absolute", height: `${screenWidth > 1100 ? "15rem" : screenWidth > 750 ? "12rem" : "9.6rem"}`, bottom: "0", left: "0", transform: "translateX(-25%)", marginBottom: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
+          <motion.img src="/home/3.webp" style={{ zIndex: "3", position: "absolute", height: `${screenWidth > 1100 ? "10rem" : screenWidth > 750 ? "8rem" : "6.4rem"}`, bottom: "5%", right: "0", transform: "translateX(25%)", marginBottom: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
+          <motion.img src="/home/4.webp" style={{ zIndex: "1", position: "absolute", height: `${screenWidth > 1100 ? "15rem" : screenWidth > 750 ? "12rem" : "9.6rem"}`, left: "0", top: "30%", margin: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 1 }}></motion.img>
           <div style={{ position: "absolute" }}>
-            <motion.img src="/home/5.webp" style={{ zIndex: "3", position: "absolute", height: "3rem", top: "0", left: "0" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
-            <motion.img src="/home/6.webp" style={{ zIndex: "1", position: "absolute", height: "15rem", top: "0", left: "30px", transform: "translateY(-50px)" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.7 }}></motion.img>
+            <motion.img src="/home/5.webp" style={{ zIndex: "3", position: "absolute", height: `${screenWidth > 1100 ? "3rem" : screenWidth > 750 ? "2.4rem" : "1.92rem"}`, top: "0", left: "0" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
+            <motion.img src="/home/6.webp" style={{ zIndex: "1", position: "absolute", height: `${screenWidth > 1100 ? "15rem" : screenWidth > 750 ? "12rem" : "9.6rem"}`, top: "0", left: "30px", transform: "translateY(-50px)" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.7 }}></motion.img>
           </div>
-          <motion.img src="/home/7.webp" style={{ zIndex: "1", position: "absolute", height: "15rem", top: "40%", right: "-10%" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.7 }}></motion.img>
-          <motion.img src="/home/8.webp" style={{ zIndex: "0", position: "absolute", height: "23rem", top: "-10%", right: "10%" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 1 }}></motion.img>
-          {/* <motion.h1 initial={{scale:0, opacity:0}} animate={{scale:1, opacity:1}} transition={{duration:2, ease: "easeOut", delay: 5}}>Hello</motion.h1> */}
+          <motion.img src="/home/7.webp" style={{ zIndex: "1", position: "absolute", height: `${screenWidth > 1100 ? "15rem" : screenWidth > 750 ? "12rem" : "9.6rem"}`, top: "40%", right: "-10%" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.7 }}></motion.img>
+          <motion.img src="/home/8.webp" style={{ zIndex: "0", position: "absolute", height: `${screenWidth > 1100 ? "23rem" : screenWidth > 750 ? "18.4rem" : "14.72rem"}`, top: "-10%", right: "10%" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 1 }}></motion.img>
         </div>
-      </motion.figure>
+      </motion.figure>}
     </section>
 
     <section className="section-2-bg" ref={section2Ref} id="section-2">
       <div className="section-2-main" style={{ position: "relative", zIndex: "0", height: "120vh" }} ref={redPieceRef}>
-        <motion.header className="sect-1-text" style={{ margin: "1rem", fontWeight: "700" }}>Manage Your Mart with Ease</motion.header>
+        <motion.header className="sect-1-text landing-headline" style={{ margin: "1rem", fontWeight: "700" }}>Manage Your Mart with Ease</motion.header>
 
         <div className="sect-2-container">
           <div className="sect-2-col1">
             <div className="sect-2-info active-sect-2">
               <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-b word-glue">Create Categories</span></h1>
-              <h3 className="paragraph-text" style={{ height: "auto", overflow: "hidden", transition: "all 0.5s" }}>Be able to create any number of categories with the relevant details such as an image and description. You may disable categories too so that users can't access the page.</h3>
+              {screenWidth <= 450 && <motion.figure style={{ overflow: "hidden", position: "relative", height: "auto", width: "auto", margin: "auto" }} variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+                <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)" }} src="/home/phone1-piece.webp"></motion.img>
+                <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone1.webp"></img>
+              </motion.figure>}
+
+              <div className="flex-row flex-row-align">
+                <h3 className="paragraph-text" style={{ height: "auto", overflow: "hidden", transition: "all 1s" }}>Be able to create any number of categories with the relevant details such as an image and description. You may disable categories too so that users can't access the page.</h3>
+                {(screenWidth <= 700 && screenWidth > 450) && <motion.figure style={{ position: "relative", overflow: "hidden", width: `${screenWidth <= 500 ? "300vw" : screenWidth <= 600 ? "200vw" : "140vw"}`, height: "auto" }} variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+                  <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)" }} src="/home/phone1-piece.webp"></motion.img>
+                  <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone1.webp"></img>
+                </motion.figure>}
+              </div>
             </div>
             <div className="sect-2-info">
               <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-c word-glue">Create Products</span></h1>
@@ -466,16 +536,18 @@ function HomePage() {
               <h3 className="paragraph-text" style={{ height: `${scrollState === 40 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
             </div>
           </div>
-          <div className="sect-2-col2">
-            <img className="sect-2-piece" style={{ top: "50%", transform: "translateY(-50%)" }} src="/home/phone1-piece.png"></img>
-            <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone1.png"></img>
-          </div>
+          {screenWidth > 700 && <div className="sect-2-col2">
+            <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+              <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)" }} src="/home/phone1-piece.webp"></motion.img>
+              <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone1.webp"></img>
+            </motion.figure>
+          </div>}
         </div>
       </div>
       <div className="section-2-piece" ref={yellowPieceRef}></div>
       <div className="section-2-piece" ref={cyanPieceRef}></div>
       <div className="section-2-main" style={{ position: "relative", zIndex: "0", height: "140vh" }} ref={pinkPieceRef}>
-        <motion.h1 className="sect-1-text gradient-a" style={{ margin: "1rem" }}>Manage Your Mart with Ease</motion.h1>
+        <motion.header className="sect-1-text landing-headline" style={{ margin: "1rem", fontWeight: "700" }}>Manage Your Mart with Ease</motion.header>
         <div className="sect-2-container">
           <div className="sect-2-col1">
             <div className="sect-2-info">
@@ -490,22 +562,36 @@ function HomePage() {
               <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-d word-glue">Manage Prices and Stocks</span></h1>
               <h3 className="paragraph-text" style={{ height: `${scrollState === 30 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}></h3>
             </div>
-            <div className="sect-2-info active-sect-2" style={{ marginBottom: "2rem" }}>
+            {/* <div className="sect-2-info active-sect-2" style={{ marginBottom: "2rem" }}>
               <h1 className="sect-1-text-2"><span className="gradient-purple word-glue">Add Variations</span></h1>
               <h3 className="paragraph-text" style={{ height: "auto", overflow: "hidden", transition: "all 0.5s" }}>After product initialization, variations can be added with the same types of details. Each new variation will have their own statistics so that they can be compared with each other.</h3>
-            </div>
+            </div> */}
+            <div className={"sect-2-info active-sect-2"} style={{ marginBottom: "2rem" }}>
+            <h1 className="sect-1-text-2"><span className="gradient-purple word-glue">Add Variations</span></h1>
+            {screenWidth <= 450 && <motion.figure style={{ overflow: "hidden", position: "relative", height: `auto`, width: "auto", margin: "auto" }} variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+            <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)" }} src="/home/phone4-piece.webp"></motion.img>
+              <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone4.webp"></img>
+            </motion.figure>}
+            <div className="flex-row flex-row-align">
+            <h3 className="paragraph-text" style={{ height: `auto`, overflow: "hidden", transition: "all 1s" }}>After product initialization, variations can be added with the same types of details. Each new variation will have their own statistics so that they can be compared with each other.</h3>
+            {(screenWidth <= 700 && screenWidth > 450) && <motion.figure style={{ position: "relative", overflow: "hidden", width: `${screenWidth <= 500 ? "260vw" : screenWidth <= 600 ? "180vw" : "140vw"}`, height: `auto` }} variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+                <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)" }} src="/home/phone4-piece.webp"></motion.img>
+                <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone4.webp"></img>
+              </motion.figure>}
           </div>
-          <div className="sect-2-col2">
-            <figure>
-              <img className="sect-2-piece" style={{ top: "50%", transform: "translateY(-50%) translateX(-10%)", height: "40rem" }} src="/home/phone4-piece.webp"></img>
-              <img className="sect-2-screen" src="/home/phone4.webp"></img>
-            </figure>
           </div>
+          </div>
+          {screenWidth > 700 && <div className="sect-2-col2">
+            <motion.figure variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
+              <motion.img className="sect-2-piece" style={{ height: `${screenWidth > 1500 ? "40rem" : screenWidth > 950 ? "32rem" : screenWidth > 850 ? "26rem" : "24rem"}`, top: "50%", transform: `translateY(-50%) ${screenWidth > 1500 ? "translateX(-15%)" : screenWidth > 950 ? "translateX(0%)" : "translateX(15%)"}` }} src="/home/phone4-piece.webp"></motion.img>
+              <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone4.webp"></img>
+            </motion.figure>
+          </div>}
         </div>
       </div>
     </section>
 
-    <section className="section-3">
+    {/* <section className="section-3">
       <div className="design-auto" style={{ opacity: designAutoOpacity }}>
         <div className="design-brush-1"><div className="home-paintbrush" style={{ ...brush1 }}></div></div>
         <div className="design-brush-2"><div className="home-paintbrush-2" style={{ ...brush2 }}></div></div>
@@ -544,9 +630,9 @@ function HomePage() {
         </div>
       </div>
 
-    </section>
+    </section> */}
 
-    <section className="section-4" ref={sect4Ref}>
+    {/* <section className="section-4" ref={sect4Ref}>
       <motion.figure className="section-4-img" initial={{ x: "-100px", opacity: 0 }} animate={sideAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>
         <div className="section-4-circle">
           <img src="/home/9.webp" className="sect-4-img"></img>
@@ -562,9 +648,9 @@ function HomePage() {
         <header style={{ fontWeight: "700" }} className="sect-4-text">Manage <span className="gradient-redviolet word-glue">at Home or On the Go</span></header>
         <motion.h3 className="paragraph-text" style={{ width: "55rem" }}>MyMart works on all devices, allowing you to be up to date with your mart's statistics, update your product catalogue, change prices and stocks, and manage at the office or on the way to work and so can your customers. Through  your shop's link, customers can view and make orders which you can then approve or refuse anytime, anywhere.</motion.h3>
       </div>
-    </section>
+    </section> */}
 
-    <section className="section-5" ref={sect5Ref}>
+    {/* <section className="section-5" ref={sect5Ref}>
       <figure className="scrolling-image-container">
         <img src="/home/scroll1.webp" className="scrolling-image" />
         <div className="gradient-cover">
@@ -586,9 +672,9 @@ function HomePage() {
         </img>
       </div>
 
-    </section>
+    </section> */}
 
-    <section className="section-6" id="section-6">
+    {/* <section className="section-6" id="section-6">
       <div className="svg-container">
         {statWave}
       </div>
@@ -605,9 +691,9 @@ function HomePage() {
 
         </img>
       </div>
-    </section>
+    </section> */}
 
-    <section className="section-7" ref={sect6Ref}>
+    {/* <section className="section-7" ref={sect6Ref}>
       <motion.header style={{ marginTop: `${showUser ? "5%" : "20%"}`, fontWeight: "700" }} className="sect-7-text gradient-green" initial={{ x: "-100px", opacity: 0 }} animate={leftAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>The Customer is (12 mins) Away</motion.header>
 
       <div style={{ height: "80%", opacity: `${showUser ? "1" : "0"}` }} className="user-data">
@@ -621,9 +707,9 @@ function HomePage() {
         </div>
       </div>
 
-    </section>
+    </section> */}
 
-    <section className="section-8">
+    {/* <section className="section-8">
       <header style={{ fontWeight: "700", marginLeft: "3rem", marginBottom: "1rem" }} className="sect-6-text gradient-purple">Even More Customizables</header>
 
       <BannerCarouselHome screenWidth={screenWidth} data={bannerData}></BannerCarouselHome>
@@ -659,9 +745,9 @@ function HomePage() {
       <div className="testimony-container">
         <Testimony></Testimony>
       </div>
-    </section>
+    </section> */}
 
-    <section className="section-9" id="section-9">
+    {/* <section className="section-9" id="section-9">
       <motion.header className="sect-1-text" style={{ margin: "1rem", transform: "scale(1.5)", fontWeight: "700" }}>Pricing</motion.header>
 
       <div className="prices">
@@ -682,9 +768,9 @@ function HomePage() {
           <h3 className="price-text-info-2" style={{ borderBottom: "0px solid white" }}>Includes Popups & Promos</h3>
         </div>
       </div>
-    </section>
+    </section> */}
 
-    <section className="section-10" id="section-10">
+    {/* <section className="section-10" id="section-10">
       <div className="signup-box">
         <div className="signup-input">
           <motion.header className="sect-10-text" style={{ margin: "1rem", fontWeight: "700" }}>YOUR DREAM MART AWAITS</motion.header>
@@ -713,10 +799,10 @@ function HomePage() {
 
         </div>
       </div>
-    </section>
+    </section> */}
 
 
-    <div className="footer-home">
+    {/* <div className="footer-home">
       <div className="footer-icon-box">
         <img className="footer-icon" src="/light-2.png"></img>
       </div>
@@ -734,7 +820,7 @@ function HomePage() {
           <h3 className="paragraph-text" style={{ margin: "0 4rem" }}>Built by JM Miranda for my online portfolio. To access the 3 sample websites, click on the shop name links found in the testimonials or go back to <span style={{ fontWeight: "900" }}>My Personal Site</span>. Contact me at <span style={{ fontWeight: "900" }}>jeymson9000@gmail.com</span>. Thank you for stopping by!</h3>
         </div>
       </div>
-    </div>
+    </div> */}
 
   </Fragment>
 }
