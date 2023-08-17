@@ -234,8 +234,6 @@
   justify-content: center;
   padding-left: 5rem;
   gap: 2rem;
-
-  // align-items: center;
 }
 
 .sect-4-text {
@@ -385,6 +383,14 @@
   transition: all 0.5s;
 }
 
+.design-heading-container-2 {
+  height: 18rem;
+  width: 48rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s;
+} 
+
 .design-heading {
   position: relative;
   @include heading-logo(paintstroke2, 18rem, 68rem);
@@ -393,6 +399,16 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 68rem;
+}
+
+.design-heading-2 {
+  position: relative;
+  @include heading-logo(paintstroke2, 18rem, 48rem);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48rem;
 }
 
 .design-brush-1 {
@@ -447,7 +463,7 @@
 
 .design-card {
   height: 40rem;
-  width: 70rem;
+  width: auto;
 }
 
 .flip-card {
@@ -513,6 +529,10 @@
   transform: scaleX(-1) rotate(-40deg);
 }
 
+.design-set{
+  height: 70%;
+}
+
 .sect-6-text {
   font-size: 5rem;
   color: transparent;
@@ -560,6 +580,13 @@
   margin-top: 2rem;
 }
 
+.order-img-2{
+  height: auto;
+  width: 50rem;
+  object-fit: contain;
+  margin: auto;
+}
+
 .tall-image {
   object-fit: cover;
   width: 100%;
@@ -595,11 +622,102 @@ align-items: center;
 justify-content: center;
 }
 
+.scrolling-image-container {
+  overflow: hidden;
+  width: 50%;
+  height: 100%; 
+  position: relative;
+}
+
+.scrolling-image {
+  width: 100%; 
+  height: auto;
+  position: absolute;
+  top: 0;
+  animation: scrollImage 120s linear infinite;
+}
+
+.scrolling-image-2 {
+  width: 100%; 
+  height: auto;
+  object-fit: cover;
+}
+
+.scrolling-image-container-sm {
+  position: absolute;
+top: 50%;
+left: 50%;
+height: 50rem;
+width: 30rem;
+z-index: 2;
+margin: auto;
+transform: translate(-50%, -50%);
+
+overflow-y: scroll;
+}
+
+.scrolling-image-container-sm-2 {
+height: 100%;
+width: 30rem;
+z-index: 2;
+margin: auto;
+
+overflow-y: scroll;
+}
+
+.scrolling-image-sm {
+  width: 100%; 
+  height: auto;
+  position: absolute;
+  top: 0;
+  animation: scrollImage 75s linear infinite;
+  overflow: hidden;
+}
+
+@keyframes scrollImage {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+.gradient-cover{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(to bottom left, #0051FF, #7fc9ff);
+  opacity: 0.8;
+}
+
+.order-alt{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.order-alt-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60%;
+  width: 100%;
+  gap: 1rem;
+  position: relative;
+  padding-bottom: 2rem;
+}
+
 .section-6 {
   height: 100vh;
   width: 100%;
   position: relative;
   background-image: linear-gradient(to bottom right, #00C1FF, #407CFF);
+  overflow: hidden;
 }
 
 .svg-container {
@@ -1215,64 +1333,4 @@ object-fit: cover;
   @include gradient-text(to right, #FF6000, #FFD93D);
 }
 
-// .orders-container {
-//   width: 50%;
-//   position: relative;
-//   display: flex;
-//   align-items: flex-start;
-//   position: relative;
-//   overflow: hidden;
-//   pointer-events: none;
-//   height: 100%;
-// }
 
-.scrolling-image-container {
-  overflow: hidden;
-  width: 50%;
-  height: 100%; 
-  position: relative;
-}
-
-.scrolling-image {
-  width: 100%; 
-  height: auto;
-  position: absolute;
-  top: 0;
-  animation: scrollImage 120s linear infinite;
-}
-
-.scrolling-image-container-sm {
-  position: absolute;
-top: 50%;
-left: 50%;
-height: 50rem;
-width: 30rem;
-z-index: 2;
-margin: auto;
-transform: translate(-50%, -50%);
-}
-
-.scrolling-image-sm {
-  width: 100%; 
-  height: auto;
-  position: absolute;
-  top: 0;
-  animation: scrollImage 75s linear infinite;
-}
-
-@keyframes scrollImage {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-100%);
-  }
-}
-
-.gradient-cover{
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  background-image: linear-gradient(to bottom left, #0051FF, #7fc9ff);
-  opacity: 0.8;
-}
