@@ -52,9 +52,9 @@ function FinishCheckout(props) {
                     <h1 className="heading-secondary no-margin">Order Successful</h1>
                 </span>
 
-            <img src={"/coin.gif"} className="finish-coin"></img>
+            <img src={"/coin.gif"} className="finish-coin" alt="Finished Order"></img>
 
-            <h3 className="heading-tertiary checkout-msg">More information can be found in your current orders such as the shop's location and the duration for cancellation and refunds as well as your past and current orders. The order is now pending for approval. Thank you for shopping at {props.name}!</h3>
+            <h3 className="heading-tertiary checkout-msg">More information can be found in your current orders such as the shop&apos;s location and the duration for cancellation and refunds as well as your past and current orders. The order is now pending for approval. Thank you for shopping at {props.name}!</h3>
 
             <button onClick={props.disable} className="product-action-2 heading-secondary margin-side" style={{marginTop:"2rem"}}>Finish</button>
             </motion.div>

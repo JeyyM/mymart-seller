@@ -401,7 +401,7 @@ function HomePage() {
             </motion.figure>}
 
             <div className="flex-row flex-row-align">
-              <h3 className="paragraph-text" style={{ height: `${scrollState === 1 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 1s" }}>Be able to create any number of categories with the relevant details such as an image and description. You may disable categories too so that users can't access the page.</h3>
+              <h3 className="paragraph-text" style={{ height: `${scrollState === 1 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 1s" }}>Be able to create any number of categories with the relevant details such as an image and description. You may disable categories too so that users can&apos;t access the page.</h3>
               {(screenWidth <= 700 && screenWidth > 450) && <motion.figure style={{ position: "relative", overflow: "hidden", width: `${screenWidth <= 500 ? "300vw" : screenWidth <= 600 ? "200vw" : "140vw"}`, height: `${scrollState === 1 ? "auto" : "0px"}` }} variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
                 <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)" }} src="/home/phone1-piece.webp"></motion.img>
                 <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone1.webp"></img>
@@ -429,7 +429,7 @@ function HomePage() {
               <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone3.webp"></img>
             </motion.figure>}
             <div className="flex-row flex-row-align">
-              <h3 className="paragraph-text" style={{ height: `${scrollState === 3 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 1s" }}>The names, images, prices. and stocks can be changed at anytime past their initialization and will update as users refresh the page. Products with no stock will be marked as sold out. You may disable products too so that users can't access them.</h3>
+              <h3 className="paragraph-text" style={{ height: `${scrollState === 3 ? "auto" : "0px"}`, overflow: "hidden", transition: "all 1s" }}>The names, images, prices. and stocks can be changed at anytime past their initialization and will update as users refresh the page. Products with no stock will be marked as sold out. You may disable products too so that users can&apos;t access them.</h3>
               {(screenWidth <= 700 && screenWidth > 450) && <motion.figure style={{ position: "relative", overflow: "hidden", width: `${screenWidth <= 500 ? "400vw" : screenWidth <= 600 ? "270vw" : "200vw"}`, height: `${scrollState === 3 ? "auto" : "0px"}` }} variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
                 <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)", height: "80%" }} src="/home/phone3-piece.webp"></motion.img>
                 <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone3.webp"></img>
@@ -533,7 +533,7 @@ function HomePage() {
               </motion.figure>}
 
               <div className="flex-row flex-row-align">
-                <h3 className="paragraph-text" style={{ height: "auto", overflow: "hidden", transition: "all 1s" }}>Be able to create any number of categories with the relevant details such as an image and description. You may disable categories too so that users can't access the page.</h3>
+                <h3 className="paragraph-text" style={{ height: "auto", overflow: "hidden", transition: "all 1s" }}>Be able to create any number of categories with the relevant details such as an image and description. You may disable categories too so that users can&apos;t access the page.</h3>
                 {(screenWidth <= 700 && screenWidth > 450) && <motion.figure style={{ position: "relative", overflow: "hidden", width: `${screenWidth <= 500 ? "300vw" : screenWidth <= 600 ? "200vw" : "140vw"}`, height: "auto" }} variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
                   <motion.img className="sect-2-piece" style={{ top: "55%", transform: "translateY(-50%)" }} src="/home/phone1-piece.webp"></motion.img>
                   <img variants={screenVariants} initial="hidden" animate="visible" className="sect-2-screen" src="/home/phone1.webp"></img>
@@ -542,15 +542,15 @@ function HomePage() {
             </div>
             <div className="sect-2-info">
               <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-c word-glue">Create Products</span></h1>
-              <h3 className="paragraph-text" style={{ height: `${scrollState === 20 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
+              <h3 className="paragraph-text" style={{ height: `${scrollState === 20 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop&apos;s design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
             </div>
             <div className="sect-2-info">
               <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-d word-glue">Manage Prices and Stocks</span></h1>
-              <h3 className="paragraph-text" style={{ height: `${scrollState === 30 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
+              <h3 className="paragraph-text" style={{ height: `${scrollState === 30 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop&apos;s design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
             </div>
             <div className="sect-2-info" style={{ marginBottom: "2rem" }}>
               <h1 className="sect-1-text-2"><span className="gradient-purple word-glue">Add Variations</span></h1>
-              <h3 className="paragraph-text" style={{ height: `${scrollState === 40 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop's design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
+              <h3 className="paragraph-text" style={{ height: `${scrollState === 40 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize the shop&apos;s design. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></h3>
             </div>
           </div>
           {screenWidth > 700 && <div className="sect-2-col2">
@@ -673,10 +673,10 @@ function HomePage() {
 
         {screenWidth > 450 && <div className="section-4-text">
           {screenWidth > 510 && <header style={{ fontWeight: "700" }} className="sect-4-text landing-headline">Manage <span className="gradient-redviolet word-glue">at Home or On the Go</span></header>}
-          <motion.h3 className="paragraph-text" style={{ width: `${screenWidth > 850 ? "55rem" : "auto"}` }}>MyMart works on all devices, allowing you to be up to date with your mart's statistics, update your product catalogue, change prices and stocks, and manage at the office or on the way to work and so can your customers. Through  your shop's link, customers can view and make orders which you can then approve or refuse anytime, anywhere.</motion.h3>
+          <motion.h3 className="paragraph-text" style={{ width: `${screenWidth > 850 ? "55rem" : "auto"}` }}>MyMart works on all devices, allowing you to be up to date with your mart&apos;s statistics, update your product catalogue, change prices and stocks, and manage at the office or on the way to work and so can your customers. Through  your shop&apos;s link, customers can view and make orders which you can then approve or refuse anytime, anywhere.</motion.h3>
         </div>}
       </div>
-      {screenWidth <= 450 && <motion.h3 className="paragraph-text" style={{ width: `${screenWidth > 850 ? "55rem" : screenWidth > 450 ? "auto" : "80%"}`, marginTop: `${screenWidth > 450 ? "0" : "5rem"}` }}>MyMart works on all devices, allowing you to be up to date with your mart's statistics, update your product catalogue, change prices and stocks, and manage at the office or on the way to work and so can your customers. Through  your shop's link, customers can view and make orders which you can then approve or refuse anytime, anywhere.</motion.h3>}
+      {screenWidth <= 450 && <motion.h3 className="paragraph-text" style={{ width: `${screenWidth > 850 ? "55rem" : screenWidth > 450 ? "auto" : "80%"}`, marginTop: `${screenWidth > 450 ? "0" : "5rem"}` }}>MyMart works on all devices, allowing you to be up to date with your mart&apos;s statistics, update your product catalogue, change prices and stocks, and manage at the office or on the way to work and so can your customers. Through  your shop&apos;s link, customers can view and make orders which you can then approve or refuse anytime, anywhere.</motion.h3>}
 
     </section>
 
@@ -690,7 +690,7 @@ function HomePage() {
           <motion.header className="sect-5-text gradient-e landing-headline" style={{ margin: "1rem", fontWeight: "700", textAlign: "center" }}>Collect - <span className="gradient-g">Edit</span> - <span className="word-glue"><span className="gradient-f">Approve</span> / <span className="gradient-h">Refuse</span></span></motion.header>
 
           <div className="round-borderer round-borderer-extra" style={{ padding: "1rem", margin: "0 2rem" }}>
-            <h3 className="paragraph-text" style={{ margin: "1rem", textAlign: "left", whiteSpace: "pre-wrap" }}>    Instantly receive orders upon customer checkout. From there you can see the list of their orders. You may even edit them which will alert the user. From there you can view the user's contact information and location to see if you can finish the order.</h3>
+            <h3 className="paragraph-text" style={{ margin: "1rem", textAlign: "left", whiteSpace: "pre-wrap" }}>    Instantly receive orders upon customer checkout. From there you can see the list of their orders. You may even edit them which will alert the user. From there you can view the user&apos;s contact information and location to see if you can finish the order.</h3>
             <h3 className="paragraph-text" style={{ margin: "1rem", textAlign: "left", whiteSpace: "pre-wrap" }}>    Upon review, you may then choose to approve or refuse an order. When approved, you can set a date when a user can expect their products to arrive. You may even enable cancellations and set penalties.</h3>
           </div>
 
@@ -710,7 +710,7 @@ function HomePage() {
 
       {screenWidth > 550 && <div className="order-text">
         <motion.header className="sect-5-text gradient-e landing-headline" style={{ margin: "1rem", fontWeight: "700", textAlign: "center" }}>Collect - <span className="gradient-g">Edit</span> - <span className="word-glue"><span className="gradient-f">Approve</span> / <span className="gradient-h">Refuse</span></span></motion.header>
-        <h3 className="paragraph-text" style={{ margin: "1rem 5rem", textAlign: "left", whiteSpace: "pre-wrap" }}>    Instantly receive orders upon customer checkout. From there you can see the list of their orders. You may even edit them which will alert the user. From there you can view the user's contact information and location to see if you can finish the order.</h3>
+        <h3 className="paragraph-text" style={{ margin: "1rem 5rem", textAlign: "left", whiteSpace: "pre-wrap" }}>    Instantly receive orders upon customer checkout. From there you can see the list of their orders. You may even edit them which will alert the user. From there you can view the user&apos;s contact information and location to see if you can finish the order.</h3>
         <h3 className="paragraph-text" style={{ margin: "1rem 5rem", textAlign: "left", whiteSpace: "pre-wrap" }}>    Upon review, you may then choose to approve or refuse an order. When approved, you can set a date when a user can expect their products to arrive. You may even enable cancellations and set penalties.</h3>
 
         <img src="/home/10.webp" className="order-img"></img>
@@ -728,7 +728,7 @@ function HomePage() {
         </div>
         <div className="stat-text">
           <header style={{ fontWeight: "700" }} className="sect-6-text gradient-orangered landing-headline">Work with Performance Statistics</header>
-          <h3 className="paragraph-text" style={{ marginTop: "1rem" }}>Collect data on how your mart performs. Collect metrics on views and new users, compare categories and products by their profits and their sales, as well as viewing their ranks relative to a time period. Observe your mart's performance across the day as orders are finished!</h3>
+          <h3 className="paragraph-text" style={{ marginTop: "1rem" }}>Collect data on how your mart performs. Collect metrics on views and new users, compare categories and products by their profits and their sales, as well as viewing their ranks relative to a time period. Observe your mart&apos;s performance across the day as orders are finished!</h3>
         </div>
 
         <img src={`${screenWidth > 1000 ? "/home/stat1.webp" : screenWidth > 800 ? "/home/stat1-2.webp" : screenWidth > 400 ? "/home/stat1-3.webp" : "/home/stat1-4.webp"}`} className="stat-img"></img>
@@ -743,7 +743,7 @@ function HomePage() {
         <div className="user-stat-text">
           <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-c">Gain Data on Your Users</span></h1>
           <h3 className="paragraph-text" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>    Besides data on products and categories, you can collect statistics of your users. Collate user demographics such as age and gender together with lifetime statistics such as average profit and bought products. Users are ranked along with the companies they belong to allowing you to find your corporate clients.</h3>
-          <h3 className="paragraph-text" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>    User locations and coordinates are included in account creation where you can find prime locations where your mart is most popular. Powered by Google Maps, the users' locations can be found and an estimate of the travel duration to deliver products with precision.</h3>
+          <h3 className="paragraph-text" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>    User locations and coordinates are included in account creation where you can find prime locations where your mart is most popular. Powered by Google Maps, the users&apos; locations can be found and an estimate of the travel duration to deliver products with precision.</h3>
         
           {screenWidth > 700 && <img src="/home/stat3.webp" className="user-stats-2"></img>}
         </div>

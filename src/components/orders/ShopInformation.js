@@ -207,13 +207,13 @@ function ShopInformation(props) {
                     {takebacks.allowRefunds === false ? <div>
                       <h2 className="heading-tertiary">Refunds are not allowed.</h2>
                     </div> : <div>
-                      <h2 className="heading-tertiary">Refunds are allowed within {takebacks.refundCount} {takebacks.refundDuration}/s of receiving with a penalty of {takebacks.refundFee}% of the order's total, fees not included. Items must be returned on-site in good condition within the refund period.</h2>
+                      <h2 className="heading-tertiary">Refunds are allowed within {takebacks.refundCount} {takebacks.refundDuration}/s of receiving with a penalty of {takebacks.refundFee}% of the order&apos;s total, fees not included. Items must be returned on-site in good condition within the refund period.</h2>
                     </div>}
 
                     {takebacks.allowCancel === false ? <div>
                       <h2 className="heading-tertiary">Cancellations are not allowed.</h2>
                     </div> : <div>
-                      <h2 className="heading-tertiary">Cancellations are allowed within {takebacks.cancelCount} {takebacks.cancelDuration}/s of ordering with a penalty of {takebacks.cancelFee}% of the order's total, fees not included. Approved orders cannot be cancelled.</h2>
+                      <h2 className="heading-tertiary">Cancellations are allowed within {takebacks.cancelCount} {takebacks.cancelDuration}/s of ordering with a penalty of {takebacks.cancelFee}% of the order&apos;s total, fees not included. Approved orders cannot be cancelled.</h2>
                     </div>}
                     <Link href={`/${router.query.shopid}/terms`}><h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Terms and Conditions and Privacy Policy</h2></Link>
 
@@ -224,13 +224,13 @@ function ShopInformation(props) {
                     {takebacks.allowRefunds === false ? <div>
                       <h2 className="heading-tertiary">Refunds are not allowed.</h2>
                     </div> : <div>
-                      <h2 className="heading-tertiary">Refunds are allowed within {takebacks.refundCount} {takebacks.refundDuration}/s of receiving with a penalty of {takebacks.refundFee}% of the order's total, fees not included. Items must be returned on-site in good condition within the refund period.</h2>
+                      <h2 className="heading-tertiary">Refunds are allowed within {takebacks.refundCount} {takebacks.refundDuration}/s of receiving with a penalty of {takebacks.refundFee}% of the order&apos;s total, fees not included. Items must be returned on-site in good condition within the refund period.</h2>
                     </div>}
 
                     {takebacks.allowCancel === false ? <div>
                       <h2 className="heading-tertiary">Cancellations are not allowed.</h2>
                     </div> : <div>
-                      <h2 className="heading-tertiary">Cancellations are allowed within {takebacks.cancelCount} {takebacks.cancelDuration}/s of ordering with a penalty of {takebacks.cancelFee}% of the order's total, fees not included. Approved orders cannot be cancelled.</h2>
+                      <h2 className="heading-tertiary">Cancellations are allowed within {takebacks.cancelCount} {takebacks.cancelDuration}/s of ordering with a penalty of {takebacks.cancelFee}% of the order&apos;s total, fees not included. Approved orders cannot be cancelled.</h2>
                     </div>}
                     <Link href={`/${router.query.shopid}/terms`}><h2 className="heading-tertiary" style={{ fontWeight: "900" }}>Terms and Conditions and Privacy Policy</h2></Link>
 

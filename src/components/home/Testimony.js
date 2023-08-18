@@ -61,8 +61,8 @@ const Testimony = (props) => {
         {screenWidth > 450 && <img src={images[0]} className='testimony-img' style={activeSlide === 0 ? imageClass2 : imageClass}></img>}
         <div className='testimony-data'>
         {screenWidth <= 450 && <img src={images[0]} className='testimony-img-2'></img>}
-        <h1 className="testimony-heading" style={{marginLeft:"1rem", color:"white"}} >Alvin Adams, <span className='word-glue'>Owner of <span style={{textDecoration:"underline"}}><Link href="/64c84adf0cac7b00a22be359" className="gradient-testimony-1" target="_blank" rel="noopener noreferrer">Alvin's Artifacts</Link></span></span></h1>
-        <h3 className="paragraph-text" style={{marginTop:"1rem", whiteSpace:"pre-wrap", color: "white"}}>    When I tried making an online store myself, It was really confusing. I didn't have the time to learn how to code so when I came across MyMart, I knew I had to give it a try. I love that I can design it to fit my brand. So far, no regrets!</h3>
+        <h1 className="testimony-heading" style={{marginLeft:"1rem", color:"white"}} >Alvin Adams, <span className='word-glue'>Owner of <span style={{textDecoration:"underline"}}><Link href="/64c84adf0cac7b00a22be359" className="gradient-testimony-1" target="_blank" rel="noopener noreferrer">Alvin&apos;s Artifacts</Link></span></span></h1>
+        <h3 className="paragraph-text" style={{marginTop:"1rem", whiteSpace:"pre-wrap", color: "white"}}>    When I tried making an online store myself, It was really confusing. I didn&apos;t have the time to learn how to code so when I came across MyMart, I knew I had to give it a try. I love that I can design it to fit my brand. So far, no regrets!</h3>
         </div>
         </div>
 
@@ -81,7 +81,7 @@ const Testimony = (props) => {
         <div className='testimony-data'>
         {screenWidth <= 450 && <img src={images[1]} className='testimony-img-2'></img>}
         <h1 className="testimony-heading" style={{marginLeft:"1rem", color:"white"}}>Bob Blake, <span className='word-glue'>Owner of <span style={{textDecoration:"underline"}}><Link href="/64c9a0fb66248cc084a3ae8f" className="gradient-testimony-2" target="_blank" rel="noopener noreferrer">Bright Boutique</Link></span></span></h1>
-        <h3 className="paragraph-text" style={{marginTop:"1rem", whiteSpace:"pre-wrap", color: "white"}}>    MyMart made managing the orders and stocks so easy for me. When I first started, I didn't have any stock system so restocking accurately was impossible and logging all of the orders was cumbersome. Because of the map system, delivery is made easy too!</h3>
+        <h3 className="paragraph-text" style={{marginTop:"1rem", whiteSpace:"pre-wrap", color: "white"}}>    MyMart made managing the orders and stocks so easy for me. When I first started, I didn&apos;t have any stock system so restocking accurately was impossible and logging all of the orders was cumbersome. Because of the map system, delivery is made easy too!</h3>
         </div>
         </div>
 

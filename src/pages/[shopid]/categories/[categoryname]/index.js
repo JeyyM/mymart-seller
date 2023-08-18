@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { useRouter } from "next/router";
 import CategoryProducts from "@/components/category-products/CategoryProducts";
 import { useState, useEffect } from "react";
-import AddProduct from "@/components/Modal/Add-Product";
+// import AddProduct from "@/components/Modal/Add-Product";
 import { getServerSideProps } from "..";
 import Head from "next/head";
 import { AnimatePresence, motion } from "framer-motion";
@@ -56,15 +56,15 @@ function ProductsPage({ shopID, screenWidth }) {
 
   const upperProductNames = productNames.map((name) => encodeURIComponent(name.toUpperCase()));
 
-  const [addProduct, setAddProduct] = useState(false)
-  const [defaultValues, setDefaultValues] = useState(["", "", ""])
+  // const [addProduct, setAddProduct] = useState(false)
+  // const [defaultValues, setDefaultValues] = useState(["", "", ""])
 
-  function addProdHandler(event) {
-    event.preventDefault()
-    event.stopPropagation()
+  // function addProdHandler(event) {
+  //   event.preventDefault()
+  //   event.stopPropagation()
 
-    setAddProduct(!addProduct)
-  }
+  //   setAddProduct(!addProduct)
+  // }
 
   async function completeForm(formdata) {
 

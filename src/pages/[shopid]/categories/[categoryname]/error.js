@@ -46,7 +46,7 @@ function Catch({ shopID, screenWidth }){
 
     return <Fragment>
 <Head>
-  <title>Page Does Not Existzz</title>
+  <title>Page Does Not Exist</title>
   <link rel="icon" type="image/jpeg" href={favicon} />
 
 </Head>

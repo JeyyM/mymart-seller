@@ -1,10 +1,6 @@
 import { useRouter } from "next/router";
 import { Fragment, useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import ProdImg from "@/components/Modal/Prod-Img";
-import AddVariation from "@/components/Modal/Add-Variation"
-import Confirmer2 from "@/components/Modal/Confirmer2";
-import AddTags from "@/components/Modal/Add-Tags";
 import { getServerSideProps } from "..";
 import Head from "next/head";
 import { useContext } from "react";
@@ -19,34 +15,54 @@ function ProductPage({ shopID, user, screenWidth }) {
 
   const { state, handleIncrement } = useContext(MyContext);
 
-  function waitSeconds() {
-    return new Promise(resolve => setTimeout(resolve, 2500));
-  }
-
-  function waitSecondsShort() {
-    return new Promise(resolve => setTimeout(resolve, 1000));
-  }
-
   const queryProduct = router.query.productname
   const queryCategory = router.query.categoryname
 
   const allCategories = shopID.shopData.shopCategories
   const chosenCategory = allCategories.filter((value) => value.categoryName === queryCategory);
 
+  const [varState, setVarState] = useState(0)
+  const [imgState, setImgState] = useState(0)
+
+  const [nameValue, setNameValue] = useState("");
+
+  const [descValue, setDescValue] = useState("");
+
+  const [imgValue1, setImgValue1] = useState("");
+
+  const [imgValue2, setImgValue2] = useState("");
+
+  const [imgValue3, setImgValue3] = useState("");
+
+  const [imgValue4, setImgValue4] = useState("");
+
+  const [priceValue, setPriceValue] = useState(0);
+
+  const [stockAmount, setStockAmount] = useState(0);
+
+  const [stockUnit, setStockUnit] = useState("");
+
+  const [activeValue, setActiveValue] = useState(false);
+
+  const [cartContents, setCartContents] = useState([])
+  const [cartValue, setCartValue] = useState(0)
+
+  const [imgSet, setImgSet] = useState([])
+
   useEffect(() => {
     if (chosenCategory.length === 0) {
       router.push(`/${router.query.shopid}/categories/${chosenCategory.categoryName}error`);
     }
-  }, []);
+  }, [router, chosenCategory]);
 
+  
   if (chosenCategory.length === 0){
     return null
   }
 
-  const categoryIndex = allCategories.findIndex((value) => value.categoryName === queryCategory);
-
   const urlCateg = encodeURIComponent(chosenCategory[0].categoryName)
 
+  console.log(chosenCategory)
   const chosenProduct = chosenCategory[0].categoryProducts.filter(product => product.variations[0].productName === queryProduct);
 
   useEffect(() => {
@@ -59,57 +75,33 @@ function ProductPage({ shopID, user, screenWidth }) {
     return null
   }
 
-  const productIndex = chosenCategory[0].categoryProducts.findIndex(product => product.variations[0].productName === queryProduct);
-
   const urlProduct = encodeURIComponent(chosenProduct[0].variations[0].productName)
 
   const productContents = chosenProduct[0].variations
 
   const variationsList = productContents.filter((product) => product.active === true);
 
+  useEffect(() => {
+    if (variationsList.length > 0) {
+      setNameValue(variationsList[varState].productName);
+      setDescValue(variationsList[varState].productDescription);
+      setImgValue1(variationsList[varState].productImages[0]);
+      setImgValue2(variationsList[varState].productImages[1]);
+      setImgValue3(variationsList[varState].productImages[2]);
+      setImgValue4(variationsList[varState].productImages[3]);
+      setPriceValue(variationsList[varState].productPrice);
+      setStockAmount(variationsList[varState].productStock.stockAmount);
+      setStockUnit(variationsList[varState].productStock.stockUnit);
+      setActiveValue(variationsList[varState].active);
 
-    if (variationsList.length === 0) {
-      let router2 = useRouter()
-      router2.push(`/${router.query.shopid}/categories/${router.queryCategory}/error`);
+      setImgSet([imgValue1, imgValue2, imgValue3, imgValue4])
     }
-
-  const variationRange = Array.from({ length: variationsList.length }, (_, index) => index);
-
-  const productNames = allCategories[categoryIndex].categoryProducts.flatMap(product => product.variations.map(variation => encodeURIComponent(variation.productName)));
-  const upperProductNames = productNames.map(name => name.toUpperCase());
-
-  const routerData = [shopID._id, queryCategory]
+  }, [variationsList, varState]);  
 
   const localStorageKey = `mart_${shopID._id}`
-  const authStorageKey = `auth_${router.query.shopid}`;
 
   let storedCartItems
   let parsedCartItems
-
-  const [cartContents, setCartContents] = useState([])
-///////////////////////////////////////////////////////
-  // async function getData() {
-  //   if ( typeof window !== 'undefined'){
-  //   const response = await fetch(
-  //     `../../../api/read-cart?martid=${router.query.shopid}&email=${user.email}&password=${user.password}`,
-  //     {
-  //       method: "GET",
-  //       headers: { "Content-Type": "application/json" },
-  //     }
-  //   );
-  //   const data = await response.json();
-  //   return data.shopAccount.currentCart
-  //   // return data
-  //   }
-  // }
-  
-  // async function initialGet(){
-  // if (user !== undefined){
-  //   let cartDb = await getData()
-  //   parsedCartItems = cartDb
-  //   setCartContents(parsedCartItems)
-  // }}
-  ///////////////////////////////////////////////
 
   async function updateData() {
     if ( typeof window !== 'undefined'){
@@ -133,11 +125,7 @@ function ProductPage({ shopID, user, screenWidth }) {
     
       setCartContents(parsedCartItems)
 
-    // initialGet()
   }, [])
-
-  const [varState, setVarState] = useState(0)
-  const [imgState, setImgState] = useState(0)
 
   const soldVar = []
 
@@ -161,63 +149,6 @@ function ProductPage({ shopID, user, screenWidth }) {
     return variationsList[n].productImages[0];
   }
 
-  const [nameValue, setNameValue] = useState(variationsList[varState].productName);
-  const handleNameChange = (event) => {
-    setNameValue(event.target.value);
-    handleNameLength(event.target.value)
-  };
-
-  const [descValue, setDescValue] = useState(variationsList[varState].productDescription);
-  const handleDescChange = (event) => {
-    setDescValue(event.target.value);
-    handleDescLength(event.target.value)
-  };
-
-  const [imgValue1, setImgValue1] = useState(variationsList[varState].productImages[0]);
-  const handleImgChange1 = (event) => {
-    setImgValue1(event.target.value);
-  };
-
-  const [imgValue2, setImgValue2] = useState(variationsList[varState].productImages[1]);
-  const handleImgChange2 = (event) => {
-    setImgValue2(event.target.value);
-  };
-
-  const [imgValue3, setImgValue3] = useState(variationsList[varState].productImages[2]);
-  const handleImgChange3 = (event) => {
-    setImgValue3(event.target.value);
-  };
-
-  const [imgValue4, setImgValue4] = useState(variationsList[varState].productImages[3]);
-  const handleImgChange4 = (event) => {
-    setImgValue4(event.target.value);
-  };
-
-  const [priceValue, setPriceValue] = useState(variationsList[varState].productPrice);
-  const handlePriceChange = (event) => {
-    if (event.target.value.length < 9) {
-      setPriceValue(event.target.value);
-    }
-  };
-
-  const [stockAmount, setStockAmount] = useState(variationsList[varState].productStock.stockAmount);
-  const handleStockAmount = (event) => {
-    if (event.target.value.length < 9) {
-      setStockAmount(event.target.value);
-    }
-  };
-
-  const [stockUnit, setStockUnit] = useState(variationsList[varState].productStock.stockUnit);
-  const handleStockUnit = (event) => {
-    setStockUnit(event.target.value);
-  };
-
-  const [activeValue, setActiveValue] = useState(variationsList[varState].active);
-  const handleActive = () => {
-    setActiveValue(!activeValue)
-  };
-
-  const [cartValue, setCartValue] = useState(0)
   const handleCartAmount = (event) => {
     const enteredValue = event.target.value.trim();
     const numericEnteredValue = parseInt(enteredValue);
@@ -239,27 +170,6 @@ function ProductPage({ shopID, user, screenWidth }) {
       setCartValue(parseInt(cartValue) - 1)
     }
   }
-
-  function isEmpty(word) {
-    word.trim() === ""
-  }
-
-  function startsImgur(word) {
-    if (word) { return word.startsWith("https://i.imgur.com/") || word.startsWith("https://picsum.photos/"); }
-  }
-
-  const [imgSet, setImgSet] = useState([imgValue1, imgValue2, imgValue3, imgValue4])
-  const [validImgSet, setValidImgSet] = useState([])
-
-  useEffect(() => {
-    const img1Valid = startsImgur(imgValue1) && !isEmpty(imgValue1)
-    const img2Valid = startsImgur(imgValue2) && !isEmpty(imgValue2)
-    const img3Valid = startsImgur(imgValue3) && !isEmpty(imgValue3)
-    const img4Valid = startsImgur(imgValue4) && !isEmpty(imgValue4)
-    const validImgSet = [img1Valid && { image: imgValue1 }, img2Valid && { image: imgValue2 }, img3Valid && { image: imgValue3 }, img4Valid && { image: imgValue4 },].filter(Boolean)
-    setValidImgSet(validImgSet)
-  }, [imgValue1, imgValue2, imgValue3, imgValue4])
-
 
   function setAll(index) {
     setNameValue(variationsList[varState].productName)
@@ -290,18 +200,6 @@ function ProductPage({ shopID, user, screenWidth }) {
     setCartContents(parsedCartItems);
   }, [state.count]);
 
-// async function finishForm(formdata) {
-//   const response = await fetch(
-//     `../../../api/read-cart?martid=${router.query.shopid}`,
-//     {
-//       method: "PATCH",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(formdata)
-//     }
-//   );
-//   const data = await response.json();
-// }
-
   const changeCart = async (items) => {
     storedCartItems = typeof window !== 'undefined' ? localStorage.getItem(localStorageKey) : null;
     parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];  
@@ -331,40 +229,11 @@ function ProductPage({ shopID, user, screenWidth }) {
       setCartContents([...cartContents, items]);
       localStorage.setItem(localStorageKey, JSON.stringify([...cartContents, items]));
     }
-/////////////////////////////////////////
-    // if (user !== undefined){
-    //   const existingItem = cartContents.find((item) => item.name === items.name);
 
-  
-    // if (items.cartValue === 0 || isNaN(items.cartValue)) {
-    //   return;
-    // } else if (existingItem) {
-    //   const updatedCartContents = cartContents.map((product) => {
-    //     if (product.name === items.name) {
-    //       const newCartValue = parseInt(product.cartValue) + parseInt(items.cartValue);
-    //       const chosenCartValue = newCartValue <= items.amount ? newCartValue : items.amount;
-  
-    //       return { ...product, cartValue: parseInt(chosenCartValue) };
-    //     }
-    //     return product;
-    //   });
-  
-    //   setCartContents(updatedCartContents);
-    //   finishForm({updatedCartContents, email: user.email, password: user.password})
-    //   handleIncrement()
-    // } else {
-    //   setCartContents([...cartContents, items]);
-    //   const updatedCartContents = [...cartContents, items];
-    //   finishForm({updatedCartContents, email: user.email, password: user.password})
-    //   handleIncrement()
-    // }
-
-    // }
     if (user !== undefined){
       updateData()
     }
   };
-///////////////////////////////////////////////////////
 
   const submitCart = () => {
     const item = {

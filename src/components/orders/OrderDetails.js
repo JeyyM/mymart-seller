@@ -217,7 +217,7 @@ function OrderDetails(props) {
                             ></textarea>
 
                             {order.status !== "ongoing" && <>
-                                <h3 className="heading-tertiary" style={{ marginTop: "1rem" }}>Owner's Message:</h3>
+                                <h3 className="heading-tertiary" style={{ marginTop: "1rem" }}>Owner&apos;s Message:</h3>
                                 <textarea
                                     rows='3'
                                     value={order.ownerMessage.length === 0 ? "No message" : order.ownerMessage}

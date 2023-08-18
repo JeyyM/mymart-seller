@@ -1352,7 +1352,7 @@ function CreateMart() {
                                         value={repeat}
                                         onChange={handleRepeatChange}
                                     ></input>
-                                    {signValidity.repeat ? <h3 className="form-label">Repeat password</h3> : <h3 className="form-label inv z">Password doesn't match</h3>}
+                                    {signValidity.repeat ? <h3 className="form-label">Repeat password</h3> : <h3 className="form-label inv z">Password doesn&apos;t match</h3>}
                                 </div>
                             </div>
                             <button className="product-action-2 heading-secondary" type="button" style={{ margin: "1rem auto", width: `22rem`, height: "6rem", display: "block" }} onClick={accountValidate}>Next</button>
