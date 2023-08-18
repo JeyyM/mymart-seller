@@ -204,8 +204,6 @@ function HomePage({ shopID, screenWidth }) {
           }
         }, []); */}
 
-
-
         return (
           <>
             <Link

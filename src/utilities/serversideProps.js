@@ -1,8 +1,6 @@
 import { MongoClient, ObjectId } from "mongodb"
 
 export async function getServerSideProps({ params }) {
-  // console.log("In serversideprops")
-  // console.log(params)
   try {
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
