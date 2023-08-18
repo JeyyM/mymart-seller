@@ -72,11 +72,23 @@ export default function App({ Component, pageProps }) {
 
   }
 
-  const [preferred, setPreferred] = useState(database.defaultMode)
+  const [preferred, setPreferred] = useState(true)
   async function handlePreferred(){
     setPreferred(!preferred)
     await colorApi(!preferred)
   }
+
+  useEffect(() => {
+    if (database){
+      setPreferred(database.defaultMode)
+    }
+  },[])
+
+  useEffect(() => {
+    if (pageProps.shopID){
+      setPreferred(chosenAccount ? chosenAccount.preferredColor : database.defaultMode)
+    }
+  }, [])
 
   if (pageProps.shopID) {
     const authStorageKey = `auth_${shopid}`;
@@ -98,8 +110,6 @@ export default function App({ Component, pageProps }) {
       );
       }
     }
-
-    useEffect(() => {setPreferred(chosenAccount ? chosenAccount.preferredColor : database.defaultMode)}, [])
     
     if (database.defaultMode) {
       data = database.lightDesign

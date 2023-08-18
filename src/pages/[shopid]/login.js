@@ -191,7 +191,8 @@ function SignUp(martID) {
             await waitSeconds();
             setLoading(false)
             setCompletion(true)
-            router.push(`/${id}`).then(() => window.location.reload())
+            // router.push(`/${id}`).then(() => window.location.reload())
+            router.push(`/${id}`)
         } else {
             setSignValidity({
                 email: true,
