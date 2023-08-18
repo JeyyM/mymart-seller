@@ -475,7 +475,7 @@ function HomePage() {
     <section className="section-1" id="section-1">
       <div className="section-1-col">
         <motion.h3 ref={sect1Ref} className="adj-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>INTUITIVE. DATA-DRIVEN. CUSTOMIZABLE.</motion.h3>
-        <motion.header ref={sect1Ref} className="sect-1-text landing-headline" style={{ fontWeight: "700" }} initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}>Instantly Create an <span className="word-glue">E-Commerce</span> Site for Your Business</motion.header>
+        {/* <motion.header ref={sect1Ref} className="sect-1-text landing-headline" style={{ fontWeight: "700" }} initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}>Instantly Create an <span className="word-glue">E-Commerce</span> Site for Your Business TEST</motion.header> */}
         <motion.h1 ref={sect1Ref} className="sect-1-text-2" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}>With <span className="gradient-orange">No Coding</span> or <span className="gradient-purple word-glue">Design Experience</span></motion.h1>
         {screenWidth <= 600 && <motion.figure className="section-1-col2"
           initial={{ scale: 0, opacity: 0 }}
@@ -914,6 +914,53 @@ function HomePage() {
         </div>
       </div>
     </footer>
+
+    <section className="section-1" id="section-1">
+      <div className="section-1-col">
+        <motion.h3 ref={sect1Ref} className="adj-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>INTUITIVE. DATA-DRIVEN. CUSTOMIZABLE.</motion.h3>
+        {/* <motion.header ref={sect1Ref} className="sect-1-text landing-headline" style={{ fontWeight: "700" }} initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}>Instantly Create an <span className="word-glue">E-Commerce</span> Site for Your Business TEST</motion.header> */}
+        <motion.h1 ref={sect1Ref} className="sect-1-text-2" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}>With <span className="gradient-orange">No Coding</span> or <span className="gradient-purple word-glue">Design Experience</span></motion.h1>
+        {screenWidth <= 600 && <motion.figure className="section-1-col2"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={growAnimation}
+          transition={{ duration: 1, ease: "easeOut" }}
+        >
+          <div className="sect-1-imageset">
+            <img src="/home/1.webp" className="hero-laptop" style={{ zIndex: "2", height: `${screenWidth > 1100 ? "40rem" : screenWidth > 750 ? "32rem" : screenWidth > 350 ? "25.6rem" : "20.38rem"}` }}></img>
+            <motion.img src="/home/2.webp" style={{ zIndex: "3", position: "absolute", height: `${screenWidth > 1100 ? "15rem" : screenWidth > 750 ? "12rem" : screenWidth > 350 ? "9.6rem" : "7.68rem"}`, bottom: "0", left: "0", transform: "translateX(-25%)", marginBottom: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
+            <motion.img src="/home/3.webp" style={{ zIndex: "3", position: "absolute", height: `${screenWidth > 1100 ? "10rem" : screenWidth > 750 ? "8rem" : screenWidth > 350 ? "6.4rem" : "5.12rem"}`, bottom: "5%", right: "0", transform: "translateX(25%)", marginBottom: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
+            <motion.img src="/home/4.webp" style={{ zIndex: "1", position: "absolute", height: `${screenWidth > 1100 ? "15rem" : screenWidth > 750 ? "12rem" : screenWidth > 350 ? "9.6rem" : "7.68rem"}`, left: "0", top: "30%", margin: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 1 }}></motion.img>
+            <div style={{ position: "absolute" }}>
+              <motion.img src="/home/5.webp" style={{ zIndex: "3", position: "absolute", height: `${screenWidth > 1100 ? "3rem" : screenWidth > 750 ? "2.4rem" : screenWidth > 350 ? "1.92rem" : "1.46rem"}`, top: "0", left: "0" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
+              <motion.img src="/home/6.webp" style={{ zIndex: "1", position: "absolute", height: `${screenWidth > 1100 ? "15rem" : screenWidth > 750 ? "12rem" : screenWidth > 350 ? "9.6rem" : "7.68rem"}`, top: "0", left: "30px", transform: "translateY(-50px)" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.7 }}></motion.img>
+            </div>
+            <motion.img src="/home/7.webp" style={{ zIndex: "1", position: "absolute", height: `${screenWidth > 1100 ? "15rem" : screenWidth > 750 ? "12rem" : screenWidth > 350 ? "9.6rem" : "7.68rem"}`, top: "40%", right: "-10%" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.7 }}></motion.img>
+            <motion.img src="/home/8.webp" style={{ zIndex: "0", position: "absolute", height: `${screenWidth > 1100 ? "23rem" : screenWidth > 750 ? "18.4rem" : screenWidth > 350 ? "14.72rem" : "11.78rem"}`, top: "-10%", right: "10%" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 1 }}></motion.img>
+          </div>
+        </motion.figure>}
+        <motion.h3 ref={sect1Ref} style={{ marginBottom: "3rem", marginRight: "5rem" }} className="paragraph-text" initial={{ y: "100px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}>Manage products and stocks, collect statistics on category and product performance, learn more about your customers, keep track of all orders, and customize designs and colors. Easily <span className="gradient-red">Create Your Mart</span> <span className="gradient-orangered">Today!</span></motion.h3>
+        <motion.button onClick={() => scrollToSection('section-10')} ref={sect1Ref} className="cta-1" initial={{ y: "20px", opacity: 0 }} animate={upAnimation} transition={{ duration: 0.5, delay: 0.8 }}>GET STARTED<div className="icon-next">&nbsp;</div></motion.button>
+      </div>
+
+      {screenWidth > 600 && <motion.figure className="section-1-col2"
+        initial={{ scale: 0, opacity: 0 }}
+        animate={growAnimation}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
+        <div className="sect-1-imageset">
+          <img src="/home/1.webp" className="hero-laptop" style={{ zIndex: "2", height: `${screenWidth > 1100 ? "40rem" : screenWidth > 750 ? "32rem" : "25.6rem"}` }}></img>
+          <motion.img src="/home/2.webp" style={{ zIndex: "3", position: "absolute", height: `${screenWidth > 1100 ? "15rem" : screenWidth > 750 ? "12rem" : "9.6rem"}`, bottom: "0", left: "0", transform: "translateX(-25%)", marginBottom: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
+          <motion.img src="/home/3.webp" style={{ zIndex: "3", position: "absolute", height: `${screenWidth > 1100 ? "10rem" : screenWidth > 750 ? "8rem" : "6.4rem"}`, bottom: "5%", right: "0", transform: "translateX(25%)", marginBottom: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
+          <motion.img src="/home/4.webp" style={{ zIndex: "1", position: "absolute", height: `${screenWidth > 1100 ? "15rem" : screenWidth > 750 ? "12rem" : "9.6rem"}`, left: "0", top: "30%", margin: "1rem" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 1 }}></motion.img>
+          <div style={{ position: "absolute" }}>
+            <motion.img src="/home/5.webp" style={{ zIndex: "3", position: "absolute", height: `${screenWidth > 1100 ? "3rem" : screenWidth > 750 ? "2.4rem" : "1.92rem"}`, top: "0", left: "0" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.5 }}></motion.img>
+            <motion.img src="/home/6.webp" style={{ zIndex: "1", position: "absolute", height: `${screenWidth > 1100 ? "15rem" : screenWidth > 750 ? "12rem" : "9.6rem"}`, top: "0", left: "30px", transform: "translateY(-50px)" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.7 }}></motion.img>
+          </div>
+          <motion.img src="/home/7.webp" style={{ zIndex: "1", position: "absolute", height: `${screenWidth > 1100 ? "15rem" : screenWidth > 750 ? "12rem" : "9.6rem"}`, top: "40%", right: "-10%" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 0.7 }}></motion.img>
+          <motion.img src="/home/8.webp" style={{ zIndex: "0", position: "absolute", height: `${screenWidth > 1100 ? "23rem" : screenWidth > 750 ? "18.4rem" : "14.72rem"}`, top: "-10%", right: "10%" }} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: "easeOut", delay: 1 }}></motion.img>
+        </div>
+      </motion.figure>}
+    </section>
 
   </Fragment>
 }
