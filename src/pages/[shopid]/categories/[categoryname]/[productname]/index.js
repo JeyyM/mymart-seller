@@ -53,36 +53,24 @@ function ProductPage({ shopID, user, screenWidth }) {
     if (chosenCategory.length === 0) {
       router.push(`/${router.query.shopid}/categories/${chosenCategory.categoryName}error`);
     }
-  }, [router, chosenCategory]);
-
-  
-  if (chosenCategory.length === 0){
-    return null
-  }
+  }, []);
 
   const urlCateg = encodeURIComponent(chosenCategory[0].categoryName)
 
-  console.log(chosenCategory)
-  const chosenProduct = chosenCategory[0].categoryProducts.filter(product => product.variations[0].productName === queryProduct);
+  const chosenProduct = chosenCategory.length > 0 && chosenCategory[0].categoryProducts.filter(product => product.variations[0].productName === queryProduct);
 
   useEffect(() => {
-    if (chosenProduct.length === 0) {
-      router.push(`/${router.query.shopid}/categories/${chosenCategory.categoryName}/error`);
-    }
+      if (!chosenProduct || chosenProduct.length === 0) {
+        router.push(`/${router.query.shopid}/categories/${chosenCategory.categoryName}/error`);
+      }
   }, []);
 
-  if (chosenProduct.length === 0){
-    return null
-  }
+  const productContents = chosenProduct.length > 0 && chosenProduct[0].variations
 
-  const urlProduct = encodeURIComponent(chosenProduct[0].variations[0].productName)
-
-  const productContents = chosenProduct[0].variations
-
-  const variationsList = productContents.filter((product) => product.active === true);
+  const variationsList = productContents && productContents.filter((product) => product.active === true);
 
   useEffect(() => {
-    if (variationsList.length > 0) {
+    if (variationsList && variationsList.length > 0) {
       setNameValue(variationsList[varState].productName);
       setDescValue(variationsList[varState].productDescription);
       setImgValue1(variationsList[varState].productImages[0]);
@@ -96,12 +84,59 @@ function ProductPage({ shopID, user, screenWidth }) {
 
       setImgSet([imgValue1, imgValue2, imgValue3, imgValue4])
     }
-  }, [variationsList, varState]);  
-
-  const localStorageKey = `mart_${shopID._id}`
+  }, [varState]);  
 
   let storedCartItems
   let parsedCartItems
+
+  useEffect(() => {
+    storedCartItems = typeof window !== 'undefined' ? localStorage.getItem(localStorageKey) : null;
+    parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];  
+  
+    setCartContents(parsedCartItems)
+
+}, [])
+
+useEffect(() => {
+  if (variationsList && variationsList.length > 0) {
+  setImgSet([imgValue1, imgValue2, imgValue3, imgValue4])
+  }
+}, [imgValue1, imgValue2, imgValue3, imgValue4])
+
+function setAll(index) {
+  setNameValue(variationsList[varState].productName)
+  setDescValue(variationsList[varState].productDescription)
+  setImgValue1(variationsList[varState].productImages[0])
+  setImgValue2(variationsList[varState].productImages[1])
+  setImgValue3(variationsList[varState].productImages[2])
+  setImgValue4(variationsList[varState].productImages[3])
+  setPriceValue(variationsList[varState].productPrice)
+  setStockAmount(variationsList[varState].productStock.stockAmount)
+  setStockUnit(variationsList[varState].productStock.stockUnit)
+  setCartValue(0)
+
+  setActiveValue(variationsList[varState].active)
+}
+
+useEffect(() => {
+  if (variationsList && variationsList.length > 0){
+    setAll(varState);
+  }
+}, [varState]);
+
+useEffect(() => {
+  const storedCartItems = localStorage.getItem(localStorageKey);
+  const parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];
+  setCartContents(parsedCartItems);
+}, [state.count]);
+
+  if (chosenProduct.length === 0){
+    return null
+  }
+
+  const urlProduct = encodeURIComponent(chosenProduct[0].variations[0].productName)
+
+  const localStorageKey = `mart_${shopID._id}`
 
   async function updateData() {
     if ( typeof window !== 'undefined'){
@@ -118,14 +153,6 @@ function ProductPage({ shopID, user, screenWidth }) {
     const data = await response.json();
     }
   }
-
-  useEffect(() => {
-      storedCartItems = typeof window !== 'undefined' ? localStorage.getItem(localStorageKey) : null;
-      parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];  
-    
-      setCartContents(parsedCartItems)
-
-  }, [])
 
   const soldVar = []
 
@@ -170,35 +197,6 @@ function ProductPage({ shopID, user, screenWidth }) {
       setCartValue(parseInt(cartValue) - 1)
     }
   }
-
-  function setAll(index) {
-    setNameValue(variationsList[varState].productName)
-    setDescValue(variationsList[varState].productDescription)
-    setImgValue1(variationsList[varState].productImages[0])
-    setImgValue2(variationsList[varState].productImages[1])
-    setImgValue3(variationsList[varState].productImages[2])
-    setImgValue4(variationsList[varState].productImages[3])
-    setPriceValue(variationsList[varState].productPrice)
-    setStockAmount(variationsList[varState].productStock.stockAmount)
-    setStockUnit(variationsList[varState].productStock.stockUnit)
-    setCartValue(0)
-
-    setActiveValue(variationsList[varState].active)
-  }
-
-  useEffect(() => {
-    setImgSet([imgValue1, imgValue2, imgValue3, imgValue4])
-  }, [imgValue1, imgValue2, imgValue3, imgValue4])
-
-  useEffect(() => {
-    setAll(varState);
-  }, [varState]);
-
-  useEffect(() => {
-    const storedCartItems = localStorage.getItem(localStorageKey);
-    const parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];
-    setCartContents(parsedCartItems);
-  }, [state.count]);
 
   const changeCart = async (items) => {
     storedCartItems = typeof window !== 'undefined' ? localStorage.getItem(localStorageKey) : null;
