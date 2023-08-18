@@ -1938,7 +1938,7 @@ function CreateMart() {
                             </div>
 
                                         <div className="flex-row">
-                                            <img src={shopicon} style={{height:"16px", width:"16px"}}></img><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Shop Icon</span></h2>
+                                            <img alt="Shop Icon" src={shopicon} style={{height:"16px", width:"16px"}}></img><h2 className="heading-tertiary"><span style={{fontWeight:"900"}}>Shop Icon</span></h2>
                                         </div>
 
                                         <div className="flex-row">

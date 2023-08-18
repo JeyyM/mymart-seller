@@ -2,7 +2,6 @@ import { Fragment } from "react";
 import { useRouter } from "next/router";
 import CategoryProducts from "@/components/category-products/CategoryProducts";
 import { useState, useEffect } from "react";
-// import AddProduct from "@/components/Modal/Add-Product";
 import { getServerSideProps } from "..";
 import Head from "next/head";
 import { AnimatePresence, motion } from "framer-motion";

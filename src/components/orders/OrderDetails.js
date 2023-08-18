@@ -233,7 +233,7 @@ function OrderDetails(props) {
                                 return <div className="flex-row flex-centered dark-underline" style={{ margin: "1rem 0", paddingBottom: "1rem" }} key={index}>
 
                                     <div className="flex-row-spaceless" style={{ alignItems: "center", width: "100%" }}>
-                                        <img className="order-img round-borderer" src={item.image}></img>
+                                        <img className="order-img round-borderer" src={item.image} alt={item.name}></img>
 
                                         <div className="flex-col">
 

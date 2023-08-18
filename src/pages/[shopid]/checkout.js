@@ -573,14 +573,14 @@ export default function Checkout({ shopID, user, screenWidth }) {
                 </header>
 
                 {parsedData.map((item, index) => (
-                    <div className="dark-underline">
+                    <div className="dark-underline" key={index}>
                     <div className="checkout-row" key={index}>
                         <div className="add-buttons flex-row-spaceless" style={{ width: "16rem" }}>
                             <button type="button" className="minus-button" onClick={() => updateCartItem(index, -1, item)}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
                             <input type="number" className="text-small input-number" placeholder="Amount" style={{ borderRadius: "0", margin: "0", width: "8rem" }} value={item.cartValue} onChange={(e) => updateCartInput(index, parseInt(e.target.value) - item.cartValue, item)}></input>
                             <button type="button" className="add-button svg-color" onClick={() => updateCartItem(index, 1, item)}><div className="heading-icon-plus-act svg-decolor">&nbsp;</div></button>
                         </div>
-                        <img className="checkout-img round-borderer" src={item.image}></img>
+                        <img className="checkout-img round-borderer" src={item.image} alt={item.name}></img>
                         <div className="flex-col-2" style={{ width: "auto" }}>
                             <a href={`/${item.url}`} className="heading-secondary clamp-1" style={{ whiteSpace: "pre-wrap", textDecoration: "none" }}>{item.name}</a>
                             <a href={`/${router.query.shopid}/categories/${encodeURIComponent(item.category)}`} className="heading-tertiary clamp-1" style={{ whiteSpace: "pre-wrap", textDecoration: "none", marginTop:"1rem" }}>{item.category}</a>
@@ -664,16 +664,16 @@ export default function Checkout({ shopID, user, screenWidth }) {
                         {takebacks.allowRefunds === false ? <div>
                             <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Refunds are not allowed.</h2>
                         </div> : <div>
-                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Refunds are allowed within {takebacks.refundCount} {takebacks.refundDuration}/s of receiving with a penalty of {takebacks.refundFee}% of the order's total, fees not included. Items must be returned on-site in good condition within the refund period.</h2>
+                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Refunds are allowed within {takebacks.refundCount} {takebacks.refundDuration}/s of receiving with a penalty of {takebacks.refundFee}% of the order&apos;s total, fees not included. Items must be returned on-site in good condition within the refund period.</h2>
                         </div>}
 
                         {takebacks.allowCancel === false ? <div>
                             <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Cancellations are not allowed.</h2>
                         </div> : <div>
-                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Cancellations are allowed within {takebacks.cancelCount} {takebacks.cancelDuration}/s of ordering with a penalty of {takebacks.cancelFee}% of the order's total, fees not included. Approved orders cannot be cancelled.</h2>
+                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Cancellations are allowed within {takebacks.cancelCount} {takebacks.cancelDuration}/s of ordering with a penalty of {takebacks.cancelFee}% of the order&apos;s total, fees not included. Approved orders cannot be cancelled.</h2>
                         </div>}
 
-                        <Link href={`/${router.query.shopid}/policies`}><h2 className="heading-tertiary" style={{ fontWeight: "900" }}>By completing this order, I agree with the mart's terms and conditions as well as the privacy policy.</h2></Link>
+                        <Link href={`/${router.query.shopid}/policies`}><h2 className="heading-tertiary" style={{ fontWeight: "900" }}>By completing this order, I agree with the mart&apos;s terms and conditions as well as the privacy policy.</h2></Link>
 
                         <button className="product-action-2 heading-secondary flex-row-align" type="button" style={{ width: "98%", margin: "1rem", textDecoration: "none" }} onClick={finishSubmission} disabled={loading}>
                         {loading ? <div className="spinner"></div> : (completion ? <div className="margin-side" style={{transform:"translateY(20%)"}}>{checkmark}</div> : <div className="flex-row-align margin-side"><div className="heading-icon-cashregister svg-solid-button">&nbsp;</div><h2 className="heading-secondary solid-button">Finish Order</h2></div>
@@ -895,16 +895,16 @@ export default function Checkout({ shopID, user, screenWidth }) {
                         {takebacks.allowRefunds === false ? <div>
                             <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Refunds are not allowed.</h2>
                         </div> : <div>
-                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Refunds are allowed within {takebacks.refundCount} {takebacks.refundDuration}/s of receiving with a penalty of {takebacks.refundFee}% of the order's total, fees not included. Items must be returned on-site in good condition within the refund period.</h2>
+                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Refunds are allowed within {takebacks.refundCount} {takebacks.refundDuration}/s of receiving with a penalty of {takebacks.refundFee}% of the order&apos;s total, fees not included. Items must be returned on-site in good condition within the refund period.</h2>
                         </div>}
 
                         {takebacks.allowCancel === false ? <div>
                             <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Cancellations are not allowed.</h2>
                         </div> : <div>
-                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Cancellations are allowed within {takebacks.cancelCount} {takebacks.cancelDuration}/s of ordering with a penalty of {takebacks.cancelFee}% of the order's total, fees not included. Approved orders cannot be cancelled.</h2>
+                            <h2 className="heading-tertiary" style={{ marginBottom: "1rem" }}>Cancellations are allowed within {takebacks.cancelCount} {takebacks.cancelDuration}/s of ordering with a penalty of {takebacks.cancelFee}% of the order&apos;s total, fees not included. Approved orders cannot be cancelled.</h2>
                         </div>}
 
-                        <Link href={`/${router.query.shopid}/policies`}><h2 className="heading-tertiary" style={{ fontWeight: "900" }}>By completing this order, I agree with the mart's terms and conditions as well as the privacy policy.</h2></Link>
+                        <Link href={`/${router.query.shopid}/policies`}><h2 className="heading-tertiary" style={{ fontWeight: "900" }}>By completing this order, I agree with the mart&apos;s terms and conditions as well as the privacy policy.</h2></Link>
 
                         <button className="product-action-2 heading-secondary flex-row-align" type="button" style={{ width: "98%", margin: "1rem", textDecoration: "none" }} onClick={finishSubmission} disabled={loading}>
                         {loading ? <div className="spinner"></div> : (completion ? <div className="margin-side" style={{transform:"translateY(20%)"}}>{checkmark}</div> : <div className="flex-row-align margin-side"><div className="heading-icon-cashregister svg-solid-button">&nbsp;</div><h2 className="heading-secondary solid-button">Finish Order</h2></div>

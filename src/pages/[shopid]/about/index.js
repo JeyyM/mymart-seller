@@ -95,6 +95,7 @@ function About({ shopID }) {
 
     const imgElements = ImgArray.map((item, index) => (
         <img
+        alt={index}
             src={item.img}
             key={index}
             className={item.border}

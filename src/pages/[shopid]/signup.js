@@ -694,7 +694,7 @@ function SignUp(martID) {
                         }}
                         transition={{ duration: 0.2 }}
                     ><div className="sign-step">
-                            <img className="company-logo-med" src={navlogo} style={{ margin: "0", marginBottom: "1rem", display: "inline" }}></img>
+                            <img alt="MyMart" className="company-logo-med" src={navlogo} style={{ margin: "0", marginBottom: "1rem", display: "inline" }}></img>
                             <h2 className="heading-secondary" style={{textAlign:"center"}}>Sign-up to {shopName}</h2>
 
                             <div className="form-group" style={{ marginTop: "1rem" }}>
@@ -733,7 +733,7 @@ function SignUp(martID) {
                                     value={repeat}
                                     onChange={handleRepeatChange}
                                 ></input>
-                                {signValidity.repeat ? <h3 className="form-label">Repeat password</h3> : <h3 className="form-label inv z">Password doesn't match</h3>}
+                                {signValidity.repeat ? <h3 className="form-label">Repeat password</h3> : <h3 className="form-label inv z">Password doesn&apos;t match</h3>}
                                 <button className="product-action-2 heading-secondary" type="button" style={{ margin: "0 auto", width: `${screenWidth > 360 ? "22rem" : "18rem"}`, height:"6rem", display:"block" }} onClick={accountValidate}>Next</button>
 
                             </div>

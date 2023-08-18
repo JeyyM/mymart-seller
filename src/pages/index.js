@@ -890,7 +890,7 @@ function HomePage() {
 
     <footer className="footer-home">
       <div className="footer-icon-box">
-        <img className="footer-icon" src="/light-2.png"></img>
+        <img className="footer-icon" src="/light-2.png" alt="Footer Logo"></img>
       </div>
 
       <div className="footer-details-row">

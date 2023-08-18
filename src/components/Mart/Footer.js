@@ -39,7 +39,7 @@ export default function Footer(props) {
                 {socials.length === 0 ? <h3 className="heading-tertiary">-</h3> : ""}
                 {socials.map((index) => {
                     return <Link key={index.link} href={index.link} target="_blank">
-                        <img className="social-icon" src={`/socials/${index.type}.webp`}></img>
+                        <img className="social-icon" src={`/socials/${index.type}.webp`} alt={index.type}></img>
                     </Link>
                 })}
             </div>
@@ -62,7 +62,7 @@ export default function Footer(props) {
             })}
         </div>
         <div className="footer-column">
-            {about.footerImg === "" ? <h3 className="heading-tertiary">-</h3> : <img src={about.footerImg} className={about.borderless ? "footer-img" : "footer-img round-borderer"}></img>}
+            {about.footerImg === "" ? <h3 className="heading-tertiary">-</h3> : <img src={about.footerImg} className={about.borderless ? "footer-img" : "footer-img round-borderer"} alt="Mart Footer Logo"></img>}
 
             <br></br>
 

@@ -55,10 +55,11 @@ function Policies(martID) {
                 <div className="markdown-half markdown-preview" style={{width:"90vw", minHeight:"90vh"}}>
                     <ReactMarkdown
                         className="markdown-body"
-                        children={markdownContent}
+                        // children={markdownContent}
                         skipHtml={false}
-                        remarkPlugins={[gfm]}
-                    />
+                        remarkPlugins={[gfm]}>
+                            {markdownContent}
+                        </ReactMarkdown>
 
                 </div>
             </div>

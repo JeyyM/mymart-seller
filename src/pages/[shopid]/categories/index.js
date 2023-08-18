@@ -1,7 +1,6 @@
 import Category from "../../../components/category/Category";
 import { Fragment, useState } from "react";
 import { useRouter } from "next/router";
-import AddCategory from "@/components/Modal/Add-Category";
 import Head from "next/head";
 import { getServerSideProps } from "..";
 import { AnimatePresence, motion } from "framer-motion";
@@ -87,9 +86,6 @@ function CategoryPage({ shopID, screenWidth }) {
     );
     const data = await response.json();
   }
-
-
-
 
   const totalItems = filteredContents.length;
   const itemsPerSlide =screenWidth < 400 ? 26 : screenWidth < 600 ? 20 : screenWidth < 1000 ? 15 : 12;

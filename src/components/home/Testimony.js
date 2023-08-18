@@ -58,9 +58,9 @@ const Testimony = (props) => {
         <button className='move-item' onClick={handleNextClick}><div className='heading-icon-chevron svg-bg' style={{transform:"rotate(90deg)"}}></div></button>
           <button className='move-item' onClick={handlePrevClick}><div className='heading-icon-chevron svg-bg' style={{transform:"rotate(-90deg)"}}></div></button>
         </div>}
-        {screenWidth > 450 && <img src={images[0]} className='testimony-img' style={activeSlide === 0 ? imageClass2 : imageClass}></img>}
+        {screenWidth > 450 && <img alt="Alvin Adams" src={images[0]} className='testimony-img' style={activeSlide === 0 ? imageClass2 : imageClass}></img>}
         <div className='testimony-data'>
-        {screenWidth <= 450 && <img src={images[0]} className='testimony-img-2'></img>}
+        {screenWidth <= 450 && <img alt="Alvin Adams" src={images[0]} className='testimony-img-2'></img>}
         <h1 className="testimony-heading" style={{marginLeft:"1rem", color:"white"}} >Alvin Adams, <span className='word-glue'>Owner of <span style={{textDecoration:"underline"}}><Link href="/64c84adf0cac7b00a22be359" className="gradient-testimony-1" target="_blank" rel="noopener noreferrer">Alvin&apos;s Artifacts</Link></span></span></h1>
         <h3 className="paragraph-text" style={{marginTop:"1rem", whiteSpace:"pre-wrap", color: "white"}}>    When I tried making an online store myself, It was really confusing. I didn&apos;t have the time to learn how to code so when I came across MyMart, I knew I had to give it a try. I love that I can design it to fit my brand. So far, no regrets!</h3>
         </div>
@@ -77,9 +77,9 @@ const Testimony = (props) => {
         <button className='move-item' onClick={handleNextClick}><div className='heading-icon-chevron svg-bg' style={{transform:"rotate(90deg)"}}></div></button>
           <button className='move-item' onClick={handlePrevClick}><div className='heading-icon-chevron svg-bg' style={{transform:"rotate(-90deg)"}}></div></button>
         </div>}
-        {screenWidth > 450 && <img src={images[1]} className='testimony-img' style={activeSlide === 1? imageClass2 : imageClass}></img>}
+        {screenWidth > 450 && <img alt="Bob Blake" src={images[1]} className='testimony-img' style={activeSlide === 1? imageClass2 : imageClass}></img>}
         <div className='testimony-data'>
-        {screenWidth <= 450 && <img src={images[1]} className='testimony-img-2'></img>}
+        {screenWidth <= 450 && <img alt="Bob Blake" src={images[1]} className='testimony-img-2'></img>}
         <h1 className="testimony-heading" style={{marginLeft:"1rem", color:"white"}}>Bob Blake, <span className='word-glue'>Owner of <span style={{textDecoration:"underline"}}><Link href="/64c9a0fb66248cc084a3ae8f" className="gradient-testimony-2" target="_blank" rel="noopener noreferrer">Bright Boutique</Link></span></span></h1>
         <h3 className="paragraph-text" style={{marginTop:"1rem", whiteSpace:"pre-wrap", color: "white"}}>    MyMart made managing the orders and stocks so easy for me. When I first started, I didn&apos;t have any stock system so restocking accurately was impossible and logging all of the orders was cumbersome. Because of the map system, delivery is made easy too!</h3>
         </div>
@@ -97,9 +97,9 @@ const Testimony = (props) => {
           <button className='move-item' onClick={handlePrevClick}><div className='heading-icon-chevron svg-bg' style={{transform:"rotate(-90deg)"}}></div></button>
         </div>}
 
-        {screenWidth > 450 && <img src={images[2]} className='testimony-img' style={activeSlide === 2 ? imageClass2 : imageClass}></img>}
+        {screenWidth > 450 && <img alt="Carla Charlie" src={images[2]} className='testimony-img' style={activeSlide === 2 ? imageClass2 : imageClass}></img>}
         <div className='testimony-data'>
-        {screenWidth <= 450 && <img src={images[2]} className='testimony-img-2'></img>}
+        {screenWidth <= 450 && <img alt="Carla Charlie" src={images[2]} className='testimony-img-2'></img>}
         <h1 className="testimony-heading" style={{marginLeft:"1rem", color:"white"}}>Carla Charlie, <span className='word-glue'>Owner of <span style={{textDecoration:"underline"}}><Link href="/64cb36f20ba185ffcb7e0ba1" className="gradient-testimony-3" target="_blank" rel="noopener noreferrer">Creative Commerce</Link></span></span></h1>
         <h3 className="paragraph-text" style={{marginTop:"1rem", whiteSpace:"pre-wrap", color: "white"}}>    Thanks to the collected statistics and data, I was able to find out which products my store sold out the most! My customers love that everything is catalogued and everything is available. </h3>
         </div>

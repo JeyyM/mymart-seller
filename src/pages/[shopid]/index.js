@@ -17,6 +17,8 @@ import CategoryProductsBuyer from "@/components/category-products/CategoryProduc
 function HomePage({ shopID, screenWidth }) {  
   const router = useRouter();
 
+
+  
   // useEffect(() => {
   //   if (typeof window !== "undefined") {
   //     alert(
@@ -31,11 +33,13 @@ function HomePage({ shopID, screenWidth }) {
     }
   }, []);
 
-  if (!shopID) {
-    return null;
-  }
+  useEffect(() => {
+    if (shopID){
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, []);
   
-  const viewsList = shopID.shopData.shopViews
+  const viewsList = shopID && shopID.shopData.shopViews
   
   const slide = {
     hidden: {
@@ -61,25 +65,85 @@ function HomePage({ shopID, screenWidth }) {
     },
   };
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
-
   const { shopid } = router.query;
 
-  const shopData = shopID.shopData;
-  const imageData = shopID.shopData.shopDetails.imageData
-  const favicon = shopID.shopData.shopDetails.imageData.icons.icon
+  const shopData = shopID && shopID.shopData;
+  const imageData = shopID && shopID.shopData.shopDetails.imageData
+  const favicon = shopID && shopID.shopData.shopDetails.imageData.icons.icon
 
-  const categoryData = shopData.shopCategories
-  const shopCurrency = shopData.shopDetails.paymentData.checkoutInfo.currency
+  const categoryData = shopData && shopData.shopCategories
+  const shopCurrency = shopData && shopData.shopDetails.paymentData.checkoutInfo.currency
 
-  const activeNotifs = imageData.notifications.filter((notif) => notif.active)
+  const activeNotifs = imageData && imageData.notifications.filter((notif) => notif.active)
 
-  const popupInfo = imageData.popups
-  const [startPop, setStartPop] = useState(popupInfo.active)
+  const popupInfo = imageData && imageData.popups
+  const [startPop, setStartPop] = useState(false)
+
+  useEffect(() => {
+    if (popupInfo){
+      setStartPop(popupInfo.active)
+    }
+  },[])
+
   const handleStart = () => {
     setStartPop(!startPop)
+  }
+
+  async function addView(time) {
+    const date = new Date(time);
+
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+
+    const existsIndex = viewsList.findIndex(item => item.key === formattedDate);
+    let viewCount = 0
+    if (existsIndex !== -1) {
+      viewCount = parseInt(viewsList[existsIndex].count) + 1
+    }
+
+    if (existsIndex === -1) {
+      const response = await fetch(
+        `../../api/add-view?martid=${router.query.shopid}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ key: formattedDate, count: 1 })
+        }
+      );
+      const data = await response.json();
+    } else {
+      const response = await fetch(
+        `../../api/add-view?martid=${router.query.shopid}&exists=${existsIndex}&count=${viewCount}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const data = await response.json();
+    }
+  }
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && shopID) {
+      const currentTime = new Date();
+      const storedTime = localStorage.getItem(`${router.query.shopid}_view`);
+
+      const hourDifference = ((currentTime.getTime() - new Date(storedTime).getTime()) / (1000 * 60 * 60) >= 1)
+
+      if (!hourDifference) {
+        localStorage.setItem(`${router.query.shopid}_view`, currentTime);
+      } else {
+        localStorage.setItem(`${router.query.shopid}_view`, currentTime);
+        addView(currentTime)
+      }
+    }
+  }, [])
+
+  if (!shopID) {
+    return null;
   }
 
   const sliderSettings = {
@@ -124,44 +188,7 @@ function HomePage({ shopID, screenWidth }) {
         const slideIndexes = Array.from(Array(totalSlides).keys());
         const lastSlideItems = totalItems % itemsPerSlide || itemsPerSlide;
 
-        async function addView(time) {
-          const date = new Date(time);
-
-          const year = date.getFullYear();
-          const month = date.getMonth() + 1;
-          const day = date.getDate();
-
-          const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
-
-          const existsIndex = viewsList.findIndex(item => item.key === formattedDate);
-          let viewCount = 0
-          if (existsIndex !== -1) {
-            viewCount = parseInt(viewsList[existsIndex].count) + 1
-          }
-
-          if (existsIndex === -1) {
-            const response = await fetch(
-              `../../api/add-view?martid=${router.query.shopid}`,
-              {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ key: formattedDate, count: 1 })
-              }
-            );
-            const data = await response.json();
-          } else {
-            const response = await fetch(
-              `../../api/add-view?martid=${router.query.shopid}&exists=${existsIndex}&count=${viewCount}`,
-              {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-              }
-            );
-            const data = await response.json();
-          }
-        }
-
-        const viewMart = useMemo(() => {
+        {/* const viewMart = useMemo(() => {
           if (typeof window !== "undefined") {
             const currentTime = new Date();
             const storedTime = localStorage.getItem(`${router.query.shopid}_view`);
@@ -175,7 +202,7 @@ function HomePage({ shopID, screenWidth }) {
               addView(currentTime)
             }
           }
-        }, []);
+        }, []); */}
 
 
 

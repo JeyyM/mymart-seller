@@ -102,7 +102,7 @@ function NavMenu(props) {
               {searchResults.map((item) => (
                 <a onClick={() => {props.onClick(); setSearch("")}} style={{ textDecoration: "none" }} className="search-item" key={item.name} href={`/${router.query.shopid}/categories/${encodeURIComponent(item.category)}/${encodeURIComponent(item.name)}`}>
                   <div className="flex-row">
-                    <img src={item.image} className="round-borderer" style={{ height: "4rem", width: "4rem" }}></img>
+                    <img src={item.image} className="round-borderer" style={{ height: "4rem", width: "4rem" }} alt="Mart Logo"></img>
                     <div className="flex-col">
                       <h2 className="heading-tertiary text-black clamp-1" style={{ fontWeight: "900" }}>{item.name}</h2>
                       <h2 className="heading-tertiary text-black">{props.currency} {item.price}</h2>
