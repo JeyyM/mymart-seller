@@ -969,6 +969,13 @@ width: 100%;
   transform: translateY(3rem);
 }
 
+.testimony-heading {
+  font-size: 3rem;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  color: #0a2647;
+}
+
 .testimony{
   height: 30rem;
   width: 120rem !important;
@@ -992,6 +999,17 @@ width: 100%;
   object-position: center;
 }
 
+.testimony-img-2{
+  height: 14rem;
+  width: 14rem;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  margin: 0 auto;
+  margin-top: -5rem;
+  border: 5px solid white;
+}
+
 .testimony-data{
   height: 100%;
   width: 100%;
@@ -1006,6 +1024,12 @@ width: 100%;
   top: 0;
   left: 0;
   transform: translateX(-100%);
+}
+
+.move-buttons-2{
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .move-item{
@@ -1042,6 +1066,10 @@ width: 100%;
   align-items: center;
   justify-content: center;
   gap: 5rem;
+}
+
+.price-heading{
+  margin-top: 2rem;
 }
 
 .price-card{
@@ -1139,7 +1167,6 @@ width: 100%;
   width: 50%;
   display: flex;
   flex-direction: column;
-
 }
 
 .signup-box{
@@ -1172,6 +1199,7 @@ width: 100%;
 .footer-icon{
   height: 20rem;
   width: auto;
+  transform: translateX(10%);
 }
 
 .footer-details-row{

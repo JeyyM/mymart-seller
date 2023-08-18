@@ -120,7 +120,7 @@ function HomePage() {
 
   const [sect8Ref, inView8] = useInView({
     triggerOnce: true,
-    threshold: 0.7,
+    threshold: screenWidth > 400 ? 0.7 : 0,
   });
 
   const growAnimation = {
@@ -370,6 +370,8 @@ function HomePage() {
     ref.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const signupInputs = screenWidth > 750 ? "text-full" : "text-small"
+
   return <Fragment>
     <Head>
       <title>Home - MyMart</title>
@@ -381,7 +383,7 @@ function HomePage() {
     <header className={`home-navbar ${isNavbarVisible ? 'nav-visible' : 'nav-hidden'}`}>
       <img src="/light-2.png" className="home-nav-logo" onClick={() => scrollToSection('section-1')}></img>
       <a onClick={() => scrollToSection('section-2')} className="header-home-text">Features</a>
-      {screenWidth > 380 && <a onClick={() => scrollToSection('section-6')} className="header-home-text">Statistics</a>}
+      {screenWidth > 350 && <a onClick={() => scrollToSection('section-6')} className="header-home-text">Statistics</a>}
       <a onClick={() => scrollToSection('section-9')} className="header-home-text">Pricing</a>
       <a onClick={() => scrollToSection('section-10')} className="header-home-text">Sign-Up</a>
     </header>
@@ -756,46 +758,90 @@ function HomePage() {
 
     </section>
 
-    {/* <section className="section-8">
-      <header style={{ fontWeight: "700", marginLeft: "3rem", marginBottom: "1rem" }} className="sect-6-text gradient-purple">Even More Customizables</header>
+    <section className="section-8">
+      <header style={{ fontWeight: "700", marginLeft: "3rem", marginBottom: "1rem" }} className="sect-6-text gradient-purple landing-headline">Even More Customizables</header>
 
       <BannerCarouselHome screenWidth={screenWidth} data={bannerData}></BannerCarouselHome>
 
       <div className="feature-cards" ref={sect8Ref}>
-        <div className="feature-item feature-1" style={{ marginLeft: `${inView8 ? "4vw" : "100vw"}` }}>
-          <div className="feature-intuitive">&nbsp;</div>
+        <div className="feature-item feature-1" style={{ marginLeft: `${inView8 ? `${screenWidth > 1400 ? "4vw" : "2vw"}` : "100vw"}` }}>
+          <div className="feature-intuitive" >&nbsp;</div>
           <h1 className="feature-heading" style={{ marginLeft: "1rem" }}><span className="gradient-orange">Simple & Intuitive</span></h1>
           <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>MyMart strives to allow you to create a simple and functional online store without needing to learn how to code or hire a designer. Simply input your shop details, choose colors, and populate your catalogue and your shop can fly!</h3>
         </div>
 
-        <div className="feature-item feature-2" style={{ marginLeft: `${inView8 ? "28vw" : "100vw"}` }}>
+        {screenWidth > 400 && <div className="feature-item feature-2" style={{ marginLeft: `${inView8 ? `${screenWidth > 1400 ? "28vw" : screenWidth > 900 ? "26vw" : "50vw"}` : "100vw"}` }}>
           <div className="feature-receipt">&nbsp;</div>
           <h1 className="feature-heading" style={{ marginLeft: "1rem" }}><span className="gradient-green">Straightforward Management</span></h1>
           <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>Manage prices, profits, products, and stocks to keep your data collection up to date. Cleanly keep track and finish orders with dynamically updating stocks and statistics.</h3>
-        </div>
+        </div>}
 
-        <div className="feature-item feature-3" style={{ marginLeft: `${inView8 ? "52vw" : "100vw"}` }}>
+      {screenWidth > 900 && <>
+        <div className="feature-item feature-3" style={{ marginLeft: `${inView8 ? `${screenWidth > 1400 ? "52vw" : "50vw"}` : "100vw"}` }}>
           <div className="feature-data-driven">&nbsp;</div>
           <h1 className="feature-heading" style={{ marginLeft: "1rem" }}><span className="gradient-purple">Data Driven</span></h1>
           <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>Be up to speed with the performance of your Mart in all fronts. From the performance of products and categories and creation of an image of who your users are through demographic data and bought products.</h3>
         </div>
 
-        <div className="feature-item feature-4" style={{ marginLeft: `${inView8 ? "76vw" : "100vw"}` }}>
+        <div className="feature-item feature-4" style={{ marginLeft: `${inView8 ? `${screenWidth > 1400 ? "76vw" : "74vw"}` : "100vw"}` }}>
+          <div className="feature-familiar">&nbsp;</div>
+          <h1 className="feature-heading" style={{ marginLeft: "1rem" }}><span className="gradient-orangered">Customer Familiarity</span></h1>
+          <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>MyMart is built with customers in mind. The structure of each mart is similar to the standard e-commerce website. Helping users and admins to navigate with ease.</h3>
+        </div>
+        </>}
+
+      </div>
+
+      {(screenWidth <= 900 && screenWidth > 400) && <div className="feature-cards" style={{marginBottom:`${screenWidth > 400 ? "5rem" : "0rem"}`}}>
+        <div className="feature-item feature-3" style={{ marginLeft: `${inView8 ? `${screenWidth > 1400 ? "4vw" : "2vw"}` : "100vw"}` }}>
+          <div className="feature-data-driven">&nbsp;</div>
+          <h1 className="feature-heading" style={{ marginLeft: "1rem" }}><span className="gradient-purple">Data Driven</span></h1>
+          <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>Be up to speed with the performance of your Mart in all fronts. From the performance of products and categories and creation of an image of who your users are through demographic data and bought products.</h3>
+        </div>
+
+        <div className="feature-item feature-4" style={{ marginLeft: `${inView8 ? `${screenWidth > 1400 ? "28vw" : screenWidth > 900 ? "26vw" : "50vw"}` : "100vw"}` }}>
           <div className="feature-familiar">&nbsp;</div>
           <h1 className="feature-heading" style={{ marginLeft: "1rem" }}><span className="gradient-orangered">Customer Familiarity</span></h1>
           <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>MyMart is built with customers in mind. The structure of each mart is similar to the standard e-commerce website. Helping users and admins to navigate with ease.</h3>
         </div>
 
+      </div>}
+
+      {screenWidth <= 400 && <>
+        <div className="feature-cards">
+        <div className="feature-item feature-2" style={{ marginLeft: `${inView8 ? `${screenWidth > 1400 ? "4vw" : "2vw"}` : "100vw"}` }}>
+          <div className="feature-receipt">&nbsp;</div>
+          <h1 className="feature-heading" style={{ marginLeft: "1rem" }}><span className="gradient-green">Straightforward Management</span></h1>
+          <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>Manage prices, profits, products, and stocks to keep your data collection up to date. Cleanly keep track and finish orders with dynamically updating stocks and statistics.</h3>
+        </div>
       </div>
-      <header style={{ fontWeight: "700" }} className="sect-8-text gradient-orangered">Customer Testimonies</header>
+
+      <div className="feature-cards">
+      <div className="feature-item feature-3" style={{ marginLeft: `${inView8 ? `${screenWidth > 1400 ? "4vw" : "2vw"}` : "100vw"}` }}>
+          <div className="feature-data-driven">&nbsp;</div>
+          <h1 className="feature-heading" style={{ marginLeft: "1rem" }}><span className="gradient-purple">Data Driven</span></h1>
+          <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>Be up to speed with the performance of your Mart in all fronts. From the performance of products and categories and creation of an image of who your users are through demographic data and bought products.</h3>
+        </div>
+      </div>
+
+      <div className="feature-cards" style={{marginBottom: "5rem"}}>
+      <div className="feature-item feature-4" style={{ marginLeft: `${inView8 ? `${screenWidth > 1400 ? "4vw" : "2vw"}` : "100vw"}` }}>
+          <div className="feature-familiar">&nbsp;</div>
+          <h1 className="feature-heading" style={{ marginLeft: "1rem" }}><span className="gradient-orangered">Customer Familiarity</span></h1>
+          <h3 className="feature-description" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>MyMart is built with customers in mind. The structure of each mart is similar to the standard e-commerce website. Helping users and admins to navigate with ease.</h3>
+        </div>
+      </div>
+      </>}
+
+      <header style={{ fontWeight: "700" }} className="sect-8-text gradient-orangered landing-headline">Customer Testimonies</header>
 
       <div className="testimony-container">
-        <Testimony></Testimony>
+        <Testimony screenWidth={screenWidth}></Testimony>
       </div>
-    </section> */}
+    </section>
 
-    {/* <section className="section-9" id="section-9">
-      <motion.header className="sect-1-text" style={{ margin: "1rem", transform: "scale(1.5)", fontWeight: "700" }}>Pricing</motion.header>
+    <section className="section-9" id="section-9">
+      <motion.header className="sect-1-text landing-headline price-heading" style={{ transform: "scale(1.5)", fontWeight: "700" }}>Pricing</motion.header>
 
       <div className="prices">
         <div className="price-card">
@@ -815,41 +861,41 @@ function HomePage() {
           <h3 className="price-text-info-2" style={{ borderBottom: "0px solid white" }}>Includes Popups & Promos</h3>
         </div>
       </div>
-    </section> */}
+    </section>
 
-    {/* <section className="section-10" id="section-10">
+    <section className="section-10" id="section-10">
       <div className="signup-box">
         <div className="signup-input">
-          <motion.header className="sect-10-text" style={{ margin: "1rem", fontWeight: "700" }}>YOUR DREAM MART AWAITS</motion.header>
+          <motion.header className="sect-10-text" style={{ margin: "1rem", fontWeight: "700" }}>YOUR DREAM MART AWAITS&nbsp;&nbsp;&nbsp;</motion.header>
 
-          <div className="flex-row" style={{ width: "82%" }}>
+          <div className="flex-row" style={{ width: `${screenWidth > 330 ? "82%" : "100%"}` }}>
             <div className="form-group">
-              <input type="text" placeholder="First Name" className="text-full" style={{ width: "100%" }}></input>
-              <label className="form-label">First Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+              <input type="text" placeholder="First Name" className={signupInputs} style={{ width: "100%" }}></input>
+              <label style={{color:"white"}} className="form-label">First Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
             </div>
             <div className="form-group">
-              <input type="text" placeholder="Last Name" className="text-full" style={{ width: "100%" }}></input>
-              <label className="form-label">Last Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+              <input type="text" placeholder="Last Name" className={signupInputs} style={{ width: "100%" }}></input>
+              <label style={{color:"white"}} className="form-label">Last Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
             </div>
           </div>
 
           <div className="form-group">
-            <input type="text" placeholder="Mart Name" className="text-full" style={{ width: "82%" }}></input>
-            <label className="form-label">Mart Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" placeholder="Mart Name" className={signupInputs} style={{ width: `${screenWidth > 330 ? "82%" : "100%"}` }}></input>
+            <label style={{color:"white"}} className="form-label">Mart Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
           </div>
 
           <div className="form-group">
-            <input type="text" placeholder="Email" className="text-full" style={{ width: "82%" }}></input>
-            <label className="form-label">Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" placeholder="Email" className={signupInputs} style={{ width: `${screenWidth > 330 ? "82%" : "100%"}` }}></input>
+            <label style={{color:"white"}} className="form-label">Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
           </div>
-          <Link href="/create" className="cta-2">CONTINUE CREATION<div className="icon-next">&nbsp;</div></Link>
+          <Link href="/create" className="cta-2">{screenWidth > 600 ? "CONTINUE CREATION" : "CONTINUE"}<div className="icon-next">&nbsp;</div></Link>
 
         </div>
       </div>
-    </section> */}
+    </section>
 
 
-    {/* <div className="footer-home">
+    <div className="footer-home">
       <div className="footer-icon-box">
         <img className="footer-icon" src="/light-2.png"></img>
       </div>
@@ -858,16 +904,24 @@ function HomePage() {
         <div className="footer-details-1">
           <h3 className="paragraph-text" style={{ fontWeight: "900" }}>Github</h3>
           <h3 className="paragraph-text" style={{ fontWeight: "900" }}>Personal Site</h3>
+
+          {screenWidth > 330 && <>
           <h3 className="paragraph-text" style={{ fontWeight: "900" }}>LinkedIn</h3>
-          <h3 className="paragraph-text" style={{ fontWeight: "900" }}>Github</h3>
-          <h3 className="paragraph-text" style={{ fontWeight: "900" }}>Admin Page</h3>
+          {/* <h3 className="paragraph-text" style={{ fontWeight: "900" }}>Github</h3> */}
+          <h3 className="paragraph-text" style={{ fontWeight: "900" }}>Admin Sites</h3>
+          </>}
         </div>
 
+        {screenWidth <= 330 && <div className="footer-details-1">
+          <h3 className="paragraph-text" style={{ fontWeight: "900" }}>LinkedIn</h3>
+          <h3 className="paragraph-text" style={{ fontWeight: "900" }}>Admin Sites</h3>
+        </div>}
+
         <div className="footer-details-2">
-          <h3 className="paragraph-text" style={{ margin: "0 4rem" }}>Built by JM Miranda for my online portfolio. To access the 3 sample websites, click on the shop name links found in the testimonials or go back to <span style={{ fontWeight: "900" }}>My Personal Site</span>. Contact me at <span style={{ fontWeight: "900" }}>jeymson9000@gmail.com</span>. Thank you for stopping by!</h3>
+          <h3 className="paragraph-text" style={{ margin: `${screenWidth > 1400 ? "0 4rem" : "0 0rem"}`, textAlign:"justify" }}>Built by JM Miranda for my online portfolio. To access the 3 sample websites, click on the shop name links found in the testimonials or go back to <span style={{ fontWeight: "900" }}>My Personal Site</span>. Contact me at <span style={{ fontWeight: "900" }}>jeymson9000@gmail.com</span>. Thank you for stopping by!</h3>
         </div>
       </div>
-    </div> */}
+    </div>
 
   </Fragment>
 }

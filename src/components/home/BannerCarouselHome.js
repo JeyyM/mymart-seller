@@ -42,8 +42,6 @@ const BannerCarouselHome = ({ data, screenWidth }) => {
   const sliderRef = useRef(null);
   const [activeSlide, setActiveSlide] = useState(0);
 
-  // USE ACTIVE SLIDE TO GET A NOTIF AND TRIGGER POPUP
-
   const [isInteracting, setIsInteracting] = useState(false);
 
   useEffect(() => {
@@ -96,6 +94,7 @@ const BannerCarouselHome = ({ data, screenWidth }) => {
             animate="visible"
             exit="exit"
             className="banner-carousel"
+            style={{height:"auto"}}
           >
             {data.length >= 4 || (screenWidth <= 600 && data.length > 1) ? (
               <div className="carousel-buttons">
@@ -122,6 +121,7 @@ const BannerCarouselHome = ({ data, screenWidth }) => {
                     src={item.image}
                     alt={`Image ${index}`}
                     className={`round-borderer banner-item ${activeSlide === index ? 'active' : bannerClass}`}
+                    style={{objectFit:"contain", height: "auto"}}
                   />
                 </div>
               ))}
