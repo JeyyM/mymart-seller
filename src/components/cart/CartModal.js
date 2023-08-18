@@ -212,7 +212,7 @@ const updateCartInput = (index, amount, select) => {
               {parsedData.length > 0 && <div className="cart-rows">
                 {parsedData.map((item, index) => (
                   <div className="cart-row" key={index}>
-                    <img className="cart-img round-borderer" src={item.image}></img>
+                    <img className="cart-img round-borderer" src={item.image} alt={item.name}></img>
                     <div className="flex-col-2" style={{ width: "auto" }}>
                       <a href={`/${item.url}`} className={`${screenWidth > 500 ? "heading-secondary" : "heading-tertiary font-boost"} clamp-1`} style={{ whiteSpace: "pre-wrap", textDecoration: "none", fontWeight:"900" }}>{item.name}</a>
                       <h3 className="heading-tertiary clamp-1" style={{ display: "inline", marginTop:"1rem" }}>{item.category}</h3>

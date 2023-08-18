@@ -122,7 +122,7 @@ const BannerCarouselHome = ({ data, screenWidth }) => {
                     alt={`Image ${index}`}
                     className={`round-borderer banner-item ${activeSlide === index ? 'active' : bannerClass}`}
                     style={{objectFit:"contain", height: "auto"}}
-                  />
+                  ></img>
                 </div>
               ))}
             </Slider>

@@ -1,5 +1,4 @@
 import { Fragment, useState, useEffect, useRef } from "react"
-import HomepageButton from "../components/homepage/Homepage-Button"
 import Head from "next/head"
 import Link from "next/link"
 import { useInView } from 'react-intersection-observer';
@@ -22,6 +21,7 @@ const ImagePreloader = () => {
       '/home/stat1.webp',
       '/home/stat2.webp',
       '/home/stat3.webp',
+      "/home/9.webp",
     ];
 
     images.forEach(imageSrc => {
@@ -579,10 +579,7 @@ function HomePage() {
               <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-d word-glue">Manage Prices and Stocks</span></h1>
               <h3 className="paragraph-text" style={{ height: `${scrollState === 30 ? "10rem" : "0px"}`, overflow: "hidden", transition: "all 0.5s" }}></h3>
             </div>
-            {/* <div className="sect-2-info active-sect-2" style={{ marginBottom: "2rem" }}>
-              <h1 className="sect-1-text-2"><span className="gradient-purple word-glue">Add Variations</span></h1>
-              <h3 className="paragraph-text" style={{ height: "auto", overflow: "hidden", transition: "all 0.5s" }}>After product initialization, variations can be added with the same types of details. Each new variation will have their own statistics so that they can be compared with each other.</h3>
-            </div> */}
+
             <div className={"sect-2-info active-sect-2"} style={{ marginBottom: "2rem" }}>
               <h1 className="sect-1-text-2"><span className="gradient-purple word-glue">Add Variations</span></h1>
               {screenWidth <= 450 && <motion.figure style={{ overflow: "hidden", position: "relative", height: `auto`, width: "auto", margin: "auto" }} variants={screenVariants} initial="hidden" animate="visible" exit="hidden">
@@ -632,7 +629,7 @@ function HomePage() {
         <div className={`flip-card-inner ${IsFlipping ? 'flipping' : ''}`} style={{ transform: `rotateY(${currentIndex * 180}deg)` }}>
           <div className="flip-card-front">
             <div className="flip-cursor-container">
-              <img src={designImages[currentIndex]} className="flip-card-img" />
+              <img src={designImages[currentIndex]} className="flip-card-img"></img>
 
               <motion.div className="logo-click" style={{ ...cursorColor, opacity: designAutoOpacity }}
                 initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 2 }}
@@ -643,7 +640,7 @@ function HomePage() {
           </div>
           <div className="flip-card-back">
             <div className="flip-cursor-container">
-              <img src={designImages[currentIndex]} className="flip-card-img" />
+              <img src={designImages[currentIndex]} className="flip-card-img"></img>
 
               <motion.div className="logo-click" style={{ ...cursorColor, opacity: designAutoOpacity }}
                 initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 2 }}
@@ -666,10 +663,10 @@ function HomePage() {
         <motion.figure className="section-4-img" initial={{ x: "-100px", opacity: 0 }} animate={sideAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>
           <div className="section-4-circle">
             <img src="/home/9.webp" className="sect-4-img"></img>
-            <video controls className="sect-4-gif" autoPlay loop muted playsInline>
+            {screenWidth > 0 && <video controls className="sect-4-gif" autoPlay loop muted playsInline>
               <source src="/home/vid.mp4" type="video/mp4" />
               Your browser does not support the video tag.
-            </video>
+            </video>}
 
           </div>
         </motion.figure>
@@ -685,7 +682,7 @@ function HomePage() {
 
     <section className="section-5" ref={sect5Ref}>
       <article className="scrolling-image-container">
-        <img src="/home/scroll1.webp" className="scrolling-image" />
+        <img src="/home/scroll1.webp" className="scrolling-image"></img>
         <div className="gradient-cover">
         </div>
 
@@ -700,13 +697,13 @@ function HomePage() {
           <div className="order-alt-row" style={{ justifyContent: "space-between", width: "100%" }}>
 
             <div className="scrolling-image-container-sm-2 round-borderer">
-              <img src="/home/scroll2.webp" className="scrolling-image-2" />
+              <img src="/home/scroll2.webp" className="scrolling-image-2"></img>
             </div>
           </div>
         </div>}
 
         {screenWidth > 550 && <summary className="scrolling-image-container-sm round-borderer">
-          <img src="/home/scroll2.webp" className="scrolling-image-2" />
+          <img src="/home/scroll2.webp" className="scrolling-image-2"></img>
         </summary>
         }
       </article>
@@ -716,9 +713,7 @@ function HomePage() {
         <h3 className="paragraph-text" style={{ margin: "1rem 5rem", textAlign: "left", whiteSpace: "pre-wrap" }}>    Instantly receive orders upon customer checkout. From there you can see the list of their orders. You may even edit them which will alert the user. From there you can view the user's contact information and location to see if you can finish the order.</h3>
         <h3 className="paragraph-text" style={{ margin: "1rem 5rem", textAlign: "left", whiteSpace: "pre-wrap" }}>    Upon review, you may then choose to approve or refuse an order. When approved, you can set a date when a user can expect their products to arrive. You may even enable cancellations and set penalties.</h3>
 
-        <img src="/home/10.webp" className="order-img">
-
-        </img>
+        <img src="/home/10.webp" className="order-img"></img>
       </div>}
 
     </section>
@@ -736,9 +731,7 @@ function HomePage() {
           <h3 className="paragraph-text" style={{ marginTop: "1rem" }}>Collect data on how your mart performs. Collect metrics on views and new users, compare categories and products by their profits and their sales, as well as viewing their ranks relative to a time period. Observe your mart's performance across the day as orders are finished!</h3>
         </div>
 
-        <img src={`${screenWidth > 1000 ? "/home/stat1.webp" : screenWidth > 800 ? "/home/stat1-2.webp" : screenWidth > 400 ? "/home/stat1-3.webp" : "/home/stat1-4.webp"}`} className="stat-img">
-
-        </img>
+        <img src={`${screenWidth > 1000 ? "/home/stat1.webp" : screenWidth > 800 ? "/home/stat1-2.webp" : screenWidth > 400 ? "/home/stat1-3.webp" : "/home/stat1-4.webp"}`} className="stat-img"></img>
       </div>
     </section>
 
@@ -895,7 +888,7 @@ function HomePage() {
     </section>
 
 
-    <div className="footer-home">
+    <footer className="footer-home">
       <div className="footer-icon-box">
         <img className="footer-icon" src="/light-2.png"></img>
       </div>
@@ -907,7 +900,6 @@ function HomePage() {
 
           {screenWidth > 330 && <>
           <h3 className="paragraph-text" style={{ fontWeight: "900" }}>LinkedIn</h3>
-          {/* <h3 className="paragraph-text" style={{ fontWeight: "900" }}>Github</h3> */}
           <h3 className="paragraph-text" style={{ fontWeight: "900" }}>Admin Sites</h3>
           </>}
         </div>
@@ -921,7 +913,7 @@ function HomePage() {
           <h3 className="paragraph-text" style={{ margin: `${screenWidth > 1400 ? "0 4rem" : "0 0rem"}`, textAlign:"justify" }}>Built by JM Miranda for my online portfolio. To access the 3 sample websites, click on the shop name links found in the testimonials or go back to <span style={{ fontWeight: "900" }}>My Personal Site</span>. Contact me at <span style={{ fontWeight: "900" }}>jeymson9000@gmail.com</span>. Thank you for stopping by!</h3>
         </div>
       </div>
-    </div>
+    </footer>
 
   </Fragment>
 }
