@@ -134,7 +134,7 @@ function HomePage() {
   };
 
   const leftAnimation = {
-    x: inView6 ? 0 : -100,
+    x: inView6 ? 0 : screenWidth > 800 ? -100 : 0,
     opacity: inView6 ? 1 : 0,
   };
 
@@ -740,21 +740,21 @@ function HomePage() {
       </div>
     </section>
 
-    {/* <section className="section-7" ref={sect6Ref}>
-      <motion.header style={{ marginTop: `${showUser ? "5%" : "20%"}`, fontWeight: "700" }} className="sect-7-text gradient-green" initial={{ x: "-100px", opacity: 0 }} animate={leftAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>The Customer is (12 mins) Away</motion.header>
+    <section className="section-7" ref={sect6Ref}>
+      <motion.header style={{ marginTop: `${showUser ? "5%" : `${screenWidth > 1200 ? "20%" : screenWidth > 600 ? "30%" : screenWidth > 500 ? "40%" : "50%" }`}`, fontWeight: "700", textAlign:"center" }} className="sect-7-text gradient-green landing-headline" initial={{ x: `${screenWidth > 800 ? "-100px" : "0px"}`, opacity: 0 }} animate={leftAnimation} transition={{ duration: 0.8, ease: "easeOut", delay: 0 }}>The Customer is (12 mins) Away</motion.header>
 
       <div style={{ height: "80%", opacity: `${showUser ? "1" : "0"}` }} className="user-data">
-        <img src="/home/stat2.webp" className="user-stats"></img>
+        <img src={`${screenWidth > 700 ? "/home/stat2.webp" : screenWidth > 500 ? "/home/stat2-1.webp" : "/home/stat2-2.webp"}`} className="user-stats"></img>
         <div className="user-stat-text">
           <h1 className="sect-1-text-2" style={{ marginBottom: "2rem" }}><span className="gradient-c">Gain Data on Your Users</span></h1>
           <h3 className="paragraph-text" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>    Besides data on products and categories, you can collect statistics of your users. Collate user demographics such as age and gender together with lifetime statistics such as average profit and bought products. Users are ranked along with the companies they belong to allowing you to find your corporate clients.</h3>
           <h3 className="paragraph-text" style={{ marginTop: "1rem", whiteSpace: "pre-wrap" }}>    User locations and coordinates are included in account creation where you can find prime locations where your mart is most popular. Powered by Google Maps, the users' locations can be found and an estimate of the travel duration to deliver products with precision.</h3>
         
-          <img src="/home/stat3.webp" className="user-stats-2"></img>
+          {screenWidth > 700 && <img src="/home/stat3.webp" className="user-stats-2"></img>}
         </div>
       </div>
 
-    </section> */}
+    </section>
 
     {/* <section className="section-8">
       <header style={{ fontWeight: "700", marginLeft: "3rem", marginBottom: "1rem" }} className="sect-6-text gradient-purple">Even More Customizables</header>
