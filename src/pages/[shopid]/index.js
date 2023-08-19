@@ -21,19 +21,19 @@ function HomePage({ shopID, screenWidth }) {
   const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
   const final = JSON.parse(decompressedBytes);
   
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     alert(
-  //       `Images are loaded in using Lorem Picsum to have non-copyright random image. Due to this, images may load slower.  Thank you for your understanding.`
-  //     );
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      alert(
+        `Images are loaded in using Lorem Picsum to have non-copyright random image. Due to this, images may load slower.  Thank you for your understanding.`
+      );
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   if (!shopID) {
-  //     router.push(`/${router.query.shopid}/error`);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!shopID) {
+      router.push(`/${router.query.shopid}/error`);
+    }
+  }, []);
 
   useEffect(() => {
     if (final){
