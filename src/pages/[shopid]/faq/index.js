@@ -6,10 +6,14 @@ import { AnimatePresence, motion } from "framer-motion"
 import NewFaq from "@/components/faq/NewFaq"
 import { useRouter } from "next/router"
 import { FaQq } from "react-icons/fa"
+import pako from "pako";
 
-function FaQ(martID) {
+function FaQ({ shopID, screenWidth }) {
+    const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+    const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+    const final = JSON.parse(decompressedBytes);
+
     const router = useRouter()
-    const {screenWidth} = martID
     const SlideHeight = {
         hidden: { opacity: 1, height: 0 },
         visible: { opacity: 1, height: 'auto' }
@@ -38,15 +42,15 @@ function FaQ(martID) {
         },
     };
 
-    const id = martID.shopID._id
-    const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
+    const id = final._id
+    const favicon = final.shopData.shopDetails.imageData.icons.icon
 
     const [newItem, setNewItem] = useState(false);
     const handleNewItem = () => {
         setNewItem(!newItem);
     };
 
-    const [answers, setAnswers] = useState(martID.shopID.shopData.shopFaq.answers)
+    const [answers, setAnswers] = useState(final.shopData.shopFaq.answers)
 
     const [Expanded, setExpanded] = useState([]);
     const toggleExpand = (index) => {

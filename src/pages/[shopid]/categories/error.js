@@ -3,13 +3,18 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 import Head from "next/head"
 import { getServerSideProps } from "@/utilities/serversideProps"
+import pako from "pako";
 
 function Catch({ shopID, screenWidth }){
+  const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  const final = JSON.parse(decompressedBytes);
+
     const [loading, setLoading] = useState(true);
     const router = useRouter();
   
     const redirectToErrorPage = () => {
-      if (!shopID) {
+      if (!final) {
         router.push("/error");
       }
       setLoading(false);
@@ -17,19 +22,19 @@ function Catch({ shopID, screenWidth }){
   
     useEffect(() => {
       redirectToErrorPage();
-    }, [shopID]);
+    }, [final]);
   
     if (loading) {
       return <p></p>;
     }
   
-    if (!shopID) {
+    if (!final) {
       return null;
     }
 
     const { shopid } = router.query;
-    const shopData = shopID.shopData;
-    const favicon = shopID.shopData.shopDetails.imageData.icons.icon
+    const shopData = final.shopData;
+    const favicon = final.shopData.shopDetails.imageData.icons.icon
 
     let mode = ""
     if (shopData.shopDesigns.defaultMode){mode = "/light"} else {
@@ -46,7 +51,7 @@ function Catch({ shopID, screenWidth }){
 
     return <Fragment>
 <Head>
-  <title>Page Does Not Existzz</title>
+  <title>Page Does Not Exist</title>
   <link rel="icon" type="image/jpeg" href={favicon} />
 
 </Head>

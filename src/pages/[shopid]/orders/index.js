@@ -10,8 +10,13 @@ import OrderOngoing from "@/components/orders/OrderOngoing";
 import OrderDetails from "@/components/orders/OrderDetails";
 import CancelOrder from "@/components/orders/CancelOrder";
 import ShopInformation from "@/components/orders/ShopInformation";
+import pako from "pako";
 
 function MyOrders({ shopID, user, currency, screenWidth }) {
+  const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  const final = JSON.parse(decompressedBytes);
+
   const router = useRouter();
   const [shouldRender, setShouldRender] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -58,18 +63,17 @@ function MyOrders({ shopID, user, currency, screenWidth }) {
   );
 
   function renderOrders() {
-    const { shopData } = shopID;
-    const shopCurrency = shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
-    const shopCategories = shopID.shopData.shopCategories
-    const paymentDetails = shopID.shopData.shopDetails.paymentData
-    const footerData = shopData.shopDetails.footerData
-    const coords = footerData.shopCoords
+    const shopCurrency = final.shopData.shopDetails.paymentData.checkoutInfo.currency
+    const shopCategories = final.shopData.shopCategories
+    const paymentDetails = final.shopData.shopDetails.paymentData
+    const footerData = final.shopData.shopDetails.footerData
+    const coords = final.shopData.shopDetails.footerData.shopCoords
 
-    const currentAccount = shopData.shopAccounts.filter((acc) => acc.email === user.email)
+    const currentAccount = final.shopData.shopAccounts.filter((acc) => acc.email === user.email)
     const ongoingOrders = currentAccount[0].currentOrders
     const pastOrders = currentAccount[0].pastOrders.slice().reverse();
 
-    const favicon = shopData.shopDetails.imageData.icons.icon
+    const favicon = final.shopData.shopDetails.imageData.icons.icon
 
     const orderAmount = Object.keys(pastOrders).length
 

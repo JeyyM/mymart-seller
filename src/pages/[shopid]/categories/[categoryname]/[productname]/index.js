@@ -6,19 +6,24 @@ import Head from "next/head";
 import { useContext } from "react";
 import { MyContext } from "@/components/store/MyProvider";
 import Link from "next/link";
+import pako from "pako";
 
 function ProductPage({ shopID, user, screenWidth }) {
   const router = useRouter()
+  const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  const final = JSON.parse(decompressedBytes);
 
-  const shopCurrency = shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
-  const favicon = shopID.shopData.shopDetails.imageData.icons.icon
+  const shopCurrency = final.shopData.shopDetails.paymentData.checkoutInfo.currency
+  const favicon = final.shopData.shopDetails.imageData.icons.icon
+  const localStorageKey = `mart_${shopID._id}`
 
   const { state, handleIncrement } = useContext(MyContext);
 
   const queryProduct = router.query.productname
   const queryCategory = router.query.categoryname
 
-  const allCategories = shopID.shopData.shopCategories
+  const allCategories = final.shopData.shopCategories
   const chosenCategory = allCategories.filter((value) => value.categoryName === queryCategory);
 
   const [varState, setVarState] = useState(0)
@@ -135,8 +140,6 @@ useEffect(() => {
   }
 
   const urlProduct = encodeURIComponent(chosenProduct[0].variations[0].productName)
-
-  const localStorageKey = `mart_${shopID._id}`
 
   async function updateData() {
     if ( typeof window !== 'undefined'){
