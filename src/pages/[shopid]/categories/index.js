@@ -61,10 +61,6 @@ function CategoryPage({ shopID, screenWidth }) {
   }
 
   async function editForm(formdata, key) {
-    console.log(key)
-
-    // const chosenCateg = formdata.categoryName
-
     const response = await fetch(
       `../../api/new-category?martid=${router.query.shopid}&categoryindex=${key}`,
       {

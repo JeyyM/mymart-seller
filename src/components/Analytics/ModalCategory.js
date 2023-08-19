@@ -68,8 +68,6 @@ function ModalCategory({data, modalStatus, disable, currency}) {
   combinedProducts = data.map((item, index) => ({
      name: item.name, profit: item.profit, orders: item.orders
   }));
-
-  console.log("fucking", data)
   
   return (
     <Fragment>
