@@ -1,18 +1,24 @@
-//////////////////////        BASE           ///////////////////////////////////
 @mixin border {
   border: 5px solid;
-  border-image: linear-gradient(
+  -o-border-image: -o-linear-gradient(
       45deg,
       $color-primary-dark,
       $color-primary-light
     )
     1;
-  // box-shadow: 0 0.5rem 1rem rgba(black, 0.15);
+     border-image: linear-gradient(
+      45deg,
+      $color-primary-dark,
+      $color-primary-light
+    )
+    1;
 }
 
 @mixin border-round {
   border: solid 5px transparent;
   border-radius: $border-radius;
+  background-image: -o-linear-gradient($theme-bg, $theme-bg),
+    -o-linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   background-image: linear-gradient($theme-bg, $theme-bg),
     linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   background-origin: border-box;
@@ -30,17 +36,32 @@
   padding: 1rem;
 
   border-radius: $border-radius;
+  background-image: -webkit-gradient(
+    linear,
+    left top, right top,
+    from($color-primary-dark),
+    to($color-primary-light)
+  );
+  background-image: -o-linear-gradient(
+    left,
+    $color-primary-dark,
+    $color-primary-light
+  );
   background-image: linear-gradient(
     90deg,
     $color-primary-dark,
     $color-primary-light
   );
   cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 
   &:active {
-    filter: brightness(120%);
-    box-shadow: 0 0 0 2px white, 0 0 0 4px $color-primary-dark;
+    -webkit-filter: brightness(120%);
+            filter: brightness(120%);
+    -webkit-box-shadow: 0 0 0 2px white, 0 0 0 4px $color-primary-dark;
+            box-shadow: 0 0 0 2px white, 0 0 0 4px $color-primary-dark;
   }
 }
 
@@ -55,17 +76,32 @@
   padding: 1rem;
 
   border-radius: $border-radius;
+  background-image: -webkit-gradient(
+    linear,
+    left top, right top,
+    from(red),
+    to(darkred)
+  );
+  background-image: -o-linear-gradient(
+    left,
+    red,
+    darkred
+  );
   background-image: linear-gradient(
     90deg,
     red,
     darkred
   );
   cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 
   &:active {
-    filter: brightness(120%);
-    box-shadow: 0 0 0 2px white, 0 0 0 4px red;
+    -webkit-filter: brightness(120%);
+            filter: brightness(120%);
+    -webkit-box-shadow: 0 0 0 2px white, 0 0 0 4px red;
+            box-shadow: 0 0 0 2px white, 0 0 0 4px red;
   }
 }
 
@@ -76,48 +112,86 @@
   margin-bottom: 3rem;
   font-size: 2.5rem;
   padding: 1rem;
-  box-shadow: inset 0 0 0 2rem $theme-bg;
+  -webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
+          box-shadow: inset 0 0 0 2rem $theme-bg;
   cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 
   &:active {
-    filter: brightness(120%);
-    box-shadow: inset 0 0 0 20px $theme-bg, 0 0 0 2px $color-primary-dark,
+    -webkit-filter: brightness(120%);
+            filter: brightness(120%);
+    -webkit-box-shadow: inset 0 0 0 20px $theme-bg, 0 0 0 2px $color-primary-dark,
+      0 0 0 4px white;
+            box-shadow: inset 0 0 0 20px $theme-bg, 0 0 0 2px $color-primary-dark,
       0 0 0 4px white;
   }
 }
 
-//////////////////////        GRADIENT SVGS          ///////////////////////////////////
-
 @mixin navlogo-gradient($svg, $top, $size) {
-  mask-size: $size;
-  mask-position: center;
-  mask-image: url("../../components/svgs/" + $svg + ".svg");
-  mask-repeat: no-repeat;
+  -webkit-mask-size: $size;
+          mask-size: $size;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-image: url("../../components/svgs/" + $svg + ".svg");
+          mask-image: url("../../components/svgs/" + $svg + ".svg");
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
   background-repeat: no-repeat;
+  background-image: -webkit-gradient(
+    linear,
+    left top, right top,
+    from($color-primary-dark),
+    to($color-primary-light)
+  );
+  background-image: -o-linear-gradient(
+    left,
+    $color-primary-dark,
+    $color-primary-light
+  );
   background-image: linear-gradient(
     to right,
     $color-primary-dark,
     $color-primary-light
   );
-  transform: translateY(0.3rem);
+  -webkit-transform: translateY(0.3rem);
+      -ms-transform: translateY(0.3rem);
+          transform: translateY(0.3rem);
   height: $top;
   fill: transparent;
   width: 110%;
 }
 
 @mixin navlogo-solid($svg, $top, $size) {
-  mask-size: $size;
-  mask-position: center;
-  mask-image: url("../../components/svgs/" + $svg + ".svg");
-  mask-repeat: no-repeat;
+  -webkit-mask-size: $size;
+          mask-size: $size;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-image: url("../../components/svgs/" + $svg + ".svg");
+          mask-image: url("../../components/svgs/" + $svg + ".svg");
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
   background-repeat: no-repeat;
+  background-image: -webkit-gradient(
+    linear,
+    left top, right top,
+    from($text-primary-color),
+    to($text-primary-color)
+  );
+  background-image: -o-linear-gradient(
+    left,
+    $text-primary-color,
+    $text-primary-color
+  );
   background-image: linear-gradient(
     to right,
     $text-primary-color,
     $text-primary-color
   );
-  transform: translateY(0.3rem);
+  -webkit-transform: translateY(0.3rem);
+      -ms-transform: translateY(0.3rem);
+          transform: translateY(0.3rem);
   height: $top;
   fill: transparent;
   width: 110%;
@@ -127,16 +201,18 @@
   @include navlogo-gradient($icon, $size1, $size2);
   height: $size1;
   width: $size2;
-  // background-color: red;
-  transform: translateY(0rem);
+  -webkit-transform: translateY(0rem);
+      -ms-transform: translateY(0rem);
+          transform: translateY(0rem);
 }
 
 @mixin empty-logo($icon, $size1, $size2) {
   @include navlogo-solid($icon, $size1, $size2);
   height: $size1;
   width: $size2;
-  // background-color: red;
-  transform: translateY(0rem);
+  -webkit-transform: translateY(0rem);
+      -ms-transform: translateY(0rem);
+          transform: translateY(0rem);
 }
 
 @mixin warning-logo($icon, $size1, $size2) {
@@ -146,37 +222,51 @@
 }
 
 @mixin warning-logo-gradient($svg, $top, $size) {
-  mask-size: $size;
-  mask-position: center;
-  mask-image: url("../../components/svgs/" + $svg + ".svg");
-  mask-repeat: no-repeat;
+  -webkit-mask-size: $size;
+          mask-size: $size;
+  -webkit-mask-position: center;
+          mask-position: center;
+  -webkit-mask-image: url("../../components/svgs/" + $svg + ".svg");
+          mask-image: url("../../components/svgs/" + $svg + ".svg");
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
   background-repeat: no-repeat;
+  background-image: -webkit-gradient(
+    linear,
+    left top, right top,
+    from(red),
+    to(darkred)
+  );
+  background-image: -o-linear-gradient(
+    left,
+    red,
+    darkred
+  );
   background-image: linear-gradient(
     to right,
     red,
     darkred
   );
-  transform: translateY(0.3rem);
+  -webkit-transform: translateY(0.3rem);
+      -ms-transform: translateY(0.3rem);
+          transform: translateY(0.3rem);
   height: $top;
   fill: transparent;
   width: 110%;
 }
 
-//////////////////////        NAVMENU         ///////////////////////////////////
 @mixin menu-logo($icon, $size1, $size2) {
   @include navlogo-gradient($icon, $size1, $size2);
   height: $size1;
   width: $size2;
-  // background-color: red;
-  transform: translateY(0rem);
+  -webkit-transform: translateY(0rem);
+      -ms-transform: translateY(0rem);
+          transform: translateY(0rem);
 }
 
-//////////////////////        HOMEPAGE         ///////////////////////////////////
-// @mixin home-button-column($grid-column){
-//   grid-column: $grid-column;
-// }
-
 @mixin home-setup($imagename) {
+  background-image: url("/" + $imagename),
+    -o-linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   background-image: url("/" + $imagename),
     linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   height: 1fr;
@@ -185,14 +275,24 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   justify-items: center;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 @mixin home-setup-imageless() {
+  -ms-grid-column-span: 2;
   grid-column: span 2;
+  background-image: $theme-bg,
+    -o-linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   background-image: $theme-bg,
     linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   height: 1fr;
@@ -201,15 +301,33 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   justify-items: center;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 @mixin home-setup-logo($svg) {
   @include navlogo-gradient($svg, $home-logo-size, $home-logo-size);
   z-index: 15;
+  background-image: -webkit-gradient(
+    linear,
+    left top, left bottom,
+    from($color-primary-dark),
+    to($color-primary-light)
+  );
+  background-image: -o-linear-gradient(
+    top,
+    $color-primary-dark,
+    $color-primary-light
+  );
   background-image: linear-gradient(
     to bottom,
     $color-primary-dark,
@@ -226,31 +344,41 @@
 ) {
   @include navlogo-gradient($svg + "-fill", $adjustmentSize, $adjustmentSize);
   z-index: 14;
+  background-image: -webkit-gradient(linear, left top, right top, from($theme-bg), to($theme-bg));
+  background-image: -o-linear-gradient(left, $theme-bg, $theme-bg);
   background-image: linear-gradient(to right, $theme-bg, $theme-bg);
   position: absolute;
-  transform: translateY($adjustmentY) translateX($adjustmentX);
+  -webkit-transform: translateY($adjustmentY) translateX($adjustmentX);
+      -ms-transform: translateY($adjustmentY) translateX($adjustmentX);
+          transform: translateY($adjustmentY) translateX($adjustmentX);
 }
 
 @mixin home-stack() {
-  // @include border;
   position: absolute;
   top: 0;
   right: 0;
+  background-image: -o-linear-gradient($theme-bg, $theme-bg),
+    -o-linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   background-image: linear-gradient($theme-bg, $theme-bg),
     linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   height: calc(100% + 1rem);
   width: 105%;
   content: "|\00a0\00a0";
   z-index: 10;
-  clip-path: polygon(0 50%, 100% 0, 100% 100%, 0% 100%);
+  -webkit-clip-path: polygon(0 50%, 100% 0, 100% 100%, 0% 100%);
+          clip-path: polygon(0 50%, 100% 0, 100% 100%, 0% 100%);
   float: top;
 }
 
 @mixin home-stack-border() {
-  // @include border;
   position: absolute;
   top: 0;
   right: 0;
+  background-image: -o-linear-gradient(
+    45deg,
+    $color-primary-dark,
+    $color-primary-light
+  );
   background-image: linear-gradient(
     45deg,
     $color-primary-dark,
@@ -260,37 +388,45 @@
   width: 105%;
   content: "|\00a0\00a0";
   z-index: 9;
-  clip-path: polygon(0 46%, 100% -3%, 100% 100%, 0% 100%);
+  -webkit-clip-path: polygon(0 46%, 100% -3%, 100% 100%, 0% 100%);
+          clip-path: polygon(0 46%, 100% -3%, 100% 100%, 0% 100%);
   float: top;
 }
-
-//////////////////////        TEMPLATES         ///////////////////////////////////
 
 @mixin button-style() {
   @include border-round;
   height: 22rem;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   justify-items: center;
-  align-items: center;
-  // transition: all 0.2s !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: all 0.2s !important;
+  -o-transition: all 0.2s !important;
   transition: all 0.2s !important;
+  background-image: $theme-bg,
+    -o-linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   background-image: $theme-bg,
     linear-gradient(45deg, $color-primary-dark, $color-primary-light);
 
   &:hover {
-    transform: translateY(-0.6rem) translateX(1rem) !important;
-    filter: drop-shadow(-6px 6px 0px $color-primary-dark);
+    -webkit-transform: translateY(-0.6rem) translateX(1rem) !important;
+        -ms-transform: translateY(-0.6rem) translateX(1rem) !important;
+            transform: translateY(-0.6rem) translateX(1rem) !important;
+    -webkit-filter: drop-shadow(-6px 6px 0px $color-primary-dark);
+            filter: drop-shadow(-6px 6px 0px $color-primary-dark);
   }
   &:active {
-    transform: translateY(0rem) translateX(0rem) !important;
-    filter: drop-shadow(-1px 1px 0px $color-primary-dark);
+    -webkit-transform: translateY(0rem) translateX(0rem) !important;
+        -ms-transform: translateY(0rem) translateX(0rem) !important;
+            transform: translateY(0rem) translateX(0rem) !important;
+    -webkit-filter: drop-shadow(-1px 1px 0px $color-primary-dark);
+            filter: drop-shadow(-1px 1px 0px $color-primary-dark);
   }
 }
-
-
-
-//////////////////////        INPUTS         ///////////////////////////////////
 
 @mixin text-input(){
   width: 100%;
@@ -302,15 +438,18 @@
 @mixin text-input-style(){
   color: $text-primary-color;
   font-size: 2.5rem;
-  // font-family: 'Roboto';
   font-weight: 900;
   padding: 1rem;
-  box-shadow: inset 0 0 0 2rem $theme-bg;
+  -webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
+          box-shadow: inset 0 0 0 2rem $theme-bg;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
 @mixin text-input-focus(){
-  filter: brightness(120%);
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
   outline-color: $color-primary-dark;
 }
 
@@ -325,24 +464,27 @@
     line-height: 1;
     margin-top: 0px;
     font-size: 2rem;
-    // font-family: "Roboto";
     font-weight: 700;
     padding: 1rem;
-  box-shadow: inset 0 0 0 2rem $theme-bg;
+  -webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
+          box-shadow: inset 0 0 0 2rem $theme-bg;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
 @mixin text-input-small-focus(){
-  filter: brightness(120%);
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
   outline-color: $color-primary-dark;
 }
 
 @mixin box-input(){
   resize: none;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   @include border-round;
   width: 100%;
-  // margin-top: 3rem;
   color: $text-tertiary-color;
 line-height: 1;
 font-size: 2rem;
@@ -350,12 +492,17 @@ font-family: "Roboto";
 font-weight: 500;
 padding: 1rem;
 
-box-shadow: inset 0 0 0 2rem $theme-bg;
+-webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
+
+        box-shadow: inset 0 0 0 2rem $theme-bg;
+-webkit-transition: all 0.2s;
+-o-transition: all 0.2s;
 transition: all 0.2s;
 }
 
 @mixin box-input-focus(){
-  filter: brightness(120%);
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
   outline-color: $color-primary-dark;
 }
 
@@ -366,7 +513,8 @@ transition: all 0.2s;
 
 @mixin number-input(){
   -moz-appearance: textfield!important;
-        appearance: textfield !important;
+        -webkit-appearance: textfield !important;
+          appearance: textfield !important;
 }
 
 @mixin number-input-style(){
@@ -377,17 +525,20 @@ transition: all 0.2s;
         font-family: "Roboto";
         font-weight: 700;
         padding: 1rem;
-      box-shadow: inset 0 0 0 2rem $theme-bg;
+      -webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
+              box-shadow: inset 0 0 0 2rem $theme-bg;
       margin-right: 2rem;
+      -webkit-transition: all 0.2s;
+      -o-transition: all 0.2s;
       transition: all 0.2s;
       width: 95%;
 }
 
 @mixin number-input-focus(){
-  filter: brightness(120%);
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
       outline-color: $color-primary-dark;
 }
-
 
 
 

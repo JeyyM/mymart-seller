@@ -6,8 +6,12 @@
 .policy-container{
   height: calc(100vh - $navbar-height - 4rem);
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   padding: 1rem;
   gap: 1.5rem;
 }
@@ -15,8 +19,12 @@
 .policy-container-modal{
   height: calc(100vh - $navbar-height - 4rem);
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   padding: 1rem;
   gap: 1.5rem;
   margin-top: $navbar-height;

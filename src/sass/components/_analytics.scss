@@ -4,8 +4,13 @@ $graph-height-2: 27vh;
 .analytics-container {
   min-height: calc(100vh - $navbar-height - 4rem);
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   gap: 2rem;
   padding: 0.5rem 1rem 1rem 1rem;
 }
@@ -26,68 +31,94 @@ $graph-height-2: 27vh;
 }
 
 .analytics-row {
+  height: -webkit-min-content;
+  height: -moz-min-content;
   height: min-content;
   padding: 0rem 0.5rem 0.5rem 0.5rem;
 }
 
 .analytics-grid {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 1rem 1fr 1rem 1fr 1rem 1fr 1rem 1fr 1rem 1fr 1rem 1fr 1rem 1fr 1rem 1fr 1rem 1fr;
   grid-template-columns: repeat(10, 1fr);
   gap: 1rem;
 }
 
 .analytics-grid-second {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 1rem 1fr 1rem 1fr 1rem 1fr 1rem 1fr 1rem 1fr 1rem 1fr 1rem 1fr 1rem 1fr 1rem 1fr;
   grid-template-columns: repeat(10, 1fr);
   gap: 1rem;
 }
 
 .analytics-grid-2 {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 1rem 1fr 1rem 1fr 1rem 1fr;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
 }
 
 .analytics-preview {
+  -ms-grid-column-span: 10;
   grid-column: span 10;
   background-color: white;
   height: $graph-height-1;
   width: 100%;
   border-radius: 15px;
-  filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+  -webkit-filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+          filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
 }
 
 .analytics-preview-2 {
+  -ms-grid-column-span: 7;
   grid-column: span 7;
   background-color: white;
   height: $graph-height-1;
   width: 100%;
   border-radius: 15px;
-  filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+  -webkit-filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+          filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
 }
 
 .analytics-preview-3 {
+  -ms-grid-column-span: 6;
   grid-column: span 6;
   background-color: white;
   height: $graph-height-1;
   width: 100%;
   border-radius: 15px;
-  filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+  -webkit-filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+          filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
 }
 
 .analytics-rank-prev {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 0.5rem;
   margin: 0;
+  -ms-grid-column-span: 3;
   grid-column: span 3;
 }
 
 .analytics-rank-prev-2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 0.5rem;
   margin: 0;
+  -ms-grid-column-span: 3;
   grid-column: span 3;
 }
 
@@ -140,8 +171,10 @@ $graph-height-2: 27vh;
 }
 
 .analytics-categ-prev {
+  -ms-grid-column-span: 3;
   grid-column: span 3;
-  filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+  -webkit-filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+          filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
   border-radius: 15px;
   width: 100%;
   height: $graph-height-1;
@@ -197,7 +230,8 @@ $graph-height-2: 27vh;
 }
 
 .analytics-age-prev {
-  filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+  -webkit-filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+          filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
   border-radius: 15px;
   width: 100%;
   height: $graph-height-2;
@@ -205,8 +239,10 @@ $graph-height-2: 27vh;
 }
 
 .analytics-location-prev {
+  -ms-grid-column-span: 4;
   grid-column: span 4;
-  filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+  -webkit-filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+          filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
   border-radius: 15px;
   width: 100%;
   height: $graph-height-1;
@@ -214,13 +250,16 @@ $graph-height-2: 27vh;
 }
 
 .analytics-prev-small{
+  -ms-grid-column-span: 4;
   grid-column: span 4;
 }
 
 .analytics-sales-container{
   min-height: calc(100vh - $navbar-height);
   width: 100%;
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 1rem 1fr;
   grid-template-columns: 1fr 1fr;
   padding: 1rem;
   gap: 1rem;
@@ -229,7 +268,9 @@ $graph-height-2: 27vh;
 .analytics-user-container{
   min-height: calc(100vh - $navbar-height);
   width: 100%;
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 1rem 1fr 1rem 1fr;
   grid-template-columns: 1fr 1fr 1fr;
   padding: 1rem;
   gap: 1rem;
@@ -239,7 +280,8 @@ $graph-height-2: 27vh;
   height: 30rem;
   width: 48vw;
   background-color: white;
-  filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+  -webkit-filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+          filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
   border-radius: 15px;
   position: relative;
 }
@@ -248,7 +290,8 @@ $graph-height-2: 27vh;
   height: 30rem;
   width: 48vw;
   background-color: white;
-  filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+  -webkit-filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+          filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
   border-radius: 15px;
   position: relative;
 }
@@ -264,7 +307,8 @@ $graph-height-2: 27vh;
   height: 25rem;
   width: 100%;
   background-color: white;
-  filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+  -webkit-filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+          filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
   border-radius: 15px;
   position: relative;
   margin-top: 2rem;
@@ -275,7 +319,8 @@ $graph-height-2: 27vh;
   height: 30rem;
   width: 32vw;
   background-color: white;
-  filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+  -webkit-filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+          filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
   border-radius: 15px;
   position: relative;
 }
@@ -332,16 +377,23 @@ $graph-height-2: 27vh;
   margin: 0 auto;
   height: 30rem;
   width: 32vw;
-  // background-color: white;
-  filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+  -webkit-filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
+          filter: drop-shadow(-5px 5px 2px rgba(0, 0, 0, 0.2));
   border-radius: 15px;
   position: relative;
   padding: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .show-user-grid{
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
 }

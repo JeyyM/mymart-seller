@@ -3,28 +3,51 @@
   border: solid 9px transparent;
   height: minmax(30rem, 50vh);
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   justify-items: center;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
   width: 100%;
-  filter: drop-shadow(0px 0px 0px $color-primary-dark);
+  -webkit-filter: drop-shadow(0px 0px 0px $color-primary-dark);
+          filter: drop-shadow(0px 0px 0px $color-primary-dark);
 }
 
 .main-img-container {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 2;
   grid-column: 2/4;
 }
 
 .product-container {
+  height: -webkit-min-content;
+  height: -moz-min-content;
   height: min-content;
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns:
+    minmax(0, 1fr) 2rem [center-start] 2rem [col-start] 2rem minmax(-webkit-min-content, 17rem) 2rem [col-end] 2rem [col-start] 2rem minmax(-webkit-min-content, 17rem) 2rem [col-end] 2rem [col-start] 2rem minmax(-webkit-min-content, 17rem) 2rem [col-end] 2rem [col-start] 2rem minmax(-webkit-min-content, 17rem) 2rem [col-end] 2rem [col-start] 2rem minmax(-webkit-min-content, 17rem) 2rem [col-end] 2rem [col-start] 2rem minmax(-webkit-min-content, 17rem) 2rem [col-end] 2rem
+    [center-end] 2rem minmax(0, 1fr);
+  -ms-grid-columns:
+    minmax(0, 1fr) 2rem [center-start] 2rem [col-start] 2rem minmax(min-content, 17rem) 2rem [col-end] 2rem [col-start] 2rem minmax(min-content, 17rem) 2rem [col-end] 2rem [col-start] 2rem minmax(min-content, 17rem) 2rem [col-end] 2rem [col-start] 2rem minmax(min-content, 17rem) 2rem [col-end] 2rem [col-start] 2rem minmax(min-content, 17rem) 2rem [col-end] 2rem [col-start] 2rem minmax(min-content, 17rem) 2rem [col-end] 2rem
+    [center-end] 2rem minmax(0, 1fr);
+  grid-template-columns:
+    minmax(0, 1fr) [center-start] repeat(
+      6,
+      [col-start] minmax(-webkit-min-content, 17rem) [col-end]
+    )
+    [center-end] minmax(0, 1fr);
   grid-template-columns:
     minmax(0, 1fr) [center-start] repeat(
       6,
       [col-start] minmax(min-content, 17rem) [col-end]
     )
     [center-end] minmax(0, 1fr);
-  // grid-template-rows: repeat(8, min-content, 1fr);
   padding: 2rem;
   gap: 2rem;
   grid-auto-rows: auto;
@@ -32,6 +55,8 @@
 }
 
 .details-section {
+  -ms-grid-column: 4;
+  -ms-grid-column-span: 4;
   grid-column: 4/8;
 }
 
@@ -57,6 +82,8 @@ input[type="text"].text-full:focus {
   margin-top: 0.8rem;
   border: solid 5px transparent;
   border-radius: $border-radius;
+  background-image: -o-linear-gradient($theme-bg, $theme-bg),
+    -o-linear-gradient(45deg, red, darkred);
   background-image: linear-gradient($theme-bg, $theme-bg),
     linear-gradient(45deg, red, darkred);
   background-origin: border-box;
@@ -68,7 +95,8 @@ input[type="text"].invalid-form {
 }
 
 input[type="text"].invalid-form:focus {
-  filter: brightness(120%);
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
   outline-color: red;
 }
 
@@ -77,7 +105,8 @@ input[type="number"].invalid-form {
 }
 
 input[type="number"].invalid-form:focus {
-  filter: brightness(120%);
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
   outline-color: red;
 }
 
@@ -87,6 +116,8 @@ input[type="number"].invalid-form:focus {
   margin-top: 0.8rem;
   border: solid 5px transparent;
   border-radius: $border-radius;
+  background-image: -o-linear-gradient($theme-bg, $theme-bg),
+    -o-linear-gradient(45deg, red, darkred);
   background-image: linear-gradient($theme-bg, $theme-bg),
     linear-gradient(45deg, red, darkred);
   background-origin: border-box;
@@ -99,12 +130,16 @@ input[type=number].invalid-form-2 {
   font-family: "Roboto";
   font-weight: 700;
   padding: 1rem;
-  box-shadow: inset 0 0 0 2rem white;
+  -webkit-box-shadow: inset 0 0 0 2rem white;
+          box-shadow: inset 0 0 0 2rem white;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
 input[type=number].invalid-form-2:focus {
-  filter: brightness(120%);
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
   outline-color: red;
 }
 
@@ -114,31 +149,45 @@ input[type=text].invalid-form-2 {
   font-family: "Roboto";
   font-weight: 700;
   padding: 1rem;
-  box-shadow: inset 0 0 0 2rem white;
+  -webkit-box-shadow: inset 0 0 0 2rem white;
+          box-shadow: inset 0 0 0 2rem white;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
 input[type=text].invalid-form-2:focus {
-  filter: brightness(120%);
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
   outline-color: red;
 }
 
 .price-pair {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   margin-top: 0.5rem;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .price-pair-2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   margin-top: 3rem;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-bottom: 1rem;
 }
 
 .product-currency {
   padding: 0 1rem;
-  transform: translateY(-1rem)
+  -webkit-transform: translateY(-1rem);
+      -ms-transform: translateY(-1rem);
+          transform: translateY(-1rem)
 }
 
 .text-small {
@@ -165,7 +214,8 @@ input[type="text"].text-small:focus {
 
 .invalid-form-box {
   resize: none;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   width: 100%;
   margin-top: 1rem;
   color: $text-tertiary-color;
@@ -175,11 +225,17 @@ font-family: "Roboto";
 font-weight: 500;
 padding: 1rem;
 
-box-shadow: inset 0 0 0 2rem $theme-bg;
+-webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
+
+        box-shadow: inset 0 0 0 2rem $theme-bg;
+-webkit-transition: all 0.2s;
+-o-transition: all 0.2s;
 transition: all 0.2s;
 
 border: solid 5px transparent;
   border-radius: $border-radius;
+  background-image: -o-linear-gradient($theme-bg, $theme-bg),
+    -o-linear-gradient(45deg, red, darkred);
   background-image: linear-gradient($theme-bg, $theme-bg),
     linear-gradient(45deg, red, darkred);
   background-origin: border-box;
@@ -187,7 +243,8 @@ border: solid 5px transparent;
 }
 
 .invalid-form-box:focus {
-  filter: brightness(120%);
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
   outline-color: red;
 }
 
@@ -198,7 +255,8 @@ input[type="number"]::-webkit-outer-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield !important;
-  appearance: textfield !important;
+  -webkit-appearance: textfield !important;
+          appearance: textfield !important;
 }
 
 input[type="number"].input-number {
@@ -219,60 +277,85 @@ input[type="text"].input-number:focus {
 
 .varContainer {
   margin-top: 1rem;
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 2rem 1fr 2rem 1fr;
   grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 5rem;
+  -webkit-column-gap: 5rem;
+     -moz-column-gap: 5rem;
+          column-gap: 5rem;
   grid-gap: 2rem;
   grid-auto-rows: auto;
   grid-auto-flow: dense;
   justify-items: center;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-bottom: 5rem;
 }
 
 .varItem {
   @include border-round;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   height: 15rem;
   width: 20rem;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
   cursor: pointer;
 }
 
 .varItem.active-var {
-  filter: brightness(120%);
-  box-shadow: 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
+  -webkit-box-shadow: 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+          box-shadow: 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
 }
 
 .side-img {
   margin-top: 3rem;
   height: 12rem;
   width: 17rem;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   @include border-round;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
   overflow: hidden;
   cursor: pointer;
 }
 
 .side-img.active-var {
-  filter: brightness(120%);
-  box-shadow: 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
+  -webkit-box-shadow: 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+          box-shadow: 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
 }
 
 .side-img-container {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   grid-auto-rows: auto;
   grid-auto-flow: dense;
   justify-items: center;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .product-action-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   width: 100%;
 }
 
@@ -283,14 +366,20 @@ input[type="text"].input-number:focus {
   margin-bottom: 3rem;
   font-size: 2.5rem;
   padding: 1rem;
-  box-shadow: inset 0 0 0 2rem $theme-bg;
+  -webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
+          box-shadow: inset 0 0 0 2rem $theme-bg;
   cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
 .product-action-1:active {
-  filter: brightness(120%);
-  box-shadow: inset 0 0 0 20px $theme-bg, 0 0 0 2px $color-primary-dark,
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
+  -webkit-box-shadow: inset 0 0 0 20px $theme-bg, 0 0 0 2px $color-primary-dark,
+    0 0 0 4px white;
+          box-shadow: inset 0 0 0 20px $theme-bg, 0 0 0 2px $color-primary-dark,
     0 0 0 4px white;
 }
 
@@ -313,20 +402,28 @@ input[type="text"].input-number:focus {
   width: 6rem;
   @include border-round;
   border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  // justify-content: center;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   cursor: cell;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
   z-index: 10;
 }
 .product-edit-button:hover{
-  filter: brightness(120%);
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
 }
 
 .product-edit-button:active{
-  filter: brightness(120%);
-  box-shadow: inset 0 0 0 20px white, 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
+  -webkit-box-shadow: inset 0 0 0 20px white, 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+          box-shadow: inset 0 0 0 20px white, 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
 }
 
 .heading-icon-add-img {
@@ -337,7 +434,9 @@ input[type="text"].input-number:focus {
 .variations-label{
   display: inline-block;
   padding: 1rem;
-  transform: translateY(1rem);
+  -webkit-transform: translateY(1rem);
+      -ms-transform: translateY(1rem);
+          transform: translateY(1rem);
 }
 
 input[type=password].invalid-form-2 {
@@ -346,12 +445,16 @@ input[type=password].invalid-form-2 {
   font-family: "Roboto";
   font-weight: 700;
   padding: 1rem;
-  box-shadow: inset 0 0 0 2rem white;
+  -webkit-box-shadow: inset 0 0 0 2rem white;
+          box-shadow: inset 0 0 0 2rem white;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
 input[type=password].invalid-form-2:focus {
-  filter: brightness(120%);
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
   outline-color: red;
 }
 

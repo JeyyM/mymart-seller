@@ -2,18 +2,24 @@
 .z-indexer{z-index: 99;}
 
 .navmenu {
-  // position: fixed;
   top: 0;
   left: 0;
   width: $menu-width;
   height: 100vh;
   background-color: $theme-bg;
   @include border;
+  -webkit-transition: all 1s;
+  -o-transition: all 1s;
   transition: all 1s;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  // display: none;
-  box-shadow: 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-shadow: 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+          box-shadow: 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
   z-index: 98;
 }
 
@@ -28,11 +34,18 @@
   padding-left: 3rem;
   background-color: $theme-bg;
   text-align: left;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   gap: 1rem;
   cursor:pointer;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 
   &:hover {background-color: lighten($color-primary-light, 20%);}

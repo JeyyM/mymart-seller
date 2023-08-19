@@ -64,7 +64,9 @@
 .heading-tertiary {
   color: $text-tertiary-color;
   line-height: 1;
-  transform: translateY(-0.2rem);
+  -webkit-transform: translateY(-0.2rem);
+      -ms-transform: translateY(-0.2rem);
+          transform: translateY(-0.2rem);
   margin-top: 0px;
   font-size: 2rem;
   font-family: "Roboto";
@@ -75,7 +77,9 @@
 .heading-tertiary-colorless {
   color: $text-tertiary-color;
   line-height: 1;
-  transform: translateY(-0.2rem);
+  -webkit-transform: translateY(-0.2rem);
+      -ms-transform: translateY(-0.2rem);
+          transform: translateY(-0.2rem);
   margin-top: 0px;
   font-size: 2rem;
   font-family: "Roboto";
@@ -85,7 +89,9 @@
 
 .heading-tertiary-notif {
   line-height: 1;
-  transform: translateY(-0.2rem);
+  -webkit-transform: translateY(-0.2rem);
+      -ms-transform: translateY(-0.2rem);
+          transform: translateY(-0.2rem);
   margin-top: 0px;
   font-size: 2rem;
   font-family: "Roboto";
@@ -112,25 +118,74 @@
   font-weight: 500;
   margin: 0rem 1rem;
   display:inline-block;
-  transform: translateY(0.3rem);
+  -webkit-transform: translateY(0.3rem);
+      -ms-transform: translateY(0.3rem);
+          transform: translateY(0.3rem);
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
   transition: all 0.4s;
   margin: 0.5rem;
+}
+
+.text-full:-moz-placeholder-shown ~ .form-label {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-5rem);
+}
+
+.text-full:-ms-input-placeholder ~ .form-label {
+  opacity: 0;
+  visibility: hidden;
+  -ms-transform: translateY(-5rem);
+      transform: translateY(-5rem);
 }
 
 .text-full:placeholder-shown ~ .form-label {
   opacity: 0;
   visibility: hidden;
+  -webkit-transform: translateY(-5rem);
+      -ms-transform: translateY(-5rem);
+          transform: translateY(-5rem);
+}
+
+.text-small:-moz-placeholder-shown ~ .form-label {
+  opacity: 0;
+  visibility: hidden;
   transform: translateY(-5rem);
+}
+
+.text-small:-ms-input-placeholder ~ .form-label {
+  opacity: 0;
+  visibility: hidden;
+  -ms-transform: translateY(-5rem);
+      transform: translateY(-5rem);
 }
 
 .text-small:placeholder-shown ~ .form-label {
   opacity: 0;
   visibility: hidden;
+  -webkit-transform: translateY(-5rem);
+      -ms-transform: translateY(-5rem);
+          transform: translateY(-5rem);
+}
+
+.desc-text-area:-moz-placeholder-shown ~ .form-label {
+  opacity: 0;
+  visibility: hidden;
   transform: translateY(-5rem);
+}
+
+.desc-text-area:-ms-input-placeholder ~ .form-label {
+  opacity: 0;
+  visibility: hidden;
+  -ms-transform: translateY(-5rem);
+      transform: translateY(-5rem);
 }
 
 .desc-text-area:placeholder-shown ~ .form-label {
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-5rem);
+  -webkit-transform: translateY(-5rem);
+      -ms-transform: translateY(-5rem);
+          transform: translateY(-5rem);
 }

@@ -5,7 +5,8 @@
 *::before {
     margin: 0;
     padding: 0;
-    box-sizing: inherit;
+    -webkit-box-sizing: inherit;
+            box-sizing: inherit;
 }
 
 html {
@@ -13,7 +14,8 @@ html {
 }  
   
 body {
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     background-color: $background-color;
 }
 
@@ -40,9 +42,3 @@ body {
         font-size: 42.5%; 
     }
 }
-
-// @media (max-width: 480px) {
-//     html {
-//         font-size: 40%; 
-//     }
-// }

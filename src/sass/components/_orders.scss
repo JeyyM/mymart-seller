@@ -1,312 +1,391 @@
 .heading-icon-ongoing {
-    @include heading-logo(ongoing, 4rem, 4rem);
-    margin-left: 1rem;
-  }
-
-  .heading-icon-ongoing-1 {
-    @include heading-logo(ongoing-1, 4rem, 4rem);
-    margin-left: 1rem;
-  }
-
-  .heading-icon-profile {
-    @include heading-logo(profile, 4rem, 4rem);
-    margin-left: 1rem;
-  }
-
-  .text-sec-profile {
-    @include heading-logo(profile, 3rem, 3rem);
-  }
-
-  .text-sec-mail {
-    @include heading-logo(mail, 3rem, 3rem);
-  }
-
-  .empty-ongoing{
-    @include empty-logo(ongoing, 8rem, 8rem);
-      transform: translateY(-10rem);
-  }
-
-  .empty-ongoing-1{
-    @include empty-logo(ongoing-1, 8rem, 8rem);
-      transform: translateY(-10rem);
-  }
-
-  .empty-receipt{
-    @include empty-logo(receipt, 8rem, 8rem);
-      transform: translateY(-10rem);
-  }
-
-
-  .text-ter-calendar {
-    @include heading-logo(calendar, 2rem, 2rem);
-  }
-
-  .text-ter-shipping {
-    @include heading-logo(shipping, 2rem, 2rem);
-  }
-
-  .text-ter-basket {
-    @include heading-logo(basket, 2rem, 2rem);
-  }
-
-  .order-container {
-    min-height: calc(100vh - $navbar-height);
-    width: 100%;
-    display: flex;
-    gap: 2rem;
-    padding: 1.5rem 2rem 2rem 2rem;
-  }
-
-  .order-container-2 {
-    min-height: calc(100vh - $navbar-height);
-    width: 100%;
-    display: flex;
-    gap: 2rem;
-    padding: 1.5rem 2rem 2rem 2rem;
-  }
-
-  .order-column {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    width: 100%;
-    transition: all 0.2s;
-  }
-
-  .order-button-grid{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 1rem;
-    justify-items: center;
-    align-items: center;
-    width: 100%;
-  }
-
-  .order-button-grid-3{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1rem;
-    justify-items: center;
-    align-items: center;
-    width: 100%;
-  }
-
-  .order-button-grid-2{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    justify-items: center;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .order-item {
-    position: relative;
-    transition: all 0.2s;
-    overflow: hidden;
-    height: min-content;
-    padding: 1rem;
-    width: 47.5vw;
-    margin: 0 auto;
-  }
-  
-  .order-item-2 {
-    position: relative;
-    transition: all 0.2s;
-    overflow: hidden;
-    height: min-content;
-    padding: 1rem;
-    width: 47.5vw;
-    margin: 0 auto;
-  }
-
-  .order-toggle {
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    height: 5rem;
-    width: 5rem;
-    transition: all 0.2s;
-    z-index: 5;
-    border: transparent;
-    background-color: transparent;
-    cursor: pointer;
-  }
-
-  .order-img{
-    width: 8rem;
-    height: 8rem;
-    object-fit: cover;
-  }
-
-  .order-active{
-    height: 2rem;
-    width: 2rem;
-    border-radius: 50%;
-    background-color: lime;
-    border: 2px solid rgba(0, 0, 0, 0.5);
-  }
-
-  .order-inactive{
-    height: 2rem;
-    width: 2rem;
-    border-radius: 50%;
-    background-color: red;
-    border: 2px solid rgba(0, 0, 0, 0.5);
-  }
-
-  .order-missing{
-    height: 2rem;
-    width: 2rem;
-    border-radius: 50%;
-    background-color: gray;
-    border: 2px solid rgba(0, 0, 0);
-  }
-
-  .edit-order-modal {
-    width: clamp(50%, 700px, 90%);
-    height: auto;
-    min-height: 50%;
-    max-height: 75%;
-    margin: auto;
-    margin-top: calc($navbar-height + 1.5rem);
-    padding: 2rem;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    @include border-round;
-    box-shadow: inset 0 0 0 2rem $theme-bg,
-    0 0 0 2px $color-primary-dark, 0 0 0 4px white;
-    transition: all 0.2s;
-    overflow-y: scroll;
-    z-index: -1;
-  }
-
-  .checkout-img{
-    height:7rem;
-    width: 7rem;
+  @include heading-logo(ongoing, 4rem, 4rem);
+  margin-left: 1rem;
 }
 
-  .checkout-row{
-    height: min-content;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    gap: 1rem;
-  }
-
-  .user-data-col {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    width: 100%;
-    transition: all 0.2s;
-  }
-
-  .text-sec-name {
-    @include heading-logo(name, 3rem, 3rem);
-  }
-
-  .text-sec-phone {
-    @include heading-logo(phone, 3rem, 3rem);
-  }
-
-  .text-ter-cake {
-    @include heading-logo(cake, 2rem, 2rem);
-  }
-
-  .text-ter-gender1 {
-    @include heading-logo(gender1, 2rem, 2rem);
-  }
-  .text-ter-gender2 {
-    @include heading-logo(gender2, 2rem, 2rem);
-  }
-  .text-ter-gender3 {
-    @include heading-logo(gender3, 2rem, 2rem);
-  }
-
-  .text-ter-occupation {
-    @include heading-logo(occupation, 2rem, 2rem);
-  }
-
-  .text-ter-company {
-    @include heading-logo(company, 2rem, 2rem);
-  }
-
-  .text-ter-pin {
-    @include heading-logo(pin, 2rem, 2rem);
-  }
-
-  .text-ter-alarm {
-    @include heading-logo(alarm, 2rem, 2rem);
-  }
-
-  .text-ter-finished {
-    @include heading-logo(finished, 2rem, 2rem);
-  }
-
-  .text-ter-refused {
-    @include heading-logo(refused, 2rem, 2rem);
-  }
-
-  .heading-icon-celebration {
-    @include heading-logo(celebration, 4rem, 4rem);
-    margin-left: 1rem;
-  }
-
-  .heading-icon-receipt {
-    @include heading-logo(receipt, 4rem, 4rem);
-    margin-left: 1rem;
-  }
-
-  .finish-coin{
-    height: 20rem;
-    width: 20rem;
-    margin: -4rem auto 1rem;
-    z-index: -1;
+.heading-icon-ongoing-1 {
+  @include heading-logo(ongoing-1, 4rem, 4rem);
+  margin-left: 1rem;
 }
 
-.celeb-modal {
-  width: clamp(20%, 500px, 90%);
+.heading-icon-profile {
+  @include heading-logo(profile, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
+.text-sec-profile {
+  @include heading-logo(profile, 3rem, 3rem);
+}
+
+.text-sec-mail {
+  @include heading-logo(mail, 3rem, 3rem);
+}
+
+.empty-ongoing{
+  @include empty-logo(ongoing, 8rem, 8rem);
+    -webkit-transform: translateY(-10rem);
+        -ms-transform: translateY(-10rem);
+            transform: translateY(-10rem);
+}
+
+.empty-ongoing-1{
+  @include empty-logo(ongoing-1, 8rem, 8rem);
+    -webkit-transform: translateY(-10rem);
+        -ms-transform: translateY(-10rem);
+            transform: translateY(-10rem);
+}
+
+.empty-receipt{
+  @include empty-logo(receipt, 8rem, 8rem);
+    -webkit-transform: translateY(-10rem);
+        -ms-transform: translateY(-10rem);
+            transform: translateY(-10rem);
+}
+
+
+.text-ter-calendar {
+  @include heading-logo(calendar, 2rem, 2rem);
+}
+
+.text-ter-shipping {
+  @include heading-logo(shipping, 2rem, 2rem);
+}
+
+.text-ter-basket {
+  @include heading-logo(basket, 2rem, 2rem);
+}
+
+.order-container {
+  min-height: calc(100vh - $navbar-height);
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem 2rem 2rem 2rem;
+}
+
+.order-container-2 {
+  min-height: calc(100vh - $navbar-height);
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem 2rem 2rem 2rem;
+}
+
+.order-column {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.order-button-grid{
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1rem 1fr 1rem 1fr 1rem 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+  justify-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.order-button-grid-3{
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1rem 1fr 1rem 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  justify-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.order-button-grid-2{
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1rem 1fr;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  justify-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.order-item {
+  position: relative;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+  overflow: hidden;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  padding: 1rem;
+  width: 47.5vw;
+  margin: 0 auto;
+}
+
+.order-item-2 {
+  position: relative;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+  overflow: hidden;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  padding: 1rem;
+  width: 47.5vw;
+  margin: 0 auto;
+}
+
+.order-toggle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  justify-items: center;
+  height: 5rem;
+  width: 5rem;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+  z-index: 5;
+  border: transparent;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.order-img{
+  width: 8rem;
+  height: 8rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.order-active{
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  background-color: lime;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.order-inactive{
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  background-color: red;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.order-missing{
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  background-color: gray;
+  border: 2px solid rgba(0, 0, 0);
+}
+
+.edit-order-modal {
+  width: clamp(50%, 700px, 90%);
   height: auto;
-  min-height: 40%;
+  min-height: 50%;
   max-height: 75%;
   margin: auto;
-  margin-top: calc(10%);
+  margin-top: calc($navbar-height + 1.5rem);
   padding: 2rem;
   border-radius: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   @include border-round;
-  box-shadow: inset 0 0 0 2rem $theme-bg,
+  -webkit-box-shadow: inset 0 0 0 2rem $theme-bg,
   0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+          box-shadow: inset 0 0 0 2rem $theme-bg,
+  0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
+  overflow-y: scroll;
   z-index: -1;
 }
 
+.checkout-img{
+  height:7rem;
+  width: 7rem;
+}
+
+.checkout-row{
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.user-data-col {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.text-sec-name {
+  @include heading-logo(name, 3rem, 3rem);
+}
+
+.text-sec-phone {
+  @include heading-logo(phone, 3rem, 3rem);
+}
+
+.text-ter-cake {
+  @include heading-logo(cake, 2rem, 2rem);
+}
+
+.text-ter-gender1 {
+  @include heading-logo(gender1, 2rem, 2rem);
+}
+.text-ter-gender2 {
+  @include heading-logo(gender2, 2rem, 2rem);
+}
+.text-ter-gender3 {
+  @include heading-logo(gender3, 2rem, 2rem);
+}
+
+.text-ter-occupation {
+  @include heading-logo(occupation, 2rem, 2rem);
+}
+
+.text-ter-company {
+  @include heading-logo(company, 2rem, 2rem);
+}
+
+.text-ter-pin {
+  @include heading-logo(pin, 2rem, 2rem);
+}
+
+.text-ter-alarm {
+  @include heading-logo(alarm, 2rem, 2rem);
+}
+
+.text-ter-finished {
+  @include heading-logo(finished, 2rem, 2rem);
+}
+
+.text-ter-refused {
+  @include heading-logo(refused, 2rem, 2rem);
+}
+
+.heading-icon-celebration {
+  @include heading-logo(celebration, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
+.heading-icon-receipt {
+  @include heading-logo(receipt, 4rem, 4rem);
+  margin-left: 1rem;
+}
+
+.finish-coin{
+  height: 20rem;
+  width: 20rem;
+  margin: -4rem auto 1rem;
+  z-index: -1;
+}
+
+.celeb-modal {
+width: clamp(20%, 500px, 90%);
+height: auto;
+min-height: 40%;
+max-height: 75%;
+margin: auto;
+margin-top: calc(10%);
+padding: 2rem;
+border-radius: 12px;
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+-webkit-box-orient: vertical;
+-webkit-box-direction: normal;
+    -ms-flex-direction: column;
+        flex-direction: column;
+@include border-round;
+-webkit-box-shadow: inset 0 0 0 2rem $theme-bg,
+0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+        box-shadow: inset 0 0 0 2rem $theme-bg,
+0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+-webkit-transition: all 0.2s;
+-o-transition: all 0.2s;
+transition: all 0.2s;
+z-index: -1;
+}
+
 .round-borderer-red{
-  @include border-round;
+@include border-round;
 }
 
 .user-detail-grid{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+display: -ms-grid;
+display: grid;
+-ms-grid-columns: 1fr 1fr;
+grid-template-columns: 1fr 1fr;
 }
 
 .refuse-grid-2{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+display: -ms-grid;
+display: grid;
+-ms-grid-columns: 1fr 1fr;
+grid-template-columns: 1fr 1fr;
 }
 
 .refuse-button{
-  width: 18rem; 
-  margin: 0;
+width: 18rem; 
+margin: 0;
 }
 
 .user-data-button{
-  width: 13rem;
-  margin: 1rem 1rem;
-   height: 4rem;
-  text-decoration: none 
+width: 13rem;
+margin: 1rem 1rem;
+ height: 4rem;
+text-decoration: none 
 }
