@@ -6,16 +6,26 @@ function ViewLine({ views, dateBy }) {
   const daysAgo = moment().subtract(dateBy, 'days');
   const filteredViews = views.filter((view) => moment(view.key).isAfter(daysAgo));
 
-  const viewData = filteredViews.map((view) => {
+  const aggregatedData = {}; 
+  
+  filteredViews.forEach((view) => {
+    const viewDate = moment(view.key).format('YYYY-MM-DD');
     const viewTotal = parseInt(view.count);
-    return {
-      x: moment(view.key),
-      y: viewTotal,
-    };
+    
+    if (aggregatedData[viewDate]) {
+      aggregatedData[viewDate] += viewTotal;
+    } else {
+      aggregatedData[viewDate] = viewTotal;
+    }
   });
 
+  const viewData = Object.keys(aggregatedData).map((date) => ({
+    x: moment(date),
+    y: aggregatedData[date],
+  }));
+
   const chartData = {
-    labels: filteredViews.map((view) => moment(view.key)),
+    labels: viewData.map((data) => data.x),
     datasets: [
       {
         label: 'Views per day',
