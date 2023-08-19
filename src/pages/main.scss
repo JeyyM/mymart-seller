@@ -3,6 +3,9 @@
 @import "../sass/base/mixins.scss";
 @import "../sass/base/typography.scss";
 
+@import "../sass/base/landing-page";
+@import "../sass/base/landing-responsive";
+
 @import "../sass/components/navbar";
 @import "../sass/components/navbar-menu";
 @import "../sass/components/homepage";
@@ -34,6 +37,3 @@
 
 @import "../sass/components/zpolish.scss";
 @import "../sass/components/zresponsive";
-
-@import "../sass/base/landing-page";
-@import "../sass/base/landing-responsive"

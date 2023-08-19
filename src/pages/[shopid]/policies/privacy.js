@@ -6,12 +6,17 @@ import { useRouter } from "next/router";
 import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 import Link from "next/link";
+import pako from "pako";
 
-function Policies(martID) {
+function Policies({ shopID, screenWidth}) {
+
+    const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+    const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+    const final = JSON.parse(decompressedBytes);
+
     const router = useRouter();
-    const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
-    const privacy = martID.shopID.shopData.shopTerms.privacy
-    const {screenWidth} = martID
+    const favicon = final.shopData.shopDetails.imageData.icons.icon;
+    const privacy = final.shopData.shopTerms.privacy
 
     const [markdownContent, setMarkdownContent] = useState(privacy);
 

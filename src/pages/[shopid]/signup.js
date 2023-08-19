@@ -12,10 +12,11 @@ import { Marker } from '@react-google-maps/api';
 import { Autocomplete } from '@react-google-maps/api';
 import { useRouter } from "next/router"
 import sha256 from 'crypto-js/sha256';
+import pako from "pako";
 
 const libraries = ['places'];
 
-function SignUp(martID) {
+function SignUp({shopID}) {
     useEffect(() => {
         if (typeof window !== "undefined") {
           alert(
@@ -24,11 +25,16 @@ function SignUp(martID) {
         }
       }, []);
 
+      
+  const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  const final = JSON.parse(decompressedBytes);
+
     const router = useRouter()
-    const id = martID.shopID._id
-    const localStorageKey = `mart_${martID.shopID._id}`;
-    const defaultColor = martID.shopID.shopData.shopDesigns.defaultMode
-    const {screenWidth} = martID
+    const id = final._id
+    const localStorageKey = `mart_${final._id}`;
+    const defaultColor = final.shopData.shopDesigns.defaultMode
+    const {screenWidth} = final
 
     const [parsedData, setParsedData] = useState([]);
     const [isVisible, setIsVisible] = useState(true);
@@ -68,20 +74,20 @@ function SignUp(martID) {
       }, [localStorageKey]);
 
 
-    const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
+    const favicon = final.shopData.shopDetails.imageData.icons.icon
     const [currentStep, setCurrentStep] = useState(1);
 
-        const accounts = martID.shopID.shopData.shopAccounts
+        const accounts = final.shopData.shopAccounts
 
         let emailList = []
 
     emailList = accounts.map(item => item.email.toUpperCase().trim());
     
-    const shopName = martID.shopID.name
-    const navlogo = martID.shopID.shopData.shopDetails.imageData.icons.logo
+    const shopName = final.name
+    const navlogo = final.shopData.shopDetails.imageData.icons.logo
 
-    const design = martID.shopID.shopData.shopDesigns
-    const colormode = martID.shopID.shopData.shopDesigns.defaultMode
+    const design = final.shopData.shopDesigns
+    const colormode = final.shopData.shopDesigns.defaultMode
 
     const [total, setTotal] = useState(0)
     const [loading, setLoading] = useState(false)
@@ -330,7 +336,7 @@ function SignUp(martID) {
         cvv: true,
     });
 
-    const footerItems = martID.shopID.shopData.shopDetails.footerData
+    const footerItems = final.shopData.shopDetails.footerData
 
     const [locationValidity, setLocationValidity] = useState({
         location: true,
@@ -649,7 +655,7 @@ function SignUp(martID) {
                 totalSpent:0,
             }
 
-            const authKey = `auth_${martID.shopID._id}`;
+            const authKey = `auth_${martID._id}`;
             const authData = {email: email.toLowerCase(), password: hashedPassword}
             localStorage.setItem(authKey, JSON.stringify(authData));
             

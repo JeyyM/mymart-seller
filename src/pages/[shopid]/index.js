@@ -11,13 +11,15 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-import CategoryBuyer from "@/components/category/CategoryBuyer"
 import CategoryProductsBuyer from "@/components/category-products/CategoryProductsBuyer"
+import pako from "pako";
 
 function HomePage({ shopID, screenWidth }) {  
   const router = useRouter();
 
-
+  const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  const final = JSON.parse(decompressedBytes);
   
   // useEffect(() => {
   //   if (typeof window !== "undefined") {
@@ -27,19 +29,19 @@ function HomePage({ shopID, screenWidth }) {
   //   }
   // }, []);
 
-  useEffect(() => {
-    if (!shopID) {
-      router.push(`/${router.query.shopid}/error`);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!shopID) {
+  //     router.push(`/${router.query.shopid}/error`);
+  //   }
+  // }, []);
 
   useEffect(() => {
-    if (shopID){
+    if (final){
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, []);
   
-  const viewsList = shopID && shopID.shopData.shopViews
+  const viewsList = final && final.shopData.shopViews
   
   const slide = {
     hidden: {
@@ -67,9 +69,9 @@ function HomePage({ shopID, screenWidth }) {
 
   const { shopid } = router.query;
 
-  const shopData = shopID && shopID.shopData;
-  const imageData = shopID && shopID.shopData.shopDetails.imageData
-  const favicon = shopID && shopID.shopData.shopDetails.imageData.icons.icon
+  const shopData = final && final.shopData;
+  const imageData = final && final.shopData.shopDetails.imageData
+  const favicon = final && final.shopData.shopDetails.imageData.icons.icon
 
   const categoryData = shopData && shopData.shopCategories
   const shopCurrency = shopData && shopData.shopDetails.paymentData.checkoutInfo.currency
@@ -127,7 +129,7 @@ function HomePage({ shopID, screenWidth }) {
   }
 
   useEffect(() => {
-    if (typeof window !== "undefined" && shopID) {
+    if (typeof window !== "undefined" && final) {
       const currentTime = new Date();
       const storedTime = localStorage.getItem(`${router.query.shopid}_view`);
 
@@ -142,7 +144,7 @@ function HomePage({ shopID, screenWidth }) {
     }
   }, [])
 
-  if (!shopID) {
+  if (!final) {
     return null;
   }
 
@@ -160,9 +162,9 @@ function HomePage({ shopID, screenWidth }) {
 
   return <Fragment>
     <Head>
-      <title>{shopID.name}</title>
+      <title>{final.name}</title>
       <link rel="icon" type="image/jpeg" href={favicon} />
-      <meta name="description" content={shopID.description} />
+      <meta name="description" content={final.description} />
 
     </Head>
     <div className="homepage-container">

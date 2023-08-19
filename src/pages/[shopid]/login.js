@@ -6,8 +6,9 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect} from "react"
 import { useRouter } from "next/router"
 import sha256 from 'crypto-js/sha256';
+import pako from "pako";
 
-function SignUp(martID) {
+function Login({shopID}) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       alert(
@@ -16,10 +17,14 @@ function SignUp(martID) {
     }
   }, []);
 
+  const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  const final = JSON.parse(decompressedBytes);
+
     const router = useRouter()
-    const id = martID.shopID._id
-    const localStorageKey = `mart_${martID.shopID._id}`;
-    const defaultColor = martID.shopID.shopData.shopDesigns.defaultMode
+    const id = final._id
+    const localStorageKey = `mart_${final._id}`;
+    const defaultColor = final.shopData.shopDesigns.defaultMode
 
     const [parsedData, setParsedData] = useState([]);
     const [isVisible, setIsVisible] = useState(true);
@@ -59,17 +64,17 @@ function SignUp(martID) {
       }, [localStorageKey]);
 
 
-    const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
+    const favicon = final.shopData.shopDetails.imageData.icons.icon
     const [currentStep, setCurrentStep] = useState(1);
 
-        const accounts = martID.shopID.shopData.shopAccounts
+        const accounts = final.shopData.shopAccounts
 
         let emailList = []
 
     emailList = accounts.map(item => item.email.toLowerCase().trim());
     
-    const shopName = martID.shopID.name
-    const navlogo = martID.shopID.shopData.shopDetails.imageData.icons.logo
+    const shopName = final.name
+    const navlogo = final.shopData.shopDetails.imageData.icons.logo
 
     const [total, setTotal] = useState(0)
     const [loading, setLoading] = useState(false)
@@ -183,7 +188,7 @@ function SignUp(martID) {
         let result = await passcheck(hashedPassword)
 
         if (result){
-            const authKey = `auth_${martID.shopID._id}`;
+            const authKey = `auth_${final.shopID._id}`;
             const authData = {email: email.toLowerCase(), password: hashedPassword}
             localStorage.setItem(authKey, JSON.stringify(authData));
             localStorage.setItem(localStorageKey, JSON.stringify(result.currentCart));
@@ -279,6 +284,6 @@ function SignUp(martID) {
     );
 }
 
-export default SignUp
+export default Login
 
 export { getServerSideProps }

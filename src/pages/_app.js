@@ -11,42 +11,16 @@ import { MyProvider } from "@/components/store/MyProvider";
 
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-
+import pako from "pako";
 
 export default function App({ Component, pageProps }) {
   const router = useRouter()
   const shopid = router.query.shopid
 
-  const [cartItems, setCartItems] = useState([]);
 
-//     const initializeLocalStorage = (shopId) => {
-//     const localStorageKey = `mart_${shopId}`;
-
-//     let existingCartItems;
-  
-//     if (localStorageKey !== "mart_undefined"){
-
-//     if (typeof window !== 'undefined') {
-//       existingCartItems = localStorage.getItem(localStorageKey);
-//     }
-  
-//     if (!existingCartItems) {
-//       if (typeof window !== 'undefined') {
-//         localStorage.setItem(localStorageKey, JSON.stringify([]));
-//       }
-//     }
-//   };
-
-//   console.log("in initial")
-  
-//   initializeLocalStorage(shopid);
-
-//   useEffect(() => {
-//     const localStorageKey = `mart_${shopid}`;
-//     const existingCartItems = JSON.parse(localStorage.getItem(localStorageKey)) || [];
-//     setCartItems(existingCartItems);
-//   }, [router.query.shopid]);
-// }
+  const compressedBytes = new Uint8Array(atob(pageProps.shopID).split("").map((c) => c.charCodeAt(0)));
+  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  const final = JSON.parse(decompressedBytes);
 
   let data = {}
   let database = {}
@@ -85,20 +59,20 @@ export default function App({ Component, pageProps }) {
   },[])
 
   useEffect(() => {
-    if (pageProps.shopID){
+    if (final){
       setPreferred(chosenAccount ? chosenAccount.preferredColor : database.defaultMode)
     }
   }, [])
 
-  if (pageProps.shopID) {
+  if (final) {
     const authStorageKey = `auth_${shopid}`;
 
-    iconInfo = pageProps.shopID.shopData.shopDetails.imageData.icons
-    database = pageProps.shopID.shopData.shopDesigns
-    details = pageProps.shopID.shopData.shopDetails.footerData
-    martCurrency = pageProps.shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
-    accountsList = pageProps.shopID.shopData.shopAccounts
-    martCategories = pageProps.shopID.shopData.shopCategories
+    iconInfo = final.shopData.shopDetails.imageData.icons
+    database = final.shopData.shopDesigns
+    details = final.shopData.shopDetails.footerData
+    martCurrency = final.shopData.shopDetails.paymentData.checkoutInfo.currency
+    accountsList = final.shopData.shopAccounts
+    martCategories = final.shopData.shopCategories
     
     if (typeof window !== 'undefined') {
       currentAcc = JSON.parse(localStorage.getItem(authStorageKey) || null);
@@ -133,7 +107,7 @@ export default function App({ Component, pageProps }) {
     }
   }
 
-  if (router. asPath === "/" || !pageProps.shopID){
+  if (router.asPath === "/" || !final){
     return <LocalizationProvider dateAdapter={AdapterDayjs}>
     <Component {...pageProps} user={chosenAccount}/>
     </LocalizationProvider>

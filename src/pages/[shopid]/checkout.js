@@ -13,6 +13,7 @@ import FinishCheckout from "@/components/cart/FinishCheckout"
 
 import { MyContext } from "@/components/store/MyProvider"
 import { Link } from "@mui/material"
+import pako from "pako";
 
 const libraries = ['places'];
 
@@ -25,13 +26,17 @@ export default function Checkout({ shopID, user, screenWidth }) {
     }
   }, []);
 
-    const footerItems = shopID.shopData.shopDetails.footerData
-    const favicon = shopID.shopData.shopDetails.imageData.icons.icon
+  const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  const final = JSON.parse(decompressedBytes);
+
+    const footerItems = final.shopData.shopDetails.footerData
+    const favicon = final.shopData.shopDetails.imageData.icons.icon
     const { handleIncrement, state } = useContext(MyContext);
 
-    const shopName = shopID.name
+    const shopName = final.name
 
-    const shopCategories = shopID.shopData.shopCategories
+    const shopCategories = final.shopData.shopCategories
 
     function findItem(category, varName) {
         let chosenCateg = shopCategories.find((categ) => categ.categoryName === category)
@@ -58,7 +63,7 @@ export default function Checkout({ shopID, user, screenWidth }) {
       }
       
 
-    const paymentDetails = shopID.shopData.shopDetails.paymentData
+    const paymentDetails = final.shopData.shopDetails.paymentData
 
     const cardData = paymentDetails.cardInfo
     const checkoutData = paymentDetails.checkoutInfo
@@ -101,9 +106,9 @@ export default function Checkout({ shopID, user, screenWidth }) {
         },
     };
 
-    const imageInfo = shopID.shopData.shopDetails.imageData
+    const imageInfo = final.shopData.shopDetails.imageData
 
-    const id = shopID._id;
+    const id = final._id;
 
     const [formInputValidity, setFormInputValidity] = useState({
         cvv: true,

@@ -77,7 +77,7 @@ function ActiveNotifs(props) {
 
     return (
         <Fragment>
-                        <div className="active-notifs">
+            <div className="active-notifs">
                 <AnimatePresence>
                     {currentNotifs.map((item, index) => (
                         <motion.div
