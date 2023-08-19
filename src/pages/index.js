@@ -6,6 +6,7 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import sha256 from 'crypto-js/sha256';
 import { MongoClient } from "mongodb"
+import pako from "pako";
 
 function Login(props) {
     const router = useRouter()

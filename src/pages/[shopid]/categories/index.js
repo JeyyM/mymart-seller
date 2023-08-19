@@ -8,9 +8,14 @@ import { motion } from "framer-motion";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import pako from "pako";
 
 function CategoryPage({ shopID, screenWidth }) {
   const router = useRouter();
+
+  const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  const final = JSON.parse(decompressedBytes);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -20,7 +25,7 @@ function CategoryPage({ shopID, screenWidth }) {
     }
   }, []);
 
-  const { shopData } = shopID;
+  const { shopData } = final;
   const contents = shopData.shopCategories;
 
   const favicon = shopData.shopDetails.imageData.icons.icon
@@ -28,7 +33,7 @@ function CategoryPage({ shopID, screenWidth }) {
   const categNamesList = Object.keys(contents).map(key => (encodeURIComponent(contents[key].categoryName)))
   const upperCategNames = categNamesList.map(name => name.toUpperCase());
 
-  const categoryAmount = Object.keys(shopID.shopData.shopCategories).length
+  const categoryAmount = Object.keys(final.shopData.shopCategories).length
 
   const [addCateg, setAddCateg] = useState(false)
   const [defaultValues, setDefaultValues] = useState(["", "", "", 0, true])

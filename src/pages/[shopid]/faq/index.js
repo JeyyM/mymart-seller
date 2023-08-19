@@ -6,15 +6,18 @@ import { AnimatePresence, motion } from "framer-motion"
 import FaqModal from "@/components/faq/FaqModal"
 import NewFaq from "@/components/faq/NewFaq"
 import { useRouter } from "next/router"
+import pako from "pako";
 
-function Mart(martID) {
+function Faq({ shopID, screenWidth }) {
+    const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+    const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+    const final = JSON.parse(decompressedBytes);
+
     const router = useRouter()
     const SlideHeight = {
         hidden: { opacity: 1, height: 0 },
         visible: { opacity: 1, height: 'auto' }
     };
-
-    const {screenWidth} = martID
 
     const slide = {
         hidden: {
@@ -39,8 +42,7 @@ function Mart(martID) {
         },
     };
 
-    const id = martID.shopID._id
-    const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
+    const favicon = final.shopData.shopDetails.imageData.icons.icon
 
     const [modal, setModal] = useState(false);
     const handleSetModal = () => {
@@ -64,8 +66,8 @@ function Mart(martID) {
         handleNewItem()
     }
 
-    const [answers, setAnswers] = useState(martID.shopID.shopData.shopFaq.answers)
-    const [questions, setQuestions] = useState(martID.shopID.shopData.shopFaq.questions)
+    const [answers, setAnswers] = useState(final.shopData.shopFaq.answers)
+    const [questions, setQuestions] = useState(final.shopData.shopFaq.questions)
 
     function changeReq(list) {
         setQuestions(list)
@@ -232,6 +234,6 @@ function Mart(martID) {
     </Fragment>
 }
 
-export default Mart
+export default Faq
 
 export { getServerSideProps }

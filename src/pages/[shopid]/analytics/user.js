@@ -7,22 +7,25 @@ import seedrandom from 'seedrandom';
 import ShowUser from '@/components/Analytics/ShowUser';
 import ViewLine from '@/components/Analytics/ViewLine';
 import UserLine from '@/components/Analytics/UserLine';
+import pako from "pako";
 
 const DynamicUserMap = dynamic(() => import('../../../components/Analytics/UserMap'), {
   ssr: false,
 });
 
-function Analytics(martID) {
-  const {screenWidth} = martID
+function Analytics({ shopID, screenWidth }) {
+  const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  const final = JSON.parse(decompressedBytes);
 
-  const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
-  const shopCurrency = martID.shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
-  const shopAccounts = martID.shopID.shopData.shopAccounts
-  const shopCenter = martID.shopID.shopData.shopDetails.footerData.shopCoords
-  const shopViews = martID.shopID.shopData.shopViews
+  const favicon = final.shopData.shopDetails.imageData.icons.icon;
+  const shopCurrency = final.shopData.shopDetails.paymentData.checkoutInfo.currency
+  const shopAccounts = final.shopData.shopAccounts
+  const shopCenter = final.shopData.shopDetails.footerData.shopCoords
+  const shopViews = final.shopData.shopViews
   const currentTime = new Date();
 
-  const filteredOrders = martID.shopID.shopData.shopSales.finishedOrders.filter((order) => order.status === 'finished');
+  const filteredOrders = final.shopData.shopSales.finishedOrders.filter((order) => order.status === 'finished');
 
   const [selectedUser, setSelectedUser] = useState(null);
   const [SetUser, setUserModal] = useState(false);

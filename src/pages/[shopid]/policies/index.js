@@ -7,12 +7,17 @@ import ReactMarkdown from "react-markdown";
 import gfm from "remark-gfm";
 import MdSample from "@/components/terms/MdSample";
 import Link from "next/link";
+import pako from "pako";
 
-function Policies(martID) {
+function Policies({ shopID, screenWidth }) {
+
+    const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+    const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+    const final = JSON.parse(decompressedBytes);
+
     const router = useRouter();
-    const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
-    const terms = martID.shopID.shopData.shopTerms.terms
-    const { screenWidth } = martID
+    const favicon = final.shopData.shopDetails.imageData.icons.icon;
+    const terms = final.shopData.shopTerms.terms
 
     const [markdownContent, setMarkdownContent] = useState(terms);
     const [hidden, setHidden] = useState(false);

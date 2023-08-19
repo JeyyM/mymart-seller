@@ -7,11 +7,16 @@ import Confirmer2 from "@/components/Modal/Confirmer2";
 import AddTags from "@/components/Modal/Add-Tags";
 import { getServerSideProps } from "..";
 import Head from "next/head";
+import pako from "pako";
 
 function ProductPage({ shopID, screenWidth }) {
+  const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  const final = JSON.parse(decompressedBytes);
+
   const router = useRouter()
-  const shopCurrency = shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
-  const favicon = shopID.shopData.shopDetails.imageData.icons.icon
+  const shopCurrency = final.shopData.shopDetails.paymentData.checkoutInfo.currency
+  const favicon = final.shopData.shopDetails.imageData.icons.icon
 
   function waitSeconds() {
     return new Promise(resolve => setTimeout(resolve, 2500));
@@ -24,7 +29,7 @@ function ProductPage({ shopID, screenWidth }) {
   const queryProduct = router.query.productname
   const queryCategory = router.query.categoryname
 
-  const allCategories = shopID.shopData.shopCategories
+  const allCategories = final.shopData.shopCategories
   const chosenCategory = allCategories.filter((value) => value.categoryName === queryCategory);
   const [varState, setVarState] = useState(0)
   const [imgState, setImgState] = useState(0)

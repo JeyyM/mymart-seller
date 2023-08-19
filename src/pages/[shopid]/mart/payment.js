@@ -5,14 +5,17 @@ import { useState } from 'react';
 import { useRouter } from "next/router";
 
 import { motion, AnimatePresence } from "framer-motion"
+import pako from "pako";
 
-function Payment(martID) {
-    const id = martID.shopID._id
+function Payment({ shopID, screenWidth }) {
+    const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+    const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+    const final = JSON.parse(decompressedBytes);
+
     const router = useRouter()
-    const {screenWidth} = martID
 
-    const paymentDetails = martID.shopID.shopData.shopDetails.paymentData
-    const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
+    const paymentDetails = final.shopData.shopDetails.paymentData
+    const favicon = final.shopData.shopDetails.imageData.icons.icon
     const cardData = paymentDetails.cardInfo
     const checkoutData = paymentDetails.checkoutInfo
     const addsData = paymentDetails.Adds

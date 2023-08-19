@@ -4,12 +4,16 @@ import { getServerSideProps } from "../categories"
 import Link from "next/link"
 import AdminData from "@/components/Mart/AdminData"
 import { useRouter } from "next/router"
+import pako from "pako";
 
-function Mart(martID) {
+function Mart({ shopID, screenWidth }) {
+    const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+    const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+    const final = JSON.parse(decompressedBytes);
+
     const router = useRouter()
-    const id = martID.shopID._id
-    const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
-    const {screenWidth} = martID
+    const id = final._id
+    const favicon = final.shopData.shopDetails.imageData.icons.icon
 
     const [settings, setSettings] = useState(false)
     function handleSettings(){
@@ -18,10 +22,10 @@ function Mart(martID) {
 
     let chosenMode = {}
 
-    if (martID.shopID.shopData.shopDesigns.defaultMode === true) {
-        chosenMode = martID.shopID.shopData.shopDesigns.lightDesign
-    } else if (martID.shopID.shopData.shopDesigns.defaultMode === false) {
-        chosenMode = martID.shopID.shopData.shopDesigns.darkDesign
+    if (final.shopData.shopDesigns.defaultMode === true) {
+        chosenMode = final.shopData.shopDesigns.lightDesign
+    } else if (final.shopData.shopDesigns.defaultMode === false) {
+        chosenMode = final.shopData.shopDesigns.darkDesign
     }
 
     async function submitChanges(formdata) {
@@ -43,7 +47,7 @@ function Mart(martID) {
             <link rel="icon" type="image/jpeg" href={favicon} />
         </Head>
 
-        <AdminData modalStatus={settings} disable={handleSettings} name={martID.shopID.name} email={martID.shopID.email} description={martID.shopID.description} data={martID.shopID.adminData} chosenMode={chosenMode} screenWidth={screenWidth} finish={submitChanges}></AdminData>
+        <AdminData modalStatus={settings} disable={handleSettings} name={final.name} email={final.email} description={final.description} data={final.adminData} chosenMode={chosenMode} screenWidth={screenWidth} finish={submitChanges}></AdminData>
 
         <span className="page-heading">
             <div className="heading-icon-dropshadow">

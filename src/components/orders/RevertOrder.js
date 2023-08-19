@@ -75,6 +75,8 @@ function EditOrder(props) {
 
     const [selectedCateg, setSelectedCateg] = useState(props.categories[0].categoryName)
 
+    let variationList
+
     useEffect(() => {
         categoryFinder = props.categories.filter((categ) => categ.categoryName === selectedCateg)
         categoryProducts = categoryFinder[0].categoryProducts

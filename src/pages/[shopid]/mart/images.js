@@ -5,9 +5,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import PopModal from "@/components/Mart/PopModal";
 import BannerCarousel from "@/components/Mart/BannerCarousel";
+import pako from "pako";
 
-function Images(martID) {
-    const { screenWidth } = martID
+function Images({ shopID, screenWidth }) {
+    const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+    const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+    const final = JSON.parse(decompressedBytes);
+    
     const router = useRouter();
     const slide = {
         hidden: {
@@ -37,7 +41,7 @@ function Images(martID) {
         return word.startsWith("https://i.imgur.com/") || word.startsWith("https://picsum.photos/");
     }
 
-    const imageInfo = martID.shopID.shopData.shopDetails.imageData
+    const imageInfo = final.shopData.shopDetails.imageData
 
     const [favicon, setFavicon] = useState(imageInfo.icons.icon);
     const handleFaviconChange = (event) => {

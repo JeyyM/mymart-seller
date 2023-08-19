@@ -9,13 +9,17 @@ import { motion } from "framer-motion";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
+import pako from "pako";
 
 function ProductsPage({ shopID, screenWidth }) {
+  const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  const final = JSON.parse(decompressedBytes);
+
   const router = useRouter()
   const queryCategoryName = router.query.categoryname
 
-  const { shopData } = shopID;
+  const { shopData } = final;
 
   const favicon = shopData.shopDetails.imageData.icons.icon
 

@@ -8,11 +8,16 @@ import ModalCarousel from "../../../components/Modal/ModalCarousel";
 import chroma from 'chroma-js';
 import Palette from "@/components/design/Palette";
 import AboutPreview from "@/components/Mart/AboutPreview";
+import pako from "pako";
 
 function About({ shopID, screenWidth }) {
-  const startingInfo = shopID.shopData.shopDetails.aboutData
-  const rowInfo = shopID.shopData.shopDetails.aboutData.rows
-  const favicon = shopID.shopData.shopDetails.imageData.icons.icon
+  const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  const final = JSON.parse(decompressedBytes);
+
+  const startingInfo = final.shopData.shopDetails.aboutData
+  const rowInfo = final.shopData.shopDetails.aboutData.rows
+  const favicon = final.shopData.shopDetails.imageData.icons.icon
 
   function startsImgur(word) {
     if (word) { return word.startsWith("https://i.imgur.com/") || word.startsWith("https://picsum.photos/"); }

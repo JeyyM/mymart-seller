@@ -10,13 +10,17 @@ import { useRouter } from "next/router"
 import { GoogleMap, useLoadScript } from '@react-google-maps/api';
 import { Marker } from '@react-google-maps/api';
 import { Autocomplete } from '@react-google-maps/api';
+import pako from "pako";
 
 const libraries = ['places'];
 
-export default function Details(martID) {
-  const footerItems = martID.shopID.shopData.shopDetails.footerData
-  const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
-  const { screenWidth } = martID
+export default function Details({ shopID, screenWidth }) {
+  const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  const final = JSON.parse(decompressedBytes);
+
+  const footerItems = final.shopData.shopDetails.footerData
+  const favicon = final.shopData.shopDetails.imageData.icons.icon
 
   const router = useRouter()
 

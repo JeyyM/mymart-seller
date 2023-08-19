@@ -1,14 +1,8 @@
-import { Fragment, useState } from "react"
+import { Fragment } from "react"
 import Head from "next/head"
 import Link from "next/link"
-import { useRouter } from "next/router"
 
-function ErrorPage() {
-    const router = useRouter()
-    function redirect(){
-        router.push("/error");
-    }
-
+function ErrorPage() {    
     return <Fragment>
         <Head>
         <link rel="icon" type="image/jpeg" href="/light.png" />

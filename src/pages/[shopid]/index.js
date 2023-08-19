@@ -5,10 +5,15 @@ import HomepageLater from "@/components/homepage/HomapageLater"
 import { useRouter } from "next/router"
 import Head from "next/head"
 import { getServerSideProps } from "@/utilities/serversideProps"
+import pako from "pako";
 
 function HomePage({ shopID, screenWidth }){
     const [loading, setLoading] = useState(true);
     const router = useRouter();
+
+    const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+    const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+    const final = JSON.parse(decompressedBytes);
 
     useEffect(() => {
       if (typeof window !== "undefined") {
@@ -19,7 +24,7 @@ function HomePage({ shopID, screenWidth }){
     }, []);
   
     const redirectToErrorPage = () => {
-      if (!shopID) {
+      if (!final) {
         router.push("/error");
       }
       setLoading(false);
@@ -27,18 +32,18 @@ function HomePage({ shopID, screenWidth }){
   
     useEffect(() => {
       redirectToErrorPage();
-    }, [shopID]);
+    }, [final]);
   
     if (loading) {
       return <p></p>;
     }
   
-    if (!shopID) {
+    if (!final) {
       return null;
     }
 
-    const shopData = shopID.shopData;
-    const favicon = shopID.shopData.shopDetails.imageData.icons.icon
+    const shopData = final.shopData;
+    const favicon = final.shopData.shopDetails.imageData.icons.icon
 
     let mode = ""
     if (shopData.shopDesigns.defaultMode){mode = "/light"} else {

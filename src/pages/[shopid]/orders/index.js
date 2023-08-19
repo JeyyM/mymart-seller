@@ -11,11 +11,15 @@ import RefuseOrder from "@/components/orders/RefuseOrder";
 import AcceptOrder from "@/components/orders/AcceptOrder";
 
 import OrderItem from "@/components/orders/OrderItem";
+import pako from "pako";
 
 function Orders({ shopID, screenWidth }) {
     const router = useRouter();
+    const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+    const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+    const final = JSON.parse(decompressedBytes);
 
-    const { shopData } = shopID;
+    const { shopData } = final;
     const currency = shopData.shopDetails.paymentData.checkoutInfo.currency
     const contents = shopData.shopSales.activeOrders;
     const usersList = shopData.shopAccounts

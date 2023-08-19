@@ -18,17 +18,21 @@ import ThemePack2 from "@/components/design/ThemePack2";
 import FontOptions from "@/components/design/FontOptions";
 
 import tinycolor from 'tinycolor2';
-
+import pako from "pako";
 
 function Designing({ shopID, screenWidth }) {
+  const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  const final = JSON.parse(decompressedBytes);
+
   const router = useRouter()
-  const designs = shopID.shopData.shopDesigns
-  const favicon = shopID.shopData.shopDetails.imageData.icons.icon
+  const designs = final.shopData.shopDesigns
+  const favicon = final.shopData.shopDetails.imageData.icons.icon
 
   const [loading, setLoading] = useState(false)
   const [completion, setCompletion] = useState(false)
 
-  const shopCurrency = shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
+  const shopCurrency = final.shopData.shopDetails.paymentData.checkoutInfo.currency
 
   function waitSeconds() {
     return new Promise(resolve => setTimeout(resolve, 2500));

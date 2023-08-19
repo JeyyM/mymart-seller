@@ -10,15 +10,20 @@ import RevertOrder from "@/components/orders/RevertOrder";
 import UserProfile from "@/components/orders/UserProfile";
 import FinishOrder from "@/components/orders/FinishOrder";
 import Celebration from "@/components/orders/Celebration";
+import pako from "pako";
 
 function Orders({ shopID, screenWidth }) {
+    const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+    const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+    const final = JSON.parse(decompressedBytes);
+
     const router = useRouter();
     const SlideHeight = {
         hidden: { opacity: 1, height: 0 },
         visible: { opacity: 1, height: 'auto' }
     };
 
-    const { shopData } = shopID;
+    const { shopData } = final;
     const currency = shopData.shopDetails.paymentData.checkoutInfo.currency
     let contents = shopData.shopSales.activeOrders.filter((order) => order.status === "accepted")
     const usersList = shopData.shopAccounts

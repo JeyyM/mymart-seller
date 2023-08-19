@@ -9,6 +9,7 @@ import ProductBar from '@/components/Analytics/ProductBar';
 import FulfillmentLine from '@/components/Analytics/FulfillmentLine';
 import FulfillmentPie from '@/components/Analytics/FulfillmentPie';
 // import ModalCategory from '@/components/Analytics/ModalCategory';
+import pako from "pako";
 
 const DynamicLineChart = dynamic(() => import('../../../components/Analytics/DayLine'), {
   ssr: false,
@@ -18,12 +19,15 @@ const DynamicCategoriesLine = dynamic(() => import('../../../components/Analytic
   ssr: false,
 });
 
-function Sales(martID) {
-  const {screenWidth} = martID
-  const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
-  const shopCurrency = martID.shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
+function Sales({ shopID, screenWidth }) {
+  const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  const final = JSON.parse(decompressedBytes);
+
+  const favicon = final.shopData.shopDetails.imageData.icons.icon;
+  const shopCurrency = final.shopData.shopDetails.paymentData.checkoutInfo.currency
   const currentTime = new Date();
-  const filteredOrders = martID.shopID.shopData.shopSales.finishedOrders.filter((order) => order.status === 'finished');
+  const filteredOrders = final.shopData.shopSales.finishedOrders.filter((order) => order.status === 'finished');
 
   function nameSetup(name, maxLength) {
     if (name.length <= maxLength) {
@@ -41,7 +45,7 @@ function removeSpecialCharacters(inputString) {
   return inputString.replace(specialCharactersRegex, '');
 }
     
-  const csvData = martID.shopID.shopData.shopSales.finishedOrders.flatMap(item =>
+  const csvData = final.shopData.shopSales.finishedOrders.flatMap(item =>
     item.order.map(orderItem => ({
       "Order ID": "'" + item.id,
       "Start Date": item.currentTime,

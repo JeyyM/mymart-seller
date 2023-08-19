@@ -10,15 +10,17 @@ import FinishOrder from "@/components/orders/FinishOrder";
 import Celebration from "@/components/orders/Celebration";
 
 import OrderItem2 from "@/components/orders/OrderItem-2";
+import pako from "pako";
 
 function Records({ shopID, screenWidth }) {
     const router = useRouter();
-    const SlideHeight = {
-        hidden: { opacity: 1, height: 0 },
-        visible: { opacity: 1, height: 'auto' }
-    };
 
-    const { shopData } = shopID;
+    const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+    const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+    const final = JSON.parse(decompressedBytes);
+
+    const { shopData } = final;
+
     const currency = shopData.shopDetails.paymentData.checkoutInfo.currency
     let contents = shopData.shopSales.finishedOrders.slice().reverse();
     const usersList = shopData.shopAccounts
@@ -27,8 +29,6 @@ function Records({ shopID, screenWidth }) {
     function findUser(email) { return usersList.find((user) => user.email === email) }
 
     const [activeOrders, setActiveOrders] = useState(contents)
-
-    console.log(contents)
 
     const [shopCategories, setShopCategories] = useState(shopData.shopCategories)
 
@@ -48,11 +48,6 @@ function Records({ shopID, screenWidth }) {
 
     const [SetEdit, setSetEdit] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState(null);
-
-    const handleSetEdit = (order) => {
-        setSelectedOrder(order);
-        setSetEdit(!SetEdit);
-    };
 
     const editClose = () => {
         setSetEdit(!SetEdit);
@@ -86,18 +81,6 @@ function Records({ shopID, screenWidth }) {
     const [celebration, setCelebration] = useState(false)
     const celebrationClose = () => {
         setCelebration(!celebration);
-    }
-
-    const [accept, setAcceptModal] = useState(false);
-    const handleSetAccept = (order) => {
-        setSelectedOrder(order);
-        let chosenUser = findUser(order.user.email)
-        setSelectedUser(chosenUser);
-        setAcceptModal(!refuse);
-    };
-
-    const acceptClose = () => {
-        setAcceptModal(!accept);
     }
 
     function sorter() {
@@ -255,8 +238,6 @@ function Records({ shopID, screenWidth }) {
         await finishApi(selectedOrder)
         celebrationClose()
     }
-
-    const [buttonMode, setButtonMode] = useState(false)
 
     if (contents.length > 0) {
         return (
