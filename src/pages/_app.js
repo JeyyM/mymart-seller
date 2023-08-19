@@ -2,8 +2,11 @@ import "./main.scss";
 import NavbarLayout from "@/components/navbar/Navbar-Layout";
 import { useRouter } from "next/router";
 import { getServerSideProps } from "../utilities/serversideProps";
-import {useEffect} from "react";
-import { useState } from "react";
+import { createContext, useEffect, useContext, useRef } from "react";
+import { useState, useReducer } from "react";
+import store from "@/components/store/store";
+import { Provider } from "react-redux";
+import Cart from "@/components/cart/Cart";
 import { MyProvider } from "@/components/store/MyProvider";
 
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -13,19 +16,16 @@ import pako from "pako";
 export default function App({ Component, pageProps }) {
   const router = useRouter()
   const shopid = router.query.shopid
-  const [preferred, setPreferred] = useState(true)
 
-  if (!pageProps.shopID) {
-    return (
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Component {...pageProps} />
-      </LocalizationProvider>
-    );
+  let compressedBytes
+  let decompressedBytes
+  let final
+  
+  if (pageProps.shopID){
+    compressedBytes = new Uint8Array(atob(pageProps.shopID).split("").map((c) => c.charCodeAt(0)));
+    decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+    final = JSON.parse(decompressedBytes);
   }
-
-  const compressedBytes = new Uint8Array(atob(pageProps.shopID).split("").map((c) => c.charCodeAt(0)));
-  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
-  const final = JSON.parse(decompressedBytes);
 
   let data = {}
   let database = {}
@@ -51,6 +51,7 @@ export default function App({ Component, pageProps }) {
 
   }
 
+  const [preferred, setPreferred] = useState(true)
   async function handlePreferred(){
     setPreferred(!preferred)
     await colorApi(!preferred)
