@@ -1,5 +1,7 @@
 .images-container {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   gap: 2rem;
   padding: 2rem;
@@ -9,10 +11,15 @@
   @include border-round;
   border: solid 5px transparent;
   position: relative;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
   padding: 1rem;
-  box-shadow: inset 0 0 0 2rem $theme-bg;
+  -webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
+          box-shadow: inset 0 0 0 2rem $theme-bg;
   overflow: hidden;
+  height: -webkit-min-content;
+  height: -moz-min-content;
   height: min-content;
 }
 
@@ -47,6 +54,8 @@
 .notif-close-button {
   background-color: transparent;
   border: none;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
@@ -55,7 +64,8 @@
 }
 
 .notif-close-button:hover {
-  filter: brightness(120%);
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
 }
 
 .top-notif {
@@ -64,22 +74,38 @@
   background-color: white;
   margin: 1rem auto 0;
   padding: 1.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  filter: drop-shadow(-1px 2px 2px rgba(0, 0, 0, 0.2));
-  align-items: center;
-  justify-content: space-between;
+  -webkit-filter: drop-shadow(-1px 2px 2px rgba(0, 0, 0, 0.2));
+          filter: drop-shadow(-1px 2px 2px rgba(0, 0, 0, 0.2));
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .active-notifs {
   z-index: 5;
   width: 100%;
+  height: -webkit-min-content;
+  height: -moz-min-content;
   height: min-content;
   position: absolute;
   top: 0;
   margin-top: calc($navbar-height);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .pop-up-container {
@@ -93,8 +119,11 @@
   width: 100%;
   @include border-round;
 
-  object-fit: cover;
-  object-position: center;
+  -o-object-fit: cover;
+
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
 }
 
 .pop-up-img {
@@ -103,8 +132,10 @@
   width: clamp(40%, 700px, 90%);  
   max-height: 75%;
   @include border-round;
-  object-fit: cover;
-  object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
 }
 
 .banner-carousel{
@@ -112,26 +143,38 @@
   width: 100%;
   margin: 0 auto;
   margin-bottom: 2rem;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
 .banner-item{
   height: 40vh;
   width: 50rem;
-  object-fit: cover;
-  object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
   margin: 0 auto;
   position: relative;
   z-index: 1;
-  transform: scale(0.8);
+  -webkit-transform: scale(0.8);
+      -ms-transform: scale(0.8);
+          transform: scale(0.8);
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
-  filter: brightness(50%);
+  -webkit-filter: brightness(50%);
+          filter: brightness(50%);
 }
 
 .banner-item.active{
-  transform: scale(1);
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
   width: 50rem;
-  filter: brightness(100%);
+  -webkit-filter: brightness(100%);
+          filter: brightness(100%);
   z-index: 3;
   cursor: pointer;
 }
@@ -140,18 +183,21 @@
   @include border-round;
   height: 20rem;
   width: 4rem;
-  // border-radius: 50%;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
   outline: $color-primary-dark;
   cursor: pointer;
 }
 
 .car-button:hover {
-  filter: brightness(120%);
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
 }
 
 .car-button:active {
-  filter: brightness(120%);
-  box-shadow: inset 0 0 0 10px white, 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
+  -webkit-box-shadow: inset 0 0 0 10px white, 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+          box-shadow: inset 0 0 0 10px white, 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
 }
-

@@ -1,19 +1,31 @@
 .design-grid {
   width: 100%;
+  height: -webkit-min-content;
+  height: -moz-min-content;
   height: min-content;
   background-color: transparent;
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: repeat(14, 1fr);
   grid-template-columns: repeat(14, 1fr);
   padding-bottom: 2rem;
 }
+
 
 .design-col-1 {
   width: 100%;
   height: 100%;
   background-color: transparent;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 3;
   grid-column: 1/4;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 1rem;
   gap: 1rem;
 }
@@ -22,9 +34,16 @@
   width: 100%;
   height: 100%;
   background-color: transparent;
+  -ms-grid-column: 4;
+  -ms-grid-column-span: 3;
   grid-column: 4/7;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 1rem;
   gap: 1rem;
 }
@@ -33,9 +52,16 @@
   width: 100%;
   height: 100%;
   background-color: transparent;
+  -ms-grid-column: 7;
+  -ms-grid-column-span: 4;
   grid-column: 7/11;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 1rem;
   gap: 1rem;
 }
@@ -44,9 +70,16 @@
   width: 100%;
   height: 100%;
   background-color: transparent;
+  -ms-grid-column: 11;
+  -ms-grid-column-span: 4;
   grid-column: 11/15;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   padding: 1rem;
   gap: 1rem;
 }
@@ -73,12 +106,17 @@
   background-color: white;
   padding: 1rem;
   cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
 .theme-pack:active {
-  transform: translateY(0rem) translateX(0rem);
-  filter: drop-shadow(-1px 1px 0px $color-primary-dark) brightness(120%) drop-shadow(0px 0px 10px $color-primary-light);}
+  -webkit-transform: translateY(0rem) translateX(0rem);
+      -ms-transform: translateY(0rem) translateX(0rem);
+          transform: translateY(0rem) translateX(0rem);
+  -webkit-filter: drop-shadow(-1px 1px 0px $color-primary-dark) brightness(120%) drop-shadow(0px 0px 10px $color-primary-light);
+          filter: drop-shadow(-1px 1px 0px $color-primary-dark) brightness(120%) drop-shadow(0px 0px 10px $color-primary-light);}
 
 .theme-pack:active {
   background-color: white;
@@ -86,10 +124,16 @@
 
 .theme-pack-colors {
   padding-top: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   gap: 1rem;
-  justify-content: space-around;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 .design-primary {
@@ -108,8 +152,13 @@
   height: 45rem;
   width: 100%;
   background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .demo-typography {
@@ -122,9 +171,12 @@
   @include border-round;
   border: solid 5px transparent;
   position: relative;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
   padding: 1rem;
-  box-shadow: inset 0 0 0 2rem $theme-bg;
+  -webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
+          box-shadow: inset 0 0 0 2rem $theme-bg;
   overflow: hidden;
 }
 
@@ -132,9 +184,12 @@
   @include border-round;
   border: solid 5px transparent;
   position: relative;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
   padding: 1rem;
-  box-shadow: inset 0 0 0 2rem $background-color;
+  -webkit-box-shadow: inset 0 0 0 2rem $background-color;
+          box-shadow: inset 0 0 0 2rem $background-color;
 }
 
 .theme-button {
@@ -144,24 +199,41 @@
   @include border-round;
   border-radius: 50%;
   cursor: pointer;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($theme-bg), to($theme-bg)),
+    -webkit-gradient(linear, left top, right top, from($color-primary-dark), to($color-primary-light));
+  background-image: -o-linear-gradient($theme-bg, $theme-bg),
+    -o-linear-gradient(left, $color-primary-dark, $color-primary-light);
   background-image: linear-gradient($theme-bg, $theme-bg),
     linear-gradient(to right, $color-primary-dark, $color-primary-light);
   margin: 0.5rem auto;
   display: block;
-  filter: drop-shadow(-2px 2px 0px #0057ff);
+  -webkit-filter: drop-shadow(-2px 2px 0px #0057ff);
+          filter: drop-shadow(-2px 2px 0px #0057ff);
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .theme-button:hover {
-  transform: translateY(-0.3rem) translateX(0.5rem);
-  filter: drop-shadow(-4px 4px 0px #0057ff) brightness(110%);
+  -webkit-transform: translateY(-0.3rem) translateX(0.5rem);
+      -ms-transform: translateY(-0.3rem) translateX(0.5rem);
+          transform: translateY(-0.3rem) translateX(0.5rem);
+  -webkit-filter: drop-shadow(-4px 4px 0px #0057ff) brightness(110%);
+          filter: drop-shadow(-4px 4px 0px #0057ff) brightness(110%);
 }
 
 .theme-button:active {
-  transform: translateY(0rem) translateX(0rem);
-  filter: drop-shadow(-1px 1px 0px #89375f);
+  -webkit-transform: translateY(0rem) translateX(0rem);
+      -ms-transform: translateY(0rem) translateX(0rem);
+          transform: translateY(0rem) translateX(0rem);
+  -webkit-filter: drop-shadow(-1px 1px 0px #89375f);
+          filter: drop-shadow(-1px 1px 0px #89375f);
 }
 
 .button-theme-sun {
@@ -183,24 +255,32 @@
 }
 
 .text-group {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 2rem 1fr;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
 }
 
 .text-group-3 {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 2rem 1fr 2rem 1fr;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 2rem;
 }
 
 .text-group-4 {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 2rem 1fr 2rem 1fr 2rem 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 2rem;
 }
 
 .text-span {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
   grid-column: 1/3;
 }
 
@@ -228,13 +308,23 @@
   border-top: solid 6px transparent;
   border-radius: 0rem;
   position: relative;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
-  box-shadow: inset 0 0 0 2rem $theme-bg;
+  -webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
+          box-shadow: inset 0 0 0 2rem $theme-bg;
   overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .item-setup-2-b {
@@ -243,12 +333,22 @@
   border-top: solid 6px transparent;
   border-radius: 0rem;
   position: relative;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
-  box-shadow: inset 0 0 0 2rem $theme-bg;
+  -webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
+          box-shadow: inset 0 0 0 2rem $theme-bg;
   overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .contrast-init {
@@ -257,16 +357,24 @@
   width: 7rem;
   margin-left: 1rem;
   border-radius: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   cursor: pointer;
 }
 
 .text-options {
   @include text-input-small;
   z-index: 5;
-  appearance: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
 }
 
 .text-options {
@@ -295,7 +403,9 @@
 
 .heading-tertiary-demo {
   line-height: 1;
-  transform: translateY(-0.2rem);
+  -webkit-transform: translateY(-0.2rem);
+      -ms-transform: translateY(-0.2rem);
+          transform: translateY(-0.2rem);
   margin-top: 0px;
   font-size: 2rem;
   font-weight: 500;
@@ -314,14 +424,20 @@
   margin-bottom: 3rem;
   font-size: 2.5rem;
   padding: 1rem;
-  box-shadow: inset 0 0 0 1rem $theme-bg;
+  -webkit-box-shadow: inset 0 0 0 1rem $theme-bg;
+          box-shadow: inset 0 0 0 1rem $theme-bg;
   cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
 .product-action-1-demo:active {
-  filter: brightness(120%);
-  box-shadow: inset 0 0 0 10px $theme-bg, 0 0 0 2px $color-primary-dark,
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
+  -webkit-box-shadow: inset 0 0 0 10px $theme-bg, 0 0 0 2px $color-primary-dark,
+    0 0 0 4px white;
+          box-shadow: inset 0 0 0 10px $theme-bg, 0 0 0 2px $color-primary-dark,
     0 0 0 4px white;
 }
 
@@ -334,24 +450,33 @@
   width: calc(100vw / 4 - 3rem);
   word-wrap: break-word;
   z-index: 5;
-  align-self: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
   border-radius: 0rem;
 
   @include border-round;
   position: relative;
   justify-items: center;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
 .heading-icon-dropshadow-demo {
-  background-clip: text;
+  -webkit-background-clip: text;
+          background-clip: text;
 }
 
 .image-container-demo {
   position: relative;
   width: 100%;
   height: 40%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   @include border;
   display: flex;
@@ -360,10 +485,19 @@
 
 .category-content-demo{
   padding: 0.5rem 1rem 1rem 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   height:60%;
   z-index: 5;
   background-color: $theme-bg;
@@ -387,20 +521,17 @@
   margin: 0 auto;
 }
 
-// .category-sample-hover{
-//   transform: translateY(-0.6rem) translateX(1rem) !important;
-//   filter: drop-shadow(-6px 6px 0px green);}
-
-// .homepage-button:active.x, .category:active, .category-sample:active, .theme-pack:active{
-//   transform: translateY(0rem) translateX(0rem) !important;
-//   filter: drop-shadow(-1px 1px 0px ${props.color["color-primary-dark"]}) brightness(120%) drop-shadow(0px 0px 10px ${props.color["bg-item"]}) !important;}
-
 .design-prev-set{
   position: fixed;
   bottom: 0;
   right: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   margin-right: 1rem;
   z-index: 99;
 
@@ -418,6 +549,8 @@
   width: auto;
   height: auto;
   margin-top: 10rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -425,6 +558,8 @@
   width: auto;
   height: auto;
   margin-top: 10rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -437,14 +572,21 @@
 }
 
 .palette-modal{
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   gap: 1rem;
   width: auto;
 }
 
 .palette-flex-component{
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   gap: 1rem;
   width: 25vw;
   margin: 0 auto
@@ -466,21 +608,29 @@
   width: 5.5rem;
   @include border-round;
   border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  // justify-content: center;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   cursor: cell;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
   z-index: 10;
 }
 
 .categ-edit-button-prev:hover{
-  filter: brightness(120%);
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
 }
 
 .categ-edit-button-prev:active{
-  filter: brightness(120%);
-  box-shadow: inset 0 0 0 10px white, 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
+  -webkit-box-shadow: inset 0 0 0 10px white, 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+          box-shadow: inset 0 0 0 10px white, 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
 }
 
 .design-typography {
@@ -493,8 +643,13 @@
   height: auto;
   width: 100%;
   background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .demo-typography {
@@ -510,7 +665,9 @@
 }
 
 .theme-set-grid{
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 1rem 1fr;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }

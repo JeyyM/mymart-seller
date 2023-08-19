@@ -1,163 +1,186 @@
 .main-signup-container{
-    height: 100vh;
-    width: 100%;
-    background-image: linear-gradient(
-    to right,
-    $color-primary-dark,
-    $color-primary-light
-  );
-//   margin-top: -3rem;
-  padding-top: 3rem;
-    
+  height: 100vh;
+  width: 100%;
+  background-image: -webkit-gradient(
+  linear,
+  left top, right top,
+  from($color-primary-dark),
+  to($color-primary-light)
+);
+  background-image: -o-linear-gradient(
+  left,
+  $color-primary-dark,
+  $color-primary-light
+);
+  background-image: linear-gradient(
+  to right,
+  $color-primary-dark,
+  $color-primary-light
+);
+padding-top: 3rem;
+  
 }
 
 .mymart-pic{
-    height: 7rem;
-    width: 8rem;
-    object-fit: cover;
+  height: 7rem;
+  width: 8rem;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .total-progress{
-    background-image: linear-gradient(to left, $color-primary-dark, $color-primary-light);
+  background-image: -webkit-gradient(linear, right top, left top, from($color-primary-dark), to($color-primary-light));
+  background-image: -o-linear-gradient(right, $color-primary-dark, $color-primary-light);
+  background-image: linear-gradient(to left, $color-primary-dark, $color-primary-light);
 }
 
 .form-label.inv{
-    color: red;
+  color: red;
 }
 
-.text-options.invalid-dropdown {background-image: linear-gradient(white, white),
-  linear-gradient(to right, red, darkred) !important;
-  filter: brightness(120%) !important
-  }
+.text-options.invalid-dropdown {background-image: -webkit-gradient(linear, left top, left bottom, from(white), to(white)),
+-webkit-gradient(linear, left top, right top, from(red), to(darkred)) !important;background-image: -o-linear-gradient(white, white),
+-o-linear-gradient(left, red, darkred) !important;background-image: linear-gradient(white, white),
+linear-gradient(to right, red, darkred) !important;
+-webkit-filter: brightness(120%) !important;
+        filter: brightness(120%) !important
+}
 
-  .white{color: white !important;}
+.white{color: white !important;}
 
-  .heading-icon-finale {
-    @include heading-logo(finale, 4rem, 4rem);
-    margin-left: 1rem;
-  }
+.heading-icon-finale {
+  @include heading-logo(finale, 4rem, 4rem);
+  margin-left: 1rem;
+}
 
-  .svg-tertiary-2 {
-    background-image: linear-gradient(
-    to right,
-    $text-tertiary-color,
-    $text-tertiary-color
-  ) !important}
+.svg-tertiary-2 {
+  background-image: -webkit-gradient(
+  linear,
+  left top, right top,
+  from($text-tertiary-color),
+  to($text-tertiary-color)
+) !important;
+  background-image: -o-linear-gradient(
+  left,
+  $text-tertiary-color,
+  $text-tertiary-color
+) !important;
+  background-image: linear-gradient(
+  to right,
+  $text-tertiary-color,
+  $text-tertiary-color
+) !important}
 
-  .svg-secondary-2 {
-    background-image: linear-gradient(
-    to right,
-    $text-secondary-color,
-    $text-secondary-color
-  ) !important}
+.svg-secondary-2 {
+  background-image: -webkit-gradient(
+  linear,
+  left top, right top,
+  from($text-secondary-color),
+  to($text-secondary-color)
+) !important;
+  background-image: -o-linear-gradient(
+  left,
+  $text-secondary-color,
+  $text-secondary-color
+) !important;
+  background-image: linear-gradient(
+  to right,
+  $text-secondary-color,
+  $text-secondary-color
+) !important}
 
-  .text-sec-profile {
-    @include heading-logo(profile, 3rem, 3rem);
-  }
+.text-sec-profile {
+  @include heading-logo(profile, 3rem, 3rem);
+}
 
-  .text-ter-password {
-    @include heading-logo(password, 2rem, 2rem);
-  }
+.text-ter-password {
+  @include heading-logo(password, 2rem, 2rem);
+}
 
-  .text-sec-mail {
-    @include heading-logo(mail, 3rem, 3rem);
-  }
+.text-sec-mail {
+  @include heading-logo(mail, 3rem, 3rem);
+}
 
-  
-  .text-ter-name {
-    @include heading-logo(name, 2rem, 2rem);
-  }
-  
-  .text-sec-shop {
-    @include heading-logo(shop, 3rem, 3rem);
-  }
 
-  .text-ter-shop {
-    @include heading-logo(shop, 2rem, 2rem);
-  }
+.text-ter-name {
+  @include heading-logo(name, 2rem, 2rem);
+}
 
-  .text-sec-phone {
-    @include heading-logo(phone, 3rem, 3rem);
-  }
+.text-sec-shop {
+  @include heading-logo(shop, 3rem, 3rem);
+}
 
-  .text-sec-credit {
-    @include heading-logo(credit, 3rem, 3rem);
-  }
+.text-ter-shop {
+  @include heading-logo(shop, 2rem, 2rem);
+}
 
-  .text-ter-phone {
-    @include heading-logo(phone, 2rem, 2rem);
-  }
+.text-sec-phone {
+  @include heading-logo(phone, 3rem, 3rem);
+}
 
-  .text-ter-credit {
-    @include heading-logo(credit, 2rem, 2rem);
-  }
+.text-sec-credit {
+  @include heading-logo(credit, 3rem, 3rem);
+}
 
-  .text-ter-cvv {
-    @include heading-logo(cvv, 2rem, 2rem);
-  }
+.text-ter-phone {
+  @include heading-logo(phone, 2rem, 2rem);
+}
 
-  .text-ter-mail {
-    @include heading-logo(mail, 2rem, 2rem);
-  }
+.text-ter-credit {
+  @include heading-logo(credit, 2rem, 2rem);
+}
 
-  .text-ter-cake {
-    @include heading-logo(cake, 2rem, 2rem);
-  }
+.text-ter-cvv {
+  @include heading-logo(cvv, 2rem, 2rem);
+}
 
-  .text-ter-calendar {
-    @include heading-logo(calendar, 2rem, 2rem);
-  }
+.text-ter-mail {
+  @include heading-logo(mail, 2rem, 2rem);
+}
 
-  .text-ter-gender1 {
-    @include heading-logo(gender1, 2rem, 2rem);
-  }
-  .text-ter-gender2 {
-    @include heading-logo(gender2, 2rem, 2rem);
-  }
-  .text-ter-gender3 {
-    @include heading-logo(gender3, 2rem, 2rem);
-  }
+.text-ter-cake {
+  @include heading-logo(cake, 2rem, 2rem);
+}
 
-  
-  .text-ter-occupation {
-    @include heading-logo(occupation, 2rem, 2rem);
-  }
+.text-ter-calendar {
+  @include heading-logo(calendar, 2rem, 2rem);
+}
 
-  .text-ter-company {
-    @include heading-logo(company, 2rem, 2rem);
-  }
+.text-ter-gender1 {
+  @include heading-logo(gender1, 2rem, 2rem);
+}
+.text-ter-gender2 {
+  @include heading-logo(gender2, 2rem, 2rem);
+}
+.text-ter-gender3 {
+  @include heading-logo(gender3, 2rem, 2rem);
+}
 
-  .text-ter-pin {
-    @include heading-logo(pin, 2rem, 2rem);
-  }
 
-  .text-ter-alarm {
-    @include heading-logo(alarm, 2rem, 2rem);
-  }
+.text-ter-occupation {
+  @include heading-logo(occupation, 2rem, 2rem);
+}
 
-  .text-ter-finished {
-    @include heading-logo(finished, 2rem, 2rem);
-  }
+.text-ter-company {
+  @include heading-logo(company, 2rem, 2rem);
+}
 
-  .text-ter-refused {
-    @include heading-logo(refused, 2rem, 2rem);
-  }
+.text-ter-pin {
+  @include heading-logo(pin, 2rem, 2rem);
+}
 
-  .text-ter-description {
-    @include heading-logo(description, 2rem, 2rem);
-  }
+.text-ter-alarm {
+  @include heading-logo(alarm, 2rem, 2rem);
+}
 
-  // ::-webkit-scrollbar {
-  //   width: 1.2rem;
-  // }
-  
-  // ::-webkit-scrollbar-track {
-  //   background-color: $bg-item;
-  // }
-  
-  // ::-webkit-scrollbar-thumb {
-  //   background-color: $color-primary-dark;
-  //   border-radius: 10px;
-  //   border: 3px solid $text-primary-color;
-  //   filter: brightness(120%) !important;
-  // }
+.text-ter-finished {
+  @include heading-logo(finished, 2rem, 2rem);
+}
+
+.text-ter-refused {
+  @include heading-logo(refused, 2rem, 2rem);
+}
+
+.text-ter-description {
+  @include heading-logo(description, 2rem, 2rem);
+}

@@ -2,11 +2,16 @@
   background-color: $theme-bg;
   height: $navbar-height;
   @include border;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   z-index: 100;
-  // overflow: hidden;
   width: 100%;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
   position: sticky;
 }
@@ -16,7 +21,11 @@
 }
 
 .nav-hidden {
-  transform: translateY(-100%);
+  -webkit-transform: translateY(-100%);
+      -ms-transform: translateY(-100%);
+          transform: translateY(-100%);
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
   transition: all 0.3s;
 }
 
@@ -25,25 +34,47 @@
   width: 7.5rem;
   height: 7.5rem;
   @include border-round;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($theme-bg), to($theme-bg)),
+    -webkit-gradient(linear, left top, right top, from($color-primary-dark), to($color-primary-light));
+  background-image: -o-linear-gradient($theme-bg, $theme-bg),
+    -o-linear-gradient(left, $color-primary-dark, $color-primary-light);
   background-image: linear-gradient($theme-bg, $theme-bg),
     linear-gradient(to right, $color-primary-dark, $color-primary-light);
   margin-left: 1rem;
   cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   z-index: 99;
-  filter: drop-shadow(-2px 2px 0px $color-primary-dark);
+  -webkit-filter: drop-shadow(-2px 2px 0px $color-primary-dark);
+          filter: drop-shadow(-2px 2px 0px $color-primary-dark);
 
   &:hover{
-    transform: translateY(-0.3rem) translateX(0.5rem);
-    filter: drop-shadow(-4px 4px 0px $color-primary-dark) brightness(110%);
+    -webkit-transform: translateY(-0.3rem) translateX(0.5rem);
+        -ms-transform: translateY(-0.3rem) translateX(0.5rem);
+            transform: translateY(-0.3rem) translateX(0.5rem);
+    -webkit-filter: drop-shadow(-4px 4px 0px $color-primary-dark) brightness(110%);
+            filter: drop-shadow(-4px 4px 0px $color-primary-dark) brightness(110%);
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
     transition: all 0.2s;
   
     &:active {
-      transform: translateY(0rem) translateX(0rem);
-      filter: drop-shadow(-1px 1px 0px $color-primary-dark);
+      -webkit-transform: translateY(0rem) translateX(0rem);
+          -ms-transform: translateY(0rem) translateX(0rem);
+              transform: translateY(0rem) translateX(0rem);
+      -webkit-filter: drop-shadow(-1px 1px 0px $color-primary-dark);
+              filter: drop-shadow(-1px 1px 0px $color-primary-dark);
     }
   }
 }
@@ -72,6 +103,8 @@
     position: absolute;
     left: 0;
     width: 100%;
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
     transition: all 0.2s;
   }
 
@@ -91,11 +124,15 @@
       width: 75%;
       height: 5px;
       display: inline-block;
+      background-image: -webkit-gradient(linear, left top, right top, from($color-primary-dark), to($color-primary-light));
+      background-image: -o-linear-gradient(left, $color-primary-dark, $color-primary-light);
       background-image: linear-gradient(to right, $color-primary-dark, $color-primary-light);
       border-radius: 2px;
       border-bottom: none;
       border-right: none;
       border-left: none;
+      -webkit-transition: all 0.1s;
+      -o-transition: all 0.1s;
       transition: all 0.1s;
     }
   
@@ -128,6 +165,8 @@
 .navbutton:hover .navbutton__hr-2 {
   position: relative;
   border-radius: 2px;
+  background-image: -o-linear-gradient($theme-bg, $theme-bg),
+    -o-linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   background-image: linear-gradient($theme-bg, $theme-bg),
     linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   & {
@@ -136,6 +175,8 @@
     background-color: transparent;
     display: inline-block;
     border: none;
+    -webkit-transition: all 0.1s;
+    -o-transition: all 0.1s;
     transition: all 0.1s;
   }
   &::before,
@@ -157,6 +198,8 @@
       position: absolute;
       left: 0;
       width: 100%;
+      -webkit-transition: all 0.2s;
+      -o-transition: all 0.2s;
       transition: all 0.2s;
     }
 
@@ -173,38 +216,61 @@
 .company-logo-med {
   margin-left: 3rem;
   display: block;
-  align-items: center;
-  justify-self: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-grid-column-align: center;
+      justify-self: center;
   height: 10rem;
-  object-fit: cover;
-  object-position: center;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
   width: 20rem;
   @include border;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
 .company-logo-med:hover{
-  filter: brightness(110%)
+  -webkit-filter: brightness(110%);
+          filter: brightness(110%)
 }
 
 .navcontainer {
   margin-left: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   
 }
 
 .navitem {
   @include border;
-  align-self: stretch;
+  -ms-flex-item-align: stretch;
+      -ms-grid-row-align: stretch;
+      align-self: stretch;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   justify-items: center;
   gap: 0.36rem;
   width: 15rem;
   height: 9.1rem;
   cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
+  background-image: $theme-bg,
+    -o-linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   background-image: $theme-bg,
     linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   background-color: $theme-bg;
@@ -212,18 +278,31 @@
 }
 
 .navitem:hover{
-  filter: brightness(120%);
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
 }
 
 .nav-sign {
-  align-self: stretch;
+  -ms-flex-item-align: stretch;
+      -ms-grid-row-align: stretch;
+      align-self: stretch;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   width: 15rem;
   height: 9.1rem;
   cursor: pointer;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
@@ -249,8 +328,9 @@
 .nav-receipt {@include navlogo-gradient(receipt, 4.2rem, 4.2rem);}
 .nav-manage {@include navlogo-gradient(manage, 4.2rem, 4.2rem)}
 
-.cartbob{transform: scale(0.9);
-filter: brightness(120%);}
+.cartbob{-webkit-transform: scale(0.9);-ms-transform: scale(0.9);transform: scale(0.9);
+-webkit-filter: brightness(120%);
+        filter: brightness(120%);}
 
 .hover-box {
   position: absolute;
@@ -258,20 +338,27 @@ filter: brightness(120%);}
   width: 200px;
   display: block;
   z-index: -10;
+  height: -webkit-min-content;
+  height: -moz-min-content;
   height: min-content;
   @include border
 }
 
 .profile-item {
   height: 6rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   overflow: hidden;
 }
 
 .profile-item:hover{
-  filter: brightness(120%) !important;
+  -webkit-filter: brightness(120%) !important;
+          filter: brightness(120%) !important;
 }
 
 .heading-icon-manage-account {
@@ -295,16 +382,20 @@ filter: brightness(120%);}
   height: 5rem;
   width: 100%;
   background-color: white;   
+  display: -webkit-box;   
+  display: -ms-flexbox;   
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 2rem;
   border-top: 2px solid rgb(108, 108, 108);
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
 .search-item:active, .search-item:hover{
-  filter: brightness(120%);
+  -webkit-filter: brightness(120%);
+          filter: brightness(120%);
 }
-
-
-

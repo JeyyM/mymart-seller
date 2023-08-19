@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v8.4.14,
+* Autoprefixer: v10.4.7
+* Browsers: last 4 version
+*/
+
 .maincontainer {
   height: calc(100vh - $navbar-height - 4rem);
   display: grid;
@@ -20,20 +27,34 @@
   @include border-round;
   height: 1fr;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   justify-items: center;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
+  background-image: $theme-bg,
+    -o-linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   background-image: $theme-bg,
     linear-gradient(45deg, $color-primary-dark, $color-primary-light);
 
   &:hover {
-    transform: translateY(-0.6rem) translateX(1rem);
-    filter: drop-shadow(-6px 6px 0px $color-primary-dark);
+    -webkit-transform: translateY(-0.6rem) translateX(1rem);
+        -ms-transform: translateY(-0.6rem) translateX(1rem);
+            transform: translateY(-0.6rem) translateX(1rem);
+    -webkit-filter: drop-shadow(-6px 6px 0px $color-primary-dark);
+            filter: drop-shadow(-6px 6px 0px $color-primary-dark);
   }
   &:active {
-    transform: translateY(0rem) translateX(0rem);
-    filter: drop-shadow(-1px 1px 0px $color-primary-dark);
+    -webkit-transform: translateY(0rem) translateX(0rem);
+        -ms-transform: translateY(0rem) translateX(0rem);
+            transform: translateY(0rem) translateX(0rem);
+    -webkit-filter: drop-shadow(-1px 1px 0px $color-primary-dark);
+            filter: drop-shadow(-1px 1px 0px $color-primary-dark);
   }
 }
 
@@ -45,6 +66,8 @@
 }
 
 .home-category {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 4;
   grid-column: 1/5;
   @include home-setup("category.jpg");
   &__logo {
@@ -62,6 +85,8 @@
 }
 
 .home-ongoing {
+  -ms-grid-column: 5;
+  -ms-grid-column-span: 2;
   grid-column: 5/7;
   @include home-setup("ongoing.jpg");
   &__logo {
@@ -80,6 +105,8 @@
 }
 
 .home-manage {
+  -ms-grid-column: 7;
+  -ms-grid-column-span: 2;
   grid-column: 7/9;
   @include home-setup("mart.jpeg");
   &__logo {
@@ -103,6 +130,8 @@
 }
 
 .home-insights {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 4;
   grid-column: 1/5;
   @include home-setup("analytics.jpg");
   &__logo {
@@ -121,6 +150,8 @@
 }
 
 .home-receipt {
+  -ms-grid-column: 5;
+  -ms-grid-column-span: 2;
   grid-column: 5/7;
   @include home-setup("records.jpg");
   &__logo {
@@ -139,6 +170,8 @@
 }
 
 .home-brush {
+  -ms-grid-column: 7;
+  -ms-grid-column-span: 2;
   grid-column: 7/9;
   @include home-setup("design.jpg");
   &__logo {
@@ -157,6 +190,8 @@
 }
 
 .home-quiz {
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
   grid-column: 1/3;
   @include home-setup-imageless();
   &__logo {
@@ -169,6 +204,8 @@
 }
 
 .home-policy {
+  -ms-grid-column: 3;
+  -ms-grid-column-span: 2;
   grid-column: 3/5;
   @include home-setup-imageless();
   &__logo {
@@ -181,6 +218,8 @@
 }
 
 .home-support {
+  -ms-grid-column: 5;
+  -ms-grid-column-span: 2;
   grid-column: 5/7;
   @include home-setup-imageless();
   &__logo {
@@ -193,6 +232,8 @@
 }
 
 .home-power {
+  -ms-grid-column: 7;
+  -ms-grid-column-span: 2;
   grid-column: 7/9;
   @include home-setup-imageless();
   &__logo {
@@ -204,8 +245,9 @@
   }
 }
 
-/////////////// DB Changes
 .bg-gradient {
+  background-image: -o-linear-gradient($theme-bg, $theme-bg),
+  -o-linear-gradient(45deg, $color-primary-dark, $color-primary-light);
   background-image: linear-gradient($theme-bg, $theme-bg),
   linear-gradient(45deg, $color-primary-dark, $color-primary-light);
 }

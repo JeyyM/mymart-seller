@@ -1,24 +1,34 @@
 .setting-grid {
   width: 100%;
   height: calc(100vh - $navbar-height - 5rem);
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 5rem 1fr 5rem 1fr;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-flow: dense;
   gap: 5rem;
   padding: 1rem 3rem 3rem;
-  filter: drop-shadow(-4px 4px 0px #0057ff);
+  -webkit-filter: drop-shadow(-4px 4px 0px #0057ff);
+          filter: drop-shadow(-4px 4px 0px #0057ff);
 }
 
 .payment-grid {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   gap: 2rem;
   padding: 2rem;
 }
 
 .payment-column {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   gap: 1rem;
   width: 50%;
 }
@@ -78,10 +88,18 @@
 
 .footer {
   width: 100%;
+  height: -webkit-min-content;
+  height: -moz-min-content;
   height: min-content;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($color-primary-dark), to($color-primary-light)),
+    -webkit-gradient(linear, left top, right top, from($color-primary-dark), to($color-primary-light));
+  background-image: -o-linear-gradient($color-primary-dark, $color-primary-light),
+    -o-linear-gradient(left, $color-primary-dark, $color-primary-light);
   background-image: linear-gradient($color-primary-dark, $color-primary-light),
     linear-gradient(to right, $color-primary-dark, $color-primary-light);
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 1rem 1fr 1rem 1fr 1rem 1fr;
   grid-template-columns: repeat(4, 1fr);
   padding: 2rem;
   gap: 1rem;
@@ -93,8 +111,13 @@
 .footer-column {
   @include border;
   border-width: 5px 0px 0px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   justify-items: center;
   padding-top: 1rem;
 }
@@ -105,8 +128,11 @@
 }
 
 .socials-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   gap: 1rem;
 }
 
@@ -122,7 +148,9 @@
 
 .contact-container {
   width: 100%;
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 1rem 1fr 1rem 1fr;
   grid-template-columns: repeat(3, 1fr);
   min-height: calc(100vh - $navbar-height - 5.5rem);
   background-color: transparent;
@@ -135,6 +163,8 @@
   width: 100%;
   border: 5px solid transparent;
   padding: 1rem;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
   background-color: $theme-bg;
   @include border-round;
@@ -181,18 +211,32 @@
 }
 
 .detail-inputs {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   margin-top: 1rem;
   width: 100%;
+  height: -webkit-min-content;
+  height: -moz-min-content;
   height: min-content;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   gap: 1rem;
 }
 
 .detail-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   gap: 1rem;
 }
 
@@ -222,6 +266,8 @@ label.toggle-label {
   height: 3.6rem;
   background: #fff;
   border-radius: 90px;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
   transition: 0.3s;
 }
 
@@ -231,7 +277,9 @@ input:checked + .toggle-label {
 
 input:checked + .toggle-label:after {
   left: calc(100% - 2px);
-  transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+      -ms-transform: translateX(-100%);
+          transform: translateX(-100%);
 }
 
 .toggle-label:active:after {
@@ -262,11 +310,20 @@ input:checked + .toggle-label:after {
   height: auto;
   padding: 1rem;
   border-radius: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   @include border-round;
-  box-shadow: inset 0 0 0 2rem $theme-bg, 0 0 0 2px $color-primary-dark,
+  -webkit-box-shadow: inset 0 0 0 2rem $theme-bg, 0 0 0 2px $color-primary-dark,
     0 0 0 4px white;
+          box-shadow: inset 0 0 0 2rem $theme-bg, 0 0 0 2px $color-primary-dark,
+    0 0 0 4px white;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
@@ -275,18 +332,33 @@ input:checked + .toggle-label:after {
   height: auto;
   padding: 1rem;
   border-radius: 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   @include border-round;
-  box-shadow: inset 0 0 0 2rem $theme-bg, 0 0 0 2px $color-primary-dark,
+  -webkit-box-shadow: inset 0 0 0 2rem $theme-bg, 0 0 0 2px $color-primary-dark,
     0 0 0 4px white;
+          box-shadow: inset 0 0 0 2rem $theme-bg, 0 0 0 2px $color-primary-dark,
+    0 0 0 4px white;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 1;
   grid-column: 2/3;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
   grid-row: 1 / 3;
 }
 
 .fee-cols {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: 1fr 1rem 1fr;
   grid-template-columns: 1fr 1fr;
   width: 100%;
   gap: 1rem;
@@ -295,19 +367,28 @@ input:checked + .toggle-label:after {
 
 input[type="checkbox"].checkbox-style {
   position: absolute;
-  transform: translateX(-10px) translateY(-5px);
+  -webkit-transform: translateX(-10px) translateY(-5px);
+      -ms-transform: translateX(-10px) translateY(-5px);
+          transform: translateX(-10px) translateY(-5px);
   width: 4em;
   height: 4rem;
   opacity: 0;
 }
 
 .checkbox-container {
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
   transition: all 0.2s;
   position: relative;
   background-color: transparent;
   height: 4rem;
   width: 4rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
 }

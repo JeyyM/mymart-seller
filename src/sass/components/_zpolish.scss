@@ -1,29 +1,30 @@
 .clamp-1 {
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
-  .clamp-4 {
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
+.clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
 .clamp-5 {
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.color-sample{
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 0 0 1px white, 0 0 0 2px rgb(41, 41, 41);
+          box-shadow: 0 0 0 1px white, 0 0 0 2px rgb(41, 41, 41);
+  z-index: 10;
+}
   
-  .color-sample{
-    height: 2rem;
-    width: 2rem;
-    border-radius: 50%;
-    box-shadow: 0 0 0 1px white, 0 0 0 2px rgb(41, 41, 41);
-    z-index: 10;
-  }
-    

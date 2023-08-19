@@ -6,10 +6,15 @@
     margin: auto;
     margin-top: calc($navbar-height + 1.5rem);
     border-radius: 12px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    // box-shadow: inset 0 0 0 2rem $theme-bg,
-    // 0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
     transition: all 0.2s;
     z-index: -1;
     background-color: white;
@@ -20,8 +25,12 @@
 .cart-row{
     min-height: 12rem;
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     padding: 0 1rem;
     gap: 1rem;
 }
@@ -38,13 +47,18 @@
 .cart-bottom{
     min-height: 10rem;
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     margin-top: auto;
     position: absolute;
     bottom: 0;
     z-index: 10;
-    justify-content: space-around;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
 }
 
 .cart-img{
@@ -53,21 +67,37 @@
 }
 
 .cart-pay{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     height: 100%;
+    width: -webkit-min-content;
+    width: -moz-min-content;
     width: min-content;
     margin-left: auto;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
 }
 
 .cart-empty-cont {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     height: 100%;
     width: 100%;
-    flex-grow: 1;
-    align-content: center;
-    justify-content: center;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    -ms-flex-line-pack: center;
+        align-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
 }
 
 .finish-coin{
