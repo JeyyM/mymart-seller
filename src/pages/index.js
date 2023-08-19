@@ -713,7 +713,7 @@ function HomePage() {
         <h3 className="paragraph-text" style={{ margin: "1rem 5rem", textAlign: "left", whiteSpace: "pre-wrap" }}>    Instantly receive orders upon customer checkout. From there you can see the list of their orders. You may even edit them which will alert the user. From there you can view the user&apos;s contact information and location to see if you can finish the order.</h3>
         <h3 className="paragraph-text" style={{ margin: "1rem 5rem", textAlign: "left", whiteSpace: "pre-wrap" }}>    Upon review, you may then choose to approve or refuse an order. When approved, you can set a date when a user can expect their products to arrive. You may even enable cancellations and set penalties.</h3>
 
-        <img src="/home/10.webp" className="order-img"></img>
+        <img src="/home/10.webp" className="order-img" style={{height:"auto", width:"80%", marginTop:"2rem"}}></img>
       </div>}
 
     </section>
