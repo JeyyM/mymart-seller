@@ -7,7 +7,6 @@ import { cloneDeep } from "lodash";
 import { useRouter } from "next/router";
 
 function EditOrder(props) {
-    console.log(props)
     const router = useRouter()
     const appear = {
         hidden: {
