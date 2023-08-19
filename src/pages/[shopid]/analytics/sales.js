@@ -1,19 +1,14 @@
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { getServerSideProps } from '../categories';
 import Link from 'next/link';
-import { Fragment, useState, useMemo, useEffect } from 'react';
-import CategoryPerformance from '@/components/Analytics/CategoryPerformance';
-import PieChart from '@/components/Analytics/PieChart';
+import { Fragment, useState, useEffect } from 'react';
 import seedrandom from 'seedrandom';
-import ShowUser from '@/components/Analytics/ShowUser';
 import RankPie from '@/components/Analytics/RankPie';
 import ProductBar from '@/components/Analytics/ProductBar';
 import FulfillmentLine from '@/components/Analytics/FulfillmentLine';
 import FulfillmentPie from '@/components/Analytics/FulfillmentPie';
 // import ModalCategory from '@/components/Analytics/ModalCategory';
-import { CSVLink, CSVDownload } from 'react-csv';
 
 const DynamicLineChart = dynamic(() => import('../../../components/Analytics/DayLine'), {
   ssr: false,
@@ -23,13 +18,8 @@ const DynamicCategoriesLine = dynamic(() => import('../../../components/Analytic
   ssr: false,
 });
 
-const DynamicUserMap = dynamic(() => import('../../../components/Analytics/UserMap'), {
-  ssr: false,
-});
-
 function Sales(martID) {
   const {screenWidth} = martID
-  const router = useRouter()
   const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
   const shopCurrency = martID.shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
   const currentTime = new Date();
@@ -44,20 +34,6 @@ function Sales(martID) {
       return `${firstPart}...${lastPart}`;
     }
   }
-
-  function formatDateTime(dateTimeString) {
-    const dateTime = new Date(dateTimeString);
-
-    const formattedDate = dateTime.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-    }).replace(/\//g, '-');
-
-    const formattedDateTime = `${formattedDate}`;
-
-    return formattedDateTime;
-}
 
 function removeSpecialCharacters(inputString) {
   const specialCharactersRegex = /[^\p{L}\p{N}\s]/gu;

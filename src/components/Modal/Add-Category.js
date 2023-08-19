@@ -1,11 +1,9 @@
 import Backdrop from "./Backdrop";
 import { motion, AnimatePresence } from "framer-motion";
 import { Fragment } from "react";
-import { useState, useEffect, useContext } from "react";
-// import DefaultValueContext from "../store/default-value-context";
+import { useState, useEffect } from "react";
 import Confirmer from "./Confirmer";
 import { useRouter } from "next/router";
-import Image from "next/image";
 
 function AddCategory(props) {
   const setDefaultName = props.defs[0]
@@ -13,8 +11,6 @@ function AddCategory(props) {
 
   const setDefaultDesc = props.defs[2]
   const defaultDescLength = setDefaultDesc.length
-
-  const setDefaultActive = props.defs[4]
 
   const router = useRouter()
 

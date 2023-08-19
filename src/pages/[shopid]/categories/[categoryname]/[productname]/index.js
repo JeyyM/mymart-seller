@@ -318,9 +318,6 @@ setTagsValue(chosenTags);
   const nameClasses = `${formInputValidity.name ? "text-full" : "invalid-form"
     }`;
 
-  const imgClasses = `${formInputValidity.images ? "text-full" : "invalid-form"
-    }`;
-
   const descClasses = `${formInputValidity.desc ? "desc-text-area" : "invalid-form-box"
     }`;
 

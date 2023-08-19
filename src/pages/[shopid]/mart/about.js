@@ -3,10 +3,8 @@ import { getServerSideProps } from "../categories";
 import Head from "next/head";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { GliderComponent } from 'react-glider';
 import 'glider-js/glider.min.css';
 import ModalCarousel from "../../../components/Modal/ModalCarousel";
-import { ChromePicker } from "react-color";
 import chroma from 'chroma-js';
 import Palette from "@/components/design/Palette";
 import AboutPreview from "@/components/Mart/AboutPreview";
@@ -498,8 +496,6 @@ function About({ shopID, screenWidth }) {
       }
     };
   }, [screenWidth]);
-
-  const textScaler = `${device === "desktop" ? 1 : device === "tablet" ? 0.44 : 0.15}`;
 
   const textElements = TextArray.map((item, index) => 
     {

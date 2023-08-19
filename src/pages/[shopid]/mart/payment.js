@@ -1,7 +1,6 @@
-import { Fragment, useEffect } from "react"
+import { Fragment } from "react"
 import Head from "next/head"
 import { getServerSideProps } from "../categories"
-import Link from "next/link"
 import { useState } from 'react';
 import { useRouter } from "next/router";
 

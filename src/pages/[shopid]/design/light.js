@@ -14,7 +14,6 @@ import ThemePack from "@/components/design/ThemePack";
 import ThemePack2 from "@/components/design/ThemePack2";
 
 import FontOptions from "@/components/design/FontOptions";
-import CopyNotifier from "@/components/Modal/Copy-Notifier";
 
 import tinycolor from 'tinycolor2';
 import Preview from "@/components/design/Preview";
@@ -85,9 +84,6 @@ function Designing({ shopID, screenWidth }) {
   const solidDarkClasses = `${formInputValidity.solidDark ? "text-small input-number" : "invalid-form-2 z"}`;
   const solidLightClasses = `${formInputValidity.solidLight ? "text-small input-number" : "invalid-form-2 z"}`;
   const solidFontClasses = `${formInputValidity.solidFont ? "text-small input-number" : "invalid-form-2 z"}`;
-  const primaryFontClasses = `${formInputValidity.primaryFont ? "text-small input-number" : "invalid-form-2 z"}`;
-  const secondaryFontClasses = `${formInputValidity.secondaryFont ? "text-small input-number" : "invalid-form-2 z"}`;
-  const tertiaryFontClasses = `${formInputValidity.tertiaryFont ? "text-small input-number" : "invalid-form-2 z"}`;
   const primaryColorClasses = `${formInputValidity.primaryColor ? "text-small input-number" : "invalid-form-2 z"}`;
   const secondaryColorClasses = `${formInputValidity.secondaryColor ? "text-small input-number" : "invalid-form-2 z"}`;
   const tertiaryColorClasses = `${formInputValidity.tertiaryColor ? "text-small input-number" : "invalid-form-2 z"}`;
@@ -315,8 +311,6 @@ function Designing({ shopID, screenWidth }) {
   }
 
   const [color, setColor] = useState("#ffffff")
-
-  const themeSet = ["#89375F", "#CE5959", "#BACDDB", "#F3E8FF", "#2A2F4F", "#4F4557", "#BA90C6", "#E8A0BF", 30, 30, 30, 30, "Coolors Random"]
 
   const themeSet1 = ["#0057FF", "#7FC9FF", "#E7F6FD", "#FFFFFF", "#0A2647", "#003F76", "#004DFF", "#3974FF", 10, 10, 10, 10, "Cool Blue"]
 

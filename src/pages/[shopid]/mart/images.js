@@ -1,7 +1,6 @@
 import { Fragment, useState } from "react";
 import Head from "next/head";
 import { getServerSideProps } from "../categories";
-import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import PopModal from "@/components/Mart/PopModal";
@@ -40,7 +39,6 @@ function Images(martID) {
 
     const imageInfo = martID.shopID.shopData.shopDetails.imageData
 
-    const id = martID.shopID._id;
     const [favicon, setFavicon] = useState(imageInfo.icons.icon);
     const handleFaviconChange = (event) => {
         setFavicon(event.target.value);
@@ -195,7 +193,6 @@ function Images(martID) {
         setStartPop(!startPop)
     }
 
-    const bannerItemsSample = [{ image: "https://i.imgur.com/7CD6jAa.png", link: "https://www.youtube.com/", active: true }, { image: "https://i.imgur.com/dHZ5VQx.png", link: "https://www.youtube.com/", active: true }, { image: "https://i.imgur.com/v6ktiiJ.jpeg", link: "https://www.youtube.com/", active: true }, { image: "https://i.imgur.com/dHZ5VQx.png", link: "https://www.youtube.com/", active: true }, { image: "https://i.imgur.com/qlmYdJO.jpeg", link: "https://www.youtube.com/", active: true }, { image: "https://i.imgur.com/qlmYdJO.jpeg", link: "https://www.youtube.com/", active: true }]
     const [bannerItems, setBannerItems] = useState(imageInfo.banners)
 
     function handleBannerImage(event, index) {

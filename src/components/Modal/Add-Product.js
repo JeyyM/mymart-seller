@@ -1,10 +1,8 @@
 import Backdrop from "./Backdrop";
 import { motion, AnimatePresence } from "framer-motion";
 import { Fragment } from "react";
-import { useState, useEffect } from "react";
-import Confirmer from "./Confirmer";
+import { useState } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
 
 function AddProduct(props) {
   const router = useRouter()

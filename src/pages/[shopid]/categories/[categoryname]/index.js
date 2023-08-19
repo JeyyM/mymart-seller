@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import AddProduct from "@/components/Modal/Add-Product";
 import { getServerSideProps } from "..";
 import Head from "next/head";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';

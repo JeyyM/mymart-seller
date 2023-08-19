@@ -8,7 +8,6 @@ import Acc2 from "@/components/design/Acc3";
 import Acc3 from "@/components/design/Acc2";
 import Preview from "@/components/design/Preview";
 import Palette from "@/components/design/Palette";
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { ChromePicker } from "react-color";
 import chroma from 'chroma-js';
@@ -17,7 +16,6 @@ import ThemePack from "@/components/design/ThemePack";
 import ThemePack2 from "@/components/design/ThemePack2";
 
 import FontOptions from "@/components/design/FontOptions";
-import CopyNotifier from "@/components/Modal/Copy-Notifier";
 
 import tinycolor from 'tinycolor2';
 
@@ -87,9 +85,6 @@ function Designing({ shopID, screenWidth }) {
   const solidDarkClasses = `${formInputValidity.solidDark ? "text-small input-number" : "invalid-form-2 z"}`;
   const solidLightClasses = `${formInputValidity.solidLight ? "text-small input-number" : "invalid-form-2 z"}`;
   const solidFontClasses = `${formInputValidity.solidFont ? "text-small input-number" : "invalid-form-2 z"}`;
-  const primaryFontClasses = `${formInputValidity.primaryFont ? "text-small input-number" : "invalid-form-2 z"}`;
-  const secondaryFontClasses = `${formInputValidity.secondaryFont ? "text-small input-number" : "invalid-form-2 z"}`;
-  const tertiaryFontClasses = `${formInputValidity.tertiaryFont ? "text-small input-number" : "invalid-form-2 z"}`;
   const primaryColorClasses = `${formInputValidity.primaryColor ? "text-small input-number" : "invalid-form-2 z"}`;
   const secondaryColorClasses = `${formInputValidity.secondaryColor ? "text-small input-number" : "invalid-form-2 z"}`;
   const tertiaryColorClasses = `${formInputValidity.tertiaryColor ? "text-small input-number" : "invalid-form-2 z"}`;

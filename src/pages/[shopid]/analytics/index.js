@@ -3,9 +3,8 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { getServerSideProps } from '../categories';
 import Link from 'next/link';
-import { Fragment, useState, useMemo, useEffect } from 'react';
+import { Fragment, useState } from 'react';
 import CategoryPerformance from '@/components/Analytics/CategoryPerformance';
-import PieChart from '@/components/Analytics/PieChart';
 import seedrandom from 'seedrandom';
 import ShowUser from '@/components/Analytics/ShowUser';
 import ViewLine from '@/components/Analytics/ViewLine';
@@ -284,20 +283,6 @@ userPerformance.forEach((user) => {
     profitSum += user.totalProfit;
 })
 
-const ageColors = () => {
-  return ageList.map(({ age }) => {
-    const rng = seedrandom(age.toString());
-    return '#' + Math.floor(rng() * 16777215).toString(16);
-  });
-}
-
-  const genderColors = () => {
-    return genderList.map(({ gender }) => {
-      const rng = seedrandom(gender.toString());
-      return '#' + Math.floor(rng() * 16777215).toString(16);
-    });
-  }
-
 let weightedSum = 0;
 let ageCountTotal = 0;
 
@@ -305,8 +290,6 @@ for (const entry of ageList) {
   weightedSum += entry.age * entry.count;
   ageCountTotal += entry.count;
 }
-
-const averageAge = ageCountTotal > 0 ? weightedSum / ageCountTotal : 0;
 
 const coordColorsFn = () => {
   return userPerformance.map(({ email }) => {

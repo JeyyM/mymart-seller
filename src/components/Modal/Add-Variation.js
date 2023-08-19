@@ -1,8 +1,7 @@
 import Backdrop from "./Backdrop";
 import { motion, AnimatePresence } from "framer-motion";
 import { Fragment } from "react";
-import { useState, useEffect } from "react";
-import Confirmer from "./Confirmer";
+import { useState } from "react";
 import { useRouter } from "next/router";
 
 function AddProduct(props) {

@@ -1,9 +1,9 @@
 import { motion, AnimatePresence, } from "framer-motion";
-import { Fragment, useMemo } from "react";
+import { Fragment } from "react";
 import { useState, useEffect } from "react";
 import Backdrop from "../Modal/Backdrop";
 import { useRouter } from "next/router";
-import { GoogleMap, useLoadScript, DirectionsService, DirectionsRenderer, Marker } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, DirectionsRenderer } from '@react-google-maps/api';
 import CustomizedPicker from "../Mart/CustomizedPicker";
 
 const libraries = ['places'];
@@ -23,8 +23,6 @@ function AcceptOrder(props) {
           removedItems = props.order.order.filter(order => {
             return props.removeList.some(pair => pair[0] === order.name && pair[1] === order.category);
           });
-
-          const removedItemsTotalPrice = removedItems.reduce((total, item) => total + parseFloat(item.price), 0);
 
           props.order.order = filteredOrders
           const totalPrice = filteredOrders.reduce((total, item) => {

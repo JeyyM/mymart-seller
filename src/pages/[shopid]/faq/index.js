@@ -1,7 +1,6 @@
 import { Fragment } from "react"
 import Head from "next/head"
 import { getServerSideProps } from "../categories"
-import Link from "next/link"
 import { useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import FaqModal from "@/components/faq/FaqModal"
@@ -142,8 +141,6 @@ function Mart(martID) {
             q: questions,
             a: answers
         };
-
-        console.log(requestBody)
 
         const response = await fetch(
             `../../api/set-faq?martid=${router.query.shopid}`,

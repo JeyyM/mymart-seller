@@ -5,8 +5,6 @@ import { getServerSideProps } from '../categories';
 function DesignPage(shopID) {
   const router = useRouter();
 
-  const { shopData } = shopID
-
   useEffect(() => {
     router.push(`/${router.query.shopid}/design/dark`);
   }, []);

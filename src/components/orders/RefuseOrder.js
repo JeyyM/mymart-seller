@@ -2,13 +2,11 @@ import { motion, AnimatePresence, } from "framer-motion";
 import { Fragment } from "react";
 import { useState, useEffect } from "react";
 import Backdrop from "../Modal/Backdrop";
-import { useRouter } from "next/router";
 import { GoogleMap, useLoadScript, DirectionsService, DirectionsRenderer, Marker } from '@react-google-maps/api';
 
 const libraries = ['places'];
 
 function RefuseOrder(props) {
-    const router = useRouter()
     let totals = 0
     // if (props.modalStatus){
     //     totals = props.order.totals.order + props.order.totals.fees

@@ -7,8 +7,6 @@ import ProductBarChart from "./ProductBar";
 import seedrandom from "seedrandom";
 
 function ModalCategory({data, modalStatus, disable, currency}) {
-  const router = useRouter()
-  console.log("data here", data)
 
   const appear = {
     hidden: {

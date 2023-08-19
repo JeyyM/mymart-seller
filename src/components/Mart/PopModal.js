@@ -5,8 +5,6 @@ import { useRouter } from "next/router";
 
 
 function PopModal(props) {
-    const router = useRouter();
-
     const appear = {
         hidden: {
             transform: "scale(0)",

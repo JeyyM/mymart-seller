@@ -1,15 +1,11 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { getServerSideProps } from "..";
-import { AnimatePresence, motion } from "framer-motion";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Link from "next/link";
 import RevertOrder from "@/components/orders/RevertOrder";
 import UserProfile from "@/components/orders/UserProfile";
-import RefuseOrder from "@/components/orders/RefuseOrder";
-import AcceptOrder from "@/components/orders/AcceptOrder";
 import FinishOrder from "@/components/orders/FinishOrder";
 import Celebration from "@/components/orders/Celebration";
 
@@ -27,8 +23,6 @@ function Records({ shopID, screenWidth }) {
     let contents = shopData.shopSales.finishedOrders.slice().reverse();
     const usersList = shopData.shopAccounts
     const takebacks = shopData.shopDetails.paymentData.Takebacks
-    const defaultColor = shopData.shopDesigns.defaultMode
-    const design = shopData.shopDesigns
 
     function findUser(email) { return usersList.find((user) => user.email === email) }
 
@@ -170,18 +164,7 @@ function Records({ shopID, screenWidth }) {
         }
     }
 
-    const [isVisible, setIsVisible] = useState(true);
-
-    const toggleVisibility = () => {
-        setIsVisible(!isVisible);
-    };
-
-    function deleteItem(order) {
-        const newOrders = activeOrders.filter((item) => item.id !== order.id)
-        setActiveOrders(newOrders)
-    }
-
-    async function editApi(newOrder, productIds) {
+    async function editApi(productIds) {
         const requestBody = {
             selectedOrder: selectedOrder,
             productIds: productIds
@@ -198,23 +181,6 @@ function Records({ shopID, screenWidth }) {
         const data = await response.json();
     }
 
-    async function refuseApi(newOrder, productIds) {
-        const requestBody = {
-            selectedOrder: selectedOrder,
-            productIds: productIds
-        };
-
-        const response = await fetch(
-            `../../api/order-refuse?martid=${router.query.shopid}`,
-            {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(requestBody)
-            }
-        );
-        const data = await response.json();
-    }
-
     async function finishApi(newOrder) {
         const requestBody = {
             selectedOrder: selectedOrder,
@@ -222,22 +188,6 @@ function Records({ shopID, screenWidth }) {
 
         const response = await fetch(
             `../../api/order-finish?martid=${router.query.shopid}`,
-            {
-                method: "PATCH",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(requestBody)
-            }
-        );
-        const data = await response.json();
-    }
-
-    async function acceptApi(newOrder) {
-        const requestBody = {
-            selectedOrder: selectedOrder
-        };
-
-        const response = await fetch(
-            `../../api/order-accept?martid=${router.query.shopid}`,
             {
                 method: "PATCH",
                 headers: { "Content-Type": "application/json" },
@@ -293,36 +243,6 @@ function Records({ shopID, screenWidth }) {
 
         let ProductIdentifiers = []
 
-        const newStocks = final.map((prod) => {
-            const originalStocks = findItem(prod.category, prod.name)
-            const newData = {
-                ...originalStocks,
-                productStock: {
-                    ...originalStocks.productStock,
-                    stockAmount: originalStocks.productStock.stockAmount - prod.cartValue
-                }
-            };
-
-            const categId = shopCategories.findIndex(category => category.categoryName === prod.category);
-
-            const productId = shopCategories[categId].categoryProducts.findIndex(
-                (product) => product.variations.some((variation) => variation.productName === prod.name)
-            );
-
-            const variationId = shopCategories[categId].categoryProducts[productId].variations.findIndex(
-                (variation) => variation.productName === prod.name
-            );
-
-            const updatedShopCategoryAmount = [...shopCategories]
-            updatedShopCategoryAmount[categId].categoryProducts[productId].variations[variationId].productStock.stockAmount = newData.productStock.stockAmount;
-            setShopCategories(updatedShopCategoryAmount)
-
-            let newProductIdentifiers = [categId, productId, variationId, newData.productStock.stockAmount]
-            ProductIdentifiers.push(newProductIdentifiers)
-
-            return newData
-        })
-
         await editApi(selectedOrder, ProductIdentifiers)
     }
 
@@ -337,11 +257,6 @@ function Records({ shopID, screenWidth }) {
     }
 
     const [buttonMode, setButtonMode] = useState(false)
-    const ongoingClass = `${buttonMode ? "product-action-2 flex-row-align" : "product-action-1 flex-row-align"}`
-    const acceptClass = `${buttonMode ? "product-action-1 flex-row-align" : "product-action-2 flex-row-align"}`
-
-    const ongoingText = `${buttonMode ? "heading-tertiary margin-side solid-text-color" : "heading-tertiary margin-side"}`
-    const acceptText = `${buttonMode ? "heading-tertiary margin-side" : "heading-tertiary margin-side solid-text-color"}`
 
     if (contents.length > 0) {
         return (

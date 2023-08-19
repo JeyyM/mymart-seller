@@ -1,7 +1,7 @@
 import Backdrop from "../Modal/Backdrop";
 import { motion, AnimatePresence } from "framer-motion";
 import { Fragment } from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function Preview(props) {
     const { modalStatus, disable, bgBody, bgItem, DarkColor, LightColor, textPrimary, textPrimaryFont, borderBL, borderBR, borderTL, borderTR,

@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { useState, useEffect } from "react";
 import Backdrop from "../Modal/Backdrop";
 import { useRouter } from "next/router";
-import { GoogleMap, useLoadScript, DirectionsService, DirectionsRenderer, Marker } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, DirectionsRenderer } from '@react-google-maps/api';
 
 const libraries = ['places'];
 

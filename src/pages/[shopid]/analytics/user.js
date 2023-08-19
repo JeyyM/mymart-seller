@@ -1,19 +1,12 @@
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { getServerSideProps } from '../categories';
-import Link from 'next/link';
-import { Fragment, useState, useMemo, useEffect } from 'react';
-import CategoryPerformance from '@/components/Analytics/CategoryPerformance';
+import { Fragment, useState } from 'react';
 import PieChart from '@/components/Analytics/PieChart';
 import seedrandom from 'seedrandom';
 import ShowUser from '@/components/Analytics/ShowUser';
 import ViewLine from '@/components/Analytics/ViewLine';
 import UserLine from '@/components/Analytics/UserLine';
-
-const DynamicLineChart = dynamic(() => import('../../../components/Analytics/DayLine'), {
-  ssr: false,
-});
 
 const DynamicUserMap = dynamic(() => import('../../../components/Analytics/UserMap'), {
   ssr: false,
@@ -22,7 +15,6 @@ const DynamicUserMap = dynamic(() => import('../../../components/Analytics/UserM
 function Analytics(martID) {
   const {screenWidth} = martID
 
-  const router = useRouter()
   const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon;
   const shopCurrency = martID.shopID.shopData.shopDetails.paymentData.checkoutInfo.currency
   const shopAccounts = martID.shopID.shopData.shopAccounts
@@ -241,53 +233,7 @@ const handleRank4 = () => {
     }
   });
 
-  const mostBought = [...products].sort((a, b) => {
-    if (boughtSymbol === true) {
-      return b.orders - a.orders;
-    } else {
-      return a.orders - b.orders;
-    }
-  });
-
   const startIndex1 = profitSymbol ? 0 : Math.max(userSortProfit.length - 9, 0);
-  const startIndex2 = boughtSymbol ? 0 : mostBought.length - 9;
-
-  const profitColor = "red"
-  const cartValueColor = "blue"
-
-  const categories = products.reduce((result, item) => {
-    const existingCategory = result.find(category => category.name === item.category);
-
-    if (existingCategory) {
-      existingCategory.products.push({
-        name: item.name,
-        orders: item.orders,
-        profit: item.profit * item.orders
-      });
-      existingCategory.orderTotal += item.orders;
-      existingCategory.profitTotal += item.profit;
-    } else {
-      result.push({
-        name: item.category,
-        products: [{
-          name: item.name,
-          orders: item.orders,
-          profit: item.profit * item.orders
-        }],
-        orderTotal: item.orders,
-        profitTotal: item.profit
-      });
-    }
-
-    return result;
-  }, []);
-
-  const categoryColors = () => {
-    return categories.map(({ name }) => {
-      const rng = seedrandom(name.toString());
-      return '#' + Math.floor(rng() * 16777215).toString(16);
-    });
-  }
 
   const withinView = new Date();
   withinView.setDate(withinView.getDate() - SelectDate2);
@@ -334,7 +280,6 @@ const handleRank4 = () => {
     }
   }
   
-  const repeatTotal = shopAccounts.filter((acc) => acc.pastOrders.length > 1)
 const userPerformance = [];
 for (const order of finishedOrders2) {
   const userEmail = order.user.email;
@@ -429,8 +374,6 @@ handleSetUser(data)
 function warning(){
   alert("Feature coming soon.")
 }
-
-console.log(shopAccounts)
 
 const csvData = shopAccounts.map((item) => {
   const totalProfits = item.pastOrders.reduce((sum, order) => {

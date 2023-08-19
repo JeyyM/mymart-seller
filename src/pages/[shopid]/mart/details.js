@@ -1,7 +1,6 @@
 import { Fragment, useEffect } from "react"
 import { getServerSideProps } from "../categories"
 import Head from "next/head"
-import Footer from "@/components/Mart/Footer"
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import SocialOptions from "@/components/detail/SocialOptions"
@@ -9,7 +8,6 @@ import Link from "next/link"
 import { useRouter } from "next/router"
 
 import { GoogleMap, useLoadScript } from '@react-google-maps/api';
-import { FaMapMarkerAlt } from 'react-icons/fa';
 import { Marker } from '@react-google-maps/api';
 import { Autocomplete } from '@react-google-maps/api';
 

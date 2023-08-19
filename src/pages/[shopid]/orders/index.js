@@ -1,9 +1,7 @@
 import { Fragment, useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import AddCategory from "@/components/Modal/Add-Category";
 import Head from "next/head";
 import { getServerSideProps } from "..";
-import { AnimatePresence, motion } from "framer-motion";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Link from "next/link";
@@ -16,10 +14,6 @@ import OrderItem from "@/components/orders/OrderItem";
 
 function Orders({ shopID, screenWidth }) {
     const router = useRouter();
-    const SlideHeight = {
-        hidden: { opacity: 1, height: 0 },
-        visible: { opacity: 1, height: 'auto' }
-    };
 
     const { shopData } = shopID;
     const currency = shopData.shopDetails.paymentData.checkoutInfo.currency
@@ -113,53 +107,7 @@ function Orders({ shopID, screenWidth }) {
 
     sorter()
 
-    function formatDateTime(dateTimeString) {
-        const dateTime = new Date(dateTimeString);
-
-        const formattedDate = dateTime.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-        }).replace(/\//g, '-');
-
-        const formattedTime = dateTime.toLocaleTimeString("en-US", {
-            hour: "numeric",
-            minute: "numeric",
-            hour12: true,
-        });
-
-        const formattedDateTime = `${formattedDate}, ${formattedTime}`;
-
-        return formattedDateTime;
-    }
-
-    function findItem(category, varName) {
-        let chosenCateg = shopCategories.find((categ) => categ.categoryName === category)
-
-        if (chosenCateg) {
-            let chosenVariation = chosenCateg.categoryProducts.flatMap((prod) => prod.variations).find((variation) => variation.productName === varName);
-            if (chosenVariation) {
-                return chosenVariation
-            } else {
-                return "Missing Product"
-            }
-        } else {
-            return "Category Missing"
-        }
-    }
-
-    const [isVisible, setIsVisible] = useState(true);
-
-    const toggleVisibility = () => {
-        setIsVisible(!isVisible);
-    };
-
-    function deleteItem(order) {
-        const newOrders = activeOrders.filter((item) => item.id !== order.id)
-        setActiveOrders(newOrders)
-    }
-
-    async function editApi(newOrder, productIds) {
+    async function editApi(productIds) {
         const requestBody = {
             selectedOrder: selectedOrder,
             productIds: productIds
@@ -177,7 +125,7 @@ function Orders({ shopID, screenWidth }) {
         const data = await response.json();
     }
 
-    async function refuseApi(newOrder, productIds) {
+    async function refuseApi(productIds) {
         const requestBody = {
             selectedOrder: selectedOrder,
             productIds: productIds
@@ -194,7 +142,7 @@ function Orders({ shopID, screenWidth }) {
         const data = await response.json();
     }
 
-    async function acceptApi(newOrder) {
+    async function acceptApi() {
         const requestBody = {
             selectedOrder: selectedOrder
         };
@@ -256,36 +204,6 @@ function Orders({ shopID, screenWidth }) {
 
         let ProductIdentifiers = []
 
-        const newStocks = final.map((prod) => {
-            const originalStocks = findItem(prod.category, prod.name)
-            const newData = {
-                ...originalStocks,
-                productStock: {
-                    ...originalStocks.productStock,
-                    stockAmount: originalStocks.productStock.stockAmount - prod.cartValue
-                }
-            };
-
-            const categId = shopCategories.findIndex(category => category.categoryName === prod.category);
-
-            const productId = shopCategories[categId].categoryProducts.findIndex(
-                (product) => product.variations.some((variation) => variation.productName === prod.name)
-            );
-
-            const variationId = shopCategories[categId].categoryProducts[productId].variations.findIndex(
-                (variation) => variation.productName === prod.name
-            );
-
-            const updatedShopCategoryAmount = [...shopCategories]
-            updatedShopCategoryAmount[categId].categoryProducts[productId].variations[variationId].productStock.stockAmount = newData.productStock.stockAmount;
-            setShopCategories(updatedShopCategoryAmount)
-
-            let newProductIdentifiers = [categId, productId, variationId, newData.productStock.stockAmount]
-            ProductIdentifiers.push(newProductIdentifiers)
-
-            return newData
-        })
-
         await editApi(selectedOrder, ProductIdentifiers)
     }
 
@@ -299,36 +217,6 @@ function Orders({ shopID, screenWidth }) {
         updatedOrder[0].finishedOn = today
 
         let ProductIdentifiers = []
-
-        const newStocks = updatedOrder[0].order.map((prod) => {
-            const originalStocks = findItem(prod.category, prod.name)
-            const newData = {
-                ...originalStocks,
-                productStock: {
-                    ...originalStocks.productStock,
-                    stockAmount: originalStocks.productStock.stockAmount + prod.cartValue
-                }
-            };
-
-            const categId = shopCategories.findIndex(category => category.categoryName === prod.category);
-
-            const productId = shopCategories[categId].categoryProducts.findIndex(
-                (product) => product.variations.some((variation) => variation.productName === prod.name)
-            );
-
-            const variationId = shopCategories[categId].categoryProducts[productId].variations.findIndex(
-                (variation) => variation.productName === prod.name
-            );
-
-            const updatedShopCategoryAmount = [...shopCategories]
-            updatedShopCategoryAmount[categId].categoryProducts[productId].variations[variationId].productStock.stockAmount = newData.productStock.stockAmount;
-            setShopCategories(updatedShopCategoryAmount)
-
-            let newProductIdentifiers = [categId, productId, variationId, newData.productStock.stockAmount]
-            ProductIdentifiers.push(newProductIdentifiers)
-
-            return newData
-        })
 
         await refuseApi(selectedOrder, ProductIdentifiers)
     }

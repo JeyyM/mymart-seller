@@ -2,7 +2,6 @@ import { motion, AnimatePresence, } from "framer-motion";
 import { Fragment } from "react";
 import { useState, useEffect } from "react";
 import Backdrop from "../Modal/Backdrop";
-import Link from "next/link";
 import { cloneDeep } from "lodash";
 import { useRouter } from "next/router";
 
@@ -44,8 +43,6 @@ function EditOrder(props) {
             return props.removeList.some(pair => pair[0] === order.name && pair[1] === order.category);
           });
 
-          const removedItemsTotalPrice = removedItems.reduce((total, item) => total + parseFloat(item.price), 0);
-
           props.order.order = filteredOrders
           const totalPrice = filteredOrders.reduce((total, item) => {
             const price = parseFloat(item.price);
@@ -63,7 +60,6 @@ function EditOrder(props) {
         originalOrder = cloneDeep(props.order.order);
     }
 
-    let variationList = []
     let categoryFinder = ""
     let categoryProducts = {}
 

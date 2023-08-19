@@ -2,7 +2,6 @@ import { Fragment, useState, useEffect } from "react"
 import HomepageButton from "../../components/homepage/Homepage-Button"
 import HomepageButtonBlank from "@/components/homepage/Homepage-Button-Blank"
 import HomepageLater from "@/components/homepage/HomapageLater"
-import Link from "next/link"
 import { useRouter } from "next/router"
 import Head from "next/head"
 import { getServerSideProps } from "@/utilities/serversideProps"
@@ -38,7 +37,6 @@ function HomePage({ shopID, screenWidth }){
       return null;
     }
 
-    const { shopid } = router.query;
     const shopData = shopID.shopData;
     const favicon = shopID.shopData.shopDetails.imageData.icons.icon
 

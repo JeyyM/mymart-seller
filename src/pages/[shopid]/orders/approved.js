@@ -1,15 +1,13 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { getServerSideProps } from "..";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Link from "next/link";
 import RevertOrder from "@/components/orders/RevertOrder";
 import UserProfile from "@/components/orders/UserProfile";
-import RefuseOrder from "@/components/orders/RefuseOrder";
-import AcceptOrder from "@/components/orders/AcceptOrder";  
 import FinishOrder from "@/components/orders/FinishOrder";
 import Celebration from "@/components/orders/Celebration";
 
@@ -25,8 +23,6 @@ function Orders({ shopID, screenWidth }) {
     let contents = shopData.shopSales.activeOrders.filter((order) => order.status === "accepted")
     const usersList = shopData.shopAccounts
     const takebacks = shopData.shopDetails.paymentData.Takebacks
-    const defaultColor = shopData.shopDesigns.defaultMode
-    const design = shopData.shopDesigns
 
     function findUser(email) { return usersList.find((user) => user.email === email) }
 
@@ -87,18 +83,6 @@ function Orders({ shopID, screenWidth }) {
     const [celebration, setCelebration] = useState(false)
     const celebrationClose = () => {
         setCelebration(!celebration);
-    }
-
-    const [accept, setAcceptModal] = useState(false);
-    const handleSetAccept = (order) => {
-        setSelectedOrder(order);
-        let chosenUser = findUser(order.user.email)
-        setSelectedUser(chosenUser);
-        setAcceptModal(!refuse);
-    };
-
-    const acceptClose = () => {
-        setAcceptModal(!accept);
     }
 
     function sorter() {
@@ -165,18 +149,7 @@ function Orders({ shopID, screenWidth }) {
         }
     }
 
-    const [isVisible, setIsVisible] = useState(true);
-
-    const toggleVisibility = () => {
-        setIsVisible(!isVisible);
-    };
-
-    function deleteItem(order) {
-        const newOrders = activeOrders.filter((item) => item.id !== order.id)
-        setActiveOrders(newOrders)
-    }
-
-    async function editApi(newOrder, productIds){
+    async function editApi(productIds){
         const requestBody = {
             selectedOrder: selectedOrder,
             productIds: productIds
@@ -193,23 +166,6 @@ function Orders({ shopID, screenWidth }) {
           const data = await response.json();
     }
 
-    async function refuseApi(newOrder, productIds){
-        const requestBody = {
-            selectedOrder: selectedOrder,
-            productIds: productIds
-          };
-        
-        const response = await fetch(
-            `../../api/order-refuse?martid=${router.query.shopid}`,
-            {
-              method: "PATCH",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(requestBody)
-            }
-          );
-          const data = await response.json();
-    }
-
     async function finishApi(newOrder){
         const requestBody = {
             selectedOrder: selectedOrder,
@@ -217,22 +173,6 @@ function Orders({ shopID, screenWidth }) {
         
         const response = await fetch(
             `../../api/order-finish?martid=${router.query.shopid}`,
-            {
-              method: "PATCH",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(requestBody)
-            }
-          );
-          const data = await response.json();
-    }
-
-    async function acceptApi(newOrder){
-        const requestBody = {
-            selectedOrder: selectedOrder
-          };
-        
-        const response = await fetch(
-            `../../api/order-accept?martid=${router.query.shopid}`,
             {
               method: "PATCH",
               headers: { "Content-Type": "application/json" },
