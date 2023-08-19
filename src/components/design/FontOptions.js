@@ -67,9 +67,6 @@ function FontOptions(props) {
     props.effect(event.target.value);
   };
 
-  const fontList = fonts.map(font => (font.family))
-
-
   return (
     <Fragment>
       <select value={selectFont} className={`text-options text-span ${props.type}`} style={{ width: "100%", fontFamily: `${selectFont}` }} onChange={(event) => handleSelectFont(event)}>

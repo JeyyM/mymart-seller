@@ -1,8 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Fragment } from "react";
-import { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
-import Image from "next/image";
 import Backdrop from "../Modal/Backdrop";
 
 function FinishCheckout(props) {

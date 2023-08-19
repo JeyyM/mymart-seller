@@ -2,10 +2,8 @@ import { motion, AnimatePresence, } from "framer-motion";
 import { Fragment } from "react";
 import { useState, useEffect } from "react";
 import Backdrop from "../Modal/Backdrop";
-import { useRouter } from "next/router";
 
 function NewFaq(props) {
-    const router = useRouter()
     const appear = {
         hidden: {
             transform: "scale(0)",

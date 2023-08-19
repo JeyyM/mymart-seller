@@ -1,16 +1,13 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Fragment } from "react";
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Backdrop from "../Modal/Backdrop";
 
 import CustomizedPicker from "@/components/Mart/CustomizedPicker"
 import { GoogleMap, useLoadScript } from '@react-google-maps/api';
-import { FaMapMarkerAlt } from 'react-icons/fa';
 import { Marker } from '@react-google-maps/api';
 import { Autocomplete } from '@react-google-maps/api';
-import moment from 'moment'
-import { transform } from "lodash";
 import sha256 from 'crypto-js/sha256';
 
 // import Guide from "../../pages/api/Guide"
@@ -198,19 +195,10 @@ function UserProfile(props) {
     };
 
     const [cardmonth, setcardmonth] = useState(props.user.card.month);
-    const handlecardmonthChange = (event) => {
-        setcardmonth(event.target.value);
-    };
 
     const [cardyear, setcardyear] = useState(props.user.card.year);
-    const handlecardyearChange = (event) => {
-        setcardyear(event.target.value);
-    };
 
     const [cvv, setcvv] = useState("");
-    const handlecvvChange = (event) => {
-        setcvv(event.target.value);
-    };
 
     const [cvvTrue, setCvvTrue] = useState(false)
 

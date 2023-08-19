@@ -1,10 +1,8 @@
 import { Fragment } from "react";
 import { useRouter } from "next/router";
-import CategoryProducts from "@/components/category-products/CategoryProducts";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { getServerSideProps } from "..";
 import Head from "next/head";
-import { AnimatePresence, motion } from "framer-motion";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -39,8 +37,6 @@ function ProductsPage({ shopID, screenWidth }) {
     return null;
   }
 
-  const chosenIndex = contents.findIndex((c) => c.categoryName === queryCategoryName);
-
   const products = chosenCategory.categoryProducts
 
   const filteredProducts = products.filter((prod) => prod.variations.some((variant) => variant.active === true))
@@ -57,8 +53,6 @@ function ProductsPage({ shopID, screenWidth }) {
     });
   }
 
-  const upperProductNames = productNames.map((name) => encodeURIComponent(name.toUpperCase()));
-
   // const [addProduct, setAddProduct] = useState(false)
   // const [defaultValues, setDefaultValues] = useState(["", "", ""])
 
@@ -68,20 +62,6 @@ function ProductsPage({ shopID, screenWidth }) {
 
   //   setAddProduct(!addProduct)
   // }
-
-  async function completeForm(formdata) {
-
-    const response = await fetch(
-      `../../../api/new-product?martid=${router.query.shopid}&categorykey=${chosenIndex}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formdata)
-      }
-    );
-    const data = await response.json();
-
-  }
 
   const soldProds = []
 
@@ -95,7 +75,6 @@ function ProductsPage({ shopID, screenWidth }) {
   const totalItems = filteredProducts.length;
   const itemsPerSlide =screenWidth < 400 ? 26 : screenWidth < 600 ? 20 : screenWidth < 1000 ? 15 : 12;
   const itemsPerLine = screenWidth < 400 ? 1 : screenWidth < 600 ? 2 : screenWidth < 1000 ? 3 : 4;
-  const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
   const totalSlides = Math.ceil(totalItems / itemsPerSlide);
   const slideIndexes = Array.from(Array(totalSlides).keys());
   const lastSlideItems = totalItems % itemsPerSlide || itemsPerSlide;

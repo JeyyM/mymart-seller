@@ -1,7 +1,7 @@
 import Backdrop from "../Modal/Backdrop";
 import { motion, AnimatePresence, } from "framer-motion";
 import { Fragment } from "react";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
 function CancelOrder(props) {

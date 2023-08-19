@@ -27,7 +27,6 @@ function Catch({ shopID, screenWidth }){
       return null;
     }
 
-    const { shopid } = router.query;
     const shopData = shopID.shopData;
     const favicon = shopID.shopData.shopDetails.imageData.icons.icon
 

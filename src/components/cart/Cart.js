@@ -1,14 +1,9 @@
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+
 import { useRouter } from "next/router";
 
 
 function Cart(props) {
     const router = useRouter()
-    const shopid = router.query.shopid
-    const [cartItems, setCartItems] = useState([]);
-    
     // useEffect(() => {
     //     const localStorageKey = `mart_${shopid}`;
     

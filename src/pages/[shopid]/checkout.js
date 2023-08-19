@@ -5,7 +5,6 @@ import { useRouter } from "next/router"
 import { getServerSideProps } from "../_app"
 
 import { GoogleMap, useLoadScript } from '@react-google-maps/api';
-import { FaMapMarkerAlt } from 'react-icons/fa';
 import { Marker } from '@react-google-maps/api';
 import { Autocomplete } from '@react-google-maps/api';
 
@@ -30,7 +29,6 @@ export default function Checkout({ shopID, user, screenWidth }) {
   const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
   const final = JSON.parse(decompressedBytes);
 
-    const footerItems = final.shopData.shopDetails.footerData
     const favicon = final.shopData.shopDetails.imageData.icons.icon
     const { handleIncrement, state } = useContext(MyContext);
 
@@ -65,7 +63,6 @@ export default function Checkout({ shopID, user, screenWidth }) {
 
     const paymentDetails = final.shopData.shopDetails.paymentData
 
-    const cardData = paymentDetails.cardInfo
     const checkoutData = paymentDetails.checkoutInfo
 
     const currency = paymentDetails.checkoutInfo.currency
@@ -81,34 +78,6 @@ export default function Checkout({ shopID, user, screenWidth }) {
         userLocation = user.location
         userCoords = user.locationCoords
     }
-
-    const slide = {
-        hidden: {
-            x: "-10rem",
-            opacity: 0,
-        },
-        visible: (index) => ({
-            x: "0px",
-            opacity: 1,
-            transition: {
-                type: "spring",
-                duration: 0.3,
-                bounce: 0.2,
-                delay: index * 0.2,
-            },
-        }),
-        exit: {
-            x: "-10rem",
-            opacity: 0,
-            transition: {
-                duration: 0.1,
-            },
-        },
-    };
-
-    const imageInfo = final.shopData.shopDetails.imageData
-
-    const id = final._id;
 
     const [formInputValidity, setFormInputValidity] = useState({
         cvv: true,
@@ -169,26 +138,6 @@ export default function Checkout({ shopID, user, screenWidth }) {
         }
     }, [center]);
 
-    function currentLoc() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const { latitude, longitude } = position.coords;
-                    setCenter({ lat: latitude, lng: longitude });
-                },
-                (error) => {
-                    console.log(error);
-                }
-            );
-        } else {
-            console.log('Geolocation is not supported by this browser.');
-        }
-    }
-
-    function resetLoc() {
-        setCenter(userCoords)
-    }
-
     useEffect(() => { setCenter(userCoords) }, [])
 
     useEffect(() => {
@@ -224,23 +173,6 @@ export default function Checkout({ shopID, user, screenWidth }) {
             document.removeEventListener("visibilitychange", handleVisibilityChange);
         };
     }, [localStorageKey, state.count]);
-
-    const handleMapClick = (event) => {
-        const newCenter = {
-            lat: event.latLng.lat(),
-            lng: event.latLng.lng(),
-        };
-        setCenter(newCenter);
-
-        const geocoder = new window.google.maps.Geocoder();
-        geocoder.geocode({ location: newCenter }, (results, status) => {
-            if (status === 'OK') {
-                setLocationName(results[0].formatted_address);
-            } else {
-                console.log('Geocoder failed due to: ' + status);
-            }
-        });
-    };
 
     if (loadError) return "Error loading maps";
     if (!isLoaded) return "Loading Maps";
@@ -385,7 +317,6 @@ export default function Checkout({ shopID, user, screenWidth }) {
       }
 
     async function finishSubmission() {
-        let cvvValid
         const hashedCVV = await hashString(cvv)
         const hashedOriginal = user.card.cvv
         const currentDate = new Date();

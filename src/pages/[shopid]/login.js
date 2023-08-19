@@ -1,7 +1,5 @@
-import { Fragment } from "react"
 import Head from "next/head"
 import { getServerSideProps } from "../_app"
-import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect} from "react"
 import { useRouter } from "next/router"
@@ -24,10 +22,6 @@ function Login({shopID}) {
     const router = useRouter()
     const id = final._id
     const localStorageKey = `mart_${final._id}`;
-    const defaultColor = final.shopData.shopDesigns.defaultMode
-
-    const [parsedData, setParsedData] = useState([]);
-    const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
         const updateParsedData = () => {

@@ -21,7 +21,6 @@ import FontOptions from "@/components/design/FontOptions"
 import Preview from "@/components/design/Preview";
 import Palette from "@/components/design/Palette";
 
-import { ChromePicker } from "react-color";
 import chroma from 'chroma-js';
 import tinycolor from 'tinycolor2';
 
@@ -334,10 +333,6 @@ function CreateMart() {
         cvv: true,
     });
 
-    const [locationValidity, setLocationValidity] = useState({
-        location: true,
-    });
-
     const mapContainerStyle = { width: '100%', height: '100%' };
 
     const [center, setCenter] = useState(null);
@@ -360,19 +355,10 @@ function CreateMart() {
     };
 
     const [cardmonth, setcardmonth] = useState("");
-    const handlecardmonthChange = (event) => {
-        setcardmonth(event.target.value);
-    };
 
     const [cardyear, setcardyear] = useState("");
-    const handlecardyearChange = (event) => {
-        setcardyear(event.target.value);
-    };
 
     const [cvv, setcvv] = useState("");
-    const handlecvvChange = (event) => {
-        setcvv(event.target.value);
-    };
 
     const [formInputValidity, setFormInputValidity] = useState({
         mainDark: true,
@@ -940,8 +926,6 @@ function CreateMart() {
     const shopEmailClasses = `${detailValidity.semail ? "text-small input-number" : "invalid-form-2 z"}`;
     const phoneClasses = `${detailValidity.phone ? "text-small input-number" : "invalid-form-2 z"}`;
     const genderClasses = `${detailValidity.gender ? "text-options text-span" : "text-options text-span invalid-dropdown"}`
-
-    const otherClasses = `${detailValidity.other ? "text-small input-number" : "invalid-form-2 z"}`;
 
     const cardnameClasses = `${cardValidity.name ? "text-small input-number" : "invalid-form-2 z"}`;
     const cardnumClasses = `${cardValidity.number ? "text-small input-number" : "invalid-form-2 z"}`;

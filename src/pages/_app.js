@@ -3,11 +3,8 @@ import "../sass/base/fonts.css"
 import NavbarLayout from "@/components/navbar/Navbar-Layout";
 import { useRouter } from "next/router";
 import { getServerSideProps } from "../utilities/serversideProps";
-import { createContext, useEffect, useContext, useRef } from "react";
-import { useState, useReducer } from "react";
-import store from "@/components/store/store";
-import { Provider } from "react-redux";
-import Cart from "@/components/cart/Cart";
+import { useEffect} from "react";
+import { useState } from "react";
 import { MyProvider } from "@/components/store/MyProvider";
 
 import { LocalizationProvider } from '@mui/x-date-pickers';

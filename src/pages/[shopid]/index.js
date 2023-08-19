@@ -1,10 +1,9 @@
-import { Fragment, useState, useEffect, useMemo } from "react"
+import { Fragment, useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import Head from "next/head"
 import { getServerSideProps } from "@/utilities/serversideProps"
 import BannerCarousel from "@/components/Mart/BannerCarousel"
-import { AnimatePresence, motion } from "framer-motion"
 import ActiveNotifs from "@/components/Mart/ActiveNotifs"
 import PopModal from "@/components/Mart/PopModal"
 import Slider from 'react-slick';
@@ -42,30 +41,6 @@ function HomePage({ shopID, screenWidth }) {
   }, []);
   
   const viewsList = final && final.shopData.shopViews
-  
-  const slide = {
-    hidden: {
-      x: "-10rem",
-      opacity: 0,
-    },
-    visible: (index) => ({
-      x: "0px",
-      opacity: 1,
-      transition: {
-        type: "spring",
-        duration: 0.3,
-        bounce: 0.2,
-        delay: index * 0.2,
-      },
-    }),
-    exit: {
-      x: "-10rem",
-      opacity: 0,
-      transition: {
-        duration: 0.1,
-      },
-    },
-  };
 
   const { shopid } = router.query;
 
@@ -158,8 +133,6 @@ function HomePage({ shopID, screenWidth }) {
     speed: 500,
   };
 
-  const addCateg = false
-
   return <Fragment>
     <Head>
       <title>{final.name}</title>
@@ -185,10 +158,8 @@ function HomePage({ shopID, screenWidth }) {
         const totalItems = activeItems.length;
         const itemsPerSlide = screenWidth < 400 ? 1 : screenWidth < 600 ? 2 : screenWidth < 1000 ? 3 : 4;
         const itemsPerLine = screenWidth < 400 ? 1 : screenWidth < 600 ? 2 : screenWidth < 1000 ? 3 : 4;
-        const linesPerSlide = Math.ceil(itemsPerSlide / itemsPerLine);
         const totalSlides = Math.ceil(totalItems / itemsPerSlide);
         const slideIndexes = Array.from(Array(totalSlides).keys());
-        const lastSlideItems = totalItems % itemsPerSlide || itemsPerSlide;
 
         {/* const viewMart = useMemo(() => {
           if (typeof window !== "undefined") {

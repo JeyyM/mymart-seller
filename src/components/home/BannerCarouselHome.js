@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import { motion, AnimatePresence } from 'framer-motion';
-import Backdrop from '@/components/Modal/Backdrop';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 

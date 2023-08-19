@@ -1,11 +1,8 @@
-import { motion, AnimatePresence, color, } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Fragment } from "react";
-import { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
 import Backdrop from "../Modal/Backdrop";
 
 function Acc1(props) {
-  const router = useRouter()
 
   const appear = {
     hidden: {

@@ -2,7 +2,7 @@ import { Fragment, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { getServerSideProps } from "..";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';

@@ -2,7 +2,7 @@ import { Fragment, useState, useEffect, useRef } from "react"
 import Head from "next/head"
 import Link from "next/link"
 import { useInView } from 'react-intersection-observer';
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import BannerCarouselHome from "@/components/home/BannerCarouselHome";
 import Testimony from "@/components/home/Testimony";
 // import HomeNavbar from "@/components/home/HomeNavbar";

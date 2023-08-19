@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 
 function CategoryProductsBuyer(props) {
   const { productName, productDescription, productPrice, productStock, productImages } = activeCheck(props.items);
-  const id = props.id;
   const MotionLink = motion(Link);
 
   const activeItems = props.items.filter((item) => item.active)

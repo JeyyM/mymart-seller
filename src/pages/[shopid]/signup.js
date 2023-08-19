@@ -1,13 +1,10 @@
-import { Fragment } from "react"
 import Head from "next/head"
 import { getServerSideProps } from "../_app"
-import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect, useRef } from "react"
 import CustomizedPicker from "@/components/Mart/CustomizedPicker"
 
 import { GoogleMap, useLoadScript } from '@react-google-maps/api';
-import { FaMapMarkerAlt } from 'react-icons/fa';
 import { Marker } from '@react-google-maps/api';
 import { Autocomplete } from '@react-google-maps/api';
 import { useRouter } from "next/router"

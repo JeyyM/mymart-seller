@@ -1,7 +1,7 @@
 import Backdrop from "./Backdrop";
 import { motion, AnimatePresence, } from "framer-motion";
 import { Fragment } from "react";
-import { useState, useEffect, useContext } from "react";
+import { useState} from "react";
 import { useRouter } from "next/router";
 
 function Confirmer(props) {

@@ -1,12 +1,10 @@
 import Link from "next/link"
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 
 function CategoryProducts(props) {
 
     const { productDescription, productName, productPrice, productStock, productImages } = props.items[0]
-    const id = props.id
     const MotionLink = motion(Link);
 
     const encodedName = encodeURIComponent(productName)
