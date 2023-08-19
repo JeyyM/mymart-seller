@@ -14,8 +14,11 @@ export default function Footer(props) {
 
     return <footer className="footer">
         <div className="footer-column">
-        <img className="social-icon" src={`/socials/Facebook.webp`}></img>
-        <img className="social-icon" src={`/socials/TikTok.webp`}></img>
+        <img className="social-icon" src={`/home/Facebook.webp`}></img>
+        <img className="social-icon" src={`/home/TikTok.webp`}></img>
+
+        <img className="social-icon" src={`/Facebook.webp`}></img>
+        <img className="social-icon" src={`/TikTok.webp`}></img>
 
 
             <h3 className="heading-tertiary"><strong>Address</strong></h3>
@@ -45,7 +48,7 @@ export default function Footer(props) {
                 {socials.length === 0 ? <h3 className="heading-tertiary">-</h3> : ""}
                 {socials.map((index) => {
                     return <Link key={index.link} href={index.link} target="_blank">
-                        <img className="social-icon" src={`/socials/${index.type}.webp`} alt={index.type}></img>
+                        <img className="social-icon" src={`/home/${index.type}.webp`} alt={index.type}></img>
                     </Link>
                 })}
             </div>
