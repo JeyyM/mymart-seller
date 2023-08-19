@@ -1,4 +1,5 @@
 import "./main.scss";
+import "../sass/base/fonts.css"
 import NavbarLayout from "@/components/navbar/Navbar-Layout";
 import { useRouter } from "next/router";
 import { getServerSideProps } from "../utilities/serversideProps";
