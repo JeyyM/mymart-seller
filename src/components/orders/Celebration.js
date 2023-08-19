@@ -52,7 +52,7 @@ function Celebration(props) {
                     <h1 className="heading-secondary no-margin">Order Successful</h1>
                 </span>
 
-            <img src={"/coin.gif"} className="finish-coin"></img>
+            <img src={"/coin.gif"} className="finish-coin" alt="Success"></img>
 
             <button onClick={props.disable} className="product-action-2 heading-secondary margin-side">Finish</button>
             </motion.div>

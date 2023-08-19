@@ -177,17 +177,19 @@ To right align, just put : on the lines
                    { screenWidth <= 1000 && !hiddenWrite ? (<div className="markdown-half markdown-preview" style={{ width: `${screenWidth <= 1000 ? "90vw" : "45vw"}` }} onClick={(e) => { e.stopPropagation() }}>
                                 <ReactMarkdown
                                     className="markdown-body"
-                                    children={markdownContent}
                                     skipHtml={false}
                                     remarkPlugins={[gfm]}
-                                />
+                                >
+                                {markdownContent}
+                                </ReactMarkdown>
                             </div>) : screenWidth > 1000 && (<div className="markdown-half markdown-preview" style={{ width: `${screenWidth <= 1000 ? "90vw" : "45vw"}` }} onClick={(e) => { e.stopPropagation() }}>
                                 <ReactMarkdown
                                     className="markdown-body"
-                                    children={markdownContent}
                                     skipHtml={false}
                                     remarkPlugins={[gfm]}
-                                />
+                                >
+                                {markdownContent}
+                                </ReactMarkdown>
                             </div>)}
 
                         </motion.div>

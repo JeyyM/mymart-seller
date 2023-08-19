@@ -142,7 +142,7 @@ function RefuseOrder(props) {
                                     <div className="warning-logo">&nbsp;</div>
                                 </div>
 
-                                <h2 className="heading-tertiary" style={{ margin: "1rem" }}>Are you sure you want to refuse the order? Upon refusing, the customer won't be charged. This order will be put into the customer records. Data such as the stock will be returned. This cannot be undone.</h2>
+                                <h2 className="heading-tertiary" style={{ margin: "1rem" }}>Are you sure you want to refuse the order? Upon refusing, the customer won&apos;t be charged. This order will be put into the customer records. Data such as the stock will be returned. This cannot be undone.</h2>
 
 
                                 <div className="refuse-grid-2" style={{ gap: "1rem", marginBottom: "1rem" }}>

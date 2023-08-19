@@ -179,7 +179,7 @@ function Login(props) {
                     transition={{ duration: 0.2 }}
                     style={{margin:"auto", marginTop:"20vh"}}
                 ><div className="sign-step">
-                        <img src="/light-2.png" className="mymart-pic" style={{ margin: "0", marginBottom: "1rem" }}></img>
+                        <img src="/light-2.png" className="mymart-pic" style={{ margin: "0", marginBottom: "1rem" }} alt="MyMart Admin"></img>
 
                         <h2 className="heading-secondary">Log-In to Admin</h2>
 
@@ -217,9 +217,9 @@ function Login(props) {
 
                         </div>
                         {/* <a className="heading-tertiary" style={{ margin: "1rem auto" }} href={`/${id}/signup`}>Sign-up?</a> */}
-                        <a href="/64c84adf0cac7b00a22be359" className="heading-secondary" style={{marginTop:"1rem"}}>Shop 1</a>
-                        <a href="/64c9a0fb66248cc084a3ae8f" className="heading-secondary" style={{marginTop:"1rem"}}>Shop 2</a>
-                        <a href="/64cb36f20ba185ffcb7e0ba1" className="heading-secondary" style={{marginTop:"1rem"}}>Shop 3</a>
+                        <Link href="/64c84adf0cac7b00a22be359" className="heading-secondary" style={{marginTop:"1rem"}}>Shop 1</Link>
+                        <Link href="/64c9a0fb66248cc084a3ae8f" className="heading-secondary" style={{marginTop:"1rem"}}>Shop 2</Link>
+                        <Link href="/64cb36f20ba185ffcb7e0ba1" className="heading-secondary" style={{marginTop:"1rem"}}>Shop 3</Link>
                     </div>
                     
                 </motion.div> </AnimatePresence>}

@@ -24,6 +24,7 @@ function ProductsPage({ shopID, screenWidth }) {
   const contents = shopData.shopCategories;
 
   const chosenCategory = contents.find((c) => c.categoryName === queryCategoryName);
+  const [addProduct, setAddProduct] = useState(false)
 
     useEffect(() => {
       if (!chosenCategory) {
@@ -52,9 +53,6 @@ function ProductsPage({ shopID, screenWidth }) {
   }
 
   const upperProductNames = productNames.map((name) => encodeURIComponent(name.toUpperCase()));
-
-  const [addProduct, setAddProduct] = useState(false)
-  const [defaultValues, setDefaultValues] = useState(["", "", ""])
 
   function addProdHandler(event) {
     event.preventDefault()

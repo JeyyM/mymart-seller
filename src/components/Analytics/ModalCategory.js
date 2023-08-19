@@ -114,7 +114,7 @@ function ModalCategory({data, modalStatus, disable, currency}) {
           <div className="cart-rows">
                 {data.map((item, index) => (
                   <div className="cart-row" key={index}>
-                    <img className="cart-img round-borderer" src={item.image}></img>
+                    <img className="cart-img round-borderer" src={item.image} alt={item.name}></img>
                     <div className="flex-col-2" style={{ width: "auto" }}>
                       <a href={`/${item.url}`} target="_blank" className="heading-secondary" style={{ whiteSpace: "pre-wrap", display: "inline", textDecoration: "none" }}>{item.name.length > 32 ? item.name.substring(0, 20) + "..." : item.name}</a>
                     </div>

@@ -298,7 +298,7 @@ function EditOrder(props) {
                                                 <div className="flex-row-spaceless" style={{ alignItems: "center", width: "100%" }}>
 
                                                     <div>
-                                                    {props.screenWidth < 550 && <img className="order-img round-borderer margin-side" src={item.image} style={{display:"block", marginBottom:"1rem"}}></img>}
+                                                    {props.screenWidth < 550 && <img alt={item.name} className="order-img round-borderer margin-side" src={item.image} style={{display:"block", marginBottom:"1rem"}}></img>}
                                                     <div className="add-buttons flex-row-spaceless" style={{ width: "16rem", marginRight: "1rem" }}>
                                                         <button type="button" className="minus-button" onClick={() => updateCartItem(index, -1, item)}><div className="heading-icon-minus-act svg-color">&nbsp;</div></button>
                                                         <input type="number" className="text-small input-number" placeholder="Amount" style={{ borderRadius: "0", margin: "0", width: "8rem" }} value={item.cartValue} onChange={(e) => updateCartInput(index, parseInt(e.target.value) - item.cartValue, item)}></input>
@@ -306,7 +306,7 @@ function EditOrder(props) {
                                                     </div>
                                                     </div>
 
-                                                    {props.screenWidth > 550 && <img className="order-img round-borderer" src={item.image} style={{marginRight:"1rem"}}></img>}
+                                                    {props.screenWidth > 550 && <img alt={item.name} className="order-img round-borderer" src={item.image} style={{marginRight:"1rem"}}></img>}
 
                                                     <div className="flex-col">
 

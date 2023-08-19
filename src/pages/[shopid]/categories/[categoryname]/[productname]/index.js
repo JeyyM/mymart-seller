@@ -471,8 +471,6 @@ function ProductPage({ shopID, screenWidth }) {
     changeTags(data)
   }
 
-  //////////
-
   useEffect(() => {
     setAll(varState);
   }, [varState]);
