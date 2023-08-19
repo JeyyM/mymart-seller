@@ -525,6 +525,7 @@ function About({ shopID, screenWidth }) {
 
   const imgElements = ImgArray.map((item, index) => (
     <img
+    alt={index}
       src={item.img}
       key={index}
       className={item.border}
@@ -1084,7 +1085,7 @@ function About({ shopID, screenWidth }) {
                             </div>
 
                             {screenWidth <= 900 && <div className="flex-col">
-                            <img src={item.img} style={{ height: "7rem", width: "7rem", margin: "auto auto" }} className={`${item.border ? "round-borderer" : ""}`}></img>
+                            <img alt="Preview" src={item.img} style={{ height: "7rem", width: "7rem", margin: "auto auto" }} className={`${item.border ? "round-borderer" : ""}`}></img>
                             </div>}
 
                             {screenWidth > 900 && <>
@@ -1256,7 +1257,7 @@ function About({ shopID, screenWidth }) {
 
                             
                             {screenWidth <= 1100 && <div className="flex-col">
-                              <img src={item.img} style={{ height: "7rem", width: "7rem", margin: "auto auto" }} className={`${item.border ? "round-borderer" : ""}`}></img>
+                              <img alt="Preview" src={item.img} style={{ height: "7rem", width: "7rem", margin: "auto auto" }} className={`${item.border ? "round-borderer" : ""}`}></img>
                             </div>}
 
                             {screenWidth > 1100 && <>
@@ -2039,7 +2040,7 @@ function About({ shopID, screenWidth }) {
                             </div>
 
                             {screenWidth <= 900 && <div className="flex-col">
-                            <img src={item.img} style={{ height: "7rem", width: "7rem", margin: "auto auto" }} className={`${item.border ? "round-borderer" : ""}`}></img>
+                            <img alt="Preview" src={item.img} style={{ height: "7rem", width: "7rem", margin: "auto auto" }} className={`${item.border ? "round-borderer" : ""}`}></img>
                             </div>}
 
                             {screenWidth > 900 && <>
@@ -2214,7 +2215,7 @@ function About({ shopID, screenWidth }) {
 
                             
                             {screenWidth <= 1100 && <div className="flex-col">
-                              <img src={item.img} style={{ height: "7rem", width: "7rem", margin: "auto auto" }} className={`${item.border ? "round-borderer" : ""}`}></img>
+                              <img alt="Preview" src={item.img} style={{ height: "7rem", width: "7rem", margin: "auto auto" }} className={`${item.border ? "round-borderer" : ""}`}></img>
                             </div>}
 
                             {screenWidth > 1100 && <>

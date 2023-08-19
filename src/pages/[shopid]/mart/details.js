@@ -18,7 +18,7 @@ const libraries = ['places'];
 export default function Details(martID) {
   const footerItems = martID.shopID.shopData.shopDetails.footerData
   const favicon = martID.shopID.shopData.shopDetails.imageData.icons.icon
-  const {screenWidth} = martID 
+  const { screenWidth } = martID
 
   const router = useRouter()
 
@@ -244,7 +244,7 @@ export default function Details(martID) {
     router.reload()
   }
 
-  const mapContainerStyle = { width: '100%', height: '100%', minHeight:"20rem" };
+  const mapContainerStyle = { width: '100%', height: '100%', minHeight: "20rem" };
 
   const [center, setCenter] = useState(null);
   const [locationName, setLocationName] = useState(footerItems.shopLocation);
@@ -359,7 +359,7 @@ export default function Details(martID) {
       <div className="heading-icon-dropshadow">
         <div className="heading-icon-pin svg-color">&nbsp;</div>
       </div>
-      <h1 className="heading-primary no-margin"  style={{ fontSize: `${screenWidth > 500 ? "3.5rem" : screenWidth > 450 ? "3rem" : "2.5rem"}`}}>Contact Details and Footer&nbsp;</h1>
+      <h1 className="heading-primary no-margin" style={{ fontSize: `${screenWidth > 500 ? "3.5rem" : screenWidth > 450 ? "3rem" : "2.5rem"}` }}>Contact Details and Footer&nbsp;</h1>
       <button onClick={submitChanges} className="heading-tertiary add-categ-init" style={{ width: `${screenWidth > 600 ? "max-content" : screenWidth > 400 ? "23rem" : "18rem"}`, height: `${screenWidth > 400 ? "4rem" : "7rem"}` }} disabled={loading}><div className="heading-icon-check svg-color">&nbsp;</div>{loading ? "Submitting..." : "Submit Changes"} &nbsp;</button>
     </span>
     <section className="contact-container">
@@ -500,7 +500,7 @@ export default function Details(martID) {
           <div className="detail-row">
             <input type="text" value={prevImg} onChange={handlePrevImg} placeholder="Footer Image (Imgur Links Only)" className="text-small input-number" autoComplete="off" style={{ width: "100%" }}></input>
           </div>
-          <img src={prevImg} className={borderless ? "footer-img" : "footer-img round-borderer"} alt="invalid image"></img>
+          <img src={prevImg} className={borderless ? "footer-img" : "footer-img round-borderer"} alt="Footer Image"></img>
         </div>
 
       </div>
@@ -546,9 +546,9 @@ export default function Details(martID) {
       </div>
 
       <span className="page-heading">
-      <div className="heading-icon-dropshadow">
-            <div className="heading-icon-preview svg-color">&nbsp;</div>
-          </div>
+        <div className="heading-icon-dropshadow">
+          <div className="heading-icon-preview svg-color">&nbsp;</div>
+        </div>
         <h1 className="heading-secondary no-margin">Footer Preview&nbsp;</h1>
       </span>
 
@@ -582,7 +582,7 @@ export default function Details(martID) {
               {socials.length === 0 ? <h3 className="heading-tertiary">-</h3> : ""}
               {socials.map((index) => {
                 return <Link key={index.link} href={index.link} target="_blank">
-                  <img className="social-icon" src={`/socials/${index.type}.webp`}></img>
+                  <img alt={index.type} className="social-icon" src={`/socials/${index.type}.webp`}></img>
                 </Link>
               })}
             </div>
@@ -605,7 +605,7 @@ export default function Details(martID) {
             })}
           </div>
           <div className="footer-column">
-            {prevImg === "" ? <h3 className="heading-tertiary">-</h3> : <img src={prevImg} className={borderless ? "footer-img" : "footer-img round-borderer"} alt="invalid image"></img>}
+            {prevImg === "" ? <h3 className="heading-tertiary">-</h3> : <img src={prevImg} className={borderless ? "footer-img" : "footer-img round-borderer"} alt="Footer Image"></img>}
 
             <br></br>
             {aboutMsg === "" ? <h3 className="heading-tertiary">-</h3> : <h3 className="heading-tertiary">{aboutMsg}</h3>}

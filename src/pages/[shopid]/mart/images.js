@@ -36,7 +36,7 @@ function Images(martID) {
 
     function startsImgur(word) {
         return word.startsWith("https://i.imgur.com/") || word.startsWith("https://picsum.photos/");
-      }
+    }
 
     const imageInfo = martID.shopID.shopData.shopDetails.imageData
 
@@ -281,7 +281,7 @@ function Images(martID) {
                 {/* <h1 className="heading-primary no-margin"  style={{ fontSize: `${screenWidth > 500 ? "3.5rem" : screenWidth > 450 ? "3rem" : "2.5rem"}`}}>Contact Details and Footer&nbsp;</h1>
       <button onClick={submitChanges} className="heading-tertiary add-categ-init" style={{ width: `${screenWidth > 600 ? "21rem" : screenWidth > 400 ? "23rem" : "18rem"}`, height: `${screenWidth > 400 ? "4rem" : "7rem"}` }} disabled={loading}><div className="heading-icon-check svg-color">&nbsp;</div>{loading ? "Submitting..." : "Submit Changes"} &nbsp;</button> */}
 
-                <h1 className="heading-primary no-margin" style={{ fontSize: `${screenWidth > 500 ? "3.5rem" : screenWidth > 450 ? "3rem" : "2.5rem"}`}}>
+                <h1 className="heading-primary no-margin" style={{ fontSize: `${screenWidth > 500 ? "3.5rem" : screenWidth > 450 ? "3rem" : "2.5rem"}` }}>
                     &nbsp;Images & Pop-ups &nbsp;
                 </h1>
                 <button
@@ -308,50 +308,51 @@ function Images(martID) {
             <div className="images-container">
                 <div className="images-column-1">
                     <div className="images-column">
-                    <div className="images-inputs">
+                        <div className="images-inputs">
 
-                        <div>
-                        <span className="page-heading flex-row-align">
-                            <div className="heading-icon-favicon svg-color">&nbsp;</div>
-                            <h1 className="heading-secondary no-margin">Set Shop Icon</h1>
-                            <img src={favicon} style={{ height: "16px", width: "16px" }}></img>
-                        </span>
-                        <h3 className="heading-tertiary" style={{ margin: "1rem" }}>
-                            Input an Imgur jpeg link
-                        </h3>
+                            <div>
+                                <span className="page-heading flex-row-align">
+                                    <div className="heading-icon-favicon svg-color">&nbsp;</div>
+                                    <h1 className="heading-secondary no-margin">Set Shop Icon</h1>
+                                    <img src={favicon} alt="Favicon" style={{ height: "16px", width: "16px" }}></img>
+                                </span>
+                                <h3 className="heading-tertiary" style={{ margin: "1rem" }}>
+                                    Input an Imgur jpeg link
+                                </h3>
 
-                        <input
-                            className="text-small input-number"
-                            type="text"
-                            placeholder="Imgur Link"
-                            onChange={handleFaviconChange}
-                            value={favicon}
-                        ></input>
+                                <input
+                                    className="text-small input-number"
+                                    type="text"
+                                    placeholder="Imgur Link"
+                                    onChange={handleFaviconChange}
+                                    value={favicon}
+                                ></input>
 
+                            </div>
+
+                            <div>
+                                <span
+                                    className="page-heading flex-row-align"
+                                    style={{ marginTop: "1rem" }}
+                                >
+                                    <div className="heading-icon-navbar-logo svg-color">&nbsp;</div>
+                                    <h1 className="heading-secondary no-margin">Set Navbar Logo</h1>
+                                </span>
+                                <h3 className="heading-tertiary" style={{ marginBottom: "1rem" }}>
+                                    Input an Imgur jpeg link
+                                </h3>
+
+                                <input
+                                    className="text-small input-number"
+                                    type="text"
+                                    placeholder="Imgur Link"
+                                    onChange={handleLogoChange}
+                                    value={logo}
+                                ></input>
+                            </div>
                         </div>
-
-                        <div>
-                        <span
-                            className="page-heading flex-row-align"
-                            style={{ marginTop: "1rem" }}
-                        >
-                            <div className="heading-icon-navbar-logo svg-color">&nbsp;</div>
-                            <h1 className="heading-secondary no-margin">Set Navbar Logo</h1>
-                        </span>
-                        <h3 className="heading-tertiary" style={{marginBottom:"1rem"}}>
-                            Input an Imgur jpeg link
-                        </h3>
-
-                        <input
-                            className="text-small input-number"
-                            type="text"
-                            placeholder="Imgur Link"
-                            onChange={handleLogoChange}
-                            value={logo}
-                        ></input>
-                        </div>
-</div>
                         <img
+                            alt="Mart Logo"
                             src={logo}
                             className="company-logo-med"
                             style={{ margin: "2rem auto" }}
@@ -426,28 +427,28 @@ function Images(martID) {
                             </div>}
                         </div>
 
-                        {screenWidth <= 400 && <div className="flex-col" style={{marginTop:"2rem"}}>
-                                <label
-                                    className="heading-tertiary"
-                                    style={{ marginBottom: "1rem" }}
-                                >
-                                    Link Path: &nbsp;
-                                </label>
-                                <div className="flex-row-align">
-                                    <input
-                                        type="text"
-                                        placeholder="Link"
-                                        className="text-small input-number"
-                                        autoComplete="off"
-                                        style={{ width: "100%", margin: "0" }}
-                                        value={PopupLink}
-                                        onChange={(event) => handlePopupLinkChange(event)}
-                                    ></input>
-                                </div>
-                            </div>}
+                        {screenWidth <= 400 && <div className="flex-col" style={{ marginTop: "2rem" }}>
+                            <label
+                                className="heading-tertiary"
+                                style={{ marginBottom: "1rem" }}
+                            >
+                                Link Path: &nbsp;
+                            </label>
+                            <div className="flex-row-align">
+                                <input
+                                    type="text"
+                                    placeholder="Link"
+                                    className="text-small input-number"
+                                    autoComplete="off"
+                                    style={{ width: "100%", margin: "0" }}
+                                    value={PopupLink}
+                                    onChange={(event) => handlePopupLinkChange(event)}
+                                ></input>
+                            </div>
+                        </div>}
 
                         <div className="pop-up-container">
-                            <img src={Popup} className="pop-up-prev"></img>
+                            <img alt="Pop-up" src={Popup} className="pop-up-prev"></img>
                         </div>
 
                     </div>
@@ -488,10 +489,10 @@ function Images(martID) {
                                     >
                                         <div
                                             className="flex-col set-container"
-                                            style={{ gap: "1rem", marginBottom: "1rem", position:"relative" }}
+                                            style={{ gap: "1rem", marginBottom: "1rem", position: "relative" }}
                                         >
-                                        
-                                        <div className="flex-row">
+
+                                            <div className="flex-row">
                                                 <div className="flex-col">
                                                     <label
                                                         className="heading-tertiary"
@@ -556,50 +557,50 @@ function Images(martID) {
                                                 </div>}
 
                                                 {screenWidth > 450 && <>
-                                                <div className="flex-col">
-                                                    <label
-                                                        className="heading-tertiary"
-                                                        style={{ marginBottom: "1rem" }}
-                                                    >
-                                                        Link: &nbsp;
-                                                    </label>
-                                                    <div className="flex-row-align">
-                                                        <input
-                                                            type="text"
-                                                            placeholder="Link"
-                                                            className="text-small input-number"
-                                                            autoComplete="off"
-                                                            style={{ width: "100%", margin: "0" }}
-                                                            value={item.link}
-                                                            onChange={(event) => handleNotifLink(event, index)}
-                                                        ></input>
-                                                    </div>
-                                                </div>
-                                                <div className="flex-col">
-                                                    <label
-                                                        className="heading-tertiary"
-                                                        style={{ marginBottom: "1rem" }}
-                                                    >
-                                                        Toggle Notif: &nbsp;
-                                                    </label>
-                                                    <div className="flex-row-align">
-                                                        <input
-                                                            checked={item.active}
-                                                            onChange={() => handleToggle(index)}
-                                                            type="checkbox"
-                                                            id={`notif${index}`}
-                                                            className="toggle-switch"
-                                                        />
-                                                        <label htmlFor={`notif${index}`} className="toggle-label">
-                                                            Toggle
+                                                    <div className="flex-col">
+                                                        <label
+                                                            className="heading-tertiary"
+                                                            style={{ marginBottom: "1rem" }}
+                                                        >
+                                                            Link: &nbsp;
                                                         </label>
+                                                        <div className="flex-row-align">
+                                                            <input
+                                                                type="text"
+                                                                placeholder="Link"
+                                                                className="text-small input-number"
+                                                                autoComplete="off"
+                                                                style={{ width: "100%", margin: "0" }}
+                                                                value={item.link}
+                                                                onChange={(event) => handleNotifLink(event, index)}
+                                                            ></input>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                    <div className="flex-col">
+                                                        <label
+                                                            className="heading-tertiary"
+                                                            style={{ marginBottom: "1rem" }}
+                                                        >
+                                                            Toggle Notif: &nbsp;
+                                                        </label>
+                                                        <div className="flex-row-align">
+                                                            <input
+                                                                checked={item.active}
+                                                                onChange={() => handleToggle(index)}
+                                                                type="checkbox"
+                                                                id={`notif${index}`}
+                                                                className="toggle-switch"
+                                                            />
+                                                            <label htmlFor={`notif${index}`} className="toggle-label">
+                                                                Toggle
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                 </>}
                                             </div>
 
                                             {screenWidth <= 1600 && <div className="flex-row">
-                                            {screenWidth > 450 && <div className="flex-col">
+                                                {screenWidth > 450 && <div className="flex-col">
                                                     <label className="heading-tertiary">
                                                         Text Color: &nbsp;
                                                     </label>
@@ -616,40 +617,40 @@ function Images(martID) {
                                                     ></input>
                                                 </div>}
 
-                                                    <div className="flex-col">
-                                                        <label className="heading-tertiary">
-                                                            Color Dark: &nbsp;
-                                                        </label>
+                                                <div className="flex-col">
+                                                    <label className="heading-tertiary">
+                                                        Color Dark: &nbsp;
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Color Dark"
+                                                        className="text-small input-number"
+                                                        autoComplete="off"
+                                                        style={{ width: "100%", marginTop: "1rem" }}
+                                                        value={item.col1}
+                                                        onChange={(event) =>
+                                                            handleNotifC1(index, event.target.value)
+                                                        }
+                                                    ></input>
+                                                </div>
+                                                <div className="flex-col">
+                                                    <label className="heading-tertiary">
+                                                        Color Light: &nbsp;
+                                                    </label>
+                                                    <div className="flex-row-align">
                                                         <input
                                                             type="text"
                                                             placeholder="Color Dark"
                                                             className="text-small input-number"
                                                             autoComplete="off"
                                                             style={{ width: "100%", marginTop: "1rem" }}
-                                                            value={item.col1}
+                                                            value={item.col2}
                                                             onChange={(event) =>
-                                                                handleNotifC1(index, event.target.value)
+                                                                handleNotifC2(index, event.target.value)
                                                             }
                                                         ></input>
                                                     </div>
-                                                    <div className="flex-col">
-                                                        <label className="heading-tertiary">
-                                                            Color Light: &nbsp;
-                                                        </label>
-                                                        <div className="flex-row-align">
-                                                            <input
-                                                                type="text"
-                                                                placeholder="Color Dark"
-                                                                className="text-small input-number"
-                                                                autoComplete="off"
-                                                                style={{ width: "100%", marginTop: "1rem" }}
-                                                                value={item.col2}
-                                                                onChange={(event) =>
-                                                                    handleNotifC2(index, event.target.value)
-                                                                }
-                                                            ></input>
-                                                        </div>
-                                                    </div>
+                                                </div>
                                             </div>}
                                             {screenWidth <= 450 && <div className="flex-row">
                                                 <div className="flex-col">
@@ -691,7 +692,7 @@ function Images(martID) {
                                                         </label>
                                                     </div>
                                                 </div>
-                                                </div>}
+                                            </div>}
 
                                             <div
                                                 className="top-notif"
@@ -709,7 +710,7 @@ function Images(martID) {
                                             </div>
                                         </div>
 
-                                        <button className="add-img" type="button" onClick={() => handleDeleteNotif(index)} style={{position:"absolute", top:"0", right:"0", margin:"1rem"}}>
+                                        <button className="add-img" type="button" onClick={() => handleDeleteNotif(index)} style={{ position: "absolute", top: "0", right: "0", margin: "1rem" }}>
 
                                             {confirmDelete1 === index ? (
                                                 <div className="heading-icon-check-marginless svg-color">
@@ -766,20 +767,20 @@ function Images(martID) {
                                     >
                                         <div
                                             className="flex-col set-container"
-                                            style={{ gap: "1rem", marginBottom: "1rem", position:"relative" }}
+                                            style={{ gap: "1rem", marginBottom: "1rem", position: "relative" }}
                                         >
-                                        
-                                        <button className="add-img" type="button" onClick={() => handleDeleteNotif(index)} style={{position:"absolute", right:"0", marginRight:"0.5rem", marginTop:"-1.5rem"}}>
-                                            {confirmDelete1 === index ? (
-                                                <div className="heading-icon-check-marginless svg-color">
-                                                    &nbsp;
-                                                </div>
-                                            ) : (
-                                                <div className="heading-icon-minus-marginless svg-color">
-                                                    &nbsp;
-                                                </div>
-                                            )}
-                                        </button>
+
+                                            <button className="add-img" type="button" onClick={() => handleDeleteNotif(index)} style={{ position: "absolute", right: "0", marginRight: "0.5rem", marginTop: "-1.5rem" }}>
+                                                {confirmDelete1 === index ? (
+                                                    <div className="heading-icon-check-marginless svg-color">
+                                                        &nbsp;
+                                                    </div>
+                                                ) : (
+                                                    <div className="heading-icon-minus-marginless svg-color">
+                                                        &nbsp;
+                                                    </div>
+                                                )}
+                                            </button>
                                             <div className="flex-row">
                                                 <div className="flex-col">
                                                     <label className="heading-tertiary">
@@ -861,40 +862,40 @@ function Images(martID) {
                                             </div>
 
                                             {screenWidth <= 1600 && <div className="flex-row">
-                                                    <div className="flex-col">
-                                                        <label className="heading-tertiary">
-                                                            Color Dark: &nbsp;
-                                                        </label>
+                                                <div className="flex-col">
+                                                    <label className="heading-tertiary">
+                                                        Color Dark: &nbsp;
+                                                    </label>
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Color Dark"
+                                                        className="text-small input-number"
+                                                        autoComplete="off"
+                                                        style={{ width: "100%", marginTop: "1rem" }}
+                                                        value={item.col1}
+                                                        onChange={(event) =>
+                                                            handleNotifC1(index, event.target.value)
+                                                        }
+                                                    ></input>
+                                                </div>
+                                                <div className="flex-col">
+                                                    <label className="heading-tertiary">
+                                                        Color Light: &nbsp;
+                                                    </label>
+                                                    <div className="flex-row-align">
                                                         <input
                                                             type="text"
                                                             placeholder="Color Dark"
                                                             className="text-small input-number"
                                                             autoComplete="off"
                                                             style={{ width: "100%", marginTop: "1rem" }}
-                                                            value={item.col1}
+                                                            value={item.col2}
                                                             onChange={(event) =>
-                                                                handleNotifC1(index, event.target.value)
+                                                                handleNotifC2(index, event.target.value)
                                                             }
                                                         ></input>
                                                     </div>
-                                                    <div className="flex-col">
-                                                        <label className="heading-tertiary">
-                                                            Color Light: &nbsp;
-                                                        </label>
-                                                        <div className="flex-row-align">
-                                                            <input
-                                                                type="text"
-                                                                placeholder="Color Dark"
-                                                                className="text-small input-number"
-                                                                autoComplete="off"
-                                                                style={{ width: "100%", marginTop: "1rem" }}
-                                                                value={item.col2}
-                                                                onChange={(event) =>
-                                                                    handleNotifC2(index, event.target.value)
-                                                                }
-                                                            ></input>
-                                                        </div>
-                                                    </div>
+                                                </div>
                                             </div>}
 
                                             {screenWidth <= 1400 && <div className="flex-row">
@@ -1054,45 +1055,45 @@ function Images(martID) {
                         >
                             <div
                                 className="flex-col set-container"
-                                style={{ gap: "1rem", marginBottom: "1rem", position:"relative" }}
+                                style={{ gap: "1rem", marginBottom: "1rem", position: "relative" }}
                             >
-                            
-                            <button
-                                className="add-img"
-                                type="button"
-                                onClick={() => handleDeleteBanner(index)}
-                                style={{position:"absolute", right:"0", top:"0", margin:"0.5rem"}}
-                            >
-                                {confirmDelete2 === index ? (
-                                    <div className="heading-icon-check-marginless svg-color">
-                                        &nbsp;
-                                    </div>
-                                ) : (
-                                    <div className="heading-icon-minus-marginless svg-color">
-                                        &nbsp;
-                                    </div>
-                                )}
-                            </button>
 
-                            {screenWidth <= 600 && <div className="flex-col">
-                                        <label
-                                            className="heading-tertiary"
-                                            style={{ marginBottom: "1rem" }}
-                                        >
-                                            Banner Image: &nbsp;
-                                        </label>
-                                        <div className="flex-row-align">
-                                            <input
-                                                type="text"
-                                                placeholder="Link"
-                                                className="text-small input-number"
-                                                autoComplete="off"
-                                                style={{ width: "100%", margin: "0" }}
-                                                value={item.image}
-                                                onChange={(event) => handleBannerImage(event, index)}
-                                            ></input>
+                                <button
+                                    className="add-img"
+                                    type="button"
+                                    onClick={() => handleDeleteBanner(index)}
+                                    style={{ position: "absolute", right: "0", top: "0", margin: "0.5rem" }}
+                                >
+                                    {confirmDelete2 === index ? (
+                                        <div className="heading-icon-check-marginless svg-color">
+                                            &nbsp;
                                         </div>
-                                    </div>}
+                                    ) : (
+                                        <div className="heading-icon-minus-marginless svg-color">
+                                            &nbsp;
+                                        </div>
+                                    )}
+                                </button>
+
+                                {screenWidth <= 600 && <div className="flex-col">
+                                    <label
+                                        className="heading-tertiary"
+                                        style={{ marginBottom: "1rem" }}
+                                    >
+                                        Banner Image: &nbsp;
+                                    </label>
+                                    <div className="flex-row-align">
+                                        <input
+                                            type="text"
+                                            placeholder="Link"
+                                            className="text-small input-number"
+                                            autoComplete="off"
+                                            style={{ width: "100%", margin: "0" }}
+                                            value={item.image}
+                                            onChange={(event) => handleBannerImage(event, index)}
+                                        ></input>
+                                    </div>
+                                </div>}
                                 <div className="flex-row">
                                     {screenWidth > 600 && <div className="flex-col">
                                         <label

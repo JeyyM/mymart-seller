@@ -42,7 +42,7 @@ export default function Footer(props) {
                 {socials.length === 0 ? <h3 className="heading-tertiary">-</h3> : ""}
                 {socials.map((index) => {
                     return <Link key={index.link} href={index.link} target="_blank">
-                        <img className="social-icon" src={`/socials/${index.type}.webp`}></img>
+                        <img alt="Footer Image" className="social-icon" src={`/socials/${index.type}.webp`}></img>
                     </Link>
                 })}
             </div>
