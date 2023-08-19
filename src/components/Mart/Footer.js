@@ -10,26 +10,8 @@ export default function Footer(props) {
     const about = props.details.footerAbout
     const location = props.details.shopLocation
 
-    console.log(socials)
-
     return <footer className="footer">
         <div className="footer-column">
-        <img className="social-icon" src={`/home/Facebook.webp`}></img>
-        <img className="social-icon" src={"/home/TikTok.webp"}></img>
-
-        <img className="social-icon" src={"/Facebook.webp"}></img>
-        <img className="social-icon" src={`/TikTok.webp`}></img>
-
-        <img src={"/Facebook.webp"}></img>
-        <img src={`/TikTok.webp`}></img>
-
-        <img src={"https://picsum.photos/300/215"}></img>
-        <img src={`https://picsum.photos/300/216`}></img>
-
-        <img className="social-icon" src={"/home/1.webp"}></img>
-        <img className="social-icon" src={`/home/2.webp`}></img>
-
-
             <h3 className="heading-tertiary"><strong>Address</strong></h3>
             {/* <h3 className="heading-tertiary">{`${address.street}, ${address.city}, ${address.region}, ${address.zip}, ${address.country},`}</h3> */}
             {location.length !== 0 ? <h3 className="heading-tertiary">{location}</h3> : <h3 className="heading-tertiary">-</h3>}
