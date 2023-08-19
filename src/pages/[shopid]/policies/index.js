@@ -99,20 +99,20 @@ function Policies(martID) {
                 <div className="heading-icon-dropshadow">
                     <div className="heading-icon-policy svg-color">&nbsp;</div>
                 </div>
-                <h1 className="heading-primary no-margin" style={{fontSize: `${screenWidth > 300 ? "3.5rem" : "3rem"}`}}>&nbsp;Terms & Conditions&nbsp;</h1>
+                <h1 className="heading-primary no-margin" style={{ fontSize: `${screenWidth > 300 ? "3.5rem" : "3rem"}` }}>&nbsp;Terms & Conditions&nbsp;</h1>
                 {screenWidth > 600 && <>
-                <Link href={`/${router.query.shopid}/policies/privacy`} className="heading-tertiary add-categ-init" style={{ width: "max-content", textDecoration: "none" }} disabled={loading}>
-                    &nbsp; Privacy Policy &nbsp;</Link>
-                <button onClick={submitChanges} className={acceptClass} style={{ width: "18rem", margin: "1rem 1rem", height: "3.5rem" }} disabled={loading}><h3 className={acceptText} style={{ transform: "translateY(0rem)" }}>{loading ? "Submitting..." : "Submit Changes"}</h3></button>
+                    <Link href={`/${router.query.shopid}/policies/privacy`} className="heading-tertiary add-categ-init" style={{ width: "max-content", textDecoration: "none" }} disabled={loading}>
+                        &nbsp; Privacy Policy &nbsp;</Link>
+                    <button onClick={submitChanges} className={acceptClass} style={{ width: "18rem", margin: "1rem 1rem", height: "3.5rem" }} disabled={loading}><h3 className={acceptText} style={{ transform: "translateY(0rem)" }}>{loading ? "Submitting..." : "Submit Changes"}</h3></button>
                 </>}
-                <button className="help-button" onClick={handleHelp} style={{zIndex:"99"}}><div className="heading-icon-question svg-color">&nbsp;</div></button>
+                <button className="help-button" onClick={handleHelp} style={{ zIndex: "99" }}><div className="heading-icon-question svg-color">&nbsp;</div></button>
             </span>
 
             {screenWidth <= 600 && <span className="page-heading">
                 <Link href={`/${router.query.shopid}/policies/privacy`} className="heading-tertiary add-categ-init" style={{ width: "max-content", textDecoration: "none" }} disabled={loading}>
                     &nbsp; Privacy Policy &nbsp;</Link>
                 <button onClick={submitChanges} className={acceptClass} style={{ width: "18rem", margin: "1rem 1rem", height: "3.5rem" }} disabled={loading}><h3 className={acceptText} style={{ transform: "translateY(0rem)" }}>{loading ? "Submitting..." : "Submit Changes"}</h3></button>
-                </span>}
+            </span>}
 
             <div className="policy-container">
                 <div style={{ position: "relative" }}>
@@ -126,7 +126,7 @@ function Policies(martID) {
                                 onChange={handleInputChange}
                                 placeholder="Enter Markdown Content"
                                 className="markdown-half markdown-textarea"
-                                style={{width:`${screenWidth <= 1000 ? "90vw" : "45vw"}`}}
+                                style={{ width: `${screenWidth <= 1000 ? "90vw" : "45vw"}` }}
                             ></textarea>
                         )
                     ) : (
@@ -136,7 +136,7 @@ function Policies(martID) {
                                 onChange={handleInputChange}
                                 placeholder="Enter Markdown Content"
                                 className="markdown-half markdown-textarea"
-                                style={{width:`${screenWidth <= 1000 ? "90vw" : "45vw"}`}}
+                                style={{ width: `${screenWidth <= 1000 ? "90vw" : "45vw"}` }}
                             ></textarea>
                         )
                     )}
@@ -145,10 +145,11 @@ function Policies(martID) {
                 {hiddenWrite && <div className="markdown-half markdown-preview" style={{ width: `${hidden || screenWidth <= 1000 ? "90vw" : "45vw"}` }}>
                     <ReactMarkdown
                         className="markdown-body"
-                        children={markdownContent}
                         skipHtml={false}
                         remarkPlugins={[gfm]}
-                    />
+                    >
+                        {markdownContent}
+                    </ReactMarkdown>
                 </div>}
             </div>
         </Fragment>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-function OrderItem({ order, screenWidth, ExpandedOrders, currency, shopCategories, router, toggleExpand }) {
+function OrderItem({ order, screenWidth, ExpandedOrders, currency, shopCategories, router, toggleExpand, handleSetAccept, handleSetEdit, handleSetRefuse, handleSetUser }) {
         const [timeDifference, setTimeDifference] = useState('');
         const SlideHeight = {
             hidden: { opacity: 1, height: 0 },
@@ -126,7 +126,7 @@ function OrderItem({ order, screenWidth, ExpandedOrders, currency, shopCategorie
                     return <div className="flex-row flex-centered dark-underline" style={{ marginBottom: "1rem", paddingBottom: "1rem" }} key={index}>
 
                         <div className="flex-row-spaceless" style={{ alignItems: "center", width: "100%" }}>
-                            <img className="order-img round-borderer" src={item.image}></img>
+                            <img alt={item.name} className="order-img round-borderer" src={item.image}></img>
 
                             <div className="flex-col">
 

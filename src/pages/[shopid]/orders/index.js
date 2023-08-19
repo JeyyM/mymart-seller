@@ -102,8 +102,9 @@ function Orders({ shopID, screenWidth }) {
             if (index % 2 === 0) {
                 col1.push(order);
             } else if (index % 2 === 1) {
-                if  (screenWidth > 900){
-                col2.push(order);} else {
+                if (screenWidth > 900) {
+                    col2.push(order);
+                } else {
                     col1.push(order)
                 }
             }
@@ -158,55 +159,55 @@ function Orders({ shopID, screenWidth }) {
         setActiveOrders(newOrders)
     }
 
-    async function editApi(newOrder, productIds){
+    async function editApi(newOrder, productIds) {
         const requestBody = {
             selectedOrder: selectedOrder,
             productIds: productIds
-          };
+        };
 
-        
+
         const response = await fetch(
             `../../api/order-edit?martid=${router.query.shopid}`,
             {
-              method: "PATCH",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(requestBody)
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(requestBody)
             }
-          );
-          const data = await response.json();
+        );
+        const data = await response.json();
     }
 
-    async function refuseApi(newOrder, productIds){
+    async function refuseApi(newOrder, productIds) {
         const requestBody = {
             selectedOrder: selectedOrder,
             productIds: productIds
-          };
-        
+        };
+
         const response = await fetch(
             `../../api/order-refuse?martid=${router.query.shopid}`,
             {
-              method: "PATCH",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(requestBody)
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(requestBody)
             }
-          );
-          const data = await response.json();
+        );
+        const data = await response.json();
     }
 
-    async function acceptApi(newOrder){
+    async function acceptApi(newOrder) {
         const requestBody = {
             selectedOrder: selectedOrder
-          };
-        
+        };
+
         const response = await fetch(
             `../../api/order-accept?martid=${router.query.shopid}`,
             {
-              method: "PATCH",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(requestBody)
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(requestBody)
             }
-          );
-          const data = await response.json();
+        );
+        const data = await response.json();
     }
 
     async function changeOrder(changedOrder, id, message, final) {
@@ -218,40 +219,40 @@ function Orders({ shopID, screenWidth }) {
         const currentDate = new Date();
         const today = new Date();
 
-        let { cancelCount, cancelDuration } = takebacks; 
+        let { cancelCount, cancelDuration } = takebacks;
         cancelCount = parseInt(cancelCount, 10);
 
         if (cancelDuration === 'minute') {
             currentDate.setMinutes(currentDate.getMinutes() + cancelCount);
-          } else if (cancelDuration === 'hour') {
+        } else if (cancelDuration === 'hour') {
             currentDate.setHours(currentDate.getHours() + cancelCount);
-          } else if (cancelDuration === 'day') {
+        } else if (cancelDuration === 'day') {
             currentDate.setDate(currentDate.getDate() + cancelCount);
-          } else if (cancelDuration === 'week') {
+        } else if (cancelDuration === 'week') {
             currentDate.setDate(currentDate.getDate() + (cancelCount * 7));
-          } else if (cancelDuration === 'month') {
+        } else if (cancelDuration === 'month') {
             currentDate.setMonth(currentDate.getMonth() + cancelCount);
-          } else if (cancelDuration === 'year') {
+        } else if (cancelDuration === 'year') {
             currentDate.setFullYear(currentDate.getFullYear() + cancelCount);
-          }
+        }
 
-          updatedOrder[0].currentTime = today;
-          updatedOrder[0].cancelDuration = currentDate
+        updatedOrder[0].currentTime = today;
+        updatedOrder[0].cancelDuration = currentDate
 
-          const calculateTotal = () => {
+        const calculateTotal = () => {
             let total = 0;
-    
+
             updatedOrder[0].order.forEach((item) => {
                 const totalCost = item.cartValue * parseFloat(item.price);
                 total += totalCost;
             });
-    
+
             return total;
         };
 
         let orderTotal = calculateTotal()
 
-          updatedOrder[0].totals.order = orderTotal
+        updatedOrder[0].totals.order = orderTotal
 
         let ProductIdentifiers = []
 
@@ -342,25 +343,25 @@ function Orders({ shopID, screenWidth }) {
         const currentDate = new Date();
         const today = new Date();
 
-        let { cancelCount, cancelDuration } = takebacks; 
+        let { cancelCount, cancelDuration } = takebacks;
         cancelCount = parseInt(cancelCount, 10);
 
         if (cancelDuration === 'minute') {
             currentDate.setMinutes(currentDate.getMinutes() + cancelCount);
-          } else if (cancelDuration === 'hour') {
+        } else if (cancelDuration === 'hour') {
             currentDate.setHours(currentDate.getHours() + cancelCount);
-          } else if (cancelDuration === 'day') {
+        } else if (cancelDuration === 'day') {
             currentDate.setDate(currentDate.getDate() + cancelCount);
-          } else if (cancelDuration === 'week') {
+        } else if (cancelDuration === 'week') {
             currentDate.setDate(currentDate.getDate() + (cancelCount * 7));
-          } else if (cancelDuration === 'month') {
+        } else if (cancelDuration === 'month') {
             currentDate.setMonth(currentDate.getMonth() + cancelCount);
-          } else if (cancelDuration === 'year') {
+        } else if (cancelDuration === 'year') {
             currentDate.setFullYear(currentDate.getFullYear() + cancelCount);
-          }
+        }
 
-          updatedOrder[0].currentTime = today;
-          updatedOrder[0].cancelDuration = currentDate
+        updatedOrder[0].currentTime = today;
+        updatedOrder[0].cancelDuration = currentDate
 
         await acceptApi(selectedOrder)
     }
@@ -392,27 +393,27 @@ function Orders({ shopID, screenWidth }) {
                     </div>
                     <h1 className="heading-primary no-margin">Ongoing Sales</h1>
                     {screenWidth > 500 && <>
-                    <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "max-content", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
-                    <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
+                        <Link href={`/${router.query.shopid}/orders`} onClick={() => { setButtonMode(true) }} className={ongoingClass} style={{ width: "max-content", margin: "1rem 1rem", height: "3.5rem", textDecoration: "none" }}><h3 className={ongoingText} style={{ transform: "translateY(0rem)" }}>Ongoing Orders</h3></Link>
+                        <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => { setButtonMode(false) }} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height: "3.5rem", textDecoration: "none" }}><h3 className={acceptText} style={{ transform: "translateY(0rem)" }}>Accepted Orders</h3></Link>
                     </>}
 
                 </span>
                 {screenWidth < 500 && <div className="flex-row">
-                    <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "max-content", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
-                    <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
-                    </div>}
+                    <Link href={`/${router.query.shopid}/orders`} onClick={() => { setButtonMode(true) }} className={ongoingClass} style={{ width: "max-content", margin: "1rem 1rem", height: "3.5rem", textDecoration: "none" }}><h3 className={ongoingText} style={{ transform: "translateY(0rem)" }}>Ongoing Orders</h3></Link>
+                    <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => { setButtonMode(false) }} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height: "3.5rem", textDecoration: "none" }}><h3 className={acceptText} style={{ transform: "translateY(0rem)" }}>Accepted Orders</h3></Link>
+                </div>}
                 <div className="order-container">
 
-                <div className="order-column">
-      {col1.map((order) => (
-        <OrderItem toggleExpand={toggleExpand} key={order.id} order={order} screenWidth={screenWidth} ExpandedOrders={ExpandedOrders} currency={currency} shopCategories={shopCategories} router={router}/>
-      ))}
-    </div>
+                    <div className="order-column">
+                        {col1.map((order) => (
+                            <OrderItem handleSetUser={handleSetUser} handleSetAccept={handleSetAccept} handleSetRefuse={handleSetRefuse} handleSetEdit={handleSetEdit} toggleExpand={toggleExpand} key={order.id} order={order} screenWidth={screenWidth} ExpandedOrders={ExpandedOrders} currency={currency} shopCategories={shopCategories} router={router} />
+                        ))}
+                    </div>
 
                     {screenWidth > 900 && <div className="order-column">
-                    {col2.map((order) => (
-        <OrderItem toggleExpand={toggleExpand} key={order.id} order={order} screenWidth={screenWidth} ExpandedOrders={ExpandedOrders} currency={currency} shopCategories={shopCategories} router={router}/>
-      ))}
+                        {col2.map((order) => (
+                            <OrderItem handleSetUser={handleSetUser} handleSetAccept={handleSetAccept} handleSetRefuse={handleSetRefuse} handleSetEdit={handleSetEdit} toggleExpand={toggleExpand} key={order.id} order={order} screenWidth={screenWidth} ExpandedOrders={ExpandedOrders} currency={currency} shopCategories={shopCategories} router={router} />
+                        ))}
                     </div>}
 
                 </div>
@@ -429,14 +430,14 @@ function Orders({ shopID, screenWidth }) {
                     <div className="heading-icon-ongoing-1 svg-color">&nbsp;</div>
                 </div>
                 <h1 className="heading-primary no-margin">Ongoing Sales</h1>
-                {screenWidth > 500 && <><Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "max-content", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
-                    <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link></>}
+                {screenWidth > 500 && <><Link href={`/${router.query.shopid}/orders`} onClick={() => { setButtonMode(true) }} className={ongoingClass} style={{ width: "max-content", margin: "1rem 1rem", height: "3.5rem", textDecoration: "none" }}><h3 className={ongoingText} style={{ transform: "translateY(0rem)" }}>Ongoing Orders</h3></Link>
+                    <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => { setButtonMode(false) }} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height: "3.5rem", textDecoration: "none" }}><h3 className={acceptText} style={{ transform: "translateY(0rem)" }}>Accepted Orders</h3></Link></>}
 
             </span>
             {screenWidth < 500 && <div className="flex-row">
-                    <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "max-content", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
-                    <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
-                    </div>}
+                <Link href={`/${router.query.shopid}/orders`} onClick={() => { setButtonMode(true) }} className={ongoingClass} style={{ width: "max-content", margin: "1rem 1rem", height: "3.5rem", textDecoration: "none" }}><h3 className={ongoingText} style={{ transform: "translateY(0rem)" }}>Ongoing Orders</h3></Link>
+                <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => { setButtonMode(false) }} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height: "3.5rem", textDecoration: "none" }}><h3 className={acceptText} style={{ transform: "translateY(0rem)" }}>Accepted Orders</h3></Link>
+            </div>}
             <div className="empty-contents">
                 <div className="empty-ongoing-1 svg-color">&nbsp;</div>
                 <h2 className="empty-text">There seems to be no ongoing sales</h2>

@@ -570,7 +570,7 @@ function Orders({ shopID, screenWidth }) {
                                             return <div className="flex-row flex-centered dark-underline" style={{ marginBottom: "1rem", paddingBottom: "1rem" }} key={index}>
 
                                                 <div className="flex-row-spaceless" style={{ alignItems: "center", width: "100%" }}>
-                                                    <img className="order-img round-borderer" src={item.image}></img>
+                                                    <img className="order-img round-borderer" alt={item.name} src={item.image}></img>
 
                                                     <div className="flex-col">
 

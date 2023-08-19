@@ -145,10 +145,11 @@ function Policies(martID) {
                 {hiddenWrite && <div className="markdown-half markdown-preview" style={{ width: `${hidden || screenWidth <= 1000 ? "90vw" : "45vw"}` }}>
                     <ReactMarkdown
                         className="markdown-body"
-                        children={markdownContent}
                         skipHtml={false}
                         remarkPlugins={[gfm]}
-                    />
+                    >
+                    {markdownContent}
+                    </ReactMarkdown>
                 </div>}
             </div>
         </Fragment>
