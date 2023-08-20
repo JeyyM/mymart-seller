@@ -479,6 +479,10 @@
     }
   
     @media (max-width: 730px) {
+      .section-3{
+        height: auto;
+      }
+
       .design-heading {
         position: relative;
         @include heading-logo(paintstroke2, 12rem, 48rem);
@@ -679,9 +683,9 @@
         height: 35rem;
       }
       
-      .section-3 {
-        height: 60vh;
-      }
+      // .section-3 {
+      //   height: 60vh;
+      // }
   
       .order-alt{
         padding: 1rem;
@@ -795,9 +799,9 @@
         height: auto;
       }
   
-      .section-3 {
-        height: 50vh;
-      }
+      // .section-3 {
+      //   height: 50vh;
+      // }
   
       .section-6{
         height: 70vh;

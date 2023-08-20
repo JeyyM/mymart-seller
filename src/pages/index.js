@@ -652,7 +652,28 @@ function HomePage() {
         </div>
       </div>}
 
-      {screenWidth <= 730 && <motion.img src="/home/design-group.webp" className="design-set" ref={sect3Ref} initial={{ y: "-100px", opacity: 0 }} animate={{ y: inView3 ? 0 : "-100px", opacity: inView3 ? 1 : 0 }} transition={{ duration: 0.5, ease: "easeOut" }}></motion.img>}
+      {/* {screenWidth <= 730 && <motion.img src="/home/design-group.webp" className="design-set" ref={sect3Ref} initial={{ y: "-100px", opacity: 0 }} animate={{ y: inView3 ? 0 : "-100px", opacity: inView3 ? 1 : 0 }} transition={{ duration: 0.5, ease: "easeOut" }}></motion.img>} */}
+      {screenWidth <= 730 && <motion.div  ref={sect3Ref} initial={{ y: "-100px", opacity: 0 }} animate={{ y: inView3 ? 0 : "-100px", opacity: inView3 ? 1 : 0 }} transition={{ duration: 0.5, ease: "easeOut" }}>
+
+        <div className="flex-row-spaceless" style={{width:"100%", justifyContent:"space-between", padding:"0 5%", margin:"3rem 0"}}>
+        <img src="/home/design1.webp" style={{width:"100%"}}></img>
+</div>
+        <div className="flex-row-spaceless" style={{width:"100%", justifyContent:"space-between", padding:"0 5%"}}>
+        <img src="/home/design4.webp" style={{width:"35%", objectFit:"cover"}}></img>
+        <img src="/home/design5.webp" style={{width:"63%", objectFit:"cover"}}></img>
+        </div>
+
+        <div className="flex-row-spaceless" style={{width:"100%", justifyContent:"space-between", padding:"0 5%", margin:"3rem 0"}}>
+        <img src="/home/design3.webp" style={{width:"48%", objectFit:"cover"}}></img>
+        <img src="/home/design2.webp" style={{width:"48%", objectFit:"cover"}}></img>
+        </div>
+
+        {/* <img src="/home/design2.webp" style={{width:"60%", margin:"3rem auto", borderRadius:"15px"}}></img>
+        <img src="/home/design3.webp" style={{width:"60%", margin:"3rem auto", borderRadius:"15px"}}></img>
+        <img src="/home/design4.webp" style={{width:"60%", margin:"3rem auto", borderRadius:"15px"}}></img>
+        <img src="/home/design5.webp" style={{width:"60%", margin:"3rem auto", borderRadius:"15px"}}></img> */}
+
+      </motion.div>}
 
     </section>
 
