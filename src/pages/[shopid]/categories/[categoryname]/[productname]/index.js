@@ -366,7 +366,7 @@ useEffect(() => {
 
         <div className="product-action-buttons">
           <button className="product-action-1 heading-secondary flex-row-align" type="button" style={{width:"max-content"}} onClick={submitCart}><div className="menu-cart-add svg-outline-button">&nbsp;</div><h2 className="heading-secondary outline-button">Add to Cart</h2></button>
-          <Link href={`/${shopID._id}/checkout`} className="product-action-2 heading-secondary flex-row-align" style={{width:"max-content", textDecoration:"none"}}><div className="menu-checkout svg-solid-button">&nbsp;</div><h2 className="heading-secondary solid-button" style={{textAlign:"center"}}>To Checkout</h2></Link>
+          <Link href={`/${final._id}/checkout`} className="product-action-2 heading-secondary flex-row-align" style={{width:"max-content", textDecoration:"none"}}><div className="menu-checkout svg-solid-button">&nbsp;</div><h2 className="heading-secondary solid-button" style={{textAlign:"center"}}>To Checkout</h2></Link>
         </div>
       </div>
     </div>
