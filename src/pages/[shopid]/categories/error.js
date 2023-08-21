@@ -60,7 +60,7 @@ function Catch({ shopID, screenWidth }){
         <h2 className="empty-text" style={{textAlign:"center"}}>404 Page Not Found
         </h2>
 
-      <h3 className="heading-tertiary" style={{marginTop:"-10rem"}}>Category Does Not Exist, Was Deleted, Disabled, or Renamed</h3>
+      <h3 className="heading-tertiary" style={{marginTop:"-10rem"}}>Category or Product Does Not Exist, Was Deleted, Disabled, or Renamed</h3>
 
         <Link className="product-action-2" href={`/${router.query.shopid}`} style={{marginTop:"0rem", textDecoration:"none"}}>
         <div style={{marginTop:"1rem", marginLeft:"2.2rem"}}>Back to Home</div>

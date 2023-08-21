@@ -16,21 +16,23 @@ import pako from "pako";
 function HomePage({ shopID, screenWidth }) {  
   const router = useRouter();
 
-  const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
-  const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
-  const final = JSON.parse(decompressedBytes);
+  let compressedBytes
+  let decompressedBytes
+  let final
+
+  try {
+  compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+  decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+  final = JSON.parse(decompressedBytes);
+  } catch {
+    router.push("/error")
+  }
   
   useEffect(() => {
     if (typeof window !== "undefined") {
       alert(
-        `Images are loaded in using Lorem Picsum to have non-copyright random image. Due to this, images may load slower.  Thank you for your understanding.`
+        `Images are loaded in using Lorem Picsum to have non-copyright random image. Due to this, images may load slower. Thank you for your understanding.`
       );
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!shopID) {
-      router.push(`/${router.query.shopid}/error`);
     }
   }, []);
 
