@@ -72,7 +72,7 @@ function NewFaq(props) {
                             <textarea
                                 rows='5'
                                 className="desc-text-area"
-                                placeholder="Answer"
+                                placeholder="Details"
                                 style={{ display: "block", margin: "1.5rem auto 0.5rem" }}
                                 onChange={(event) => setA(event.target.value)}
                                 value={a}

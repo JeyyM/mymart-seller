@@ -380,13 +380,13 @@ function HomePage() {
 
     {typeof window !== 'undefined' && <ImagePreloader></ImagePreloader>}
 
-    <header className={`home-navbar ${isNavbarVisible ? 'nav-visible' : 'nav-hidden'}`}>
+    <nav className={`home-navbar ${isNavbarVisible ? 'nav-visible' : 'nav-hidden'}`}>
       <img src="/light-2.png" className="home-nav-logo" onClick={() => scrollToSection('section-1')}></img>
       <a onClick={() => scrollToSection('section-2')} className="header-home-text">Features</a>
       {screenWidth > 350 && <a onClick={() => scrollToSection('section-6')} className="header-home-text">Statistics</a>}
       <a onClick={() => scrollToSection('section-9')} className="header-home-text">Pricing</a>
       <a onClick={() => scrollToSection('section-10')} className="header-home-text">Sign-Up</a>
-    </header>
+    </nav>
 
     {scrollState > 0 && <section className="section-2-main" style={{ position: scrollState > 0 ? "fixed" : "absolute" }}>
       <motion.header className="sect-1-text landing-headline" style={{ margin: "1rem", fontWeight: "700" }}>Manage Your Mart with Ease</motion.header>
@@ -940,6 +940,3 @@ function HomePage() {
 }
 
 export default HomePage
-
-
-

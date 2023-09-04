@@ -23,6 +23,9 @@ function Login({shopID}) {
     const id = final._id
     const localStorageKey = `mart_${final._id}`;
 
+    const [parsedData, setParsedData] = useState([]);
+    const [isVisible, setIsVisible] = useState(true);
+
     useEffect(() => {
         const updateParsedData = () => {
           const storedCartItems =
@@ -182,7 +185,7 @@ function Login({shopID}) {
         let result = await passcheck(hashedPassword)
 
         if (result){
-            const authKey = `auth_${final.shopID._id}`;
+            const authKey = `auth_${final._id}`;
             const authData = {email: email.toLowerCase(), password: hashedPassword}
             localStorage.setItem(authKey, JSON.stringify(authData));
             localStorage.setItem(localStorageKey, JSON.stringify(result.currentCart));

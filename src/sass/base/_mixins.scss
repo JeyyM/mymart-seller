@@ -6,7 +6,7 @@
       $color-primary-light
     )
     1;
-     border-image: linear-gradient(
+  border-image: linear-gradient(
       45deg,
       $color-primary-dark,
       $color-primary-light
@@ -38,7 +38,8 @@
   border-radius: $border-radius;
   background-image: -webkit-gradient(
     linear,
-    left top, right top,
+    left top,
+    right top,
     from($color-primary-dark),
     to($color-primary-light)
   );
@@ -59,9 +60,9 @@
 
   &:active {
     -webkit-filter: brightness(120%);
-            filter: brightness(120%);
+    filter: brightness(120%);
     -webkit-box-shadow: 0 0 0 2px white, 0 0 0 4px $color-primary-dark;
-            box-shadow: 0 0 0 2px white, 0 0 0 4px $color-primary-dark;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px $color-primary-dark;
   }
 }
 
@@ -78,20 +79,13 @@
   border-radius: $border-radius;
   background-image: -webkit-gradient(
     linear,
-    left top, right top,
+    left top,
+    right top,
     from(red),
     to(darkred)
   );
-  background-image: -o-linear-gradient(
-    left,
-    red,
-    darkred
-  );
-  background-image: linear-gradient(
-    90deg,
-    red,
-    darkred
-  );
+  background-image: -o-linear-gradient(left, red, darkred);
+  background-image: linear-gradient(90deg, red, darkred);
   cursor: pointer;
   -webkit-transition: all 0.2s;
   -o-transition: all 0.2s;
@@ -99,9 +93,9 @@
 
   &:active {
     -webkit-filter: brightness(120%);
-            filter: brightness(120%);
+    filter: brightness(120%);
     -webkit-box-shadow: 0 0 0 2px white, 0 0 0 4px red;
-            box-shadow: 0 0 0 2px white, 0 0 0 4px red;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px red;
   }
 }
 
@@ -113,7 +107,7 @@
   font-size: 2.5rem;
   padding: 1rem;
   -webkit-box-shadow: inset 0 0 0 1rem $theme-bg;
-          box-shadow: inset 0 0 0 1rem $theme-bg;
+  box-shadow: inset 0 0 0 1rem $theme-bg;
   cursor: pointer;
   -webkit-transition: all 0.2s;
   -o-transition: all 0.2s;
@@ -121,27 +115,28 @@
 
   &:active {
     -webkit-filter: brightness(120%);
-            filter: brightness(120%);
-    -webkit-box-shadow: inset 0 0 0 10px $theme-bg, 0 0 0 2px $color-primary-dark,
-      0 0 0 4px white;
-            box-shadow: inset 0 0 0 10px $theme-bg, 0 0 0 2px $color-primary-dark,
+    filter: brightness(120%);
+    -webkit-box-shadow: inset 0 0 0 10px $theme-bg,
+      0 0 0 2px $color-primary-dark, 0 0 0 4px white;
+    box-shadow: inset 0 0 0 10px $theme-bg, 0 0 0 2px $color-primary-dark,
       0 0 0 4px white;
   }
 }
 
 @mixin navlogo-gradient($svg, $top, $size) {
   -webkit-mask-size: $size;
-          mask-size: $size;
+  mask-size: $size;
   -webkit-mask-position: center;
-          mask-position: center;
+  mask-position: center;
   -webkit-mask-image: url("../../components/svgs/" + $svg + ".svg");
-          mask-image: url("../../components/svgs/" + $svg + ".svg");
+  mask-image: url("../../components/svgs/" + $svg + ".svg");
   -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
   background-repeat: no-repeat;
   background-image: -webkit-gradient(
     linear,
-    left top, right top,
+    left top,
+    right top,
     from($color-primary-dark),
     to($color-primary-light)
   );
@@ -156,8 +151,8 @@
     $color-primary-light
   );
   -webkit-transform: translateY(0.3rem);
-      -ms-transform: translateY(0.3rem);
-          transform: translateY(0.3rem);
+  -ms-transform: translateY(0.3rem);
+  transform: translateY(0.3rem);
   height: $top;
   fill: transparent;
   width: 110%;
@@ -165,17 +160,18 @@
 
 @mixin navlogo-solid($svg, $top, $size) {
   -webkit-mask-size: $size;
-          mask-size: $size;
+  mask-size: $size;
   -webkit-mask-position: center;
-          mask-position: center;
+  mask-position: center;
   -webkit-mask-image: url("../../components/svgs/" + $svg + ".svg");
-          mask-image: url("../../components/svgs/" + $svg + ".svg");
+  mask-image: url("../../components/svgs/" + $svg + ".svg");
   -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
   background-repeat: no-repeat;
   background-image: -webkit-gradient(
     linear,
-    left top, right top,
+    left top,
+    right top,
     from($text-primary-color),
     to($text-primary-color)
   );
@@ -190,8 +186,8 @@
     $text-primary-color
   );
   -webkit-transform: translateY(0.3rem);
-      -ms-transform: translateY(0.3rem);
-          transform: translateY(0.3rem);
+  -ms-transform: translateY(0.3rem);
+  transform: translateY(0.3rem);
   height: $top;
   fill: transparent;
   width: 110%;
@@ -202,8 +198,8 @@
   height: $size1;
   width: $size2;
   -webkit-transform: translateY(0rem);
-      -ms-transform: translateY(0rem);
-          transform: translateY(0rem);
+  -ms-transform: translateY(0rem);
+  transform: translateY(0rem);
 }
 
 @mixin empty-logo($icon, $size1, $size2) {
@@ -211,8 +207,8 @@
   height: $size1;
   width: $size2;
   -webkit-transform: translateY(0rem);
-      -ms-transform: translateY(0rem);
-          transform: translateY(0rem);
+  -ms-transform: translateY(0rem);
+  transform: translateY(0rem);
 }
 
 @mixin warning-logo($icon, $size1, $size2) {
@@ -223,33 +219,26 @@
 
 @mixin warning-logo-gradient($svg, $top, $size) {
   -webkit-mask-size: $size;
-          mask-size: $size;
+  mask-size: $size;
   -webkit-mask-position: center;
-          mask-position: center;
+  mask-position: center;
   -webkit-mask-image: url("../../components/svgs/" + $svg + ".svg");
-          mask-image: url("../../components/svgs/" + $svg + ".svg");
+  mask-image: url("../../components/svgs/" + $svg + ".svg");
   -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
   background-repeat: no-repeat;
   background-image: -webkit-gradient(
     linear,
-    left top, right top,
+    left top,
+    right top,
     from(red),
     to(darkred)
   );
-  background-image: -o-linear-gradient(
-    left,
-    red,
-    darkred
-  );
-  background-image: linear-gradient(
-    to right,
-    red,
-    darkred
-  );
+  background-image: -o-linear-gradient(left, red, darkred);
+  background-image: linear-gradient(to right, red, darkred);
   -webkit-transform: translateY(0.3rem);
-      -ms-transform: translateY(0.3rem);
-          transform: translateY(0.3rem);
+  -ms-transform: translateY(0.3rem);
+  transform: translateY(0.3rem);
   height: $top;
   fill: transparent;
   width: 110%;
@@ -260,8 +249,8 @@
   height: $size1;
   width: $size2;
   -webkit-transform: translateY(0rem);
-      -ms-transform: translateY(0rem);
-          transform: translateY(0rem);
+  -ms-transform: translateY(0rem);
+  transform: translateY(0rem);
 }
 
 @mixin home-setup($imagename) {
@@ -280,12 +269,12 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   justify-items: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 @mixin home-setup-imageless() {
@@ -304,12 +293,12 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   justify-items: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 @mixin home-setup-logo($svg) {
@@ -317,7 +306,8 @@
   z-index: 15;
   background-image: -webkit-gradient(
     linear,
-    left top, left bottom,
+    left top,
+    left bottom,
     from($color-primary-dark),
     to($color-primary-light)
   );
@@ -342,13 +332,19 @@
 ) {
   @include navlogo-gradient($svg + "-fill", $adjustmentSize, $adjustmentSize);
   z-index: 14;
-  background-image: -webkit-gradient(linear, left top, right top, from($theme-bg), to($theme-bg));
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from($theme-bg),
+    to($theme-bg)
+  );
   background-image: -o-linear-gradient(left, $theme-bg, $theme-bg);
   background-image: linear-gradient(to right, $theme-bg, $theme-bg);
   position: absolute;
   -webkit-transform: translateY($adjustmentY) translateX($adjustmentX);
-      -ms-transform: translateY($adjustmentY) translateX($adjustmentX);
-          transform: translateY($adjustmentY) translateX($adjustmentX);
+  -ms-transform: translateY($adjustmentY) translateX($adjustmentX);
+  transform: translateY($adjustmentY) translateX($adjustmentX);
 }
 
 @mixin home-stack() {
@@ -364,7 +360,7 @@
   content: "|\00a0\00a0";
   z-index: 10;
   -webkit-clip-path: polygon(0 50%, 100% 0, 100% 100%, 0% 100%);
-          clip-path: polygon(0 50%, 100% 0, 100% 100%, 0% 100%);
+  clip-path: polygon(0 50%, 100% 0, 100% 100%, 0% 100%);
   float: top;
 }
 
@@ -387,7 +383,7 @@
   content: "|\00a0\00a0";
   z-index: 9;
   -webkit-clip-path: polygon(0 46%, 100% -3%, 100% 100%, 0% 100%);
-          clip-path: polygon(0 46%, 100% -3%, 100% 100%, 0% 100%);
+  clip-path: polygon(0 46%, 100% -3%, 100% 100%, 0% 100%);
   float: top;
 }
 
@@ -400,8 +396,8 @@
   display: flex;
   justify-items: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-transition: all 0.2s !important;
   -o-transition: all 0.2s !important;
   transition: all 0.2s !important;
@@ -412,130 +408,130 @@
 
   &:hover {
     -webkit-transform: translateY(-0.6rem) translateX(1rem) !important;
-        -ms-transform: translateY(-0.6rem) translateX(1rem) !important;
-            transform: translateY(-0.6rem) translateX(1rem) !important;
+    -ms-transform: translateY(-0.6rem) translateX(1rem) !important;
+    transform: translateY(-0.6rem) translateX(1rem) !important;
     -webkit-filter: drop-shadow(-6px 6px 0px $color-primary-dark);
-            filter: drop-shadow(-6px 6px 0px $color-primary-dark);
+    filter: drop-shadow(-6px 6px 0px $color-primary-dark);
   }
   &:active {
     -webkit-transform: translateY(0rem) translateX(0rem) !important;
-        -ms-transform: translateY(0rem) translateX(0rem) !important;
-            transform: translateY(0rem) translateX(0rem) !important;
+    -ms-transform: translateY(0rem) translateX(0rem) !important;
+    transform: translateY(0rem) translateX(0rem) !important;
     -webkit-filter: drop-shadow(-1px 1px 0px $color-primary-dark);
-            filter: drop-shadow(-1px 1px 0px $color-primary-dark);
+    filter: drop-shadow(-1px 1px 0px $color-primary-dark);
   }
 }
 
-@mixin text-input(){
+@mixin text-input() {
   width: 100%;
   height: 7rem;
   @include border-round;
   margin-top: 0.8rem;
 }
 
-@mixin text-input-style(){
+@mixin text-input-style() {
   color: $text-primary-color;
   font-size: 2.5rem;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-weight: 900;
   padding: 1rem;
   -webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
-          box-shadow: inset 0 0 0 2rem $theme-bg;
+  box-shadow: inset 0 0 0 2rem $theme-bg;
   -webkit-transition: all 0.2s;
   -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
-@mixin text-input-focus(){
+@mixin text-input-focus() {
   -webkit-filter: brightness(120%);
-          filter: brightness(120%);
+  filter: brightness(120%);
   outline-color: $color-primary-dark;
 }
 
-@mixin text-input-small(){
+@mixin text-input-small() {
   width: 30%;
-    height: 5rem;
-    @include border-round;
+  height: 5rem;
+  @include border-round;
 }
 
-@mixin text-input-small-style(){
+@mixin text-input-small-style() {
   color: $text-secondary-color;
-    line-height: 1;
-    margin-top: 0px;
-    font-size: 2rem;
-    font-family: "Roboto";
-    font-weight: 700;
-    padding: 1rem;
+  line-height: 1;
+  margin-top: 0px;
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 700;
+  padding: 1rem;
   -webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
-          box-shadow: inset 0 0 0 2rem $theme-bg;
+  box-shadow: inset 0 0 0 2rem $theme-bg;
   -webkit-transition: all 0.2s;
   -o-transition: all 0.2s;
   transition: all 0.2s;
 }
 
-@mixin text-input-small-focus(){
+@mixin text-input-small-focus() {
   -webkit-filter: brightness(120%);
-          filter: brightness(120%);
+  filter: brightness(120%);
   outline-color: $color-primary-dark;
 }
 
-@mixin box-input(){
+@mixin box-input() {
   resize: none;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   @include border-round;
   width: 100%;
   color: $text-tertiary-color;
-line-height: 1;
-font-size: 2rem;
-font-family: "Roboto";
-font-weight: 500;
-padding: 1rem;
+  line-height: 1;
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 500;
+  padding: 1rem;
 
--webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
+  -webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
 
-        box-shadow: inset 0 0 0 2rem $theme-bg;
--webkit-transition: all 0.2s;
--o-transition: all 0.2s;
-transition: all 0.2s;
+  box-shadow: inset 0 0 0 2rem $theme-bg;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
 }
 
-@mixin box-input-focus(){
+@mixin box-input-focus() {
   -webkit-filter: brightness(120%);
-          filter: brightness(120%);
+  filter: brightness(120%);
   outline-color: $color-primary-dark;
 }
 
-@mixin number-arrow-disable(){
+@mixin number-arrow-disable() {
   -webkit-appearance: none !important;
-    margin: 0 !important;
+  margin: 0 !important;
 }
 
-@mixin number-input(){
-  -moz-appearance: textfield!important;
-        -webkit-appearance: textfield !important;
-          appearance: textfield !important;
+@mixin number-input() {
+  -moz-appearance: textfield !important;
+  -webkit-appearance: textfield !important;
+  appearance: textfield !important;
 }
 
-@mixin number-input-style(){
+@mixin number-input-style() {
   color: $text-secondary-color;
-        line-height: 1;
-        margin-top: 0px;
-        font-size: 2rem;
-        font-family: "Roboto";
-        font-weight: 700;
-        padding: 1rem;
-      -webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
-              box-shadow: inset 0 0 0 2rem $theme-bg;
-      margin-right: 2rem;
-      -webkit-transition: all 0.2s;
-      -o-transition: all 0.2s;
-      transition: all 0.2s;
-      width: 95%;
+  line-height: 1;
+  margin-top: 0px;
+  font-size: 2rem;
+  font-family: "Roboto";
+  font-weight: 700;
+  padding: 1rem;
+  -webkit-box-shadow: inset 0 0 0 2rem $theme-bg;
+  box-shadow: inset 0 0 0 2rem $theme-bg;
+  margin-right: 2rem;
+  -webkit-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  transition: all 0.2s;
+  width: 95%;
 }
 
-@mixin number-input-focus(){
+@mixin number-input-focus() {
   -webkit-filter: brightness(120%);
-          filter: brightness(120%);
-      outline-color: $color-primary-dark;
+  filter: brightness(120%);
+  outline-color: $color-primary-dark;
 }
