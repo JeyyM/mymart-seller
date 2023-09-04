@@ -16,7 +16,7 @@ function ProductPage({ shopID, user, screenWidth }) {
 
   const shopCurrency = final.shopData.shopDetails.paymentData.checkoutInfo.currency
   const favicon = final.shopData.shopDetails.imageData.icons.icon
-  const localStorageKey = `mart_${shopID._id}`
+  const localStorageKey = `mart_${final._id}`
 
   const { state, handleIncrement } = useContext(MyContext);
 
@@ -205,6 +205,8 @@ useEffect(() => {
     storedCartItems = typeof window !== 'undefined' ? localStorage.getItem(localStorageKey) : null;
     parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];  
     setCartContents(parsedCartItems)
+
+    console.log(storedCartItems)
 
     const existingItem = cartContents.find((item) => item.name === items.name);
   

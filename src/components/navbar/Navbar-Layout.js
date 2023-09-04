@@ -117,7 +117,8 @@ filter: brightness(50%);}`
             <Head>
                 <style>
                     {` 
-::selection{background-color: ${props.color["color-primary-dark"]};}                    
+::selection{background-color: ${props.color["color-primary-dark"]};
+color: ${props.color["bg-body"]}}                    
 
 body{background-color: ${props.color["bg-body"]} !important;}
 
