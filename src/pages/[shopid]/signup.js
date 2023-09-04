@@ -13,7 +13,7 @@ import pako from "pako";
 
 const libraries = ['places'];
 
-function SignUp({shopID}) {
+function SignUp({shopID, screenWidth}) {
     useEffect(() => {
         if (typeof window !== "undefined") {
           alert(
@@ -31,7 +31,6 @@ function SignUp({shopID}) {
     const id = final._id
     const localStorageKey = `mart_${final._id}`;
     const defaultColor = final.shopData.shopDesigns.defaultMode
-    const {screenWidth} = final
 
     const [parsedData, setParsedData] = useState([]);
     const [isVisible, setIsVisible] = useState(true);
