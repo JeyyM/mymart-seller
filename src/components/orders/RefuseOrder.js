@@ -8,9 +8,7 @@ const libraries = ['places'];
 
 function RefuseOrder(props) {
     let totals = 0
-    // if (props.modalStatus){
-    //     totals = props.order.totals.order + props.order.totals.fees
-    // }
+
     let filteredOrders = []
     let removedItems = []
 

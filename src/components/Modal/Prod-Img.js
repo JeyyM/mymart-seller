@@ -166,7 +166,6 @@ function ProdImg(props) {
                 {props.modalStatus && (
                     <Backdrop onClick={() => { massReset() }} className="categ-modals">
                         <motion.div
-                            // key={props.chosenItem}
                             onClick={(e) => e.stopPropagation()}
                             className={`categ-modal`}
                             variants={appear}
@@ -189,7 +188,6 @@ function ProdImg(props) {
                                             placeholder="Category Image 1 (Imgur Links Only)"
                                             value={imgValue1}
                                             onChange={handleImgChange1}
-                                            // required
                                             id="image1"
                                             autoComplete="off"
                                         ></input>
@@ -204,7 +202,6 @@ function ProdImg(props) {
                                             placeholder="Category Image 2 (Imgur Links Only)"
                                             value={imgValue2}
                                             onChange={handleImgChange2}
-                                            // required
                                             id="image2"
                                             autoComplete="off"
                                         ></input>

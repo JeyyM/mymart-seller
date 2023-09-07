@@ -331,8 +331,6 @@ function Orders({ shopID, screenWidth }) {
                     <Link href={`/${router.query.shopid}/orders/approved`} onClick={() => {setButtonMode(false)}} className={acceptClass} style={{ width: "20rem", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={acceptText} style={{transform:"translateY(0rem)"}}>Accepted Orders</h3></Link>
                     </>}
 
-                    {/* <button className="heading-tertiary add-categ-init" style={{ width: "max-content" }}>
-        <div className="heading-icon-check svg-color">&nbsp;</div>Submit &nbsp;</button> */}
                 </span>
                 {screenWidth < 500 && <div className="flex-row">
                     <Link href={`/${router.query.shopid}/orders`} onClick={() => {setButtonMode(true)}} className={ongoingClass} style={{ width: "max-content", margin: "1rem 1rem", height:"3.5rem", textDecoration:"none"}}><h3 className={ongoingText} style={{transform:"translateY(0rem)"}}>Ongoing Orders</h3></Link>
@@ -387,7 +385,6 @@ function Orders({ shopID, screenWidth }) {
 
                                         <div className="order-button-grid-3 dark-underline" style={{ margin: "1rem 0", paddingBottom: "1rem" }}>
                                             <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetUser(order.user)}>User Data</button>
-                                            {/* <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetEdit(order)}>Edit Order</button> */}
 
                                             <button className="product-action-3 white heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetEdit(order)}>Revert Order</button>
                                             <button className="product-action-2 heading-secondary" style={{ width: "18.5rem", margin: "0" }} onClick={() => handleSetRefuse(order)}>Finish Order</button>
@@ -500,7 +497,6 @@ function Orders({ shopID, screenWidth }) {
 
                                         <div className="order-button-grid-3 dark-underline" style={{ margin: "1rem 0", paddingBottom: "1rem" }}>
                                             <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetUser(order.user)}>User Data</button>
-                                            {/* <button className="product-action-1 heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetEdit(order)}>Edit Order</button> */}
 
                                             <button className="product-action-3 white heading-secondary" style={{ width: "18rem", margin: "0" }} onClick={() => handleSetEdit(order)}>Revert Order</button>
                                             <button className="product-action-2 heading-secondary" style={{ width: "18.5rem", margin: "0" }} onClick={() => handleSetRefuse(order)}>Finish Order</button>

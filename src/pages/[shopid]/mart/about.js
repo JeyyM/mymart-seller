@@ -47,7 +47,6 @@ function About({ shopID, screenWidth }) {
     },
   };
 
-  // 1920  1366 360
   const [device, setDevice] = useState("desktop")
   const [screenPx, setScreenPx] = useState(1920)
 
@@ -517,7 +516,6 @@ function About({ shopID, screenWidth }) {
         margin: "0",
         alignSelf: "center",
         transform: `scale(${device === "desktop" ? item.scale * screenScale : device === "tablet" && screenWidth <= 1366 ? item.scale * screenScale2 : device === "phone" && screenWidth <= 360 ? item.scale * screenScale3 : item.scale})`
-        // transform: `scale(${device === "desktop" ? item.scale : device === "tablet" ? item.scale : device === "phone" ? item.scale : item.scale})`
       }}
       dangerouslySetInnerHTML={{ __html: item.content }}
     >
@@ -653,8 +651,7 @@ function About({ shopID, screenWidth }) {
   }
 
   function copyItem(color) {
-    // console.log(color)
-    // navigator.clipboard.writeText(color)
+
   }
 
   const [chromaItems, setChroma] = useState([])
@@ -735,16 +732,7 @@ function About({ shopID, screenWidth }) {
             <button className="product-action-3 white heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleReset} disabled={loading} >Reset</button>
           </div>
 
-          {/* {screenWidth <= 520 && <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
-            <button className="product-action-2 heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleSubmit} disabled={loading} >{loading ? <div className="spinner"></div> : (completion ? checkmark : "Save")}</button>
-            <button className="product-action-3 white heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleReset} disabled={loading} >Reset</button>
-          </div>} */}
-
           <div className="flex-row" style={{ marginTop: "1rem", width: "100%", justifyContent: "space-around" }}>
-          {/* {screenWidth <= 700 && screenWidth > 520 && <>
-          <button className="product-action-2 heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleSubmit} disabled={loading} >{loading ? <div className="spinner"></div> : (completion ? checkmark : "Save")}</button>
-            <button className="product-action-3 white heading-secondary" style={{ width: "15rem", margin: "0" }} onClick={handleReset} disabled={loading} >Reset</button>
-          </>} */}
             <button className={device === "desktop" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem", marginBottom:"0" }} onClick={() => { setDevice("desktop"); setScreenPx(1920); setColLimit(12); setRowCount(DeskRowCount) }}>Desktop</button>
             <button className={device === "tablet" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem", marginBottom:"0" }} onClick={() => { setDevice("tablet"); setScreenPx(1366); setColLimit(8); setRowCount(TabRowCount) }}>Tablet</button>
             {screenWidth2 > 350 && <button className={device === "phone" ? modeButtonActive : modeButton} style={{ maxWidth: "15rem" }} onClick={() => { setDevice("phone"); setScreenPx(360); setColLimit(4); setRowCount(PhoneRowCount) }}>Phone</button>}

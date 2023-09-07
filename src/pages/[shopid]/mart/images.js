@@ -279,9 +279,6 @@ function Images({ shopID, screenWidth }) {
                     <div className="heading-icon-pop-up svg-color">&nbsp;</div>
                 </div>
 
-                {/* <h1 className="heading-primary no-margin"  style={{ fontSize: `${screenWidth > 500 ? "3.5rem" : screenWidth > 450 ? "3rem" : "2.5rem"}`}}>Contact Details and Footer&nbsp;</h1>
-      <button onClick={submitChanges} className="heading-tertiary add-categ-init" style={{ width: `${screenWidth > 600 ? "21rem" : screenWidth > 400 ? "23rem" : "18rem"}`, height: `${screenWidth > 400 ? "4rem" : "7rem"}` }} disabled={loading}><div className="heading-icon-check svg-color">&nbsp;</div>{loading ? "Submitting..." : "Submit Changes"} &nbsp;</button> */}
-
                 <h1 className="heading-primary no-margin" style={{ fontSize: `${screenWidth > 500 ? "3.5rem" : screenWidth > 450 ? "3rem" : "2.5rem"}` }}>
                     &nbsp;Images & Pop-ups &nbsp;
                 </h1>
@@ -1156,22 +1153,6 @@ function Images({ shopID, screenWidth }) {
                                     </div>
                                 </div>
                             </div>
-
-                            {/* <button
-                                className="add-img"
-                                type="button"
-                                onClick={() => handleDeleteBanner(index)}
-                            >
-                                {confirmDelete2 === index ? (
-                                    <div className="heading-icon-check-marginless svg-color">
-                                        &nbsp;
-                                    </div>
-                                ) : (
-                                    <div className="heading-icon-minus-marginless svg-color">
-                                        &nbsp;
-                                    </div>
-                                )}
-                            </button> */}
 
                         </motion.div>
                     </div>

@@ -430,8 +430,6 @@ function Designing({ shopID, screenWidth }) {
   const categSample = `category-sample ${isHovered ? "category-sample-hover" : ""}`;
 
   function copyItem(color) {
-    // console.log(color)
-    // navigator.clipboard.writeText(color)
   }
 
   const [primaryContrast, setPrimaryContrast] = useState(0)

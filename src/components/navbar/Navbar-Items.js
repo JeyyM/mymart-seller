@@ -22,13 +22,6 @@ function NavbarItems(props) {
 
   const showMenuToggler = () => {
     setMenuIsOn(!menuIsOn);
-    if (!menuIsOn) {
-      // document.body.classList.add('no-scroll');
-      // document.documentElement.classList.add('no-scroll');
-    } else {
-      // document.body.classList.remove('no-scroll');
-      // document.documentElement.classList.remove('no-scroll');
-    }
   };
 
   const handleScroll = () => {
@@ -69,7 +62,6 @@ function NavbarItems(props) {
         <NavItem svg={<Manage className="menu-manage svg-color"></Manage>} title={"Set about page, descriptions, footers, and details of your mart"} link={"mart"} label="My Mart"></NavItem>
         <NavItem svg={<Brush className="menu-brush svg-color"></Brush>} link={`design${props.defaultMode ? "/light" : "/dark"}`} title={"Edit mart's colors and fonts"} label="Mart Design" extension={props.colormode}></NavItem>
         </>}
-        {/* <NavItem svg={<Power className="menu-power svg-color"></Power>} link="#" label="Close or Open Mart"></NavItem> */}
       </div>
     </header>
   </Fragment>

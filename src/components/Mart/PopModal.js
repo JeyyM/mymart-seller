@@ -49,11 +49,6 @@ function PopModal(props) {
         },
     };
 
-
-
-
-
-
     return (
         <Fragment>
             <AnimatePresence

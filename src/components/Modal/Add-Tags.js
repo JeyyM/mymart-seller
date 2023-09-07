@@ -56,7 +56,6 @@ function AddTags(props) {
                             key={props.chosenItem}
                             onClick={(e) => e.stopPropagation()}
                             className={`confirm-modal`}
-                            // className={`confirm-modal element-exit`}
                             variants={appear}
                             initial="hidden"
                             animate="visible"

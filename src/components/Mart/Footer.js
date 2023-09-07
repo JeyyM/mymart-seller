@@ -16,7 +16,6 @@ export default function Footer(props) {
     return <footer className="footer">
         <div className="footer-column">
             <h3 className="heading-tertiary"><strong>Address</strong></h3>
-            {/* <h3 className="heading-tertiary">{`${address.street}, ${address.city}, ${address.region}, ${address.zip}, ${address.country},`}</h3> */}
             {location.length !== 0 ? <h3 className="heading-tertiary">{location}</h3> : <h3 className="heading-tertiary">-</h3>}
 
 

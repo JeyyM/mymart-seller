@@ -40,10 +40,6 @@ function AddCategory(props) {
     setNameLength(event.length)
   }
 
-  // useEffect(() => {
-  // }, [nameLength]);
-
-
   const [descLength, setDescLength] = useState(0)
   const handleDescLength = (event) => {
     setDescLength(event.length)
@@ -294,9 +290,7 @@ function AddCategory(props) {
                     className={`${nameClasses}`}
                     placeholder="Category Name"
                     value={nameValue}
-                    // defaultValue={props.defs[0]}
                     onChange={handleNameChange}
-                    // required
                     id="name"
                     autoComplete="off"
                   ></input>
@@ -310,7 +304,6 @@ function AddCategory(props) {
                     placeholder="Category Image (Imgur Links Only)"
                     value={imgValue}
                     onChange={handleImgChange}
-                    // required
                     id="image"
                     autoComplete="off"
                   ></input>
@@ -321,7 +314,6 @@ function AddCategory(props) {
                 <div className="form-group">
                   <textarea
                     id="description"
-                    // required
                     rows="5"
                     className={descClasses}
                     placeholder="Description"

@@ -781,19 +781,6 @@ function Payment({ shopID, screenWidth }) {
                 )}
                 </AnimatePresence>
 
-                {/* <span className="page-heading flex-row-align" style={{ margin: "2rem 0" }}>
-                    <div className="heading-icon-pin svg-color">&nbsp;</div>
-                    <h1 className="heading-secondary no-margin" style={{ marginTop: "0rem" }} title="A Google Map along with directions will be at checkout so the users know where to pick up their items, etc.">Show Google Maps Location to customer?</h1>
-                    <div className="checkbox-container">
-                        {showMap ? <div className="checkbox-fill svg-color"></div> : <div className="checkbox-blank svg-color"></div>}
-                        <input
-                            type="checkbox"
-                            checked={showMap}
-                            onChange={handleMapChange}
-                            className="checkbox-style"
-                        />
-                    </div>
-                </span> */}
             </div>
             </div>}
         </div>

@@ -122,22 +122,6 @@ function ProductsPage({ shopID, screenWidth }) {
       </span>
       <h2 className="category-description heading-tertiary">{chosenCategory.categoryDescription}</h2>
 
-      {/* <section className="category-container">
-        {products.map((prod, index) => (
-          <Fragment key={index}>
-          <div className="warning-container" key={index}>
-          {soldProds.includes(index) && 
-                <motion.div className="sold-out-warning svg-sold"
-                  key={prod}
-                  initial={{ opacity: 1, translateX: -25, translateY: -25, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.2, type: "spring", damping: 0 }}>&nbsp;</motion.div>}
-            <CategoryProducts items={prod.variations} categName={queryCategoryName} id={router.query.shopid} index={index} state={addProduct} currency={shopCurrency} ></CategoryProducts>
-            </div>
-          </Fragment>
-        ))}
-      </section> */}
-
       <Slider {...sliderSettings}>
         {slideIndexes.map((slideIndex) => {
           const startIndex = slideIndex * itemsPerSlide;

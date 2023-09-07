@@ -29,13 +29,6 @@ function Acc2
     },
   };
 
-
-  //   .green{color: #285430 !important;}
-
-  // .yellow{color: #3b2f01 !important;}
-
-  // .red{color: #540804 !important;}
-
   let hexColor = ""
   if (props.value >= 7) { hexColor = "#285430" }
   if (7 > props.value >= 4.5) { hexColor = "#285430" }
@@ -83,5 +76,4 @@ function Acc2
   );
 }
 
-export default Acc2
-  ;
+export default Acc2;

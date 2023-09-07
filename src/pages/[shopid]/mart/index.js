@@ -77,11 +77,6 @@ function Mart({ shopID, screenWidth }) {
                 <div className={`${screenWidth > 350 ? "about-button-settings" : "about-button-settings-2"} svg-down`}></div>
                 <h2 className="heading-primary" style={{ display: "inline", margin: "1rem auto", textAlign: "center" }}>Mart Settings</h2>
             </button>
-            {/* <Link className="mymart-button x item-setup flex-col-center" href={`/${id}/mart/about`} style={{ textDecoration: "none" }}>
-                <div className="about-button-messenger svg-down"></div>
-                <h2 className="heading-primary" style={{ display: "inline", margin: "1rem auto", textAlign: "center" }}>Messenger Plugin</h2>
-            </Link> */}
-
 
         </div>
     </Fragment>

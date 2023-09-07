@@ -59,7 +59,6 @@ function CategoryProducts(props) {
             <img src={productImages[0]} className="category-img" alt={productName}></img>
         </div>
 
-        {/* <img src={productImages[0]} className="category-img"></img> */}
         <div className="category-content">
             <div>
                 <h2 className="heading-secondary category-name clamp-1">{productName}</h2>

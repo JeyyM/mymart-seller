@@ -84,7 +84,6 @@ function CategoryPage({ shopID, screenWidth }) {
       {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        // body: JSON.stringify(formdata)
       }
     );
     const data = await response.json();

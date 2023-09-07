@@ -20,7 +20,7 @@ function HomePage({ shopID, screenWidth }){
     decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
     final = JSON.parse(decompressedBytes);
     } catch {
-      // router.push("/error")
+      router.push("/error")
     }
 
     useEffect(() => {

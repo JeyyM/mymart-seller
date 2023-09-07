@@ -56,10 +56,6 @@ function NavMenu(props) {
         <div className={`menu-goback svg-color`} style={{marginLeft:"-1.5rem"}}>&nbsp;</div>
         <h2 className="heading-secondary">Back</h2>
       </button>}
-
-        {/* <NavMenuItem logo={"support"} label={"Customer Service"} exit={props.onClick}></NavMenuItem> */}
-        {/* <NavMenuItem logo={"power"} label={"Close or Open Mart"} exit={props.onClick}></NavMenuItem>
-        <NavMenuItem logo={"settings"} label={"Settings"} exit={props.onClick}></NavMenuItem> */}
       </div>
     </Fragment>
   }

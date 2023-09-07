@@ -434,24 +434,6 @@ const csvData = shopAccounts.map((item) => {
 
       <ShowUser modalStatus={SetUser} user={selectedUser} disable={() => {setUserModal(false)}} currency={shopCurrency} martCoords={shopCenter}></ShowUser>
 
-      {/* <span className="page-heading">
-        <div className="heading-icon-dropshadow">
-          <div className="heading-icon-profile svg-color">&nbsp;</div>
-        </div>
-        <h1 className="heading-primary no-margin">&nbsp;User Profile</h1>
-        <select
-          value={SelectDate2}
-          className="text-options text-black"
-          style={{ width: "20rem", marginLeft: "1rem" }}
-          onChange={(event) => handleSelectDate2(event)}
-        >
-          <option value="1">Today</option>
-          <option value="30">Past 30 Days</option>
-          <option value="9999">All Time</option>
-        </select>
-        <button onClick={handleDownload} className="add-categ-init" style={{ width: "17rem", marginLeft:"auto", marginRight:"1rem" }}><h2 className='margin-side heading-tertiary'>Download CSV</h2></button>
-      </span> */}
-
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
           <div className="heading-icon-profile svg-color">&nbsp;</div>

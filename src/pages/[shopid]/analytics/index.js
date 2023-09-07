@@ -503,9 +503,6 @@ handleSetUser(data)
               <div className="flex-row-spaceless">
                 <div className="text-ter-user svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Users: {shopAccounts.length} user/s</h2>
               </div>
-              {/* <div className="flex-row-spaceless">
-                <div className="text-ter-repeat svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Repeat Users: {repeaterCount} user/s</h2>
-              </div> */}
               <div className="flex-row-spaceless">
                 <div className="text-ter-repeat-user svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Repeat Users: {repeatTotal.length} user/s</h2>
               </div>
@@ -524,30 +521,9 @@ handleSetUser(data)
             <ViewLine views={filteredViews} dateBy={SelectDate2} />
             </div>
 
-            {/* <div className='flex-col analytics-prev-small'>
-            <div className="flex-row-spaceless" style={{margin:"1rem"}}>
-                <div className="text-ter-cake svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Average Age: {averageAge.toFixed(2)} years old</h2>
-              </div>
-            <div className="analytics-age-prev">
-            <ViewLine views={filteredViews} dateBy={SelectDate2} />
-              <PieChart data={ageList} colors={ageColors} type="age"/>
-            </div>
-            </div> */}
-
-
             <div className="analytics-preview-3">
             <UserLine users={filteredNewAccounts} dateBy={SelectDate2} />
             </div>
-
-            {/* <div className='flex-col analytics-prev-small'>
-            <div className="flex-row-spaceless" style={{margin:"1rem"}}>
-                <div className="text-ter-gender4 svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Gender Distribution</h2>
-              </div>
-            <div className="analytics-age-prev">
-            <UserLine users={filteredNewAccounts} dateBy={SelectDate2} />
-            <PieChart data={genderList} colors={genderColors} type="gender"/>
-            </div>
-            </div> */}
 
             {screenWidth <= 950 && <div className="analytics-rank-prev-2 round-borderer round-borderer-extra" style={{ justifyContent: "space-around" }}>
               <div className="flex-row" style={{ paddingBottom: '1rem' }}>
@@ -566,9 +542,7 @@ handleSetUser(data)
               <div className="flex-row-spaceless">
                 <div className="text-ter-user svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Users: {shopAccounts.length} user/s</h2>
               </div>
-              {/* <div className="flex-row-spaceless">
-                <div className="text-ter-repeat svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Repeat Users: {repeaterCount} user/s</h2>
-              </div> */}
+
               <div className="flex-row-spaceless">
                 <div className="text-ter-repeat-user svg-tertiary">&nbsp;</div><h2 className="heading-tertiary margin-vert">&nbsp;Total Repeat Users: {repeatTotal.length} user/s</h2>
               </div>

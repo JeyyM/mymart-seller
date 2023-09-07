@@ -75,7 +75,6 @@ function Confirmer2(props) {
       return
     } else {
       await waitSeconds()
-      // setLoading(false)
       setCompletion(true)
       router.reload()
     }

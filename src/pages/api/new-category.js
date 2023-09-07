@@ -37,7 +37,6 @@ async function handler(req, res) {
   if (req.method === "PATCH") {
     const data = req.body;
     const catKey = req.query.categoryindex
-    // const categoryName = req.query.categoryname;
 
     const client = await MongoClient.connect(process.env.MONGODB_URI, {
       useNewUrlParser: true,
@@ -81,30 +80,6 @@ async function handler(req, res) {
       { _id: martId },
       { $pull: { "shopData.shopCategories": null } }
     );
-
-    // const updatedShop = await db.collection("shops").findOne({ _id: martId });
-
-    // const categories = updatedShop.shopData.shopCategories;
-    // const categoryKeys = Object.keys(categories);
-    // const sortedCategoryKeys = categoryKeys.sort((a, b) => {
-    //   const aIndex = parseInt(a.replace("category", ""));
-    //   const bIndex = parseInt(b.replace("category", ""));
-    //   return aIndex - bIndex;
-    // });
-
-    // const newCategories = {};
-    // for (let i = 0; i < sortedCategoryKeys.length; i++) {
-    //   const key = sortedCategoryKeys[i];
-    //   const index = i;
-    //   const newKey = `category${index}`;
-    //   newCategories[newKey] = categories[key];
-    // }
-
-    // const updateResult = await db.collection("shops").updateOne(
-    //   { _id: martId },
-    //   { $set: { "shopData.shopCategories": newCategories } }
-    // );
-
     client.close();
   }
 

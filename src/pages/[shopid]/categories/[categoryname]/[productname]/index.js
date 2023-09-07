@@ -354,7 +354,6 @@ setTagsValue(chosenTags);
     }
   }
 
-  /////////////////////
   const productFixer = (test) => {
 
     const deleteProduct = async () => {
@@ -369,7 +368,6 @@ setTagsValue(chosenTags);
 
     deleteProduct()
   }
-  //////////
 
   const handleClick = async (event) => {
     await handleSubmit(event);

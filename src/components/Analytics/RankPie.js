@@ -51,18 +51,11 @@ function RankPie({ data, colors, chosen, select }) {
         position: 'left',
       },
     },
-    // onClick: (event, elements) => {
-    //   if (elements.length > 0) {
-    //     const index = elements[0].index;
-    //     const category = data[index].name;
-    //     select(category)
-    //   }
-    // },
+
     elements: {
       arc: {
         borderWidth: 2,
         borderColor: '#ffffff',
-        // hoverBorderColor: '#000000',
         hoverBorderWidth: 2,
         cursor: 'pointer',
       },

@@ -30,8 +30,6 @@ function CustomizedPicker(props) {
                 color: `${props.colormode["text-tertiary-color"]}`,
                 fontWeight: "500",
                 fontSize: "2rem",
-                // width: '5rem',
-                // height: '5rem',
             },
             '& .MuiInputLabel-root': {
                 color: `${props.colormode["text-tertiary-color"]}`,

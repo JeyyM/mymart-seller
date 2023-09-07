@@ -6,19 +6,6 @@ function DayLine({ finishedOrders, profitColor, cartValueColor, dateBy }) {
   const daysAgo = moment().subtract(dateBy, 'days');
   const filteredOrders = finishedOrders.filter((order) => moment(order.finishedOn).isAfter(daysAgo));
 
-  // const profitData = filteredOrders.map((order) => {
-  //   const profitTotal = order.order.reduce((total, item) => total + (item.profit * item.cartValue), 0);
-  //   return {
-  //     x: moment(order.finishedOn),
-  //     y: profitTotal,
-  //   };
-  // });
-  
-  // const boughtTotal = filteredOrders.map((order) => ({
-  //   x: moment(order.finishedOn),
-  //   y: order.order.reduce((total, item) => total + item.cartValue, 0),
-  // }));
-
   const aggregatedData = {};
 
   filteredOrders.forEach((order) => {
@@ -40,8 +27,6 @@ function DayLine({ finishedOrders, profitColor, cartValueColor, dateBy }) {
     aggregatedData[day].profitTotal += orderProfit;
     aggregatedData[day].cartValueTotal += orderCartValue;
   });  
-
-  // console.log(aggregatedData)
 
   const profitData = Object.entries(aggregatedData).map(([day, data]) => ({
     x: moment(day),

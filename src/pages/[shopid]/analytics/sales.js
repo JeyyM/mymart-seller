@@ -8,7 +8,6 @@ import RankPie from '@/components/Analytics/RankPie';
 import ProductBar from '@/components/Analytics/ProductBar';
 import FulfillmentLine from '@/components/Analytics/FulfillmentLine';
 import FulfillmentPie from '@/components/Analytics/FulfillmentPie';
-// import ModalCategory from '@/components/Analytics/ModalCategory';
 import pako from "pako";
 
 const DynamicLineChart = dynamic(() => import('../../../components/Analytics/DayLine'), {
@@ -324,19 +323,12 @@ function removeSpecialCharacters(inputString) {
     setModalCategory(!modalCategory)
   }
 
-  // const [categoryData, setCategoryData] = useState(null)
-  // function showModal(name){
-  //   setCategoryData(products.filter((item) => item.category === name))
-  //   handleModalCategory()
-  // }
-
   return (
     <Fragment>
       <Head>
         <title>Sales & Profits</title>
         <link rel="icon" type="image/jpeg" href={favicon} />
       </Head>
-      {/* <ModalCategory modalStatus={modalCategory} data={categoryData} disable={handleModalCategory} currency={shopCurrency}></ModalCategory> */}
 
       <span className="page-heading">
         <div className="heading-icon-dropshadow">
@@ -427,8 +419,6 @@ function removeSpecialCharacters(inputString) {
               }
               </select>
               <h1 className="heading-secondary no-margin"  style={{ fontSize: `${screenWidth > 425 ? "3rem" : screenWidth > 340 ? "2.5rem" : "2rem"}`}}>Products By {rank3 === 1 ? <>Profits</> : rank3 === 2 ? <>Buys</> : "Both"}</h1>
-
-              {/* <h2 className='heading-secondary'>Products By {rank3 === 1 ? <>Profits</> : rank3 === 2 ? <>Buys</> : "Both"}</h2> */}
             </div>
 
             <div className='flex-row' style={{marginRight:"1rem"}}>

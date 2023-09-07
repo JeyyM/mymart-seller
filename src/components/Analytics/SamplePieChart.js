@@ -30,8 +30,6 @@ const SamplePieChart = () => {
       onClick: (event, elements) => {
         if (elements.length > 0) {
           const index = elements[0].index;
-        //   setSelectedCategory(data.labels[index]);
-        console.log(data.labels[index])
         }
       },
     };

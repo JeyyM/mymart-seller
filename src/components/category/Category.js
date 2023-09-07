@@ -16,14 +16,6 @@ function Category(props) {
         holdTimeoutRef.current = setTimeout(() => {
           setIsDragging(true);
         }, 200);
-      
-        // setTimeout(() => {
-        //   if (holdTimeoutRef.current) {
-        //     setIsDragging(false);
-        //     clearTimeout(holdTimeoutRef.current);
-        //     router.push(`/${props.id}/categories/${encodedName}`);
-        //   }
-        // }, 1000);
       };
       
     const handleMouseUp = () => {
