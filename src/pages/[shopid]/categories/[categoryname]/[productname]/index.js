@@ -206,8 +206,6 @@ useEffect(() => {
     parsedCartItems = storedCartItems ? JSON.parse(storedCartItems) : [];  
     setCartContents(parsedCartItems)
 
-    console.log(storedCartItems)
-
     const existingItem = cartContents.find((item) => item.name === items.name);
   
     if (items.cartValue === 0 || isNaN(items.cartValue)) {

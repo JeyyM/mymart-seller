@@ -138,7 +138,11 @@ function NavMenu(props) {
           </button>
         </>}
 
-        <NavMenuItem logo={"manage"} label={"Sign-Up to MyMart"} exit={props.onClick}></NavMenuItem>
+        {/* <NavMenuItem logo={"manage"} label={"Sign-Up to MyMart"} exit={props.onClick} link={"/"}></NavMenuItem> */}
+      <Link className="navmenu-item" href="/" style={{textDecoration:"none"}} onClick={props.onClick}>
+        <div className={`menu-manage svg-color`} style={{marginLeft:"-1.5rem"}}>&nbsp;</div>
+        <h2 className="heading-secondary">Sign-Up to MyMart</h2>
+      </Link>
 
         {router.asPath !== `/${router.query.shopid}` && <button className="navmenu-item" onClick={handleGoBack}>
         <div className={`menu-goback svg-color`} style={{marginLeft:"-1.5rem"}}>&nbsp;</div>
