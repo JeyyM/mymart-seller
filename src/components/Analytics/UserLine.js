@@ -19,6 +19,8 @@ function UserLine({ users, dateBy }) {
     return data;
   }, []);
 
+  console.log(dateBy)
+
   const chartData = {
     labels: filteredUsers.map((user) => moment(user.creationDate)),
     datasets: [

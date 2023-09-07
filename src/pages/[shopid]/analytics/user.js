@@ -423,8 +423,7 @@ const csvData = shopAccounts.map((item) => {
     csvLink.setAttribute('href', csvContentEncoded);
     csvLink.setAttribute('download', 'data.csv');
     csvLink.click();
-  };
-    
+  };    
 
   return (
     <Fragment>
@@ -484,7 +483,7 @@ const csvData = shopAccounts.map((item) => {
             </div>
           </div>
           <div className='analytics-user-cell'>
-            <ViewLine views={filteredViews} dateBy={SelectDate} />
+            <ViewLine views={filteredViews} dateBy={SelectDate2} />
           </div>
         </div>
 
@@ -500,7 +499,7 @@ const csvData = shopAccounts.map((item) => {
             </div>
           </div>
           <div className='analytics-user-cell'>
-            <UserLine users={filteredNewAccounts} dateBy={SelectDate} />
+            <UserLine users={filteredNewAccounts} dateBy={SelectDate2} />
           </div>
         </div>
 

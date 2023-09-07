@@ -11,9 +11,17 @@ function HomePage({ shopID, screenWidth }){
     const [loading, setLoading] = useState(true);
     const router = useRouter();
 
-    const compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
-    const decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
-    const final = JSON.parse(decompressedBytes);
+    let compressedBytes
+    let decompressedBytes
+    let final
+  
+    try {
+    compressedBytes = new Uint8Array(atob(shopID).split("").map((c) => c.charCodeAt(0)));
+    decompressedBytes = pako.inflate(compressedBytes, { to: "string" });
+    final = JSON.parse(decompressedBytes);
+    } catch {
+      // router.push("/error")
+    }
 
     useEffect(() => {
       if (typeof window !== "undefined") {
