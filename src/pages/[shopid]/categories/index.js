@@ -213,3 +213,5 @@ function CategoryPage({ shopID, screenWidth }) {
 export default CategoryPage;
 
 export { getServerSideProps }
+
+// returning 10/30/2024
