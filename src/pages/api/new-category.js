@@ -82,29 +82,6 @@ async function handler(req, res) {
       { $pull: { "shopData.shopCategories": null } }
     );
 
-    // const updatedShop = await db.collection("shops").findOne({ _id: martId });
-
-    // const categories = updatedShop.shopData.shopCategories;
-    // const categoryKeys = Object.keys(categories);
-    // const sortedCategoryKeys = categoryKeys.sort((a, b) => {
-    //   const aIndex = parseInt(a.replace("category", ""));
-    //   const bIndex = parseInt(b.replace("category", ""));
-    //   return aIndex - bIndex;
-    // });
-
-    // const newCategories = {};
-    // for (let i = 0; i < sortedCategoryKeys.length; i++) {
-    //   const key = sortedCategoryKeys[i];
-    //   const index = i;
-    //   const newKey = `category${index}`;
-    //   newCategories[newKey] = categories[key];
-    // }
-
-    // const updateResult = await db.collection("shops").updateOne(
-    //   { _id: martId },
-    //   { $set: { "shopData.shopCategories": newCategories } }
-    // );
-
     client.close();
   }
 

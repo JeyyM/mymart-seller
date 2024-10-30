@@ -629,9 +629,6 @@ function SignUp({shopID, screenWidth}) {
     async function finishSignup() {
         const currentDate = new Date();
         const hashedPassword = await hashString(password);
-        // const hashedCard = await hashString(cardnum)
-        // const hashedMonth = await hashString(cardmonth)
-        // const hashedYear = await hashString(cardyear)
         const hashedCVV = await hashString(cvv)
 
         const incomingData = {

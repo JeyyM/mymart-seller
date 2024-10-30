@@ -9,13 +9,6 @@ function HomeNavbar(props) {
 
   const showMenuToggler = () => {
     setMenuIsOn(!menuIsOn);
-    // if (!menuIsOn) {
-    //   document.body.classList.add('no-scroll');
-    //   document.documentElement.classList.add('no-scroll');
-    // } else {
-    //   document.body.classList.remove('no-scroll');
-    //   document.documentElement.classList.remove('no-scroll');
-    // }
   };
 
   const [isNavbarVisible, setNavbarVisible] = useState(true);
@@ -55,8 +48,6 @@ function HomeNavbar(props) {
 
   return (
     <Fragment>
-      {/* <NavMenu menuStatus={menuIsOn} onClick={showMenuToggler} function={showMenuToggler} user={props.user} userHandler={props.userHandler} screenWidth={screenWidth}
-      changeColor={props.changeColor} currentColor={props.currentColor} transformedData={transformedData} ></NavMenu> */}
       <header className={`home-navbar ${isNavbarVisible ? 'nav-visible' : 'nav-hidden'}`}>
         <img src="/light-2.png" className="home-nav-logo"></img>
         <a className="header-home-text">Features</a>

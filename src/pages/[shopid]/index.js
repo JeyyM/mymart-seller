@@ -163,22 +163,6 @@ function HomePage({ shopID, screenWidth }) {
         const totalSlides = Math.ceil(totalItems / itemsPerSlide);
         const slideIndexes = Array.from(Array(totalSlides).keys());
 
-        {/* const viewMart = useMemo(() => {
-          if (typeof window !== "undefined") {
-            const currentTime = new Date();
-            const storedTime = localStorage.getItem(`${router.query.shopid}_view`);
-
-            const hourDifference = ((currentTime.getTime() - new Date(storedTime).getTime()) / (1000 * 60 * 60) >= 1)
-
-            if (!hourDifference) {
-              localStorage.setItem(`${router.query.shopid}_view`, currentTime);
-            } else {
-              localStorage.setItem(`${router.query.shopid}_view`, currentTime);
-              addView(currentTime)
-            }
-          }
-        }, []); */}
-
         return (
           <>
             <Link

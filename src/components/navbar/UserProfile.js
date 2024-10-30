@@ -10,8 +10,6 @@ import { Marker } from '@react-google-maps/api';
 import { Autocomplete } from '@react-google-maps/api';
 import sha256 from 'crypto-js/sha256';
 
-// import Guide from "../../pages/api/Guide"
-
 const libraries = ['places'];
 function UserProfile(props) {
     const {screenWidth} = props
@@ -378,19 +376,6 @@ function UserProfile(props) {
         fnameValid = fname.trim() !== ""
         lnameValid = lname.trim() !== ""
         phoneValid = phone.trim() !== ""
-
-        // if (bdayValid === true) {
-        //     if (isNaN(bday.$D)) {
-        //         setbdayValid(false)
-        //     }
-        // }
-
-        // if (bdayValid === false) {
-        //     if (isNaN(bday.$D)) {
-        //         setbdayValid(false)
-        //     }
-        // }
-
         genderValid = selectGender !== "Select"
 
         if (!isOtherSelected) {
@@ -490,7 +475,6 @@ function UserProfile(props) {
                                         autoComplete="off"
                                         style={{ width: "100%" }}
                                         value={email}
-                                    // onChange={handleEmailChange}
                                     ></input>
                                     {emailCheck ? <h3 className="form-label">Change Disabled</h3> : <h3 className="form-label inv z">Invalid Email</h3>}
 

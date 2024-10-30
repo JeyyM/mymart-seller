@@ -64,8 +64,6 @@ function CategoryPage({ shopID, screenWidth }) {
 
   async function editForm(formdata, key) {
 
-    // const chosenCateg = formdata.categoryName
-
     const response = await fetch(
       `../../api/new-category?martid=${router.query.shopid}&categoryindex=${key}`,
       {
@@ -84,7 +82,6 @@ function CategoryPage({ shopID, screenWidth }) {
       {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        // body: JSON.stringify(formdata)
       }
     );
     const data = await response.json();

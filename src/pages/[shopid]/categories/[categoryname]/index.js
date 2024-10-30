@@ -53,16 +53,6 @@ function ProductsPage({ shopID, screenWidth }) {
     });
   }
 
-  // const [addProduct, setAddProduct] = useState(false)
-  // const [defaultValues, setDefaultValues] = useState(["", "", ""])
-
-  // function addProdHandler(event) {
-  //   event.preventDefault()
-  //   event.stopPropagation()
-
-  //   setAddProduct(!addProduct)
-  // }
-
   const soldProds = []
 
   chosenCategory.categoryProducts.forEach((product, index) => {

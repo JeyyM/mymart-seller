@@ -77,8 +77,6 @@ function CartModal(props) {
           ? localStorage.getItem(localStorageKey)
           : null;
       const parsedData = storedCartItems ? JSON.parse(storedCartItems) : [];
-
-      // const updatedData = parsedData.map((item, index) => ({ ...item, key: index.toString() }));
       setParsedData(parsedData);
     };
 

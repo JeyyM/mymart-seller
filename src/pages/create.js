@@ -37,9 +37,6 @@ function CreateMart() {
       }, []);
 
     const router = useRouter()
-    // const id = martID.shopID._id
-    // const localStorageKey = `mart_${martID.shopID._id}`;
-    // const defaultColor = martID.shopID.shopData.shopDesigns.defaultMode
 
     const [screenWidth, setScreenWidth] = useState(0);
 
@@ -743,21 +740,13 @@ function CreateMart() {
         nameValid = MartName.trim() !== ""
         passValid = password.trim() !== ""
         repeatValid = repeat === password
-        // emailExist = emailList.includes(email.toUpperCase());
-
-        // if (emailExist) {
-        //     emailValid = false
-        // }
-
         setSignValidity({
             email: emailValid,
             name: nameValid,
             pass: passValid,
             repeat: repeatValid,
-            // existing: emailExist
         })
 
-        // const submissionValid = emailValid && passValid && repeatValid && !emailExist
         const submissionValid = emailValid && nameValid && passValid && repeatValid
 
 
@@ -767,7 +756,6 @@ function CreateMart() {
         } else {
             setTotal(0)
         }
-
     };
 
 
@@ -1309,8 +1297,6 @@ function CreateMart() {
                                         onChange={handleMartNameChange}
                                     ></input>
                                     {signValidity.name ? <h3 className="form-label">Mart Name</h3> : <h3 className="form-label inv z">Input a valid mart name</h3>}
-
-                                    {/* {signValidity.name && !signValidity.existing ? <h3 className="form-label">Email</h3> : signValidity.existing ? <h3 className="form-label inv z">Email is in use</h3> : <h3 className="form-label inv z">Input a valid email</h3>} */}
 
                                 </div>
                                 <div className="form-group" style={{ marginTop: "0.5rem" }}>
